@@ -1,6 +1,6 @@
-# Project name
+# Civil Society Vote
 
-[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/standard-repo-template.svg?style=for-the-badge)](https://github.com/code4romania/standard-repo-template/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/standard-repo-template.svg?style=for-the-badge)](https://github.com/code4romania/standard-repo-template/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
 Insert bullets description of the project if available.
 

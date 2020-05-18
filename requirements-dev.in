@@ -1,0 +1,13 @@
+# django
+django-debug-toolbar
+django-extensions
+
+# tests
+Faker
+pytest
+
+# style checker
+black
+
+# dependency manangement
+pip-tools

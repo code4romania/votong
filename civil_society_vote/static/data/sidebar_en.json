@@ -1,0 +1,50 @@
+[
+  {
+    "app": "Find out what you have to do",
+    "call_to_action": "Learn what to do to stay safe during the Covid-19 epidemic",
+    "description": "",
+    "button_text": "What do I have to do?",
+    "color": "#ffdd57",
+    "url": "https://cemafac.ro/"
+  },
+  {
+    "app": "Offical news",
+    "call_to_action": "Official news and up-to-date information",
+    "description": "",
+    "button_text": "Latest Covid-19 government communication",
+    "color": "#05d6c8",
+    "url": "https://stirioficiale.ro/informatii"
+  },
+  {
+    "app": "Daily data",
+    "call_to_action": "Daily data",
+    "description": "",
+    "button_text": "Daily Covid-19 data",
+    "color": "#f5bcd6",
+    "url": "https://datelazi.ro/"
+  },
+  {
+    "app": "Diaspora Hub",
+    "call_to_action": "Are you living abroad?",
+    "description": "",
+    "button_text": "Find out more at Diaspora Hub",
+    "color": "#38b6ff",
+    "url": "https://diasporahub.ro"
+  },
+  {
+    "app": "Chrome Extension",
+    "call_to_action": "Install the Chrome extension which can help you spot fake news",
+    "description": "",
+    "button_text": "Install extension",
+    "color": "#05d6c8",
+    "url": "https://chrome.google.com/webstore/detail/covid-19-%C8%99tiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha"
+  },
+  {
+    "app": "Firefox extension",
+    "call_to_action": "Install the Chrome extension which can help you spot fake news",
+    "description": "",
+    "button_text": "Install extension",
+    "color": "#05d6c8",
+    "url": "https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
+  }
+]

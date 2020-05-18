@@ -1,0 +1,34 @@
+[
+  {
+    "app": "Extensie Chrome",
+    "call_to_action": "Instalează-ți extensia de Chrome pentru a depista știrile false",
+    "description": "",
+    "button_text": "Instalează extensie",
+    "color": "#05d6c8",
+    "url": "https://chrome.google.com/webstore/detail/covid-19-%C8%99tiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha"
+  },
+  {
+    "app": "Extensie Firefox",
+    "call_to_action": "Instalează-ți extensia de Firefox pentru a depista știrile false",
+    "description": "",
+    "button_text": "Instalează extensie",
+    "color": "#05d6c8",
+    "url": "https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
+  },
+  {
+    "app": "Afla ce ai de facut",
+    "call_to_action": "Află ce ai de făcut în orice situație",
+    "description": "",
+    "button_text": "Ce trebuie să fac",
+    "color": "#ffdd57",
+    "url": "https://cemafac.ro/"
+  },
+  {
+    "app": "Date la zi",
+    "call_to_action": "Date la zi",
+    "description": "",
+    "button_text": "Vezi aici date la zi",
+    "color": "#f5bcd6",
+    "url": "https://datelazi.ro/"
+  }
+]
