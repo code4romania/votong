@@ -2,11 +2,9 @@
 
 [![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-Insert bullets description of the project if available.
+The Civil Society Voting platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections. 
 
-[See the project live](insert_link_here)
-
-Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
+The vote implemented here is non-secret and is visible to the technical administrators of the platform. This codebase should not be used for any purpose that requires secret vote, not any purpose that requires a zero trust system. 
 
 [Contributing](#contributing) | [Built with](#built-with) | [Repos and projects](#repos-and-projects) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
@@ -20,19 +18,28 @@ If you would like to suggest new functionality, open an Issue and mark it as a _
 
 ## Built With
 
+* Django
+* Bulma
+
 ### Programming languages
+
+* Python (3.6+)
 
 ### Platforms
 
+* Web
+
 ### Frontend framework
+
+None. Includes Bulma for stilying.
 
 ### Package managers
 
+* Pip
+
 ### Database technology & provider
 
-## Repos and projects
-
-Mention all related repos and projects.
+* PostgreSQL
 
 ## Deployment
 
