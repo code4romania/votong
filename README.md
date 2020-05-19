@@ -1,10 +1,10 @@
 # Civil Society Vote
 
-[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil-society-vote.svg?style=for-the-badge)](https://github.com/code4romania/civil-society-vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-The Civil Society Voting platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections. 
+The Civil Society Voting platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections.
 
-The vote implemented here is non-secret and is visible to the technical administrators of the platform. This codebase should not be used for any purpose that requires secret vote, not any purpose that requires a zero trust system. 
+The vote implemented here is non-secret and is visible to the technical administrators of the platform. This codebase should not be used for any purpose that requires secret vote, not any purpose that requires a zero trust system.
 
 [Contributing](#contributing) | [Built with](#built-with) | [Repos and projects](#repos-and-projects) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
@@ -14,7 +14,7 @@ This project is built by amazing volunteers and you can be one of them! Here's a
 
 Help us out by testing this project in the [staging environment](INSERT_LINK_HERE). If you see something that doesn't quite work the way you expect it to, open an Issue. Make sure to describe what you _expect to happen_ and _what is actually happening_ in detail.
 
-If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements. 
+If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
 
 ## Built With
 

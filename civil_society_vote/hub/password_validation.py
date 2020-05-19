@@ -14,6 +14,4 @@ class PasswordDifferentFromPrevious:
             raise ValidationError(_("Your new password must be different."),)
 
     def get_help_text(self):
-        return _(
-            "Please correct the error below. Your new password must be different. Please try again."
-        )
+        return _("Please correct the error below. Your new password must be different. Please try again.")
