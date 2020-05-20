@@ -31,7 +31,6 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     "captcha",
     "file_resubmit",
     "rangefilter",
-    "admin_totals",
     # apps
     "hub",
 ]
@@ -86,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "civil_society_vote.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -107,9 +104,7 @@ CACHES = {
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -183,8 +178,10 @@ CRISPY_TEMPLATE_PACK = "bulma"
 ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
-# LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
 
+from django.urls import reverse_lazy  # noqa
+
+LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
 
 if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")

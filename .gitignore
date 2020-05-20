@@ -3,8 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
-# OS 
+# OS
 .DS_Store
 # C extensions
 *.so
@@ -118,6 +117,7 @@ venv.bak/
 
 # IDE
 .idea/
+.vscode/
 
 # Spyder project settings
 .spyderproject
@@ -146,4 +146,4 @@ cython_debug/
 # static files generated from Django application using `collectstatic`
 media
 mediafiles
-
+staticfiles

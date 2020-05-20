@@ -3,145 +3,135 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User, Group
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
+from django.core.exceptions import ValidationError
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 
+from model_utils import Choices
+from model_utils.models import StatusModel, TimeStampedModel
+
 ADMIN_GROUP_NAME = "Admin"
 NGO_GROUP_NAME = "ONG"
-DSU_GROUP_NAME = "DSU"
-FFC_GROUP_NAME = "FFC"
+CES_GROUP_NAME = "CES"
+SGG_GROUP_NAME = "SGG"
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
 PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)
 
 
-class COUNTY:
-    counties = [
-        "ALBA",
-        "ARGES",
-        "ARAD",
-        "BACAU",
-        "BIHOR",
-        "BISTRITA-NASAUD",
-        "BRAILA",
-        "BRASOV",
-        "BOTOSANI",
-        "BUCURESTI",
-        "BUZAU",
-        "CLUJ",
-        "CALARASI",
-        "CARAS-SEVERIN",
-        "CONSTANTA",
-        "COVASNA",
-        "DAMBOVITA",
-        "DOLJ",
-        "GORJ",
-        "GALATI",
-        "GIURGIU",
-        "HUNEDOARA",
-        "HARGHITA",
-        "IALOMITA",
-        "IASI",
-        "ILFOV",
-        "MEHEDINTI",
-        "MARAMURES",
-        "MURES",
-        "NEAMT",
-        "OLT",
-        "PRAHOVA",
-        "SIBIU",
-        "SALAJ",
-        "SATU-MARE",
-        "SECTOR 1",
-        "SECTOR 2",
-        "SECTOR 3",
-        "SECTOR 4",
-        "SECTOR 5",
-        "SECTOR 6",
-        "SUCEAVA",
-        "TULCEA",
-        "TIMIS",
-        "TELEORMAN",
-        "VALCEA",
-        "VRANCEA",
-        "VASLUI",
-    ]
-
-    @classmethod
-    def to_choices(cls):
-        return [(x, x) for x in cls.counties]
-
-    @classmethod
-    def default(cls):
-        return cls.counties[0]
-
-    @classmethod
-    def to_list(cls):
-        return cls.counties
+COUNTY_RESIDENCE = [
+    ("Alba", "Alba Iulia"),
+    ("Arad", "Arad"),
+    ("Arges", "Pitesti"),
+    ("Bacau", "Bacau"),
+    ("Bihor", "Oradea"),
+    ("Bistrita-Nasaud", "Bistrita"),
+    ("Botosani", "Botosani"),
+    ("Braila", "Braila"),
+    ("Brasov", "Brasov"),
+    ("Bucuresti", "Bucuresti"),
+    ("Buzau", "Buzau"),
+    ("Caras-Severin", "Resita"),
+    ("Calarasi", "Calarasi"),
+    ("Cluj", "Cluj-Napoca"),
+    ("Constanta", "Constanta"),
+    ("Covasna", "Sfantu Gheorghe"),
+    ("Dambovita", "Targoviste"),
+    ("Dolj", "Craiova"),
+    ("Galati", "Galati"),
+    ("Giurgiu", "Giurgiu"),
+    ("Gorj", "Targu Jiu"),
+    ("Harghita", "Miercurea Ciuc"),
+    ("Hunedoara", "Deva"),
+    ("Ialomita", "Slobozia"),
+    ("Iasi", "Iasi"),
+    ("Ilfov", "Buftea"),
+    ("Maramures", "Baia Mare"),
+    ("Mehedinti", "Drobeta-Turnu Severin"),
+    ("Mures", "Targu Mures"),
+    ("Neamt", "Piatra Neamt"),
+    ("Olt", "Slatina"),
+    ("Prahova", "Ploiesti"),
+    ("Satu Mare", "Satu Mare"),
+    ("Salaj", "Zalau"),
+    ("Sibiu", "Sibiu"),
+    ("Suceava", "Suceava"),
+    ("Teleorman", "Alexandria"),
+    ("Timis", "Timisoara"),
+    ("Tulcea", "Tulcea"),
+    ("Vaslui", "Vaslui"),
+    ("Valcea", "Ramnicu Valcea"),
+    ("Vrancea", "Focsani"),
+]
+COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
 
-class VOTE:
-    YES = _("YES")
-    NO = _("NO")
-    ABSTENTION = _("ABSTENTION")
-
-    @classmethod
-    def to_choices(cls):
-        return [
-            ("YES", VOTE.YES),
-            ("NO", VOTE.NO),
-            ("ABSTENTION", VOTE.ABSTENTION),
-        ]
-
-    @classmethod
-    def default(cls):
-        return VOTE.ABSTENTION
-
-    @classmethod
-    def to_list(cls):
-        return [VOTE.YES, VOTE.NO, VOTE.ABSTENTION]
+VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION")),)
 
 
-class TimeStampedModel(models.Model):
-    created = models.DateTimeField(_("created"), auto_now_add=True)
-    updated = models.DateTimeField(_("updated"), auto_now=True)
+STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
+
+DOMAIN_CHOICES = Choices(
+    (1, "domain_1", _("Academic and professional")),
+    (2, "domain_2", _("Education and health")),
+    (3, "domain_3", _("Agricultural and cooperative")),
+    (4, "domain_4", _("Environmental")),
+    (5, "domain_5", _("Social, family, people with disabilities and the elderly")),
+    (6, "domain_6", _("Human rights")),
+)
+
+
+class City(models.Model):
+    city = models.CharField(_("City"), max_length=100)
+    county = models.CharField(_("County"), max_length=50)
+    is_county_residence = models.BooleanField(_("Is county residence"), default=False)
 
     class Meta:
-        abstract = True
+        verbose_name = _("City")
+        verbose_name_plural = _("cities")
+        unique_together = ["city", "county"]
+
+    def __str__(self):
+        return f"{self.city} ({self.county})"
+
+    def save(self, *args, **kwargs):
+        self.is_county_residence = False
+        if (self.county, self.city) in COUNTY_RESIDENCE:
+            self.is_county_residence = True
+
+        super().save(*args, **kwargs)
 
 
-class NGO(TimeStampedModel):
-    name = models.CharField(_("Name"), max_length=254)
-    users = models.ManyToManyField(User, related_name="ngos")
-    description = models.TextField(_("Description"))
-    contact_name = models.CharField(_("Contact person's name"), max_length=254)
-    email = models.EmailField(_("Email"),)
+class Organization(StatusModel, TimeStampedModel):
+    STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(_("NGO Name"), max_length=254)
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    reg_com_number = models.CharField(_("Registration number"), max_length=20)
+    state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
+    purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
+    purpose_current = models.CharField(_("Current purpose"), max_length=254)
+    founders = models.CharField(_("Founders/Associates"), max_length=254)
+    representative = models.CharField(_("Legal representative"), max_length=254)
+    board_council = models.CharField(_("Board council"), max_length=254)
+    email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
-    address = models.CharField(_("Address"), max_length=400)
-    cif = models.CharField("CIF", max_length=20, null=True, blank=True)
-    cui = models.CharField("CUI", max_length=20, null=True, blank=True)
-    county = models.CharField(_("County"), choices=COUNTY.to_choices(), max_length=50)
-    city = models.CharField(_("City"), max_length=100)
-
-    logo = models.ImageField(
-        _("Logo"), max_length=300, storage=PublicMediaStorageClass()
-    )
+    county = models.CharField(_("County"), max_length=50)
+    city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
+    address = models.CharField(_("Address"), max_length=254)
+    logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
     last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"),
-        max_length=300,
-        null=True,
-        blank=True,
-        storage=PrivateMediaStorageClass(),
+        _("First page of last balance sheet"), max_length=300, storage=PrivateMediaStorageClass(),
     )
-    statute = models.FileField(
-        _("NGO Statute"),
-        max_length=300,
-        null=True,
-        blank=True,
-        storage=PrivateMediaStorageClass(),
-    )
+    statute = models.FileField(_("NGO Statute"), max_length=300, storage=PrivateMediaStorageClass())
+    letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
+
+    class Meta:
+        verbose_name_plural = _("Organizations")
+        verbose_name = _("Organization")
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -154,69 +144,15 @@ class NGO(TimeStampedModel):
             if "http" in str(self.logo):
                 return str(self.logo)
             return f"{self.logo.url}"
+        return None
+
+    def save(self, *args, **kwargs):
+        if self.city:
+            self.county = self.city.county
         else:
-            return None
+            self.county = ""
 
-    class Meta:
-        verbose_name_plural = _("My organizations")
-        verbose_name = _("My organization")
-        ordering = ["name"]
-
-
-class RegisterNGORequest(TimeStampedModel):
-    name = models.CharField(_("Name"), max_length=254)
-    description = models.TextField(
-        _("Description"),
-        max_length=500,
-        help_text=_("Organization's short description - max 500 chars."),
-    )
-
-    past_actions = models.TextField(
-        _("Past actions"),
-        max_length=500,
-        help_text=_(
-            "Description of past actions, with empahsis on COVID-19 related actions."
-        ),
-    )
-    resource_types = models.TextField(
-        _("Resource tags"),
-        max_length=500,
-        help_text=_("The types of resources you anticipate you will need."),
-    )
-
-    contact_name = models.CharField(_("Contact person's name"), max_length=254)
-    email = models.EmailField(_("Email"), default="")
-    contact_phone = models.CharField(_("Contact person's phone"), max_length=15)
-    address = models.CharField(_("Address"), max_length=400)
-    city = models.CharField(_("City"), max_length=100)
-    county = models.CharField(_("County"), choices=COUNTY.to_choices(), max_length=50)
-
-    social_link = models.CharField(
-        _("Link to website or Facebook"), max_length=512, null=True, blank=True
-    )
-
-    active = models.BooleanField(_("Active"), default=False)
-    resolved_on = models.DateTimeField(_("Resolved on"), null=True, blank=True)
-
-    logo = models.ImageField(
-        _("logo"), max_length=300, help_text=_("Image should be 500x500px")
-    )
-    last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"),
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-    )
-    statute = models.FileField(
-        _("NGO Statute"), max_length=300, storage=PrivateMediaStorageClass()
-    )
-
-    registered_on = models.DateTimeField(_("Registered on"), auto_now_add=True)
-
-    closed = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name_plural = _("Votes history")
-        verbose_name = _("Vote history")
+        super().save(*args, **kwargs)
 
     def yes(self):
         return self.votes.filter(vote="YES").count()
@@ -233,19 +169,20 @@ class RegisterNGORequest(TimeStampedModel):
 
     abstention.short_description = _("Abstention")
 
-    def create_ngo_owner(self, request, ngo_group):
+    def create_ngo_owner(self, request):
         user, created = User.objects.get_or_create(username=self.email)
 
         if not created:
             return user
 
-        user.first_name = " ".join(self.contact_name.split(" ")[0:-1])
-        user.last_name = self.contact_name.split(" ")[-1]
         user.email = self.email
         user.set_password(get_random_string())
-        user.is_staff = True
-        user.groups.add(ngo_group)
+        user.is_active = True
         user.save()
+
+        ngo_group = Group.objects.get(name=NGO_GROUP_NAME)
+        # XXX Not sure about this yet
+        # user.groups.add(ngo_group)
 
         reset_form = PasswordResetForm({"email": user.email})
         assert reset_form.is_valid()
@@ -261,60 +198,94 @@ class RegisterNGORequest(TimeStampedModel):
         return user
 
     @transaction.atomic
-    def activate(self, request, ngo_group=None):
-        ngo_group = ngo_group or Group.objects.get(name=NGO_GROUP_NAME)
-
-        ngo, _ = NGO.objects.get_or_create(
-            name=self.name,
-            description=self.description,
-            contact_name=self.contact_name,
-            email=self.email,
-            phone=self.contact_phone,
-            logo=self.logo,
-            last_balance_sheet=self.last_balance_sheet,
-            statute=self.statute,
-            address=self.address,
-            city=self.city,
-            county=self.county,
-        )
-
-        owner = self.create_ngo_owner(request, ngo_group)
-        ngo.users.add(owner)
-
-        self.resolved_on = timezone.now()
-        self.active = True
+    def accept(self, request):
+        owner = self.create_ngo_owner(request)
+        self.user = owner
+        self.status = "accepted"
         self.save()
+        # TODO send acceptance notification
+
+    @transaction.atomic
+    def reject(self, request):
+        self.status = "rejected"
+        self.save()
+        # TODO send rejection notification
+
+
+class OrganizationVote(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
+    motivation = models.TextField(
+        _("Motivation"), max_length=500, null=True, blank=True, help_text=_("Motivate your decision"),
+    )
+
+    class Meta:
+        verbose_name_plural = _("Organization votes")
+        verbose_name = _("Organization vote")
+        unique_together = [["user", "org"], ["user", "domain"]]
+        constraints = [
+            models.UniqueConstraint(fields=["user", "org"], name="unique_org_vote"),
+            models.UniqueConstraint(fields=["user", "domain"], name="unique_org_domain_vote"),
+        ]
 
     def __str__(self):
-        return self.name
+        return f"{self.vote} - {self.org}"
+
+    def save(self, *args, **kwargs):
+        self.domain = self.org.domain
+
+        if self.vote == VOTE.NO and not self.motivation:
+            raise ValidationError(_("You must specify a motivation if voting NO!"))
+
+        super().save(*args, **kwargs)
 
 
-class PendingRegisterNGORequest(RegisterNGORequest):
+class Candidate(TimeStampedModel):
+    org = models.OneToOneField("Organization", on_delete=models.CASCADE)
+    name = models.CharField(_("Name"), max_length=254)
+    role = models.CharField(_("Role"), max_length=254)
+    experience = models.TextField(_("Professional experience"))
+    studies = models.TextField(_("Studies"))
+    founder = models.BooleanField(_("Founder/Associate"), default=False)
+    representative = models.BooleanField(_("Legal representative"), default=False)
+    board_member = models.BooleanField(_("Board member"), default=False)
+    email = models.EmailField(_("Email"))
+    phone = models.CharField(_("Phone"), max_length=30)
+    photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+
+    mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
+    letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
+    statement = models.FileField(_("Statement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
+    cv = models.FileField(_("CV"), max_length=300, storage=PrivateMediaStorageClass())
+    legal_record = models.FileField(_("Legal record"), max_length=300, storage=PrivateMediaStorageClass())
+
     class Meta:
-        proxy = True
-        verbose_name_plural = _("Pending NGOs")
-        verbose_name = _("Pending NGO")
+        verbose_name_plural = _("Candidates")
+        verbose_name = _("Candidate")
+
+    def __str__(self):
+        return f"{self.name} ({self.org})"
 
 
-class RegisterNGORequestVote(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    ngo_request = models.ForeignKey(
-        "RegisterNGORequest", on_delete=models.CASCADE, related_name="votes"
-    )
-    entity = models.CharField(max_length=30)
-    vote = models.CharField(
-        _("Vote"), choices=VOTE.to_choices(), default=VOTE.default(), max_length=10
-    )
-    motivation = models.TextField(
-        _("Motivation"),
-        max_length=500,
-        null=True,
-        blank=True,
-        help_text=_("Motivate your decision"),
-    )
-    date = models.DateTimeField(_("Date"), auto_now_add=True)
+class CandidateVote(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
 
     class Meta:
-        verbose_name_plural = _("My votes")
-        verbose_name = _("My vote")
-        unique_together = ("ngo_request", "entity")
+        verbose_name_plural = _("Organization votes")
+        verbose_name = _("Organization vote")
+        constraints = [
+            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
+            models.UniqueConstraint(fields=["user", "domain"], name="unique_candidate_domain_vote"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self. candidate}"
+
+    def save(self, *args, **kwargs):
+        self.domain = self.candidate.domain
+        super().save(*args, **kwargs)
