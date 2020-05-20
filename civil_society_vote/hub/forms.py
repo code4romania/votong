@@ -15,23 +15,12 @@ class OrganizationForm(forms.ModelForm):
         fields = "__all__"
 
 
-class OrganizationRegisterRequestForm(forms.ModelForm):
+class OrganizationRegisterForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
 
     class Meta:
         model = models.Organization
-        fields = [
-            "name",
-            "county",
-            "city",
-            "address",
-            "email",
-            "representative",
-            "phone",
-            "logo",
-            "last_balance_sheet",
-            "statute",
-        ]
+        exclude = ["user", "status", "status_changed"]
         widgets = {
             "email": EmailInput(),
             # "logo": AdminResubmitImageWidget,

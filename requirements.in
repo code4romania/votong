@@ -9,6 +9,7 @@ django-storages
 django-recaptcha
 django-file-resubmit
 django-admin-rangefilter
+django-model-utils
 
 # file handling
 boto3

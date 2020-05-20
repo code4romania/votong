@@ -8,6 +8,9 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 
+from model_utils import Choices
+from model_utils.models import StatusModel, TimeStampedModel
+
 ADMIN_GROUP_NAME = "Admin"
 NGO_GROUP_NAME = "ONG"
 CES_GROUP_NAME = "CES"
@@ -64,69 +67,19 @@ COUNTY_RESIDENCE = [
 COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
 
-class COUNTY:
-    @classmethod
-    def to_choices(cls):
-        return [(x, x) for x in COUNTIES]
-
-    @classmethod
-    def default(cls):
-        return ""
-
-    @classmethod
-    def to_list(cls):
-        return COUNTIES
+VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION")),)
 
 
-class VOTE:
-    YES = _("YES")
-    NO = _("NO")
-    ABSTENTION = _("ABSTENTION")
+STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
 
-    @classmethod
-    def to_choices(cls):
-        return [
-            ("YES", VOTE.YES),
-            ("NO", VOTE.NO),
-            ("ABSTENTION", VOTE.ABSTENTION),
-        ]
-
-    @classmethod
-    def default(cls):
-        return VOTE.ABSTENTION
-
-    @classmethod
-    def to_list(cls):
-        return [VOTE.YES, VOTE.NO, VOTE.ABSTENTION]
-
-
-STATUS_CHOICES = [
-    ("active", _("active")),
-    ("inactive", _("inactive")),
-]
-
-REGISTRATION_CHOICES = [
-    ("pending", _("pending")),
-    ("accepted", _("accepted")),
-    ("rejected", _("rejected")),
-]
-
-DOMAIN_CHOICES = [
-    (1, "Organizații academice și profesionale"),
-    (2, "Organizații din domeniul sănătății/educației"),
-    (3, "Organizații cooperatiste și agricole"),
-    (4, "Organizații din domeniul mediului"),
-    (5, "Organizații din domeniul social, familia și persoane cu dizabiltăți și pensionari",),
-    (6, "Organizații pentru Protecția Drepturilor Omului"),
-]
-
-
-class TimeStampedModel(models.Model):
-    created = models.DateTimeField(_("created"), auto_now_add=True)
-    updated = models.DateTimeField(_("updated"), auto_now=True)
-
-    class Meta:
-        abstract = True
+DOMAIN_CHOICES = Choices(
+    (1, "domain_1", _("Academic and professional")),
+    (2, "domain_2", _("Education and health")),
+    (3, "domain_3", _("Agricultural and cooperative")),
+    (4, "domain_4", _("Environmental")),
+    (5, "domain_5", _("Social, family, people with disabilities and the elderly")),
+    (6, "domain_6", _("Human rights")),
+)
 
 
 class City(models.Model):
@@ -150,12 +103,14 @@ class City(models.Model):
         super().save(*args, **kwargs)
 
 
-class Organization(TimeStampedModel):
+class Organization(StatusModel, TimeStampedModel):
+    STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(_("NGO Name"), max_length=254)
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
-    status = models.CharField(_("Current status"), max_length=10, choices=STATUS_CHOICES, default="active")
+    state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
     purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
     purpose_current = models.CharField(_("Current purpose"), max_length=254)
     founders = models.CharField(_("Founders/Associates"), max_length=254)
@@ -163,7 +118,7 @@ class Organization(TimeStampedModel):
     board_council = models.CharField(_("Board council"), max_length=254)
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
-    county = models.CharField(_("County"), choices=COUNTY.to_choices(), max_length=50)
+    county = models.CharField(_("County"), max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
     address = models.CharField(_("Address"), max_length=254)
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
@@ -172,10 +127,6 @@ class Organization(TimeStampedModel):
     )
     statute = models.FileField(_("NGO Statute"), max_length=300, storage=PrivateMediaStorageClass())
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
-
-    registration_status = models.CharField(
-        _("Registration status"), max_length=10, choices=REGISTRATION_CHOICES, default="pending",
-    )
 
     class Meta:
         verbose_name_plural = _("Organizations")
@@ -250,13 +201,13 @@ class Organization(TimeStampedModel):
     def accept(self, request):
         owner = self.create_ngo_owner(request)
         self.user = owner
-        self.registration_status = "accepted"
+        self.status = "accepted"
         self.save()
         # TODO send acceptance notification
 
     @transaction.atomic
     def reject(self, request):
-        self.registration_status = "rejected"
+        self.status = "rejected"
         self.save()
         # TODO send rejection notification
 
@@ -265,7 +216,7 @@ class OrganizationVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
-    vote = models.CharField(_("Vote"), choices=VOTE.to_choices(), default=VOTE.default(), max_length=10)
+    vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
     motivation = models.TextField(
         _("Motivation"), max_length=500, null=True, blank=True, help_text=_("Motivate your decision"),
     )
@@ -295,7 +246,7 @@ class Candidate(TimeStampedModel):
     org = models.OneToOneField("Organization", on_delete=models.CASCADE)
     name = models.CharField(_("Name"), max_length=254)
     role = models.CharField(_("Role"), max_length=254)
-    experience = models.TextField(_("Profesional experience"))
+    experience = models.TextField(_("Professional experience"))
     studies = models.TextField(_("Studies"))
     founder = models.BooleanField(_("Founder/Associate"), default=False)
     representative = models.BooleanField(_("Legal representative"), default=False)
@@ -305,9 +256,9 @@ class Candidate(TimeStampedModel):
     photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
 
-    mandate = models.FileField(_("Mandate from the organizaion"), max_length=300, storage=PrivateMediaStorageClass(),)
+    mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
-    statement = models.FileField(_("Steatement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
+    statement = models.FileField(_("Statement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
     cv = models.FileField(_("CV"), max_length=300, storage=PrivateMediaStorageClass())
     legal_record = models.FileField(_("Legal record"), max_length=300, storage=PrivateMediaStorageClass())
 

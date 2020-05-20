@@ -21,7 +21,7 @@ from hub.models import (
     SGG_GROUP_NAME,
     Organization,
 )
-from hub.forms import OrganizationRegisterRequestForm
+from hub.forms import OrganizationRegisterForm
 
 
 class InfoContextMixin:
@@ -39,6 +39,9 @@ class OrganizationListView(InfoContextMixin, ListView):
     paginate_by = 9
     template_name = "ngo/list.html"
 
+    def get_orgs(self):
+        return Organization.objects.filter(status="accepted")
+
     def search(self, queryset):
         # TODO: it should take into account selected language. Check only romanian for now.
         query = self.request.GET.get("q")
@@ -50,18 +53,18 @@ class OrganizationListView(InfoContextMixin, ListView):
 
         search_query = SearchQuery(query, config="romanian_unaccent")
 
-        vector = SearchVector("title", weight="A", config="romanian_unaccent") + SearchVector(
-            "ngo__name", weight="B", config="romanian_unaccent"
+        vector = SearchVector("name", weight="A", config="romanian_unaccent") + SearchVector(
+            "founders", weight="B", config="romanian_unaccent"
         )
 
         result = (
             queryset.annotate(
                 rank=SearchRank(vector, search_query),
-                similarity=(TrigramSimilarity("title", query) + TrigramSimilarity("ngo__name", query)),  # noqa
+                similarity=(TrigramSimilarity("name", query) + TrigramSimilarity("founders", query)),
             )
             .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
-            .order_by("title", "-rank")
-            .distinct("title")
+            .order_by("name")
+            .distinct("name")
         )
         if not hasattr(self, "search_cache"):
             self.search_cache = {}
@@ -71,24 +74,24 @@ class OrganizationListView(InfoContextMixin, ListView):
         return result
 
     def get_queryset(self):
-        needs = self.search(Organization.objects.all())
+        orgs = self.search(self.get_orgs())
         filters = {name: self.request.GET[name] for name in self.allow_filters if name in self.request.GET}
-        return needs.filter(**filters)
+        return orgs.filter(**filters)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        needs = self.search(Organization.objects.all())
+        orgs = self.search(self.get_orgs())
 
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
         context["current_search"] = self.request.GET.get("q", "")
-        context["current_tags"] = self.request.GET.getlist("tag", "")
-        context["counties"] = needs.order_by("county").values_list("county", flat=True).distinct("county")
+        context["current_domain"] = self.request.GET.getlist("domain", "")
+        context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
 
         if self.request.GET.get("county"):
-            needs = needs.filter(county=self.request.GET.get("county"))
+            orgs = orgs.filter(county=self.request.GET.get("county"))
 
-        context["cities"] = set(needs.values_list("city", flat=True))
+        context["cities"] = set(orgs.values_list("city__city", flat=True))
 
         return context
 
@@ -102,7 +105,7 @@ class OrganizationDetailView(InfoContextMixin, DetailView):
 class OrganizationRegisterRequestCreateView(SuccessMessageMixin, InfoContextMixin, CreateView):
     template_name = "ngo/register_request.html"
     model = Organization
-    form_class = OrganizationRegisterRequestForm
+    form_class = OrganizationRegisterForm
     success_message = _(
         "Thank you for signing up! The form you filled in has reached us. Someone from the RoHelp team will reach out to you as soon as your organization is validated. If you have any further questions, e-mail us at rohelp@code4.ro"
     )

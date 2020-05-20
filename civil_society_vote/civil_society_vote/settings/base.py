@@ -178,7 +178,10 @@ CRISPY_TEMPLATE_PACK = "bulma"
 ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
-# LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
+
+from django.urls import reverse_lazy  # noqa
+
+LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
 
 if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")

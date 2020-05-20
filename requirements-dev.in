@@ -8,6 +8,11 @@ pytest
 
 # style checker
 black
+flake8
+
+# utils
+ipython
+pdbpp
 
 # dependency manangement
 pip-tools

@@ -8,15 +8,6 @@
 <div class="container">
     <h2 class="ngo-list-title">
         {% trans "NGOs that manage" %}
-        {% if current_kind == 'money' %}
-        {% trans "financial aid" %}
-        {% else %}
-        {% if current_kind == 'resource' %}
-        {% trans "resource aid" %}
-        {% else %}
-        {% trans "volunteers" %}
-        {% endif %}
-        {% endif %}
     </h2>
 </div>
 <div class="container filter-container">
