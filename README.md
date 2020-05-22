@@ -41,6 +41,43 @@ None. Includes Bulma for stilying.
 
 * PostgreSQL
 
+### Pre-requisites
+
+In order to run the project locally, you need to have [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/) installed.
+
+### Initial set-up
+
+Initialize the environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Check the `.env` file and see if there are any environment variables that you might need to provide a value for or change. This file is used by `docker-compose` to pass the environment variables to the container it creates.
+
+### Starting the project
+
+Get the project up and running:
+
+```bash
+docker-compose up
+```
+
+You should be able to access the local environment site and admin at the following URLs:
+
+- <http://localhost:8000/>
+- <http://localhost:8000/admin/>
+
+If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
+Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ), wouldn't it?
+
+To work on running containers that were started using `docker-compose up`, open another terminal and:
+
+```bash
+cd path/to/repo
+docker-compose exec web bash
+```
+
 ## Deployment
 
 Guide users through getting your code up and running on their own system. In this section you can talk about:
