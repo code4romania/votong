@@ -24,67 +24,48 @@
     {% block extra-header %}
         <div id="donate_safely" class="container">
             <h1 class="donate-title">
-                {% trans "Welcome to Civil Society Vote" %}
+                {% trans "Ellections CES/CESE 2020" %}
             </h1>
             <p class="donate-subtitle">
-                {% trans "Lorem ipsum dolor sit amet, consectetur adipiscing elit." %}
+                {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
             </p>
         </div>
 
     {% endblock %}
 
-    {% block kind-kind-filters %}
+    {% block domain-filters %}
 
     <div id="aid_types" class="container">
         <div class="columns is-multiline">
 
+            {% for domain in domains %}
 
             <div class="column is-4 filter">
-                <div class="{% if current_kind == 'money' %}card-active{% else%}card{% endif %}">
-                    <a href="{% spurl base='{{ current_url }}' set_query='kind=money' remove_query_param='page' %}"
+                <div class="{% if current_domain.0|add:0 == domain.0 %}card-active{% else%}card{% endif %}">
+                    <a href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.0 }}' remove_query_param='page' %}"
                        class="has-text-black is-flex">
                         <span class="call-to-action" style="background-color: #bfd1e3;">
                             <i class="far fa-check-circle"></i>
                         </span>
-                        <div class="card-content">{% trans "I want to help with money" %}</div>
+                        <div class="card-content">{{ domain.1 }}</div>
                     </a>
                 </div>
             </div>
 
-            <div class="column is-4 filter">
-                <div class="{% if current_kind == 'resource' %}card-active{% else%}card{% endif %}">
-                    <a href="{% spurl base='{{ current_url }}' set_query='kind=resource' remove_query_param='page' %}"
-                       class="is-flex has-text-black">
-                        <span class="call-to-action" style="background-color: #bfd1e3;">
-                         <i class="far fa-check-circle"></i>
-                        </span>
-                        <div class="card-content">{% trans "I want to help with resources" %}</div>
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
 
-            <div class="column is-4 filter">
-                <div class="{% if current_kind == 'volunteer' %}card-active{% else%}card{% endif %}">
-                    <a href="{% spurl base='{{ current_url }}' set_query='kind=volunteer' remove_query_param='page' %}"
-                       class="is-flex has-text-black">
-                         <span class="call-to-action" style="background-color: #bfd1e3;">
-                            <i class="far fa-check-circle"></i>
-                         </span>
-                        <div class="card-content">{% trans "I want to volunteer" %}</div>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
     {% endblock %}
 
-    <div class="columns">
+    <div class="columns is-centered">
 
         <div class="column is-two-thirds">
             {% block left-side-view %}
             {% endblock %}
         </div>
 
+{% comment %}
         <div id="right_sidebar" class="column is-one-third">
             {% block right-side-view %}
             {% include "register-ngo.html" %}
@@ -145,6 +126,8 @@
             </div>
             {% endblock %}
         </div>
+{% endcomment %}
+
     </div>
 
 </div>

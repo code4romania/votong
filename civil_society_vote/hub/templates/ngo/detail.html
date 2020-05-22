@@ -10,7 +10,7 @@
 {% block left-side-view %}
 {% block extra-header %}
 {% endblock %}
-{% block kind-kind-filters %}
+{% block domain-filters %}
 {% endblock%}
 
 <div class="container detail-header" xmlns="http://www.w3.org/1999/html">
@@ -68,7 +68,7 @@
             </a>
         </header>
 
-        <div id="money-accordion" class="is-collapsible {% if current_kind == 'money' %}is-active{%endif%}">
+        <div id="money-accordion" class="is-collapsible {% if current_domain == 'money' %}is-active{%endif%}">
             <div class="card-content donation-card">
                 <div class="container">
                     <div class="content">
@@ -99,7 +99,7 @@
             </a>
         </header>
 
-        <div id="resource-accordion" class="is-collapsible {% if current_kind == 'resource' %}is-active{%endif%}">
+        <div id="resource-accordion" class="is-collapsible {% if current_domain == 'resource' %}is-active{%endif%}">
             <div class="card-content donation-card">
                 {% if current_need.kind == 'resource' and resource_page_obj.number == 1%}
                 {% include "shared/need_form.html" with current_form=form page=resource_page_obj.number %}
@@ -135,7 +135,7 @@
             </a>
         </header>
 
-        <div id="volunteer-accordion" class="is-collapsible {% if current_kind == 'volunteer' %}is-active{%endif%}">
+        <div id="volunteer-accordion" class="is-collapsible {% if current_domain == 'volunteer' %}is-active{%endif%}">
             <div class="card-content donation-card">
                 {% if current_need.kind == 'volunteer' and volunteer_page_obj.number == 1%}
                 {% include "shared/need_form.html" with current_form=form page=volunteer_page_obj.number %}
@@ -169,7 +169,7 @@
             </a>
         </header>
 
-        <div id="donations-accordion" class="is-collapsible {% if current_kind == 'donations' %}is-active{%endif%}">
+        <div id="donations-accordion" class="is-collapsible {% if current_domain == 'donations' %}is-active{%endif%}">
             <div class="card-content donation-card">
 
                 <div class="container">
@@ -221,7 +221,7 @@
             </a>
         </header>
 
-        <div id="report-accordion" class="is-collapsible {% if current_kind == 'report' %}is-active{%endif%}">
+        <div id="report-accordion" class="is-collapsible {% if current_domain == 'report' %}is-active{%endif%}">
             <div class="card-content donation-card">
 
                 <div class="container">
@@ -263,8 +263,8 @@
                 target = document.getElementById('need-form')
             {% endif %}
         {% else %}
-            {% if current_kind %}
-                target = document.getElementById('{{current_kind}}-accordion')
+            {% if current_domain %}
+                target = document.getElementById('{{current_domain}}-accordion')
             {% endif %}
         {% endif %}
 
