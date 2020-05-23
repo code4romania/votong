@@ -121,11 +121,7 @@ class Migration(migrations.Migration):
                 ("county", models.CharField(max_length=50, verbose_name="County")),
                 ("is_county_residence", models.BooleanField(default=False, verbose_name="Is county residence")),
             ],
-            options={
-                "verbose_name": "City",
-                "verbose_name_plural": "cities",
-                "unique_together": {("city", "county")},
-            },
+            options={"verbose_name": "City", "verbose_name_plural": "cities", "unique_together": {("city", "county")},},
         ),
         migrations.CreateModel(
             name="Organization",
@@ -359,9 +355,7 @@ class Migration(migrations.Migration):
             model_name="organizationvote",
             constraint=models.UniqueConstraint(fields=("user", "domain"), name="unique_org_domain_vote"),
         ),
-        migrations.AlterUniqueTogether(
-            name="organizationvote", unique_together={("user", "domain"), ("user", "org")},
-        ),
+        migrations.AlterUniqueTogether(name="organizationvote", unique_together={("user", "domain"), ("user", "org")},),
         migrations.AddConstraint(
             model_name="candidatevote",
             constraint=models.UniqueConstraint(fields=("user", "candidate"), name="unique_candidate_vote"),

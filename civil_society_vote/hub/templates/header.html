@@ -5,7 +5,7 @@
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="{% url 'ngos' %}">
-                    <img src="{% static "images/logo.svg" %}" alt="Code for Romania logo" width="160" height="50">
+                    <img src="{% static "images/logo.svg" %}" alt="" width="160" height="50">
                 </a>
 
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -17,6 +17,9 @@
             </div>
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-end has-text-centered-touch">
+                    <a href="{% url 'ngos-register-request' %}" class="navbar-item">
+                      {% trans "I want my organisation to join!" %}
+                    </a>
                     <a  href="{% url 'about' %}" class="navbar-item">
                         {% trans "About" %}
                     </a>

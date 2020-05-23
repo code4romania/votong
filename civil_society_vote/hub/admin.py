@@ -33,7 +33,6 @@ class OrganizationVoteInline(admin.TabularInline):
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     list_per_page = 25
-    form = OrganizationForm
 
     list_display = ("name", "representative", "county", "city", "created")
     list_filter = ("county",)
@@ -62,9 +61,6 @@ class OrganizationAdmin(admin.ModelAdmin):
         readonly_fields.extend(["county"])
 
         return readonly_fields
-
-    def save_model(self, request, ngo, form, change):
-        super().save_model(request, ngo, form, change)
 
 
 @admin.register(City)

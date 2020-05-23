@@ -21,6 +21,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, [".code4.ro"]),
     RECAPTCHA_PUBLIC_KEY=(str, ""),
     RECAPTCHA_PRIVATE_KEY=(str, ""),
+    SENTRY_DSN=(str, ""),
 )
 environ.Env.read_env(f"{root}/.env")  # reading .env file
 
@@ -77,6 +78,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "hub.context_processors.hub_settings",
             ],
         },
     },
@@ -188,3 +190,19 @@ if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 else:
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+# Toggles the loading of Google/Facebook tracking scripts in base.html
+ANALYTICS_ENABLED = True
+
+if env("SENTRY_DSN"):
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=env("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True,
+        environment="staging" if DEBUG else "prod",
+    )

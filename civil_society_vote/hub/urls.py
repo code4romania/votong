@@ -4,6 +4,7 @@ from hub.views import (
     OrganizationListView,
     OrganizationDetailView,
     OrganizationRegisterRequestCreateView,
+    CityAutocomplete,
 )
 
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path("", OrganizationListView.as_view(), name="ngos"),
     path("ngos/register", OrganizationRegisterRequestCreateView.as_view(), name="ngos-register-request",),
     path("ngos/<int:pk>", OrganizationDetailView.as_view(), name="ngo-detail"),
+    path("ngos/city-autocomplete/", CityAutocomplete.as_view(), name="city-autocomplete"),
     path("i18n/", include("django.conf.urls.i18n")),
 ]

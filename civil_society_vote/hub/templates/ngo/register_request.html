@@ -4,13 +4,15 @@
 {% load crispy_forms_tags %}
 
 
-{% block kind-kind-filters %}
-{% endblock kind-kind-filters %}
+{% block domain-filters %}
+{% endblock domain-filters %}
 
 {% block extra-header %}
 {% endblock extra-header %}
 
 {% block left-side-view %}
+
+<h2 class="title is-2">{% trans "Register NGO" %}</h2>
 
 <div class="container">
     {% if messages %}
@@ -19,7 +21,7 @@
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
-        </div>    
+        </div>
         </article>
     {% else %}
         <form method="post" enctype="multipart/form-data" >
@@ -39,4 +41,3 @@
     {% endif %}
 </div>
 {% endblock %}
-

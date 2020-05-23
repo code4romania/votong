@@ -66,6 +66,7 @@ COUNTY_RESIDENCE = [
 ]
 COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
+COUNTY_CHOICES = Choices(*[(x, x) for x in COUNTIES])
 
 VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION")),)
 
@@ -118,7 +119,7 @@ class Organization(StatusModel, TimeStampedModel):
     board_council = models.CharField(_("Board council"), max_length=254)
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
-    county = models.CharField(_("County"), max_length=50)
+    county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
     address = models.CharField(_("Address"), max_length=254)
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
