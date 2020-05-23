@@ -1,5 +1,5 @@
 lint:
-	 black --exclude venv/ --line-length 120 --target-version py37 .
+	 black --exclude venv/ --line-length 119 --target-version py37 .
 
 clean: clean-docker clean-py
 
