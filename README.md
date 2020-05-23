@@ -64,10 +64,18 @@ docker-compose build
 docker-compose up
 ```
 
+Load some development data in the database:
+
+```bash
+docker-compose exec web ./manage.py seed
+```
+
 You should be able to access the local environment site and admin at the following URLs:
 
 - <http://localhost:8000/>
 - <http://localhost:8000/admin/>
+
+You can access the admin with username `admin` and password `secret` (all automatically created users in the dev environment have the password set to `secret`).
 
 If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
 Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ), wouldn't it?

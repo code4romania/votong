@@ -277,7 +277,7 @@ msgstr "Cazier juridic"
 
 #: hub/models.py:267
 msgid "Candidates"
-msgstr "Candidații"
+msgstr "Candidați"
 
 #: hub/models.py:268
 msgid "Candidate"

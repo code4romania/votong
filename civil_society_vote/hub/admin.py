@@ -2,65 +2,102 @@ import csv
 import io
 
 from django.contrib import admin, messages
+from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.shortcuts import render, redirect
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import OrganizationForm, ImportCitiesForm
+from .forms import ImportCitiesForm
 from .models import (
     City,
     Organization,
     OrganizationVote,
-    ADMIN_GROUP_NAME,
+    Candidate,
+    CandidateVote,
     COUNTY_RESIDENCE,
     COUNTIES,
 )
 
 
+class CountyFilter(AllValuesFieldListFilter):
+    # title = _("county")
+    # parameter_name = "county"
+    template = "admin/dropdown_filter.html"
+
+
 class OrganizationVoteInline(admin.TabularInline):
     model = OrganizationVote
-    fields = ("user", "org", "domain", "vote", "motivation")
-    can_delete = False
-    can_add = False
-    verbose_name_plural = _("Organization votes")
+    fields = ["user", "org", "domain", "vote", "motivation"]
     readonly_fields = ["user", "org", "domain", "vote", "motivation"]
     extra = 0
 
     def has_add_permission(self, request, obj=None):
         return False
 
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_per_page = 25
-
     list_display = ("name", "representative", "county", "city", "created")
-    list_filter = ("county",)
+    list_filter = ("domain", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
+    def has_add_permission(self, request):
+        return False
 
-        user = request.user
-        if not user.groups.filter(name=ADMIN_GROUP_NAME).exists():
-            return qs.filter(users__in=[user])
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
 
-        return qs
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
 
-    def get_readonly_fields(self, request, obj=None):
-        readonly_fields = []
-        if not obj:
-            return readonly_fields
 
-        user = request.user
-        if not user.groups.filter(name=ADMIN_GROUP_NAME).exists():
-            readonly_fields.append("users")
+class CandidateVoteInline(admin.TabularInline):
+    model = CandidateVote
+    fields = ["user", "candidate"]
+    readonly_fields = ["user", "candidate", "domain"]
+    extra = 0
 
-        readonly_fields.extend(["county"])
+    def has_add_permission(self, request, obj=None):
+        return False
 
-        return readonly_fields
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Candidate)
+class CandidateAdmin(admin.ModelAdmin):
+    list_display = ("name", "org", "role", "domain", "created")
+    list_filter = ("domain",)
+    search_fields = ("name", "email", "org")
+    inlines = [CandidateVoteInline]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
 
 
 @admin.register(City)
@@ -72,7 +109,7 @@ class CityAdmin(admin.ModelAdmin):
     """
 
     list_display = ["city", "county"]
-    list_filter = ["county", "is_county_residence"]
+    list_filter = ["is_county_residence", ("county", CountyFilter)]
     search_fields = ["city"]
 
     def get_urls(self):
@@ -126,7 +163,7 @@ class CityAdmin(admin.ModelAdmin):
                 City.objects.bulk_create(batch, batch_size=len(batch), ignore_conflicts=True)
 
             self.message_user(request, _("CSV file imported"), level=messages.INFO)
-            return redirect(".")
+            return redirect("..")
 
         form = ImportCitiesForm()
         context = {
