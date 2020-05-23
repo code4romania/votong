@@ -60,6 +60,7 @@ Check the `.env` file and see if there are any environment variables that you mi
 Get the project up and running:
 
 ```bash
+docker-compose build
 docker-compose up
 ```
 
