@@ -52,44 +52,6 @@
             </div>
             {% endblock %}
         </div>
-{% comment %}
-        <div id="right_sidebar" class="column is-one-third">
-            {% block right-side-view %}
-
-            {% include "register-ngo.html" %}
-
-            <div class="container">
-
-                <h1 class="donate-title">
-                    <span>
-                        <img src="{% static "images/covid-all.svg" %}" alt="Covid-19 logo" width="30" height="30">
-                    </span>
-                    {% trans "Useful instruments" %}
-                </h1>
-
-                {% for project in info %}
-                <div class="tool">
-                    <div class="is-flex">
-                        <span style="border-left: 1rem solid; border-left-color: {{ project.color }};"></span>
-                        <h1 class="card-content" style="background-color: #f0f0f0;">
-                            {{ project.call_to_action }}</h1>
-                    </div>
-                    <div class="card-content" style="background-color: #fafafa;">
-                        {% if project.description %}
-                        <p class="call-to-action">{{project.description}}</p>
-                        {% endif %}
-                        <a class="button is-fullwidth is-white has-text-centered has-text-weight-bold sidebar-btn"
-                            style="background-color: {{ project.color }};" href="{{project.url}}" rel="nofollow">
-                            {{ project.button_text }}
-                        </a>
-                    </div>
-                </div>
-
-                {% endfor %}
-            </div>
-            {% endblock %}
-        </div>
-{% endcomment %}
     </div>
 </div>
 {% endblock %}

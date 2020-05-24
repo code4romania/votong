@@ -7,7 +7,7 @@
 {% block left-side-view %}
 <div class="container">
     <h2 class="ngo-list-title">
-        {% trans "NGOs list" %}
+        {% trans "Organizations list" %}
     </h2>
 </div>
 <div class="container filter-container">
@@ -123,27 +123,31 @@
 
 <div class="container">
     {% if page_obj %}
+
     <div class="columns is-multiline infinite-container">
         {% for ngo in page_obj %}
         <div class="need is-flex container infinite-item">
+
             <div class="card-image need-logo is-hidden-mobile">
-                <img src="{{ ngo.get_logo }}" alt="{{ ngo.name }}">
+                <img src="{{ ngo.logo|default:'/static/images/logo-demo.png' }}" alt="{{ ngo.name }}">
             </div>
 
             <div class="card-info" style="width:500px;">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
-                        <img src="{{ ngo.get_logo }}" alt="{{ ngo.name }}">
+                        <img src="{{ ngo.logo|default:'/static/images/logo-demo.png' }}" alt="{{ ngo.name }}">
                     </div>
                     <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
                 </div>
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
                 </div>
+                <div class="need-description is-hidden-mobile">{{ngo.purpose_initial}}</div>
+                <div class="need-description is-hidden-mobile">{{ngo.purpose_current}}</div>
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="#">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'ngo-detail' ngo.pk %}">
                     {% trans "View details" %}
                 </a>
             </div>

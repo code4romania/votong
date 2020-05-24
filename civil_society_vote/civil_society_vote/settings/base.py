@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # apps
+    "hub",
     # third-party
     "admin_auto_filters",
     "spurl",
@@ -48,8 +50,6 @@ INSTALLED_APPS = [
     "captcha",
     "file_resubmit",
     "rangefilter",
-    # apps
-    "hub",
 ]
 
 MIDDLEWARE = [

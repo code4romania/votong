@@ -1,0 +1,52 @@
+{% extends 'candidate/base.html' %}
+{% load social_share  %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+{% load meta_tags %}
+
+{% block meta_tags %}{% with title=candidate.name image=candidate.photo.url %}{% meta_tags %}{% endwith %}{% endblock %}
+
+{% block left-side-view %}
+{% block extra-header %}
+{% endblock %}
+{% block domain-filters %}
+{% endblock%}
+
+<div class="container detail-header" xmlns="http://www.w3.org/1999/html">
+    <span class="detail-header-img">
+        <img src="{{ candidate.photo|default:'/static/images/photo-placeholder.gif' }}" alt="{{ candidate.name }}">
+    </span>
+    <div>
+        <div class="subtitle">
+            {{ candidate.org }}
+        </div>
+        <h2 class="title">
+            {{ candidate.name }}
+        </h2>
+        <div class="subtitle">
+            {{ candidate.email }}
+        </div>
+        <div class="description">
+            <b>{% trans 'Experience' %}:</b> {{ candidate.experience }}
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<div class="container detail-desc">
+    <div class="detail-desc-title">{% trans "About the candidate" %}</div>
+    <p><i>{% trans 'Studies' %}:</i> {{ candidate.studies }}</p>
+</div>
+
+{% social_buttons obj=candidate %}
+
+{% endblock %}
+
+{% block content %}
+{% url "ngos" as ngos %}
+{% with current_url=ngos %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}

@@ -1,6 +1,7 @@
 # django
 django-debug-toolbar
 django-extensions
+werkzeug
 
 # tests
 Faker

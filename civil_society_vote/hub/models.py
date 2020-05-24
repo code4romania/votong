@@ -140,13 +140,6 @@ class Organization(StatusModel, TimeStampedModel):
     def get_absolute_url(self):
         return reverse("ngo-detail", args=[self.pk])
 
-    def get_logo(self):
-        if self.logo:
-            if "http" in str(self.logo):
-                return str(self.logo)
-            return f"{self.logo.url}"
-        return None
-
     def save(self, *args, **kwargs):
         if self.city:
             self.county = self.city.county
@@ -170,7 +163,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     abstention.short_description = _("Abstention")
 
-    def create_ngo_owner(self, request):
+    def create_owner(self, request):
         user, created = User.objects.get_or_create(username=self.email)
 
         if not created:
@@ -182,33 +175,31 @@ class Organization(StatusModel, TimeStampedModel):
         user.save()
 
         ngo_group = Group.objects.get(name=NGO_GROUP_NAME)
-        # XXX Not sure about this yet
-        # user.groups.add(ngo_group)
+        user.groups.add(ngo_group)
 
         reset_form = PasswordResetForm({"email": user.email})
-        assert reset_form.is_valid()
-
-        reset_form.save(
-            request=request,
-            use_https=request.is_secure(),
-            subject_template_name="registration/password_reset_subject.txt",
-            email_template_name="registration/password_reset_email.html",
-            html_email_template_name="registration/password_reset_email.html",
-        )
+        if reset_form.is_valid():
+            reset_form.save(
+                request=request,
+                use_https=request.is_secure(),
+                subject_template_name="registration/password_reset_subject.txt",
+                email_template_name="registration/password_reset_email.html",
+                html_email_template_name="registration/password_reset_email.html",
+            )
 
         return user
 
     @transaction.atomic
     def accept(self, request):
-        owner = self.create_ngo_owner(request)
+        owner = self.create_owner(request)
         self.user = owner
-        self.status = "accepted"
+        self.status = self.STATUS.accepted
         self.save()
         # TODO send acceptance notification
 
     @transaction.atomic
     def reject(self, request):
-        self.status = "rejected"
+        self.status = self.STATUS.rejected
         self.save()
         # TODO send rejection notification
 
@@ -269,6 +260,9 @@ class Candidate(TimeStampedModel):
 
     def __str__(self):
         return f"{self.name} ({self.org})"
+
+    def get_absolute_url(self):
+        return reverse("candidate-detail", args=[self.pk])
 
 
 class CandidateVote(TimeStampedModel):

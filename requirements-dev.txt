@@ -79,6 +79,7 @@ typed-ast==1.4.1          # via black
 urllib3==1.25.9           # via botocore, requests, sentry-sdk
 urlobject==2.4.3          # via django-spurl
 wcwidth==0.1.9            # via prompt-toolkit, pytest
+werkzeug==1.0.1           # via -r requirements-dev.in
 whitenoise==5.0.1         # via -r requirements.in
 wmctrl==0.3               # via pdbpp
 zipp==3.1.0               # via importlib-metadata

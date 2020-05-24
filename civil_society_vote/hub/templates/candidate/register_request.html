@@ -1,8 +1,7 @@
-{% extends 'ngo/base.html' %}
+{% extends 'candidate/base.html' %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-
 
 {% block domain-filters %}
 {% endblock domain-filters %}
@@ -12,7 +11,7 @@
 
 {% block left-side-view %}
 
-<h2 class="title is-2">{% trans "Register NGO" %}</h2>
+<h2 class="title is-2">{% trans "Add candidate" %}</h2>
 
 <div class="container">
     {% if messages %}
@@ -36,7 +35,7 @@
 
             {{ form|crispy }}
 
-            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Send registration request" %}">
+            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Propose candidate" %}">
         </form>
     {% endif %}
 </div>

@@ -55,6 +55,14 @@ class OrganizationVoteForm(forms.ModelForm):
         fields = ("vote", "motivation")
 
 
+class CandidateRegisterForm(forms.ModelForm):
+    # captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
+
+    class Meta:
+        model = models.Candidate
+        exclude = ["org"]
+
+
 class ImportCitiesForm(forms.Form):
     csv_file = forms.FileField(label=_("CSV file"))
 
