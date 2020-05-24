@@ -20,8 +20,6 @@ from .models import (
 
 
 class CountyFilter(AllValuesFieldListFilter):
-    # title = _("county")
-    # parameter_name = "county"
     template = "admin/dropdown_filter.html"
 
 
