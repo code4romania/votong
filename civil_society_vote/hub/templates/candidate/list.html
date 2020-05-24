@@ -1,0 +1,86 @@
+{% extends 'candidate/base.html' %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+
+{% block left-side-view %}
+
+<div class="container">
+    <h2 class="ngo-list-title">
+        {% trans "Candidates" %}
+    </h2>
+</div>
+
+<script>
+    window.onload = function () {
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onAfterPageLoad: function(items) {
+                var more_link = $('.infinite-more-link')[0];
+                if (more_link === undefined) {
+                    // Waypoint.Infinite removes the anchor with the above class
+                    // after performing the last request.
+                    //
+                    // so at this point, we know there are no more items that can be loaded,
+                    // so we remove the pagination nav
+                    $('nav.pagination').remove()
+                }
+            }
+        })
+    };
+</script>
+
+<div class="container">
+    {% if page_obj %}
+
+    <div class="columns is-multiline infinite-container">
+        {% for candidate in page_obj %}
+        <div class="need is-flex container infinite-item">
+
+            <div class="card-image need-logo is-hidden-mobile">
+                <img src="{{ candidate.photo|default:'/static/images/photo-placeholder.gif' }}" alt="{{ candidate.name }}">
+            </div>
+
+            <div class="card-info">
+                <div class="flex-align-center">
+                    <div class="card-image need-logo is-hidden-tablet">
+                        <img src="{{ candidate.photo|default:'/static/images/photo-placeholder.gif' }}" alt="{{ candidate.name }}">
+                    </div>
+                    <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
+                </div>
+                <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
+                <div class="need-title is-hidden-mobile">
+                    <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
+                </div>
+                <div class="need-description is-hidden-mobile">{{candidate.experience}}</div>
+            </div>
+
+            <div class="need-call2action">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'candidate-detail' candidate.pk %}">
+                    {% trans "View details" %}
+                </a>
+            </div>
+
+        </div>
+        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
+        <hr class="is-hidden-mobile half-width" />
+        {% endfor %}
+    </div>
+
+    {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+
+    {% else %}
+    <div class="content is-medium">
+        <p style="text-align: center;">{% trans "No results matching query" %}</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+{% with current_url=request.get_full_path %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}

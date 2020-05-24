@@ -22,7 +22,7 @@ fi
 
 if [[ $RUN_DEV_SERVER = yes ]] ; then
   echo "Start web server on $PORT"
-  ./manage.py runserver "0.0.0.0:$PORT"
+  ./manage.py runserver_plus "0.0.0.0:$PORT"
 else
    gunicorn civil_society_vote.wsgi --bind "0.0.0.0:$PORT" --log-level info -k gevent -w 10
 fi

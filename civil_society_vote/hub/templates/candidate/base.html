@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="search-wrapper container is-flex">
-    <form action="{% url 'ngos' %}" method="GET">
+    <form action="{% url 'candidates' %}" method="GET">
         <div class="field border-b">
             <p class="control has-icons-right ">
                 <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">

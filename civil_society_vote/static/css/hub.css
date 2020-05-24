@@ -239,6 +239,8 @@ footer {
 .ngo-list-title {
     font-size: 1.75em;
     color: #3D4F9F;
+    text-transform: uppercase;
+    margin-bottom: 1em;
 }
 
 .filter-container {
@@ -378,6 +380,7 @@ footer {
 
 .need {
     flex-direction: column;
+    width: 100%;
 }
 
 .need-logo {

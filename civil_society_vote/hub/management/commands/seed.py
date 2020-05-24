@@ -23,30 +23,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.NOTICE("Starting the seeding process"))
 
-        orgs = [
-            {
-                "name": fake.company(),
-                "email": fake.safe_email(),
-                "phone": fake.phone_number(),
-                "address": fake.address(),
-                "domain": ((i % 6) + 1),
-                "reg_com_number": fake.ssn(),
-                "purpose_initial": fake.sentence(),
-                "purpose_current": fake.sentence(),
-                "founders": fake.name(),
-                "representative": fake.name(),
-                "board_council": fake.name(),
-                "city": ["Arad", "Timisoara", "Oradea", "Cluj-Napoca", "Bucuresti"][i % 5],
-                "county": ["Arad", "Timis", "Bihor", "Cluj", "Bucuresti"][i % 5],
-                "status": ["pending", "accepted", "rejected"][i % 3],
-                "logo": "/static/images/logo-demo.png",
-                "last_balance_sheet": "/static/data/test.pdf",
-                "statute": "/static/data/test.pdf",
-                "letter": "/static/data/test.pdf",
-            }
-            for i in range(ORG_NUMBER)
-        ]
-
         if not User.objects.filter(username="admin").exists():
             User.objects.create_user("admin", "admin@example.test", "secret", is_staff=True, is_superuser=True)
             self.stdout.write(self.style.SUCCESS("Created ADMIN user"))
@@ -125,7 +101,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Loaded city data"))
 
         for i in range(ORG_NUMBER):
-            city = City.objects.order_by('?').first()
+            city = City.objects.order_by("?").first()
             org = Organization.objects.create(
                 name=fake.company(),
                 email=fake.safe_email(),
@@ -141,10 +117,10 @@ class Command(BaseCommand):
                 city=city,
                 county=city.county,
                 status=["pending", "accepted", "rejected"][i % 3],
-                logo="../static/images/logo-demo.png",
-                last_balance_sheet="../static/data/test.pdf",
-                statute="../static/data/test.pdf",
-                letter="../static/data/test.pdf",
+                logo="/static/images/logo-demo.png",
+                last_balance_sheet="/static/data/test.pdf",
+                statute="/static/data/test.pdf",
+                letter="/static/data/test.pdf",
             )
 
             owner = User.objects.create_user(
@@ -170,12 +146,12 @@ class Command(BaseCommand):
                 email=fake.safe_email(),
                 phone=fake.phone_number(),
                 domain=org.domain,
-                photo="../static/images/photo-placeholder.gif",
-                mandate="../static/data/test.pdf",
-                letter="../static/data/test.pdf",
-                statement="../static/data/test.pdf",
-                cv="../static/data/test.pdf",
-                legal_record="../static/data/test.pdf",
+                photo="/static/images/photo-placeholder.gif",
+                mandate="/static/data/test.pdf",
+                letter="/static/data/test.pdf",
+                statement="/static/data/test.pdf",
+                cv="/static/data/test.pdf",
+                legal_record="/static/data/test.pdf",
             )
 
             self.stdout.write(self.style.SUCCESS(f"Created organization {org} with candidate {candidate.name}"))

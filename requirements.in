@@ -1,8 +1,8 @@
 # django and related
 django<3
 django-environ
-django-crispy-bulma
 django-crispy-forms
+git+https://github.com/python-discord/django-crispy-bulma.git#egg=django-crispy-bulma
 django-admin-autocomplete-filter
 django-spurl
 django-storages
