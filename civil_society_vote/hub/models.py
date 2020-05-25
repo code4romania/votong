@@ -1,13 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
+from django.core.exceptions import ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
-
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 

@@ -1,31 +1,18 @@
-from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.postgres.search import (
-    SearchVector,
-    TrigramSimilarity,
-    SearchRank,
-    SearchQuery,
-)
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.core import paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import CreateView, DetailView, ListView
 
 from hub import utils
-from hub.models import (
-    ADMIN_GROUP_NAME,
-    CES_GROUP_NAME,
-    SGG_GROUP_NAME,
-    DOMAIN_CHOICES,
-    City,
-    Organization,
-    Candidate,
-)
-from hub.forms import OrganizationRegisterForm, CandidateRegisterForm
+from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
+from hub.models import ADMIN_GROUP_NAME, CES_GROUP_NAME, DOMAIN_CHOICES, SGG_GROUP_NAME, Candidate, City, Organization
 
 
 class DomainFilterMixin:

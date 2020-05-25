@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 import environ
+from django.urls import reverse_lazy  # noqa
 
 root = environ.Path(__file__) - 3  # three folder back (/a/b/c/ - 3 = /)
 env = environ.Env(
@@ -183,7 +184,6 @@ ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
 
-from django.urls import reverse_lazy  # noqa
 
 LOGIN_REDIRECT_URL = reverse_lazy("candidates")
 LOGOUT_REDIRECT_URL = reverse_lazy("candidates")

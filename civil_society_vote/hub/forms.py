@@ -2,13 +2,12 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-
 from django_crispy_bulma.widgets import EmailInput
+
+from hub import models
 
 # from captcha.fields import ReCaptchaField
 # from captcha.widgets import ReCaptchaV3
-
-from hub import models
 
 
 class OrganizationForm(forms.ModelForm):

@@ -2,25 +2,16 @@ import csv
 import io
 
 from django.contrib import admin, messages
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin.filters import AllValuesFieldListFilter
-from django.shortcuts import render, redirect
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
-
 from impersonate.admin import UserAdminImpersonateMixin
 
-from .forms import ImportCitiesForm
-from .models import (
-    City,
-    Organization,
-    OrganizationVote,
-    Candidate,
-    CandidateVote,
-    COUNTY_RESIDENCE,
-    COUNTIES,
-)
+from hub.forms import ImportCitiesForm
+from hub.models import COUNTIES, COUNTY_RESIDENCE, Candidate, CandidateVote, City, Organization, OrganizationVote
 
 
 class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
