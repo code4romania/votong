@@ -1,5 +1,13 @@
 lint:
-	 black --exclude venv/ --line-length 119 --target-version py37 .
+	black --exclude venv/ --line-length 119 --target-version py37 .
+
+build-deps:
+	pip-compile -r -o requirements-dev.txt requirements-dev.in requirements.in
+	pip-compile -o requirements.txt requirements.in
+
+upgrade-deps:
+	pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in
+	pip-compile -U -o requirements.txt requirements.in
 
 clean: clean-docker clean-py
 

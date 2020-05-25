@@ -2,10 +2,14 @@ import csv
 import io
 
 from django.contrib import admin, messages
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.shortcuts import render, redirect
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
+
+from impersonate.admin import UserAdminImpersonateMixin
 
 from .forms import ImportCitiesForm
 from .models import (
@@ -17,6 +21,16 @@ from .models import (
     COUNTY_RESIDENCE,
     COUNTIES,
 )
+
+
+class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
+    open_new_window = True
+    pass
+
+
+# NOTE: This is needed in order for impersonate to work
+admin.site.unregister(User)
+admin.site.register(User, ImpersonableUserAdmin)
 
 
 class CountyFilter(AllValuesFieldListFilter):
@@ -41,8 +55,8 @@ class OrganizationVoteInline(admin.TabularInline):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("name", "representative", "county", "city", "created")
-    list_filter = ("domain", ("county", CountyFilter))
+    list_display = ("name", "representative", "city", "status", "created")
+    list_filter = ("status", "domain", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]

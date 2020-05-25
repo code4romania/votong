@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.postgres.search import (
     SearchVector,
     TrigramSimilarity,
@@ -224,7 +225,7 @@ class CandidateDetailView(DetailView):
     model = Candidate
 
 
-class CandidateRegisterRequestCreateView(SuccessMessageMixin, CreateView):
+class CandidateRegisterRequestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "candidate/register_request.html"
     model = Candidate
     form_class = CandidateRegisterForm

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "captcha",
     "file_resubmit",
     "rangefilter",
+    "impersonate",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "impersonate.middleware.ImpersonateMiddleware",
 ]
 
 ROOT_URLCONF = "civil_society_vote.urls"
@@ -183,7 +185,8 @@ ADMINS = [
 
 from django.urls import reverse_lazy  # noqa
 
-LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
+LOGIN_REDIRECT_URL = reverse_lazy("candidates")
+LOGOUT_REDIRECT_URL = reverse_lazy("candidates")
 
 if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")

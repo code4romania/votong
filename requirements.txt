@@ -16,11 +16,13 @@ git+https://github.com/python-discord/django-crispy-bulma.git#egg=django-crispy-
 django-crispy-forms==1.9.1  # via -r requirements.in, django-crispy-bulma
 django-environ==0.4.5     # via -r requirements.in
 django-file-resubmit==0.5.2  # via -r requirements.in
+django-guardian==2.2.0    # via -r requirements.in
+django-impersonate==1.5   # via -r requirements.in
 django-model-utils==4.0.0  # via -r requirements.in
 django-recaptcha==2.0.6   # via -r requirements.in
 django-spurl==0.6.7       # via -r requirements.in
 django-storages==1.9.1    # via -r requirements.in
-django==2.2.12            # via -r requirements.in, django-admin-autocomplete-filter, django-crispy-bulma, django-model-utils, django-recaptcha, django-storages
+django==2.2.12            # via -r requirements.in, django-admin-autocomplete-filter, django-crispy-bulma, django-guardian, django-model-utils, django-recaptcha, django-storages
 docutils==0.15.2          # via botocore
 gevent==20.5.0            # via -r requirements.in
 greenlet==0.4.15          # via gevent
