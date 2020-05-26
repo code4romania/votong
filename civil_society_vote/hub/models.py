@@ -11,6 +11,7 @@ from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
 ADMIN_GROUP_NAME = "Admin"
+
 NGO_GROUP_NAME = "ONG"
 CES_GROUP_NAME = "CES"
 SGG_GROUP_NAME = "SGG"
@@ -176,15 +177,15 @@ class Organization(StatusModel, TimeStampedModel):
         ngo_group = Group.objects.get(name=NGO_GROUP_NAME)
         user.groups.add(ngo_group)
 
-        reset_form = PasswordResetForm({"email": user.email})
-        if reset_form.is_valid():
-            reset_form.save(
-                request=request,
-                use_https=request.is_secure(),
-                subject_template_name="registration/password_reset_subject.txt",
-                email_template_name="registration/password_reset_email.html",
-                html_email_template_name="registration/password_reset_email.html",
-            )
+        # reset_form = PasswordResetForm({"email": user.email})
+        # if reset_form.is_valid():
+        #     reset_form.save(
+        #         request=request,
+        #         use_https=request.is_secure(),
+        #         subject_template_name="registration/password_reset_subject.txt",
+        #         email_template_name="registration/password_reset_email.html",
+        #         html_email_template_name="registration/password_reset_email.html",
+        #     )
 
         return user
 
@@ -270,8 +271,8 @@ class CandidateVote(TimeStampedModel):
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
 
     class Meta:
-        verbose_name_plural = _("Organization votes")
-        verbose_name = _("Organization vote")
+        verbose_name_plural = _("Canditate votes")
+        verbose_name = _("Candidate vote")
         constraints = [
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
             models.UniqueConstraint(fields=["user", "domain"], name="unique_candidate_domain_vote"),

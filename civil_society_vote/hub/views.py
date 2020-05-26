@@ -19,7 +19,7 @@ class MenuMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if not self.request.user:
+        if not self.request.user or self.request.user.is_anonymous:
             return context
 
         user_org = self.request.user.orgs.first()
