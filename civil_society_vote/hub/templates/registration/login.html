@@ -23,17 +23,21 @@
     {% endif %}
 
     {% if next %}
+    <article class="message is-danger">
+        <div class="message-body">
         {% if user.is_authenticated %}
-        <p>{% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</p>
+          <p>{% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</p>
         {% else %}
-        <p>{% trans "Please login to see this page." %}</p>
+          <p>{% trans "Please login to see this page." %}</p>
         {% endif %}
+        </div>
+    </article>
     {% endif %}
 
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <div class="field">
-        <label class="label">Username</label>
+        <label class="label">{% trans 'Username' %}</label>
         <div class="control has-icons-left has-icons-right">
           <input class="input" type="text" name="username" autofocus="" required="" id="id_username" placeholder="{% trans 'username' %}" value="">
           <span class="icon is-small is-left">
@@ -42,7 +46,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Password</label>
+        <label class="label">{% trans 'Password' %}</label>
         <p class="control has-icons-left">
           <input class="input" type="password" name="password" required="" id="id_password" placeholder="{% trans 'password' %}">
           <span class="icon is-small is-left">
@@ -57,6 +61,8 @@
           <a href="{% url 'password_reset' %}">{% trans 'Forgot password?' %}</a>
         </p>
       </div>
+    <form>
+
   </div>
 </div>
 

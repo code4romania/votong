@@ -221,13 +221,13 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, SuccessMessageMixin
     def get_success_url(self):
         return reverse("candidate-register-request")
 
-    def get_success_message(self, cleaned_data):
-        authorized_groups = [ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME]
+    # def get_success_message(self, cleaned_data):
+    #     authorized_groups = [ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME]
 
-        for user in User.objects.filter(groups__name__in=authorized_groups):
-            cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
-            utils.send_email(
-                template="mail/new_candidate.html", context=cleaned_data, subject=_("New candidate"), to=user.email,
-            )
+    #     for user in User.objects.filter(groups__name__in=authorized_groups):
+    #         cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
+    #         utils.send_email(
+    #             template="mail/new_candidate.html", context=cleaned_data, subject=_("New candidate"), to=user.email,
+    #         )
 
-        return super().get_success_message(cleaned_data)
+    #     return super().get_success_message(cleaned_data)
