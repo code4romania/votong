@@ -9,11 +9,14 @@ help:
 lint:
 	docker-compose run --rm --no-deps --entrypoint "bash -c" web "isort -y && black --exclude venv/ --line-length 119 --target-version py37 ."
 
+migrations:
+	docker-compose run --rm --no-deps --entrypoint "bash -c" web "./manage.py makemigrations"
+
 build-deps:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"
+	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"
 
 upgrade-deps:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -r -U -o requirements.txt requirements.in"
+	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -r -U -o requirements.txt requirements.in"
 
 clean: clean-docker clean-py
 

@@ -209,3 +209,7 @@ if env("SENTRY_DSN"):
         send_default_pii=True,
         environment="staging" if DEBUG else "prod",
     )
+
+IMPERSONATE = {
+    "REQUIRE_SUPERUSER": True,
+}

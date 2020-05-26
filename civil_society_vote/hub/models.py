@@ -106,7 +106,7 @@ class City(models.Model):
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
     name = models.CharField(_("NGO Name"), max_length=254)
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
@@ -234,18 +234,18 @@ class OrganizationVote(TimeStampedModel):
 
 
 class Candidate(TimeStampedModel):
-    org = models.OneToOneField("Organization", on_delete=models.CASCADE)
+    org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     name = models.CharField(_("Name"), max_length=254)
     role = models.CharField(_("Role"), max_length=254)
-    experience = models.TextField(_("Professional experience"))
-    studies = models.TextField(_("Studies"))
     founder = models.BooleanField(_("Founder/Associate"), default=False)
     representative = models.BooleanField(_("Legal representative"), default=False)
     board_member = models.BooleanField(_("Board member"), default=False)
+    experience = models.TextField(_("Professional experience"))
+    studies = models.TextField(_("Studies"))
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
     photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
 
     mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())

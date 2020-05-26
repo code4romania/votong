@@ -46,9 +46,16 @@
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
+                          {% if user_org_candidate %}
+                          <a href="{% url 'candidate-detail' user_org_candidate.id %}" class="navbar-item">
+                            {% trans "View candidate" %}
+                          </a>
+                          {% else %}
                           <a href="{% url 'candidate-register-request' %}" class="navbar-item">
                             {% trans "Add candidate" %}
                           </a>
+                          {% endif %}
+
                           <hr class="dropdown-divider">
                           <a href="{% url 'logout' %}" class="dropdown-item" style="color:red;">{% trans "Logout" %}</a>
                         </div>

@@ -55,11 +55,30 @@ class OrganizationVoteForm(forms.ModelForm):
 
 
 class CandidateRegisterForm(forms.ModelForm):
-    # captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
-
     class Meta:
         model = models.Candidate
-        exclude = ["org"]
+        fields = "__all__"
+
+        widgets = {
+            "org": forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+
+    def clean_org(self):
+        try:
+            org = models.Organization.objects.get(user=self.user)
+        except models.Organization.DoesNotExist:
+            raise ValidationError(_("Authenticated user does not have an organization."))
+        except models.Organization.MultipleObjectsReturned:
+            raise ValidationError(_("Authenticated user has more than one organization."))
+
+        if org.candidate:
+            raise ValidationError(_("Organization already has a candidate."))
+
+        return org.id
 
 
 class ImportCitiesForm(forms.Form):

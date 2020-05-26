@@ -15,6 +15,20 @@ from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
 from hub.models import ADMIN_GROUP_NAME, CES_GROUP_NAME, DOMAIN_CHOICES, SGG_GROUP_NAME, Candidate, City, Organization
 
 
+class MenuMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if not self.request.user:
+            return context
+
+        user_org = self.request.user.orgs.first()
+        if user_org:
+            context["user_org_candidate"] = user_org.candidate
+
+        return context
+
+
 class DomainFilterMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +59,19 @@ class DomainFilterMixin:
         return context
 
 
-class OrganizationListView(DomainFilterMixin, ListView):
+class HubListView(MenuMixin, DomainFilterMixin, ListView):
+    pass
+
+
+class HubDetailView(MenuMixin, DetailView):
+    pass
+
+
+class HubCreateView(MenuMixin, SuccessMessageMixin, CreateView):
+    pass
+
+
+class OrganizationListView(HubListView):
     allow_filters = ["county", "city", "domain"]
     paginate_by = 9
     template_name = "ngo/list.html"
@@ -117,13 +143,13 @@ class OrganizationListView(DomainFilterMixin, ListView):
         return context
 
 
-class OrganizationDetailView(DetailView):
+class OrganizationDetailView(HubDetailView):
     template_name = "ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
 
 
-class OrganizationRegisterRequestCreateView(SuccessMessageMixin, CreateView):
+class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "ngo/register_request.html"
     model = Organization
     form_class = OrganizationRegisterForm
@@ -156,7 +182,7 @@ class CityAutocomplete(View):
         return JsonResponse(response, safe=False)
 
 
-class CandidateListView(DomainFilterMixin, ListView):
+class CandidateListView(HubListView):
     allow_filters = ["domain"]
     paginate_by = 9
     template_name = "candidate/list.html"
@@ -206,13 +232,13 @@ class CandidateListView(DomainFilterMixin, ListView):
         return context
 
 
-class CandidateDetailView(DetailView):
+class CandidateDetailView(HubDetailView):
     template_name = "candidate/detail.html"
     context_object_name = "candidate"
     model = Candidate
 
 
-class CandidateRegisterRequestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     template_name = "candidate/register_request.html"
     model = Candidate
     form_class = CandidateRegisterForm
@@ -220,6 +246,11 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, SuccessMessageMixin
 
     def get_success_url(self):
         return reverse("candidate-register-request")
+
+    def get_form_kwargs(self):
+        kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
     # def get_success_message(self, cleaned_data):
     #     authorized_groups = [ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME]
