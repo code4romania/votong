@@ -87,6 +87,8 @@ cd path/to/repo
 docker-compose exec web bash
 ```
 
+Remember to run `make lint` before commiting your code in order to format the code properly. Thank you!
+
 ## Deployment
 
 Guide users through getting your code up and running on their own system. In this section you can talk about:

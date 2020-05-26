@@ -11,7 +11,7 @@
 
 {% block left-side-view %}
 
-<h2 class="title is-2">{% trans "Add candidate" %}</h2>
+<h2 class="title is-2">{% trans "Propose candidate" %}</h2>
 
 <div class="container">
     {% if messages %}
@@ -30,7 +30,6 @@
 
             {% for hidden_field in form.hidden_fields %}
                 {{ hidden_field.errors }}
-                {{ hidden_field }}
             {% endfor %}
 
             {{ form|crispy }}

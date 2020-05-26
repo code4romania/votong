@@ -3,20 +3,31 @@ import io
 
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
-from django.shortcuts import render, redirect
-from django.urls import path
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.urls import path, reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from impersonate.admin import UserAdminImpersonateMixin
 
-from .forms import ImportCitiesForm
-from .models import (
-    City,
-    Organization,
-    OrganizationVote,
-    Candidate,
-    CandidateVote,
-    COUNTY_RESIDENCE,
-    COUNTIES,
-)
+from hub.forms import ImportCitiesForm
+from hub.models import COUNTIES, COUNTY_RESIDENCE, Candidate, CandidateVote, City, Organization, OrganizationVote
+
+
+class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
+    open_new_window = True
+    pass
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["user_id"] = object_id
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
+
+
+# NOTE: This is needed in order for impersonate to work
+admin.site.unregister(User)
+admin.site.register(User, ImpersonableUserAdmin)
 
 
 class CountyFilter(AllValuesFieldListFilter):
@@ -41,8 +52,8 @@ class OrganizationVoteInline(admin.TabularInline):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("name", "representative", "county", "city", "created")
-    list_filter = ("domain", ("county", CountyFilter))
+    list_display = ("name", "get_user", "representative", "city", "status", "created")
+    list_filter = ("status", "domain", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]
@@ -59,6 +70,13 @@ class OrganizationAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return True
         return False
+
+    def get_user(self, obj=None):
+        if obj and obj.user:
+            user_url = reverse("admin:auth_user_change", args=(obj.user.id,))
+            return mark_safe(f'<a href="{user_url}">{obj.user.get_full_name()}</a>')
+
+    get_user.short_description = _("user")
 
 
 class CandidateVoteInline(admin.TabularInline):

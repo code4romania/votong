@@ -25,3 +25,11 @@ if env("ENABLE_DEBUG_TOOLBAR"):
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }
+
+CACHES = {
+    "default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"},
+    "file_resubmit": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/tmp/file_resubmit/",
+    },
+}

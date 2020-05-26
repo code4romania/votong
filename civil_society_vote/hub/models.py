@@ -1,13 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
+from django.core.exceptions import ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
-
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
@@ -107,7 +106,7 @@ class City(models.Model):
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
     name = models.CharField(_("NGO Name"), max_length=254)
     domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
@@ -235,18 +234,18 @@ class OrganizationVote(TimeStampedModel):
 
 
 class Candidate(TimeStampedModel):
-    org = models.OneToOneField("Organization", on_delete=models.CASCADE)
+    org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
+    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     name = models.CharField(_("Name"), max_length=254)
     role = models.CharField(_("Role"), max_length=254)
-    experience = models.TextField(_("Professional experience"))
-    studies = models.TextField(_("Studies"))
     founder = models.BooleanField(_("Founder/Associate"), default=False)
     representative = models.BooleanField(_("Legal representative"), default=False)
     board_member = models.BooleanField(_("Board member"), default=False)
+    experience = models.TextField(_("Professional experience"))
+    studies = models.TextField(_("Studies"))
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
     photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
 
     mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())

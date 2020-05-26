@@ -1,12 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.urls import include, path
 from django.utils.translation import ugettext_lazy as _
 
 from civil_society_vote.views import StaticPageView
-
 
 admin.site.site_title = _("Admin Civil Society Vote")
 admin.site.site_header = _("Admin Civil Society Vote")
@@ -21,18 +20,31 @@ urlpatterns = i18n_patterns(
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path("updates/", StaticPageView.as_view(template_name="updates.html"), name="updates"),
     path("admin/", admin.site.urls),
+    path("impersonate/", include("impersonate.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path(
-        "admin/password_reset/",
-        auth_views.PasswordResetView.as_view(html_email_template_name="registration/password_reset_email.html"),
-        name="admin_password_reset",
+        "accounts/reset-password/",
+        auth_views.PasswordResetView.as_view(
+            html_email_template_name="registration/reset_password_email.html",
+            template_name="registration/reset_password.html",
+        ),
+        name="password_reset",
     ),
-    path("admin/password_reset/done/", auth_views.PasswordResetDoneView.as_view(), name="password_reset_done",),
     path(
-        "admin/reset/<uidb64>/<token>/",
-        auth_views.PasswordResetConfirmView.as_view(template_name="registration/set_password.html"),
+        "accounts/reset-password/done/",
+        auth_views.PasswordResetDoneView.as_view(template_name="registration/reset_password_done.html"),
+        name="password_reset_done",
+    ),
+    path(
+        "accounts/reset-password/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(template_name="registration/reset_password_confirm.html"),
         name="password_reset_confirm",
     ),
-    path("admin/reset/done/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete",),
+    path(
+        "accounts/reset-password/complete/",
+        auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
+        name="password_reset_complete",
+    ),
     path("", include("hub.urls")),
 )
 

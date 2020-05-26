@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 import environ
+from django.urls import reverse_lazy  # noqa
 
 root = environ.Path(__file__) - 3  # three folder back (/a/b/c/ - 3 = /)
 env = environ.Env(
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     "captcha",
     "file_resubmit",
     "rangefilter",
+    "impersonate",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "impersonate.middleware.ImpersonateMiddleware",
 ]
 
 ROOT_URLCONF = "civil_society_vote.urls"
@@ -181,9 +184,9 @@ ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
 
-from django.urls import reverse_lazy  # noqa
 
-LOGOUT_REDIRECT_URL = reverse_lazy("ngos")
+LOGIN_REDIRECT_URL = reverse_lazy("candidates")
+LOGOUT_REDIRECT_URL = reverse_lazy("candidates")
 
 if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
@@ -206,3 +209,7 @@ if env("SENTRY_DSN"):
         send_default_pii=True,
         environment="staging" if DEBUG else "prod",
     )
+
+IMPERSONATE = {
+    "REQUIRE_SUPERUSER": True,
+}

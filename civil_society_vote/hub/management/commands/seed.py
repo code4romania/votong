@@ -1,17 +1,16 @@
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import Group, Permission, User
 from django.core.management.base import BaseCommand
-
 from faker import Faker
 
 from hub.models import (
+    ADMIN_GROUP_NAME,
+    CES_GROUP_NAME,
+    NGO_GROUP_NAME,
+    SGG_GROUP_NAME,
+    Candidate,
     City,
     Organization,
-    Candidate,
     OrganizationVote,
-    ADMIN_GROUP_NAME,
-    NGO_GROUP_NAME,
-    CES_GROUP_NAME,
-    SGG_GROUP_NAME,
 )
 
 fake = Faker()

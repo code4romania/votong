@@ -1,15 +1,14 @@
-from django.urls import path, include
+from django.urls import include, path
 
 from hub.views import (
-    OrganizationListView,
-    OrganizationDetailView,
-    OrganizationRegisterRequestCreateView,
-    CityAutocomplete,
+    CandidateDetailView,
     CandidateListView,
     CandidateRegisterRequestCreateView,
-    CandidateDetailView,
+    CityAutocomplete,
+    OrganizationDetailView,
+    OrganizationListView,
+    OrganizationRegisterRequestCreateView,
 )
-
 
 urlpatterns = [
     path("", CandidateListView.as_view(), name="candidates"),

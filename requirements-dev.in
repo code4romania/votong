@@ -9,6 +9,7 @@ pytest
 
 # style checker
 black
+isort
 flake8
 
 # utils
