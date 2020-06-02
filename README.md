@@ -64,16 +64,12 @@ docker-compose build
 docker-compose up
 ```
 
-Load some development data in the database:
-
-```bash
-docker-compose exec web ./manage.py seed
-```
-
 You should be able to access the local environment site and admin at the following URLs:
 
 - <http://localhost:8000/>
 - <http://localhost:8000/admin/>
+
+Some dummy data is loaded automatically when starting the containers for the first time.
 
 You can access the admin with username `admin` and password `secret` (all automatically created users in the dev environment have the password set to `secret`).
 
@@ -87,7 +83,7 @@ cd path/to/repo
 docker-compose exec web bash
 ```
 
-Remember to run `make lint` before commiting your code in order to format the code properly. Thank you!
+**IMPORTANT**: Remember to run `make lint` before commiting your code in order to format the code properly. Thank you!
 
 ## Deployment
 
