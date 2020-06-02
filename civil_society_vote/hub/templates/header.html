@@ -4,7 +4,7 @@
     <div class="container border-b">
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="{% url 'candidates' %}">
+                <a class="navbar-item" href="{% url 'home' %}">
                     <img src="{% static "images/logo.svg" %}" alt="{% trans 'Elections CES/CESE 2020' %}" width="200">
                 </a>
 
@@ -19,6 +19,10 @@
                 <div class="navbar-end has-text-centered-touch">
                     <a  href="{% url 'ngos' %}" class="navbar-item">
                         {% trans "Organizations" %}
+                    </a>
+
+                    <a  href="{% url 'candidates' %}" class="navbar-item">
+                        {% trans "Candidates" %}
                     </a>
 
                     <a  href="{% url 'about' %}" class="navbar-item">

@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
@@ -56,6 +57,15 @@ class DomainFilterMixin:
 
             context[f"{domain_id}_page_obj"] = page_obj
 
+        return context
+
+
+class HomeView(MenuMixin, TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # TODO: Add needed context here
         return context
 
 
