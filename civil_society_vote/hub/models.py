@@ -83,6 +83,18 @@ DOMAIN_CHOICES = Choices(
 )
 
 
+class Domain(TimeStampedModel):
+    name = models.CharField(_("Name"), max_length=254, unique=True)
+    description = models.TextField(_("Description"))
+
+    class Meta:
+        verbose_name = _("Domain")
+        verbose_name_plural = _("Domains")
+
+    def __str__(self):
+        return self.name
+
+
 class City(models.Model):
     city = models.CharField(_("City"), max_length=100)
     county = models.CharField(_("County"), max_length=50)
@@ -90,7 +102,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name = _("City")
-        verbose_name_plural = _("cities")
+        verbose_name_plural = _("Cities")
         unique_together = ["city", "county"]
 
     def __str__(self):
@@ -108,8 +120,9 @@ class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="orgs")
+
     name = models.CharField(_("NGO Name"), max_length=254)
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
     state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
     purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
@@ -207,7 +220,8 @@ class Organization(StatusModel, TimeStampedModel):
 class OrganizationVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="+")
+
     vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
     motivation = models.TextField(
         _("Motivation"), max_length=500, null=True, blank=True, help_text=_("Motivate your decision"),
@@ -236,7 +250,8 @@ class OrganizationVote(TimeStampedModel):
 
 class Candidate(TimeStampedModel):
     org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
+
     name = models.CharField(_("Name"), max_length=254)
     role = models.CharField(_("Role"), max_length=254)
     founder = models.BooleanField(_("Founder/Associate"), default=False)
@@ -268,7 +283,7 @@ class Candidate(TimeStampedModel):
 class CandidateVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
     class Meta:
         verbose_name_plural = _("Canditate votes")

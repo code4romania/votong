@@ -12,7 +12,16 @@ from django.utils.translation import ugettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
 from hub.forms import ImportCitiesForm
-from hub.models import COUNTIES, COUNTY_RESIDENCE, Candidate, CandidateVote, City, Organization, OrganizationVote
+from hub.models import (
+    COUNTIES,
+    COUNTY_RESIDENCE,
+    Candidate,
+    CandidateVote,
+    City,
+    Domain,
+    Organization,
+    OrganizationVote,
+)
 
 
 class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
@@ -103,6 +112,26 @@ class CandidateAdmin(admin.ModelAdmin):
     inlines = [CandidateVoteInline]
 
     def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+
+@admin.register(Domain)
+class DomainAdmin(admin.ModelAdmin):
+    list_display = ["name", "description"]
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
         return False
 
     def has_delete_permission(self, request, obj=None):
