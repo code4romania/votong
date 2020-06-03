@@ -13,7 +13,7 @@ from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
-from hub.models import ADMIN_GROUP_NAME, CES_GROUP_NAME, DOMAIN_CHOICES, SGG_GROUP_NAME, Candidate, City, Organization
+from hub.models import ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME, Candidate, City, Domain, Organization
 
 
 class MenuMixin:
@@ -30,36 +30,6 @@ class MenuMixin:
         return context
 
 
-class DomainFilterMixin:
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context["current_domain"] = self.request.GET.get("domain")
-
-        if not self.request.GET.get("q"):
-            context["current_domain"] = context["current_domain"] or 1
-
-        qs = kwargs.get("ngo", context.get("ngo")) or kwargs.get("candidate", context.get("candidate"))
-
-        if not qs:
-            return context
-
-        for domain_id in [x[0] for x in DOMAIN_CHOICES]:
-            qs = qs.filter(domain=domain_id)
-            paginator_obj = paginator.Paginator(qs, 5)
-            page = self.request.GET.get(f"{domain_id}_page")
-
-            # Catch invalid page numbers
-            try:
-                page_obj = paginator_obj.page(page)
-            except (paginator.PageNotAnInteger, paginator.EmptyPage):
-                page_obj = paginator_obj.page(1)
-
-            context[f"{domain_id}_page_obj"] = page_obj
-
-        return context
-
-
 class HomeView(MenuMixin, TemplateView):
     template_name = "home.html"
 
@@ -69,7 +39,7 @@ class HomeView(MenuMixin, TemplateView):
         return context
 
 
-class HubListView(MenuMixin, DomainFilterMixin, ListView):
+class HubListView(MenuMixin, ListView):
     pass
 
 
@@ -134,7 +104,7 @@ class OrganizationListView(HubListView):
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
         context["current_search"] = self.request.GET.get("q", "")
-        context["current_domain"] = self.request.GET.getlist("domain", "")
+        context["current_domain"] = self.request.GET.get("domain", "")
         context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
 
         if self.request.GET.get("county"):
@@ -148,7 +118,7 @@ class OrganizationListView(HubListView):
 
         context["cities"] = set(orgs.values_list("city__id", "city__city"))
 
-        context["domains"] = DOMAIN_CHOICES
+        context["domains"] = Domain.objects.all()
 
         return context
 
@@ -237,8 +207,8 @@ class CandidateListView(HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_search"] = self.request.GET.get("q", "")
-        context["current_domain"] = self.request.GET.getlist("domain", "")
-        context["domains"] = DOMAIN_CHOICES
+        context["current_domain"] = self.request.GET.get("domain", "")
+        context["domains"] = Domain.objects.all()
         return context
 
 

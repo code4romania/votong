@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
@@ -72,15 +71,6 @@ VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION"
 
 
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
-
-DOMAIN_CHOICES = Choices(
-    (1, "domain_1", _("Academic and professional")),
-    (2, "domain_2", _("Education and health")),
-    (3, "domain_3", _("Agricultural and cooperative")),
-    (4, "domain_4", _("Environmental")),
-    (5, "domain_5", _("Social, family, people with disabilities and the elderly")),
-    (6, "domain_6", _("Human rights")),
-)
 
 
 class Domain(TimeStampedModel):
@@ -187,19 +177,6 @@ class Organization(StatusModel, TimeStampedModel):
         user.is_active = True
         user.save()
 
-        ngo_group = Group.objects.get(name=NGO_GROUP_NAME)
-        user.groups.add(ngo_group)
-
-        # reset_form = PasswordResetForm({"email": user.email})
-        # if reset_form.is_valid():
-        #     reset_form.save(
-        #         request=request,
-        #         use_https=request.is_secure(),
-        #         subject_template_name="registration/password_reset_subject.txt",
-        #         email_template_name="registration/password_reset_email.html",
-        #         html_email_template_name="registration/password_reset_email.html",
-        #     )
-
         return user
 
     @transaction.atomic
@@ -208,13 +185,11 @@ class Organization(StatusModel, TimeStampedModel):
         self.user = owner
         self.status = self.STATUS.accepted
         self.save()
-        # TODO send acceptance notification
 
     @transaction.atomic
     def reject(self, request):
         self.status = self.STATUS.rejected
         self.save()
-        # TODO send rejection notification
 
 
 class OrganizationVote(TimeStampedModel):

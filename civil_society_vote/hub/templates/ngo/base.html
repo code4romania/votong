@@ -42,19 +42,19 @@
             {% for domain in domains %}
 
             <div class="column is-4 filter">
-            {% if current_domain.0|add:0 == domain.0 %}
+            {% if current_domain|add:0 == domain.id %}
                 <div class="card-active">
                     <a href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}"
                        class="has-text-black is-flex">
             {% else%}
                 <div class="card">
-                    <a href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.0 }}' remove_query_param='page' %}"
+                    <a href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}"
                        class="has-text-black is-flex">
             {% endif %}
                         <span class="call-to-action" style="background-color: #bfd1e3;">
                             <i class="far fa-check-circle"></i>
                         </span>
-                        <div class="card-content">{{ domain.1 }}</div>
+                        <div class="card-content">{{ domain.name }}</div>
                     </a>
                 </div>
             </div>
