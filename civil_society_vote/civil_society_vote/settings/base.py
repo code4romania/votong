@@ -185,8 +185,8 @@ ADMINS = [
 ]
 
 
-LOGIN_REDIRECT_URL = reverse_lazy("candidates")
-LOGOUT_REDIRECT_URL = reverse_lazy("candidates")
+LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
 if env("RECAPTCHA_PUBLIC_KEY"):
     RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
@@ -12,7 +12,16 @@ from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
-from hub.models import ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME, Candidate, City, Domain, Organization
+from hub.models import (
+    ADMIN_GROUP_NAME,
+    CES_GROUP_NAME,
+    SGG_GROUP_NAME,
+    Candidate,
+    CandidateVote,
+    City,
+    Domain,
+    Organization,
+)
 
 
 class MenuMixin:
@@ -149,16 +158,6 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
         return super().get_success_message(cleaned_data)
 
 
-class CityAutocomplete(View):
-    def get(self, request):
-        response = []
-        county = request.GET.get("county")
-        if county:
-            cities = City.objects.filter(county__iexact=county).values_list("id", "city", named=True)
-            response = [{"id": item.id, "city": item.city} for item in cities]
-        return JsonResponse(response, safe=False)
-
-
 class CandidateListView(HubListView):
     allow_filters = ["domain"]
     paginate_by = 9
@@ -217,3 +216,26 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     #         )
 
     #     return super().get_success_message(cleaned_data)
+
+
+class CandidateVoteView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        try:
+            candidate = Candidate.objects.get(pk=pk)
+            CandidateVote.objects.create(
+                user=request.user, candidate=candidate,
+            )
+        except Exception:
+            return HttpResponseBadRequest()
+        else:
+            return HttpResponse()
+
+
+class CityAutocomplete(View):
+    def get(self, request):
+        response = []
+        county = request.GET.get("county")
+        if county:
+            cities = City.objects.filter(county__iexact=county).values_list("id", "city", named=True)
+            response = [{"id": item.id, "city": item.city} for item in cities]
+        return JsonResponse(response, safe=False)

@@ -254,6 +254,12 @@ class Candidate(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
 
+    def save(self, *args, **kwargs):
+        if self.id and CandidateVote.objects.filter(candidate=self).exists():
+            raise ValidationError(_("Cannot update candidate after votes have been cast."))
+
+        super().save(*args, **kwargs)
+
 
 class CandidateVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
