@@ -41,7 +41,7 @@
             {% for domain in domains %}
 
             <div class="column is-4 filter">
-            {% if current_domain|add:0 == domain.id %}
+            {% if current_domain.id == domain.id %}
                 <div class="card-active">
                     <a href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}"
                        class="has-text-black is-flex">

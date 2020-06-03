@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
-from django.core import paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
@@ -101,10 +100,17 @@ class OrganizationListView(HubListView):
         context = super().get_context_data(**kwargs)
         orgs = self.search(self.get_qs())
 
+        context["current_search"] = self.request.GET.get("q", "")
+
+        current_domain = self.request.GET.get("domain")
+        if current_domain:
+            try:
+                context["current_domain"] = Domain.objects.get(id=current_domain)
+            except Domain.DoesNotExist:
+                pass
+
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
-        context["current_search"] = self.request.GET.get("q", "")
-        context["current_domain"] = self.request.GET.get("domain", "")
         context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
 
         if self.request.GET.get("county"):
@@ -207,7 +213,14 @@ class CandidateListView(HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_search"] = self.request.GET.get("q", "")
-        context["current_domain"] = self.request.GET.get("domain", "")
+
+        current_domain = self.request.GET.get("domain")
+        if current_domain:
+            try:
+                context["current_domain"] = Domain.objects.get(id=current_domain)
+            except Domain.DoesNotExist:
+                pass
+
         context["domains"] = Domain.objects.all()
         return context
 
