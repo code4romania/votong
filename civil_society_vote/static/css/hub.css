@@ -242,6 +242,10 @@ footer {
   margin-bottom: 1em;
 }
 
+.domain-subtitle {
+  color: #525F7F;
+}
+
 .ngo-list-title {
     font-size: 1.75em;
     color: #3D4F9F;
@@ -326,10 +330,20 @@ footer {
     margin: 2em 0;
 }
 
+.detail-desc p {
+    padding: 3px 10px;
+}
+
+.vote-org-buttons {
+  margin: 20px 0;
+}
+
 .detail-desc-title {
     font-weight: bold;
     margin: 1em 0;
+    padding: 3px 10px;
     color: #000000;
+    background-color: #F2F2F2;
 }
 
 .donate-hero {

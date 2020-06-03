@@ -241,7 +241,7 @@ class Candidate(TimeStampedModel):
     mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
     statement = models.FileField(_("Statement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
-    cv = models.FileField(_("CV"), max_length=300, storage=PrivateMediaStorageClass())
+    cv = models.FileField(_("Curriculum Vitae"), max_length=300, storage=PrivateMediaStorageClass())
     legal_record = models.FileField(_("Legal record"), max_length=300, storage=PrivateMediaStorageClass())
 
     class Meta:

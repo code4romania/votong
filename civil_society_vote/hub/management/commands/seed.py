@@ -137,10 +137,10 @@ class Command(BaseCommand):
                     city=city,
                     county=city.county,
                     status=["pending", "accepted", "rejected"][i % 3],
-                    logo="/static/images/logo-demo.png",
-                    last_balance_sheet="/static/data/test.pdf",
-                    statute="/static/data/test.pdf",
-                    letter="/static/data/test.pdf",
+                    # logo="/static/images/logo-demo.png",
+                    # last_balance_sheet="/static/data/test.pdf",
+                    # statute="/static/data/test.pdf",
+                    # letter="/static/data/test.pdf",
                 )
 
                 owner = User.objects.create_user(
@@ -166,12 +166,12 @@ class Command(BaseCommand):
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     domain=org.domain,
-                    photo="/static/images/photo-placeholder.gif",
-                    mandate="/static/data/test.pdf",
-                    letter="/static/data/test.pdf",
-                    statement="/static/data/test.pdf",
-                    cv="/static/data/test.pdf",
-                    legal_record="/static/data/test.pdf",
+                    # photo="/static/images/photo-placeholder.gif",
+                    # mandate="/static/data/test.pdf",
+                    # letter="/static/data/test.pdf",
+                    # statement="/static/data/test.pdf",
+                    # cv="/static/data/test.pdf",
+                    # legal_record="/static/data/test.pdf",
                 )
 
                 self.stdout.write(self.style.SUCCESS(f"Created organization {org} with candidate {candidate.name}"))

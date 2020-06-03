@@ -108,7 +108,7 @@ class CandidateVoteInline(admin.TabularInline):
 class CandidateAdmin(admin.ModelAdmin):
     list_display = ("name", "org", "role", "domain", "created")
     list_filter = ("domain",)
-    search_fields = ("name", "email", "org")
+    search_fields = ("name", "email", "org__name")
     inlines = [CandidateVoteInline]
 
     def has_add_permission(self, request, obj=None):

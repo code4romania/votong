@@ -39,7 +39,31 @@ class HomeView(MenuMixin, TemplateView):
 
 
 class HubListView(MenuMixin, ListView):
-    pass
+    def search(self, queryset):
+        # TODO: it should take into account selected language. Check only romanian for now.
+        query = self.request.GET.get("q")
+        if not query:
+            return queryset
+
+        if hasattr(self, "search_cache") and query in self.search_cache:
+            return self.search_cache[query]
+
+        search_query = SearchQuery(query, config="romanian_unaccent")
+
+        vector = SearchVector("name", weight="A", config="romanian_unaccent")
+
+        result = (
+            queryset.annotate(rank=SearchRank(vector, search_query), similarity=TrigramSimilarity("name", query),)
+            .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
+            .order_by("name")
+            .distinct("name")
+        )
+        if not hasattr(self, "search_cache"):
+            self.search_cache = {}
+
+        self.search_cache[query] = result
+
+        return result
 
 
 class HubDetailView(MenuMixin, DetailView):
@@ -56,40 +80,7 @@ class OrganizationListView(HubListView):
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        # TODO: Make sure we return only accepted after we get all the rest sorted
-        # return Organization.objects.filter(status=Organization.STATUS.accepted)
-        return Organization.objects.all()
-
-    def search(self, queryset):
-        # TODO: it should take into account selected language. Check only romanian for now.
-        query = self.request.GET.get("q")
-        if not query:
-            return queryset
-
-        if hasattr(self, "search_cache") and query in self.search_cache:
-            return self.search_cache[query]
-
-        search_query = SearchQuery(query, config="romanian_unaccent")
-
-        vector = SearchVector("name", weight="A", config="romanian_unaccent") + SearchVector(
-            "founders", weight="B", config="romanian_unaccent"
-        )
-
-        result = (
-            queryset.annotate(
-                rank=SearchRank(vector, search_query),
-                similarity=(TrigramSimilarity("name", query) + TrigramSimilarity("founders", query)),
-            )
-            .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
-            .order_by("name")
-            .distinct("name")
-        )
-        if not hasattr(self, "search_cache"):
-            self.search_cache = {}
-
-        self.search_cache[query] = result
-
-        return result
+        return Organization.objects.filter(status=Organization.STATUS.accepted)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -174,36 +165,7 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        return Candidate.objects.all()
-
-    def search(self, queryset):
-        # TODO: it should take into account selected language. Check only romanian for now.
-        query = self.request.GET.get("q")
-        if not query:
-            return queryset
-
-        if hasattr(self, "search_cache") and query in self.search_cache:
-            return self.search_cache[query]
-
-        search_query = SearchQuery(query, config="romanian_unaccent")
-
-        vector = SearchVector("name", weight="A", config="romanian_unaccent")
-
-        result = (
-            queryset.annotate(
-                rank=SearchRank(vector, search_query),
-                similarity=(TrigramSimilarity("name", query) + TrigramSimilarity("founders", query)),
-            )
-            .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
-            .order_by("name")
-            .distinct("name")
-        )
-        if not hasattr(self, "search_cache"):
-            self.search_cache = {}
-
-        self.search_cache[query] = result
-
-        return result
+        return Candidate.objects.filter(org__status=Organization.STATUS.accepted)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
