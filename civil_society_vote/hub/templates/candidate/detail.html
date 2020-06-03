@@ -8,10 +8,18 @@
 {% block meta_tags %}{% with title=candidate.name image=candidate.photo.url %}{% meta_tags %}{% endwith %}{% endblock %}
 
 {% block left-side-view %}
-{% block extra-header %}
-{% endblock %}
+
 {% block domain-filters %}
 {% endblock%}
+
+<div class="container mb-50">
+  <div class="columns">
+    <div class="column is-two-thirds">
+        <h1 class="domain-title">{{ candidate.domain.name }}</h1>
+        <p>{{ candidate.domain.description }}</p>
+    </div>
+  </div>
+</div>
 
 <div class="container detail-header" xmlns="http://www.w3.org/1999/html">
     <span class="detail-header-img">

@@ -215,7 +215,7 @@ footer {
     }
 }
 
-#donate_safely {
+.mb-50 {
     margin-bottom: 50px;
 }
 
@@ -234,6 +234,12 @@ footer {
 
 .sidebar-btn {
     font-size: 0.9rem;
+}
+
+.domain-title {
+  font-size: 1.75em;
+  color: #3D4F9F;
+  margin-bottom: 1em;
 }
 
 .ngo-list-title {
