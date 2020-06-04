@@ -1,22 +1,12 @@
-from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import (
-    ADMIN_GROUP_NAME,
-    CES_GROUP_NAME,
-    NGO_GROUP_NAME,
-    SGG_GROUP_NAME,
-    Candidate,
-    City,
-    Domain,
-    Organization,
-    OrganizationVote,
-)
+from hub.models import ORG_VOTERS_GROUP, Candidate, City, Domain, Organization
 
 fake = Faker()
 
-ORG_NUMBER = 30
+ORG_NUMBER = 60
 
 
 class Command(BaseCommand):
@@ -35,54 +25,13 @@ class Command(BaseCommand):
             User.objects.create_user("sgg", "sgg@example.test", "secret")
             self.stdout.write(self.style.SUCCESS("Created SGG user"))
 
-        admin_user = User.objects.get(username="admin")
+        org_voters_group = Group.objects.get(name=ORG_VOTERS_GROUP)
+
         ces_user = User.objects.get(username="ces")
+        ces_user.groups.add(org_voters_group)
+
         sgg_user = User.objects.get(username="sgg")
-
-        admin_group, _ = Group.objects.get_or_create(name=ADMIN_GROUP_NAME)
-        ngo_group, _ = Group.objects.get_or_create(name=NGO_GROUP_NAME)
-        ces_group, _ = Group.objects.get_or_create(name=CES_GROUP_NAME)
-        sgg_group, _ = Group.objects.get_or_create(name=SGG_GROUP_NAME)
-
-        self.stdout.write(self.style.SUCCESS("Loaded groups data"))
-
-        # models.NamedCredentials: ['add', 'change', 'delete', 'view'],
-        GROUPS_PERMISSIONS = {
-            NGO_GROUP_NAME: {Organization: ["view", "change"]},
-            CES_GROUP_NAME: {Organization: ["view", "change"], OrganizationVote: ["view", "change"],},
-            SGG_GROUP_NAME: {Organization: ["view", "change"], OrganizationVote: ["view", "change"],},
-        }
-
-        for group_name in GROUPS_PERMISSIONS:
-
-            # Get or create group
-            group, created = Group.objects.get_or_create(name=group_name)
-
-            # Loop models in group
-            for model_cls in GROUPS_PERMISSIONS[group_name]:
-
-                # Loop permissions in group/model
-                for perm_index, perm_name in enumerate(GROUPS_PERMISSIONS[group_name][model_cls]):
-
-                    # Generate permission name as Django would generate it
-                    codename = perm_name + "_" + model_cls._meta.model_name
-
-                    try:
-                        # Find permission object and add to group
-                        perm = Permission.objects.get(codename=codename)
-                        group.permissions.add(perm)
-                        self.stdout.write(self.style.SUCCESS("Adding " + codename + " to group " + group.name))
-                    except Permission.DoesNotExist:
-                        self.stdout.write(self.style.ERROR(codename + " not found"))
-
-        admin_user.groups.add(admin_group)
-        admin_user.save()
-
-        ces_user.groups.add(ces_group)
-        ces_user.save()
-
-        sgg_user.groups.add(sgg_group)
-        sgg_user.save()
+        sgg_user.groups.add(org_voters_group)
 
         self.stdout.write(self.style.SUCCESS("Done setting up group permissions"))
 
@@ -119,9 +68,12 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Loaded domain data"))
 
         if not Organization.objects.count():
+            count_org_voters = 0
+
             for i in range(ORG_NUMBER):
                 city = City.objects.order_by("?").first()
                 domain = Domain.objects.order_by("?").first()
+
                 org = Organization.objects.create(
                     name=fake.company(),
                     email=fake.safe_email(),
@@ -136,45 +88,34 @@ class Command(BaseCommand):
                     board_council=fake.name(),
                     city=city,
                     county=city.county,
-                    status=["pending", "accepted", "rejected"][i % 3],
-                    # logo="/static/images/logo-demo.png",
-                    # last_balance_sheet="/static/data/test.pdf",
-                    # statute="/static/data/test.pdf",
-                    # letter="/static/data/test.pdf",
                 )
 
-                owner = User.objects.create_user(
-                    fake.user_name(),
-                    email=org.email,
-                    password="secret",
-                    first_name=fake.first_name(),
-                    last_name=fake.last_name(),
-                )
-                owner.groups.add(ngo_group)
-                owner.save()
+                status = ["pending", "accepted", "rejected"][i % 3]
 
-                org.user = owner
-                org.save()
+                if status == "rejected":
+                    org.reject(request=None)
+                    self.stdout.write(self.style.SUCCESS(f"Created organization {org}"))
+                elif status == "accepted":
+                    org.accept(request=None)
 
-                candidate = Candidate.objects.create(
-                    org=org,
-                    name=org.representative,
-                    role=fake.job(),
-                    experience=fake.text(),
-                    studies=fake.text(),
-                    representative=True,
-                    email=fake.safe_email(),
-                    phone=fake.phone_number(),
-                    domain=org.domain,
-                    # photo="/static/images/photo-placeholder.gif",
-                    # mandate="/static/data/test.pdf",
-                    # letter="/static/data/test.pdf",
-                    # statement="/static/data/test.pdf",
-                    # cv="/static/data/test.pdf",
-                    # legal_record="/static/data/test.pdf",
-                )
+                    # we add a few org users to the voting group
+                    if count_org_voters < 3:
+                        org.user.groups.add(org_voters_group)
+                        count_org_voters += 1
 
-                self.stdout.write(self.style.SUCCESS(f"Created organization {org} with candidate {candidate.name}"))
+                    candidate = Candidate.objects.create(
+                        org=org,
+                        name=org.representative,
+                        role=fake.job(),
+                        experience=fake.text(),
+                        studies=fake.text(),
+                        representative=True,
+                        email=fake.safe_email(),
+                        phone=fake.phone_number(),
+                        domain=org.domain,
+                    )
+
+                    self.stdout.write(self.style.SUCCESS(f"Created organization {org} and candidate {candidate.name}"))
 
         self.stdout.write(self.style.SUCCESS("Loaded organizations data"))
 

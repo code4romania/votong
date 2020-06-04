@@ -9,11 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
-ADMIN_GROUP_NAME = "Admin"
-
-NGO_GROUP_NAME = "ONG"
-CES_GROUP_NAME = "CES"
-SGG_GROUP_NAME = "SGG"
+ORG_VOTERS_GROUP = "OrgVoters"
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
 PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)

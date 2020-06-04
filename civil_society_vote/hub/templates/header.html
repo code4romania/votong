@@ -1,5 +1,6 @@
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
+{% load hub_tags %}
+
 <div class="h-padded-wrapper">
     <div class="container border-b">
         <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -17,7 +18,7 @@
             </div>
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-end has-text-centered-touch">
-                    {% if user.is_authenticated %}
+                    {% if user|in_org_voters_group %}
                     <a  href="{% url 'ngos' %}" class="navbar-item">
                         {% trans "Organizations" %}
                     </a>
@@ -52,8 +53,9 @@
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                          {% if user_org_candidate %}
-                          <a href="{% url 'candidate-detail' user_org_candidate.id %}" class="navbar-item">
+                        {% if user.orgs.exists %}
+                          {% if user.orgs.first.candidate %}
+                          <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}" class="navbar-item">
                             {% trans "View candidate" %}
                           </a>
                           {% else %}
@@ -61,7 +63,7 @@
                             {% trans "Add candidate" %}
                           </a>
                           {% endif %}
-
+                        {% endif %}
                           <hr class="dropdown-divider">
                           <a href="{% url 'logout' %}" class="dropdown-item" style="color:red;">{% trans "Logout" %}</a>
                         </div>
@@ -69,9 +71,9 @@
                     </div>
                     </div>
 
-                    {% if request.user.is_impersonate %}
+                    {% if user.is_impersonate %}
                     <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
-                        STOP IMPERSONATING<br>{{ request.user.get_full_name }}
+                        STOP IMPERSONATING<br>{{ request.user.email }}
                     </a>
                     {% endif %}
 

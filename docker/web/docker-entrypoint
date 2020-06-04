@@ -2,8 +2,10 @@
 
 PORT=${PORT:-"8000"}
 
-RUN_MIGRATION=${RUN_MIGRATION:-"yes"}
 LOAD_DUMMY_DATA=${LOAD_DUMMY_DATA:-"no"}
+
+RUN_MIGRATION=${RUN_MIGRATION:-"yes"}
+RUN_INITIALIZATION=${RUN_INITIALIZATION:-"yes"}
 RUN_COLLECT_STATIC=${RUN_COLLECT_STATIC:-"no"}
 RUN_DEV_SERVER=${RUN_DEV_SERVER:-"yes"}
 
@@ -13,6 +15,11 @@ echo "Run basic health checks"
 if [[ $RUN_MIGRATION = yes ]] ; then
   echo "Run database migrations"
   ./manage.py migrate
+fi
+
+if [[ $RUN_INITIALIZATION = yes ]] ; then
+  echo "Add functional data to the system"
+  ./manage.py initialization
 fi
 
 if [[ $LOAD_DUMMY_DATA = yes ]] ; then

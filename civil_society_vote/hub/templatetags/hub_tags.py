@@ -1,6 +1,6 @@
 from django import template
 
-from hub.models import CandidateVote
+from hub.models import ORG_VOTERS_GROUP, CandidateVote
 
 register = template.Library()
 
@@ -14,3 +14,10 @@ def can_vote_candidate(user, candidate):
         return False
 
     return True
+
+
+@register.filter
+def in_org_voters_group(user):
+    if user.groups.filter(name=ORG_VOTERS_GROUP).exists():
+        return True
+    return False
