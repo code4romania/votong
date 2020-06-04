@@ -3,6 +3,7 @@
 PORT=${PORT:-"8000"}
 
 RUN_MIGRATION=${RUN_MIGRATION:-"yes"}
+LOAD_DUMMY_DATA=${LOAD_DUMMY_DATA:-"no"}
 RUN_COLLECT_STATIC=${RUN_COLLECT_STATIC:-"no"}
 RUN_DEV_SERVER=${RUN_DEV_SERVER:-"yes"}
 
@@ -12,6 +13,11 @@ echo "Run basic health checks"
 if [[ $RUN_MIGRATION = yes ]] ; then
   echo "Run database migrations"
   ./manage.py migrate
+fi
+
+if [[ $LOAD_DUMMY_DATA = yes ]] ; then
+  echo "Load dummy data in the database"
+  ./manage.py seed
 fi
 
 if [[ $RUN_COLLECT_STATIC = yes ]] ; then

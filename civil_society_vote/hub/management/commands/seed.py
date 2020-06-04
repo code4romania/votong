@@ -9,6 +9,7 @@ from hub.models import (
     SGG_GROUP_NAME,
     Candidate,
     City,
+    Domain,
     Organization,
     OrganizationVote,
 )
@@ -85,75 +86,95 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Done setting up group permissions"))
 
-        cities = [
-            {"city": "Arad", "county": "Arad"},
-            {"city": "Timisoara", "county": "Timis"},
-            {"city": "Oradea", "county": "Bihor"},
-            {"city": "Cluj-Napoca", "county": "Cluj"},
-            {"city": "Constanta", "county": "Constanta"},
-            {"city": "Iasi", "county": "Iasi"},
-            {"city": "Bucuresti", "county": "Bucuresti"},
-        ]
-        for city_data in cities:
-            City.objects.get_or_create(**city_data)
+        if not City.objects.count():
+            cities = [
+                {"city": "Arad", "county": "Arad"},
+                {"city": "Timisoara", "county": "Timis"},
+                {"city": "Oradea", "county": "Bihor"},
+                {"city": "Cluj-Napoca", "county": "Cluj"},
+                {"city": "Constanta", "county": "Constanta"},
+                {"city": "Iasi", "county": "Iasi"},
+                {"city": "Bucuresti", "county": "Bucuresti"},
+            ]
+            for city_data in cities:
+                City.objects.get_or_create(**city_data)
 
-        self.stdout.write(self.style.SUCCESS("Loaded city data"))
+            self.stdout.write(self.style.SUCCESS("Loaded city data"))
 
-        for i in range(ORG_NUMBER):
-            city = City.objects.order_by("?").first()
-            org = Organization.objects.create(
-                name=fake.company(),
-                email=fake.safe_email(),
-                phone=fake.phone_number(),
-                address=fake.address(),
-                domain=((i % 6) + 1),
-                reg_com_number=fake.ssn(),
-                purpose_initial=fake.sentence(),
-                purpose_current=fake.sentence(),
-                founders=fake.name(),
-                representative=fake.name(),
-                board_council=fake.name(),
-                city=city,
-                county=city.county,
-                status=["pending", "accepted", "rejected"][i % 3],
-                logo="/static/images/logo-demo.png",
-                last_balance_sheet="/static/data/test.pdf",
-                statute="/static/data/test.pdf",
-                letter="/static/data/test.pdf",
-            )
+        if not Domain.objects.count():
+            domains = [
+                {"name": "Organizații academice și profesionale", "description": fake.text()},
+                {"name": "Organizații cooperatiste și agricole", "description": fake.text()},
+                {
+                    "name": "Organizații din domeniul social, familia și persoane cu dizabiltăți și pensionari",
+                    "description": fake.text(),
+                },
+                {"name": "Organizații din domeniul sănătății/educației", "description": fake.text()},
+                {"name": "Organizații din domeniul mediului", "description": fake.text()},
+                {"name": "Organizații pentru Protecția Drepturilor Omului", "description": fake.text()},
+            ]
+            for domain in domains:
+                Domain.objects.get_or_create(**domain)
 
-            owner = User.objects.create_user(
-                fake.user_name(),
-                email=org.email,
-                password="secret",
-                first_name=fake.first_name(),
-                last_name=fake.last_name(),
-            )
-            owner.groups.add(ngo_group)
-            owner.save()
+            self.stdout.write(self.style.SUCCESS("Loaded domain data"))
 
-            org.user = owner
-            org.save()
+        if not Organization.objects.count():
+            for i in range(ORG_NUMBER):
+                city = City.objects.order_by("?").first()
+                domain = Domain.objects.order_by("?").first()
+                org = Organization.objects.create(
+                    name=fake.company(),
+                    email=fake.safe_email(),
+                    phone=fake.phone_number(),
+                    address=fake.address(),
+                    domain=domain,
+                    reg_com_number=fake.ssn(),
+                    purpose_initial=fake.sentence(),
+                    purpose_current=fake.sentence(),
+                    founders=fake.name(),
+                    representative=fake.name(),
+                    board_council=fake.name(),
+                    city=city,
+                    county=city.county,
+                    status=["pending", "accepted", "rejected"][i % 3],
+                    # logo="/static/images/logo-demo.png",
+                    # last_balance_sheet="/static/data/test.pdf",
+                    # statute="/static/data/test.pdf",
+                    # letter="/static/data/test.pdf",
+                )
 
-            candidate = Candidate.objects.create(
-                org=org,
-                name=org.representative,
-                role=fake.job(),
-                experience=fake.text(),
-                studies=fake.text(),
-                representative=True,
-                email=fake.safe_email(),
-                phone=fake.phone_number(),
-                domain=org.domain,
-                photo="/static/images/photo-placeholder.gif",
-                mandate="/static/data/test.pdf",
-                letter="/static/data/test.pdf",
-                statement="/static/data/test.pdf",
-                cv="/static/data/test.pdf",
-                legal_record="/static/data/test.pdf",
-            )
+                owner = User.objects.create_user(
+                    fake.user_name(),
+                    email=org.email,
+                    password="secret",
+                    first_name=fake.first_name(),
+                    last_name=fake.last_name(),
+                )
+                owner.groups.add(ngo_group)
+                owner.save()
 
-            self.stdout.write(self.style.SUCCESS(f"Created organization {org} with candidate {candidate.name}"))
+                org.user = owner
+                org.save()
+
+                candidate = Candidate.objects.create(
+                    org=org,
+                    name=org.representative,
+                    role=fake.job(),
+                    experience=fake.text(),
+                    studies=fake.text(),
+                    representative=True,
+                    email=fake.safe_email(),
+                    phone=fake.phone_number(),
+                    domain=org.domain,
+                    # photo="/static/images/photo-placeholder.gif",
+                    # mandate="/static/data/test.pdf",
+                    # letter="/static/data/test.pdf",
+                    # statement="/static/data/test.pdf",
+                    # cv="/static/data/test.pdf",
+                    # legal_record="/static/data/test.pdf",
+                )
+
+                self.stdout.write(self.style.SUCCESS(f"Created organization {org} with candidate {candidate.name}"))
 
         self.stdout.write(self.style.SUCCESS("Loaded organizations data"))
 

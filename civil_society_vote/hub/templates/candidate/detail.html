@@ -1,21 +1,38 @@
 {% extends 'candidate/base.html' %}
-{% load social_share  %}
-{% load static %}
+{% load static i18n %}
 {% load spurl %}
-{% load i18n %}
-{% load meta_tags %}
+{% load social_share meta_tags hub_tags %}
 
-{% block meta_tags %}{% with title=candidate.name image=candidate.photo.url %}{% meta_tags %}{% endwith %}{% endblock %}
+
+{% block meta_tags %}
+  {% if candidate.photo %}
+    {% with title=candidate.name image=candidate.photo.url %}
+      {% meta_tags %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}
 
 {% block left-side-view %}
-{% block extra-header %}
-{% endblock %}
+
 {% block domain-filters %}
 {% endblock%}
 
+<div class="container mb-50">
+  <div class="columns">
+    <div class="column is-two-thirds">
+        <h1 class="domain-title">{{ candidate.domain.name }}</h1>
+        <p class="domain-subtitle">{{ candidate.domain.description }}</p>
+    </div>
+  </div>
+</div>
+
 <div class="container detail-header" xmlns="http://www.w3.org/1999/html">
     <span class="detail-header-img">
-        <img src="{{ candidate.photo|default:'/static/images/photo-placeholder.gif' }}" alt="{{ candidate.name }}">
+    {% if candidate.photo %}
+        <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+    {% else %}
+        <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+    {% endif %}
     </span>
     <div>
         <div class="subtitle">
@@ -27,20 +44,75 @@
         <div class="subtitle">
             {{ candidate.email }}
         </div>
-        <div class="description">
-            <b>{% trans 'Experience' %}:</b> {{ candidate.experience }}
-        </div>
     </div>
 </div>
 
 <hr/>
 
 <div class="container detail-desc">
-    <div class="detail-desc-title">{% trans "About the candidate" %}</div>
-    <p><i>{% trans 'Studies' %}:</i> {{ candidate.studies }}</p>
+    <div class="detail-desc-title">{% trans "General information" %}</div>
+    <p><b>{% trans 'Role' %}:</b> {{ candidate.role }}</p>
+    <p><b>{% trans 'Professional experience' %}:</b> {{ candidate.experience }}</p>
+    <p><b>{% trans 'Studies' %}:</b> {{ candidate.studies }}</p>
+    <p><b>{% trans 'Founder/Associate' %}:</b> {{ candidate.founder|yesno:"DA,NU" }}</p>
+    <p><b>{% trans 'Legal representative' %}:</b> {{ candidate.representative|yesno:"DA,NU" }}</p>
+    <p><b>{% trans 'Board member' %}:</b> {{ candidate.board_member|yesno:"DA,NU" }}</p>
 </div>
 
+
+<div class="container detail-desc">
+    <div class="detail-desc-title">{% trans "Documents" %}</div>
+    {% if candidate.cv %}<p><a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a></p>{% endif %}
+    {% if candidate.letter %}<p><a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a></p>{% endif %}
+    {% if candidate.mandate %}<p><a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a></p>{% endif %}
+    {% if candidate.statement %}<p><a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a></p>{% endif %}
+    {% if candidate.legal_record %}<p><a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a></p>{% endif %}
+</div>
+
+<div class="container detail-desc">
+    <div class="detail-desc-title">{{ candidate.org.name }}</div>
+    <p><b>{% trans 'Founders/Associates' %}:</b> {{ candidate.org.founders }}</p>
+    <p><b>{% trans 'Board council' %}:</b> {{ candidate.org.board_council }}</p>
+    <p><b>{% trans 'Legal representative' %}:</b> {{ candidate.org.representative }}</p>
+</div>
+
+{% if user.is_authenticated %}
+<hr>
+<div class="container detail-desc has-text-centered">
+  <article id="vote-candidate-error" class="message is-danger" style="display: none;">
+    <div class="message-body">A avut loc o eroare in momentul votarii. Fie ati votat deja pentru acest candidat sau ati votat deja in acest domeniu. <br> Daca credeti ca aceasta eroare este o greseala va rugam sa ne contactati utilizand <a href="{% url 'contact' %}">formularul de contact<a>.</div>
+  </article>
+
+  <article id="vote-candidate-success" class="message is-success" style="display: none;">
+    <div class="message-body">Votul a fost inregistrat cu succes.</div>
+  </article>
+
+  {% if not user|can_vote_candidate:candidate %}
+  <article id="vote-candidate-info" class="message is-info">
+    <div class="message-body">Ati votat deja in acest domeniu.</div>
+  </article>
+  {% endif %}
+
+  <button id="vote-candidate-button" class="button is-success is-large" {% if not user|can_vote_candidate:candidate %}disabled{% endif %}>VOTEAZA</button>
+</div>
+<script>
+$( document ).ready(function() {
+  $( "#vote-candidate-button" ).on( "click", function( event ) {
+    var button = $( this );
+    $.get( "{% url 'candidate-vote' candidate.id %}", function() {
+      button.attr("disabled", true);
+      $( "#vote-candidate-success" ).show();
+    }).fail(function() {
+      $( "#vote-candidate-error" ).show();
+    });
+  });
+});
+</script>
+{% endif %}
+
+{% comment %}
 {% social_buttons obj=candidate %}
+{% endcomment %}
 
 {% endblock %}
 

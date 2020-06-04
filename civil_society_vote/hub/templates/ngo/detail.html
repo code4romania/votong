@@ -5,7 +5,14 @@
 {% load i18n %}
 {% load meta_tags %}
 
-{% block meta_tags %}{% with title=ngo.name image=ngo.logo.url description=ngo.description %}{% meta_tags %}{% endwith %}{% endblock %}
+{% block meta_tags %}
+  {% if ngo.logo %}
+    {% with title=ngo.name image=ngo.logo.url %}
+      {% meta_tags %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}
+
 
 {% block left-side-view %}
 {% block extra-header %}
@@ -15,7 +22,11 @@
 
 <div class="container detail-header" xmlns="http://www.w3.org/1999/html">
     <span class="detail-header-img">
-        <img src="{{ ngo.logo }}" alt="{{ngo.name}}">
+    {% if ngo.logo %}
+        <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+    {% else %}
+        <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+    {% endif %}
     </span>
     <div>
         <h2 class="title">
@@ -25,9 +36,8 @@
             {{ ngo.email }}
         </div>
         <div class="description">
-            <b>{% trans 'Founders' %}:</b> {{ ngo.founders }} <br>
-            <b>{% trans 'Representative' %}:</b> {{ ngo.representative }} <br>
-            <b>{% trans 'Board council' %}:</b> {{ ngo.board_council }}
+          <p><b>{% trans 'Initial purpose' %}:</b> {{ ngo.purpose_initial }}</p>
+          <p><b>{% trans 'Current purpose' %}:</b> {{ ngo.purpose_current }}</p>
         </div>
     </div>
 </div>
@@ -36,11 +46,26 @@
 
 <div class="container detail-desc">
     <div class="detail-desc-title">{% trans "About the organization" %}</div>
-    <p><i>{% trans 'Initial purpose' %}:</i> {{ ngo.purpose_initial }}</p>
-    <p><i>{% trans 'Current purpose' %}:</i> {{ ngo.purpose_current }}</p>
+    <p><b>{% trans 'Founders' %}:</b> {{ ngo.founders }}</p>
+    <p><b>{% trans 'Representative' %}:</b> {{ ngo.representative }}</p>
+    <p><b>{% trans 'Board council' %}:</b> {{ ngo.board_council }}</p>
 </div>
 
+
+<hr>
+
+<div class="container detail-desc">
+  <textarea class="textarea is-small" placeholder="Motivatia votului (obligatoriu daca votul e NU)"></textarea>
+  <div class="buttons vote-org-buttons">
+    <button class="button is-danger is-large vote-org-button">NU</button>
+    <button class="button is-success is-large vote-org-button">DA</button>
+    <button class="button is-warning is-large vote-org-button">ABTINERE</button>
+  </div>
+</div>
+
+{% comment %}
 {% social_buttons obj=ngo %}
+{% endcomment %}
 
 {% endblock %}
 

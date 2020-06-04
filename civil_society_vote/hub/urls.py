@@ -4,16 +4,20 @@ from hub.views import (
     CandidateDetailView,
     CandidateListView,
     CandidateRegisterRequestCreateView,
+    CandidateVoteView,
     CityAutocomplete,
+    HomeView,
     OrganizationDetailView,
     OrganizationListView,
     OrganizationRegisterRequestCreateView,
 )
 
 urlpatterns = [
-    path("", CandidateListView.as_view(), name="candidates"),
+    path("", HomeView.as_view(), name="home"),
+    path("candidates/", CandidateListView.as_view(), name="candidates"),
     path("candidate/register", CandidateRegisterRequestCreateView.as_view(), name="candidate-register-request",),
     path("candidate/<int:pk>", CandidateDetailView.as_view(), name="candidate-detail"),
+    path("candidate/<int:pk>/vote", CandidateVoteView.as_view(), name="candidate-vote"),
     path("ngos/", OrganizationListView.as_view(), name="ngos"),
     path("ngos/register", OrganizationRegisterRequestCreateView.as_view(), name="ngos-register-request",),
     path("ngos/<int:pk>", OrganizationDetailView.as_view(), name="ngo-detail"),

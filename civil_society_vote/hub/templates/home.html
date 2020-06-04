@@ -1,7 +1,67 @@
 {% extends "base.html" %}
-
 {% load static %}
+{% load spurl %}
 {% load i18n %}
 
 {% block content %}
+<div class="search-wrapper container is-flex">
+    <form action="{% url 'candidates' %}" method="GET">
+        <div class="field border-b">
+            <p class="control has-icons-right ">
+                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
+                <label class="search-icon">
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="submit" style="display: none;"/>
+                </label>
+            </p>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-two-thirds">
+
+          <div class="container has-text-centered">
+            <h1 class="donate-title">Forul Societății Civile</h1>
+            <p class="donate-subtitle">
+              Platforma Forul Societății Civile are ca scop creșterea gradului de reprezentative a organizațiilor neguvernamentale și de a facilita luarea de decizii ușor pe problematici care vizeaza unul, mai multe sau toate sectoarele societății civile.
+            </p>
+          </div>
+
+          <hr>
+          <div class="container">
+            <h1 class="donate-title">Despre proiect</h1>
+            <p class="donate-subtitle">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo. Ut a bibendum ligula, et feugiat elit. Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat. Proin pretium massa ligula, sed tempus augue elementum sit amet. Etiam venenatis neque ut elit rutrum, vel pulvinar massa commodo. Proin egestas sed sem at mattis. Maecenas fermentum nibh ut turpis condimentum condimentum. Cras nec eleifend mauris, volutpat sollicitudin augue. Suspendisse nibh diam, consectetur ut dui vitae, cursus pellentesque orci. Duis sapien nibh, tincidunt sit amet tincidunt sed, sollicitudin vel mi. Sed auctor odio ligula, auctor ullamcorper leo feugiat a.
+            </p>
+          </div>
+
+          <hr>
+          <div class="container">
+            <h1 class="donate-title">Cum functioneaza</h1>
+            <div class="columns">
+              <div class="column is-half">Step 1</div>
+              <div class="column is-half">Step 2</div>
+            </div>
+            <div class="columns">
+              <div class="column is-half">Step 3</div>
+              <div class="column is-half">Step 4</div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="container has-text-centered">
+            <h1 class="donate-title">Alegeri CES/CESE 2020</h1>
+            <p class="donate-subtitle">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo. Ut a bibendum ligula, et feugiat elit. Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat. Proin pretium massa ligula, sed tempus augue elementum sit amet. Etiam venenatis neque ut elit rutrum, vel pulvinar massa commodo. Proin egestas sed sem at mattis. Maecenas fermentum nibh ut turpis condimentum condimentum. Cras nec eleifend mauris, volutpat sollicitudin augue. Suspendisse nibh diam, consectetur ut dui vitae, cursus pellentesque orci. Duis sapien nibh, tincidunt sit amet tincidunt sed, sollicitudin vel mi. Sed auctor odio ligula, auctor ullamcorper leo feugiat a.
+            </p>
+          </div>
+
+        </div>
+    </div>
+
+</div>
 {% endblock %}

@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
@@ -73,14 +72,17 @@ VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION"
 
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
 
-DOMAIN_CHOICES = Choices(
-    (1, "domain_1", _("Academic and professional")),
-    (2, "domain_2", _("Education and health")),
-    (3, "domain_3", _("Agricultural and cooperative")),
-    (4, "domain_4", _("Environmental")),
-    (5, "domain_5", _("Social, family, people with disabilities and the elderly")),
-    (6, "domain_6", _("Human rights")),
-)
+
+class Domain(TimeStampedModel):
+    name = models.CharField(_("Name"), max_length=254, unique=True)
+    description = models.TextField(_("Description"))
+
+    class Meta:
+        verbose_name = _("Domain")
+        verbose_name_plural = _("Domains")
+
+    def __str__(self):
+        return self.name
 
 
 class City(models.Model):
@@ -90,7 +92,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name = _("City")
-        verbose_name_plural = _("cities")
+        verbose_name_plural = _("Cities")
         unique_together = ["city", "county"]
 
     def __str__(self):
@@ -108,8 +110,9 @@ class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="orgs")
+
     name = models.CharField(_("NGO Name"), max_length=254)
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
     state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
     purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
@@ -174,19 +177,6 @@ class Organization(StatusModel, TimeStampedModel):
         user.is_active = True
         user.save()
 
-        ngo_group = Group.objects.get(name=NGO_GROUP_NAME)
-        user.groups.add(ngo_group)
-
-        # reset_form = PasswordResetForm({"email": user.email})
-        # if reset_form.is_valid():
-        #     reset_form.save(
-        #         request=request,
-        #         use_https=request.is_secure(),
-        #         subject_template_name="registration/password_reset_subject.txt",
-        #         email_template_name="registration/password_reset_email.html",
-        #         html_email_template_name="registration/password_reset_email.html",
-        #     )
-
         return user
 
     @transaction.atomic
@@ -195,19 +185,18 @@ class Organization(StatusModel, TimeStampedModel):
         self.user = owner
         self.status = self.STATUS.accepted
         self.save()
-        # TODO send acceptance notification
 
     @transaction.atomic
     def reject(self, request):
         self.status = self.STATUS.rejected
         self.save()
-        # TODO send rejection notification
 
 
 class OrganizationVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="+")
+
     vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
     motivation = models.TextField(
         _("Motivation"), max_length=500, null=True, blank=True, help_text=_("Motivate your decision"),
@@ -236,7 +225,8 @@ class OrganizationVote(TimeStampedModel):
 
 class Candidate(TimeStampedModel):
     org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
+
     name = models.CharField(_("Name"), max_length=254)
     role = models.CharField(_("Role"), max_length=254)
     founder = models.BooleanField(_("Founder/Associate"), default=False)
@@ -251,7 +241,7 @@ class Candidate(TimeStampedModel):
     mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
     letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
     statement = models.FileField(_("Statement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
-    cv = models.FileField(_("CV"), max_length=300, storage=PrivateMediaStorageClass())
+    cv = models.FileField(_("Curriculum Vitae"), max_length=300, storage=PrivateMediaStorageClass())
     legal_record = models.FileField(_("Legal record"), max_length=300, storage=PrivateMediaStorageClass())
 
     class Meta:
@@ -264,11 +254,17 @@ class Candidate(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
 
+    def save(self, *args, **kwargs):
+        if self.id and CandidateVote.objects.filter(candidate=self).exists():
+            raise ValidationError(_("Cannot update candidate after votes have been cast."))
+
+        super().save(*args, **kwargs)
+
 
 class CandidateVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
-    domain = models.PositiveSmallIntegerField(_("Domain"), choices=DOMAIN_CHOICES)
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
     class Meta:
         verbose_name_plural = _("Canditate votes")

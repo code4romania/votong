@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 16:25+0000\n"
+"POT-Creation-Date: 2020-06-03 21:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,253 +23,268 @@ msgstr ""
 msgid "Admin Civil Society Vote"
 msgstr ""
 
-#: hub/admin.py:165
+#: hub/admin.py:88
+msgid "user"
+msgstr ""
+
+#: hub/admin.py:210
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:173
+#: hub/admin.py:218
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:67
+#: hub/forms.py:74
+msgid "Authenticated user does not have an organization."
+msgstr ""
+
+#: hub/forms.py:76
+msgid "Authenticated user has more than one organization."
+msgstr ""
+
+#: hub/forms.py:79
+msgid "Organization already has a candidate."
+msgstr ""
+
+#: hub/forms.py:85
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:72
+#: hub/forms.py:90
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
-#: hub/models.py:71
+#: hub/models.py:70
 msgid "YES"
 msgstr ""
 
-#: hub/models.py:71
+#: hub/models.py:70
 msgid "NO"
 msgstr ""
 
-#: hub/models.py:71
+#: hub/models.py:70
 msgid "ABSTENTION"
 msgstr ""
 
-#: hub/models.py:74
+#: hub/models.py:73
 msgid "Active"
 msgstr ""
 
-#: hub/models.py:74
+#: hub/models.py:73
 msgid "Inactive"
 msgstr ""
 
-#: hub/models.py:77
-msgid "Academic and professional"
+#: hub/models.py:77 hub/models.py:230
+msgid "Name"
 msgstr ""
 
 #: hub/models.py:78
-msgid "Education and health"
-msgstr ""
-
-#: hub/models.py:79
-msgid "Agricultural and cooperative"
-msgstr ""
-
-#: hub/models.py:80
-msgid "Environmental"
+msgid "Description"
 msgstr ""
 
 #: hub/models.py:81
-msgid "Social, family, people with disabilities and the elderly"
+msgid "Domain"
 msgstr ""
 
 #: hub/models.py:82
-msgid "Human rights"
+msgid "Domains"
 msgstr ""
 
-#: hub/models.py:87 hub/models.py:92 hub/models.py:123
+#: hub/models.py:89 hub/models.py:94 hub/models.py:126
 #: hub/templates/ngo/list.html:59
 msgid "City"
 msgstr ""
 
-#: hub/models.py:88 hub/models.py:122 hub/templates/ngo/list.html:24
+#: hub/models.py:90 hub/models.py:125 hub/templates/ngo/list.html:24
 msgid "County"
 msgstr ""
 
-#: hub/models.py:89
+#: hub/models.py:91
 msgid "Is county residence"
 msgstr ""
 
-#: hub/models.py:93
-msgid "cities"
+#: hub/models.py:95
+msgid "Cities"
 msgstr ""
 
-#: hub/models.py:108
+#: hub/models.py:110
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:108
+#: hub/models.py:110
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:108
+#: hub/models.py:110
 msgid "Rejected"
 msgstr ""
 
-#: hub/models.py:111
+#: hub/models.py:115
 msgid "NGO Name"
 msgstr ""
 
-#: hub/models.py:112 hub/models.py:210 hub/models.py:249 hub/models.py:271
-msgid "Domain"
-msgstr ""
-
-#: hub/models.py:113
+#: hub/models.py:116
 msgid "Registration number"
 msgstr ""
 
-#: hub/models.py:114
+#: hub/models.py:117
 msgid "Current state"
 msgstr ""
 
-#: hub/models.py:115 hub/templates/ngo/detail.html:39
+#: hub/models.py:118 hub/templates/ngo/detail.html:39
 msgid "Initial purpose"
 msgstr ""
 
-#: hub/models.py:116 hub/templates/ngo/detail.html:40
+#: hub/models.py:119 hub/templates/ngo/detail.html:40
 msgid "Current purpose"
 msgstr ""
 
-#: hub/models.py:117
+#: hub/models.py:120 hub/templates/candidate/detail.html:74
 msgid "Founders/Associates"
 msgstr ""
 
-#: hub/models.py:118 hub/models.py:244
+#: hub/models.py:121 hub/models.py:233 hub/templates/candidate/detail.html:58
+#: hub/templates/candidate/detail.html:76
 msgid "Legal representative"
 msgstr ""
 
-#: hub/models.py:119 hub/templates/ngo/detail.html:30
+#: hub/models.py:122 hub/templates/candidate/detail.html:75
+#: hub/templates/ngo/detail.html:51
 msgid "Board council"
 msgstr ""
 
-#: hub/models.py:120 hub/models.py:246
+#: hub/models.py:123 hub/models.py:237
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:121 hub/models.py:247
+#: hub/models.py:124 hub/models.py:238
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:124
+#: hub/models.py:127
 msgid "Address"
 msgstr ""
 
-#: hub/models.py:125
+#: hub/models.py:128
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:127
+#: hub/models.py:130
 msgid "First page of last balance sheet"
 msgstr ""
 
-#: hub/models.py:129
+#: hub/models.py:132
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:252
+#: hub/models.py:133 hub/models.py:242 hub/templates/candidate/detail.html:66
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:133 hub/templates/header.html:29
+#: hub/models.py:136 hub/templates/header.html:22
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:134
+#: hub/models.py:137
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:154
+#: hub/models.py:157
 msgid "Yes"
 msgstr ""
 
-#: hub/models.py:159
+#: hub/models.py:162
 msgid "No"
 msgstr ""
 
-#: hub/models.py:164
+#: hub/models.py:167
 msgid "Abstention"
 msgstr ""
 
-#: hub/models.py:211
+#: hub/models.py:200
 msgid "Vote"
 msgstr ""
 
-#: hub/models.py:213
+#: hub/models.py:202
 msgid "Motivation"
 msgstr ""
 
-#: hub/models.py:213
+#: hub/models.py:202
 msgid "Motivate your decision"
 msgstr ""
 
-#: hub/models.py:217 hub/models.py:274
+#: hub/models.py:206
 msgid "Organization votes"
 msgstr ""
 
-#: hub/models.py:218 hub/models.py:275
+#: hub/models.py:207
 msgid "Organization vote"
 msgstr ""
 
-#: hub/models.py:232
+#: hub/models.py:221
 msgid "You must specify a motivation if voting NO!"
 msgstr ""
 
-#: hub/models.py:239
-msgid "Name"
-msgstr ""
-
-#: hub/models.py:240
+#: hub/models.py:231 hub/templates/candidate/detail.html:54
 msgid "Role"
 msgstr ""
 
-#: hub/models.py:241
-msgid "Professional experience"
-msgstr ""
-
-#: hub/models.py:242 hub/templates/candidate/detail.html:40
-msgid "Studies"
-msgstr ""
-
-#: hub/models.py:243
+#: hub/models.py:232 hub/templates/candidate/detail.html:57
 msgid "Founder/Associate"
 msgstr ""
 
-#: hub/models.py:245
+#: hub/models.py:234 hub/templates/candidate/detail.html:59
 msgid "Board member"
 msgstr ""
 
-#: hub/models.py:248
+#: hub/models.py:235 hub/templates/candidate/detail.html:55
+msgid "Professional experience"
+msgstr ""
+
+#: hub/models.py:236 hub/templates/candidate/detail.html:56
+msgid "Studies"
+msgstr ""
+
+#: hub/models.py:239
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:251
+#: hub/models.py:241 hub/templates/candidate/detail.html:67
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:253
+#: hub/models.py:243 hub/templates/candidate/detail.html:68
 msgid "Statement of conformity"
 msgstr ""
 
-#: hub/models.py:254
-msgid "CV"
+#: hub/models.py:244 hub/templates/candidate/detail.html:65
+msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:255
+#: hub/models.py:245 hub/templates/candidate/detail.html:69
 msgid "Legal record"
 msgstr ""
 
-#: hub/models.py:258 hub/templates/candidate/list.html:11
+#: hub/models.py:248 hub/templates/candidate/list.html:11
+#: hub/templates/header.html:27
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:259
+#: hub/models.py:249
 msgid "Candidate"
+msgstr ""
+
+#: hub/models.py:259
+msgid "Cannot update candidate after votes have been cast."
+msgstr ""
+
+#: hub/models.py:270
+msgid "Canditate votes"
+msgstr ""
+
+#: hub/models.py:271
+msgid "Candidate vote"
 msgstr ""
 
 #: hub/password_validation.py:14
@@ -423,44 +438,41 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/base.html:11 hub/templates/ngo/base.html:11
+#: hub/templates/candidate/base.html:11 hub/templates/home.html:11
+#: hub/templates/ngo/base.html:11
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/base.html:27 hub/templates/header.html:8
-#: hub/templates/ngo/base.html:27
+#: hub/templates/candidate/base.html:30 hub/templates/header.html:8
+#: hub/templates/ngo/base.html:31
 msgid "Elections CES/CESE 2020"
 msgstr ""
 
-#: hub/templates/candidate/base.html:30 hub/templates/ngo/base.html:30
+#: hub/templates/candidate/base.html:33 hub/templates/ngo/base.html:34
 msgid ""
 "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
 "dedicată alegerilor Consiliului Economic și Social din România și din "
 "Uniuniea Europeană"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:31
-msgid "Experience"
+#: hub/templates/candidate/detail.html:53
+msgid "General information"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:39
-msgid "About the candidate"
+#: hub/templates/candidate/detail.html:64
+msgid "Documents"
 msgstr ""
 
-#: hub/templates/candidate/list.html:61 hub/templates/ngo/list.html:151
+#: hub/templates/candidate/list.html:69 hub/templates/ngo/list.html:159
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:75 hub/templates/ngo/list.html:165
+#: hub/templates/candidate/list.html:83 hub/templates/ngo/list.html:173
 msgid "No results matching query"
 msgstr ""
 
 #: hub/templates/candidate/register_request.html:14
-#: hub/templates/header.html:25
-msgid "Add candidate"
-msgstr ""
-
-#: hub/templates/candidate/register_request.html:38
+#: hub/templates/candidate/register_request.html:37
 msgid "Propose candidate"
 msgstr ""
 
@@ -871,48 +883,57 @@ msgid ""
 "An independent, non-partisan, non-political, non-govermental organization."
 msgstr ""
 
-#: hub/templates/header.html:21
-msgid "Register organization"
-msgstr ""
-
-#: hub/templates/header.html:33
+#: hub/templates/header.html:31
 msgid "About"
 msgstr ""
 
-#: hub/templates/header.html:37
+#: hub/templates/header.html:35
 msgid "General rules"
 msgstr ""
 
-#: hub/templates/header.html:41
+#: hub/templates/header.html:39
 msgid "Contact"
 msgstr ""
 
-#: hub/templates/header.html:46
+#: hub/templates/header.html:47
+msgid "Account"
+msgstr ""
+
+#: hub/templates/header.html:57
+msgid "View candidate"
+msgstr ""
+
+#: hub/templates/header.html:61
+msgid "Add candidate"
+msgstr ""
+
+#: hub/templates/header.html:66
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:50
-msgid "Login"
+#: hub/templates/header.html:80
+msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:53
-msgid "Register"
+#: hub/templates/header.html:84 hub/templates/registration/login.html:15
+#: hub/templates/registration/login.html:59
+msgid "Login"
 msgstr ""
 
 #: hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
 msgstr ""
 
-#: hub/templates/ngo/detail.html:28
+#: hub/templates/ngo/detail.html:48
+msgid "About the organization"
+msgstr ""
+
+#: hub/templates/ngo/detail.html:49
 msgid "Founders"
 msgstr ""
 
-#: hub/templates/ngo/detail.html:29
+#: hub/templates/ngo/detail.html:50
 msgid "Representative"
-msgstr ""
-
-#: hub/templates/ngo/detail.html:38
-msgid "About the organization"
 msgstr ""
 
 #: hub/templates/ngo/list.html:10
@@ -931,7 +952,7 @@ msgstr ""
 msgid "Register NGO"
 msgstr ""
 
-#: hub/templates/ngo/register_request.html:39
+#: hub/templates/ngo/register_request.html:38
 msgid "Send registration request"
 msgstr ""
 
@@ -947,22 +968,127 @@ msgstr ""
 msgid "I want my organisation to join!"
 msgstr ""
 
-#: hub/templates/registration/set_password.html:44
+#: hub/templates/registration/login.html:20
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: hub/templates/registration/login.html:29
+msgid ""
+"Your account doesn't have access to this page. To proceed, please login with "
+"an account that has access."
+msgstr ""
+
+#: hub/templates/registration/login.html:31
+msgid "Please login to see this page."
+msgstr ""
+
+#: hub/templates/registration/login.html:40
+msgid "Username"
+msgstr ""
+
+#: hub/templates/registration/login.html:42
+msgid "username"
+msgstr ""
+
+#: hub/templates/registration/login.html:49
+msgid "Password"
+msgstr ""
+
+#: hub/templates/registration/login.html:51
+msgid "password"
+msgstr ""
+
+#: hub/templates/registration/login.html:61
+msgid "Forgot password?"
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:15
+#: hub/templates/registration/reset_password.html:38
+msgid "Reset password"
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:20
+msgid "The email address you entered is not valid. Please try again."
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:30
+msgid "email address"
+msgstr ""
+
+#: hub/templates/registration/reset_password_complete.html:15
+msgid "The password was reset"
+msgstr ""
+
+#: hub/templates/registration/reset_password_complete.html:20
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:15
+msgid "Confirm password reset"
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:32
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:40
 msgid "New password:"
 msgstr ""
 
-#: hub/templates/registration/set_password.html:49
+#: hub/templates/registration/reset_password_confirm.html:49
 msgid "Confirm password:"
 msgstr ""
 
-#: hub/templates/registration/set_password.html:52
-msgid "Set password"
+#: hub/templates/registration/reset_password_confirm.html:59
+msgid "Change my password"
 msgstr ""
 
-#: hub/templates/registration/set_password.html:63
+#: hub/templates/registration/reset_password_confirm.html:68
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
+"used.  Please request a new password reset."
+msgstr ""
+
+#: hub/templates/registration/reset_password_done.html:15
+msgid "Initiated password reset"
+msgstr ""
+
+#: hub/templates/registration/reset_password_done.html:20
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: hub/templates/registration/reset_password_done.html:22
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: hub/templates/registration/reset_password_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: hub/templates/registration/reset_password_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: hub/templates/registration/reset_password_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: hub/templates/registration/reset_password_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: hub/templates/registration/reset_password_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
 msgstr ""
 
 #: hub/templates/rules.html:18
@@ -1167,15 +1293,15 @@ msgstr ""
 msgid "I can help"
 msgstr ""
 
-#: hub/templates/shared/pagination.html:11
+#: hub/templates/shared/pagination.html:8
 msgid "first"
 msgstr ""
 
-#: hub/templates/shared/pagination.html:13
+#: hub/templates/shared/pagination.html:10
 msgid "previous"
 msgstr ""
 
-#: hub/templates/shared/pagination.html:21
+#: hub/templates/shared/pagination.html:18
 #, python-format
 msgid ""
 "\n"
@@ -1183,11 +1309,11 @@ msgid ""
 "        "
 msgstr ""
 
-#: hub/templates/shared/pagination.html:29
+#: hub/templates/shared/pagination.html:26
 msgid "next"
 msgstr ""
 
-#: hub/templates/shared/pagination.html:31
+#: hub/templates/shared/pagination.html:28
 msgid "last"
 msgstr ""
 
@@ -1548,10 +1674,6 @@ msgid ""
 "validated. If you have any further questions, e-mail us at contact@code4.ro"
 msgstr ""
 
-#: hub/views.py:231
+#: hub/views.py:199
 msgid "Thank you for signing up your candidate!"
-msgstr ""
-
-#: hub/views.py:242
-msgid "New candidate"
 msgstr ""
