@@ -1,7 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
@@ -12,16 +13,7 @@ from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
-from hub.models import (
-    ADMIN_GROUP_NAME,
-    CES_GROUP_NAME,
-    SGG_GROUP_NAME,
-    Candidate,
-    CandidateVote,
-    City,
-    Domain,
-    Organization,
-)
+from hub.models import ORG_VOTERS_GROUP, VOTE, Candidate, CandidateVote, City, Domain, Organization, OrganizationVote
 
 
 class MenuMixin:
@@ -31,11 +23,20 @@ class MenuMixin:
         if not self.request.user or self.request.user.is_anonymous:
             return context
 
-        user_org = self.request.user.orgs.first()
-        if user_org:
-            context["user_org_candidate"] = user_org.candidate
+        # user_org = self.request.user.orgs.first()
+        # if user_org:
+        #     context["user_org_candidate"] = user_org.candidate
 
         return context
+
+
+class OrgVotersGroupRequireddMixin(AccessMixin):
+    """Verify that the current user is in the org voters group."""
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name=ORG_VOTERS_GROUP).exists():
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
 
 
 class HomeView(MenuMixin, TemplateView):
@@ -83,7 +84,7 @@ class HubCreateView(MenuMixin, SuccessMessageMixin, CreateView):
     pass
 
 
-class OrganizationListView(HubListView):
+class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
     allow_filters = ["county", "city", "domain"]
     paginate_by = 9
     template_name = "ngo/list.html"
@@ -129,7 +130,7 @@ class OrganizationListView(HubListView):
         return context
 
 
-class OrganizationDetailView(HubDetailView):
+class OrganizationDetailView(OrgVotersGroupRequireddMixin, HubDetailView):
     template_name = "ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
@@ -147,15 +148,35 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
         return reverse("ngos-register-request")
 
     def get_success_message(self, cleaned_data):
-        authorized_groups = [ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME]
-
-        for user in User.objects.filter(groups__name__in=authorized_groups):
+        for user in User.objects.filter(groups__name=ORG_VOTERS_GROUP):
             cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
             utils.send_email(
                 template="mail/new_ngo.html", context=cleaned_data, subject="ONG nou", to=user.email,
             )
 
         return super().get_success_message(cleaned_data)
+
+
+class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
+    def get(self, request, pk):
+        try:
+            try:
+                vote = request.GET.get("vote")
+                vote_choice = getattr(VOTE, str(vote).lower())
+            except AttributeError:
+                raise ValidationError("Invalid vote value.")
+
+            motivation = request.GET.get("motivation", "")
+            if vote_choice == VOTE.no and not motivation:
+                raise ValidationError(_("You must specify a motivation if voting NO!"))
+
+            org = Organization.objects.get(pk=pk)
+            OrganizationVote.objects.create(user=request.user, org=org, vote=vote_choice, motivation=motivation)
+        except Exception as exc:
+            print(exc)
+            return HttpResponseBadRequest()
+        else:
+            return HttpResponse()
 
 
 class CandidateListView(HubListView):
@@ -205,17 +226,6 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
-
-    # def get_success_message(self, cleaned_data):
-    #     authorized_groups = [ADMIN_GROUP_NAME, CES_GROUP_NAME, SGG_GROUP_NAME]
-
-    #     for user in User.objects.filter(groups__name__in=authorized_groups):
-    #         cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
-    #         utils.send_email(
-    #             template="mail/new_candidate.html", context=cleaned_data, subject=_("New candidate"), to=user.email,
-    #         )
-
-    #     return super().get_success_message(cleaned_data)
 
 
 class CandidateVoteView(LoginRequiredMixin, View):

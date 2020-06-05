@@ -10,7 +10,7 @@ lint:
 	docker-compose run --rm --no-deps --entrypoint "bash -c" web "isort -y && black --exclude venv/ --line-length 120 --target-version py37 ."
 
 migrations:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "./manage.py makemigrations"
+	docker-compose run --rm --entrypoint "bash -c" web "./manage.py makemigrations hub"
 
 build-deps:
 	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"

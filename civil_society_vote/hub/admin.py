@@ -25,6 +25,7 @@ from hub.models import (
 
 
 class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
+    list_display = ("email", "get_groups", "is_active", "is_staff", "is_superuser")
     open_new_window = True
     pass
 
@@ -32,6 +33,13 @@ class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
         extra_context = extra_context or {}
         extra_context["user_id"] = object_id
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
+
+    def get_groups(self, obj=None):
+        if obj:
+            groups = obj.groups.all().values_list("name", flat=True)
+            return ", ".join(groups)
+
+    get_groups.short_description = _("groups")
 
 
 # NOTE: This is needed in order for impersonate to work
@@ -45,8 +53,8 @@ class CountyFilter(AllValuesFieldListFilter):
 
 class OrganizationVoteInline(admin.TabularInline):
     model = OrganizationVote
-    fields = ["user", "org", "domain", "vote", "motivation"]
-    readonly_fields = ["user", "org", "domain", "vote", "motivation"]
+    fields = ["user", "org", "vote", "motivation"]
+    readonly_fields = ["user", "org", "vote", "motivation"]
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -83,7 +91,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     def get_user(self, obj=None):
         if obj and obj.user:
             user_url = reverse("admin:auth_user_change", args=(obj.user.id,))
-            return mark_safe(f'<a href="{user_url}">{obj.user.get_full_name()}</a>')
+            return mark_safe(f'<a href="{user_url}">{obj.user.email}</a>')
 
     get_user.short_description = _("user")
 

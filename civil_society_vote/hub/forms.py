@@ -48,12 +48,6 @@ class OrganizationRegisterForm(forms.ModelForm):
                 pass  # invalid input, fallback to empty queryset
 
 
-class OrganizationVoteForm(forms.ModelForm):
-    class Meta:
-        model = models.OrganizationVote
-        fields = ("vote", "motivation")
-
-
 class CandidateRegisterForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
