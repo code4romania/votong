@@ -53,8 +53,8 @@ class CountyFilter(AllValuesFieldListFilter):
 
 class OrganizationVoteInline(admin.TabularInline):
     model = OrganizationVote
-    fields = ["user", "org", "domain", "vote", "motivation"]
-    readonly_fields = ["user", "org", "domain", "vote", "motivation"]
+    fields = ["user", "org", "vote", "motivation"]
+    readonly_fields = ["user", "org", "vote", "motivation"]
     extra = 0
 
     def has_add_permission(self, request, obj=None):

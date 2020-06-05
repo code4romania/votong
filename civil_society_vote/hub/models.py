@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models, transaction
 from django.urls import reverse
@@ -63,7 +63,7 @@ COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
 COUNTY_CHOICES = Choices(*[(x, x) for x in COUNTIES])
 
-VOTE = Choices(("yes", _("YES")), ("no", _("NO")), ("abstention", _("ABSTENTION")),)
+VOTE = Choices(("yes", _("Yes")), ("no", _("No")), ("abstention", _("Abstention")),)
 
 
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
@@ -109,6 +109,7 @@ class Organization(StatusModel, TimeStampedModel):
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="orgs")
 
     name = models.CharField(_("NGO Name"), max_length=254)
+    description = models.TextField(_("Description"))
     reg_com_number = models.CharField(_("Registration number"), max_length=20)
     state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
     purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
@@ -148,17 +149,17 @@ class Organization(StatusModel, TimeStampedModel):
         super().save(*args, **kwargs)
 
     def yes(self):
-        return self.votes.filter(vote="YES").count()
+        return self.votes.filter(vote=VOTE.yes).count()
 
     yes.short_description = _("Yes")
 
     def no(self):
-        return self.votes.filter(vote="NO").count()
+        return self.votes.filter(vote=VOTE.no).count()
 
     no.short_description = _("No")
 
     def abstention(self):
-        return self.votes.filter(vote="ABSTENTION").count()
+        return self.votes.filter(vote=VOTE.abstention).count()
 
     abstention.short_description = _("Abstention")
 
@@ -191,29 +192,25 @@ class Organization(StatusModel, TimeStampedModel):
 class OrganizationVote(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
-    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="+")
 
     vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
-    motivation = models.TextField(
-        _("Motivation"), max_length=500, null=True, blank=True, help_text=_("Motivate your decision"),
-    )
+    motivation = models.TextField(_("Motivation"))
 
     class Meta:
         verbose_name_plural = _("Organization votes")
         verbose_name = _("Organization vote")
-        unique_together = [["user", "org"], ["user", "domain"]]
         constraints = [
             models.UniqueConstraint(fields=["user", "org"], name="unique_org_vote"),
-            models.UniqueConstraint(fields=["user", "domain"], name="unique_org_domain_vote"),
         ]
 
     def __str__(self):
-        return f"{self.vote} - {self.org}"
+        return f"{self.user} / {VOTE[self.vote]} / {self.org}"
 
     def save(self, *args, **kwargs):
-        self.domain = self.org.domain
+        if not self.user.groups.filter(name=ORG_VOTERS_GROUP).exists():
+            raise PermissionDenied()
 
-        if self.vote == VOTE.NO and not self.motivation:
+        if self.vote == VOTE.no and not self.motivation:
             raise ValidationError(_("You must specify a motivation if voting NO!"))
 
         super().save(*args, **kwargs)
@@ -224,6 +221,7 @@ class Candidate(TimeStampedModel):
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
 
     name = models.CharField(_("Name"), max_length=254)
+    description = models.TextField(_("Description"))
     role = models.CharField(_("Role"), max_length=254)
     founder = models.BooleanField(_("Founder/Associate"), default=False)
     representative = models.BooleanField(_("Legal representative"), default=False)

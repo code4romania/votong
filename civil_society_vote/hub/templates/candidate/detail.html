@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="container detail-header" xmlns="http://www.w3.org/1999/html">
+<div class="container detail-header">
     <span class="detail-header-img">
     {% if candidate.photo %}
         <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -44,6 +44,11 @@
         <div class="subtitle">
             {{ candidate.email }}
         </div>
+        {% if candidate.description %}
+        <div class="description">
+          <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
+        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -79,6 +84,11 @@
 {% if user.is_authenticated %}
 <hr>
 <div class="container detail-desc has-text-centered">
+  {% if user|already_voted_candidate_or_domain:candidate %}
+  <article id="vote-candidate-info" class="message is-info">
+    <div class="message-body">Ati votat deja in acest domeniu.</div>
+  </article>
+  {% else %}
   <article id="vote-candidate-error" class="message is-danger" style="display: none;">
     <div class="message-body">A avut loc o eroare in momentul votarii. Fie ati votat deja pentru acest candidat sau ati votat deja in acest domeniu. <br> Daca credeti ca aceasta eroare este o greseala va rugam sa ne contactati utilizand <a href="{% url 'contact' %}">formularul de contact<a>.</div>
   </article>
@@ -86,15 +96,11 @@
   <article id="vote-candidate-success" class="message is-success" style="display: none;">
     <div class="message-body">Votul a fost inregistrat cu succes.</div>
   </article>
-
-  {% if not user|can_vote_candidate:candidate %}
-  <article id="vote-candidate-info" class="message is-info">
-    <div class="message-body">Ati votat deja in acest domeniu.</div>
-  </article>
   {% endif %}
 
-  <button id="vote-candidate-button" class="button is-success is-large" {% if not user|can_vote_candidate:candidate %}disabled{% endif %}>VOTEAZA</button>
+  <button id="vote-candidate-button" class="button is-success is-large" {% if user|already_voted_candidate_or_domain:candidate %}disabled{% endif %}>VOTEAZA</button>
 </div>
+
 <script>
 $( document ).ready(function() {
   $( "#vote-candidate-button" ).on( "click", function( event ) {
@@ -108,6 +114,7 @@ $( document ).ready(function() {
   });
 });
 </script>
+
 {% endif %}
 
 {% comment %}

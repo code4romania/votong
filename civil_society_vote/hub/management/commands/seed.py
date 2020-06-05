@@ -76,6 +76,7 @@ class Command(BaseCommand):
 
                 org = Organization.objects.create(
                     name=fake.company(),
+                    description=fake.text(),
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     address=fake.address(),
@@ -106,6 +107,7 @@ class Command(BaseCommand):
                     candidate = Candidate.objects.create(
                         org=org,
                         name=org.representative,
+                        description=fake.text(),
                         role=fake.job(),
                         experience=fake.text(),
                         studies=fake.text(),

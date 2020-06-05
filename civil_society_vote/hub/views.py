@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
@@ -12,7 +13,7 @@ from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
-from hub.models import ORG_VOTERS_GROUP, Candidate, CandidateVote, City, Domain, Organization
+from hub.models import ORG_VOTERS_GROUP, VOTE, Candidate, CandidateVote, City, Domain, Organization, OrganizationVote
 
 
 class MenuMixin:
@@ -154,6 +155,28 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
             )
 
         return super().get_success_message(cleaned_data)
+
+
+class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
+    def get(self, request, pk):
+        try:
+            try:
+                vote = request.GET.get("vote")
+                vote_choice = getattr(VOTE, str(vote).lower())
+            except AttributeError:
+                raise ValidationError("Invalid vote value.")
+
+            motivation = request.GET.get("motivation", "")
+            if vote_choice == VOTE.no and not motivation:
+                raise ValidationError(_("You must specify a motivation if voting NO!"))
+
+            org = Organization.objects.get(pk=pk)
+            OrganizationVote.objects.create(user=request.user, org=org, vote=vote_choice, motivation=motivation)
+        except Exception as exc:
+            print(exc)
+            return HttpResponseBadRequest()
+        else:
+            return HttpResponse()
 
 
 class CandidateListView(HubListView):
