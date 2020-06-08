@@ -618,3 +618,8 @@ footer {
 .pagination-next.hidden, .pagination-previous.hidden {
     visibility: hidden;
 }
+
+
+.errorlist {
+  color: red;
+}

@@ -44,15 +44,18 @@
         <div class="subtitle">
             {{ candidate.email }}
         </div>
-        {% if candidate.description %}
-        <div class="description">
-          <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
-        </div>
-        {% endif %}
     </div>
 </div>
 
-<hr/>
+<hr>
+
+{% if candidate.description %}
+<div class="description">
+  <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
+</div>
+{% endif %}
+
+<hr>
 
 <div class="container detail-desc">
     <div class="detail-desc-title">{% trans "General information" %}</div>

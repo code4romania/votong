@@ -163,7 +163,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     abstention.short_description = _("Abstention")
 
-    def create_owner(self, request):
+    def create_owner(self):
         user, created = User.objects.get_or_create(username=self.email)
 
         if not created:
@@ -177,14 +177,14 @@ class Organization(StatusModel, TimeStampedModel):
         return user
 
     @transaction.atomic
-    def accept(self, request):
-        owner = self.create_owner(request)
+    def accept(self):
+        owner = self.create_owner()
         self.user = owner
         self.status = self.STATUS.accepted
         self.save()
 
     @transaction.atomic
-    def reject(self, request):
+    def reject(self):
         self.status = self.STATUS.rejected
         self.save()
 
