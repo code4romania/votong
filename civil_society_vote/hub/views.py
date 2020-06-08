@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
@@ -239,6 +240,15 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         kwargs["user"] = self.request.user
         return kwargs
 
+    # def get_success_message(self, cleaned_data):
+    #     for user in User.objects.filter(groups__name=ORG_VOTERS_GROUP):
+    #         cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
+    #         utils.send_email(
+    #             template="mail/new_candidate.html", context=cleaned_data, subject="Candidat nou", to=user.email,
+    #         )
+
+    #     return super().get_success_message(cleaned_data)
+
 
 class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):
     template_name = "candidate/update.html"
@@ -250,13 +260,18 @@ class CandidateVoteView(LoginRequiredMixin, View):
     def get(self, request, pk):
         try:
             candidate = Candidate.objects.get(pk=pk)
-            CandidateVote.objects.create(
-                user=request.user, candidate=candidate,
-            )
+            vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
         except Exception:
             return HttpResponseBadRequest()
-        else:
-            return HttpResponse()
+
+        if settings.VOTE_AUDIT_EMAIL:
+            utils.send_email(
+                template="mail/vote_audit.html",
+                context={"vote": vote},
+                subject="Vot candidat",
+                to=settings.VOTE_AUDIT_EMAIL,
+            )
+        return HttpResponse()
 
 
 class CityAutocomplete(View):

@@ -19,7 +19,6 @@ urlpatterns = i18n_patterns(
     path("contact/", StaticPageView.as_view(template_name="contact.html"), name="contact"),
     path("terms/", StaticPageView.as_view(template_name="terms_and_conditions.html"), name="terms",),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
-    path("updates/", StaticPageView.as_view(template_name="updates.html"), name="updates"),
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("accounts/", include("django.contrib.auth.urls")),

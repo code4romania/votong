@@ -69,10 +69,21 @@ class OrganizationVoteInline(admin.TabularInline):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("name", "get_user", "get_candidate", "representative", "city", "status", "created")
+    list_display = (
+        "name",
+        "get_user",
+        "get_candidate",
+        "representative",
+        "city",
+        "status",
+        "yes",
+        "no",
+        "abstention",
+        "created",
+    )
     list_filter = ("status", "domain", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
-    readonly_fields = ["user", "status", "status_changed"]
+    readonly_fields = ["user", "status_changed"]
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]
 
@@ -122,7 +133,7 @@ class CandidateVoteInline(admin.TabularInline):
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
-    list_display = ("name", "org", "role", "domain", "created")
+    list_display = ("name", "org", "role", "domain", "vote_count", "created")
     list_filter = ("domain",)
     search_fields = ("name", "email", "org__name")
     readonly_fields = ["org"]
