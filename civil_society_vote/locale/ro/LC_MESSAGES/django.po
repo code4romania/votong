@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 08:00+0000\n"
+"POT-Creation-Date: 2020-06-08 11:26+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,45 +28,39 @@ msgstr "Administrare Votare Societatea Civilă"
 msgid "groups"
 msgstr ""
 
-#: hub/admin.py:96
+#: hub/admin.py:97
 msgid "user"
 msgstr "utilizator"
 
-#: hub/admin.py:103
+#: hub/admin.py:104
 #, fuzzy
 #| msgid "Candidate"
 msgid "candidate"
 msgstr "Candidat"
 
-#: hub/admin.py:225
+#: hub/admin.py:227
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: hub/admin.py:233
+#: hub/admin.py:235
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/forms.py:68
+#: hub/forms.py:58
 #, fuzzy
 #| msgid "Mandate from the organization"
 msgid "Authenticated user does not have an organization."
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/forms.py:70
-#, fuzzy
-#| msgid "Mandate from the organization"
-msgid "Authenticated user has more than one organization."
-msgstr "Mandat din partea organizației, ștampilat și semnat"
-
-#: hub/forms.py:73
+#: hub/forms.py:61
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja un candidat"
 
-#: hub/forms.py:79
+#: hub/forms.py:84
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:84
+#: hub/forms.py:89
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -97,7 +91,7 @@ msgid "Name"
 msgstr "Nume"
 
 #: hub/models.py:74 hub/models.py:112 hub/models.py:224
-#: hub/templates/candidate/detail.html:49 hub/templates/ngo/detail.html:47
+#: hub/templates/candidate/detail.html:54 hub/templates/ngo/detail.html:47
 msgid "Description"
 msgstr "Descriere"
 
@@ -158,16 +152,16 @@ msgstr "Scop inițial"
 msgid "Current purpose"
 msgstr "Scop actual"
 
-#: hub/models.py:117 hub/templates/candidate/detail.html:79
+#: hub/models.py:117 hub/templates/candidate/detail.html:82
 msgid "Founders/Associates"
 msgstr "Asociați/Fondatori"
 
-#: hub/models.py:118 hub/models.py:227 hub/templates/candidate/detail.html:63
-#: hub/templates/candidate/detail.html:81
+#: hub/models.py:118 hub/models.py:227 hub/templates/candidate/detail.html:66
+#: hub/templates/candidate/detail.html:84
 msgid "Legal representative"
 msgstr "Reprezentant legal"
 
-#: hub/models.py:119 hub/templates/candidate/detail.html:80
+#: hub/models.py:119 hub/templates/candidate/detail.html:83
 #: hub/templates/ngo/detail.html:52
 msgid "Board council"
 msgstr "Consiliu Director"
@@ -196,7 +190,7 @@ msgstr "Prima pagină a ultimului bilanț contabil"
 msgid "NGO Statute"
 msgstr "Statutul Asociației"
 
-#: hub/models.py:130 hub/models.py:236 hub/templates/candidate/detail.html:71
+#: hub/models.py:130 hub/models.py:236 hub/templates/candidate/detail.html:74
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
@@ -224,27 +218,27 @@ msgstr "Voturi organizație"
 msgid "Organization vote"
 msgstr "Vot organizație"
 
-#: hub/models.py:214 hub/views.py:191
+#: hub/models.py:214 hub/views.py:187
 msgid "You must specify a motivation if voting NO!"
 msgstr "Trebuie să motivezi votul negativ!"
 
-#: hub/models.py:225 hub/templates/candidate/detail.html:59
+#: hub/models.py:225 hub/templates/candidate/detail.html:62
 msgid "Role"
 msgstr "Funcție"
 
-#: hub/models.py:226 hub/templates/candidate/detail.html:62
+#: hub/models.py:226 hub/templates/candidate/detail.html:65
 msgid "Founder/Associate"
 msgstr "Asociat/Fondator"
 
-#: hub/models.py:228 hub/templates/candidate/detail.html:64
+#: hub/models.py:228 hub/templates/candidate/detail.html:67
 msgid "Board member"
 msgstr "Membru în Consiliul Director"
 
-#: hub/models.py:229 hub/templates/candidate/detail.html:60
+#: hub/models.py:229 hub/templates/candidate/detail.html:63
 msgid "Professional experience"
 msgstr "Activitate profesională"
 
-#: hub/models.py:230 hub/templates/candidate/detail.html:61
+#: hub/models.py:230 hub/templates/candidate/detail.html:64
 msgid "Studies"
 msgstr "Studii"
 
@@ -252,21 +246,21 @@ msgstr "Studii"
 msgid "Photo"
 msgstr "Fotografie"
 
-#: hub/models.py:235 hub/templates/candidate/detail.html:72
+#: hub/models.py:235 hub/templates/candidate/detail.html:75
 msgid "Mandate from the organization"
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/models.py:237 hub/templates/candidate/detail.html:73
+#: hub/models.py:237 hub/templates/candidate/detail.html:76
 msgid "Statement of conformity"
 msgstr ""
 "Declarație pe propria răspundere ca poseda expertiză și are experienţa "
 "necesară"
 
-#: hub/models.py:238 hub/templates/candidate/detail.html:70
+#: hub/models.py:238 hub/templates/candidate/detail.html:73
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:239 hub/templates/candidate/detail.html:74
+#: hub/models.py:239 hub/templates/candidate/detail.html:77
 msgid "Legal record"
 msgstr "Cazier juridic"
 
@@ -513,7 +507,7 @@ msgstr "Încărcare"
 msgid "Upload CSV file and add new cities"
 msgstr "Încarcă fișier CSV și adaugă orașe"
 
-#: hub/templates/bulma/file.html:11
+#: hub/templates/bulma/file.html:12
 msgid "Upload file"
 msgstr "Încarcă fișier"
 
@@ -534,11 +528,11 @@ msgid ""
 "Uniuniea Europeană"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:58
+#: hub/templates/candidate/detail.html:61
 msgid "General information"
 msgstr "Informatii generale"
 
-#: hub/templates/candidate/detail.html:69
+#: hub/templates/candidate/detail.html:72
 msgid "Documents"
 msgstr "Documente"
 
@@ -2198,17 +2192,19 @@ msgstr ""
 "Dacă ai întrebări suplimentare ne poți scrie un e-mail la adresa "
 "rohelp@code4.ro."
 
-#: hub/views.py:174
-msgid "Organization modified succefully!"
-msgstr "Organizatie modificata cu succes!"
+#, fuzzy
+#~| msgid "Mandate from the organization"
+#~ msgid "Authenticated user has more than one organization."
+#~ msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/views.py:240
-msgid "Thank you for signing up your candidate!"
-msgstr "Multumim pentru propunerea de candidat!"
+#~ msgid "Organization modified succefully!"
+#~ msgstr "Organizatie modificata cu succes!"
 
-#: hub/views.py:255
-msgid "Candidate modified succefully!"
-msgstr "Candidat modificat cu succes!"
+#~ msgid "Thank you for signing up your candidate!"
+#~ msgstr "Multumim pentru propunerea de candidat!"
+
+#~ msgid "Candidate modified succefully!"
+#~ msgstr "Candidat modificat cu succes!"
 
 #~ msgid "YES"
 #~ msgstr "DA"
