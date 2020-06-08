@@ -146,6 +146,10 @@ class Organization(StatusModel, TimeStampedModel):
         else:
             self.county = ""
 
+        if self.status == self.STATUS.accepted and not self.user:
+            owner = self.create_owner()
+            self.user = owner
+
         super().save(*args, **kwargs)
 
     def yes(self):
@@ -175,18 +179,6 @@ class Organization(StatusModel, TimeStampedModel):
         user.save()
 
         return user
-
-    @transaction.atomic
-    def accept(self):
-        owner = self.create_owner()
-        self.user = owner
-        self.status = self.STATUS.accepted
-        self.save()
-
-    @transaction.atomic
-    def reject(self):
-        self.status = self.STATUS.rejected
-        self.save()
 
 
 class OrganizationVote(TimeStampedModel):
@@ -241,12 +233,18 @@ class Candidate(TimeStampedModel):
     class Meta:
         verbose_name_plural = _("Candidates")
         verbose_name = _("Candidate")
+        ordering = ["name"]
 
     def __str__(self):
         return f"{self.name} ({self.org})"
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
+
+    def vote_count(self):
+        return self.votes.count()
+
+    vote_count.short_description = _("Vote count")
 
     def save(self, *args, **kwargs):
         if self.id and CandidateVote.objects.filter(candidate=self).exists():

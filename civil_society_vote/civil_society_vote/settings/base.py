@@ -184,12 +184,15 @@ ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
 
+# The email where the votes are sent for archiving purposes
+VOTE_AUDIT_EMAIL = env("VOTE_AUDIT_EMAIL", default="")
+
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
 # Recaptcha settings
-RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", "")
-RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", "")
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="")
 
 if not RECAPTCHA_PUBLIC_KEY:
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]

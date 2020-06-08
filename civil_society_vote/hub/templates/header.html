@@ -28,12 +28,12 @@
                         {% trans "Candidates" %}
                     </a>
 
-                    <a  href="{% url 'about' %}" class="navbar-item">
-                        {% trans "About" %}
+                    <a  href="{% url 'rules' %}" class="navbar-item">
+                        {% trans "Metodology" %}
                     </a>
 
-                    <a  href="{% url 'rules' %}" class="navbar-item">
-                        {% trans "General rules" %}
+                    <a  href="{% url 'about' %}" class="navbar-item">
+                        {% trans "About" %}
                     </a>
 
                     <a  href="{% url 'contact' %}" class="navbar-item">
@@ -96,6 +96,8 @@
                     </a>
                     {% endif %}
 
+
+                    {% comment %}
                     {% get_available_languages as LANGUAGES %}
                     {% get_current_language as LANGUAGE_CODE %}
                     <div class="navbar-item">
@@ -111,6 +113,8 @@
                             </div>
                         </form>
                     </div>
+                    {% endcomment %}
+
                 </div>
             </div>
         </nav>
