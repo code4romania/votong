@@ -7,7 +7,7 @@
     id="div_{{ field.auto_id }}"
     class="field{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
   >
-  
+
   {% spaceless %}
     {% if field.label and not field|is_radioselect and not field|is_checkbox %}
       {% if field|is_checkbox %}
@@ -39,13 +39,10 @@
           {{field.label}}
         </label>
       {% endif %}
-      
-
 
       {% if field|is_file %}
         {% include 'bulma/file.html' %}
       {% endif %}
-
 
       {% if not field|is_checkbox and not field|is_checkboxselectmultiple and not field|is_select and not field|is_radioselect and not field|is_file %}
         {% crispy_field field %}

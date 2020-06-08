@@ -8,11 +8,11 @@ from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 
 from hub import utils
-from hub.forms import CandidateRegisterForm, OrganizationRegisterForm
+from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
 from hub.models import ORG_VOTERS_GROUP, VOTE, Candidate, CandidateVote, City, Domain, Organization, OrganizationVote
 
 
@@ -31,11 +31,17 @@ class MenuMixin:
 
 
 class OrgVotersGroupRequireddMixin(AccessMixin):
-    """Verify that the current user is in the org voters group."""
+    """Verify that the current user is in the org voters group or owns the organization."""
 
     def dispatch(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+
+        if pk and request.user.orgs.filter(pk=pk).exists():
+            return super().dispatch(request, *args, **kwargs)
+
         if not request.user.groups.filter(name=ORG_VOTERS_GROUP).exists():
             return self.handle_no_permission()
+
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -81,6 +87,10 @@ class HubDetailView(MenuMixin, DetailView):
 
 
 class HubCreateView(MenuMixin, SuccessMessageMixin, CreateView):
+    pass
+
+
+class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
@@ -139,7 +149,7 @@ class OrganizationDetailView(OrgVotersGroupRequireddMixin, HubDetailView):
 class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "ngo/register_request.html"
     model = Organization
-    form_class = OrganizationRegisterForm
+    form_class = OrganizationForm
     success_message = _(
         "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you as soon as your organization is validated. If you have any further questions, e-mail us at contact@code4.ro"
     )
@@ -155,6 +165,12 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
             )
 
         return super().get_success_message(cleaned_data)
+
+
+class OrganizationUpdateView(HubUpdateView):
+    template_name = "ngo/update.html"
+    model = Organization
+    form_class = OrganizationForm
 
 
 class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
@@ -217,15 +233,17 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     template_name = "candidate/register_request.html"
     model = Candidate
     form_class = CandidateRegisterForm
-    success_message = _("Thank you for signing up your candidate!")
-
-    def get_success_url(self):
-        return reverse("candidate-register-request")
 
     def get_form_kwargs(self):
         kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+
+class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):
+    template_name = "candidate/update.html"
+    model = Candidate
+    form_class = CandidateUpdateForm
 
 
 class CandidateVoteView(LoginRequiredMixin, View):

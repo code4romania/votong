@@ -69,9 +69,10 @@ class OrganizationVoteInline(admin.TabularInline):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("name", "get_user", "representative", "city", "status", "created")
+    list_display = ("name", "get_user", "get_candidate", "representative", "city", "status", "created")
     list_filter = ("status", "domain", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
+    readonly_fields = ["user", "status", "status_changed"]
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]
 
@@ -95,6 +96,13 @@ class OrganizationAdmin(admin.ModelAdmin):
 
     get_user.short_description = _("user")
 
+    def get_candidate(self, obj=None):
+        if obj and obj.candidate:
+            user_url = reverse("admin:hub_candidate_change", args=(obj.candidate.id,))
+            return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
+
+    get_candidate.short_description = _("candidate")
+
 
 class CandidateVoteInline(admin.TabularInline):
     model = CandidateVote
@@ -117,6 +125,7 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display = ("name", "org", "role", "domain", "created")
     list_filter = ("domain",)
     search_fields = ("name", "email", "org__name")
+    readonly_fields = ["org"]
     inlines = [CandidateVoteInline]
 
     def has_add_permission(self, request, obj=None):

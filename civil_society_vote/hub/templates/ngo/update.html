@@ -1,0 +1,41 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block domain-filters %}
+{% endblock domain-filters %}
+
+{% block extra-header %}
+{% endblock extra-header %}
+
+{% block left-side-view %}
+
+<h2 class="title is-2">{% trans "Update organization" %}</h2>
+
+<div class="container">
+    {% if messages %}
+        <article class="message is-success">
+        <div class="message-body">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        </article>
+    {% else %}
+        <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field.errors }}
+            {% endfor %}
+
+            {{ form|crispy }}
+
+            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Update organization" %}">
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

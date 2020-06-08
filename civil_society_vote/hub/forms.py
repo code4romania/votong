@@ -1,4 +1,7 @@
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 from django import forms
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -6,21 +9,9 @@ from django_crispy_bulma.widgets import EmailInput
 
 from hub import models
 
-# from captcha.fields import ReCaptchaField
-# from captcha.widgets import ReCaptchaV3
-
 
 class OrganizationForm(forms.ModelForm):
-    class Meta:
-        model = models.Organization
-        exclude = ["user", "status", "status_changed"]
-        widgets = {
-            "email": EmailInput(),
-        }
-
-
-class OrganizationRegisterForm(forms.ModelForm):
-    # captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
+    captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
 
     class Meta:
         model = models.Organization
@@ -28,13 +19,14 @@ class OrganizationRegisterForm(forms.ModelForm):
         widgets = {
             "email": EmailInput(),
             "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete"),}),
-            # "logo": AdminResubmitImageWidget,
-            # "last_balance_sheet": AdminResubmitFileWidget,
-            # "statute": AdminResubmitFileWidget,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if not settings.RECAPTCHA_PUBLIC_KEY:
+            del self.fields["captcha"]
+
         self.fields["city"].queryset = models.City.objects.none()
 
         if "city" not in self.data:
@@ -55,24 +47,37 @@ class CandidateRegisterForm(forms.ModelForm):
 
         widgets = {
             "org": forms.HiddenInput(),
+            "email": EmailInput(),
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
-    def clean_org(self):
-        try:
-            org = models.Organization.objects.get(user=self.user)
-        except models.Organization.DoesNotExist:
+        if not self.user.orgs.exists():
             raise ValidationError(_("Authenticated user does not have an organization."))
-        except models.Organization.MultipleObjectsReturned:
-            raise ValidationError(_("Authenticated user has more than one organization."))
 
-        if org.candidate:
+        if models.Candidate.objects.filter(org=self.user.orgs.first()).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
-        return org.id
+        self.initial["org"] = self.user.orgs.first().id
+
+    def clean_org(self):
+        return self.user.orgs.first().id
+
+
+class CandidateUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.Candidate
+        fields = "__all__"
+        exclude = ["org"]
+
+        widgets = {
+            "email": EmailInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 class ImportCitiesForm(forms.Form):

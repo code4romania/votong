@@ -184,18 +184,22 @@ ADMINS = [
     ("Alexandra Stefanescu", "alexandra.stefanescu@code4.ro"),
 ]
 
-
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
-if env("RECAPTCHA_PUBLIC_KEY"):
-    RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
-    RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
-else:
+# Recaptcha settings
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", "")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", "")
+
+if not RECAPTCHA_PUBLIC_KEY:
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Toggles the loading of Google/Facebook tracking scripts in base.html
 ANALYTICS_ENABLED = True
+
+IMPERSONATE = {
+    "REQUIRE_SUPERUSER": True,
+}
 
 if env("SENTRY_DSN"):
     import sentry_sdk
@@ -209,7 +213,3 @@ if env("SENTRY_DSN"):
         send_default_pii=True,
         environment="staging" if DEBUG else "prod",
     )
-
-IMPERSONATE = {
-    "REQUIRE_SUPERUSER": True,
-}
