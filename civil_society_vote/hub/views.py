@@ -101,7 +101,7 @@ class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        return Organization.objects.filter(status=Organization.STATUS.accepted)
+        return Organization.objects.all()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -152,7 +152,9 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     model = Organization
     form_class = OrganizationForm
     success_message = _(
-        "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you as soon as your organization is validated. If you have any further questions, e-mail us at contact@code4.ro"
+        "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you "
+        "as soon as your organization is validated. If you have any further questions, send us a message using the "
+        "form in our contact page."
     )
 
     def get_success_url(self):

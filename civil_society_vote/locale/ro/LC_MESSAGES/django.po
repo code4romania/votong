@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 12:48+0000\n"
+"POT-Creation-Date: 2020-06-09 18:04+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -218,7 +218,7 @@ msgstr "Voturi organizație"
 msgid "Organization vote"
 msgstr "Vot organizație"
 
-#: hub/models.py:206 hub/views.py:188
+#: hub/models.py:206 hub/views.py:190
 msgid "You must specify a motivation if voting NO!"
 msgstr "Trebuie să motivezi votul negativ!"
 
@@ -2176,24 +2176,19 @@ msgid "rohelp@code4.ro"
 msgstr "E-mail: rohelp@code4.ro"
 
 #: hub/views.py:155
-#, fuzzy
-#| msgid ""
-#| "Thank you for signing up! The form you filled in has reached us. Someone "
-#| "from the RoHelp team will reach out to you as soon as your organization "
-#| "is validated. If you have any further questions, e-mail us at "
-#| "rohelp@code4.ro"
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
-"validated. If you have any further questions, e-mail us at contact@code4.ro"
+"validated. If you have any further questions, send us a message using the "
+"form in our contact page."
 msgstr ""
 "Îți mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
-"RoHelp te va contacta imediat ce organizația trece de procesul de validare. "
-"Dacă ai întrebări suplimentare ne poți scrie un e-mail la adresa "
-"rohelp@code4.ro."
+"noastră te va contacta imediat ce organizația trece de procesul de validare. "
+"Dacă ai întrebări suplimentare, ne poți trimite un mesaj utilizând "
+"formularul din pagina de contact."
 
 #~ msgid "Updates"
-#~ msgstr "Noutati"
+#~ msgstr "Noutăți"
 
 #~ msgid "General rules"
 #~ msgstr "Reguli generale"
