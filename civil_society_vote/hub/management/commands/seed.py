@@ -73,6 +73,7 @@ class Command(BaseCommand):
             for i in range(ORG_NUMBER):
                 city = City.objects.order_by("?").first()
                 domain = Domain.objects.order_by("?").first()
+                status = ["pending", "accepted", "rejected"][i % 3]
 
                 org = Organization.objects.create(
                     name=fake.company(),
@@ -89,16 +90,12 @@ class Command(BaseCommand):
                     board_council=fake.name(),
                     city=city,
                     county=city.county,
+                    status=status,
                 )
 
-                status = ["pending", "accepted", "rejected"][i % 3]
-
                 if status == "rejected":
-                    org.reject(request=None)
                     self.stdout.write(self.style.SUCCESS(f"Created organization {org}"))
                 elif status == "accepted":
-                    org.accept(request=None)
-
                     # we add a few org users to the voting group
                     if count_org_voters < 3:
                         org.user.groups.add(org_voters_group)
