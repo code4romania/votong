@@ -1,122 +1,124 @@
 {% load static i18n %}
 {% load hub_tags %}
 
-<div class="h-padded-wrapper">
-    <div class="container border-b">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="{% url 'home' %}">
-                    <img src="{% static "images/logo.svg" %}" alt="{% trans 'Elections CES/CESE 2020' %}" width="200">
-                </a>
-
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                   data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-end has-text-centered-touch">
-                    {% if user|in_org_voters_group %}
-                    <a  href="{% url 'ngos' %}" class="navbar-item">
-                        {% trans "Organizations" %}
-                    </a>
-                    {% endif %}
-
-                    <a  href="{% url 'candidates' %}" class="navbar-item">
-                        {% trans "Candidates" %}
+<div class="navbar-container">
+    <div class="h-padded-wrapper">
+        <div class="container border-b">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="{% url 'home' %}">
+                        <img src="{% static "images/logo.svg" %}" alt="{% trans 'Elections CES/CESE 2020' %}" width="200">
                     </a>
 
-                    <a  href="{% url 'rules' %}" class="navbar-item">
-                        {% trans "Metodology" %}
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                       data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </a>
-
-                    <a  href="{% url 'about' %}" class="navbar-item">
-                        {% trans "About" %}
-                    </a>
-
-                    <a  href="{% url 'contact' %}" class="navbar-item">
-                        {% trans "Contact" %}
-                    </a>
-
-                    {% if request.user.is_authenticated %}
-                    <div class="navbar-item">
-                    <div class="dropdown is-hoverable">
-                      <div class="dropdown-trigger">
-                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                          <span>{% trans 'Account' %}</span>
-                          <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                          </span>
-                        </button>
-                      </div>
-                      <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content">
-                        {% if user.orgs.exists %}
-                          {% if user.orgs.first.candidate %}
-                          <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}" class="navbar-item">
-                            {% trans "View candidate page" %}
-                          </a>
-                          <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}" class="navbar-item">
-                            {% trans "Update candidate info" %}
-                          </a>
-                          {% else %}
-                          <a href="{% url 'candidate-register-request' %}" class="navbar-item">
-                            {% trans "Add candidate" %}
-                          </a>
-                          {% endif %}
-                          <a href="{% url 'ngo-detail' user.orgs.first.id %}" class="navbar-item">
-                            {% trans "View organization page" %}
-                          </a>
-                          <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
-                            {% trans "Update organization info" %}
-                          </a>
-                        {% endif %}
-                          <hr class="dropdown-divider">
-                          <a href="{% url 'logout' %}" class="dropdown-item" style="color:red;">{% trans "Logout" %}</a>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-
-                    {% if user.is_impersonate %}
-                    <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
-                        STOP IMPERSONATING<br>{{ request.user.email }}
-                    </a>
-                    {% endif %}
-
-                    {% else %}
-                    <a  href="{% url 'ngos-register-request'%}" class="navbar-item">
-                        {% trans "Register organization" %}
-                    </a>
-
-                    <a  href="{% url 'login'%}" class="navbar-item">
-                        {% trans "Login" %}
-                    </a>
-                    {% endif %}
-
-
-                    {% comment %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <div class="navbar-item">
-                        <form class="d-inline" action="{% url 'set_language' %}" method="post">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ redirect_to }}"/>
-                            <div class="select">
-                              <select id="language" name="language" onchange="this.form.submit()">
-                                {% for language in LANGUAGES %}
-                                <option {% if language.0 == LANGUAGE_CODE %} selected {% endif %} name="language" value="{{language.0}}">{{language.0 | upper}}</option>
-                                {% endfor %}
-                              </select>
-                            </div>
-                        </form>
-                    </div>
-                    {% endcomment %}
-
                 </div>
-            </div>
-        </nav>
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end has-text-centered-touch">
+                        {% if user|in_org_voters_group %}
+                        <a  href="{% url 'ngos' %}" class="navbar-item">
+                            {% trans "Organizations" %}
+                        </a>
+                        {% endif %}
+
+                        <a  href="{% url 'candidates' %}" class="navbar-item">
+                            {% trans "Candidates" %}
+                        </a>
+
+                        <a  href="{% url 'rules' %}" class="navbar-item">
+                            {% trans "Metodology" %}
+                        </a>
+
+                        <a  href="{% url 'about' %}" class="navbar-item">
+                            {% trans "About" %}
+                        </a>
+
+                        <a  href="{% url 'contact' %}" class="navbar-item">
+                            {% trans "Contact" %}
+                        </a>
+
+                        {% if request.user.is_authenticated %}
+                        <div class="navbar-item">
+                        <div class="dropdown is-hoverable">
+                          <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                              <span>{% trans 'Account' %}</span>
+                              <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                              </span>
+                            </button>
+                          </div>
+                          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                            {% if user.orgs.exists %}
+                              {% if user.orgs.first.candidate %}
+                              <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}" class="navbar-item">
+                                {% trans "View candidate page" %}
+                              </a>
+                              <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}" class="navbar-item">
+                                {% trans "Update candidate info" %}
+                              </a>
+                              {% else %}
+                              <a href="{% url 'candidate-register-request' %}" class="navbar-item">
+                                {% trans "Add candidate" %}
+                              </a>
+                              {% endif %}
+                              <a href="{% url 'ngo-detail' user.orgs.first.id %}" class="navbar-item">
+                                {% trans "View organization page" %}
+                              </a>
+                              <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
+                                {% trans "Update organization info" %}
+                              </a>
+                            {% endif %}
+                              <hr class="dropdown-divider">
+                              <a href="{% url 'logout' %}" class="dropdown-item" style="color:red;">{% trans "Logout" %}</a>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+
+                        {% if user.is_impersonate %}
+                        <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
+                            STOP IMPERSONATING<br>{{ request.user.email }}
+                        </a>
+                        {% endif %}
+
+                        {% else %}
+                        <a  href="{% url 'ngos-register-request'%}" class="navbar-item">
+                            {% trans "Register organization" %}
+                        </a>
+
+                        <a  href="{% url 'login'%}" class="navbar-item">
+                            {% trans "Login" %}
+                        </a>
+                        {% endif %}
+
+
+                        {% comment %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                        <div class="navbar-item">
+                            <form class="d-inline" action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ redirect_to }}"/>
+                                <div class="select">
+                                  <select id="language" name="language" onchange="this.form.submit()">
+                                    {% for language in LANGUAGES %}
+                                    <option {% if language.0 == LANGUAGE_CODE %} selected {% endif %} name="language" value="{{language.0}}">{{language.0 | upper}}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                            </form>
+                        </div>
+                        {% endcomment %}
+
+                    </div>
+                </div>
+            </nav>
+        </div>
     </div>
 </div>

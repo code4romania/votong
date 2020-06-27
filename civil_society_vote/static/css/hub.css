@@ -1,24 +1,53 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    --accent-color: #5E72E4;
+    --footer-color: #172B4D;
+    --dark-gray: #32325D;
+    --light-gray: #525F7F;
+    --light-bg-color: #F9F9FB;
+    --blue-title: #3D4F9F;
+}
+
 body {
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 16px;
-    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-size: 14px;
 }
 
 #main {
-    padding: 3em 1.5em;
+    padding: 3em 0;
 }
 
 .h-padded-wrapper {
     padding: 0 1.5em;
 }
 
+
+.title {
+    padding-bottom: 1rem;
+    color: var(--dark-gray);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--light-gray);
+    padding: 1em;
+}
+
 @media (min-width: 1024px) {
     #main {
-        padding: 2em 6em;
+        padding: 2em 0;
     }
 
     .h-padded-wrapper {
         padding: 0 5em;
+    }
+
+    .container .subtitle {
+        margin: 0 20%;
     }
 }
 
@@ -28,12 +57,21 @@ body {
 }
 
 .border-b {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.navbar-container {
+    background-color: var(--accent-color);
+}
+
+.navbar {
+    background-color: transparent;
 }
 
 .navbar-item {
+    color: #fff;
     font-size: 14px;
-    color: #000;
+    font-weight: 600;
 }
 
 .navbar-item img {
@@ -45,6 +83,7 @@ body {
     margin-bottom: auto;
 }
 
+/*
 .developed-by {
     display: flex;
     flex-direction: row;
@@ -75,7 +114,6 @@ body {
 
 .developed-logo-img-sm {
     padding: 5px;
-}
 
 @media (max-width: 768px) {
     .developed-by {
@@ -116,7 +154,7 @@ body {
 .incubated-by-wrapper {
     margin-top: 2rem;
     width: 100%;
-    border-top: 1px solid rgb(94, 128, 255);
+    border-top: 1px solid var(--accent-color);
     padding: 5px 0px;
 }
 
@@ -132,11 +170,17 @@ body {
     font-size: 14px;
     line-height: 21px;
     color: rgb(0, 0, 0);
+
+.code4-branding {
+    color: #fff;
+    text-align: right;
+    align-self: flex-end;
+    font-size: 18px;
 }
+} */
 
 footer {
-    background-color: #004890;
-
+    background-color: var(--footer-color);
     padding: 4em 0;
 }
 
@@ -145,10 +189,6 @@ footer {
     justify-content: space-between;
     width: 100%;
     color: white;
-}
-
-
-.useful-links {
 }
 
 .useful-links a {
@@ -167,43 +207,21 @@ footer {
     margin-bottom: 20px;
 }
 
-.code4-branding {
-    color: #fff;
-    text-align: right;
-    align-self: flex-end;
-    font-size: 18px;
-
+.section-title {
+    font-size: 1.9em;
+    padding-bottom: 1em;
+    font-family: Titillium Web, sans-serif;
+    font-style: normal;
+    color: var(--blue-title);
 }
 
-.donate-title {
-    font-size: 1.75rem;
-    padding-bottom: 1rem;
-}
-
-.container .donate-subtitle {
-    font-size: 1rem;
-}
-
-#redcross-banner {
-    align-items: center;
-    background: #FFFFFF;
-    border: 1px solid #FF4949;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 50px;
-    flex-direction: column;
-}
-
-.redcross-title {
-    font-weight: bold;
-}
-
-.redcross-text {
-    font-size: 14px;
-    text-align: justify;
+.section-text {
+    font-size: 1em;
+    font-weight: 300;
+    color: var(--light-gray);
 }
 
 @media (min-width: 768px) {
-
     .need-call2action {
         margin: 2em;
     }
@@ -230,6 +248,10 @@ footer {
         margin-right: 0;
         margin-left: auto;
     }
+}
+
+.light-bg {
+    background-color: var(--light-bg-color);
 }
 
 .sidebar-btn {
@@ -583,7 +605,6 @@ footer {
     margin-right: 1em;
 }
 
-
 .donations-table {
     width: 100%;
     border-collapse: collapse;
@@ -618,7 +639,6 @@ footer {
 .pagination-next.hidden, .pagination-previous.hidden {
     visibility: hidden;
 }
-
 
 .errorlist {
   color: red;
