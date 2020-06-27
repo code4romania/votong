@@ -215,6 +215,8 @@ footer {
     color: var(--blue-title);
 }
 
+
+
 .section-text {
     font-size: 1em;
     font-weight: 300;
@@ -279,11 +281,8 @@ footer {
   color: #525F7F;
 }
 
-.ngo-list-title {
-    font-size: 1.75em;
-    color: #3D4F9F;
+.uppercase {
     text-transform: uppercase;
-    margin-bottom: 1em;
 }
 
 .filter-container {
@@ -303,12 +302,12 @@ footer {
 .card {
     margin-bottom: 1em;
     background-color: #f0f0f0;
-    color: black;
+    color: #fff;
 }
 
 .card-active {
-    background-color: #bfd1e3;
-    color: #00478f;
+    background-color: var(--accent-color);
+    color: #fff;
 }
 
 .card-content {
@@ -328,6 +327,16 @@ footer {
 
 .call-to-action {
     padding: 1rem;
+    background-color: rgba(94, 114, 228, 0.2);;
+}
+
+.card-active .call-to-action {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.card-active .card-content {
+    color: #fff;
 }
 
 .donation-card {
@@ -444,7 +453,7 @@ footer {
 
 .need-title {
     font-weight: bold;
-    font-size: 1.25em;
+    font-size: 1.3em;
     margin-bottom: 0.5em;
 }
 
@@ -455,7 +464,6 @@ footer {
 
 .need-description {
     margin-top: 1em;
-    font-size: 0.9em;
 }
 
 .need-call2action {
