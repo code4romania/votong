@@ -34,8 +34,9 @@
 
     <div class="is-multiline infinite-container">
         {% for candidate in page_obj %}
-        <div class="need is-flex container infinite-item">
 
+
+        <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
             {% if candidate.photo %}
                 <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -67,8 +68,9 @@
                     {% trans "View details" %}
                 </a>
             </div>
-
         </div>
+
+
         <hr class="is-hidden-tablet" style="margin: 0 10%;" />
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}

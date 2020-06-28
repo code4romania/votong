@@ -366,12 +366,15 @@ footer {
     margin-right: 1.25em;
 }
 
-.detail-desc {
-    margin: 2em 0;
-}
-
 .detail-desc p {
     padding: 3px 10px;
+}
+
+.detail-desc .label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
 }
 
 .vote-org-buttons {
@@ -379,12 +382,25 @@ footer {
 }
 
 .detail-desc-title {
+    display: flex;
+    padding:0;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Titillium Web', sans-serif;
     font-weight: bold;
-    margin: 1em 0;
-    padding: 3px 10px;
+    font-size: 16px;
     color: #000000;
     background-color: #F2F2F2;
+    margin: 1em 0;
 }
+
+.detail-desc-title .colorblock {
+    width:60px;
+    height:50px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
 
 .donate-hero {
     display: flex;
@@ -466,6 +482,11 @@ footer {
 
 .need-call2action {
     margin: 1em;
+}
+
+.candidate-desc {
+    font-weight: 300;
+    font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -569,9 +590,9 @@ footer {
 }
 
 .register-form label {
-    width: 100%;
-    font-weight: normal;
     font-size: 14px;
+    color: black;
+    font-weight: 600;
 }
 
 .register-form input, .register-form select {
@@ -659,9 +680,4 @@ footer {
 
 .errorlist {
   color: red;
-}
-
-.label {
-    color:black;
-    font-weight: 600;
 }
