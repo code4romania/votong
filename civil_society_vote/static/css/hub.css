@@ -660,3 +660,8 @@ footer {
 .errorlist {
   color: red;
 }
+
+.label {
+    color:black;
+    font-weight: 600;
+}
