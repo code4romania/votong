@@ -22,31 +22,18 @@
 
     {% block extra-header %}
 
-        <div class="container has-text-centered mb-50">
-      <div class="columns is-centered">
-        <div class="column is-two-thirds">
-            <h1 class="section-title">
-                {% trans "Elections CES/CESE 2020" %}
-            </h1>
-            <p class="section-text">
-                {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
-            </p>
-        </div>
-      </div>
-    </div>
-
-    {% endblock %}
-
-    {% block domain-filters %}
-
-    <div class="container section has-text-centered ">
+        <div class="container section has-text-centered ">
             <h1 class="title">
                 {% trans "Elections CES/CESE 2020" %}
             </h1>
             <p class="subtitle border-b">
                 {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
             </p>
-    </div>
+        </div>
+
+    {% endblock %}
+
+    {% block domain-filters %}
 
 
     {% if current_domain %}
@@ -57,7 +44,7 @@
     {% endif %}
 
     {% endblock %}
-    
+
     <div class="container section">
             {% block left-side-view %}
             {% endblock %}
