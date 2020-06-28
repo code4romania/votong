@@ -4,47 +4,72 @@
 {% load i18n %}
 
 {% block content %}
-<div class="search-wrapper container is-flex">
-    <form action="{% url 'candidates' %}" method="GET">
-        <div class="field border-b">
-            <p class="control has-icons-right ">
-                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
-                <label class="search-icon">
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="submit" style="display: none;"/>
-                </label>
-            </p>
-        </div>
-    </form>
-</div>
+    <div class="search-wrapper container is-flex">
+        <form action="{% url 'candidates' %}" method="GET">
+            <div class="field border-b">
+                <p class="control has-icons-right ">
+                    <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
+                    <label class="search-icon">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="submit" style="display: none;"/>
+                    </label>
+                </p>
+            </div>
+        </form>
+    </div>
 
     {% block extra-header %}
 
-        <div class="container section has-text-centered ">
-            <h1 class="title">
-                {% trans "Elections CES/CESE 2020" %}
-            </h1>
-            <p class="subtitle border-b">
-                {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
-            </p>
-        </div>
+    <div class="container section has-text-centered ">
+        <h1 class="title">
+            {% trans "Elections CES/CESE 2020" %}
+        </h1>
+        <p class="subtitle border-b">
+            {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
+        </p>
+    </div>
 
     {% endblock %}
 
     {% block domain-filters %}
+        <div class="container section">
+            <div class="columns is-multiline">
 
+                {% for domain in domains %}
 
-    {% if current_domain %}
-    <div class="container section">
-        <h1 class="section-title">{{ current_domain.name }}</h1>
-        <p class="section-text">{{ current_domain.description }}</p>
-    </div>
-    {% endif %}
+                <div class="column is-4 filter">
+                {% if current_domain.id == domain.id %}
+                    <div class="card-active">
+                        <a href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}"
+                           class="has-text-black is-flex">
+                {% else%}
+                    <div class="card">
+                        <a href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}"
+                           class="has-text-black is-flex">
+                {% endif %}
+                            <span class="call-to-action">
+                                <i class="far fa-check-circle"></i>
+                            </span>
+                            <div class="card-content">{{ domain.name }}</div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        {% if current_domain %}
+        <div class="container section">
+            <h1 class="section-title">{{ current_domain.name }}</h1>
+            <p class="section-text">{{ current_domain.description }}</p>
+        </div>
+        {% endif %}
 
     {% endblock %}
-
+    
     <div class="container section">
             {% block left-side-view %}
             {% endblock %}
