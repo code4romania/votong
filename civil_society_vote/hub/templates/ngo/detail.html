@@ -18,41 +18,50 @@
 {% block domain-filters %}
 {% endblock%}
 
-<div class="container detail-header">
-    <span class="detail-header-img">
-    {% if ngo.logo %}
+<div class="container need is-flex">
+    <div class="card-image need-logo is-hidden-mobile">
+        {% if ngo.logo %}
         <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
-    {% else %}
+        {% else %}
         <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-    {% endif %}
-    </span>
-    <div>
-        <h2 class="title">
-            {{ ngo.name }}
-        </h2>
-        <div class="subtitle">
-            {{ ngo.email }}
+        {% endif %}
+    </div>
+
+    <div class="card-info">
+        <div class="flex-align-center">
+            <div class="card-image need-logo is-hidden-tablet">
+                {% if ngo.logo %}
+                <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+                {% else %}
+                <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+                {% endif %}
+            </div>
+            <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
         </div>
-        <div class="description">
-          <p><b>{% trans 'Domain' %}:</b> {{ ngo.domain }}</p>
-        </div>
+        <div class="need-subtitle is-hidden-mobile">{{ ngo.email }}</div>
+        <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
+        <div class="need-subtitle is-hidden-tablet">{{ ngo.email }}</div>
+        <div class="need-description">{{ ngo.domain }}</div>
     </div>
 </div>
+
 
 <hr/>
 
 <div class="container detail-desc">
-    <div class="detail-desc-title">{% trans "About the organization" %}</div>
+    <div class="detail-desc-title">
+        <span class="colorblock" style="background-color:#5E72E4;"></span>
+        {% trans "About the organization" %}</div>
     {% if ngo.description %}
-    <p><b>{% trans 'Description' %}:</b> {{ ngo.description }}</p>
+    <p><span class="label">{% trans 'Description' %}:</span> {{ ngo.description }}</p>
     <hr>
     {% endif %}
-    <p><b>{% trans 'Founders' %}:</b> {{ ngo.founders }}</p>
-    <p><b>{% trans 'Representative' %}:</b> {{ ngo.representative }}</p>
-    <p><b>{% trans 'Board council' %}:</b> {{ ngo.board_council }}</p>
+    <p><span class="label">{% trans 'Founders' %}:</span> {{ ngo.founders }}</p>
+    <p><span class="label">{% trans 'Representative' %}:</span> {{ ngo.representative }}</p>
+    <p><span class="label">{% trans 'Board council' %}:</span> {{ ngo.board_council }}</p>
     <hr>
-    <p><b>{% trans 'Initial purpose' %}:</b> {{ ngo.purpose_initial }}</p>
-    <p><b>{% trans 'Current purpose' %}:</b> {{ ngo.purpose_current }}</p>
+    <p><span class="label">{% trans 'Initial purpose' %}:</span> {{ ngo.purpose_initial }}</p>
+    <p><span class="label">{% trans 'Current purpose' %}:</span> {{ ngo.purpose_current }}</p>
 </div>
 
 {% if user|in_org_voters_group %}

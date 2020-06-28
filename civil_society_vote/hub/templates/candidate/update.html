@@ -11,7 +11,7 @@
 
 {% block left-side-view %}
 
-<h2 class="title is-2">{% trans "Update candidate" %}</h2>
+<h2 class="title border-b uppercase">{% trans "Update candidate" %}</h2>
 
 <div class="container">
     {% if messages %}
@@ -23,7 +23,7 @@
         </div>
         </article>
     {% else %}
-        <form method="post" enctype="multipart/form-data" >
+        <form class="ces-form" method="post" enctype="multipart/form-data" >
             {% csrf_token %}
 
             {{ form.non_field_errors }}

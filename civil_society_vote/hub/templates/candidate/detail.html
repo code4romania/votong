@@ -17,12 +17,12 @@
 {% block domain-filters %}
 {% endblock%}
 
-<div class="container section">
+<div class="container">
     <h1 class="section-title">{{ candidate.domain.name }}</h1>
     <p class="section-text">{{ candidate.domain.description }}</p>
 </div>
 
-<div class="section container need is-flex">
+<div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
     {% if candidate.photo %}
         <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -46,19 +46,19 @@
         <div class="need-title is-hidden-mobile">
             <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
         </div>
-        <div class="need-description is-hidden-mobile">{{candidate.email}}</div>
+        <div class="need-subtitle is-hidden-tablet">{{candidate.org}}</div>
+        <div class="need-description">{{candidate.email}}</div>
     </div>
 </div>
 
 <hr/>
 {% if candidate.description %}
-<div class="candidate-desc">
+<div class="container candidate-desc">
     <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
 </div>
 {% endif %}
 
-
-<div class="detail-desc">
+<div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5E72E4;"></span>
         {% trans "General information" %}
@@ -72,7 +72,7 @@
 </div>
 
 
-<div class="detail-desc">
+<div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5876C1;"></span>
         {% trans "Documents" %}
@@ -84,18 +84,19 @@
     {% if candidate.legal_record %}<p><a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a></p>{% endif %}
 </div>
 
-<div class="detail-desc">
+<div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#8898AA;"></span>
     {{ candidate.org.name }}</div>
     <p><span class="label">{% trans 'Founders/Associates' %}:</span> {{ candidate.org.founders }}</p>
     <p><span class="label">{% trans 'Board council' %}:</span> {{ candidate.org.board_council }}</p>
     <p><span class="label">{% trans 'Legal representative' %}:</span> {{ candidate.org.representative }}</p>
+    <hr>
 </div>
 
 {% if user.is_authenticated %}
-<hr>
-<div class="detail-desc has-text-centered">
+
+<div class="container detail-desc has-text-centered">
   {% if user|already_voted_candidate_or_domain:candidate %}
   <article id="vote-candidate-info" class="message is-info">
     <div class="message-body">Ati votat deja in acest domeniu.</div>
@@ -112,7 +113,6 @@
 
   <button id="vote-candidate-button" class="button is-success is-large" {% if user|already_voted_candidate_or_domain:candidate %}disabled{% endif %}>VOTEAZA</button>
 </div>
-
 <script>
 $( document ).ready(function() {
   $( "#vote-candidate-button" ).on( "click", function( event ) {

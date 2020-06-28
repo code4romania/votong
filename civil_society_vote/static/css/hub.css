@@ -8,6 +8,7 @@
     --light-gray: #525F7F;
     --light-bg-color: #F9F9FB;
     --blue-title: #3D4F9F;
+    --call2action: #2DCE89;
 }
 
 body {
@@ -81,6 +82,10 @@ body {
 .navbar-burger {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.dropdown-content .navbar-item {
+    color: var(--dark-gray);
 }
 
 /*
@@ -366,6 +371,10 @@ footer {
     margin-right: 1.25em;
 }
 
+.detail-desc {
+    padding-top: 3rem;
+}
+
 .detail-desc p {
     padding: 3px 10px;
 }
@@ -590,9 +599,9 @@ footer {
 }
 
 .register-form label {
+    width: 100%;
+    font-weight: normal;
     font-size: 14px;
-    color: black;
-    font-weight: 600;
 }
 
 .register-form input, .register-form select {
@@ -680,4 +689,13 @@ footer {
 
 .errorlist {
   color: red;
+}
+
+.ces-form .label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.button.is-success {
+    background-color: var(--call2action);
 }
