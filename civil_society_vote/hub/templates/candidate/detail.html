@@ -17,59 +17,66 @@
 {% block domain-filters %}
 {% endblock%}
 
-<div class="container mb-50">
-  <div class="columns">
-    <div class="column is-two-thirds">
-        <h1 class="domain-title">{{ candidate.domain.name }}</h1>
-        <p class="domain-subtitle">{{ candidate.domain.description }}</p>
-    </div>
-  </div>
+<div class="container">
+    <h1 class="section-title">{{ candidate.domain.name }}</h1>
+    <p class="section-text">{{ candidate.domain.description }}</p>
 </div>
 
-<div class="container detail-header">
-    <span class="detail-header-img">
+<div class="container need is-flex">
+    <div class="card-image need-logo is-hidden-mobile">
     {% if candidate.photo %}
         <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
     {% else %}
         <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
     {% endif %}
-    </span>
-    <div>
-        <div class="subtitle">
-            {{ candidate.org }}
+    </div>
+
+    <div class="card-info">
+        <div class="flex-align-center">
+            <div class="card-image need-logo is-hidden-tablet">
+                {% if candidate.photo %}
+                <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+                {% else %}
+                <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+                {% endif %}
+            </div>
+            <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
         </div>
-        <h2 class="title">
-            {{ candidate.name }}
-        </h2>
-        <div class="subtitle">
-            {{ candidate.email }}
+        <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
+        <div class="need-title is-hidden-mobile">
+            <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
         </div>
+        <div class="need-subtitle is-hidden-tablet">{{candidate.org}}</div>
+        <div class="need-description">{{candidate.email}}</div>
     </div>
 </div>
 
-<hr>
-
+<hr/>
 {% if candidate.description %}
-<div class="description">
-  <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
+<div class="container candidate-desc">
+    <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
 </div>
 {% endif %}
 
-<hr>
-
 <div class="container detail-desc">
-    <div class="detail-desc-title">{% trans "General information" %}</div>
-    <p><b>{% trans 'Role' %}:</b> {{ candidate.role }}</p>
-    <p><b>{% trans 'Professional experience' %}:</b> {{ candidate.experience }}</p>
-    <p><b>{% trans 'Studies' %}:</b> {{ candidate.studies }}</p>
-    <p><b>{% trans 'Founder/Associate' %}:</b> {{ candidate.founder|yesno:"DA,NU" }}</p>
-    <p><b>{% trans 'Legal representative' %}:</b> {{ candidate.representative|yesno:"DA,NU" }}</p>
-    <p><b>{% trans 'Board member' %}:</b> {{ candidate.board_member|yesno:"DA,NU" }}</p>
+    <div class="detail-desc-title">
+        <span class="colorblock" style="background-color:#5E72E4;"></span>
+        {% trans "General information" %}
+    </div>
+    <p><span class="label">{% trans 'Role' %}:</span> {{ candidate.role }}</p>
+    <p><span class="label">{% trans 'Professional experience' %}:</span> {{ candidate.experience }}</p>
+    <p><span class="label">{% trans 'Studies' %}:</span> {{ candidate.studies }}</p>
+    <p><span class="label">{% trans 'Founder/Associate' %}:</span> {{ candidate.founder|yesno:"DA,NU" }}</p>
+    <p><span class="label">{% trans 'Legal representative' %}:</span> {{ candidate.representative|yesno:"DA,NU" }}</p>
+    <p><span class="label">{% trans 'Board member' %}:</span> {{ candidate.board_member|yesno:"DA,NU" }}</p>
 </div>
 
 
 <div class="container detail-desc">
-    <div class="detail-desc-title">{% trans "Documents" %}</div>
+    <div class="detail-desc-title">
+        <span class="colorblock" style="background-color:#5876C1;"></span>
+        {% trans "Documents" %}
+    </div>
     {% if candidate.cv %}<p><a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a></p>{% endif %}
     {% if candidate.letter %}<p><a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a></p>{% endif %}
     {% if candidate.mandate %}<p><a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a></p>{% endif %}
@@ -78,14 +85,17 @@
 </div>
 
 <div class="container detail-desc">
-    <div class="detail-desc-title">{{ candidate.org.name }}</div>
-    <p><b>{% trans 'Founders/Associates' %}:</b> {{ candidate.org.founders }}</p>
-    <p><b>{% trans 'Board council' %}:</b> {{ candidate.org.board_council }}</p>
-    <p><b>{% trans 'Legal representative' %}:</b> {{ candidate.org.representative }}</p>
+    <div class="detail-desc-title">
+        <span class="colorblock" style="background-color:#8898AA;"></span>
+    {{ candidate.org.name }}</div>
+    <p><span class="label">{% trans 'Founders/Associates' %}:</span> {{ candidate.org.founders }}</p>
+    <p><span class="label">{% trans 'Board council' %}:</span> {{ candidate.org.board_council }}</p>
+    <p><span class="label">{% trans 'Legal representative' %}:</span> {{ candidate.org.representative }}</p>
+    <hr>
 </div>
 
 {% if user.is_authenticated %}
-<hr>
+
 <div class="container detail-desc has-text-centered">
   {% if user|already_voted_candidate_or_domain:candidate %}
   <article id="vote-candidate-info" class="message is-info">
@@ -103,7 +113,6 @@
 
   <button id="vote-candidate-button" class="button is-success is-large" {% if user|already_voted_candidate_or_domain:candidate %}disabled{% endif %}>VOTEAZA</button>
 </div>
-
 <script>
 $( document ).ready(function() {
   $( "#vote-candidate-button" ).on( "click", function( event ) {

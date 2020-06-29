@@ -8,6 +8,7 @@
     --light-gray: #525F7F;
     --light-bg-color: #F9F9FB;
     --blue-title: #3D4F9F;
+    --call2action: #2DCE89;
 }
 
 body {
@@ -81,6 +82,10 @@ body {
 .navbar-burger {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.dropdown-content .navbar-item {
+    color: var(--dark-gray);
 }
 
 /*
@@ -279,11 +284,8 @@ footer {
   color: #525F7F;
 }
 
-.ngo-list-title {
-    font-size: 1.75em;
-    color: #3D4F9F;
+.uppercase {
     text-transform: uppercase;
-    margin-bottom: 1em;
 }
 
 .filter-container {
@@ -303,12 +305,12 @@ footer {
 .card {
     margin-bottom: 1em;
     background-color: #f0f0f0;
-    color: black;
+    color: #fff;
 }
 
 .card-active {
-    background-color: #bfd1e3;
-    color: #00478f;
+    background-color: var(--accent-color);
+    color: #fff;
 }
 
 .card-content {
@@ -328,6 +330,16 @@ footer {
 
 .call-to-action {
     padding: 1rem;
+    background-color: rgba(94, 114, 228, 0.2);;
+}
+
+.card-active .call-to-action {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.card-active .card-content {
+    color: #fff;
 }
 
 .donation-card {
@@ -360,11 +372,18 @@ footer {
 }
 
 .detail-desc {
-    margin: 2em 0;
+    padding-top: 3rem;
 }
 
 .detail-desc p {
     padding: 3px 10px;
+}
+
+.detail-desc .label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
 }
 
 .vote-org-buttons {
@@ -372,12 +391,25 @@ footer {
 }
 
 .detail-desc-title {
+    display: flex;
+    padding:0;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Titillium Web', sans-serif;
     font-weight: bold;
-    margin: 1em 0;
-    padding: 3px 10px;
+    font-size: 16px;
     color: #000000;
     background-color: #F2F2F2;
+    margin: 1em 0;
 }
+
+.detail-desc-title .colorblock {
+    width:60px;
+    height:50px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
 
 .donate-hero {
     display: flex;
@@ -444,7 +476,7 @@ footer {
 
 .need-title {
     font-weight: bold;
-    font-size: 1.25em;
+    font-size: 1.3em;
     margin-bottom: 0.5em;
 }
 
@@ -455,11 +487,15 @@ footer {
 
 .need-description {
     margin-top: 1em;
-    font-size: 0.9em;
 }
 
 .need-call2action {
     margin: 1em;
+}
+
+.candidate-desc {
+    font-weight: 300;
+    font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -653,4 +689,13 @@ footer {
 
 .errorlist {
   color: red;
+}
+
+.ces-form .label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.button.is-success {
+    background-color: var(--call2action);
 }

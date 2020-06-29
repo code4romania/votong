@@ -6,11 +6,9 @@
 
 {% block left-side-view %}
 
-<div class="container">
-    <h2 class="ngo-list-title">
-        {% trans "Candidates" %}
-    </h2>
-</div>
+<h2 class="section-title uppercase">
+    {% trans "Candidates" %}
+</h2>
 
 <script>
     window.onload = function () {
@@ -34,10 +32,11 @@
 <div class="container">
     {% if page_obj %}
 
-    <div class="columns is-multiline infinite-container">
+    <div class="is-multiline infinite-container">
         {% for candidate in page_obj %}
-        <div class="need is-flex container infinite-item">
 
+
+        <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
             {% if candidate.photo %}
                 <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -69,11 +68,13 @@
                     {% trans "View details" %}
                 </a>
             </div>
-
         </div>
+
+
         <hr class="is-hidden-tablet" style="margin: 0 10%;" />
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}
+    </div>
     </div>
 
     {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
