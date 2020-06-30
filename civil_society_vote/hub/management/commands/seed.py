@@ -1,4 +1,8 @@
+import os
+from shutil import copyfile
+
 from django.contrib.auth.models import Group, User
+from django.core.files import File
 from django.core.management.base import BaseCommand
 from faker import Faker
 
@@ -6,6 +10,7 @@ from hub.models import ORG_VOTERS_GROUP, Candidate, City, Domain, Organization
 
 fake = Faker()
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORG_NUMBER = 60
 
 
@@ -70,6 +75,19 @@ class Command(BaseCommand):
         if not Organization.objects.count():
             count_org_voters = 0
 
+            copyfile(
+                os.path.join(BASE_DIR, "../../", "static/images/logo-demo.png"),
+                os.path.join(BASE_DIR, "../../", "mediafiles/logo-demo.png"),
+            )
+            copyfile(
+                os.path.join(BASE_DIR, "../../", "static/images/photo-placeholder.gif"),
+                os.path.join(BASE_DIR, "../../", "mediafiles/photo-placeholder.gif"),
+            )
+            copyfile(
+                os.path.join(BASE_DIR, "../../", "static/data/test.pdf"),
+                os.path.join(BASE_DIR, "../../", "mediafiles/test.pdf"),
+            )
+
             for i in range(ORG_NUMBER):
                 city = City.objects.order_by("?").first()
                 domain = Domain.objects.order_by("?").first()
@@ -93,6 +111,12 @@ class Command(BaseCommand):
                     status=status,
                 )
 
+                org.logo.name = "logo-demo.png"
+                org.last_balance_sheet.name = "test.pdf"
+                org.statute.name = "test.pdf"
+                org.letter.name = "test.pdf"
+                org.save()
+
                 if status == "rejected":
                     self.stdout.write(self.style.SUCCESS(f"Created organization {org}"))
                 elif status == "accepted":
@@ -113,6 +137,14 @@ class Command(BaseCommand):
                         phone=fake.phone_number(),
                         domain=org.domain,
                     )
+
+                    candidate.photo.name = "photo-placeholder.gif"
+                    candidate.mandate.name = "test.pdf"
+                    candidate.letter.name = "test.pdf"
+                    candidate.statement.name = "test.pdf"
+                    candidate.cv.name = "test.pdf"
+                    candidate.legal_record.name = "test.pdf"
+                    candidate.save()
 
                     self.stdout.write(self.style.SUCCESS(f"Created organization {org} and candidate {candidate.name}"))
 
