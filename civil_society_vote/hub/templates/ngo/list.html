@@ -150,8 +150,9 @@
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
                 </div>
-                <div class="need-description is-hidden-mobile">{{ngo.purpose_initial}}</div>
-                <div class="need-description is-hidden-mobile">{{ngo.purpose_current}}</div>
+                <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
+                <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div>
+                <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
             </div>
 
             <div class="need-call2action">

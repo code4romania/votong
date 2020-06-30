@@ -205,6 +205,9 @@ class OrganizationVote(TimeStampedModel):
         if self.vote == VOTE.no and not self.motivation:
             raise ValidationError(_("You must specify a motivation if voting NO!"))
 
+        if self.org.status != Organization.STATUS.pending:
+            return
+
         super().save(*args, **kwargs)
 
 
