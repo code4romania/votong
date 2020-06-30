@@ -14,16 +14,16 @@ admin.site.index_title = _("Admin Civil Society Vote")
 
 
 urlpatterns = i18n_patterns(
-    path("about/", StaticPageView.as_view(template_name="about.html"), name="about"),
-    path("rules/", StaticPageView.as_view(template_name="rules.html"), name="rules"),
+    path(_("about/"), StaticPageView.as_view(template_name="about.html"), name="about"),
+    path(_("rules/"), StaticPageView.as_view(template_name="rules.html"), name="rules"),
     path("contact/", StaticPageView.as_view(template_name="contact.html"), name="contact"),
-    path("terms/", StaticPageView.as_view(template_name="terms_and_conditions.html"), name="terms",),
+    path(_("terms/"), StaticPageView.as_view(template_name="terms_and_conditions.html"), name="terms",),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path(_("accounts/"), include("django.contrib.auth.urls")),
     path(
-        "accounts/reset-password/",
+        _("accounts/reset-password/"),
         auth_views.PasswordResetView.as_view(
             html_email_template_name="registration/reset_password_email.html",
             template_name="registration/reset_password.html",
@@ -31,17 +31,17 @@ urlpatterns = i18n_patterns(
         name="password_reset",
     ),
     path(
-        "accounts/reset-password/done/",
+        _("accounts/reset-password/done/"),
         auth_views.PasswordResetDoneView.as_view(template_name="registration/reset_password_done.html"),
         name="password_reset_done",
     ),
     path(
-        "accounts/reset-password/<uidb64>/<token>/",
+        _("accounts/reset-password/<uidb64>/<token>/"),
         auth_views.PasswordResetConfirmView.as_view(template_name="registration/reset_password_confirm.html"),
         name="password_reset_confirm",
     ),
     path(
-        "accounts/reset-password/complete/",
+        _("accounts/reset-password/complete/"),
         auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
         name="password_reset_complete",
     ),
