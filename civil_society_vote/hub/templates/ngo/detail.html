@@ -51,7 +51,8 @@
 <div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5E72E4;"></span>
-        {% trans "About the organization" %}</div>
+        {% trans "About the organization" %}
+    </div>
     {% if ngo.description %}
     <p><span class="label">{% trans 'Description' %}:</span> {{ ngo.description }}</p>
     <hr>
@@ -62,6 +63,13 @@
     <hr>
     <p><span class="label">{% trans 'Initial purpose' %}:</span> {{ ngo.purpose_initial }}</p>
     <p><span class="label">{% trans 'Current purpose' %}:</span> {{ ngo.purpose_current }}</p>
+    <div class="detail-desc-title">
+        <span class="colorblock" style="background-color:#5E72E4;"></span>
+        {% trans "Documents" %}
+    </div>
+    <p><a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a></p>
+    <p><a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a></p>
+    <p><a href="{{ ngo.letter.url }}" title="{% trans 'Letter of intent' %}">{% trans 'Letter of intent' %}</a></p>
 </div>
 
 {% if user|in_org_voters_group %}
