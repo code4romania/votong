@@ -38,6 +38,18 @@ body {
     padding: 1em;
 }
 
+.status-accepted {
+  color: green;
+}
+
+.status-rejected {
+  color: red;
+}
+
+.status-pending {
+  color: blue;
+}
+
 @media (min-width: 1024px) {
     #main {
         padding: 2em 0;

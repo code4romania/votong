@@ -42,6 +42,7 @@
         <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
         <div class="need-subtitle is-hidden-tablet">{{ ngo.email }}</div>
         <div class="need-description">{{ ngo.domain }}</div>
+        <div class="need-description"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
     </div>
 </div>
 
@@ -72,7 +73,7 @@
     <p><a href="{{ ngo.letter.url }}" title="{% trans 'Letter of intent' %}">{% trans 'Letter of intent' %}</a></p>
 </div>
 
-{% if user|in_org_voters_group %}
+{% if user|in_org_voters_group and ngo.status == 'pending' %}
 {% user_org_vote_obj user ngo as user_vote%}
 
 <hr>
