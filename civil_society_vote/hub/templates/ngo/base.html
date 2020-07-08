@@ -41,34 +41,25 @@
 
     {% block domain-filters %}
 
-    <div class="container mb-50">
-        <div class="columns is-multiline">
-
+    <div class="container section">
+        <div class="filter-grid">
             {% for domain in domains %}
-
-            <div class="column is-4 filter">
             {% if current_domain.id == domain.id %}
-                <div class="card-active">
-                    <a href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}"
-                       class="has-text-black is-flex">
-            {% else%}
-                <div class="card">
-                    <a href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}"
-                       class="has-text-black is-flex">
-            {% endif %}
-                        <span class="call-to-action">
-                            <i class="far fa-check-circle"></i>
-                        </span>
-                        <div class="card-content">{{ domain.name }}</div>
+            <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
+                <div class="card filter-card-active">
+                    {% else%}
+                    <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
+                        <div class="card filter-card ">
+                            {% endif %}
+                            <div class="filter-icon">
+                                <i class="far fa-check-circle"></i>
+                            </div>
+                            <div class="filter-card-content">{{ domain.name }}</div>
+                        </div>
                     </a>
+                    {% endfor %}
                 </div>
-            </div>
-
-            {% endfor %}
-
         </div>
-    </div>
-
 
     {% if current_domain %}
     <div class="container mb-50">
