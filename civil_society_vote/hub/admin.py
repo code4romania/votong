@@ -19,6 +19,7 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
+    FeatureFlag,
     Organization,
     OrganizationVote,
 )
@@ -247,3 +248,24 @@ class CityAdmin(admin.ModelAdmin):
             "form": form,
         }
         return render(request, "admin/hub/city/import_cities.html", context)
+
+
+@admin.register(FeatureFlag)
+class FeatureFlagAdmin(admin.ModelAdmin):
+    list_display = ["flag", "status"]
+    readonly_fields = ["status_changed"]
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False

@@ -65,8 +65,24 @@ COUNTY_CHOICES = Choices(*[(x, x) for x in COUNTIES])
 
 VOTE = Choices(("yes", _("Yes")), ("no", _("No")), ("abstention", _("Abstention")),)
 
-
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
+
+FLAG_CHOICES = Choices(
+    ("enable_org_voting", _("Enable organization voting")), ("enable_candidate_voting", _("Enable candidate voting")),
+)
+
+
+class FeatureFlag(StatusModel, TimeStampedModel):
+    STATUS = Choices(("on", _("ON")), ("off", _("OFF")))
+
+    flag = models.CharField(_("Flag"), choices=FLAG_CHOICES, max_length=254, unique=True)
+
+    class Meta:
+        verbose_name = _("Feature flag")
+        verbose_name_plural = _("Feature flags")
+
+    def __str__(self):
+        return f"{self.flag}: {self.status.upper()}"
 
 
 class Domain(TimeStampedModel):

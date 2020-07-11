@@ -14,7 +14,17 @@ from django.views.generic.base import TemplateView
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
-from hub.models import ORG_VOTERS_GROUP, VOTE, Candidate, CandidateVote, City, Domain, Organization, OrganizationVote
+from hub.models import (
+    ORG_VOTERS_GROUP,
+    VOTE,
+    Candidate,
+    CandidateVote,
+    City,
+    Domain,
+    FeatureFlag,
+    Organization,
+    OrganizationVote,
+)
 
 
 class MenuMixin:
@@ -178,6 +188,9 @@ class OrganizationUpdateView(HubUpdateView):
 
 class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
     def get(self, request, pk):
+        if not FeatureFlag.objects.filter(flag="enable_org_voting", status=FeatureFlag.STATUS.on).exists():
+            return HttpResponseBadRequest()
+
         try:
             try:
                 vote = request.GET.get("vote")
@@ -260,6 +273,9 @@ class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):
 
 class CandidateVoteView(LoginRequiredMixin, View):
     def get(self, request, pk):
+        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", status=FeatureFlag.STATUS.on).exists():
+            return HttpResponseBadRequest()
+
         try:
             candidate = Candidate.objects.get(pk=pk)
             vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
