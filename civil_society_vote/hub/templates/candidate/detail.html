@@ -94,7 +94,7 @@
     <hr>
 </div>
 
-{% if user.is_authenticated %}
+{% if CANDIDATE_VOTING_ENABLED and user.is_authenticated %}
 
 <div class="container detail-desc has-text-centered">
   {% if user|already_voted_candidate_or_domain:candidate %}
