@@ -8,7 +8,7 @@ Faker
 pytest
 
 # style checker
-black
+black==19.10b0
 isort
 flake8
 
