@@ -1,0 +1,48 @@
+name: Build API Docker image
+
+on: [push]
+
+env:
+    IMAGE_PAUL_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/paul-api
+
+jobs:
+  build:
+    name: Build Docker image for Paul API
+    runs-on: ubuntu-latest
+
+    steps:
+        # - name: Checkout
+        #   uses: actions/checkout@master
+
+        # - name: Build Docker image
+        #   if: github.ref == 'refs/heads/master'
+        #   run: |
+        #     docker build .  \
+        #         --tag $IMAGE_PAUL_API:$GITHUB_SHA \
+        #         --file docker/api/Dockerfile
+
+        # - name: Upload Docker image
+        #   if: github.ref == 'refs/heads/master'
+        #   run: |
+        #         echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
+        #         docker login \
+        #         -u ${{ secrets.DOCKER_HUB_USERNAME }} \
+        #         --password-stdin
+        #         docker push $IMAGE_PAUL_API:$GITHUB_SHA
+        
+        # - name: Tag Latest
+        #   if: github.ref == 'refs/heads/master'
+        #   run: |
+        #         docker tag \
+        #         $IMAGE_PAUL_API:$GITHUB_SHA \
+        #         $IMAGE_PAUL_API:latest
+        #         docker push $IMAGE_PAUL_API:latest
+
+        - name: executing remote ssh commands
+          if: github.ref == 'refs/heads/master'
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.DEV_SERVER_IP }}
+            username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
+            key: ${{ secrets.DEV_SERVER_SSH_KEY }}
+            script: "/root/votong/deploy/pull.sh"

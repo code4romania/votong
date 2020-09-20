@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     ports:
-      - "8000:8000"
+      - "8010:8010"
     volumes:
       - ./:/opt
   db:

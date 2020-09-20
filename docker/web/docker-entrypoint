@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=${PORT:-"8000"}
+PORT=${PORT:-"8010"}
 
 LOAD_DUMMY_DATA=${LOAD_DUMMY_DATA:-"no"}
 

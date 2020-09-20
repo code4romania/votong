@@ -32,4 +32,4 @@ COPY ./docker/web/docker-entrypoint /
 COPY ./ /opt/
 
 ENTRYPOINT ["/docker-entrypoint"]
-EXPOSE 8000
+EXPOSE 8010
