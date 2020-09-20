@@ -73,7 +73,13 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Loaded domain data"))
 
         if not Organization.objects.count():
+            if not (os.path.isdir(os.path.join(BASE_DIR, "../../", "mediafiles"))):
+                os.mkdir(os.path.join(BASE_DIR, "../../", "mediafiles"))
+
             count_org_voters = 0
+
+            if not (os.path.exists(os.path.join(BASE_DIR, "../../", "mediafiles"))):
+                os.mkdir(os.path.join(BASE_DIR, "../../", "mediafiles"))
 
             copyfile(
                 os.path.join(BASE_DIR, "../../", "static/images/logo-demo.png"),
