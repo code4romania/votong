@@ -1,4 +1,4 @@
-name: Build API Docker image
+name: Transfer to dev env and run
 
 on: [push]
 
