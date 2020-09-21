@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: executing remote ssh commands
-          if: github.ref == 'refs/heads/master'
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.DEV_SERVER_IP }}
-            username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
-            key: ${{ secrets.DEV_SERVER_SSH_KEY }}
-            script: "/root/votong/deploy/pull.sh"
+      - name: executing remote ssh commands
+        if: github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
+          key: ${{ secrets.DEV_SERVER_SSH_KEY }}
+          script: "/root/votong/deploy/pull.sh"
