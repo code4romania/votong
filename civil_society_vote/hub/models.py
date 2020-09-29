@@ -9,7 +9,11 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
-ORG_VOTERS_GROUP = "OrgVoters"
+# NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
+STAFF_GROUP = "Code for Romania Staff"
+COMMITTEE_GROUP = "Comisie Electorală"
+SUPPORT_GROUP = "Supporting Staff"
+
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
 PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)
@@ -214,7 +218,7 @@ class OrganizationVote(TimeStampedModel):
         return f"{self.user} / {VOTE[self.vote]} / {self.org}"
 
     def save(self, *args, **kwargs):
-        if not self.user.groups.filter(name=ORG_VOTERS_GROUP).exists():
+        if not self.user.groups.filter(name=COMMITTEE_GROUP).exists():
             raise PermissionDenied()
 
         if self.vote == VOTE.no and not self.motivation:

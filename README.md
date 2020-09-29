@@ -1,6 +1,6 @@
 # VotONG
 
-[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/votong.svg?style=for-the-badge)](https://github.com/code4romania/votong/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/votong.svg?style=for-the-badge)](https://github.com/code4romania/votong/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
 The VotONG platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections.
 
@@ -73,8 +73,8 @@ Some dummy data is loaded automatically when starting the containers for the fir
 
 You can access the admin with username `admin` and password `secret` (all automatically created users in the dev environment have the password set to `secret`).
 
-If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
-Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/civil_society_vote/wiki/FAQ), wouldn't it?
+If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/votong/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
+Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/votong/wiki/FAQ), wouldn't it?
 
 To work on running containers that were started using `docker-compose up`, open another terminal and:
 

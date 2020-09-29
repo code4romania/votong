@@ -19,7 +19,7 @@
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end has-text-centered-touch">
-                        {% if user|in_org_voters_group %}
+                        {% if user|in_committee_group %}
                         <a  href="{% url 'ngos' %}" class="navbar-item">
                             {% trans "Organizations" %}
                         </a>

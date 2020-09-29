@@ -15,7 +15,7 @@ from django.views.generic.base import TemplateView
 from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
 from hub.models import (
-    ORG_VOTERS_GROUP,
+    COMMITTEE_GROUP,
     VOTE,
     Candidate,
     CandidateVote,
@@ -50,7 +50,7 @@ class OrgVotersGroupRequireddMixin(AccessMixin):
         if pk and request.user.orgs.filter(pk=pk).exists():
             return super().dispatch(request, *args, **kwargs)
 
-        if not request.user.groups.filter(name=ORG_VOTERS_GROUP).exists():
+        if not request.user.groups.filter(name=COMMITTEE_GROUP).exists():
             return self.handle_no_permission()
 
         return super().dispatch(request, *args, **kwargs)
@@ -160,15 +160,6 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     def get_success_url(self):
         return reverse("ngos-register-request")
 
-    def get_success_message(self, cleaned_data):
-        for user in User.objects.filter(groups__name=ORG_VOTERS_GROUP):
-            cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
-            utils.send_email(
-                template="mail/new_ngo.html", context=cleaned_data, subject="ONG nou", to=user.email,
-            )
-
-        return super().get_success_message(cleaned_data)
-
 
 class OrganizationUpdateView(HubUpdateView):
     template_name = "ngo/update.html"
@@ -244,15 +235,6 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
-
-    # def get_success_message(self, cleaned_data):
-    #     for user in User.objects.filter(groups__name=ORG_VOTERS_GROUP):
-    #         cleaned_data["base_path"] = f"{self.request.scheme}://{self.request.META['HTTP_HOST']}"
-    #         utils.send_email(
-    #             template="mail/new_candidate.html", context=cleaned_data, subject="Candidat nou", to=user.email,
-    #         )
-
-    #     return super().get_success_message(cleaned_data)
 
 
 class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):

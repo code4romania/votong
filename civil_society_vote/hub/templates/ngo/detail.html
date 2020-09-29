@@ -73,7 +73,7 @@
     <p><a href="{{ ngo.letter.url }}" title="{% trans 'Letter of intent' %}">{% trans 'Letter of intent' %}</a></p>
 </div>
 
-{% if ORG_VOTING_ENABLED and user|in_org_voters_group and ngo.status == 'pending' %}
+{% if ORG_VOTING_ENABLED and user|in_committee_group and ngo.status == 'pending' %}
 {% user_org_vote_obj user ngo as user_vote%}
 
 <hr>
