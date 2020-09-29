@@ -6,7 +6,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import ORG_VOTERS_GROUP, Candidate, City, Domain, Organization
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, Organization
 
 fake = Faker()
 
@@ -22,6 +22,10 @@ class Command(BaseCommand):
             User.objects.create_user("admin", "admin@example.test", "secret", is_staff=True, is_superuser=True)
             self.stdout.write(self.style.SUCCESS("Created ADMIN user"))
 
+        if not User.objects.filter(username="staff").exists():
+            User.objects.create_user("staff", "staff@example.test", "secret")
+            self.stdout.write(self.style.SUCCESS("Created STAFF user"))
+
         if not User.objects.filter(username="ces").exists():
             User.objects.create_user("ces", "ces@example.test", "secret")
             self.stdout.write(self.style.SUCCESS("Created CES user"))
@@ -30,13 +34,17 @@ class Command(BaseCommand):
             User.objects.create_user("sgg", "sgg@example.test", "secret")
             self.stdout.write(self.style.SUCCESS("Created SGG user"))
 
-        org_voters_group = Group.objects.get(name=ORG_VOTERS_GROUP)
+        committee_group = Group.objects.get(name=COMMITTEE_GROUP)
+        staff_group = Group.objects.get(name=STAFF_GROUP)
+
+        staff_user = User.objects.get(username="staff")
+        staff_user.groups.add(staff_group)
 
         ces_user = User.objects.get(username="ces")
-        ces_user.groups.add(org_voters_group)
+        ces_user.groups.add(committee_group)
 
         sgg_user = User.objects.get(username="sgg")
-        sgg_user.groups.add(org_voters_group)
+        sgg_user.groups.add(committee_group)
 
         self.stdout.write(self.style.SUCCESS("Done setting up group permissions"))
 
@@ -127,7 +135,7 @@ class Command(BaseCommand):
                 elif status == "accepted":
                     # we add a few org users to the voting group
                     if count_org_voters < 3:
-                        org.user.groups.add(org_voters_group)
+                        org.user.groups.add(committee_group)
                         count_org_voters += 1
 
                     candidate = Candidate.objects.create(
@@ -140,7 +148,7 @@ class Command(BaseCommand):
                         representative=True,
                         email=fake.safe_email(),
                         phone=fake.phone_number(),
-                        domain=org.domain,
+                        domain=domain,
                     )
 
                     candidate.photo.name = "photo-placeholder.gif"
