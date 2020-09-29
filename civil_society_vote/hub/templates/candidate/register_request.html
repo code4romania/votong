@@ -11,31 +11,57 @@
 
 {% block left-side-view %}
 
-<h2 class="title is-2">{% trans "Propose candidate" %}</h2>
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
 
-<div class="container">
-    {% if messages %}
-        <article class="message is-success">
-        <div class="message-body">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-        </article>
-    {% else %}
-        <form method="post" enctype="multipart/form-data" >
-            {% csrf_token %}
+    {% if user.orgs.exists %}
 
-            {{ form.non_field_errors }}
+    <div class="tabs is-medium">
+      <ul>
+        <li>
+          <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+        </li>
+        <li class="is-active">
+        {% if user.orgs.first.candidate %}
+          <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+        {% else %}
+          <a href="{% url 'candidate-register-request' %}">Candidatul meu</a>
+        {% endif %}
+        </li>
+        <li><a href="#">Voturile mele</a></li>
+      </ul>
+    </div>
 
-            {% for hidden_field in form.hidden_fields %}
-                {{ hidden_field.errors }}
-            {% endfor %}
-
-            {{ form|crispy }}
-
-            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Propose candidate" %}">
-        </form>
     {% endif %}
+
+    <h2 class="title border-b uppercase">Adauga un candidat</h2>
+
+    <div class="container">
+        {% if messages %}
+            <article class="message is-success">
+            <div class="message-body">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            </article>
+        {% else %}
+            <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field.errors }}
+                {% endfor %}
+
+                {{ form|crispy }}
+
+                <input class="button is-success is-pulled-right" type="submit" value="{% trans "Propose candidate" %}">
+            </form>
+        {% endif %}
+    </div>
+
+  </div>
 </div>
 {% endblock %}
