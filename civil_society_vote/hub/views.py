@@ -106,7 +106,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
 
 
 class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
-    allow_filters = ["county", "city", "domain"]
+    allow_filters = ["county", "city"]
     paginate_by = 9
     template_name = "ngo/list.html"
 
@@ -123,14 +123,6 @@ class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
         orgs = self.search(self.get_qs())
 
         context["current_search"] = self.request.GET.get("q", "")
-
-        current_domain = self.request.GET.get("domain")
-        if current_domain:
-            try:
-                context["current_domain"] = Domain.objects.get(id=current_domain)
-            except Domain.DoesNotExist:
-                pass
-
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
         context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
@@ -145,8 +137,6 @@ class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
                 context["current_city_name"] = "-"
 
         context["cities"] = set(orgs.values_list("city__id", "city__city"))
-
-        context["domains"] = Domain.objects.all()
 
         return context
 

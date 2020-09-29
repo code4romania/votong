@@ -82,7 +82,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         "abstention",
         "created",
     )
-    list_filter = ("status", "domain", ("county", CountyFilter))
+    list_filter = ("status", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
     readonly_fields = ["user", "status_changed"]
     autocomplete_fields = ["city"]
