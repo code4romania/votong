@@ -1,8 +1,8 @@
-# Civil Society Vote
+# VotONG
 
 [![GitHub contributors](https://img.shields.io/github/contributors/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/civil_society_vote.svg?style=for-the-badge)](https://github.com/code4romania/civil_society_vote/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-The Civil Society Voting platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections.
+The VotONG platform is a redeployment of a previous Code for Romania application, [RoHelp](https://github.com/code4romania/ro-help). The current code base is modified in order to serve a different purpose, namely allowing the representatives of NGOs and Associations within the Civic Society to nominate candidates and vote for them in several rounds of elections.
 
 The vote implemented here is non-secret and is visible to the technical administrators of the platform. This codebase should not be used for any purpose that requires secret vote, not any purpose that requires a zero trust system.
 
