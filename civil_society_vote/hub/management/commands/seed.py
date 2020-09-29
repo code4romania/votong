@@ -105,7 +105,6 @@ class Command(BaseCommand):
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     address=fake.address(),
-                    domain=domain,
                     reg_com_number=fake.ssn(),
                     purpose_initial=fake.sentence(),
                     purpose_current=fake.sentence(),
