@@ -5,6 +5,23 @@
 
 
 {% block left-side-view %}
+
+<div class="search-wrapper container is-flex">
+    <form action="{% url 'ngos' %}" method="GET">
+        <div class="field border-b">
+            <p class="control has-icons-right ">
+                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
+                <label class="search-icon">
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="submit" style="display: none;"/>
+                </label>
+            </p>
+        </div>
+    </form>
+</div>
+
 <div class="container">
     <h2 class="ngo-list-title">
         {% trans "Organizations list" %}

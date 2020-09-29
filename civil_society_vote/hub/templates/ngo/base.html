@@ -4,21 +4,6 @@
 {% load i18n %}
 
 {% block content %}
-<div class="search-wrapper container is-flex">
-    <form action="{% url 'ngos' %}" method="GET">
-        <div class="field border-b">
-            <p class="control has-icons-right ">
-                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
-                <label class="search-icon">
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="submit" style="display: none;"/>
-                </label>
-            </p>
-        </div>
-    </form>
-</div>
 
 <div class="container">
 
@@ -42,24 +27,24 @@
     {% block domain-filters %}
 
     <div class="container section">
-        <div class="filter-grid">
-            {% for domain in domains %}
-            {% if current_domain.id == domain.id %}
-            <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
-                <div class="card filter-card-active">
-                    {% else%}
-                    <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
-                        <div class="card filter-card ">
-                            {% endif %}
-                            <div class="filter-icon">
-                                <i class="far fa-check-circle"></i>
-                            </div>
-                            <div class="filter-card-content">{{ domain.name }}</div>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-        </div>
+      <div class="filter-grid">
+        {% for domain in domains %}
+        {% if current_domain.id == domain.id %}
+        <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
+            <div class="card filter-card-active">
+        {% else %}
+        <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
+            <div class="card filter-card ">
+        {% endif %}
+              <div class="filter-icon">
+                  <i class="far fa-check-circle"></i>
+              </div>
+              <div class="filter-card-content">{{ domain.name }}</div>
+            </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
 
     {% if current_domain %}
     <div class="container mb-50">
@@ -74,13 +59,11 @@
 
     {% endblock %}
 
-    <div class="columns is-centered">
-
-        <div class="column is-two-thirds">
-            {% block left-side-view %}
-            {% endblock %}
-        </div>
-
+    <div class="columns is-centered section">
+      <div class="column is-two-thirds">
+          {% block left-side-view %}
+          {% endblock %}
+      </div>
     </div>
 
 </div>

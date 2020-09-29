@@ -34,52 +34,25 @@
                         </a>
 
                         <a  href="{% url 'about' %}" class="navbar-item">
-                            {% trans "About" %}
+                            Despre platformă
                         </a>
 
-                        <a  href="{% url 'contact' %}" class="navbar-item">
-                            {% trans "Contact" %}
-                        </a>
+                        <div class="navbar-item">|</div>
 
                         {% if request.user.is_authenticated %}
-                        <div class="navbar-item">
-                        <div class="dropdown is-hoverable">
-                          <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                              <span>{% trans 'Account' %}</span>
-                              <span class="icon is-small">
-                                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                              </span>
-                            </button>
-                          </div>
-                          <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                            {% if user.orgs.exists %}
-                              {% if user.orgs.first.candidate %}
-                              <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}" class="navbar-item">
-                                {% trans "View candidate page" %}
-                              </a>
-                              <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}" class="navbar-item">
-                                {% trans "Update candidate info" %}
-                              </a>
-                              {% else %}
-                              <a href="{% url 'candidate-register-request' %}" class="navbar-item">
-                                {% trans "Add candidate" %}
-                              </a>
-                              {% endif %}
-                              <a href="{% url 'ngo-detail' user.orgs.first.id %}" class="navbar-item">
-                                {% trans "View organization page" %}
-                              </a>
-                              <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
-                                {% trans "Update organization info" %}
-                              </a>
+
+                        {% if user.orgs.exists %}
+                          <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
+                            {% if user.orgs.first.logo %}
+                            <img src="{{ user.orgs.first.logo.url }}" alt="{{ user.orgs.first.name }}" style="height:39px; padding-right:10px;">
+                            {% else %}
+                            <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.orgs.first.name }}" style="height:39px;">
                             {% endif %}
-                              <hr class="dropdown-divider">
-                              <a href="{% url 'logout' %}" class="dropdown-item" style="color:red;">{% trans "Logout" %}</a>
-                            </div>
-                          </div>
-                        </div>
-                        </div>
+                            {{ user.orgs.first.name }}
+                          </a>
+                        {% endif %}
+
+                        <a href="{% url 'logout' %}" class="navbar-item">{% trans "Logout" %}</a>
 
                         {% if user.is_impersonate %}
                         <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">

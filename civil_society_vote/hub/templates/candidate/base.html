@@ -4,25 +4,8 @@
 {% load i18n %}
 
 {% block content %}
-<div class="search-wrapper container is-flex">
-    <form action="{% url 'candidates' %}" method="GET">
-        <div class="field border-b">
-            <p class="control has-icons-right ">
-                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
-                <label class="search-icon">
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="submit" style="display: none;"/>
-                </label>
-            </p>
-        </div>
-    </form>
-</div>
-
 
 {% block extra-header %}
-
 
 <div class="container section has-text-centered ">
     <h1 class="title">
@@ -57,8 +40,6 @@
     </div>
 </div>
 
-
-
 {% if current_domain %}
 <div class="container section">
     <h1 class="section-title">{{ current_domain.name }}</h1>
@@ -69,7 +50,7 @@
 {% endblock %}
 
 <div class="container section">
-        {% block left-side-view %}
-        {% endblock %}
+  {% block left-side-view %}
+  {% endblock %}
 </div>
 {% endblock %}

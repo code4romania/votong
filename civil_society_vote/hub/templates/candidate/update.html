@@ -10,32 +10,60 @@
 {% endblock extra-header %}
 
 {% block left-side-view %}
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
 
-<h2 class="title border-b uppercase">{% trans "Update candidate" %}</h2>
+    {% if user.orgs.exists %}
 
-<div class="container">
-    {% if messages %}
-        <article class="message is-success">
-        <div class="message-body">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-        </article>
-    {% else %}
-        <form class="ces-form" method="post" enctype="multipart/form-data" >
-            {% csrf_token %}
+    <div class="tabs is-medium">
+      <ul>
+        <li>
+          <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+        </li>
+        <li class="is-active">
+        {% if user.orgs.first.candidate %}
+          <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+        {% else %}
+          <a href="{% url 'candidate-register-request' %}">Candidatul meu</a>
+        {% endif %}
+        </li>
+        <li><a href="#">Voturile mele</a></li>
+      </ul>
+    </div>
 
-            {{ form.non_field_errors }}
-
-            {% for hidden_field in form.hidden_fields %}
-                {{ hidden_field.errors }}
-            {% endfor %}
-
-            {{ form|crispy }}
-
-            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Update candidate" %}">
-        </form>
     {% endif %}
+
+    <h2 class="title border-b uppercase">Editeaza profil candidat</h2>
+
+    <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}">Vezi profilul public al candidatului</a>
+    <br><br>
+
+    <div class="container">
+        {% if messages %}
+            <article class="message is-success">
+            <div class="message-body">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            </article>
+        {% else %}
+            <form class="ces-form" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field.errors }}
+                {% endfor %}
+
+                {{ form|crispy }}
+
+                <input class="button is-success is-pulled-right" type="submit" value="{% trans "Update candidate" %}">
+            </form>
+        {% endif %}
+    </div>
+
+  </div>
 </div>
 {% endblock %}

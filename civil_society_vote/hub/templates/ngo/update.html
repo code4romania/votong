@@ -11,7 +11,30 @@
 
 {% block left-side-view %}
 
-<h2 class="title border-b uppercase">{% trans "Update organization" %}</h2>
+{% if user.orgs.exists %}
+
+<div class="tabs is-medium">
+  <ul>
+    <li class="is-active">
+      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+    </li>
+    <li>
+    {% if user.orgs.first.candidate %}
+      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+    {% else %}
+      <a href="{% url 'candidate-register-request' %}">Candidatul meu</a>
+    {% endif %}
+    </li>
+    <li><a href="#">Voturile mele</a></li>
+  </ul>
+</div>
+
+{% endif %}
+
+<h2 class="title border-b uppercase">Profilul organizatiei</h2>
+
+<a href="{% url 'ngo-detail' user.orgs.first.id %}">Vezi profilul public al organizatiei</a>
+<br><br>
 
 <div class="container">
     {% if messages %}

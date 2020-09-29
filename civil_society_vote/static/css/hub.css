@@ -2,7 +2,7 @@
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-size: 14px;
-    --accent-color: #5E72E4;
+    /* --accent-color: #5E72E4; */
     --footer-color: #172B4D;
     --dark-gray: #32325D;
     --light-gray: #525F7F;
@@ -82,7 +82,7 @@ body {
 }
 
 .navbar-item {
-    color: #fff;
+    /* color: #fff; */
     font-size: 14px;
     font-weight: 600;
 }
