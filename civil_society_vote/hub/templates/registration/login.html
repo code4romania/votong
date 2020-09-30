@@ -37,9 +37,9 @@
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <div class="field">
-        <label class="label">{% trans 'Username' %}</label>
+        <label class="label">{% trans 'Email' %}</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input" type="text" name="username" autofocus="" required="" id="id_username" placeholder="{% trans 'username' %}" value="">
+          <input class="input" type="email" name="username" autofocus="" required="" id="id_username" placeholder="{% trans 'email' %}" value="">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>

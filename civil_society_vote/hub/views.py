@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.core.exceptions import ValidationError
