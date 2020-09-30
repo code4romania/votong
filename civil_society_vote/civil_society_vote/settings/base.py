@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps
     "hub",
+    "accounts",
     # third-party
     "admin_auto_filters",
     "spurl",
@@ -116,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "hub.password_validation.PasswordDifferentFromPrevious"},
 ]
 
+AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
