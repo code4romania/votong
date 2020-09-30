@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "file_resubmit",
     "rangefilter",
     "impersonate",
+    "guardian",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "impersonate.middleware.ImpersonateMiddleware",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # this is the default
+    "guardian.backends.ObjectPermissionBackend",
 ]
 
 ROOT_URLCONF = "civil_society_vote.urls"

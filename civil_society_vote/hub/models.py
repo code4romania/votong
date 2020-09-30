@@ -1,18 +1,20 @@
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.storage import get_storage_class
-from django.db import models, transaction
+from django.db import models
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
+from guardian.shortcuts import assign_perm
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
 # NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
-STAFF_GROUP = "Code for Romania Staff"
-COMMITTEE_GROUP = "Comisie Electorală"
-SUPPORT_GROUP = "Supporting Staff"
+STAFF_GROUP = "Code4Romania Staff"
+COMMITTEE_GROUP = "Comisie Electorala"
+SUPPORT_GROUP = "Support Staff"
+NGO_GROUP = "ONG"
 
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
@@ -72,12 +74,16 @@ VOTE = Choices(("yes", _("Yes")), ("no", _("No")), ("abstention", _("Abstention"
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
 
 FLAG_CHOICES = Choices(
-    ("enable_org_voting", _("Enable organization voting")), ("enable_candidate_voting", _("Enable candidate voting")),
+    ("enable_org_registration", _("Enable organization registration")),
+    ("enable_org_approval", _("Enable organization approvals")),
+    ("enable_candidate_registration", _("Enable candidate registration")),
+    ("enable_org_voting", _("Enable organization voting")),
+    ("enable_candidate_voting", _("Enable candidate voting")),
 )
 
 
 class FeatureFlag(StatusModel, TimeStampedModel):
-    STATUS = Choices(("on", _("ON")), ("off", _("OFF")))
+    STATUS = Choices(("off", _("OFF")), ("on", _("ON")))
 
     flag = models.CharField(_("Flag"), choices=FLAG_CHOICES, max_length=254, unique=True)
 
@@ -153,6 +159,8 @@ class Organization(StatusModel, TimeStampedModel):
         verbose_name = _("Organization")
         ordering = ["name"]
 
+        permissions = (("approve_organization", "Approve organization"),)
+
     def __str__(self):
         return self.name
 
@@ -160,6 +168,8 @@ class Organization(StatusModel, TimeStampedModel):
         return reverse("ngo-detail", args=[self.pk])
 
     def save(self, *args, **kwargs):
+        create = False if self.id else True
+
         if self.city:
             self.county = self.city.county
         else:
@@ -170,6 +180,16 @@ class Organization(StatusModel, TimeStampedModel):
             self.user = owner
 
         super().save(*args, **kwargs)
+
+        if self.user:
+            assign_perm("view_organization", self.user, self)
+            assign_perm("change_organization", self.user, self)
+
+        if create:
+            assign_perm("view_organization", Group.objects.get(name=STAFF_GROUP), self)
+            assign_perm("view_organization", Group.objects.get(name=SUPPORT_GROUP), self)
+            assign_perm("view_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
     def yes(self):
         return self.votes.filter(vote=VOTE.yes).count()
@@ -196,6 +216,9 @@ class Organization(StatusModel, TimeStampedModel):
         user.set_password(get_random_string())
         user.is_active = True
         user.save()
+
+        # Add organization user to the NGO group
+        user.groups.add(Group.objects.get(name=NGO_GROUP))
 
         return user
 
@@ -257,6 +280,12 @@ class Candidate(TimeStampedModel):
         verbose_name = _("Candidate")
         ordering = ["name"]
 
+        permissions = (
+            ("approve_candidate", "Approve candidate"),
+            ("support_candidate", "Support candidate"),
+            ("vote_candidate", "Vote candidate"),
+        )
+
     def __str__(self):
         return f"{self.name} ({self.org})"
 
@@ -269,10 +298,21 @@ class Candidate(TimeStampedModel):
     vote_count.short_description = _("Vote count")
 
     def save(self, *args, **kwargs):
+        create = False if self.id else True
+
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
 
         super().save(*args, **kwargs)
+
+        if create:
+            assign_perm("add_candidate", self.org.user, self)
+            assign_perm("change_candidate", self.org.user, self)
+            assign_perm("delete_candidate", self.org.user, self)
+            assign_perm("view_candidate", self.org.user, self)
+            assign_perm("approve_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("support_candidate", Group.objects.get(name=NGO_GROUP), self)
+            assign_perm("vote_candidate", Group.objects.get(name=NGO_GROUP), self)
 
 
 class CandidateVote(TimeStampedModel):

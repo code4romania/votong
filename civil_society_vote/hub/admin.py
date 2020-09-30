@@ -87,6 +87,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = ["user", "status_changed"]
     autocomplete_fields = ["city"]
     inlines = [OrganizationVoteInline]
+    list_per_page = 20
 
     def has_add_permission(self, request):
         return False
@@ -185,6 +186,7 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ["city", "county"]
     list_filter = ["is_county_residence", ("county", CountyFilter)]
     search_fields = ["city"]
+    list_per_page = 20
 
     def get_urls(self):
         urls = super().get_urls()
@@ -253,16 +255,16 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(FeatureFlag)
 class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "status"]
-    readonly_fields = ["status_changed"]
+    readonly_fields = ["status_changed", "flag"]
 
     def has_add_permission(self, request):
-        if request.user.is_superuser:
-            return True
+        # if request.user.is_superuser:
+        #     return True
         return False
 
     def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
+        # if request.user.is_superuser:
+        #     return True
         return False
 
     def has_change_permission(self, request, obj=None):

@@ -2,7 +2,6 @@ import os
 from shutil import copyfile
 
 from django.contrib.auth.models import Group, User
-from django.core.files import File
 from django.core.management.base import BaseCommand
 from faker import Faker
 
@@ -16,23 +15,23 @@ ORG_NUMBER = 60
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        self.stdout.write(self.style.NOTICE("Starting the seeding process"))
+        self.stdout.write(self.style.SUCCESS("Starting the seeding process"))
 
         if not User.objects.filter(username="admin").exists():
             User.objects.create_user("admin", "admin@example.test", "secret", is_staff=True, is_superuser=True)
-            self.stdout.write(self.style.SUCCESS("Created ADMIN user"))
+            self.stdout.write("Created ADMIN user")
 
         if not User.objects.filter(username="staff").exists():
             User.objects.create_user("staff", "staff@example.test", "secret")
-            self.stdout.write(self.style.SUCCESS("Created STAFF user"))
+            self.stdout.write("Created STAFF user")
 
         if not User.objects.filter(username="ces").exists():
             User.objects.create_user("ces", "ces@example.test", "secret")
-            self.stdout.write(self.style.SUCCESS("Created CES user"))
+            self.stdout.write("Created CES user")
 
         if not User.objects.filter(username="sgg").exists():
             User.objects.create_user("sgg", "sgg@example.test", "secret")
-            self.stdout.write(self.style.SUCCESS("Created SGG user"))
+            self.stdout.write("Created SGG user")
 
         committee_group = Group.objects.get(name=COMMITTEE_GROUP)
         staff_group = Group.objects.get(name=STAFF_GROUP)
@@ -46,7 +45,7 @@ class Command(BaseCommand):
         sgg_user = User.objects.get(username="sgg")
         sgg_user.groups.add(committee_group)
 
-        self.stdout.write(self.style.SUCCESS("Done setting up group permissions"))
+        self.stdout.write("Done setting up group permissions")
 
         if not City.objects.count():
             cities = [
@@ -61,7 +60,7 @@ class Command(BaseCommand):
             for city_data in cities:
                 City.objects.get_or_create(**city_data)
 
-            self.stdout.write(self.style.SUCCESS("Loaded city data"))
+            self.stdout.write("Loaded city data")
 
         if not Domain.objects.count():
             domains = [
@@ -78,7 +77,7 @@ class Command(BaseCommand):
             for domain in domains:
                 Domain.objects.get_or_create(**domain)
 
-            self.stdout.write(self.style.SUCCESS("Loaded domain data"))
+            self.stdout.write("Loaded domain data")
 
         if not Organization.objects.count():
             if not (os.path.isdir(os.path.join(BASE_DIR, "../../", "mediafiles"))):
@@ -131,7 +130,7 @@ class Command(BaseCommand):
                 org.save()
 
                 if status == "rejected":
-                    self.stdout.write(self.style.SUCCESS(f"Created organization {org}"))
+                    self.stdout.write(f"Created organization {org}")
                 elif status == "accepted":
                     # we add a few org users to the voting group
                     if count_org_voters < 3:
@@ -159,8 +158,8 @@ class Command(BaseCommand):
                     candidate.legal_record.name = "test.pdf"
                     candidate.save()
 
-                    self.stdout.write(self.style.SUCCESS(f"Created organization {org} and candidate {candidate.name}"))
+                    self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
 
-        self.stdout.write(self.style.SUCCESS("Loaded organizations data"))
+        self.stdout.write("Loaded organizations data")
 
-        self.stdout.write(self.style.NOTICE("Seeding finished"))
+        self.stdout.write(self.style.SUCCESS("Seeding finished"))

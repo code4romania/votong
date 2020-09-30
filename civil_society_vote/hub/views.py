@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.core.exceptions import ValidationError
@@ -16,6 +15,8 @@ from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
 from hub.models import (
     COMMITTEE_GROUP,
+    STAFF_GROUP,
+    SUPPORT_GROUP,
     VOTE,
     Candidate,
     CandidateVote,
@@ -41,8 +42,8 @@ class MenuMixin:
         return context
 
 
-class OrgVotersGroupRequireddMixin(AccessMixin):
-    """Verify that the current user is in the org voters group or owns the organization."""
+class OrgReadAccessRequired(AccessMixin):
+    """Verify that the current user is in the right group or owns the organization."""
 
     def dispatch(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -50,8 +51,20 @@ class OrgVotersGroupRequireddMixin(AccessMixin):
         if pk and request.user.orgs.filter(pk=pk).exists():
             return super().dispatch(request, *args, **kwargs)
 
-        if not request.user.groups.filter(name=COMMITTEE_GROUP).exists():
+        if not request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
             return self.handle_no_permission()
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class OrgWriteAccessRequired(AccessMixin):
+    """Verify that the current user is in the right group or owns the organization."""
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+
+        if pk and request.user.orgs.filter(pk=pk).exists():
+            return super().dispatch(request, *args, **kwargs)
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -105,13 +118,13 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
-class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
+class OrganizationListView(OrgReadAccessRequired, HubListView):
     allow_filters = ["county", "city"]
     paginate_by = 9
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        return Organization.objects.all()
+        return Organization.objects.filter(status=Organization.STATUS.pending)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -141,7 +154,7 @@ class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
         return context
 
 
-class OrganizationDetailView(OrgVotersGroupRequireddMixin, HubDetailView):
+class OrganizationDetailView(OrgReadAccessRequired, HubDetailView):
     template_name = "ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
@@ -161,13 +174,13 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
         return reverse("ngos-register-request")
 
 
-class OrganizationUpdateView(HubUpdateView):
+class OrganizationUpdateView(OrgWriteAccessRequired, LoginRequiredMixin, HubUpdateView):
     template_name = "ngo/update.html"
     model = Organization
     form_class = OrganizationForm
 
 
-class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
+class OrganizationVoteView(OrgReadAccessRequired, View):
     def get(self, request, pk):
         if not FeatureFlag.objects.filter(flag="enable_org_voting", status=FeatureFlag.STATUS.on).exists():
             return HttpResponseBadRequest()
