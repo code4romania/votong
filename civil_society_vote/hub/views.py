@@ -57,9 +57,9 @@ class HubListView(MenuMixin, ListView):
 
         result = (
             queryset.annotate(rank=SearchRank(vector, search_query), similarity=TrigramSimilarity("name", query),)
-            .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
-            .order_by("name")
-            .distinct("name")
+                .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
+                .order_by("name")
+                .distinct("name")
         )
         if not hasattr(self, "search_cache"):
             self.search_cache = {}
