@@ -1,10 +1,10 @@
 import csv
 import io
 
+from accounts.models import User
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
@@ -44,7 +44,7 @@ class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
 
 
 # NOTE: This is needed in order for impersonate to work
-admin.site.unregister(User)
+# admin.site.unregister(User)
 admin.site.register(User, ImpersonableUserAdmin)
 
 

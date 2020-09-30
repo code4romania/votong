@@ -1,7 +1,8 @@
 import os
 from shutil import copyfile
 
-from django.contrib.auth.models import Group, User
+from accounts.models import User
+from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
@@ -17,19 +18,19 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.SUCCESS("Starting the seeding process"))
 
-        if not User.objects.filter(username="admin").exists():
+        if not User.objects.filter(email="admin@example.test").exists():
             User.objects.create_user("admin", "admin@example.test", "secret", is_staff=True, is_superuser=True)
             self.stdout.write("Created ADMIN user")
 
-        if not User.objects.filter(username="staff").exists():
+        if not User.objects.filter(email="staff@example.test").exists():
             User.objects.create_user("staff", "staff@example.test", "secret")
             self.stdout.write("Created STAFF user")
 
-        if not User.objects.filter(username="ces").exists():
+        if not User.objects.filter(email="ces@example.test").exists():
             User.objects.create_user("ces", "ces@example.test", "secret")
             self.stdout.write("Created CES user")
 
-        if not User.objects.filter(username="sgg").exists():
+        if not User.objects.filter(email="sgg@example.test").exists():
             User.objects.create_user("sgg", "sgg@example.test", "secret")
             self.stdout.write("Created SGG user")
 

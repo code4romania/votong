@@ -71,7 +71,7 @@ You should be able to access the local environment site and admin at the followi
 
 Some dummy data is loaded automatically when starting the containers for the first time.
 
-You can access the admin with username `admin` and password `secret` (all automatically created users in the dev environment have the password set to `secret`).
+You can access the admin with email `admin@example.test` and password `secret` (all automatically created users in the dev environment have the password set to `secret`).
 
 If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/votong/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
 Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/votong/wiki/FAQ), wouldn't it?

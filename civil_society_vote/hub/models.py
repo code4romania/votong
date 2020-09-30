@@ -1,5 +1,6 @@
+from accounts.models import User
 from django.conf import settings
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models
@@ -131,7 +132,9 @@ class City(models.Model):
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
+    )
 
     name = models.CharField(_("NGO Name"), max_length=254)
     description = models.TextField(_("Description"))
@@ -224,7 +227,7 @@ class Organization(StatusModel, TimeStampedModel):
 
 
 class OrganizationVote(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
 
     vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
@@ -316,7 +319,7 @@ class Candidate(TimeStampedModel):
 
 
 class CandidateVote(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
