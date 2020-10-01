@@ -24,6 +24,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>"), CandidateDetailView.as_view(), name="candidate-detail"),
     path(_("candidates/<int:pk>/vote"), CandidateVoteView.as_view(), name="candidate-vote"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
+    path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("ngos/"), OrganizationListView.as_view(), name="ngos"),
     path(_("ngos/register"), OrganizationRegisterRequestCreateView.as_view(), name="ngos-register-request",),
     path(_("ngos/<int:pk>"), OrganizationDetailView.as_view(), name="ngo-detail"),

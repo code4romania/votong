@@ -1,4 +1,5 @@
 {% load static i18n %}
+{% load avatar_tags %}
 {% load hub_tags %}
 
 <div class="navbar-container">
@@ -38,21 +39,25 @@
                         <div class="navbar-item">|</div>
 
                         {% if request.user.is_authenticated %}
-
+                        {% avatar user 65 class="img-circle img-responsive" id="user_avatar" %}
                         {% if user|in_committee_group %}
-                          <a href="{% url 'committee-ngos' %}" class="navbar-item">
+                        <a href="{% url 'committee-ngos' %}" class="navbar-item">
                             <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.email }}" style="height:39px;">
                             {{ user.email }}
-                          </a>
+                        </a>
                         {% elif user.orgs.exists %}
-                          <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
+                        <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
                             {% if user.orgs.first.logo %}
                             <img src="{{ user.orgs.first.logo.url }}" alt="{{ user.orgs.first.name }}" style="height:39px; padding-right:10px;">
                             {% else %}
                             <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.orgs.first.name }}" style="height:39px;">
                             {% endif %}
                             {{ user.orgs.first.name }}
-                          </a>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'account-password-reset' %}" class="navbar-item">
+                        {{ user.email }}
+                        </a>
                         {% endif %}
 
                         <a href="{% url 'logout' %}" class="navbar-item">{% trans "Logout" %}</a>
@@ -85,11 +90,11 @@
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="{{ redirect_to }}"/>
                                 <div class="select">
-                                  <select id="language" name="language" onchange="this.form.submit()">
-                                    {% for language in LANGUAGES %}
-                                    <option {% if language.0 == LANGUAGE_CODE %} selected {% endif %} name="language" value="{{language.0}}">{{language.0 | upper}}</option>
-                                    {% endfor %}
-                                  </select>
+                                    <select id="language" name="language" onchange="this.form.submit()">
+                                        {% for language in LANGUAGES %}
+                                        <option {% if language.0 == LANGUAGE_CODE %} selected {% endif %} name="language" value="{{language.0}}">{{language.0 | upper}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </form>
                         </div>

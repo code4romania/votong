@@ -12,6 +12,8 @@ cffi==1.14.2              # via brotlipy
 chardet==3.0.4            # via requests
 django-admin-autocomplete-filter==0.6.1  # via -r requirements.in
 django-admin-rangefilter==0.6.2  # via -r requirements.in
+django-appconf==1.0.4     # via django-avatar
+django-avatar==5.0.0      # via -r requirements.in
 django-crispy-bulma==0.2  # via -r requirements.in
 django-crispy-forms==1.7.2  # via -r requirements.in, django-crispy-bulma
 django-environ==0.4.5     # via -r requirements.in
@@ -22,13 +24,13 @@ django-model-utils==4.0.0  # via -r requirements.in
 django-recaptcha==2.0.6   # via -r requirements.in
 django-spurl==0.6.7       # via -r requirements.in
 django-storages==1.10.1   # via -r requirements.in
-django==2.2.16            # via -r requirements.in, django-admin-autocomplete-filter, django-crispy-bulma, django-guardian, django-model-utils, django-recaptcha, django-storages
+django==2.2.16            # via -r requirements.in, django-admin-autocomplete-filter, django-appconf, django-crispy-bulma, django-guardian, django-model-utils, django-recaptcha, django-storages
 gevent==20.6.2            # via -r requirements.in
 greenlet==0.4.16          # via gevent
 gunicorn==20.0.4          # via -r requirements.in
 idna==2.10                # via requests
 jmespath==0.10.0          # via boto3, botocore
-pillow==7.2.0             # via -r requirements.in
+pillow==7.2.0             # via -r requirements.in, django-avatar
 psycopg2==2.8.6           # via -r requirements.in
 pycparser==2.20           # via cffi
 python-dateutil==2.8.1    # via botocore

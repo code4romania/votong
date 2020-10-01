@@ -21,6 +21,10 @@ build-deps:
 upgrade-deps:
 	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -r -U -o requirements.txt requirements.in"
 
+exec-%:
+	@echo "Welcome to $*"
+	@docker-compose exec $* bash
+
 clean: clean-docker
 
 clean-docker:
