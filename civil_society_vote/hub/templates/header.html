@@ -39,10 +39,11 @@
                         <div class="navbar-item">|</div>
 
                         {% if request.user.is_authenticated %}
+
                         {% avatar user 65 class="img-circle img-responsive" id="user_avatar" %}
+
                         {% if user|in_committee_group %}
                         <a href="{% url 'committee-ngos' %}" class="navbar-item">
-                            <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.email }}" style="height:39px;">
                             {{ user.email }}
                         </a>
                         {% elif user.orgs.exists %}

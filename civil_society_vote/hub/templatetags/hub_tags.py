@@ -18,6 +18,4 @@ def already_voted_candidate_or_domain(user, candidate):
 
 @register.filter
 def in_committee_group(user):
-    if user.groups.filter(name=COMMITTEE_GROUP).exists():
-        return True
-    return False
+    return user.groups.filter(name=COMMITTEE_GROUP).exists()
