@@ -21,13 +21,13 @@ body {
 
 .title {
     padding-bottom: 1rem;
-    color: var(--dark-gray);
+    color: var(--black);
 }
 
 .subtitle {
     font-size: 1.2rem;
     font-weight: 300;
-    color: var(--light-gray);
+    color: var(--black);
     padding: 1em;
 }
 
@@ -63,7 +63,7 @@ body {
 }
 
 .border-b {
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--black);
 }
 
 .navbar-container {
@@ -210,7 +210,7 @@ body {
     padding-bottom: 1em;
     font-family: Titillium Web, sans-serif;
     font-style: normal;
-    color: var(--blue-title);
+    color: var(--black);
 }
 
 .section-text {
@@ -657,7 +657,8 @@ body {
     display:flex;
     align-items:center;
     width:100%;
-    color: var(--dark-gray);
+    color: var(---black);
+    background-color: var(--lightest-gray);
 }
 
 .filter-icon {
@@ -665,7 +666,15 @@ body {
     align-items: center;
     align-self: stretch;
     padding: 1rem;
-    background-color: rgba(94, 114, 228, 0.2);
+    background-color: #616161;
+}
+
+.filter-icon-active {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    padding: 1rem;
+    background-color: var(--active-pale-yellow);
 }
 
 .filter-card-content {
@@ -677,9 +686,9 @@ body {
 }
 
 .filter-card-active {
-    display:flex;
-    align-items:center;
-    width:100%;
-    background-color: var(--accent-color);
-    color: #fff;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--active-yellow);
+    color: var(--black);
 }

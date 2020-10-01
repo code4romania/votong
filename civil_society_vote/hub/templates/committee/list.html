@@ -8,6 +8,22 @@
 {% endblock domain-filters %}
 
 {% block extra-header %}
+
+<div class="container section has-text-centered">
+    <h1 class="title">
+        {% trans "Elections CES/CESE 2020" %}
+    </h1>
+    <p class="subtitle border-b">
+        {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
+    </p>
+</div>
+<div class="section has-text-centered">
+    <a href="{% url 'rules' %}" class="subtitle has-text-weight-bold">
+        {% trans "Metodology" %}
+    </a>
+    <i class="fas fa-external-link-alt"></i>
+</div>
+
 {% endblock extra-header %}
 
 {% block left-side-view %}
@@ -79,7 +95,7 @@
 
             <div class="need-call2action">
                 <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'ngo-detail' ngo.pk %}">
-                    Vezi detalii
+                    Vizualizează
                 </a>
             </div>
 

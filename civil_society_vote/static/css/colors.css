@@ -2,9 +2,13 @@
   /* --accent-color: #5E72E4; */
   --dark-gray: #32325D;
   --light-gray: #525F7F;
+  --lightest-gray: #F2F2F2;
 
   --light-bg-color: #F9F9FB;
   --blue-title: #3D4F9F;
   --call2action: #2DCE89;
-  --footer-color: #000;
+  --black: #000;
+
+  --active-yellow: #FFEB4F;
+  --active-pale-yellow: #DFD36D;
 }

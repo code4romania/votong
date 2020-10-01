@@ -1343,7 +1343,7 @@ msgstr "Reprezentant legal"
 
 #: hub/templates/ngo/list.html:27
 msgid "Organizations list"
-msgstr "Listă organizații"
+msgstr "Organizații"
 
 #: hub/templates/ngo/list.html:55 hub/templates/ngo/list.html:90
 msgid "All"

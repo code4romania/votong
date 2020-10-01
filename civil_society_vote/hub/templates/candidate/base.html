@@ -7,13 +7,19 @@
 
 {% block extra-header %}
 
-<div class="container section has-text-centered ">
+<div class="container section has-text-centered">
     <h1 class="title">
         {% trans "Elections CES/CESE 2020" %}
     </h1>
     <p class="subtitle border-b">
-        {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
+        {% trans "Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului Economic și Social din România și din Uniuniea Europeană" %}
     </p>
+</div>
+<div class="section has-text-centered">
+    <a href="{% url 'rules' %}" class="subtitle has-text-weight-bold">
+        {% trans "Metodology" %}
+    </a>
+    <i class="fas fa-external-link-alt"></i>
 </div>
 
 {% endblock %}
@@ -22,35 +28,38 @@
 
 <div class="container section">
     <div class="filter-grid">
-    {% for domain in domains %}
+        {% for domain in domains %}
         {% if current_domain.id == domain.id %}
-            <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
-                <div class="card filter-card-active">
-        {% else%}
-            <a class="has-text-black filter-link" href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
-                <div class="card filter-card ">
-        {% endif %}
-                    <div class="filter-icon">
-                        <i class="far fa-check-circle"></i>
-                    </div>
-                    <div class="filter-card-content">{{ domain.name }}</div>
+        <a class="has-text-black filter-link"
+            href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
+            <div class="card filter-card-active">
+                <div class="filter-icon-active">
+                    {% else%}
+                    <a class="has-text-black filter-link"
+                        href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
+                        <div class="card filter-card ">
+                            <div class="filter-icon">
+                                {% endif %}
+                                <i class="far fa-check-circle fa-lg has-text-white"></i>
+                            </div>
+                            <div class="filter-card-content">{{ domain.name }}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
-            </a>
-    {% endfor %}
-    </div>
-</div>
+            </div>
 
-{% if current_domain %}
-<div class="container section">
-    <h1 class="section-title">{{ current_domain.name }}</h1>
-    <p class="section-text">{{ current_domain.description }}</p>
-</div>
-{% endif %}
+            {% if current_domain %}
+            <div class="container section">
+                <h1 class="section-title">{{ current_domain.name }}</h1>
+                <p class="section-text">{{ current_domain.description }}</p>
+            </div>
+            {% endif %}
 
-{% endblock %}
+            {% endblock %}
 
-<div class="container section">
-  {% block left-side-view %}
-  {% endblock %}
-</div>
-{% endblock %}
+            <div class="container section">
+                {% block left-side-view %}
+                {% endblock %}
+            </div>
+            {% endblock %}

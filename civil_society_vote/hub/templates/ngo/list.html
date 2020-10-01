@@ -10,25 +10,24 @@
     <form action="{% url 'ngos' %}" method="GET">
         <div class="field border-b">
             <p class="control has-icons-right ">
-                <input class="input search-input" type="text" name="q" value="{{ current_search }}" placeholder="{% trans 'Search...' %}">
+                <input class="input search-input" type="text" name="q" value="{{ current_search }}"
+                    placeholder="{% trans 'Search...' %}">
                 <label class="search-icon">
                     <span class="icon is-small is-right">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="submit" style="display: none;"/>
+                    <input type="submit" style="display: none;" />
                 </label>
             </p>
         </div>
     </form>
 </div>
 
-<div class="container">
-    <h2 class="ngo-list-title">
-        {% trans "Organizations list" %}
-    </h2>
-</div>
+<h2 class="section-title uppercase">
+    {% trans "Organizations list" %}
+</h2>
 
-<div class="container filter-container">
+<!-- <div class="container filter-container">
     <div class="columns is-mobile">
         <div class="column">
             <div class="columns">
@@ -118,13 +117,13 @@
         {% trans "Reset filters" %}
     </a>
 
-</div>
+</div> -->
 
 <script>
     window.onload = function () {
         var infinite = new Waypoint.Infinite({
             element: $('.infinite-container')[0],
-            onAfterPageLoad: function(items) {
+            onAfterPageLoad: function (items) {
                 var more_link = $('.infinite-more-link')[0];
                 if (more_link === undefined) {
                     // Waypoint.Infinite removes the anchor with the above class
@@ -142,25 +141,25 @@
 <div class="container">
     {% if page_obj %}
 
-    <div class="columns is-multiline infinite-container">
+    <div class="is-multiline infinite-container">
         {% for ngo in page_obj %}
-        <div class="need is-flex container infinite-item">
 
+        <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
-            {% if ngo.logo %}
+                {% if ngo.logo %}
                 <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
-            {% else %}
+                {% else %}
                 <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-            {% endif %}
+                {% endif %}
             </div>
 
-            <div class="card-info" style="width:500px;">
+            <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
                         {% if ngo.logo %}
-                            <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+                        <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
                         {% else %}
-                            <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+                        <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
                         {% endif %}
                     </div>
                     <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
@@ -169,13 +168,15 @@
                     <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
                 </div>
                 <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
-                <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div>
-                <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
+                <!-- <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div> -->
+                <!-- <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span
+                            class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div> -->
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'ngo-detail' ngo.pk %}">
-                    Vezi detalii
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
+                    href="{% url 'ngo-detail' ngo.pk %}">
+                    Vizualizează
                 </a>
             </div>
 
