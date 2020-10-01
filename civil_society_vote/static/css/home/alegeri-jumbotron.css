@@ -15,8 +15,12 @@
     height: var(--icon-size);
     font-size: 100px;
     line-height: 122px;
-    color: var(--blue-title);
+    color: #FFDD57;
     background-color: #fff;
+  }
+
+  #alegeri-jumbotron h2 {
+    font-size: 35px;
   }
 
   #alegeri-jumbotron #alageri-buttons {

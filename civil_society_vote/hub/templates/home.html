@@ -3,6 +3,13 @@
 {% load spurl %}
 {% load i18n %}
 
+{% block styles %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+    <link rel="stylesheet" href="{% static "css/home/alegeri-jumbotron.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/alegeri-inscriere.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/home.css" %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container section has-text-centered">
@@ -45,7 +52,7 @@
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-12 is-parent">
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">!</div>
                     <p class="tile-title">Pasul 1: Înscrierea</p>
                     <p>
                         Fiecare ONG se poate înscrie în platformă cu ajutorul unui formular simplu disponibil în meniul
@@ -54,7 +61,7 @@
                     </p>
                 </div>
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">?</div>
                     <p class="tile-title">Pasul 2: Validarea</p>
                     <p>
                         După înscriere fiecare ONG este validat. Administratorul platformei va verifica informațiile
@@ -66,7 +73,7 @@
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-12 is-parent">
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">!</div>
                     <p class="tile-title">Pasul 3: Votul</p>
                     <p>
                         Dacă există alegeri în curs, fiecare ONG care se califică, potrivit regulamentului fiecărei
@@ -75,7 +82,7 @@
                     </p>
                 </div>
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">?</div>
                     <p class="tile-title">Step 4: Rezultate</p>
                     <p>
                         Rezultatele fiecărei runde de alegeri va fi publicat pe platformă și anunțat prin e-mail către
@@ -103,5 +110,16 @@
         </div>
     </div>
 </div>
+
+<div id="alegeri-inscriere" class="container">
+    <h2 class="tile-title has-text-weight-bold">Alegeri CES 2020</h2>
+    <a href="#" class="button is-warning">Îmi înscriu organizația</a>
+    <p>
+        Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor
+        Consiliului Economic și Social din România și din Uniuniea Europeană
+    </p>
+</div>
+
+<hr />
 
 {% endblock %}

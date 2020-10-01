@@ -1,0 +1,22 @@
+.box-icon {
+  --icon-size: 88px;
+  --border-width: 4px;
+
+  display: inline-block;
+  color: var(--active-yellow);
+  border: var(--border-width) solid rgba(255, 235, 79, 0.3);
+  border-radius: 50%;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  font-size: calc(var(--icon-size) * 0.8);
+  line-height: calc(var(--icon-size) - (var(--border-width) * 2));
+  font-family: "Open Sans", sans-serif;;
+}
+
+hr {
+  width: 50%;
+  background-color: #000;
+  height: 1px;
+  display: block;
+  margin: 0 auto;
+}

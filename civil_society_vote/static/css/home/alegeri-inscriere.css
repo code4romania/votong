@@ -1,0 +1,13 @@
+#alegeri-inscriere {
+  margin-top: 75px;
+  margin-bottom: 75px;
+  width: 60%;
+}
+
+  #alegeri-inscriere h2 {
+    font-size: 35px;
+  }
+
+  #alegeri-inscriere .button {
+    float: right;
+  }
