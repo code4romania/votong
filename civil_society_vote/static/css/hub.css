@@ -189,22 +189,6 @@ body {
 }
 } */
 
-.useful-links a {
-    text-decoration: none;
-    color: white;
-}
-
-.useful-links li {
-    font-size: 14px;
-    font-weight: 600;
-    padding-top: 5px;
-}
-
-.useful-links li.footer-links-header {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
 .section-title {
     font-size: 1.9em;
     padding-bottom: 1em;
