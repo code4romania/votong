@@ -16,4 +16,6 @@ class UpdateEmailForm(ModelForm):
         return self.cleaned_data.get("email")
 
     def save(self, commit=True):
-        print(self.obj)
+        self.instance.email = self.cleaned_data.get("email")
+
+        return super().save(commit)

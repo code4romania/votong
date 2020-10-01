@@ -28,14 +28,12 @@ class ChangeEmailView(FormView):
     def form_valid(self, form):
         form.instance = self.request.user
 
-        result = super().form_valid(form)
+        valid = super().form_valid(form)
+        if valid:
+            form.save()
+            messages.success(self.request, _("Email was updated successfully"))
 
-        user = form.save()
-        user.save()
-
-        messages.success(self.request, _("Email was updated successfully"))
-
-        return result
+        return valid
 
 
 class ChangeAvatarView(TemplateView):
