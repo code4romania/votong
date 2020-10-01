@@ -1,6 +1,6 @@
 from django import template
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP, CandidateVote, OrganizationVote
+from hub.models import COMMITTEE_GROUP, CandidateVote
 
 register = template.Library()
 
@@ -21,35 +21,3 @@ def in_committee_group(user):
     if user.groups.filter(name=COMMITTEE_GROUP).exists():
         return True
     return False
-
-
-@register.filter
-def in_staff_group(user):
-    if user.groups.filter(name=STAFF_GROUP).exists():
-        return True
-    return False
-
-
-@register.filter
-def in_support_group(user):
-    if user.groups.filter(name=SUPPORT_GROUP).exists():
-        return True
-    return False
-
-
-@register.filter
-def already_voted_org(user, org):
-    if OrganizationVote.objects.filter(user=user, org=org).exists():
-        return True
-
-    return False
-
-
-@register.simple_tag
-def user_org_vote_obj(user, org):
-    qs = OrganizationVote.objects.filter(user=user, org=org)
-
-    if not qs.exists():
-        return None
-
-    return qs.first()

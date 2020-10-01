@@ -11,6 +11,7 @@ django-file-resubmit
 django-admin-rangefilter
 django-model-utils
 django-impersonate
+django-guardian
 
 # file handling
 boto3

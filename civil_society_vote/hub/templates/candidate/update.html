@@ -10,32 +10,27 @@
 {% endblock extra-header %}
 
 {% block left-side-view %}
+
 <div class="columns is-centered">
   <div class="column is-two-thirds">
 
-    {% if user.orgs.exists %}
-
+    {% if candidate %}
     <div class="tabs is-medium">
       <ul>
         <li>
-          <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+          <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizatiei</a>
         </li>
         <li class="is-active">
-        {% if user.orgs.first.candidate %}
-          <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
-        {% else %}
-          <a href="{% url 'candidate-register-request' %}">Candidatul meu</a>
-        {% endif %}
+          <a href="{% url 'candidate-update' candidate.id %}">Candidatul meu</a>
         </li>
         <li><a href="#">Voturile mele</a></li>
       </ul>
     </div>
-
     {% endif %}
 
     <h2 class="title border-b uppercase">Editeaza profil candidat</h2>
 
-    <a href="{% url 'candidate-detail' user.orgs.first.candidate.id %}">Vezi profilul public al candidatului</a>
+    <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidatului</a>
     <br><br>
 
     <div class="container">

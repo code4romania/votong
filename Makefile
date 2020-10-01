@@ -13,7 +13,7 @@ migrations:
 	docker-compose run --rm --entrypoint "bash -c" web "./manage.py makemigrations hub"
 
 migrate:
-	docker-compose run --rm --entrypoint "bash -c" web "./manage.py migrate hub"
+	docker-compose run --rm --entrypoint "bash -c" web "./manage.py migrate"
 
 build-deps:
 	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"
@@ -26,6 +26,9 @@ clean: clean-docker
 clean-docker:
 	docker-compose down -t 60
 	docker system prune -f
+
+clean-db: clean-docker
+	docker volume rm votong_database-data
 
 clean-py:
 	find `pwd` -name '*.pyc' -delete

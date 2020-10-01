@@ -12,17 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
 from hub.forms import ImportCitiesForm
-from hub.models import (
-    COUNTIES,
-    COUNTY_RESIDENCE,
-    Candidate,
-    CandidateVote,
-    City,
-    Domain,
-    FeatureFlag,
-    Organization,
-    OrganizationVote,
-)
+from hub.models import COUNTIES, COUNTY_RESIDENCE, Candidate, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
 class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
@@ -52,22 +42,6 @@ class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
 
 
-class OrganizationVoteInline(admin.TabularInline):
-    model = OrganizationVote
-    fields = ["user", "org", "vote", "motivation"]
-    readonly_fields = ["user", "org", "vote", "motivation"]
-    extra = 0
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = (
@@ -77,16 +51,13 @@ class OrganizationAdmin(admin.ModelAdmin):
         "representative",
         "city",
         "status",
-        "yes",
-        "no",
-        "abstention",
         "created",
     )
     list_filter = ("status", ("county", CountyFilter))
     search_fields = ("name", "representative", "email")
     readonly_fields = ["user", "status_changed"]
     autocomplete_fields = ["city"]
-    inlines = [OrganizationVoteInline]
+    list_per_page = 20
 
     def has_add_permission(self, request):
         return False
@@ -103,7 +74,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 
     def get_user(self, obj=None):
         if obj and obj.user:
-            user_url = reverse("admin:auth_user_change", args=(obj.user.id,))
+            user_url = reverse("admin:accounts_user_change", args=(obj.user.id,))
             return mark_safe(f'<a href="{user_url}">{obj.user.email}</a>')
 
     get_user.short_description = _("user")
@@ -185,6 +156,7 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ["city", "county"]
     list_filter = ["is_county_residence", ("county", CountyFilter)]
     search_fields = ["city"]
+    list_per_page = 20
 
     def get_urls(self):
         urls = super().get_urls()
@@ -252,17 +224,17 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(FeatureFlag)
 class FeatureFlagAdmin(admin.ModelAdmin):
-    list_display = ["flag", "status"]
-    readonly_fields = ["status_changed"]
+    list_display = ["flag", "is_enabled"]
+    readonly_fields = ["flag"]
 
     def has_add_permission(self, request):
-        if request.user.is_superuser:
-            return True
+        # if request.user.is_superuser:
+        #     return True
         return False
 
     def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
+        # if request.user.is_superuser:
+        #     return True
         return False
 
     def has_change_permission(self, request, obj=None):

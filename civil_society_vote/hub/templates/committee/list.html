@@ -1,0 +1,107 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+
+{% block domain-filters %}
+{% endblock domain-filters %}
+
+{% block extra-header %}
+{% endblock extra-header %}
+
+{% block left-side-view %}
+
+<div class="tabs is-medium">
+  <ul>
+    <li class="is-active">
+      <a href="{% url 'committee-ngos' %}">Organizatii nevalidate</a>
+    </li>
+    <li><a href="#">Canditai propusi</a></li>
+    <li><a href="#">Canditai selectati</a></li>
+  </ul>
+</div>
+
+<script>
+    window.onload = function () {
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onAfterPageLoad: function(items) {
+                var more_link = $('.infinite-more-link')[0];
+                if (more_link === undefined) {
+                    // Waypoint.Infinite removes the anchor with the above class
+                    // after performing the last request.
+                    //
+                    // so at this point, we know there are no more items that can be loaded,
+                    // so we remove the pagination nav
+                    $('nav.pagination').remove()
+                }
+            }
+        })
+    };
+</script>
+
+<div class="container">
+    <h2 class="title border-b uppercase">Organizatii nevalidate</h2>
+
+    {% if page_obj %}
+
+    <div class="columns is-multiline infinite-container">
+        {% for ngo in page_obj %}
+        <div class="need is-flex container infinite-item">
+
+            <div class="card-image need-logo is-hidden-mobile">
+            {% if ngo.logo %}
+                <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+            {% else %}
+                <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+            {% endif %}
+            </div>
+
+            <div class="card-info" style="width:500px;">
+                <div class="flex-align-center">
+                    <div class="card-image need-logo is-hidden-tablet">
+                        {% if ngo.logo %}
+                            <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+                        {% else %}
+                            <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
+                </div>
+                <div class="need-title is-hidden-mobile">
+                    <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
+                </div>
+                <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
+                <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div>
+                <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
+            </div>
+
+            <div class="need-call2action">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'ngo-detail' ngo.pk %}">
+                    Vezi detalii
+                </a>
+            </div>
+
+        </div>
+        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
+        <hr class="is-hidden-mobile half-width" />
+        {% endfor %}
+    </div>
+
+    {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+
+    {% else %}
+    <div class="content is-medium">
+        <p style="text-align: center;">{% trans "No results matching query" %}</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+{% with current_url=request.get_full_path %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}

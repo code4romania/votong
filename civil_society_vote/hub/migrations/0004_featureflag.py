@@ -4,12 +4,6 @@ import model_utils.fields
 from django.db import migrations, models
 
 
-def create_initial_flags(apps, schema_editor):
-    FeatureFlag = apps.get_model("hub", "FeatureFlag")
-    FeatureFlag.objects.get_or_create(flag="enable_org_voting", status="off")
-    FeatureFlag.objects.get_or_create(flag="enable_candidate_voting", status="off")
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -63,6 +57,5 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={"verbose_name": "Feature flag", "verbose_name_plural": "Feature flags",},
-        ),
-        migrations.RunPython(create_initial_flags),
+        )
     ]

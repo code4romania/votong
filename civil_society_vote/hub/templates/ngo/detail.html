@@ -1,6 +1,6 @@
 {% extends 'ngo/base.html' %}
 {% load static i18n %}
-{% load spurl %}
+{% load spurl guardian_tags %}
 {% load social_share meta_tags hub_tags %}
 
 {% block meta_tags %}
@@ -17,6 +17,8 @@
 {% endblock %}
 {% block domain-filters %}
 {% endblock%}
+
+{% get_obj_perms user for ngo as "user_permissions" %}
 
 <div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
@@ -64,6 +66,8 @@
     <hr>
     <p><span class="label">{% trans 'Initial purpose' %}:</span> {{ ngo.purpose_initial }}</p>
     <p><span class="label">{% trans 'Current purpose' %}:</span> {{ ngo.purpose_current }}</p>
+
+    {% if "approve_organization" in user_permissions %}
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5E72E4;"></span>
         {% trans "Documents" %}
@@ -71,76 +75,20 @@
     <p><a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a></p>
     <p><a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a></p>
     <p><a href="{{ ngo.letter.url }}" title="{% trans 'Letter of intent' %}">{% trans 'Letter of intent' %}</a></p>
+    {% endif %}
+
 </div>
 
-{% if ORG_VOTING_ENABLED and user|in_committee_group and ngo.status == 'pending' %}
-{% user_org_vote_obj user ngo as user_vote%}
+{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and ngo.status == 'pending' %}
 
 <hr>
 
 <div class="container detail-desc">
-  {% if user|already_voted_org:ngo %}
-  <article id="vote-org-info" class="message is-info">
-    <div class="message-body">Ati votat deja pentru aceasta organizatie.</div>
-  </article>
-  {% else %}
-  <article id="vote-org-error" class="message is-danger" style="display: none;">
-    <div class="message-body">A avut loc o eroare in momentul votarii. Cel mai probabil ati votat deja pentru aceasta organizatie. <br> Daca credeti ca aceasta eroare este o greseala va rugam sa ne contactati utilizand <a href="{% url 'contact' %}">formularul de contact<a>.</div>
-  </article>
-
-  <article id="vote-org-success" class="message is-success" style="display: none;">
-    <div class="message-body">Votul a fost inregistrat cu succes.</div>
-  </article>
-  {% endif %}
-
-  {% if user|already_voted_org:ngo %}
-  {% if user_vote.motivation %}
-  <b>Motivatie:</b> {{ user_vote.motivation }}
-  {% endif %}
-  {% else %}
-  <textarea id="vote-org-motivation" name="motivation" class="textarea" placeholder="Motivatia votului (obligatoriu daca votul este NU)"></textarea>
-  {% endif %}
-
   <div class="buttons vote-org-buttons">
-    <button class="button is-danger is-large vote-org-button" id="no" {% if user|already_voted_org:ngo %}disabled{% endif %}>NU</button>
-    <button class="button is-success is-large vote-org-button" id="yes" {% if user|already_voted_org:ngo %}disabled{% endif %}>DA</button>
-    <button class="button is-warning is-large vote-org-button" id="abstention" {% if user|already_voted_org:ngo %}disabled{% endif %}>ABTINERE</button>
+    <a href="{% url 'ngo-vote' ngo.id 'a' %}" class="button is-success is-large vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!')">Aproba</a>
+    <a href="{% url 'ngo-vote' ngo.id 'r' %}" class="button is-danger is-large vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!')">Respinge</a>
   </div>
 </div>
-
-{% if user|already_voted_org:ngo %}
-<script>
-$( document ).ready(function() {
-  $( ".vote-org-button" ).removeClass( "is-large" ).addClass( "is-small" );
-  $( "#{{ user_vote.vote }}" ).addClass( "is-large" )
-});
-</script>
-{% else %}
-<script>
-$( document ).ready(function() {
-  $( ".vote-org-button" ).on( "click", function( event ) {
-    var button = $( this )
-    var vote = $( this ).attr("id");
-    var motivation = $( "#vote-org-motivation" ).val();
-
-    if ( vote === "no" && motivation === "" ) {
-      alert("Trebuie sa scrieti o motivatie pentru un vot NU!");
-    } else {
-      $.get( "{% url 'ngo-vote' ngo.id %}", { vote: vote, motivation: motivation }, function() {
-        $( ".vote-org-button" ).attr("disabled", true).removeClass( "is-large" ).addClass( "is-small" );
-        button.addClass( "is-large" );
-        $( "#vote-org-motivation" ).attr("disabled", true);
-        $( "#vote-org-success" ).show();
-      }).fail(function() {
-        $( "#vote-org-error" ).show();
-      });
-    }
-
-    return false;
-  });
-});
-</script>
-{% endif %}
 
 {% endif %}
 

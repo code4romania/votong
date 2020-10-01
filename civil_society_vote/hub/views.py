@@ -1,29 +1,21 @@
 from django.conf import settings
-from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
+from guardian.decorators import permission_required_or_403
+from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionRequiredMixin
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
-from hub.models import (
-    COMMITTEE_GROUP,
-    VOTE,
-    Candidate,
-    CandidateVote,
-    City,
-    Domain,
-    FeatureFlag,
-    Organization,
-    OrganizationVote,
-)
+from hub.models import Candidate, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
 class MenuMixin:
@@ -38,21 +30,6 @@ class MenuMixin:
         #     context["user_org_candidate"] = user_org.candidate
 
         return context
-
-
-class OrgVotersGroupRequireddMixin(AccessMixin):
-    """Verify that the current user is in the org voters group or owns the organization."""
-
-    def dispatch(self, request, *args, **kwargs):
-        pk = kwargs.get("pk")
-
-        if pk and request.user.orgs.filter(pk=pk).exists():
-            return super().dispatch(request, *args, **kwargs)
-
-        if not request.user.groups.filter(name=COMMITTEE_GROUP).exists():
-            return self.handle_no_permission()
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class HomeView(MenuMixin, TemplateView):
@@ -104,13 +81,23 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
-class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
+class CommitteeOrganizationListView(LoginRequiredMixin, PermissionListMixin, HubListView):
+    permission_required = "hub.approve_organization"
+    raise_exception = True
+    paginate_by = 9
+    template_name = "committee/list.html"
+
+    def get_queryset(self):
+        return Organization.objects.filter(status=Organization.STATUS.pending)
+
+
+class OrganizationListView(HubListView):
     allow_filters = ["county", "city"]
     paginate_by = 9
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        return Organization.objects.all()
+        return Organization.objects.filter(status=Organization.STATUS.accepted)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -140,7 +127,7 @@ class OrganizationListView(OrgVotersGroupRequireddMixin, HubListView):
         return context
 
 
-class OrganizationDetailView(OrgVotersGroupRequireddMixin, HubDetailView):
+class OrganizationDetailView(HubDetailView):
     template_name = "ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
@@ -156,39 +143,45 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
         "form in our contact page."
     )
 
+    def get(self, request, *args, **kwargs):
+        if not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists():
+            raise PermissionDenied
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists():
+            raise PermissionDenied
+        return super().post(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse("ngos-register-request")
 
 
-class OrganizationUpdateView(HubUpdateView):
+class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdateView):
+    permission_required = "hub.change_organization"
+    raise_exception = True
     template_name = "ngo/update.html"
     model = Organization
     form_class = OrganizationForm
 
 
-class OrganizationVoteView(OrgVotersGroupRequireddMixin, View):
-    def get(self, request, pk):
-        if not FeatureFlag.objects.filter(flag="enable_org_voting", status=FeatureFlag.STATUS.on).exists():
-            return HttpResponseBadRequest()
+@permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
+def organization_vote(request, pk, action):
+    if not FeatureFlag.objects.filter(flag="enable_org_approval", is_enabled=True).exists():
+        raise PermissionDenied
 
-        try:
-            try:
-                vote = request.GET.get("vote")
-                vote_choice = getattr(VOTE, str(vote).lower())
-            except AttributeError:
-                raise ValidationError("Invalid vote value.")
-
-            motivation = request.GET.get("motivation", "")
-            if vote_choice == VOTE.no and not motivation:
-                raise ValidationError(_("You must specify a motivation if voting NO!"))
-
-            org = Organization.objects.get(pk=pk)
-            OrganizationVote.objects.create(user=request.user, org=org, vote=vote_choice, motivation=motivation)
-        except Exception as exc:
-            print(exc)
-            return HttpResponseBadRequest()
-        else:
-            return HttpResponse()
+    try:
+        org = Organization.objects.get(pk=pk, status=Organization.STATUS.pending)
+    except Organization.DoesNotExist:
+        pass
+    else:
+        if action == "r":
+            org.status = Organization.STATUS.rejected
+        elif action == "a":
+            org.status = Organization.STATUS.accepted
+        org.save()
+    finally:
+        return redirect("ngo-detail", pk=pk)
 
 
 class CandidateListView(HubListView):
@@ -230,13 +223,25 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     model = Candidate
     form_class = CandidateRegisterForm
 
+    def get(self, request, *args, **kwargs):
+        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+            raise PermissionDenied
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+            raise PermissionDenied
+        return super().post(request, *args, **kwargs)
+
     def get_form_kwargs(self):
         kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
 
-class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):
+class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdateView):
+    permission_required = "hub.change_candidate"
+    raise_exception = True
     template_name = "candidate/update.html"
     model = Candidate
     form_class = CandidateUpdateForm
@@ -244,7 +249,7 @@ class CandidateUpdateView(LoginRequiredMixin, HubUpdateView):
 
 class CandidateVoteView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", status=FeatureFlag.STATUS.on).exists():
+        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
             return HttpResponseBadRequest()
 
         try:
