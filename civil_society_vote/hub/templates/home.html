@@ -6,12 +6,12 @@
 {% block content %}
 
 <div class="container section has-text-centered">
-    <h1 class="title">Forul Societății Civile</h1>
+    <h1 class="title">Vot ONG</h1>
     <p class="subtitle border-b">
-      Platforma Forul Societății Civile are ca scop creșterea gradului de reprezentative a organizațiilor neguvernamentale și de a facilita luarea de decizii ușor pe
-        problematici care vizeaza unul, mai multe sau toate sectoarele societății civile.
+        VotONG este un ecosistem de soluții tehnice care să deservească alegerea reprezentanților societății civile în
+        forurile consultative prevăzute de lege precum și orice alte funcțiuni de reprezentare pentru societatea civilă.
     </p>
- </div>
+</div>
 
 
 <div class="section light-bg">
@@ -20,11 +20,16 @@
             <div class="column is-half">
                 <h1 class="section-title">Despre proiect</h1>
                 <p class="section-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo. Ut a bibendum ligula, et feugiat elit.
-                    Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat. Proin pretium massa ligula,
-                    sed tempus augue elementum sit amet. Etiam venenatis neque ut elit rutrum, vel pulvinar massa commodo. Proin egestas sed sem at mattis. Maecenas fermentum nibh ut turpis condimentum
-                    condimentum. Cras nec eleifend mauris, volutpat sollicitudin augue. Suspendisse nibh diam, consectetur ut dui vitae, cursus pellentesque orci. Duis sapien nibh, tincidunt sit amet
-                    tincidunt sed, sollicitudin vel mi. Sed auctor odio ligula, auctor ullamcorper leo feugiat a.
+                    VotONG este o platformă prin care societatea civilă își va putea alege reprezentanții transparent,
+                    printr-un proces electiv bazat pe o participare deschisă a cât mai multor ONG-uri. Platforma permite
+                    organizarea de runde electorale în care organizațiile neguvernamentale pot nominaliza proprii
+                    candidați, pot susține deschis o candidatură sau alta și pot vota în cadrul alegerilor deschise prin
+                    acest sistem.
+                </p>
+
+                <p class="section-text">
+                    Validarea organizațiilor este un proces anual care va ajuta întregul sector să mențină facil și o
+                    bază de date dinamică în care se regăsesc majoriatatea organizațiilor active din România.
                 </p>
             </div>
             <div class="column is-half">
@@ -36,48 +41,60 @@
 
 <div class="section">
     <div class="container">
-    <h1 class="section-title">Cum functioneaza</h1>
-    <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-12 is-parent">
-            <div class="tile is-child box">
-                <img class="" src="{% static "images/step-placeholder.svg" %}" alt="about">
-                <p class="tile-title">Step 1: Title</p>
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo. Ut a bibendum ligula, et feugiat elit.</p>
-            </div>
-            <div class="tile is-child box">
-                <img class="" src="{% static "images/step-placeholder.svg" %}" alt="about">
-                <p class="tile-title">Step 2: Title</p>
-                <p class=""> Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat. Proin pretium massa ligula,</p>
-            </div>
-        </div>
-    </div>
+        <h1 class="section-title">Cum funcționează</h1>
         <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-12 is-parent">
-            <div class="tile is-child box">
-                <img class="" src="{% static "images/step-placeholder.svg" %}" alt="about">
-                <p class="tile-title">Step 3: Title</p>
-                <p class=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo. Ut a bibendum ligula, et feugiat elit.</p>
-            </div>
-            <div class="tile is-child box">
-                <img class="" src="{% static "images/step-placeholder.svg" %}" alt="about">
-                <p class="tile-title">Step 4: Title</p>
-                <p class=""> Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat. Proin pretium massa ligula,</p>
+            <div class="tile is-12 is-parent">
+                <div class="tile is-child box">
+                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <p class="tile-title">Pasul 1: Înscrierea</p>
+                    <p>
+                        Fiecare ONG se poate înscrie în platformă cu ajutorul unui formular simplu disponibil în meniul
+                        acestei platforme. Pentru a intra în VotONG există o serie de condiții prestabilite care
+                        trebuiesc îndeplinite.
+                    </p>
+                </div>
+                <div class="tile is-child box">
+                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <p class="tile-title">Pasul 2: Validarea</p>
+                    <p>
+                        După înscriere fiecare ONG este validat. Administratorul platformei va verifica informațiile
+                        prezentate în formularul completat și va contacta organizația dacă sunt necesare și alte
+                        documente. </p>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="tile is-ancestor has-text-centered">
+            <div class="tile is-12 is-parent">
+                <div class="tile is-child box">
+                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <p class="tile-title">Pasul 3: Votul</p>
+                    <p>
+                        Dacă există alegeri în curs, fiecare ONG care se califică, potrivit regulamentului fiecărei
+                        runde, poate să propună candidaturi pentru a intra în cursa electorală. Organizațiile pot de
+                        asemenea și să își exprime susținerea pentru candidați.
+                    </p>
+                </div>
+                <div class="tile is-child box">
+                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <p class="tile-title">Step 4: Rezultate</p>
+                    <p>
+                        Rezultatele fiecărei runde de alegeri va fi publicat pe platformă și anunțat prin e-mail către
+                        toate organizațiile care au participat la runda de vot.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="section light-bg has-text-centered">
     <div class="container">
-    <h1 class="title">Alegeri CES/CESE 2020</h1>
-    <p class="subtitle">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lectus semper elit auctor lacinia. Duis varius purus in quam laoreet, non viverra tortor commodo.
-        Ut a bibendum ligula, et feugiat elit. Pellentesque in sapien non ligula suscipit laoreet ut id sem. Maecenas sodales dapibus accumsan. Mauris eleifend tempus nunc eu placerat.
-        Proin pretium massa ligula, sed tempus augue elementum sit amet. Etiam venenatis neque ut elit rutrum, vel pulvinar massa commodo. Proin egestas sed sem at mattis.
-        Maecenas fermentum nibh ut turpis condimentum condimentum. Cras nec eleifend mauris, volutpat sollicitudin augue. Suspendisse nibh diam, consectetur ut dui vitae, cursus pellentesque orci.
-        Duis sapien nibh, tincidunt sit amet tincidunt sed, sollicitudin vel mi. Sed auctor odio ligula, auctor ullamcorper leo feugiat a.
-    </p>
+        <img class="" src="{% static "images/step-placeholder.svg" %}">
+        <h1 class="tile-title has-text-weight-bold">Alegeri CES 2020</h1>
+        <p class="subtitle">
+            Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului
+            Economic și Social din România și din Uniuniea Europeană
+        </p>
     </div>
 </div>
 

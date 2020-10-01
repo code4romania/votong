@@ -236,6 +236,7 @@ footer {
     font-size: 1em;
     font-weight: 300;
     color: var(--light-gray);
+    padding-bottom: 1em;
 }
 
 .tile.is-child{
