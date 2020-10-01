@@ -13,7 +13,7 @@ AUTH_PASSWORD_VALIDATORS = []
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # No Google/Facebook trackers in the dev env
-ANALYTICS_ENABLED = False
+ANALYTICS_ENABLED = True
 
 if env("ENABLE_DEBUG_TOOLBAR"):
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
