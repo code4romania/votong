@@ -43,6 +43,9 @@
     <div class="columns is-centered">
         <div class="column is-half is-pulled-right">
             <div class="card column is-one-third is-pulled-right">
+                {% if not avatars %}
+                <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+                {% endif %}
                 <div class="card-header-title">
                     <p class="title is-6">{% trans "Your current avatar" %}</p>
                 </div>
@@ -53,13 +56,9 @@
                 </div>
             </div>
 
-            {% if not avatars %}
-                <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
-            {% endif %}
         </div>
 
         <div class="column is-half">
-
             {% if messages %}
             <article class="message is-info column is-one-third">
                 <div class="message-body">
@@ -83,10 +82,10 @@
                 {% endif %}
             {% endwith %}
 
-            <div class="is-vcentered">
+            <div class="column is-vcentered is-one-third">
                 <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
-                    <div class="file is-boxed is-success has-name">
-                        <label class="file-label">
+                    <div class="file is-boxed is-success has-name field">
+                        <label class="file-label" style="width: 100%">
                             <input class="file-input" type="file" name="avatar">
                             <span class="file-cta">
                                 <span class="file-icon">
@@ -102,10 +101,10 @@
                         </label>
                     </div>
 
-                    <div class="field">
-                        <p class="control">
-                            <input type="submit" value="{% trans "Upload New Image" %}" class="button is-success">
-                        </p>
+                    <div class="field mgt-medium">
+                        <div class="control is-expanded">
+                            <input type="submit" value="{% trans "Upload New Image" %}" class="button is-success is-fullwidth">
+                        </div>
                     </div>
 
                     {% csrf_token %}

@@ -36,20 +36,16 @@ msgid "You haven't uploaded an avatar yet. Please upload one now."
 msgstr "Nu ai ales nici un avatar. Te rugăm să îți alegi unul."
 
 #: accounts/templates/avatar/change.html:96
-#, fuzzy
-#| msgid "Upload file"
 msgid "Upload file..."
 msgstr "Încarcă fișier"
 
 #: accounts/templates/avatar/change.html:100
-#, fuzzy
-#| msgid "Upload file"
 msgid "No uploaded file"
-msgstr "Încarcă fișier"
+msgstr "Niciun fișier încărcat"
 
 #: accounts/templates/avatar/change.html:107
 msgid "Upload New Image"
-msgstr "Încarca o imagine"
+msgstr "Încarcă o imagine"
 
 #: accounts/templates/avatar/confirm_delete.html:14
 msgid "Please select the avatars that you would like to delete."
@@ -71,16 +67,12 @@ msgid "Delete These"
 msgstr "Șterge"
 
 #: accounts/templates/change-email.html:39
-#, fuzzy
-#| msgid "e-mail"
 msgid "New email:"
 msgstr "Email"
 
 #: accounts/templates/change-email.html:51
-#, fuzzy
-#| msgid "Change my password"
 msgid "Change Email"
-msgstr "Schimbă-mi parola"
+msgstr "Schimbă email"
 
 #: accounts/templates/partials/sections.html:6
 #: hub/templates/registration/reset_password.html:15
@@ -89,30 +81,22 @@ msgid "Reset password"
 msgstr "Resetează parola"
 
 #: accounts/templates/partials/sections.html:10
-#, fuzzy
-#| msgid "Change my password"
 msgid "Change email"
-msgstr "Schimbă-mi parola"
+msgstr "Schimbă email"
 
 #: accounts/templates/partials/sections.html:14
 msgid "Change avatar"
 msgstr "Schimbă avatar"
 
 #: accounts/templates/password-reset.html:36
-#, fuzzy
-#| msgid ""
-#| "Please enter your new password twice so we can verify you typed it in "
-#| "correctly."
 msgid ""
 "Please enter your old password, for security’s sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
-msgstr "Introduceti parola de doua ori pentru a verifica ca e scrisa corect"
+msgstr "Introduceți parola de două ori pentru a verifica că e scrisă corect"
 
 #: accounts/templates/password-reset.html:42
-#, fuzzy
-#| msgid "New password:"
 msgid "Old password:"
-msgstr "Parola noua:"
+msgstr "Parola veche:"
 
 #: accounts/templates/password-reset.html:52
 #: hub/templates/registration/reset_password_confirm.html:40
@@ -1340,7 +1324,7 @@ msgstr "Termeni și condiții de utilizare"
 
 #: hub/templates/footer.html:28
 msgid "Get Involved"
-msgstr ""
+msgstr "Implică-te"
 
 #: hub/templates/header.html:32
 msgid "Metodology"
