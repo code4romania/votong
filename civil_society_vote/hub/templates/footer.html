@@ -2,32 +2,59 @@
 {% load i18n %}
 
 <footer>
-    <div class="h-padded-wrapper">
-        <div class="container footer-content">
-            <div class="is-flex" style="justify-content: space-between;">
-                <ul class="useful-links" style="margin-left: 20px;">
-                    <li><a href="https://www.code4.ro/" target="_blank" rel="noopener noreferrer">Code for Romania</a>
-                    </li>
-                    <li><a href="https://github.com/code4romania/votong/", target="_blank" rel="noreferrer noopener">{% trans "GitHub repository" %}</a>
-                    </li>
-                    </li>
-                    <li><a href="{% url 'terms'%}">{% trans "Terms and conditions" %}</a>
-                    </li>
-                    <li><a href="{% url 'cookies'%}">{% trans "Cookie policy" %}</a>
-                    </li>
-                    <li><a href="{% url 'contact'%}">{% trans "Contact us" %}</a></li>
-
-                </ul>
+    <div class="container">
+        <div class="branding">
+            <div>
+                Soluție proiectată în:
+                <a href="https://civiclabs.ro/" target="_blank" rel="noopener noreferrer">
+                    <img class="civicLab-logo" src="{% static "images/civic-labs.svg" %}" alt="Civic Labs" />
+                </a>
             </div>
 
-            <div class="code4-branding">
+            <div>
+                dezvoltată pro bono de:
                 <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer">
-                    <img src="{% static "images/code4romania-gray.svg" %}" alt="Code for Romania grey logo" width=140">
+                    <img class="code4Ro-logo" src="{% static "images/code4romania-gray.svg" %}" alt="Code for Romania" />
                 </a>
-                <p>© 2020 Code for Romania.</p>
-                <p>{% trans "An independent, non-partisan, non-political, non-govermental organization." %}</p>
             </div>
         </div>
+
+        <ul id="footer-links">
+            <li><a href="#">{% trans "Partners" %}</a>
+            <li><a href="#">{% trans "About VotONG" %}</a>
+            <li><a href="{% url 'cookies'%}">{% trans "Privacy Policy" %}</a>
+            <li><a href="{% url 'terms'%}">{% trans "Terms and conditions" %}</a>
+            <li>
+                <a href="#" class="button is-primary">{% trans "Get Involved" %}</a>
+            </li>
+        </ul>
+
+        <p>
+            Daca vrei să iei legătura cu noi o poți face pe e-mail la adresa:  <a href="mailto:contact@code4.ro">contact@code4.ro</a>
+        </p>
+
+        <ul id="footer-social">
+            <li>
+                <a href="https://www.facebook.com/code4romania/">
+                    <img src="{% static "images/social/facebook.svg" %}" alt="Facebook" />
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/Code4Romania">
+                    <img src="{% static "images/social/twitter.svg" %}" alt="Twitter" />
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/code4romania/votong/">
+                    <img src="{% static "images/social/github.svg" %}" alt="GitHub repo" />
+                </a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/company/code4romania/">
+                    <img src="{% static "images/social/linkedin.svg" %}" alt="LinkedIn" />
+                </a>
+            </li>
+        </ul>
     </div>
 </footer>
 
