@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "hub",
     "accounts",
     # third-party
+    "avatar",
     "admin_auto_filters",
     "spurl",
     "crispy_forms",
@@ -172,7 +173,6 @@ else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = str(root.path("mediafiles"))
 
-
 STATICFILES_DIRS = (str(root.path("static")),)
 STATIC_ROOT = str(root.path("staticfiles"))
 STATIC_URL = "/static/"
@@ -212,6 +212,9 @@ ANALYTICS_ENABLED = True
 IMPERSONATE = {
     "REQUIRE_SUPERUSER": True,
 }
+
+AVATAR_THUMB_FORMAT = "PNG"
+AVATAR_ADD_TEMPLATE = "avatar/change.html"
 
 if env("SENTRY_DSN"):
     import sentry_sdk

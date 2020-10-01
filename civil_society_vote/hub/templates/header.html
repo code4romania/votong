@@ -1,4 +1,5 @@
 {% load static i18n %}
+{% load avatar_tags %}
 {% load hub_tags %}
 
 <div class="navbar-container">
@@ -38,7 +39,7 @@
                         <div class="navbar-item">|</div>
 
                         {% if request.user.is_authenticated %}
-
+                        {% avatar user 65 class="img-circle img-responsive" id="user_avatar" %}
                         {% if user|in_committee_group %}
                         <a href="{% url 'committee-ngos' %}" class="navbar-item">
                             <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.email }}" style="height:39px;">
@@ -52,6 +53,10 @@
                             <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.orgs.first.name }}" style="height:39px;">
                             {% endif %}
                             {{ user.orgs.first.name }}
+                        </a>
+                        {% else %}
+                        <a href="{% url 'account-password-reset' %}" class="navbar-item">
+                        {{ user.email }}
                         </a>
                         {% endif %}
 

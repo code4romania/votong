@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import FormView, TemplateView, UpdateView
+from django.views.generic import FormView
 
 
 class PasswordResetView(auth_views.PasswordChangeView):
@@ -34,7 +34,3 @@ class ChangeEmailView(FormView):
             messages.success(self.request, _("Email was updated successfully"))
 
         return valid
-
-
-class ChangeAvatarView(TemplateView):
-    template_name = "change-avatar.html"

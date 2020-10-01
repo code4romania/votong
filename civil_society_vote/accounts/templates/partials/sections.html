@@ -5,11 +5,13 @@
         <li {% if active == 'password-reset' %}class="is-active"{% endif %}>
             <a href="{% url 'account-password-reset' %}">{% trans 'Reset password' %}</a>
         </li>
+
         <li {% if active == 'change-email' %}class="is-active"{% endif %}>
             <a href="{% url 'account-change-email' %}">{% trans 'Change email' %}</a>
         </li>
+
         <li {% if active == 'change-avatar' %}class="is-active"{% endif %}>
-            <a href="{% url 'account-change-avatar' %}">{% trans 'Change avatar' %}</a>
+            <a href="{% url 'avatar_change' %}">{% trans 'Change avatar' %}</a>
         </li>
     </ul>
 </div>

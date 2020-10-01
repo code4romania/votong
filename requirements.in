@@ -1,5 +1,6 @@
 # django and related
 django<3
+django-avatar
 django-environ
 django-crispy-forms
 django-crispy-bulma
