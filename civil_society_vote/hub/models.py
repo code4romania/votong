@@ -159,7 +159,10 @@ class Organization(StatusModel, TimeStampedModel):
         verbose_name = _("Organization")
         ordering = ["name"]
 
-        permissions = (("approve_organization", "Approve organization"),)
+        permissions = (
+            ("view_data_organization", "View data organization"),
+            ("approve_organization", "Approve organization"),
+        )
 
     def __str__(self):
         return self.name
@@ -182,13 +185,14 @@ class Organization(StatusModel, TimeStampedModel):
         super().save(*args, **kwargs)
 
         if self.user:
+            assign_perm("view_data_organization", self.user, self)
             assign_perm("view_organization", self.user, self)
             assign_perm("change_organization", self.user, self)
 
         if create:
-            assign_perm("view_organization", Group.objects.get(name=STAFF_GROUP), self)
-            assign_perm("view_organization", Group.objects.get(name=SUPPORT_GROUP), self)
-            assign_perm("view_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("view_data_organization", Group.objects.get(name=STAFF_GROUP), self)
+            assign_perm("view_data_organization", Group.objects.get(name=SUPPORT_GROUP), self)
+            assign_perm("view_data_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
             assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
     def create_owner(self):
