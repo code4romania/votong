@@ -1,13 +1,15 @@
+{% load static i18n %}
+
 <div class="tabs is-medium">
     <ul>
         <li {% if active == "ngos" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}">Organizatii nevalidate</a>
+            <a href="{% url 'committee-ngos' %}">{% trans 'Pending Organisations' %}</a>
         </li>
         <li {% if active == "pending" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-candidates' %}?status=pending">Canditai propusi</a>
+            <a href="{% url 'committee-candidates' %}?status=pending">{% trans 'Pending candidates' %}</a>
         </li>
         <li {% if active == "accepted" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-candidates' %}?status=accepted">Canditai selectati</a>
+            <a href="{% url 'committee-candidates' %}?status=accepted">{% trans 'Accepted candidates' %}</a>
         </li>
     </ul>
 </div>

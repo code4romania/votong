@@ -34,11 +34,14 @@
 </script>
 
 <div class="container">
+    <h2 class="title border-b uppercase">
+        {% trans 'Candidates' %} {% if filtering == "pending" %}{% trans 'proposed' %}{% else %}{% trans 'selected' %}{%endif%}
+    </h2>
+
     {% if page_obj %}
 
     <div class="is-multiline infinite-container">
         {% for candidate in page_obj %}
-
 
         <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
