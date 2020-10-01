@@ -91,6 +91,23 @@ class CommitteeOrganizationListView(LoginRequiredMixin, PermissionListMixin, Hub
         return Organization.objects.filter(status=Organization.STATUS.pending)
 
 
+class CommitteeCandidatesListView(LoginRequiredMixin, PermissionListMixin, HubListView):
+    allow_filters = ["status"]
+    permission_required = "hub.vote_candidate"
+    raise_exception = True
+    paginate_by = 9
+    template_name = "committee/candidates.html"
+
+    def get_queryset(self):
+        filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
+        return Candidate.objects.filter(**filters)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filtering"] = self.request.GET.get("status", Candidate.STATUS.pending)
+        return context
+
+
 class OrganizationListView(HubListView):
     allow_filters = ["county", "city"]
     paginate_by = 9

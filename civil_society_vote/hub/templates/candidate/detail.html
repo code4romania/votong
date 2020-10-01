@@ -96,41 +96,6 @@
     <hr>
 </div>
 
-{% if CANDIDATE_VOTING_ENABLED and user.is_authenticated %}
-
-<div class="container detail-desc has-text-centered">
-  {% if user|already_voted_candidate_or_domain:candidate %}
-  <article id="vote-candidate-info" class="message is-info">
-    <div class="message-body">Ati votat deja in acest domeniu.</div>
-  </article>
-  {% else %}
-  <article id="vote-candidate-error" class="message is-danger" style="display: none;">
-    <div class="message-body">A avut loc o eroare in momentul votarii. Fie ati votat deja pentru acest candidat sau ati votat deja in acest domeniu. <br> Daca credeti ca aceasta eroare este o greseala va rugam sa ne contactati utilizand <a href="{% url 'contact' %}">formularul de contact<a>.</div>
-  </article>
-
-  <article id="vote-candidate-success" class="message is-success" style="display: none;">
-    <div class="message-body">Votul a fost inregistrat cu succes.</div>
-  </article>
-  {% endif %}
-
-  <button id="vote-candidate-button" class="button is-success is-large" {% if user|already_voted_candidate_or_domain:candidate %}disabled{% endif %}>VOTEAZA</button>
-</div>
-<script>
-$( document ).ready(function() {
-  $( "#vote-candidate-button" ).on( "click", function( event ) {
-    var button = $( this );
-    $.get( "{% url 'candidate-vote' candidate.id %}", function() {
-      button.attr("disabled", true);
-      $( "#vote-candidate-success" ).show();
-    }).fail(function() {
-      $( "#vote-candidate-error" ).show();
-    });
-  });
-});
-</script>
-
-{% endif %}
-
 {% comment %}
 {% social_buttons obj=candidate %}
 {% endcomment %}
