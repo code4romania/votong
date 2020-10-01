@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link rel="stylesheet" href="{% static "css/home/alegeri-jumbotron.css" %}">
     <link rel="stylesheet" href="{% static "css/home/alegeri-inscriere.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/contact.css" %}">
     <link rel="stylesheet" href="{% static "css/home/home.css" %}">
 {% endblock %}
 
@@ -121,5 +122,60 @@
 </div>
 
 <hr />
+
+<div id="contact" class="container">
+    <div>
+        <h3 class="tile-title">Intră în contact</h3>
+        <p>
+            Dacă vrei să iei legătura cu noi, pentru sugestii, propuneri de îmbunătățire sau dacă ai întrebări,
+            atunci te rugăm să folosești formularul alăturat.
+        </p>
+        <p>
+            Platforma VotONG este dezvoltată pro-bono de Asociația Code for Romania și este parte dintr-un
+            ecosistem larg de soluții dedicate societății civile pe care îl avem în lucru în acest moment.
+            Dacă vrei să ne susții, o poți face folosind butonul Implică-te de mai jos, setând o donație
+            recurentă pentru noi.
+        </p>
+    </div>
+    <div id="contact-form">
+        <form action="#" class="box">
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Nume" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-graduation-cap"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Email" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <textarea class="input" placeholder="Message"></textarea>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-unlock-alt"></i>
+                    </span>
+                </div>
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox">
+                I agree with the <a href="#">Privacy Policy</a>
+            </label>
+
+            <div id="contact-form-buttons">
+                <button type="submit" class="button is-warning">Trimite</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
