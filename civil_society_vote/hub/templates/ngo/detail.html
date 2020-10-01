@@ -67,7 +67,7 @@
     <p><span class="label">{% trans 'Initial purpose' %}:</span> {{ ngo.purpose_initial }}</p>
     <p><span class="label">{% trans 'Current purpose' %}:</span> {{ ngo.purpose_current }}</p>
 
-    {% if "approve_organization" in user_permissions %}
+    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5E72E4;"></span>
         {% trans "Documents" %}
