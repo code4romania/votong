@@ -30,10 +30,6 @@ class Command(BaseCommand):
             User.objects.create_user("ces", "ces@example.test", "secret")
             self.stdout.write("Created CES user")
 
-        if not User.objects.filter(email="sgg@example.test").exists():
-            User.objects.create_user("sgg", "sgg@example.test", "secret")
-            self.stdout.write("Created SGG user")
-
         committee_group = Group.objects.get(name=COMMITTEE_GROUP)
         staff_group = Group.objects.get(name=STAFF_GROUP)
 
@@ -42,9 +38,6 @@ class Command(BaseCommand):
 
         ces_user = User.objects.get(username="ces")
         ces_user.groups.add(committee_group)
-
-        sgg_user = User.objects.get(username="sgg")
-        sgg_user.groups.add(committee_group)
 
         self.stdout.write("Done setting up group permissions")
 
@@ -83,8 +76,6 @@ class Command(BaseCommand):
         if not Organization.objects.count():
             if not (os.path.isdir(os.path.join(BASE_DIR, "../../", "mediafiles"))):
                 os.mkdir(os.path.join(BASE_DIR, "../../", "mediafiles"))
-
-            count_org_voters = 0
 
             if not (os.path.exists(os.path.join(BASE_DIR, "../../", "mediafiles"))):
                 os.mkdir(os.path.join(BASE_DIR, "../../", "mediafiles"))
@@ -133,11 +124,6 @@ class Command(BaseCommand):
                 if status == "rejected":
                     self.stdout.write(f"Created organization {org}")
                 elif status == "accepted":
-                    # we add a few org users to the voting group
-                    if count_org_voters < 3:
-                        org.user.groups.add(committee_group)
-                        count_org_voters += 1
-
                     candidate = Candidate.objects.create(
                         org=org,
                         name=org.representative,

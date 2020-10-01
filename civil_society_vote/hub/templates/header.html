@@ -19,7 +19,7 @@
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end has-text-centered-touch">
-                        {% if user|in_committee_group %}
+                        {% if user|can_view_orgs %}
                         <a  href="{% url 'ngos' %}" class="navbar-item">
                             {% trans "Organizations" %}
                         </a>
@@ -61,9 +61,12 @@
                         {% endif %}
 
                         {% else %}
+
+                        {% if ORG_REGISTRATION_ENABLED %}
                         <a  href="{% url 'ngos-register-request'%}" class="navbar-item">
                             {% trans "Register organization" %}
                         </a>
+                        {% endif %}
 
                         <a  href="{% url 'login'%}" class="navbar-item">
                             {% trans "Login" %}

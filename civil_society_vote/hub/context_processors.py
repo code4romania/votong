@@ -4,14 +4,13 @@ from hub.models import FeatureFlag
 
 
 def hub_settings(context):
-    org_voting_enabled = FeatureFlag.objects.filter(flag="enable_org_voting", status=FeatureFlag.STATUS.on).exists()
-    candidate_voting_enabled = FeatureFlag.objects.filter(
-        flag="enable_candidate_voting", status=FeatureFlag.STATUS.on
-    ).exists()
+    flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
     return {
         "DEBUG": settings.DEBUG,
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
-        "ORG_VOTING_ENABLED": org_voting_enabled,
-        "CANDIDATE_VOTING_ENABLED": candidate_voting_enabled,
+        "ORG_REGISTRATION_ENABLED": flags["enable_org_registration"],
+        "ORG_APPROVAL_ENABLED": flags["enable_org_approval"],
+        "CANDIDATE_REGISTRATION_ENABLED": flags["enable_candidate_registration"],
+        "CANDIDATE_VOTING_ENABLED": flags["enable_candidate_voting"],
     }

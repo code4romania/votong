@@ -195,6 +195,7 @@ ADMINS = [
 # The email where the votes are sent for archiving purposes
 VOTE_AUDIT_EMAIL = env("VOTE_AUDIT_EMAIL", default="")
 
+LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 

@@ -81,10 +81,7 @@
     {% if candidate.letter %}<p><a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a></p>{% endif %}
     {% if candidate.mandate %}<p><a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a></p>{% endif %}
     {% if candidate.statement %}<p><a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a></p>{% endif %}
-
-    {% if user|in_committee_group or user|in_staff_group or user|in_support_group %}
     {% if candidate.legal_record %}<p><a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a></p>{% endif %}
-    {% endif %}
 </div>
 
 <div class="container detail-desc">

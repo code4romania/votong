@@ -1,7 +1,7 @@
 from accounts.models import User
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import ValidationError
 from django.core.files.storage import get_storage_class
 from django.db import models
 from django.urls import reverse
@@ -70,8 +70,6 @@ COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
 COUNTY_CHOICES = Choices(*[(x, x) for x in COUNTIES])
 
-VOTE = Choices(("yes", _("Yes")), ("no", _("No")), ("abstention", _("Abstention")),)
-
 STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
 
 FLAG_CHOICES = Choices(
@@ -83,17 +81,16 @@ FLAG_CHOICES = Choices(
 )
 
 
-class FeatureFlag(StatusModel, TimeStampedModel):
-    STATUS = Choices(("off", _("OFF")), ("on", _("ON")))
-
+class FeatureFlag(TimeStampedModel):
     flag = models.CharField(_("Flag"), choices=FLAG_CHOICES, max_length=254, unique=True)
+    is_enabled = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Feature flag")
         verbose_name_plural = _("Feature flags")
 
     def __str__(self):
-        return f"{self.flag}: {self.status.upper()}"
+        return f"{FLAG_CHOICES[self.flag]}"
 
 
 class Domain(TimeStampedModel):
@@ -194,21 +191,6 @@ class Organization(StatusModel, TimeStampedModel):
             assign_perm("view_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
             assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
-    def yes(self):
-        return self.votes.filter(vote=VOTE.yes).count()
-
-    yes.short_description = _("Yes")
-
-    def no(self):
-        return self.votes.filter(vote=VOTE.no).count()
-
-    no.short_description = _("No")
-
-    def abstention(self):
-        return self.votes.filter(vote=VOTE.abstention).count()
-
-    abstention.short_description = _("Abstention")
-
     def create_owner(self):
         user, created = User.objects.get_or_create(username=self.email)
 
@@ -224,36 +206,6 @@ class Organization(StatusModel, TimeStampedModel):
         user.groups.add(Group.objects.get(name=NGO_GROUP))
 
         return user
-
-
-class OrganizationVote(TimeStampedModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    org = models.ForeignKey("Organization", on_delete=models.CASCADE, related_name="votes")
-
-    vote = models.CharField(_("Vote"), choices=VOTE, default=VOTE.abstention, max_length=10)
-    motivation = models.TextField(_("Motivation"))
-
-    class Meta:
-        verbose_name_plural = _("Organization votes")
-        verbose_name = _("Organization vote")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "org"], name="unique_org_vote"),
-        ]
-
-    def __str__(self):
-        return f"{self.user} / {VOTE[self.vote]} / {self.org}"
-
-    def save(self, *args, **kwargs):
-        if not self.user.groups.filter(name=COMMITTEE_GROUP).exists():
-            raise PermissionDenied()
-
-        if self.vote == VOTE.no and not self.motivation:
-            raise ValidationError(_("You must specify a motivation if voting NO!"))
-
-        if self.org.status != Organization.STATUS.pending:
-            return
-
-        super().save(*args, **kwargs)
 
 
 class Candidate(TimeStampedModel):
@@ -309,11 +261,11 @@ class Candidate(TimeStampedModel):
         super().save(*args, **kwargs)
 
         if create:
-            assign_perm("add_candidate", self.org.user, self)
             assign_perm("change_candidate", self.org.user, self)
             assign_perm("delete_candidate", self.org.user, self)
-            assign_perm("view_candidate", self.org.user, self)
+
             assign_perm("approve_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
+
             assign_perm("support_candidate", Group.objects.get(name=NGO_GROUP), self)
             assign_perm("vote_candidate", Group.objects.get(name=NGO_GROUP), self)
 
