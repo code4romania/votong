@@ -27,4 +27,3 @@ services:
 
 volumes:
   database-data:
-    name: votong_database-data
