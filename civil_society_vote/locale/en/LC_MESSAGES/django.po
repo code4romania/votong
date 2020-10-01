@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-01 01:37+0000\n"
+"POT-Creation-Date: 2020-10-01 07:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,8 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: hub/models.py:101 hub/templates/ngo/list.html:172
+#: hub/models.py:101 hub/templates/committee/list.html:76
+#: hub/templates/ngo/list.html:172
 msgid "Domain"
 msgstr ""
 
@@ -244,7 +245,7 @@ msgstr ""
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:158 hub/templates/header.html:24
+#: hub/models.py:158 hub/templates/header.html:23
 msgid "Organizations"
 msgstr ""
 
@@ -293,7 +294,7 @@ msgid "Legal record"
 msgstr ""
 
 #: hub/models.py:234 hub/templates/candidate/list.html:26
-#: hub/templates/header.html:29
+#: hub/templates/header.html:27
 msgid "Candidates"
 msgstr ""
 
@@ -496,7 +497,8 @@ msgstr ""
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:100 hub/templates/ngo/list.html:192
+#: hub/templates/candidate/list.html:100 hub/templates/committee/list.html:96
+#: hub/templates/ngo/list.html:192
 msgid "No results matching query"
 msgstr ""
 
@@ -506,6 +508,11 @@ msgstr ""
 
 #: hub/templates/candidate/update.html:57
 msgid "Update candidate"
+msgstr ""
+
+#: hub/templates/committee/list.html:75 hub/templates/ngo/detail.html:61
+#: hub/templates/ngo/list.html:171
+msgid "Founders"
 msgstr ""
 
 #: hub/templates/contact.html:15 hub/templates/footer.html:18
@@ -911,19 +918,19 @@ msgid ""
 "An independent, non-partisan, non-political, non-govermental organization."
 msgstr ""
 
-#: hub/templates/header.html:33
+#: hub/templates/header.html:31
 msgid "Metodology"
 msgstr ""
 
-#: hub/templates/header.html:55
+#: hub/templates/header.html:58
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:67 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:70 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:72 hub/templates/registration/login.html:15
+#: hub/templates/header.html:75 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr ""
@@ -934,10 +941,6 @@ msgstr ""
 
 #: hub/templates/ngo/detail.html:55
 msgid "About the organization"
-msgstr ""
-
-#: hub/templates/ngo/detail.html:61 hub/templates/ngo/list.html:171
-msgid "Founders"
 msgstr ""
 
 #: hub/templates/ngo/detail.html:62
@@ -1647,47 +1650,51 @@ msgstr ""
 msgid "rohelp@code4.ro"
 msgstr ""
 
-#: hub/urls.py:21
+#: hub/urls.py:22
 msgid "candidates/"
 msgstr ""
 
-#: hub/urls.py:22
+#: hub/urls.py:23
 msgid "candidates/register"
 msgstr ""
 
-#: hub/urls.py:23
+#: hub/urls.py:24
 msgid "candidates/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:24
+#: hub/urls.py:25
 msgid "candidates/<int:pk>/vote"
 msgstr ""
 
-#: hub/urls.py:25
+#: hub/urls.py:26
 msgid "candidates/<int:pk>/update"
 msgstr ""
 
-#: hub/urls.py:26
+#: hub/urls.py:27
 msgid "ngos/"
 msgstr ""
 
-#: hub/urls.py:27
+#: hub/urls.py:28
 msgid "ngos/register"
 msgstr ""
 
-#: hub/urls.py:28
+#: hub/urls.py:29
 msgid "ngos/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:29
+#: hub/urls.py:30
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr ""
 
-#: hub/urls.py:30
+#: hub/urls.py:31
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:146
+#: hub/urls.py:32
+msgid "committee/ngos/"
+msgstr ""
+
+#: hub/views.py:150
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "

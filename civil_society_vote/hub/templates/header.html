@@ -19,11 +19,9 @@
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end has-text-centered-touch">
-                        {% if user|can_view_orgs %}
                         <a  href="{% url 'ngos' %}" class="navbar-item">
                             {% trans "Organizations" %}
                         </a>
-                        {% endif %}
 
                         <a  href="{% url 'candidates' %}" class="navbar-item">
                             {% trans "Candidates" %}
@@ -41,7 +39,12 @@
 
                         {% if request.user.is_authenticated %}
 
-                        {% if user.orgs.exists %}
+                        {% if user|in_committee_group %}
+                          <a href="{% url 'committee-ngos' %}" class="navbar-item">
+                            <img src="{% static 'images/logo-demo.png' %}" alt="{{ user.email }}" style="height:39px;">
+                            {{ user.email }}
+                          </a>
+                        {% elif user.orgs.exists %}
                           <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
                             {% if user.orgs.first.logo %}
                             <img src="{{ user.orgs.first.logo.url }}" alt="{{ user.orgs.first.name }}" style="height:39px; padding-right:10px;">

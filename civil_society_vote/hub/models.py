@@ -236,6 +236,7 @@ class Candidate(TimeStampedModel):
         ordering = ["name"]
 
         permissions = (
+            ("view_data_candidate", "View data candidate"),
             ("approve_candidate", "Approve candidate"),
             ("support_candidate", "Support candidate"),
             ("vote_candidate", "Vote candidate"),
@@ -261,10 +262,15 @@ class Candidate(TimeStampedModel):
         super().save(*args, **kwargs)
 
         if create:
+            assign_perm("view_candidate", self.org.user, self)
             assign_perm("change_candidate", self.org.user, self)
             assign_perm("delete_candidate", self.org.user, self)
+            assign_perm("view_data_candidate", self.org.user, self)
 
             assign_perm("approve_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("view_data_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("view_data_candidate", Group.objects.get(name=STAFF_GROUP), self)
+            assign_perm("view_data_candidate", Group.objects.get(name=SUPPORT_GROUP), self)
 
             assign_perm("support_candidate", Group.objects.get(name=NGO_GROUP), self)
             assign_perm("vote_candidate", Group.objects.get(name=NGO_GROUP), self)

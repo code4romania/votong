@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-01 01:37+0000\n"
+"POT-Creation-Date: 2020-10-01 07:43+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -147,7 +147,8 @@ msgstr "Nume"
 msgid "Description"
 msgstr "Descriere"
 
-#: hub/models.py:101 hub/templates/ngo/list.html:172
+#: hub/models.py:101 hub/templates/committee/list.html:76
+#: hub/templates/ngo/list.html:172
 msgid "Domain"
 msgstr "Domeniu"
 
@@ -247,7 +248,7 @@ msgstr "Statutul Asociației"
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
-#: hub/models.py:158 hub/templates/header.html:24
+#: hub/models.py:158 hub/templates/header.html:23
 msgid "Organizations"
 msgstr "Organizații"
 
@@ -298,7 +299,7 @@ msgid "Legal record"
 msgstr "Cazier juridic"
 
 #: hub/models.py:234 hub/templates/candidate/list.html:26
-#: hub/templates/header.html:29
+#: hub/templates/header.html:27
 msgid "Candidates"
 msgstr "Candidați"
 
@@ -576,7 +577,8 @@ msgstr "Caută..."
 msgid "View details"
 msgstr "Vizualizează detalii"
 
-#: hub/templates/candidate/list.html:100 hub/templates/ngo/list.html:192
+#: hub/templates/candidate/list.html:100 hub/templates/committee/list.html:96
+#: hub/templates/ngo/list.html:192
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
@@ -587,6 +589,11 @@ msgstr "Propune candidat"
 #: hub/templates/candidate/update.html:57
 msgid "Update candidate"
 msgstr "Modifica candidat"
+
+#: hub/templates/committee/list.html:75 hub/templates/ngo/detail.html:61
+#: hub/templates/ngo/list.html:171
+msgid "Founders"
+msgstr "Fondatori"
 
 #: hub/templates/contact.html:15 hub/templates/footer.html:18
 msgid "Contact us"
@@ -1167,19 +1174,19 @@ msgid ""
 msgstr ""
 "Organizație neguvernamentală independentă, neafiliată politic și apolitică."
 
-#: hub/templates/header.html:33
+#: hub/templates/header.html:31
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: hub/templates/header.html:55
+#: hub/templates/header.html:58
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:67 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:70 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:72 hub/templates/registration/login.html:15
+#: hub/templates/header.html:75 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr "Autentificare"
@@ -1191,10 +1198,6 @@ msgstr "Proiect dezvoltat în programul"
 #: hub/templates/ngo/detail.html:55
 msgid "About the organization"
 msgstr "Despre organizație"
-
-#: hub/templates/ngo/detail.html:61 hub/templates/ngo/list.html:171
-msgid "Founders"
-msgstr "Fondatori"
 
 #: hub/templates/ngo/detail.html:62
 msgid "Representative"
@@ -2147,47 +2150,51 @@ msgstr ""
 msgid "rohelp@code4.ro"
 msgstr "E-mail: rohelp@code4.ro"
 
-#: hub/urls.py:21
+#: hub/urls.py:22
 msgid "candidates/"
 msgstr "candidati/"
 
-#: hub/urls.py:22
+#: hub/urls.py:23
 msgid "candidates/register"
 msgstr "candidati/inregistrare"
 
-#: hub/urls.py:23
+#: hub/urls.py:24
 msgid "candidates/<int:pk>"
 msgstr "candidati/<int:pk>"
 
-#: hub/urls.py:24
+#: hub/urls.py:25
 msgid "candidates/<int:pk>/vote"
 msgstr "candidati/<int:pk>/vot"
 
-#: hub/urls.py:25
+#: hub/urls.py:26
 msgid "candidates/<int:pk>/update"
 msgstr "candidati/<int:pk>/actualizare"
 
-#: hub/urls.py:26
+#: hub/urls.py:27
 msgid "ngos/"
 msgstr "organizatii/"
 
-#: hub/urls.py:27
+#: hub/urls.py:28
 msgid "ngos/register"
 msgstr "organizatii/inregistrare"
 
-#: hub/urls.py:28
+#: hub/urls.py:29
 msgid "ngos/<int:pk>"
 msgstr "organizatii/<int:pk>"
 
-#: hub/urls.py:29
+#: hub/urls.py:30
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr "organizatii/<int:pk>/vot/<str:action>"
 
-#: hub/urls.py:30
+#: hub/urls.py:31
 msgid "ngos/<int:pk>/update"
 msgstr "organizatii/<int:pk>/actualizare"
 
-#: hub/views.py:146
+#: hub/urls.py:32
+msgid "committee/ngos/"
+msgstr "comisie/organizatii/"
+
+#: hub/views.py:150
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "

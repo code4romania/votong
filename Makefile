@@ -27,7 +27,7 @@ clean-docker:
 	docker-compose down -t 60
 	docker system prune -f
 
-clean-db:
+clean-db: clean-docker
 	docker volume rm votong_database-data
 
 clean-py:

@@ -11,21 +11,11 @@ from django.views import View
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 from guardian.decorators import permission_required_or_403
-from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionRequiredMixin
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
-from hub.models import (
-    COMMITTEE_GROUP,
-    STAFF_GROUP,
-    SUPPORT_GROUP,
-    Candidate,
-    CandidateVote,
-    City,
-    Domain,
-    FeatureFlag,
-    Organization,
-)
+from hub.models import Candidate, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
 class MenuMixin:
@@ -91,16 +81,23 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
-class OrganizationListView(LoginRequiredMixin, HubListView):
+class CommitteeOrganizationListView(LoginRequiredMixin, PermissionListMixin, HubListView):
+    permission_required = "hub.approve_organization"
+    raise_exception = True
+    paginate_by = 9
+    template_name = "committee/list.html"
+
+    def get_queryset(self):
+        return Organization.objects.filter(status=Organization.STATUS.pending)
+
+
+class OrganizationListView(HubListView):
     allow_filters = ["county", "city"]
     paginate_by = 9
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
-            return Organization.objects.filter(status=Organization.STATUS.pending)
-
-        return self.request.user.orgs
+        return Organization.objects.filter(status=Organization.STATUS.accepted)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -130,9 +127,7 @@ class OrganizationListView(LoginRequiredMixin, HubListView):
         return context
 
 
-class OrganizationDetailView(LoginRequiredMixin, PermissionRequiredMixin, HubDetailView):
-    permission_required = "hub.view_organization"
-    raise_exception = True
+class OrganizationDetailView(HubDetailView):
     template_name = "ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
@@ -189,7 +184,7 @@ def organization_vote(request, pk, action):
         return redirect("ngo-detail", pk=pk)
 
 
-class CandidateListView(LoginRequiredMixin, HubListView):
+class CandidateListView(HubListView):
     allow_filters = ["domain"]
     paginate_by = 9
     template_name = "candidate/list.html"
@@ -217,7 +212,7 @@ class CandidateListView(LoginRequiredMixin, HubListView):
         return context
 
 
-class CandidateDetailView(LoginRequiredMixin, HubDetailView):
+class CandidateDetailView(HubDetailView):
     template_name = "candidate/detail.html"
     context_object_name = "candidate"
     model = Candidate

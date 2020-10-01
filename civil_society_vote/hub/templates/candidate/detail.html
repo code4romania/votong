@@ -1,8 +1,7 @@
 {% extends 'candidate/base.html' %}
 {% load static i18n %}
-{% load spurl %}
+{% load spurl guardian_tags %}
 {% load social_share meta_tags hub_tags %}
-
 
 {% block meta_tags %}
   {% if candidate.photo %}
@@ -16,6 +15,8 @@
 
 {% block domain-filters %}
 {% endblock%}
+
+{% get_obj_perms user for candidate as "user_permissions" %}
 
 <div class="container">
     <h1 class="section-title">{{ candidate.domain.name }}</h1>
@@ -71,7 +72,7 @@
     <p><span class="label">{% trans 'Board member' %}:</span> {{ candidate.board_member|yesno:"DA,NU" }}</p>
 </div>
 
-
+{% if "view_data_candidate" in user_permissions %}
 <div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="colorblock" style="background-color:#5876C1;"></span>
@@ -83,6 +84,7 @@
     {% if candidate.statement %}<p><a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a></p>{% endif %}
     {% if candidate.legal_record %}<p><a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a></p>{% endif %}
 </div>
+{% endif %}
 
 <div class="container detail-desc">
     <div class="detail-desc-title">

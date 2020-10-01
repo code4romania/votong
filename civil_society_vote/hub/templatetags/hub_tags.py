@@ -1,6 +1,6 @@
 from django import template
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP, CandidateVote
+from hub.models import COMMITTEE_GROUP, CandidateVote
 
 register = template.Library()
 
@@ -17,7 +17,7 @@ def already_voted_candidate_or_domain(user, candidate):
 
 
 @register.filter
-def can_view_orgs(user):
-    if user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+def in_committee_group(user):
+    if user.groups.filter(name=COMMITTEE_GROUP).exists():
         return True
     return False
