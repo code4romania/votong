@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-01 01:08+0000\n"
+"POT-Creation-Date: 2020-10-01 01:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,23 +59,23 @@ msgstr ""
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
-#: hub/admin.py:42
+#: hub/admin.py:33
 msgid "groups"
 msgstr ""
 
-#: hub/admin.py:89
+#: hub/admin.py:80
 msgid "user"
 msgstr ""
 
-#: hub/admin.py:96
+#: hub/admin.py:87
 msgid "candidate"
 msgstr ""
 
-#: hub/admin.py:220
+#: hub/admin.py:211
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:228
+#: hub/admin.py:219
 msgid "Import Cities"
 msgstr ""
 
@@ -919,11 +919,11 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:65 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:67 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:69 hub/templates/registration/login.html:15
+#: hub/templates/header.html:72 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr ""

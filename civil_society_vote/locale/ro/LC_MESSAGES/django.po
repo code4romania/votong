@@ -7,11 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-10-01 01:08+0000\n"
-=======
-"POT-Creation-Date: 2020-09-30 17:32+0000\n"
->>>>>>> develop
+"POT-Creation-Date: 2020-10-01 01:37+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -64,23 +60,23 @@ msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
-#: hub/admin.py:42
+#: hub/admin.py:33
 msgid "groups"
 msgstr "grupuri"
 
-#: hub/admin.py:89
+#: hub/admin.py:80
 msgid "user"
 msgstr "utilizator"
 
-#: hub/admin.py:96
+#: hub/admin.py:87
 msgid "candidate"
 msgstr "candidat"
 
-#: hub/admin.py:220
+#: hub/admin.py:211
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: hub/admin.py:228
+#: hub/admin.py:219
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
@@ -100,37 +96,16 @@ msgstr "Fișier CSV"
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
-<<<<<<< HEAD
 #: hub/models.py:73
 msgid "Active"
 msgstr "Activ"
 
 #: hub/models.py:73
-=======
-#: hub/models.py:70 hub/models.py:177
-msgid "Yes"
-msgstr "Da"
-
-#: hub/models.py:70 hub/models.py:182
-msgid "No"
-msgstr "Nu"
-
-#: hub/models.py:70 hub/models.py:187
-msgid "Abstention"
-msgstr "Abţinere"
-
-#: hub/models.py:72
-msgid "Active"
-msgstr "Activ"
-
-#: hub/models.py:72
->>>>>>> develop
 #, fuzzy
 #| msgid "inactive"
 msgid "Inactive"
 msgstr "Inactiv"
 
-<<<<<<< HEAD
 #: hub/models.py:76
 msgid "Enable organization registration"
 msgstr "Activează înregistrare organizație"
@@ -168,46 +143,10 @@ msgid "Name"
 msgstr "Nume"
 
 #: hub/models.py:98 hub/models.py:137 hub/models.py:216
-=======
-#: hub/models.py:75
-msgid "Enable organization voting"
-msgstr "Activează votare organizație"
-
-#: hub/models.py:75
-msgid "Enable candidate voting"
-msgstr "Activează votare candidat"
-
-#: hub/models.py:80
-msgid "ON"
-msgstr "ON"
-
-#: hub/models.py:80
-msgid "OFF"
-msgstr "OFF"
-
-#: hub/models.py:82
-msgid "Flag"
-msgstr "Flag"
-
-#: hub/models.py:85
-msgid "Feature flag"
-msgstr "Feature flag"
-
-#: hub/models.py:86
-msgid "Feature flags"
-msgstr "Feature flags"
-
-#: hub/models.py:93 hub/models.py:237
-msgid "Name"
-msgstr "Nume"
-
-#: hub/models.py:94 hub/models.py:131 hub/models.py:238
->>>>>>> develop
 #: hub/templates/candidate/detail.html:57 hub/templates/ngo/detail.html:58
 msgid "Description"
 msgstr "Descriere"
 
-<<<<<<< HEAD
 #: hub/models.py:101 hub/templates/ngo/list.html:172
 msgid "Domain"
 msgstr "Domeniu"
@@ -217,22 +156,10 @@ msgid "Domains"
 msgstr "Domenii"
 
 #: hub/models.py:109 hub/models.py:114 hub/models.py:148
-=======
-#: hub/models.py:97 hub/templates/ngo/list.html:172
-msgid "Domain"
-msgstr "Domeniu"
-
-#: hub/models.py:98
-msgid "Domains"
-msgstr "Domenii"
-
-#: hub/models.py:105 hub/models.py:110 hub/models.py:142
->>>>>>> develop
 #: hub/templates/ngo/list.html:77
 msgid "City"
 msgstr "Oraș"
 
-<<<<<<< HEAD
 #: hub/models.py:110 hub/models.py:147 hub/templates/ngo/list.html:42
 msgid "County"
 msgstr "Județ"
@@ -287,67 +214,10 @@ msgid "Legal representative"
 msgstr "Reprezentant legal"
 
 #: hub/models.py:144 hub/templates/candidate/detail.html:92
-=======
-#: hub/models.py:106 hub/models.py:141 hub/templates/ngo/list.html:42
-msgid "County"
-msgstr "Județ"
-
-#: hub/models.py:107
-msgid "Is county residence"
-msgstr "E reședință de județ"
-
-#: hub/models.py:111
-msgid "Cities"
-msgstr "Orașe"
-
-#: hub/models.py:126
-msgid "Pending"
-msgstr "În așteptare"
-
-#: hub/models.py:126
-msgid "Accepted"
-msgstr "Acceptat"
-
-#: hub/models.py:126
-msgid "Rejected"
-msgstr "Respins"
-
-#: hub/models.py:130
-msgid "NGO Name"
-msgstr "Nume ONG"
-
-#: hub/models.py:132
-msgid "Registration number"
-msgstr "Număr înregistrare Registrul Național"
-
-#: hub/models.py:133
-msgid "Current state"
-msgstr "Starea actuală"
-
-#: hub/models.py:134 hub/templates/ngo/detail.html:65
-msgid "Initial purpose"
-msgstr "Scop inițial"
-
-#: hub/models.py:135 hub/templates/ngo/detail.html:66
-msgid "Current purpose"
-msgstr "Scop actual"
-
-#: hub/models.py:136 hub/templates/candidate/detail.html:94
-msgid "Founders/Associates"
-msgstr "Asociați/Fondatori"
-
-#: hub/models.py:137 hub/models.py:241 hub/templates/candidate/detail.html:70
-#: hub/templates/candidate/detail.html:96
-msgid "Legal representative"
-msgstr "Reprezentant legal"
-
-#: hub/models.py:138 hub/templates/candidate/detail.html:95
->>>>>>> develop
 #: hub/templates/ngo/detail.html:63
 msgid "Board council"
 msgstr "Consiliu Director"
 
-<<<<<<< HEAD
 #: hub/models.py:145 hub/models.py:223 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr "Email"
@@ -373,38 +243,10 @@ msgid "NGO Statute"
 msgstr "Statutul Asociației"
 
 #: hub/models.py:155 hub/models.py:228 hub/templates/candidate/detail.html:81
-=======
-#: hub/models.py:139 hub/models.py:245
-msgid "Email"
-msgstr "Email"
-
-#: hub/models.py:140 hub/models.py:246
-msgid "Phone"
-msgstr "Telefon"
-
-#: hub/models.py:143
-msgid "Address"
-msgstr "Adresa"
-
-#: hub/models.py:144
-msgid "Logo"
-msgstr "Siglă"
-
-#: hub/models.py:146 hub/templates/ngo/detail.html:71
-msgid "First page of last balance sheet"
-msgstr "Prima pagină a ultimului bilanț contabil"
-
-#: hub/models.py:148 hub/templates/ngo/detail.html:72
-msgid "NGO Statute"
-msgstr "Statutul Asociației"
-
-#: hub/models.py:149 hub/models.py:250 hub/templates/candidate/detail.html:81
->>>>>>> develop
 #: hub/templates/ngo/detail.html:73
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
-<<<<<<< HEAD
 #: hub/models.py:158 hub/templates/header.html:24
 msgid "Organizations"
 msgstr "Organizații"
@@ -442,71 +284,11 @@ msgid "Mandate from the organization"
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
 #: hub/models.py:229 hub/templates/candidate/detail.html:83
-=======
-#: hub/models.py:152 hub/templates/header.html:24
-msgid "Organizations"
-msgstr "Organizații"
-
-#: hub/models.py:153
-msgid "Organization"
-msgstr "Organizație"
-
-#: hub/models.py:207
-msgid "Vote"
-msgstr "Vot"
-
-#: hub/models.py:208
-msgid "Motivation"
-msgstr "Motivație"
-
-#: hub/models.py:211
-msgid "Organization votes"
-msgstr "Voturi organizație"
-
-#: hub/models.py:212
-msgid "Organization vote"
-msgstr "Vot organizație"
-
-#: hub/models.py:225 hub/views.py:184
-msgid "You must specify a motivation if voting NO!"
-msgstr "Trebuie să motivezi votul negativ!"
-
-#: hub/models.py:239 hub/templates/candidate/detail.html:66
-msgid "Role"
-msgstr "Funcție"
-
-#: hub/models.py:240 hub/templates/candidate/detail.html:69
-msgid "Founder/Associate"
-msgstr "Asociat/Fondator"
-
-#: hub/models.py:242 hub/templates/candidate/detail.html:71
-msgid "Board member"
-msgstr "Membru în Consiliul Director"
-
-#: hub/models.py:243 hub/templates/candidate/detail.html:67
-msgid "Professional experience"
-msgstr "Activitate profesională"
-
-#: hub/models.py:244 hub/templates/candidate/detail.html:68
-msgid "Studies"
-msgstr "Studii"
-
-#: hub/models.py:247
-msgid "Photo"
-msgstr "Fotografie"
-
-#: hub/models.py:249 hub/templates/candidate/detail.html:82
-msgid "Mandate from the organization"
-msgstr "Mandat din partea organizației, ștampilat și semnat"
-
-#: hub/models.py:251 hub/templates/candidate/detail.html:83
->>>>>>> develop
 msgid "Statement of conformity"
 msgstr ""
 "Declarație pe propria răspundere ca poseda expertiză și are experienţa "
 "necesară"
 
-<<<<<<< HEAD
 #: hub/models.py:230 hub/templates/candidate/detail.html:80
 msgid "Curriculum Vitae"
 msgstr ""
@@ -516,22 +298,10 @@ msgid "Legal record"
 msgstr "Cazier juridic"
 
 #: hub/models.py:234 hub/templates/candidate/list.html:26
-=======
-#: hub/models.py:252 hub/templates/candidate/detail.html:80
-msgid "Curriculum Vitae"
-msgstr ""
-
-#: hub/models.py:253 hub/templates/candidate/detail.html:86
-msgid "Legal record"
-msgstr "Cazier juridic"
-
-#: hub/models.py:256 hub/templates/candidate/list.html:26
->>>>>>> develop
 #: hub/templates/header.html:29
 msgid "Candidates"
 msgstr "Candidați"
 
-<<<<<<< HEAD
 #: hub/models.py:235
 msgid "Candidate"
 msgstr "Candidat"
@@ -549,25 +319,6 @@ msgid "Canditate votes"
 msgstr "Voturi candidați"
 
 #: hub/models.py:280
-=======
-#: hub/models.py:257
-msgid "Candidate"
-msgstr "Candidat"
-
-#: hub/models.py:269
-msgid "Vote count"
-msgstr "Număr voturi"
-
-#: hub/models.py:273
-msgid "Cannot update candidate after votes have been cast."
-msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
-
-#: hub/models.py:284
-msgid "Canditate votes"
-msgstr "Voturi candidați"
-
-#: hub/models.py:285
->>>>>>> develop
 msgid "Candidate vote"
 msgstr "Vot candidat"
 
@@ -833,11 +584,7 @@ msgstr "Nu există nici un rezultat"
 msgid "Propose candidate"
 msgstr "Propune candidat"
 
-<<<<<<< HEAD
 #: hub/templates/candidate/update.html:57
-=======
-#: hub/templates/candidate/update.html:62
->>>>>>> develop
 msgid "Update candidate"
 msgstr "Modifica candidat"
 
@@ -1428,11 +1175,11 @@ msgstr "Metodologie"
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:65 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:67 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:69 hub/templates/registration/login.html:15
+#: hub/templates/header.html:72 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr "Autentificare"
@@ -2452,7 +2199,6 @@ msgstr ""
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj utilizând "
 "formularul din pagina de contact."
 
-<<<<<<< HEAD
 #~ msgid "Yes"
 #~ msgstr "Da"
 
@@ -2483,8 +2229,6 @@ msgstr ""
 #~ msgid "You must specify a motivation if voting NO!"
 #~ msgstr "Trebuie să motivezi votul negativ!"
 
-=======
->>>>>>> develop
 #~ msgid "About"
 #~ msgstr "Despre"
 
@@ -2521,15 +2265,12 @@ msgstr ""
 #~ msgid "I want my organisation to join!"
 #~ msgstr "Îmi înscriu organizația!"
 
-<<<<<<< HEAD
 #~ msgid "Username"
 #~ msgstr "Nume utilizator"
 
 #~ msgid "username"
 #~ msgstr "nume utilizator"
 
-=======
->>>>>>> develop
 #~ msgid "Register NGO"
 #~ msgstr "Înregistrare organizație"
 
