@@ -30,43 +30,15 @@
 
 {% include "committee/partials/nav.html" with active='ngos' %}
 
-<script>
-    window.onload = function () {
-        var infinite = new Waypoint.Infinite({
-            element: $('.infinite-container')[0],
-            onAfterPageLoad: function(items) {
-                var more_link = $('.infinite-more-link')[0];
-                if (more_link === undefined) {
-                    // Waypoint.Infinite removes the anchor with the above class
-                    // after performing the last request.
-                    //
-                    // so at this point, we know there are no more items that can be loaded,
-                    // so we remove the pagination nav
-                    $('nav.pagination').remove()
-                }
-            }
-        })
-    };
-</script>
-
 <div class="container">
     <h2 class="title border-b uppercase">Organizatii nevalidate</h2>
 
     {% if page_obj %}
 
-    <div class="columns is-multiline infinite-container">
+    <div class="columns is-multiline">
         {% for ngo in page_obj %}
-        <div class="need is-flex container infinite-item">
-
-            <div class="card-image need-logo is-hidden-mobile">
-            {% if ngo.logo %}
-                <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
-            {% else %}
-                <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-            {% endif %}
-            </div>
-
-            <div class="card-info" style="width:500px;">
+        <div class="need is-flex container">
+            <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
                         {% if ngo.logo %}
@@ -80,13 +52,14 @@
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
                 </div>
-                <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
-                <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div>
-                <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
+            </div>
+
+            <div class="">
+                {{ ngo.created }}
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'ngo-detail' ngo.pk %}">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-black" href="{% url 'ngo-detail' ngo.pk %}">
                     Vizualizează
                 </a>
             </div>
