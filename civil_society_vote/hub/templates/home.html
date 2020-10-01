@@ -3,6 +3,14 @@
 {% load spurl %}
 {% load i18n %}
 
+{% block styles %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+    <link rel="stylesheet" href="{% static "css/home/alegeri-jumbotron.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/alegeri-inscriere.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/contact.css" %}">
+    <link rel="stylesheet" href="{% static "css/home/home.css" %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container section has-text-centered">
@@ -45,7 +53,7 @@
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-12 is-parent">
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">!</div>
                     <p class="tile-title">Pasul 1: Înscrierea</p>
                     <p>
                         Fiecare ONG se poate înscrie în platformă cu ajutorul unui formular simplu disponibil în meniul
@@ -54,7 +62,7 @@
                     </p>
                 </div>
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">?</div>
                     <p class="tile-title">Pasul 2: Validarea</p>
                     <p>
                         După înscriere fiecare ONG este validat. Administratorul platformei va verifica informațiile
@@ -66,7 +74,7 @@
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-12 is-parent">
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">!</div>
                     <p class="tile-title">Pasul 3: Votul</p>
                     <p>
                         Dacă există alegeri în curs, fiecare ONG care se califică, potrivit regulamentului fiecărei
@@ -75,7 +83,7 @@
                     </p>
                 </div>
                 <div class="tile is-child box">
-                    <img class="" src="{% static "images/step-placeholder.svg" %}">
+                    <div class="box-icon">?</div>
                     <p class="tile-title">Step 4: Rezultate</p>
                     <p>
                         Rezultatele fiecărei runde de alegeri va fi publicat pe platformă și anunțat prin e-mail către
@@ -87,14 +95,86 @@
     </div>
 </div>
 
-<div class="section light-bg has-text-centered">
+<div id="alegeri-jumbotron">
+    <div id="alegeri-icon">
+        <i class="fas fa-user-tie"></i>
+    </div>
     <div class="container">
-        <img class="" src="{% static "images/step-placeholder.svg" %}">
-        <h1 class="tile-title has-text-weight-bold">Alegeri CES 2020</h1>
+        <h2 class="tile-title has-text-weight-bold">Alegeri CES 2020</h2>
         <p class="subtitle">
             Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului
             Economic și Social din România și din Uniuniea Europeană
         </p>
+        <div id="alageri-buttons">
+            <a href="#" class="button is-warning">Regulament</a>
+            <a href="#" class="button is-warning">Vezi detalii</a>
+        </div>
+    </div>
+</div>
+
+<div id="alegeri-inscriere" class="container">
+    <h2 class="tile-title has-text-weight-bold">Alegeri CES 2020</h2>
+    <a href="#" class="button is-warning">Îmi înscriu organizația</a>
+    <p>
+        Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor
+        Consiliului Economic și Social din România și din Uniuniea Europeană
+    </p>
+</div>
+
+<hr />
+
+<div id="contact" class="container">
+    <div>
+        <h3 class="tile-title">Intră în contact</h3>
+        <p>
+            Dacă vrei să iei legătura cu noi, pentru sugestii, propuneri de îmbunătățire sau dacă ai întrebări,
+            atunci te rugăm să folosești formularul alăturat.
+        </p>
+        <p>
+            Platforma VotONG este dezvoltată pro-bono de Asociația Code for Romania și este parte dintr-un
+            ecosistem larg de soluții dedicate societății civile pe care îl avem în lucru în acest moment.
+            Dacă vrei să ne susții, o poți face folosind butonul Implică-te de mai jos, setând o donație
+            recurentă pentru noi.
+        </p>
+    </div>
+    <div id="contact-form">
+        <form action="#" class="box">
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Nume" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-graduation-cap"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Email" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <textarea class="input" placeholder="Message"></textarea>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-unlock-alt"></i>
+                    </span>
+                </div>
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox">
+                I agree with the <a href="#">Privacy Policy</a>
+            </label>
+
+            <div id="contact-form-buttons">
+                <button type="submit" class="button is-warning">Trimite</button>
+            </div>
+        </form>
     </div>
 </div>
 

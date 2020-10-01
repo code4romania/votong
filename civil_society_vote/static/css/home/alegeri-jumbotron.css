@@ -1,0 +1,33 @@
+#alegeri-jumbotron {
+  --icon-size: 140px;
+
+  background-color: #F4F5F7;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+  #alegeri-jumbotron #alegeri-icon {
+    display: inline-block;
+    margin-top: calc(var(--icon-size) / -2);
+    border: 3px solid #000;
+    border-radius: 100%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    font-size: 100px;
+    line-height: 122px;
+    color: #FFDD57;
+    background-color: #fff;
+  }
+
+  #alegeri-jumbotron h2 {
+    font-size: 35px;
+  }
+
+  #alegeri-jumbotron #alageri-buttons {
+    padding: 20px 0 50px;
+  }
+
+    #alageri-buttons .button {
+      width: 247px;
+      font-weight: bold;
+    }
