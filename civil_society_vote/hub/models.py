@@ -212,7 +212,9 @@ class Organization(StatusModel, TimeStampedModel):
         return user
 
 
-class Candidate(TimeStampedModel):
+class Candidate(StatusModel, TimeStampedModel):
+    STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
+
     org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
 
