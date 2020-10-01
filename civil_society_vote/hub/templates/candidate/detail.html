@@ -78,11 +78,47 @@
         <span class="colorblock" style="background-color:#5876C1;"></span>
         {% trans "Documents" %}
     </div>
-    {% if candidate.cv %}<p><a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a></p>{% endif %}
-    {% if candidate.letter %}<p><a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a></p>{% endif %}
-    {% if candidate.mandate %}<p><a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a></p>{% endif %}
-    {% if candidate.statement %}<p><a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a></p>{% endif %}
-    {% if candidate.legal_record %}<p><a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a></p>{% endif %}
+    {% if candidate.cv %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a>
+    </p>
+    {% endif %}
+    {% if candidate.letter %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a>
+    </p>
+    {% endif %}
+    {% if candidate.mandate %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a>
+    </p>
+    {% endif %}
+    {% if candidate.statement %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a>
+    </p>
+    {% endif %}
+    {% if candidate.legal_record %}
+    <p>
+        <span class="icon">
+
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a>
+    </p>
+    {% endif %}
 </div>
 {% endif %}
 
