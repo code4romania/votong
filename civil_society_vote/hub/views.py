@@ -90,7 +90,7 @@ class CommitteeOrganizationListView(LoginRequiredMixin, PermissionListMixin, Hub
     template_name = "committee/list.html"
 
     def get_queryset(self):
-        return Organization.objects.filter(status=Organization.STATUS.pending)
+        return Organization.objects.filter(status=Organization.STATUS.pending).order_by("-created")
 
 
 class CommitteeCandidatesListView(LoginRequiredMixin, PermissionListMixin, HubListView):

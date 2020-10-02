@@ -16,7 +16,8 @@
 
 <div class="container">
     <h2 class="title border-b uppercase">
-        {% trans 'Candidates' %} {% if filtering == "pending" %}{% trans 'proposed' %}{% else %}{% trans 'selected' %}{%endif%}
+        {% trans 'Candidates' %}
+        {% if filtering == "pending" %}{% trans 'proposed' %}{% else %}{% trans 'selected' %}{%endif%}
     </h2>
 
     {% if page_obj %}
@@ -37,7 +38,8 @@
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'candidate-detail' candidate.pk %}">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
+                    href="{% url 'candidate-detail' candidate.pk %}">
                     {% trans "View details" %}
                 </a>
             </div>
@@ -48,15 +50,15 @@
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}
     </div>
-    </div>
+</div>
 
-    {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+{% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
-    {% else %}
-    <div class="content is-medium">
-        <p style="text-align: center;">{% trans "No results matching query" %}</p>
-    </div>
-    {% endif %}
+{% else %}
+<div class="content is-medium">
+    <p style="text-align: center;">{% trans "No results matching query" %}</p>
+</div>
+{% endif %}
 </div>
 
 {% endblock %}

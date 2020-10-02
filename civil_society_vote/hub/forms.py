@@ -13,11 +13,30 @@ from hub import models
 class OrganizationForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
 
+    field_order = [
+        "name",
+        "county",
+        "city",
+        "address",
+        "email",
+        "phone",
+        "description",
+        "legal_representative_name",
+        "legal_representative_email",
+        "legal_representative_phone",
+        "organisation_head_name",
+        "board_council",
+        "logo",
+        "last_balance_sheet",
+        "statute"
+    ]
+
     class Meta:
         model = models.Organization
         exclude = ["user", "status", "status_changed"]
         widgets = {
             "email": EmailInput(),
+            "legal_representative_email": EmailInput(),
             "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete"),}),
         }
 

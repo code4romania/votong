@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, Organization
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, Organization, FeatureFlag
 
 fake = Faker()
 
@@ -108,7 +108,7 @@ class Command(BaseCommand):
                     purpose_initial=fake.sentence(),
                     purpose_current=fake.sentence(),
                     founders=fake.name(),
-                    representative=fake.name(),
+                    legal_representative_name=fake.name(),
                     board_council=fake.name(),
                     city=city,
                     county=city.county,
@@ -126,12 +126,11 @@ class Command(BaseCommand):
                 elif status == "accepted":
                     candidate = Candidate.objects.create(
                         org=org,
-                        name=org.representative,
+                        name=org.legal_representative_name,
                         description=fake.text(),
                         role=fake.job(),
                         experience=fake.text(),
                         studies=fake.text(),
-                        representative=True,
                         email=fake.safe_email(),
                         phone=fake.phone_number(),
                         domain=domain,
@@ -148,5 +147,20 @@ class Command(BaseCommand):
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
 
         self.stdout.write("Loaded organizations data")
+
+        flags = [
+            "enable_org_registration",
+            "enable_org_approval",
+            "enable_org_voting",
+            "enable_candidate_registration",
+            "enable_candidate_voting"
+        ]
+
+        for flag in flags:
+            feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
+            feature_flag_obj.is_enabled = True
+            feature_flag_obj.save()
+            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))    
+
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
