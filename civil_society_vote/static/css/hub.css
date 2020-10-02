@@ -93,6 +93,11 @@ body {
     color: var(--dark-gray);
 }
 
+.nav-avatar {
+    border-radius: 50%;
+    padding: 0.25em;
+}
+
 /*
 .developed-by {
     display: flex;
