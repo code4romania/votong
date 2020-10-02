@@ -28,7 +28,7 @@ class OrganizationForm(forms.ModelForm):
         "board_council",
         "logo",
         "last_balance_sheet",
-        "statute"
+        "statute",
     ]
 
     class Meta:

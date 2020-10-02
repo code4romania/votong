@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, Organization, FeatureFlag
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
 
 fake = Faker()
 
@@ -153,14 +153,13 @@ class Command(BaseCommand):
             "enable_org_approval",
             "enable_org_voting",
             "enable_candidate_registration",
-            "enable_candidate_voting"
+            "enable_candidate_voting",
         ]
 
         for flag in flags:
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
-            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))    
-
+            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
