@@ -199,7 +199,7 @@ def organization_vote(request, pk, action):
             org.save()
             utils.send_email(
                 template="org_rejected",
-                context=Context({"representative": org.representative, "name": org.name,}),
+                context=Context({"representative": org.legal_representative_name, "name": org.name,}),
                 subject="Cerere de inscriere respinsa",
                 to=org.email,
             )
@@ -212,7 +212,7 @@ def organization_vote(request, pk, action):
                 template="org_approved",
                 context=Context(
                     {
-                        "representative": org.representative,
+                        "representative": org.legal_representative_name,
                         "name": org.name,
                         "reset_url": f"{protocol}://{current_site.domain}{reverse('password_reset')}",
                     }

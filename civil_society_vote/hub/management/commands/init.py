@@ -45,19 +45,15 @@ class Command(BaseCommand):
         Group.objects.get_or_create(name=SUPPORT_GROUP)
         Group.objects.get_or_create(name=NGO_GROUP)
 
-        flag, created = FeatureFlag.objects.get_or_create(flag="enable_org_registration")
-        if created:
-            flag.is_enabled = True
-            flag.save()
-
-        flag, created = FeatureFlag.objects.get_or_create(flag="enable_org_approval")
-        if created:
-            flag.is_enabled = True
-            flag.save()
-
-        FeatureFlag.objects.get_or_create(flag="enable_candidate_registration")
-        FeatureFlag.objects.get_or_create(flag="enable_org_voting")
-        FeatureFlag.objects.get_or_create(flag="enable_candidate_voting")
+        flags = [
+            "enable_org_registration",
+            "enable_org_approval",
+            "enable_org_voting",
+            "enable_candidate_registration",
+            "enable_candidate_voting",
+        ]
+        for flag in flags:
+            FeatureFlag.objects.get_or_create(flag=flag)
 
         template, created = EmailTemplate.objects.get_or_create(template="pending_orgs_digest")
         if created:

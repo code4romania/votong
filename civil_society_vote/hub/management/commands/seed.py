@@ -104,10 +104,10 @@ class Command(BaseCommand):
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     address=fake.address(),
-                    reg_com_number=fake.ssn(),
-                    purpose_initial=fake.sentence(),
-                    purpose_current=fake.sentence(),
-                    founders=fake.name(),
+                    # reg_com_number=fake.ssn(),
+                    # purpose_initial=fake.sentence(),
+                    # purpose_current=fake.sentence(),
+                    # founders=fake.name(),
                     legal_representative_name=fake.name(),
                     board_council=fake.name(),
                     city=city,
@@ -118,7 +118,7 @@ class Command(BaseCommand):
                 org.logo.name = "logo-demo.png"
                 org.last_balance_sheet.name = "test.pdf"
                 org.statute.name = "test.pdf"
-                org.letter.name = "test.pdf"
+                # org.letter.name = "test.pdf"
                 org.save()
 
                 if status == "rejected":
@@ -160,6 +160,6 @@ class Command(BaseCommand):
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
-            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
+            self.stdout.write(f"Enabled {flag}")
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
