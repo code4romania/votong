@@ -33,6 +33,8 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     # apps
     "hub",
     "accounts",
@@ -55,6 +58,7 @@ INSTALLED_APPS = [
     "rangefilter",
     "impersonate",
     "guardian",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -220,6 +224,11 @@ AVATAR_PROVIDERS = (
     "avatar.providers.DefaultAvatarProvider",
 )
 AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
+
+CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
+CKEDITOR_CONFIGS = {
+    "default": {"toolbar": "full", "height": 600, "width": 950,},
+}
 
 if env("SENTRY_DSN"):
     import sentry_sdk

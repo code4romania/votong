@@ -1,14 +1,28 @@
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
+from django.template import Template
+
+from hub.models import EmailTemplate
 
 
 def send_email(template, context, subject, to):
-    html = get_template(template)
-    html_content = html.render(context)
+    """
+    Sends a single email
 
-    msg = EmailMultiAlternatives(subject, html_content, settings.NO_REPLY_EMAIL, [to])
-    msg.attach_alternative(html_content, "text/html")
+    :param template: One of the EMAIL_TEMPLATE_CHOICES from models
+    :param context: A dict containing the dynamic values of that template
+    :param subject: The subject of the email
+    :param to: Destination email address
+    :return: Message send result
+    """
+    tpl = EmailTemplate.objects.get(template=template)
+
+    text_content = Template(tpl.text_content).render(context)
+    msg = EmailMultiAlternatives(subject, text_content, settings.NO_REPLY_EMAIL, [to])
+
+    if tpl.html_content:
+        html_content = Template(tpl.html_content).render(context)
+        msg.attach_alternative(html_content, "text/html")
 
     return msg.send()
 

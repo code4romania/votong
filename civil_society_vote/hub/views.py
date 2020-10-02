@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
+from django.template import Context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
@@ -194,9 +196,30 @@ def organization_vote(request, pk, action):
     else:
         if action == "r":
             org.status = Organization.STATUS.rejected
+            org.save()
+            utils.send_email(
+                template="org_rejected",
+                context=Context({"representative": org.representative, "name": org.name,}),
+                subject="Cerere de inscriere respinsa",
+                to=org.email,
+            )
         elif action == "a":
             org.status = Organization.STATUS.accepted
-        org.save()
+            org.save()
+            current_site = get_current_site(request)
+            protocol = "https" if request.is_secure() else "http"
+            utils.send_email(
+                template="org_approved",
+                context=Context(
+                    {
+                        "representative": org.representative,
+                        "name": org.name,
+                        "reset_url": f"{protocol}://{current_site.domain}{reverse('password_reset')}",
+                    }
+                ),
+                subject="Cerere de inscriere aprobata",
+                to=org.email,
+            )
     finally:
         return redirect("ngo-detail", pk=pk)
 
@@ -275,13 +298,13 @@ class CandidateVoteView(LoginRequiredMixin, View):
         except Exception:
             return HttpResponseBadRequest()
 
-        if settings.VOTE_AUDIT_EMAIL:
-            utils.send_email(
-                template="mail/vote_audit.html",
-                context={"vote": vote},
-                subject="Vot candidat",
-                to=settings.VOTE_AUDIT_EMAIL,
-            )
+        # if settings.VOTE_AUDIT_EMAIL:
+        #     utils.send_email(
+        #         template="mail/vote_audit.html",
+        #         context={"vote": vote},
+        #         subject="Vot candidat",
+        #         to=settings.VOTE_AUDIT_EMAIL,
+        #     )
         return HttpResponse()
 
 

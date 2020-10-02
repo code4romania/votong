@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa
 
 DEBUG = True
 
@@ -13,7 +13,7 @@ AUTH_PASSWORD_VALIDATORS = []
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # No Google/Facebook trackers in the dev env
-ANALYTICS_ENABLED = True
+ANALYTICS_ENABLED = False
 
 if env("ENABLE_DEBUG_TOOLBAR"):
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]

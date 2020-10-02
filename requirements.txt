@@ -14,12 +14,14 @@ django-admin-autocomplete-filter==0.6.1  # via -r requirements.in
 django-admin-rangefilter==0.6.2  # via -r requirements.in
 django-appconf==1.0.4     # via django-avatar
 django-avatar==5.0.0      # via -r requirements.in
+django-ckeditor==6.0.0    # via -r requirements.in
 django-crispy-bulma==0.2  # via -r requirements.in
 django-crispy-forms==1.7.2  # via -r requirements.in, django-crispy-bulma
 django-environ==0.4.5     # via -r requirements.in
 django-file-resubmit==0.5.2  # via -r requirements.in
 django-guardian==2.3.0    # via -r requirements.in
 django-impersonate==1.5.1  # via -r requirements.in
+django-js-asset==1.2.2    # via django-ckeditor
 django-model-utils==4.0.0  # via -r requirements.in
 django-recaptcha==2.0.6   # via -r requirements.in
 django-spurl==0.6.7       # via -r requirements.in

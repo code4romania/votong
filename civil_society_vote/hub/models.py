@@ -1,4 +1,5 @@
 from accounts.models import User
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -80,6 +81,12 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_voting", _("Enable candidate voting")),
 )
 
+EMAIL_TEMPLATE_CHOICES = Choices(
+    ("pending_orgs_digest", _("Pending organizations digest email")),
+    ("org_approved", _("You organizations was approved")),
+    ("org_rejected", _("You organizations was rejected")),
+)
+
 
 class FeatureFlag(TimeStampedModel):
     flag = models.CharField(_("Flag"), choices=FLAG_CHOICES, max_length=254, unique=True)
@@ -91,6 +98,19 @@ class FeatureFlag(TimeStampedModel):
 
     def __str__(self):
         return f"{FLAG_CHOICES[self.flag]}"
+
+
+class EmailTemplate(TimeStampedModel):
+    template = models.CharField(_("Template"), choices=EMAIL_TEMPLATE_CHOICES, max_length=254, unique=True)
+    text_content = models.TextField(_("Text content"))
+    html_content = RichTextField(_("HTML content"), blank=True)
+
+    class Meta:
+        verbose_name = _("Email template")
+        verbose_name_plural = _("Email templates")
+
+    def __str__(self):
+        return f"{EMAIL_TEMPLATE_CHOICES[self.template]}"
 
 
 class Domain(TimeStampedModel):
