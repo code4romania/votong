@@ -13,75 +13,198 @@
             {% block left-side-view %}
             <div class="container content mb-50">
                 <h1>
-                    {% trans "About RoHelp" %}
+                    Despre proiect
                 </h1>
 
-                <p>{% trans "Right now we are in the midst of what is probably the biggest crisis of our lifetime, a crisis that we are all vulnerable to, regardless of where we are or our social context, a crisis whose effects will be felt for many months to come. Fortunately the NGO sector is on the front lines of the battle against the effects of the epidemic; from covering gaps in the health system to creating or supplementing response capacity for the public sector or offering support to those most vulnerable, Romanian NGOs, both small and large, have been vital in protecting each and everyone of us." %}
-                </p>
-                <p>{% trans "Despite consistent support from the business sector, NGO efforts that we depend upon can't go on as is in the months to come and can become sustainable only if we too contribute." %}
-                </p>
-                <p>{% trans "Code for Romania, through its volunteer community, had developed RoHelp.ro, a complete digital platform offered to NGOs actively involved in limiting the effects of the COVID-19 epidemic, by helping collect the resources they dearly need. By integrating the  Netopia payment processor with the platform, Rohelp.ro helps participating eligible organizations directly collect the resources they need, with no hidden fees or middlemen. NGOs can also request and receive material or volunteer resources directly through the platform. The needs of every organization on the platform can be seen according to how stringent the need is and where the organization is located." %}
-                </p>
-                <p>{% trans "RoHelp.ro is a platform built with the support of the Romanian American Foundation, ING Bank and The Vodafone Foundation Romania in partnership with the Romanian Government via the Authority for the Digitalization of Romania, the Emergency Services Department and the Romanian Community Foundations Federation. It is open to all associations and foundations legally registered in Romania that are implementing measures to help ease the COVID-19 crisis and are not political in nature nor discriminate on the basis of  race, ethnicity, gender, sexual orientation, religion, physical or mental ability or social/economic class." %}
-                </p>
-                <p>{% trans "To ensure that every donation is accounted for and used for its intended purpose Code for Romania in partnership with the Romanian Community Foundations Federation has developed a clear set of rules and a transparent validation and reporting system, that will help us ensure that the platform is administered to the benefit of all." %}
+                <p>
+                    VotONG este o platformă în care societatea civilă își poate alege reprezentanții transparent,
+                    printr-un proces bazat pe o participare deschisă a cât mai multor ONG-uri. Platforma este dezvoltată
+                    de Code for Romania în parteneriat cu Fundația pentru Dezvoltarea Societății Civile și Academia de
+                    Advocacy.
                 </p>
 
-                <h2>{% trans "How RoHelp got started" %}</h2>
-                <p><i>
-                    {% blocktrans with link="https://civiclabs.ro/ro/domains/pregatire-si-raspuns-in-situatii-de-urgenta" target="_blank" rel="noopener noreferrer" %}
-                        “There is no uniform distribution of resources” is the 19th issue identified in Code for Romania’s own <a href="{{ link }}" target="{{ target }}" rel="{{ rel }}">2019-2020 Civic Labs year 1</a> research paper in the field of Emergency Preparedness and Disaster Management in the case of a major earthquake. In brief, starting from the analysis of the response in the case of Mexico or Italy, two countries that have had to manage response to a major earthquake recently (2017 and 2016, respectively) we realized that any fundraising effort during or after a major disaster comes together with a multitude of risks, including the sudden appearance of phantom organizations or focusing aid to just a few areas of intervention,, either thematic or geographical, according to the communication capacity of  NGOs in the field.
-                    {% endblocktrans %}
-                </i></p>
-                <p><i>
-                    {% blocktrans with link="https://civiclabs.ro/ro/solutions/aid-management-hub" target="_blank" rel="noopener noreferrer" %}
-                        The Code for Romania COVID-19 Task Force used the Civic Labs research program results in the field of
-                        emergency response, and adapted our <a href="{{ link }}" target="{{ target }}" rel="{{ rel }}">Aid Management Hub</a>
-                        prototype to the present situation, developing RoHelp.ro in record time.
-                    {% endblocktrans %}
-                </i></p>
-
-                <br />
-
-                <p>{% trans "RoHelp is a project done through the efforts of the Code for Romania volunteers and team. Code for Romania is an independent, unaffiliated and apolitical NGO. This project is developed as part of the Code for Romania Task Force, in partnership with the Romanian Community Foundations Federation, the Romanian Government via the Authority for the Digitalization of Romania and the Emergency Services Department." %}</p>
-
-                {% blocktrans with link="https://civiclabs.ro/ro/solutions/aid-management-hub" target="_blank" rel="noopener noreferrer" %}
-                    <a href="{{ link }}" target="{{ target }}" rel="{{ rel }}">Questions and answers</a> about the RoHelp.ro project.
-                {% endblocktrans %}
-
-                <p>{% trans "The Code for Romania Task Force is a program supported by ING Bank, The Vodafone Foundation Romania and the Romanian American Foundation to which we owe our thanks." %}</p>
                 <div class="columns is-mobile is-multiline is-centered">
                     <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/ing.png" %}" alt="sponsors">
+                        <img src="{% static "images/academiadeadvocacy.png" %}" alt="Academia de Advocacy logo">
                     </div>
                     <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/raf.png" %}" alt="sponsors">
+                        <img src="{% static "images/fundatiapentrudezvoltareasocietatiicivile.png" %}"
+                            alt="Fundația pentru dezvoltarea societății civile logo">
                     </div>
                     <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/vodafone.png" %}" alt="sponsors">
+                        <img src="{% static "images/codeforromania.png" %}" alt="Code for Romania logo">
                     </div>
                 </div>
-                <p>{% trans "Media partners" %}</p>
-                <div class="columns is-mobile is-multiline is-centered">
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/europa.png" %}" alt="europafm">
-                    </div>
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/pressone.png" %}" alt="pressone">
-                    </div>
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/iqads.png" %}" alt="iqads">
-                    </div>
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/smark.png" %}" alt="smark">
-                    </div>
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/dexonline.png" %}" alt="dexonline">
-                    </div>
-                    <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
-                        <img src="{% static "images/olx.png" %}" alt="olx">
-                    </div>
-                </div>
+
+                <h1>
+                    Cum funcționează
+                </h1>
+
+                <p>
+                    VotONG este un ecosistem de soluții tehnice care să deservească alegerea reprezentanților societății
+                    civile în forurile consultative prevăzute de lege precum și orice alte funcțiuni de reprezentare
+                    pentru societatea civilă.
+                </p>
+                <p>
+                    Exemple de foruri consultative prevăzute de legislații specifice, în vigoare:
+                </p>
+                <ul>
+                    <li>Consiliul Economic și Social (CES); </li>
+                    <li>Comitetul Economic și Social European (CESE); </li>
+                    <li>Consiliul Național pentru Combaterea Discriminării (CNCD) </li>
+                    <li>Consiliul Superior al Magistraturii; </li>
+                    <li>Consiliul Național de Integritate; </li>
+                    <li>Comitetele de monitorizare pe diferite domenii (ex: monitorizarea absorbției și implementării
+                        fondurilor structurale) </li>
+                    <li>altele.</li>
+                </ul>
+
+                <h1>
+                    Rolul Asociației Code for Romania
+                </h1>
+
+                <p>
+                    Asociația Code for Romania dezvoltă pro bono, asigură mentenanța, administrarea și suportul tehnic
+                    pentru ecosistemul VotONG format din:
+                </p>
+
+                <ul>
+                    <li>platforma de înscriere a ONG-urilor electori și de prezentare a candidaților, ● componenta de
+                        consultare;</li>
+                    <li>componenta de vot.</li>
+                </ul>
+
+                <p>
+                    Asociația Code for Romania, ca dezvoltator și administrator al VotONG își ia următoarele obligații:
+                </p>
+
+                <ul>
+                    <li>Să dezvolte ecosistemul de vot în regim open source, urmând bunele practici la care aderă orice
+                        produs tehnic dezvoltat de Code for Romania.</li>
+                    <li>Să documenteze soluția pentru a permite inspectarea funcționării sale de către orice persoană.
+                    </li>
+                    <li>Să permită auditarea produsul tehnic și a modului de funcționare, atunci când acest lucru va fi
+                        necesar.</li>
+                    <li>Să ofere suport tehnic pe perioada campaniei și în timpul alegerilor. În cazul în care sunt
+                        depistate erori în ecosistemul de vot, echipa tehnică le va remedia cu prioritate. În cazul în
+                        care erorile pun sub semnul întrebării rezultatele legitime ale alegerilor, echipa tehnică va
+                        reorganiza alegerile după remedierea erorilor. </li>
+                    <li>Să creeze și să administreze un spațiu de discuții în platforma online Slack, folosind serviciul
+                        gratuit oferit de această firmă.</li>
+                    <li>Să nu propună candidați și să nu își exprime votul în cadrul niciunui rând de alegeri desfășurat
+                        utilizând prezentul sistem informatic de vot. </li>
+                    <li>Să asigure funcția administrativă și de secretariat a VotONG. </li>
+                    <li>Să urmărească respectarea calendarului de desemnare a reprezentanților societății civile pentru
+                        forurile consultative prevăzute de lege: Consiliul Economic și Social (CES), Comitetul Economic
+                        și Social European (CESE), Consiliul Național pentru Combaterea Discriminării (CNCD), Consiliul
+                        Superior al Magistraturii (CSM), Consiliul Național de Integritate, Comisiile de dialog social
+                        din cadrul ministerelor României plus deconcentratele din teritoriu, coordonate de Prefecturi,
+                        Comitetele de monitorizare pe diferite domenii (ex: monitorizarea absorbției și implementării
+                        fondurilor structurale) ș.a.</li>
+                    <li>Code for Romania își asumă responsabilitatea de a nu divulga opțiunile de vot, precum și de a
+                        efectua o numărare corectă a voturilor, numărare care poate fi supusă unui audit extern.
+                        Componenta de vot a ecosistemului va funcționa pe principiul votului nesecret. Atunci când un
+                        reprezentat al unei asociații din platformă votează pentru un candidat, administratorii tehnici
+                        ai platformei pot vedea cine a votat și care a fost opțiunea exprimată.</li>
+                    <li>Asociația Code for Romania va desemna o singură persoană care va avea acces la datele despre
+                        exprimarea voturilor și care va valida numărarea acestora. Persoana desemnată va încheia un
+                        Acord de Confidențialitate care va fi luat la cunoștință de Comisia Electorală.</li>
+                    <li>În cazul în care există o cerere de audit, echipa tehnică a Code for Romania își asumă
+                        responsabilitatea de a permite și de a asista auditul asupra procesului de numărare a voturilor,
+                        cât și asupra altor detalii tehnice care sunt de interes.</li>
+                    <li>Să asigure deschiderea datelor cu caracter public din platformă, la standardele europene de
+                        publicare a datelor deschise.</li>
+                </ul>
+
+                <h1>
+                    Comisia Electorală a VotONG
+                </h1>
+
+                <p>
+                    Componenţa Comisiei Electorale:
+                </p>
+                <ul>
+                    <li>5 reprezentanți de ONG-uri, mandataţi de propriile organizații pentru a fi parte din Comisie.
+                        Organizațiile respective nu vor participa și nu își vor desemna candidat în procesul de alegeri
+                        - cu drept de vot. </li>
+                    <li>1 reprezentant din partea Asociației Code for Romania ca administrator al platformei de vot
+                        pentru societatea civilă, care include sistemul de vot - cu drept de vot doar asupra
+                        chestiunilor care nu privesc validarea ONG-urilor electori, a candidatilor și a procesului de
+                        vot;</li>
+                    <li>1 reprezentant al Serviciului pentru Politici de Cooperare cu Mediul Asociativ, Direcția
+                        Generală Guvernare Deschisă, Relații Publice și Cooperare din cadrul Secretariatul General al
+                        Guvernului (SGG) - fără drept de vot;</li>
+                    <li>1 reprezentant din aparatul executiv al instituției pentru care se desfășoară alegerile - fără
+                        drept de vot.</li>
+                </ul>
+
+                <p>
+                    Comisia Electorală a VotONG își va desfășura activitatea și în cazul neparticipării Secretariatului
+                    General al Guvernului sau a instituției pentru care se desfășoară alegerile.
+                </p>
+
+                <p>
+                    Cei 5 reprezentanți din partea societății civile sunt aleși pentru un mandat de 2 ani prin platforma
+                    VotONG. Primele alegeri vor fi organizate în primul semestru al anului 2021.
+                </p>
+
+                <p>
+                    Până la organizarea primelor alegeri cele 5 locuri vor fi ocupate interimar de către 2 dintre
+                    inițiatorii proiectului: Fundația pentru Dezvoltarea Societății Civile (FDSC) și Academia de
+                    Advocacy, împreună cu alte 3 ONGuri invitate: Centrul de Resurse pentru Participare Publica (CeRe),
+                    Federația Fundațiilor Comunitare, Centrul de Resurse pentru Comunitățile de Romi din Cluj.
+                </p>
+
+                <p>
+                    Mandatul Comisiei Electorale interimare este unul limitat la (1) organizarea alegerilor pentru
+                    Comitetul Economic și Social, (2) pregătirea unui raport la finalizarea procesului de desemnare a
+                    reprezentanților societății civile în Comitetul Economic și Social în care să analizeze desfășurarea
+                    alegerilor și să propună îmbunătățiri procedurii de alegere, precum și sistemului VotONG, (3) să
+                    stabilească condițiile de eligibilitate pentru membrii Comisiei Electorale astfel încât să se poată
+                    desfășura alegerile pentru componența finală a acesteia.
+                </p>
+
+                <h1>
+                    Rolul Comisiei Electorale este:
+                </h1>
+
+                <ul>
+                    <li>Dezvoltarea și aprobarea procedurii de alegere a reprezentanților societății civile pentru
+                        fiecare dintre forurile consultative prevăzute de lege. Procedura va cuprinde două secțiuni care
+                        definesc: (a) Criteriile de îndeplinit pentru a deveni ONG elector/votant valid; (b) Criteriile
+                        de îndeplinit pentru a deveni candidat valid al grupului societății civile (reprezentant de
+                        ONG). Procedura va trebui supusă unui proces de consultare cu societatea civilă folosind modulul
+                        de consultare al platformei VotONG. </li>
+                    <li>Stabilirea calendarului alegerilor și aprobarea oricăror modificări a acestuia. 3. Depunerea de
+                        eforturi pentru ca ecosistemul VotONG să fie integrat/recunoscut în procesele de constituire a
+                        structurilor consultative, în conformitate cu legislația specifică, pentru ocuparea fotoliilor
+                        prevăzute pentru societatea civilă. </li>
+                    <li>Validarea ONG-urilor electoare, care se va face prin vot nesecret; </li>
+                    <li>Validarea candidaturilor înregistrate pentru alegeri; </li>
+                    <li>Asigurarea și urmărirea procesului electoral, electronic și nesecret (opțiunile exprimate fiind
+                        vizibile doar reprezentantului Code for Romania, din poziția de administrator tehnic, care își
+                        asumă sarcina de a nu divulga aceste opțiuni), avand ca rezultat desemnarea reprezentanților
+                        societății civile în componența instituției care face obiectul alegerilor; </li>
+                    <li>Formularea, depunerea și susținerea propunerii de desemnare a reprezentanților societății civile
+                        în cadrul structurilor consultative către instituția pentru care se organizează alegerile; 8.
+                        Aducerea la cunoștința electorilor a deciziei instituției vizate privind componența structurii
+                        consultative. </li>
+                    <li>Aprobarea utilizării platformei VotONG.ro pentru proceduri de consultare sau alegere de
+                        reprezentanți ai societății civile în afara desemnării pentru forurile consultative menționate
+                        la punctul 1. </li>
+                </ul>
+
+                <h1>
+                    Desfășurarea ședințelor Comisiei Electorale
+                </h1>
+
+                <ul>
+                    <li>Fiecare organizație membră a Comisiei Electorale va comunica reprezentantul său precum și
+                        informațiile de contact ale acestuia la comisie@votong.ro </li>
+                    <li>Ședințele Comisiei Electorale se desfășoară la cererea oricărui membru, transmisă de regulă cu
+                        cinci zile lucrătoare înainte către ceilalți membri și către comisie@votong.ro.</li>
+                </ul>
+
             </div>
             {% endblock %}
         </div>
