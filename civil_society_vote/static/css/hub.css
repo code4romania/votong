@@ -96,6 +96,8 @@ body {
 .nav-avatar {
     border-radius: 50%;
     padding: 0.25em;
+    height: var(--nav-avatar-height)!important;
+    width: var(--nav-avatar-width)!important;
 }
 
 /*
