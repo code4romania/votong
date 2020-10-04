@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 20:29+0000\n"
+"POT-Creation-Date: 2020-10-04 20:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -450,7 +450,7 @@ msgstr ""
 msgid "Legal record"
 msgstr ""
 
-#: hub/models.py:265 hub/templates/candidate/list.html:45
+#: hub/models.py:265 hub/templates/candidate/list.html:30
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
@@ -510,7 +510,7 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:65
+#: hub/templates/candidate/detail.html:75
 msgid "General information"
 msgstr ""
 
@@ -522,32 +522,16 @@ msgstr ""
 msgid "Founders/Associates"
 msgstr ""
 
-#: hub/templates/candidate/list.html:10
-msgid "Elections CES 2020"
-msgstr ""
-
-#: hub/templates/candidate/list.html:13
-msgid ""
-"Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
-"dedicată alegerilor Consiliului Economic și Social din România și din "
-"Uniuniea Europeană"
-msgstr ""
-
-#: hub/templates/candidate/list.html:18 hub/templates/header.html:45
-#: hub/templates/partials/ces_header.html:13
-msgid "Metodology"
-msgstr ""
-
-#: hub/templates/candidate/list.html:32 hub/templates/ngo/list.html:14
+#: hub/templates/candidate/list.html:17 hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/list.html:103
+#: hub/templates/candidate/list.html:88
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:119
+#: hub/templates/candidate/list.html:104
 #: hub/templates/committee/candidates.html:59
 #: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:193
 msgid "No results matching query"
@@ -1001,6 +985,10 @@ msgstr ""
 
 #: hub/templates/header.html:37
 msgid "Register your organisation"
+msgstr ""
+
+#: hub/templates/header.html:45 hub/templates/partials/ces_header.html:13
+msgid "Metodology"
 msgstr ""
 
 #: hub/templates/header.html:75

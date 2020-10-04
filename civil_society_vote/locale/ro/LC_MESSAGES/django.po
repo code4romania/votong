@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 20:29+0000\n"
+"POT-Creation-Date: 2020-10-04 20:41+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -462,7 +462,7 @@ msgstr ""
 msgid "Legal record"
 msgstr "Cazier juridic"
 
-#: hub/models.py:265 hub/templates/candidate/list.html:45
+#: hub/models.py:265 hub/templates/candidate/list.html:30
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr "Candidați"
@@ -524,7 +524,7 @@ msgstr "Încarcă fișier CSV și adaugă orașe"
 msgid "Upload file"
 msgstr "Încarcă fișier"
 
-#: hub/templates/candidate/detail.html:65
+#: hub/templates/candidate/detail.html:75
 msgid "General information"
 msgstr "Informații generale"
 
@@ -536,34 +536,16 @@ msgstr "Documente"
 msgid "Founders/Associates"
 msgstr "Asociați/Fondatori"
 
-#: hub/templates/candidate/list.html:10
-#, fuzzy
-#| msgid "Elections CES/CESE 2020"
-msgid "Elections CES 2020"
-msgstr "Alegeri CES/CESE 2020"
-
-#: hub/templates/candidate/list.html:13
-msgid ""
-"Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
-"dedicată alegerilor Consiliului Economic și Social din România și din "
-"Uniuniea Europeană"
-msgstr ""
-
-#: hub/templates/candidate/list.html:18 hub/templates/header.html:45
-#: hub/templates/partials/ces_header.html:13
-msgid "Metodology"
-msgstr "Metodologie"
-
-#: hub/templates/candidate/list.html:32 hub/templates/ngo/list.html:14
+#: hub/templates/candidate/list.html:17 hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr "Caută..."
 
-#: hub/templates/candidate/list.html:103
+#: hub/templates/candidate/list.html:88
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
 msgstr "Vizualizează detalii"
 
-#: hub/templates/candidate/list.html:119
+#: hub/templates/candidate/list.html:104
 #: hub/templates/committee/candidates.html:59
 #: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:193
 msgid "No results matching query"
@@ -1205,6 +1187,10 @@ msgstr "Alegeri CES"
 #: hub/templates/header.html:37
 msgid "Register your organisation"
 msgstr "Înscriere organizație"
+
+#: hub/templates/header.html:45 hub/templates/partials/ces_header.html:13
+msgid "Metodology"
+msgstr "Metodologie"
 
 #: hub/templates/header.html:75
 msgid "Logout"
@@ -1964,6 +1950,11 @@ msgstr ""
 "noastră te va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
+
+#, fuzzy
+#~| msgid "Elections CES/CESE 2020"
+#~ msgid "Elections CES 2020"
+#~ msgstr "Alegeri CES/CESE 2020"
 
 #, fuzzy
 #~| msgid ""
