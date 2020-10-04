@@ -107,7 +107,7 @@
             Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului
             Economic și Social din România și din Uniuniea Europeană
         </p>
-        <div id="alageri-buttons">
+        <div id="alegeri-buttons">
             <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
             <a href="{% url 'candidates' %}" class="button is-warning">Vezi detalii</a>
         </div>
@@ -116,11 +116,13 @@
 
 <div id="alegeri-inscriere" class="container">
     <h2 class="tile-title has-text-weight-bold">Alegeri CES 2020</h2>
-    <a href="{& url 'ngos-register-request' &}" class="button is-warning">Îmi înscriu organizația</a>
+    <div class="is-flex">
     <p>
         Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor
         Consiliului Economic și Social din România și din Uniuniea Europeană
     </p>
+    <a href="{& url 'ngos-register-request' &}" class="button is-warning">Îmi înscriu organizația</a>
+    </div>
 </div>
 
 <hr />

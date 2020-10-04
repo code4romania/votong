@@ -4,10 +4,10 @@
   width: 60%;
 }
 
-  #alegeri-inscriere h2 {
-    font-size: 35px;
-  }
+#alegeri-inscriere h2 {
+  font-size: 35px;
+}
 
-  #alegeri-inscriere .button {
-    float: right;
-  }
+#alegeri-inscriere .button {
+  margin-left: 20px;
+}

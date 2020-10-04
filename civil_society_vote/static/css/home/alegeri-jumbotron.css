@@ -23,11 +23,11 @@
     font-size: 35px;
   }
 
-  #alegeri-jumbotron #alageri-buttons {
+  #alegeri-jumbotron #alegeri-buttons {
     padding: 20px 0 50px;
   }
 
-    #alageri-buttons .button {
+    #alegeri-buttons .button {
       width: 247px;
       font-weight: bold;
     }
