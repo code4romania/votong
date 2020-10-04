@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 17:30+0000\n"
+"POT-Creation-Date: 2020-10-04 19:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,23 +165,23 @@ msgstr ""
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
-#: hub/admin.py:33
+#: hub/admin.py:43
 msgid "groups"
 msgstr ""
 
-#: hub/admin.py:80
+#: hub/admin.py:90
 msgid "user"
 msgstr ""
 
-#: hub/admin.py:87
+#: hub/admin.py:97
 msgid "candidate"
 msgstr ""
 
-#: hub/admin.py:211
+#: hub/admin.py:221
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:219
+#: hub/admin.py:229
 msgid "Import Cities"
 msgstr ""
 
@@ -201,239 +201,273 @@ msgstr ""
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
-#: hub/models.py:73
+#: hub/models.py:74
 msgid "Active"
 msgstr ""
 
-#: hub/models.py:73
+#: hub/models.py:74
 msgid "Inactive"
 msgstr ""
 
-#: hub/models.py:76
+#: hub/models.py:77
 msgid "Enable organization registration"
 msgstr ""
 
-#: hub/models.py:77
+#: hub/models.py:78
 msgid "Enable organization approvals"
 msgstr ""
 
-#: hub/models.py:78
+#: hub/models.py:79
 msgid "Enable candidate registration"
 msgstr ""
 
-#: hub/models.py:79
+#: hub/models.py:80
 msgid "Enable organization voting"
 msgstr ""
 
-#: hub/models.py:80
+#: hub/models.py:81
 msgid "Enable candidate voting"
 msgstr ""
 
 #: hub/models.py:85
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Pending organizations digest email"
+msgstr "Organizații nevalidate"
+
+#: hub/models.py:86
+msgid "You organizations was approved"
+msgstr ""
+
+#: hub/models.py:87
+msgid "You organizations was rejected"
+msgstr ""
+
+#: hub/models.py:92
 msgid "Flag"
 msgstr ""
 
-#: hub/models.py:89
+#: hub/models.py:96
 msgid "Feature flag"
 msgstr ""
 
-#: hub/models.py:90
+#: hub/models.py:97
 msgid "Feature flags"
 msgstr ""
 
-#: hub/models.py:97 hub/models.py:225
+#: hub/models.py:104
+msgid "Template"
+msgstr ""
+
+#: hub/models.py:105
+msgid "Text content"
+msgstr ""
+
+#: hub/models.py:106
+msgid "HTML content"
+msgstr ""
+
+#: hub/models.py:109
+msgid "Email template"
+msgstr ""
+
+#: hub/models.py:110
+msgid "Email templates"
+msgstr ""
+
+#: hub/models.py:117 hub/models.py:245
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:98 hub/models.py:226 hub/templates/candidate/detail.html:58
+#: hub/models.py:118 hub/models.py:246 hub/templates/candidate/detail.html:58
 #: hub/templates/ngo/detail.html:60
 msgid "Description"
 msgstr ""
 
-#: hub/models.py:101 hub/templates/ngo/list.html:171
+#: hub/models.py:121 hub/templates/ngo/list.html:171
 msgid "Domain"
 msgstr ""
 
-#: hub/models.py:102
+#: hub/models.py:122
 msgid "Domains"
 msgstr ""
 
-#: hub/models.py:109 hub/models.py:114 hub/models.py:138
+#: hub/models.py:129 hub/models.py:134 hub/models.py:158
 #: hub/templates/ngo/list.html:76
 msgid "City"
 msgstr ""
 
-#: hub/models.py:110 hub/models.py:137 hub/templates/ngo/list.html:41
+#: hub/models.py:130 hub/models.py:157 hub/templates/ngo/list.html:41
 msgid "County"
 msgstr ""
 
-#: hub/models.py:111
+#: hub/models.py:131
 msgid "Is county residence"
 msgstr ""
 
-#: hub/models.py:115
+#: hub/models.py:135
 msgid "Cities"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:220
+#: hub/models.py:150 hub/models.py:240
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:220
+#: hub/models.py:150 hub/models.py:240
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:220
+#: hub/models.py:150 hub/models.py:240
 msgid "Rejected"
 msgstr ""
 
-#: hub/models.py:136
+#: hub/models.py:156
 msgid "NGO Name"
 msgstr ""
 
-#: hub/models.py:139
+#: hub/models.py:159
 msgid "Address"
 msgstr ""
 
-#: hub/models.py:140
+#: hub/models.py:160
 msgid "Organisation Email"
 msgstr "Organisation E-mail address"
 
-#: hub/models.py:141
+#: hub/models.py:161
 msgid "Organisation Phone"
 msgstr "Organisation phone (optional)"
 
-#: hub/models.py:142
+#: hub/models.py:162
 msgid "Short Description"
 msgstr "A brief description (optional)"
 
-#: hub/models.py:143
+#: hub/models.py:163
 msgid "Legal Representative Name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:144
+#: hub/models.py:164
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Email"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:145
+#: hub/models.py:165
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Phone"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:146
+#: hub/models.py:166
 #, fuzzy
 #| msgid "Organisation Email"
 msgid "Organisation Head Name"
 msgstr "Organisation E-mail address"
 
-#: hub/models.py:147 hub/templates/candidate/detail.html:130
+#: hub/models.py:167 hub/templates/candidate/detail.html:130
 #: hub/templates/ngo/detail.html:65
 msgid "Board council"
 msgstr ""
 
-#: hub/models.py:148
+#: hub/models.py:168
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:150 hub/templates/ngo/detail.html:79
+#: hub/models.py:170 hub/templates/ngo/detail.html:79
 msgid "First page of last balance sheet"
 msgstr ""
 
-#: hub/models.py:152 hub/templates/ngo/detail.html:84
+#: hub/models.py:172 hub/templates/ngo/detail.html:84
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:162 hub/templates/header.html:28
+#: hub/models.py:182 hub/templates/header.html:28
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:163
+#: hub/models.py:183
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:227 hub/templates/candidate/detail.html:67
+#: hub/models.py:247 hub/templates/candidate/detail.html:67
 msgid "Role"
 msgstr ""
 
-#: hub/models.py:228 hub/templates/candidate/detail.html:70
+#: hub/models.py:248 hub/templates/candidate/detail.html:70
 msgid "Founder/Associate"
 msgstr ""
 
-#: hub/models.py:229 hub/templates/candidate/detail.html:71
+#: hub/models.py:249 hub/templates/candidate/detail.html:71
 #: hub/templates/candidate/detail.html:131
 msgid "Legal representative"
 msgstr ""
 
-#: hub/models.py:230 hub/templates/candidate/detail.html:72
+#: hub/models.py:250 hub/templates/candidate/detail.html:72
 msgid "Board member"
 msgstr ""
 
-#: hub/models.py:231 hub/templates/candidate/detail.html:68
+#: hub/models.py:251 hub/templates/candidate/detail.html:68
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:232 hub/templates/candidate/detail.html:69
+#: hub/models.py:252 hub/templates/candidate/detail.html:69
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:233 hub/templates/registration/login.html:40
+#: hub/models.py:253 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:234
+#: hub/models.py:254
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:235
+#: hub/models.py:255
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:237 hub/templates/candidate/detail.html:102
+#: hub/models.py:257 hub/templates/candidate/detail.html:102
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:238 hub/templates/candidate/detail.html:94
+#: hub/models.py:258 hub/templates/candidate/detail.html:94
 #: hub/templates/ngo/detail.html:90
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:239 hub/templates/candidate/detail.html:110
+#: hub/models.py:259 hub/templates/candidate/detail.html:110
 msgid "Statement of conformity"
 msgstr ""
 
-#: hub/models.py:240 hub/templates/candidate/detail.html:86
+#: hub/models.py:260 hub/templates/candidate/detail.html:86
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:241 hub/templates/candidate/detail.html:119
+#: hub/models.py:261 hub/templates/candidate/detail.html:119
 msgid "Legal record"
 msgstr ""
 
-#: hub/models.py:244 hub/templates/candidate/list.html:45
+#: hub/models.py:264 hub/templates/candidate/list.html:45
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:245
+#: hub/models.py:265
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:264
+#: hub/models.py:284
 msgid "Vote count"
 msgstr ""
 
-#: hub/models.py:270
+#: hub/models.py:290
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:295
+#: hub/models.py:315
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:296
+#: hub/models.py:316
 msgid "Candidate vote"
 msgstr ""
 
@@ -516,7 +550,7 @@ msgstr ""
 msgid "Propose candidate"
 msgstr ""
 
-#: hub/templates/candidate/update.html:57
+#: hub/templates/candidate/update.html:54
 msgid "Update candidate"
 msgstr ""
 
@@ -1117,200 +1151,6 @@ msgstr ""
 msgid "The %(site_name)s team"
 msgstr ""
 
-#: hub/templates/rules.html:15
-msgid "General Rules for associations and foundations accessing the Platform"
-msgstr ""
-
-#: hub/templates/rules.html:17
-msgid ""
-"RoHelp is a relief management platform developed by the Code for Romania "
-"Association in partnership with the Romanian Government through the "
-"Authority for the Digitalization of Romania and administered by Code for "
-"Romania."
-msgstr ""
-
-#: hub/templates/rules.html:18
-msgid ""
-"RoHelp centralizes all the associations and foundations that are actively "
-"working to ameliorate the crisis generated by the COVID-19 epidemic by "
-"offering them a platform through which they can collect all the necessary "
-"financial and material resources necessary in their activities (e.g. monney, "
-"material aid, volunteer labor etc)."
-msgstr ""
-
-#: hub/templates/rules.html:19
-msgid ""
-"Financial Resources are collected by the associations and foundations that "
-"have registered an account with the Platform directly, through their "
-"allotted account, on the basis of a contract signed with the payment "
-"operator Netopia."
-msgstr ""
-
-#: hub/templates/rules.html:20
-msgid ""
-"The following types of entities are eligible for enrollment on the RoHelp "
-"Platform:"
-msgstr ""
-
-#: hub/templates/rules.html:24
-msgid ""
-"\n"
-"                    <b>active associations and foundations that are directly "
-"implementing support programs</b> in response to the COVID-19 crisis\n"
-"                    "
-msgstr ""
-
-#: hub/templates/rules.html:29
-msgid ""
-"\n"
-"                    <b>Associations and foundations that collect financial "
-"or material resources</b> in order to distribute them towards host "
-"organizations or other compatible initiatives (grant managers)\n"
-"                    "
-msgstr ""
-
-#: hub/templates/rules.html:34
-msgid ""
-"\n"
-"                    <b>The Red Cross</b>\n"
-"                    "
-msgstr ""
-
-#: hub/templates/rules.html:41
-msgid ""
-"\n"
-"                All associations and foundations that will use the RoHelp "
-"Platform for collecting financial or material resources <b>have to "
-"explicitly declare the destination for said resources as well as the way "
-"they will be used.</b>\n"
-"                "
-msgstr ""
-
-#: hub/templates/rules.html:45
-msgid ""
-"In order to enroll in and use the RoHelp Platform, associations and "
-"foundations have to submit a written request form, a request that will be "
-"analysed by a committee in order to establish if they are eligible."
-msgstr ""
-
-#: hub/templates/rules.html:46
-msgid ""
-"The  written request must include a description of the main activities that "
-"the association or foundation has been undergoing, with a focus on any "
-"programs or actions taken in the context of the crisis caused by the "
-"COVID-19 epidemic. The association or foundation must also include in the "
-"written request the types of resources that it anticipates as necessary for "
-"combatting the effects if the current epidemic. The request must be "
-"submitted along with electronic copies of the following documents: the first "
-"page of the last organizational yearly balance sheet (with the exception of "
-"organizations founded in the last 12 months), the statute of the association "
-"or foundation, with any confidential data blocked out as well as documents "
-"verifying that the asociation is in the national Associations and "
-"Foundations Registry."
-msgstr ""
-
-#: hub/templates/rules.html:47
-msgid ""
-"The eligibility criteria for enrolling in the platform are the following:"
-msgstr ""
-
-#: hub/templates/rules.html:50
-msgid "Filling out the enrollment form (in Romanian),"
-msgstr ""
-
-#: hub/templates/rules.html:51
-msgid "Submitting all required paperwork (see above)"
-msgstr ""
-
-#: hub/templates/rules.html:52
-msgid ""
-"The enrolling organization is involved in actions to solve or ameliorate the "
-"effects gof the COVID-19 epidemic crisis,"
-msgstr ""
-
-#: hub/templates/rules.html:53
-msgid ""
-"The enrolling organization is not involved in actions nor does it support "
-"causes of a political nature or that discriminate on the basis of ethnic "
-"background, race, gender, sexual orientation, religion, physical or mental "
-"ability or social/economic class, and the management of the organisation is "
-"not politically involved"
-msgstr ""
-
-#: hub/templates/rules.html:56
-msgid ""
-"An applicant’s eligibility will be determined by a committee formed by the "
-"following three members: a Code for Romania Representative, an Emergency "
-"Services Department (DSU) representative and a representative of the "
-"Community Foundations of Romania Federation."
-msgstr ""
-
-#: hub/templates/rules.html:57
-msgid ""
-"The committee members will ensure that there is no conflict of interest to "
-"hinder them from participating in this evaluatory capacity and, therefore, "
-"have no direct or indirect interes of a  financial, personal or any other "
-"nature that would prevent them from being impartial and independent."
-msgstr ""
-
-#: hub/templates/rules.html:58
-msgid ""
-"The committee will analyse the documents submitted by applicants and can ask "
-"for further documents or information. The decision regarding the applicant’s "
-"eligibility will be relayed to the applicant with a full explanation of the "
-"motives for said decision."
-msgstr ""
-
-#: hub/templates/rules.html:59
-msgid ""
-"If an applicant is refused access to the Platform they have the right to "
-"ask, a single time, for a re-evaluation, by transmitting setra documents and "
-"information."
-msgstr ""
-
-#: hub/templates/rules.html:63
-#, python-format
-msgid ""
-"\n"
-"                Any applicant deemed eligible will sign a <a href="
-"\"%(the_url)s\" target=\"%(target)s\">Partnership Agreement</a> with Code "
-"for Romania, agreement that will detail each party’s rights and obligations "
-"regarding the use of the RoHelp Platform, <b>including the obligation of the "
-"association or foundation to declare and respect the destination of the "
-"material and financial resources collected through the Platform and the "
-"obligation to report how said resources are being used.</b>\n"
-"                "
-msgstr ""
-
-#: hub/templates/rules.html:68
-msgid ""
-"The reporting regarding the usage of resources collected through the "
-"Platform must be done after the first month of Platform use and every "
-"quarter afterwards, as well as at the end of collaboration. The reports will "
-"be analysed and validated by a committee with a similar makeup to the one "
-"validating the enrollments. The reporting will be done directly, via the "
-"platform, with each organization having the obligation to give out all "
-"requested information."
-msgstr ""
-
-#: hub/templates/rules.html:69
-msgid "The committee members are as follows"
-msgstr ""
-
-#: hub/templates/rules.html:71
-msgid ""
-"Romanian Community Foundations Federation: Cristina Vaileanu, Luiza Zamora, "
-"Marian Dobre, Doris Cojocaru, Teodora Albiter, Gianina Ozturk"
-msgstr ""
-
-#: hub/templates/rules.html:72
-msgid "The Department for Emergency Situations: George Manea"
-msgstr ""
-
-#: hub/templates/rules.html:73
-msgid "Code for Romania: Septimius Pârvu, Raul Ritea"
-msgstr ""
-
 #: hub/templates/shared/pagination.html:8
 msgid "first"
 msgstr ""
@@ -1733,10 +1573,10 @@ msgstr ""
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:158
+#: hub/views.py:160
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
-"validated. If you have any further questions, send us a message using the "
-"form in our contact page."
+"validated. If you have any further questions, send us a message at "
+"contact@votong.ro"
 msgstr ""
