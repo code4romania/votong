@@ -6,11 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-<<<<<<< HEAD
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
-=======
 from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
->>>>>>> develop
 
 fake = Faker()
 
@@ -109,7 +105,6 @@ class Command(BaseCommand):
                     address=fake.address(),
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
-                    address=fake.address(),
                     # reg_com_number=fake.ssn(),
                     # purpose_initial=fake.sentence(),
                     # purpose_current=fake.sentence(),
@@ -167,14 +162,11 @@ class Command(BaseCommand):
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
-<<<<<<< HEAD
-            self.stdout.write(f"Enabled {flag}")
-=======
-            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
+            self.stdout.write(f"Enabled '{flag}' flag")
+
         if len(FLAG_CHOICES) == len(flags):
-            self.stdout.write(self.style.SUCCESS(f"All flags have been enabled"))
+            self.stdout.write("All flags have been enabled")
         else:
-            self.stdout.write(self.style.SUCCESS(f"NOT all flags have been enabled."))
->>>>>>> develop
+            self.stdout.write("NOT all flags have been enabled.")
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
