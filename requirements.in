@@ -13,6 +13,7 @@ django-admin-rangefilter
 django-model-utils
 django-impersonate
 django-guardian
+django-ckeditor
 
 # file handling
 boto3

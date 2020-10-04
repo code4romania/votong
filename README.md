@@ -88,12 +88,28 @@ docker-compose exec web bash
 ## Deployment
 
 Guide users through getting your code up and running on their own system. In this section you can talk about:
+
 1. Installation process
 2. Software dependencies
 3. Latest releases
 4. API references
 
 Describe and show how to build your code and run the tests.
+
+## Production
+
+A few steps need to be done after deploying to production:
+
+```bash
+# apply any new database migrations
+$ ./manage.py migrate
+# this will add any missing groups, flags (disabled by default) or email templates
+$ ./manage.py init
+# process static files
+$ ./manage.py collectstatic --noinput
+```
+
+**NOTE** After the first deployment go into admin and edit the site data in `/admin/sites/site/` with the correct name and domain. This is used in the site and in email templates.
 
 ## Feedback
 

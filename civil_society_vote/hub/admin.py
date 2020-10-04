@@ -12,7 +12,17 @@ from django.utils.translation import ugettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
 from hub.forms import ImportCitiesForm
-from hub.models import COUNTIES, COUNTY_RESIDENCE, Candidate, CandidateVote, City, Domain, FeatureFlag, Organization
+from hub.models import (
+    COUNTIES,
+    COUNTY_RESIDENCE,
+    Candidate,
+    CandidateVote,
+    City,
+    Domain,
+    EmailTemplate,
+    FeatureFlag,
+    Organization,
+)
 
 
 class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
@@ -228,13 +238,26 @@ class FeatureFlagAdmin(admin.ModelAdmin):
     readonly_fields = ["flag"]
 
     def has_add_permission(self, request):
-        # if request.user.is_superuser:
-        #     return True
         return False
 
     def has_delete_permission(self, request, obj=None):
-        # if request.user.is_superuser:
-        #     return True
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+
+@admin.register(EmailTemplate)
+class EmailTemplateAdmin(admin.ModelAdmin):
+    list_display = ["template"]
+    readonly_fields = ["template"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
         return False
 
     def has_change_permission(self, request, obj=None):

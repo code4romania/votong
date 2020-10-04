@@ -23,6 +23,7 @@ env = environ.Env(
     RECAPTCHA_PUBLIC_KEY=(str, ""),
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     SENTRY_DSN=(str, ""),
+    ANALYTICS_ENABLED=(bool, False),
 )
 environ.Env.read_env(f"{root}/.env")  # reading .env file
 
@@ -33,6 +34,8 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     # apps
     "hub",
     "accounts",
@@ -55,6 +59,7 @@ INSTALLED_APPS = [
     "rangefilter",
     "impersonate",
     "guardian",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -207,7 +212,7 @@ if not RECAPTCHA_PUBLIC_KEY:
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Toggles the loading of Google/Facebook tracking scripts in base.html
-ANALYTICS_ENABLED = True
+ANALYTICS_ENABLED = env("ANALYTICS_ENABLED")
 
 IMPERSONATE = {
     "REQUIRE_SUPERUSER": True,
@@ -220,6 +225,11 @@ AVATAR_PROVIDERS = (
     "avatar.providers.DefaultAvatarProvider",
 )
 AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
+
+CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
+CKEDITOR_CONFIGS = {
+    "default": {"toolbar": "full", "height": 600, "width": 950,},
+}
 
 if env("SENTRY_DSN"):
     import sentry_sdk

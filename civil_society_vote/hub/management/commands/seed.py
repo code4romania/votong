@@ -106,6 +106,10 @@ class Command(BaseCommand):
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     description=fake.text(),
+                    # reg_com_number=fake.ssn(),
+                    # purpose_initial=fake.sentence(),
+                    # purpose_current=fake.sentence(),
+                    # founders=fake.name(),
                     legal_representative_name=fake.name(),
                     legal_representative_email=fake.safe_email(),
                     legal_representative_phone=fake.phone_number(),
@@ -117,6 +121,7 @@ class Command(BaseCommand):
                 org.logo.name = "logo-demo.png"
                 org.last_balance_sheet.name = "test.pdf"
                 org.statute.name = "test.pdf"
+                # org.letter.name = "test.pdf"
                 org.save()
 
                 if status == "rejected":
@@ -146,22 +151,10 @@ class Command(BaseCommand):
 
         self.stdout.write("Loaded organizations data")
 
-        flags = [
-            "enable_org_registration",
-            "enable_org_approval",
-            "enable_org_voting",
-            "enable_candidate_registration",
-            "enable_candidate_voting",
-        ]
-
-        for flag in flags:
+        for flag in [x[0] for x in FLAG_CHOICES]:
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
-            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
-        if len(FLAG_CHOICES) == len(flags):
-            self.stdout.write(self.style.SUCCESS(f"All flags have been enabled"))
-        else:
-            self.stdout.write(self.style.SUCCESS(f"NOT all flags have been enabled."))
+            self.stdout.write(f"Enabled '{flag}' flag")
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))

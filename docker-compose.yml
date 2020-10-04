@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   web:
@@ -27,3 +27,4 @@ services:
 
 volumes:
   database-data:
+    name: votong_database-data
