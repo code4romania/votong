@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 07:21+0000\n"
+"POT-Creation-Date: 2020-10-04 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,19 +185,19 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:68
+#: hub/forms.py:77
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:71
+#: hub/forms.py:80
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:94
+#: hub/forms.py:103
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:99
+#: hub/forms.py:108
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -241,11 +241,11 @@ msgstr ""
 msgid "Feature flags"
 msgstr ""
 
-#: hub/models.py:97 hub/models.py:228
+#: hub/models.py:97 hub/models.py:225
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:98 hub/models.py:229 hub/templates/candidate/detail.html:58
+#: hub/models.py:98 hub/models.py:226 hub/templates/candidate/detail.html:58
 #: hub/templates/ngo/detail.html:60
 msgid "Description"
 msgstr ""
@@ -275,15 +275,15 @@ msgstr ""
 msgid "Cities"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:223
+#: hub/models.py:130 hub/models.py:220
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:223
+#: hub/models.py:130 hub/models.py:220
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:130 hub/models.py:223
+#: hub/models.py:130 hub/models.py:220
 msgid "Rejected"
 msgstr ""
 
@@ -307,149 +307,133 @@ msgstr "Organisation phone (optional)"
 msgid "Short Description"
 msgstr "A brief description (optional)"
 
-#: hub/models.py:144
+#: hub/models.py:143
 msgid "Legal Representative Name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:145
+#: hub/models.py:144
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Email"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:146
+#: hub/models.py:145
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Phone"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:147
+#: hub/models.py:146
 #, fuzzy
 #| msgid "Organisation Email"
 msgid "Organisation Head Name"
 msgstr "Organisation E-mail address"
 
-#: hub/models.py:149
-msgid "Registration number"
-msgstr ""
-
-#: hub/models.py:150
-msgid "Current state"
-msgstr ""
-
-#: hub/models.py:151 hub/templates/ngo/detail.html:67
-msgid "Initial purpose"
-msgstr ""
-
-#: hub/models.py:152 hub/templates/ngo/detail.html:68
-msgid "Current purpose"
-msgstr ""
-
-#: hub/models.py:155 hub/templates/candidate/detail.html:130
+#: hub/models.py:147 hub/templates/candidate/detail.html:130
 #: hub/templates/ngo/detail.html:65
 msgid "Board council"
 msgstr ""
 
-#: hub/models.py:157
+#: hub/models.py:148
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:159 hub/templates/ngo/detail.html:79
+#: hub/models.py:150 hub/templates/ngo/detail.html:79
 msgid "First page of last balance sheet"
 msgstr ""
 
-#: hub/models.py:161 hub/templates/ngo/detail.html:84
+#: hub/models.py:152 hub/templates/ngo/detail.html:84
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:162 hub/models.py:241 hub/templates/candidate/detail.html:94
-#: hub/templates/ngo/detail.html:90
-msgid "Letter of intent"
-msgstr ""
-
-#: hub/models.py:165 hub/templates/header.html:28
+#: hub/models.py:162 hub/templates/header.html:28
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:166
+#: hub/models.py:163
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:230 hub/templates/candidate/detail.html:67
+#: hub/models.py:227 hub/templates/candidate/detail.html:67
 msgid "Role"
 msgstr ""
 
-#: hub/models.py:231 hub/templates/candidate/detail.html:70
+#: hub/models.py:228 hub/templates/candidate/detail.html:70
 msgid "Founder/Associate"
 msgstr ""
 
-#: hub/models.py:232 hub/templates/candidate/detail.html:71
+#: hub/models.py:229 hub/templates/candidate/detail.html:71
 #: hub/templates/candidate/detail.html:131
 msgid "Legal representative"
 msgstr ""
 
-#: hub/models.py:233 hub/templates/candidate/detail.html:72
+#: hub/models.py:230 hub/templates/candidate/detail.html:72
 msgid "Board member"
 msgstr ""
 
-#: hub/models.py:234 hub/templates/candidate/detail.html:68
+#: hub/models.py:231 hub/templates/candidate/detail.html:68
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:235 hub/templates/candidate/detail.html:69
+#: hub/models.py:232 hub/templates/candidate/detail.html:69
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:236 hub/templates/registration/login.html:40
+#: hub/models.py:233 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:237
+#: hub/models.py:234
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:238
+#: hub/models.py:235
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:240 hub/templates/candidate/detail.html:102
+#: hub/models.py:237 hub/templates/candidate/detail.html:102
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:242 hub/templates/candidate/detail.html:110
+#: hub/models.py:238 hub/templates/candidate/detail.html:94
+#: hub/templates/ngo/detail.html:90
+msgid "Letter of intent"
+msgstr ""
+
+#: hub/models.py:239 hub/templates/candidate/detail.html:110
 msgid "Statement of conformity"
 msgstr ""
 
-#: hub/models.py:243 hub/templates/candidate/detail.html:86
+#: hub/models.py:240 hub/templates/candidate/detail.html:86
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:244 hub/templates/candidate/detail.html:119
+#: hub/models.py:241 hub/templates/candidate/detail.html:119
 msgid "Legal record"
 msgstr ""
 
-#: hub/models.py:247 hub/templates/candidate/list.html:45
-#: hub/templates/committee/candidates.html:19 hub/templates/header.html:40
+#: hub/models.py:244 hub/templates/candidate/list.html:45
+#: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:248
+#: hub/models.py:245
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:267
+#: hub/models.py:264
 msgid "Vote count"
 msgstr ""
 
-#: hub/models.py:273
+#: hub/models.py:270
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:298
+#: hub/models.py:295
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:299
+#: hub/models.py:296
 msgid "Candidate vote"
 msgstr ""
 
@@ -461,130 +445,6 @@ msgstr ""
 msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
-msgstr ""
-
-#: hub/templates/about.html:16
-msgid "About RoHelp"
-msgstr ""
-
-#: hub/templates/about.html:19
-msgid ""
-"Right now we are in the midst of what is probably the biggest crisis of our "
-"lifetime, a crisis that we are all vulnerable to, regardless of where we are "
-"or our social context, a crisis whose effects will be felt for many months "
-"to come. Fortunately the NGO sector is on the front lines of the battle "
-"against the effects of the epidemic; from covering gaps in the health system "
-"to creating or supplementing response capacity for the public sector or "
-"offering support to those most vulnerable, Romanian NGOs, both small and "
-"large, have been vital in protecting each and everyone of us."
-msgstr ""
-
-#: hub/templates/about.html:21
-msgid ""
-"Despite consistent support from the business sector, NGO efforts that we "
-"depend upon can't go on as is in the months to come and can become "
-"sustainable only if we too contribute."
-msgstr ""
-
-#: hub/templates/about.html:23
-msgid ""
-"Code for Romania, through its volunteer community, had developed RoHelp.ro, "
-"a complete digital platform offered to NGOs actively involved in limiting "
-"the effects of the COVID-19 epidemic, by helping collect the resources they "
-"dearly need. By integrating the  Netopia payment processor with the "
-"platform, Rohelp.ro helps participating eligible organizations directly "
-"collect the resources they need, with no hidden fees or middlemen. NGOs can "
-"also request and receive material or volunteer resources directly through "
-"the platform. The needs of every organization on the platform can be seen "
-"according to how stringent the need is and where the organization is located."
-msgstr ""
-
-#: hub/templates/about.html:25
-msgid ""
-"RoHelp.ro is a platform built with the support of the Romanian American "
-"Foundation, ING Bank and The Vodafone Foundation Romania in partnership with "
-"the Romanian Government via the Authority for the Digitalization of Romania, "
-"the Emergency Services Department and the Romanian Community Foundations "
-"Federation. It is open to all associations and foundations legally "
-"registered in Romania that are implementing measures to help ease the "
-"COVID-19 crisis and are not political in nature nor discriminate on the "
-"basis of  race, ethnicity, gender, sexual orientation, religion, physical or "
-"mental ability or social/economic class."
-msgstr ""
-
-#: hub/templates/about.html:27
-msgid ""
-"To ensure that every donation is accounted for and used for its intended "
-"purpose Code for Romania in partnership with the Romanian Community "
-"Foundations Federation has developed a clear set of rules and a transparent "
-"validation and reporting system, that will help us ensure that the platform "
-"is administered to the benefit of all."
-msgstr ""
-
-#: hub/templates/about.html:30
-msgid "How RoHelp got started"
-msgstr ""
-
-#: hub/templates/about.html:32
-#, python-format
-msgid ""
-"\n"
-"                        “There is no uniform distribution of resources” is "
-"the 19th issue identified in Code for Romania’s own <a href=\"%(link)s\" "
-"target=\"%(target)s\" rel=\"%(rel)s\">2019-2020 Civic Labs year 1</a> "
-"research paper in the field of Emergency Preparedness and Disaster "
-"Management in the case of a major earthquake. In brief, starting from the "
-"analysis of the response in the case of Mexico or Italy, two countries that "
-"have had to manage response to a major earthquake recently (2017 and 2016, "
-"respectively) we realized that any fundraising effort during or after a "
-"major disaster comes together with a multitude of risks, including the "
-"sudden appearance of phantom organizations or focusing aid to just a few "
-"areas of intervention,, either thematic or geographical, according to the "
-"communication capacity of  NGOs in the field.\n"
-"                    "
-msgstr ""
-
-#: hub/templates/about.html:37
-#, python-format
-msgid ""
-"\n"
-"                        The Code for Romania COVID-19 Task Force used the "
-"Civic Labs research program results in the field of\n"
-"                        emergency response, and adapted our <a href="
-"\"%(link)s\" target=\"%(target)s\" rel=\"%(rel)s\">Aid Management Hub</a>\n"
-"                        prototype to the present situation, developing "
-"RoHelp.ro in record time.\n"
-"                    "
-msgstr ""
-
-#: hub/templates/about.html:46
-msgid ""
-"RoHelp is a project done through the efforts of the Code for Romania "
-"volunteers and team. Code for Romania is an independent, unaffiliated and "
-"apolitical NGO. This project is developed as part of the Code for Romania "
-"Task Force, in partnership with the Romanian Community Foundations "
-"Federation, the Romanian Government via the Authority for the Digitalization "
-"of Romania and the Emergency Services Department."
-msgstr ""
-
-#: hub/templates/about.html:48
-#, python-format
-msgid ""
-"\n"
-"                    <a href=\"%(link)s\" target=\"%(target)s\" rel=\"%(rel)s"
-"\">Questions and answers</a> about the RoHelp.ro project.\n"
-"                "
-msgstr ""
-
-#: hub/templates/about.html:52
-msgid ""
-"The Code for Romania Task Force is a program supported by ING Bank, The "
-"Vodafone Foundation Romania and the Romanian American Foundation to which we "
-"owe our thanks."
-msgstr ""
-
-#: hub/templates/about.html:64
-msgid "Media partners"
 msgstr ""
 
 #: hub/templates/admin/dropdown_filter.html:3
@@ -604,8 +464,7 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/base.html:12 hub/templates/candidate/list.html:10
-#: hub/templates/committee/list.html:14 hub/templates/header.html:11
+#: hub/templates/candidate/base.html:12 hub/templates/header.html:11
 msgid "Elections CES/CESE 2020"
 msgstr ""
 
@@ -618,7 +477,7 @@ msgid ""
 msgstr ""
 
 #: hub/templates/candidate/base.html:20 hub/templates/candidate/list.html:18
-#: hub/templates/committee/list.html:22 hub/templates/header.html:44
+#: hub/templates/committee/list.html:22 hub/templates/header.html:45
 msgid "Metodology"
 msgstr ""
 
@@ -632,6 +491,10 @@ msgstr ""
 
 #: hub/templates/candidate/detail.html:129
 msgid "Founders/Associates"
+msgstr ""
+
+#: hub/templates/candidate/list.html:10 hub/templates/committee/list.html:14
+msgid "Elections CES 2020"
 msgstr ""
 
 #: hub/templates/candidate/list.html:32 hub/templates/ngo/list.html:14
@@ -1091,19 +954,23 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: hub/templates/header.html:36
+#: hub/templates/header.html:33
+msgid "CES elections"
+msgstr ""
+
+#: hub/templates/header.html:37
 msgid "Register your organisation"
 msgstr ""
 
-#: hub/templates/header.html:74
+#: hub/templates/header.html:75
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:86 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:87 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:91 hub/templates/registration/login.html:15
+#: hub/templates/header.html:92 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr ""
@@ -1122,6 +989,14 @@ msgstr ""
 
 #: hub/templates/ngo/detail.html:64
 msgid "Representative"
+msgstr ""
+
+#: hub/templates/ngo/detail.html:67
+msgid "Initial purpose"
+msgstr ""
+
+#: hub/templates/ngo/detail.html:68
+msgid "Current purpose"
 msgstr ""
 
 #: hub/templates/ngo/list.html:27
