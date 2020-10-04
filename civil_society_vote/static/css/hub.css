@@ -116,7 +116,7 @@ body {
 .section-text {
     font-size: 1em;
     font-weight: 300;
-    color: var(--light-gray);
+    color: var(--black);
     padding-bottom: 1em;
 }
 
