@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-04 19:58+0000\n"
+"POT-Creation-Date: 2020-10-04 20:29+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -518,23 +518,6 @@ msgstr "Încarcă fișier CSV și adaugă orașe"
 msgid "Upload file"
 msgstr "Încarcă fișier"
 
-#: hub/templates/candidate/base.html:12 hub/templates/header.html:11
-msgid "Elections CES/CESE 2020"
-msgstr "Alegeri CES/CESE 2020"
-
-#: hub/templates/candidate/base.html:15 hub/templates/candidate/list.html:13
-#: hub/templates/committee/list.html:17
-msgid ""
-"Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
-"dedicată alegerilor Consiliului Economic și Social din România și din "
-"Uniuniea Europeană"
-msgstr ""
-
-#: hub/templates/candidate/base.html:20 hub/templates/candidate/list.html:18
-#: hub/templates/committee/list.html:22 hub/templates/header.html:45
-msgid "Metodology"
-msgstr "Metodologie"
-
 #: hub/templates/candidate/detail.html:65
 msgid "General information"
 msgstr "Informatii generale"
@@ -547,11 +530,23 @@ msgstr "Documente"
 msgid "Founders/Associates"
 msgstr "Asociați/Fondatori"
 
-#: hub/templates/candidate/list.html:10 hub/templates/committee/list.html:14
+#: hub/templates/candidate/list.html:10
 #, fuzzy
 #| msgid "Elections CES/CESE 2020"
 msgid "Elections CES 2020"
 msgstr "Alegeri CES/CESE 2020"
+
+#: hub/templates/candidate/list.html:13
+msgid ""
+"Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
+"dedicată alegerilor Consiliului Economic și Social din România și din "
+"Uniuniea Europeană"
+msgstr ""
+
+#: hub/templates/candidate/list.html:18 hub/templates/header.html:45
+#: hub/templates/partials/ces_header.html:13
+msgid "Metodology"
+msgstr "Metodologie"
 
 #: hub/templates/candidate/list.html:32 hub/templates/ngo/list.html:14
 msgid "Search..."
@@ -564,7 +559,7 @@ msgstr "Vizualizează detalii"
 
 #: hub/templates/candidate/list.html:119
 #: hub/templates/committee/candidates.html:59
-#: hub/templates/committee/list.html:77 hub/templates/ngo/list.html:193
+#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:193
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
@@ -1262,6 +1257,19 @@ msgstr "Trimite cerere înregistrare"
 msgid "Update organization"
 msgstr "Modifica organizatie"
 
+#: hub/templates/partials/ces_header.html:5
+#, fuzzy
+#| msgid "CES elections"
+msgid "CES Elections"
+msgstr "Alegeri CES"
+
+#: hub/templates/partials/ces_header.html:8
+msgid ""
+"Platforma de vot electronic ce se adresează organizațiilor neguvernamentale, "
+"dedicată alegerii reprezentanților societății civile spre propunere în "
+"Consiliul Economic și Social (CES) conform prevederilor L248/2013."
+msgstr ""
+
 #: hub/templates/registration/login.html:20
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
@@ -1942,7 +1950,10 @@ msgid ""
 "validated. If you have any further questions, send us a message at "
 "contact@votong.ro"
 msgstr ""
-"Îți mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa noastră te va contacta imediat ce organizația trece de procesul de validare. Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa contact@votong.ro."
+"Îți mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
+"noastră te va contacta imediat ce organizația trece de procesul de validare. "
+"Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
+"contact@votong.ro."
 
 #, fuzzy
 #~| msgid ""
