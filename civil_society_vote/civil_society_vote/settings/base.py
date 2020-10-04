@@ -23,6 +23,7 @@ env = environ.Env(
     RECAPTCHA_PUBLIC_KEY=(str, ""),
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     SENTRY_DSN=(str, ""),
+    ANALYTICS_ENABLED=(bool, False),
 )
 environ.Env.read_env(f"{root}/.env")  # reading .env file
 
@@ -211,7 +212,7 @@ if not RECAPTCHA_PUBLIC_KEY:
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Toggles the loading of Google/Facebook tracking scripts in base.html
-ANALYTICS_ENABLED = True
+ANALYTICS_ENABLED = env("ANALYTICS_ENABLED")
 
 IMPERSONATE = {
     "REQUIRE_SUPERUSER": True,
