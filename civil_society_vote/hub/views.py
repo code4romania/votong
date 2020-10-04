@@ -5,7 +5,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -17,7 +17,7 @@ from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionR
 
 from hub import utils
 from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
-from hub.models import Candidate, CandidateVote, City, Domain, FeatureFlag, Organization
+from hub.models import Candidate, CandidateSupporter, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
 class MenuMixin:
@@ -288,14 +288,16 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 class CandidateVoteView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return HttpResponseBadRequest()
+        return HttpResponse()
 
-        try:
-            candidate = Candidate.objects.get(pk=pk)
-            vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
-        except Exception:
-            return HttpResponseBadRequest()
+        # if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+        #     return HttpResponseBadRequest()
+
+        # try:
+        #     candidate = Candidate.objects.get(pk=pk)
+        #     vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
+        # except Exception:
+        #     return HttpResponseBadRequest()
 
         # if settings.VOTE_AUDIT_EMAIL:
         #     utils.send_email(
@@ -304,7 +306,21 @@ class CandidateVoteView(LoginRequiredMixin, View):
         #         subject="Vot candidat",
         #         to=settings.VOTE_AUDIT_EMAIL,
         #     )
-        return HttpResponse()
+        # return HttpResponse()
+
+
+@permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
+def candidate_support(request, pk):
+    candidate = get_object_or_404(Candidate, pk=pk)
+
+    try:
+        supporter = CandidateSupporter.objects.get(user=request.user, candidate=candidate)
+    except CandidateSupporter.DoesNotExist:
+        CandidateSupporter.objects.create(user=request.user, candidate=candidate)
+    else:
+        supporter.delete()
+
+    return redirect("candidate-detail", pk=pk)
 
 
 class CityAutocomplete(View):

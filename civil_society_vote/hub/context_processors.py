@@ -12,5 +12,6 @@ def hub_settings(context):
         "ORG_REGISTRATION_ENABLED": flags["enable_org_registration"],
         "ORG_APPROVAL_ENABLED": flags["enable_org_approval"],
         "CANDIDATE_REGISTRATION_ENABLED": flags["enable_candidate_registration"],
+        "CANDIDATE_SUPPORTING_ENABLED": flags["enable_candidate_supporting"],
         "CANDIDATE_VOTING_ENABLED": flags["enable_candidate_voting"],
     }
