@@ -151,7 +151,7 @@ class Command(BaseCommand):
             "enable_org_approval",
             "enable_org_voting",
             "enable_candidate_registration",
-            "enable_candidate_voting"
+            "enable_candidate_voting",
         ]
 
         for flag in flags:

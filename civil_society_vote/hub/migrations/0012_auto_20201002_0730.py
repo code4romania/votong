@@ -6,79 +6,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hub', '0011_auto_20201001_1449'),
+        ("hub", "0011_auto_20201001_1449"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='organization',
-            name='founders',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='letter',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='purpose_current',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='purpose_initial',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='reg_com_number',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='representative',
-        ),
-        migrations.RemoveField(
-            model_name='organization',
-            name='state',
-        ),
+        migrations.RemoveField(model_name="organization", name="founders",),
+        migrations.RemoveField(model_name="organization", name="letter",),
+        migrations.RemoveField(model_name="organization", name="purpose_current",),
+        migrations.RemoveField(model_name="organization", name="purpose_initial",),
+        migrations.RemoveField(model_name="organization", name="reg_com_number",),
+        migrations.RemoveField(model_name="organization", name="representative",),
+        migrations.RemoveField(model_name="organization", name="state",),
         migrations.AddField(
-            model_name='organization',
-            name='legal_representative_email',
-            field=models.EmailField(default="", max_length=254, verbose_name='Legal Representative Email'),
+            model_name="organization",
+            name="legal_representative_email",
+            field=models.EmailField(default="", max_length=254, verbose_name="Legal Representative Email"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='organization',
-            name='legal_representative_name',
-            field=models.CharField(default="", max_length=254, verbose_name='Legal Representative Name'),
+            model_name="organization",
+            name="legal_representative_name",
+            field=models.CharField(default="", max_length=254, verbose_name="Legal Representative Name"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='organization',
-            name='legal_representative_phone',
-            field=models.CharField(blank=True, max_length=30, null=True, verbose_name='Legal Representative Phone'),
+            model_name="organization",
+            name="legal_representative_phone",
+            field=models.CharField(blank=True, max_length=30, null=True, verbose_name="Legal Representative Phone"),
         ),
         migrations.AddField(
-            model_name='organization',
-            name='organisation_head_name',
-            field=models.CharField(default="", max_length=254, verbose_name='Organisation Head Name'),
+            model_name="organization",
+            name="organisation_head_name",
+            field=models.CharField(default="", max_length=254, verbose_name="Organisation Head Name"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='board_council',
-            field=models.CharField(max_length=512, verbose_name='Board council'),
+            model_name="organization",
+            name="board_council",
+            field=models.CharField(max_length=512, verbose_name="Board council"),
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='description',
-            field=models.TextField(blank=True, null=True, verbose_name='Short Description'),
+            model_name="organization",
+            name="description",
+            field=models.TextField(blank=True, null=True, verbose_name="Short Description"),
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='email',
-            field=models.EmailField(max_length=254, verbose_name='Organisation Email'),
+            model_name="organization",
+            name="email",
+            field=models.EmailField(max_length=254, verbose_name="Organisation Email"),
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='phone',
-            field=models.CharField(blank=True, max_length=30, null=True, verbose_name='Organisation Phone'),
+            model_name="organization",
+            name="phone",
+            field=models.CharField(blank=True, max_length=30, null=True, verbose_name="Organisation Phone"),
         ),
     ]
