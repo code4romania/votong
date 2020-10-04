@@ -84,8 +84,8 @@ FLAG_CHOICES = Choices(
 
 EMAIL_TEMPLATE_CHOICES = Choices(
     ("pending_orgs_digest", _("Pending organizations digest email")),
-    ("org_approved", _("You organizations was approved")),
-    ("org_rejected", _("You organizations was rejected")),
+    ("org_approved", _("Your organization was approved")),
+    ("org_rejected", _("Your organization was rejected")),
 )
 
 

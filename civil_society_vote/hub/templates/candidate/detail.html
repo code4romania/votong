@@ -53,11 +53,11 @@
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
     <div class="buttons">
     {% if user|already_supported:candidate %}
-      <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger is-medium">Retrage sustinerea</a>
+      <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger is-medium">Retrage susținerea</a>
     {% else %}
-      <a href="{% url 'candidate-support' candidate.id %}" class="button is-success is-medium">Sustine</a>
+      <a href="{% url 'candidate-support' candidate.id %}" class="button is-success is-medium">Susține</a>
     {% endif %}
-      <span style="width: 100%; padding: 10px;">Sustinatori: {% supporters candidate.id %}</span>
+      <span style="width: 100%; padding: 10px;">Susținători: {% supporters candidate.id %}</span>
     </div>
     {% endif %}
 </div>
