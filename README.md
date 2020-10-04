@@ -109,6 +109,8 @@ $ ./manage.py init
 $ ./manage.py collectstatic --noinput
 ```
 
+**NOTE** After the first deployment go into admin and edit the site data in `/admin/sites/site/` with the correct name and domain. This is used in the site and in email templates.
+
 ## Feedback
 
 * Request a new feature on GitHub.
