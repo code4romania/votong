@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 
-from hub.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, EmailTemplate, FeatureFlag
+from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, EmailTemplate, FeatureFlag
 
 PENDING_ORGS_DIGEST_TEXT = """
 Buna ziua,
@@ -45,14 +45,7 @@ class Command(BaseCommand):
         Group.objects.get_or_create(name=SUPPORT_GROUP)
         Group.objects.get_or_create(name=NGO_GROUP)
 
-        flags = [
-            "enable_org_registration",
-            "enable_org_approval",
-            "enable_org_voting",
-            "enable_candidate_registration",
-            "enable_candidate_voting",
-        ]
-        for flag in flags:
+        for flag in [x[0] for x in FLAG_CHOICES]:
             FeatureFlag.objects.get_or_create(flag=flag)
 
         template, created = EmailTemplate.objects.get_or_create(template="pending_orgs_digest")

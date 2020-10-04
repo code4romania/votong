@@ -105,6 +105,7 @@ class Command(BaseCommand):
                     address=fake.address(),
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
+                    description=fake.text(),
                     # reg_com_number=fake.ssn(),
                     # purpose_initial=fake.sentence(),
                     # purpose_current=fake.sentence(),
@@ -150,23 +151,10 @@ class Command(BaseCommand):
 
         self.stdout.write("Loaded organizations data")
 
-        flags = [
-            "enable_org_registration",
-            "enable_org_approval",
-            "enable_org_voting",
-            "enable_candidate_registration",
-            "enable_candidate_voting",
-        ]
-
-        for flag in flags:
+        for flag in [x[0] for x in FLAG_CHOICES]:
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
             self.stdout.write(f"Enabled '{flag}' flag")
-
-        if len(FLAG_CHOICES) == len(flags):
-            self.stdout.write("All flags have been enabled")
-        else:
-            self.stdout.write("NOT all flags have been enabled.")
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
