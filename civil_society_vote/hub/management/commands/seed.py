@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, Organization, FeatureFlag
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, FLAG_CHOICES, Candidate, City, Domain, Organization, FeatureFlag
 
 fake = Faker()
 
@@ -100,25 +100,23 @@ class Command(BaseCommand):
 
                 org = Organization.objects.create(
                     name=fake.company(),
-                    description=fake.text(),
+                    county=city.county,
+                    city=city,
+                    address=fake.address(),
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
-                    address=fake.address(),
-                    reg_com_number=fake.ssn(),
-                    purpose_initial=fake.sentence(),
-                    purpose_current=fake.sentence(),
-                    founders=fake.name(),
+                    description=fake.text(),
                     legal_representative_name=fake.name(),
+                    legal_representative_email=fake.safe_email(),
+                    legal_representative_phone=fake.phone_number(),
+                    organisation_head_name=fake.name(),
                     board_council=fake.name(),
-                    city=city,
-                    county=city.county,
                     status=status,
                 )
 
                 org.logo.name = "logo-demo.png"
                 org.last_balance_sheet.name = "test.pdf"
                 org.statute.name = "test.pdf"
-                org.letter.name = "test.pdf"
                 org.save()
 
                 if status == "rejected":
@@ -160,7 +158,10 @@ class Command(BaseCommand):
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
-            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))    
-
+            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
+        if len(FLAG_CHOICES) == len(flags):
+            self.stdout.write(self.style.SUCCESS(f"All flags have been enabled"))
+        else:
+            self.stdout.write(self.style.SUCCESS(f"NOT all flags have been enabled."))
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
