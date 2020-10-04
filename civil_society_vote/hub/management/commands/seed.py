@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, FLAG_CHOICES, Candidate, City, Domain, Organization, FeatureFlag
+from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
 
 fake = Faker()
 
