@@ -16,6 +16,7 @@ from hub.models import (
     COUNTIES,
     COUNTY_RESIDENCE,
     Candidate,
+    CandidateSupporter,
     CandidateVote,
     City,
     Domain,
@@ -113,13 +114,29 @@ class CandidateVoteInline(admin.TabularInline):
         return False
 
 
+class CandidateSupporterInline(admin.TabularInline):
+    model = CandidateSupporter
+    fields = ["user", "candidate"]
+    readonly_fields = ["user", "candidate"]
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
     list_display = ("name", "org", "role", "domain", "vote_count", "created")
     list_filter = ("domain",)
     search_fields = ("name", "email", "org__name")
     readonly_fields = ["org"]
-    inlines = [CandidateVoteInline]
+    inlines = [CandidateVoteInline, CandidateSupporterInline]
 
     def has_add_permission(self, request, obj=None):
         return False

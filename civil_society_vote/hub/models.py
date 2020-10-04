@@ -76,8 +76,9 @@ STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
 FLAG_CHOICES = Choices(
     ("enable_org_registration", _("Enable organization registration")),
     ("enable_org_approval", _("Enable organization approvals")),
-    ("enable_candidate_registration", _("Enable candidate registration")),
     ("enable_org_voting", _("Enable organization voting")),
+    ("enable_candidate_registration", _("Enable candidate registration")),
+    ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
 )
 
@@ -325,3 +326,18 @@ class CandidateVote(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
         super().save(*args, **kwargs)
+
+
+class CandidateSupporter(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="supporters")
+
+    class Meta:
+        verbose_name_plural = _("Canditate supporters")
+        verbose_name = _("Candidate supporter")
+        constraints = [
+            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self. candidate}"
