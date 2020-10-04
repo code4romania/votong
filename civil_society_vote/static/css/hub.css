@@ -18,6 +18,10 @@ body {
     padding: 0 1.5em;
 }
 
+.tight-container {
+    margin: 0 15%;
+}
+
 
 .title {
     padding-bottom: 1rem;
