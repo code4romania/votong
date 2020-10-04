@@ -158,8 +158,7 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     form_class = OrganizationForm
     success_message = _(
         "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you "
-        "as soon as your organization is validated. If you have any further questions, send us a message using the "
-        "form in our contact page."
+        "as soon as your organization is validated. If you have any further questions, send us a message at contact@votong.ro"
     )
 
     def get(self, request, *args, **kwargs):
