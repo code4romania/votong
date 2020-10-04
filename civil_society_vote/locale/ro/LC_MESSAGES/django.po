@@ -253,16 +253,12 @@ msgid "Pending organizations digest email"
 msgstr "Organizații"
 
 #: hub/models.py:87
-#, fuzzy
-#| msgid "Enable organization approvals"
 msgid "Your organization was approved"
-msgstr "Activează aprobare organizație"
+msgstr "Organizația ta a fost aprobată"
 
 #: hub/models.py:88
-#, fuzzy
-#| msgid "Organizations list"
 msgid "Your organization was rejected"
-msgstr "Organizații"
+msgstr "Organizația ta a fost respinsă"
 
 #: hub/models.py:93
 msgid "Flag"
