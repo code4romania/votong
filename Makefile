@@ -41,3 +41,9 @@ clean-py:
 	find `pwd` -name '.pytest_cache' -delete
 	find `pwd` -name '__pycache__' -delete
 	find `pwd` -name 'htmlcov' -delete
+
+makemessages:
+	docker-compose exec web python manage.py makemessages
+
+compilemessages:
+	docker-compose exec web python manage.py compilemessages

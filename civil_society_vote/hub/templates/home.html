@@ -23,7 +23,7 @@
 
 
 <div class="section light-bg">
-    <div class="container">
+    <div class="container tight-container">
         <div class="columns is-centered">
             <div class="column is-half">
                 <h1 class="section-title">Despre proiect</h1>
@@ -50,7 +50,7 @@
 </div>
 
 <div class="section">
-    <div class="container">
+    <div class="container tight-container">
         <h1 class="section-title">Cum funcționează</h1>
         <div class="tile is-ancestor has-text-centered">
             <div class="tile is-12 is-parent">
@@ -107,7 +107,7 @@
             Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor Consiliului
             Economic și Social din România și din Uniuniea Europeană
         </p>
-        <div id="alageri-buttons">
+        <div id="alegeri-buttons">
             <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
             <a href="{% url 'candidates' %}" class="button is-warning">Vezi detalii</a>
         </div>
@@ -116,16 +116,18 @@
 
 <div id="alegeri-inscriere" class="container">
     <h2 class="tile-title has-text-weight-bold">Alegeri CES 2020</h2>
-    <a href="{& url 'ngos-register-request' &}" class="button is-warning">Îmi înscriu organizația</a>
+    <div class="is-flex">
     <p>
         Sesiune de vot electronic ce se adresează organizațiilor neguvernamentale, dedicată alegerilor
         Consiliului Economic și Social din România și din Uniuniea Europeană
     </p>
+    <a href="{& url 'ngos-register-request' &}" class="button is-warning">Îmi înscriu organizația</a>
+    </div>
 </div>
 
 <hr />
 
-<div id="contact" class="container">
+<div id="contact" class="container tight-container">
     <div>
         <h3 class="tile-title">Intră în contact</h3>
         <p>

@@ -6,7 +6,11 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
+<<<<<<< HEAD
 from hub.models import COMMITTEE_GROUP, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
+=======
+from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
+>>>>>>> develop
 
 fake = Faker()
 
@@ -100,7 +104,9 @@ class Command(BaseCommand):
 
                 org = Organization.objects.create(
                     name=fake.company(),
-                    description=fake.text(),
+                    county=city.county,
+                    city=city,
+                    address=fake.address(),
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     address=fake.address(),
@@ -109,9 +115,10 @@ class Command(BaseCommand):
                     # purpose_current=fake.sentence(),
                     # founders=fake.name(),
                     legal_representative_name=fake.name(),
+                    legal_representative_email=fake.safe_email(),
+                    legal_representative_phone=fake.phone_number(),
+                    organisation_head_name=fake.name(),
                     board_council=fake.name(),
-                    city=city,
-                    county=city.county,
                     status=status,
                 )
 
@@ -160,6 +167,14 @@ class Command(BaseCommand):
             feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
             feature_flag_obj.is_enabled = True
             feature_flag_obj.save()
+<<<<<<< HEAD
             self.stdout.write(f"Enabled {flag}")
+=======
+            self.stdout.write(self.style.SUCCESS(f"Enabled {flag}"))
+        if len(FLAG_CHOICES) == len(flags):
+            self.stdout.write(self.style.SUCCESS(f"All flags have been enabled"))
+        else:
+            self.stdout.write(self.style.SUCCESS(f"NOT all flags have been enabled."))
+>>>>>>> develop
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
