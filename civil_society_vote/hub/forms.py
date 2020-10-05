@@ -9,26 +9,28 @@ from django_crispy_bulma.widgets import EmailInput
 
 from hub import models
 
+ORG_FIELD_ORDER = [
+    "name",
+    "county",
+    "city",
+    "address",
+    "email",
+    "phone",
+    "description",
+    "legal_representative_name",
+    "legal_representative_email",
+    "legal_representative_phone",
+    "organisation_head_name",
+    "board_council",
+    "logo",
+    "statute",
+]
 
-class OrganizationForm(forms.ModelForm):
+
+class OrganizationCreateForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
 
-    field_order = [
-        "name",
-        "county",
-        "city",
-        "address",
-        "email",
-        "phone",
-        "description",
-        "legal_representative_name",
-        "legal_representative_email",
-        "legal_representative_phone",
-        "organisation_head_name",
-        "board_council",
-        "logo",
-        "statute",
-    ]
+    field_order = ORG_FIELD_ORDER
 
     class Meta:
         model = models.Organization
@@ -54,6 +56,30 @@ class OrganizationForm(forms.ModelForm):
             try:
                 county = self.data.get("county")
                 self.fields["city"].queryset = models.City.objects.filter(county__iexact=county)
+            except (ValueError, TypeError):
+                pass  # invalid input, fallback to empty queryset
+
+
+class OrganizationUpdateForm(forms.ModelForm):
+    field_order = ORG_FIELD_ORDER
+
+    class Meta:
+        model = models.Organization
+        exclude = ["user", "status", "status_changed"]
+        widgets = {
+            "email": EmailInput(),
+            "legal_representative_email": EmailInput(),
+            "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete"),}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["city"].queryset = models.City.objects.filter(county__iexact=self.instance.county)
+
+        if "county" in self.data:
+            try:
+                self.fields["city"].queryset = models.City.objects.filter(county__iexact=self.data["county"])
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 

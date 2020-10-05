@@ -16,7 +16,7 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionRequiredMixin
 
 from hub import utils
-from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationForm
+from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationCreateForm, OrganizationUpdateForm
 from hub.models import Candidate, CandidateSupporter, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
@@ -155,7 +155,7 @@ class OrganizationDetailView(HubDetailView):
 class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "ngo/register_request.html"
     model = Organization
-    form_class = OrganizationForm
+    form_class = OrganizationCreateForm
     success_message = _(
         "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you "
         "as soon as your organization is validated. If you have any further questions, send us a message at contact@votong.ro"
@@ -180,7 +180,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
     raise_exception = True
     template_name = "ngo/update.html"
     model = Organization
-    form_class = OrganizationForm
+    form_class = OrganizationUpdateForm
 
 
 @permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
