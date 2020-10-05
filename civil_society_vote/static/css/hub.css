@@ -257,11 +257,20 @@ body {
     margin: 1em 0;
 }
 
-.detail-desc-title .colorblock {
+.detail-desc-title .candidate-colorblock {
     width:60px;
     height:50px;
     display: inline-block;
     margin-right: 20px;
+    background-color: var(--candidate-colorblock);
+}
+
+.detail-desc-title .ngo-colorblock {
+    width:60px;
+    height:50px;
+    display: inline-block;
+    margin-right: 20px;
+    background-color: var(--ngo-colorblock);
 }
 
 .donate-hero {
@@ -590,8 +599,4 @@ body {
     width: 100%;
     background-color: var(--active-yellow);
     color: var(--black);
-}
-
-.candidate-colorblock {
-    color: var(--candidate-colorblock);
 }
