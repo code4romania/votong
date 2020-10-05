@@ -18,6 +18,11 @@ COMMITTEE_GROUP = "Comisie Electorala"
 SUPPORT_GROUP = "Support Staff"
 NGO_GROUP = "ONG"
 
+REPORTS_HELP_TEXT = (
+    "Rapoartele anuale trebuie să includă sursele de finanțare din care să rezulte că organizația dispune de resurse "
+    "financiare şi materiale pentru îndeplinirea mandatului de reprezentare a organizaţiilor votante în CES."
+)
+
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
 PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)
@@ -158,19 +163,62 @@ class Organization(StatusModel, TimeStampedModel):
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
     address = models.CharField(_("Address"), max_length=254)
+
     email = models.EmailField(_("Organisation Email"))
     phone = models.CharField(_("Organisation Phone"), max_length=30, null=True, blank=True)
     description = models.TextField(_("Short Description"), null=True, blank=True)
+
     legal_representative_name = models.CharField(_("Legal Representative Name"), max_length=254)
     legal_representative_email = models.EmailField(_("Legal Representative Email"))
     legal_representative_phone = models.CharField(_("Legal Representative Phone"), max_length=30, null=True, blank=True)
+
     organisation_head_name = models.CharField(_("Organisation Head Name"), max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
-    last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"), max_length=300, storage=PrivateMediaStorageClass(),
+
+    report_2019 = models.FileField(
+        _("Yearly report 2019"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
     )
-    statute = models.FileField(_("NGO Statute"), max_length=300, storage=PrivateMediaStorageClass())
+    report_2018 = models.FileField(
+        _("Yearly report 2018"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
+    )
+    report_2017 = models.FileField(
+        _("Yearly report 2017"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
+    )
+    fiscal_certificate = models.FileField(
+        _("Fiscal certificate"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Certificat fiscal emis în ultimele 6 luni",
+    )
+    statute = models.FileField(
+        _("NGO Statute"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/ suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
+    )
+    statement = models.FileField(
+        _("Statement"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
+    )
+
     # founders = models.CharField(_("Founders/Associates"), max_length=254)
     # reg_com_number = models.CharField(_("Registration number"), max_length=20)
     # state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
@@ -178,6 +226,9 @@ class Organization(StatusModel, TimeStampedModel):
     # purpose_current = models.CharField(_("Current purpose"), max_length=254)
     # representative = models.CharField(_("Legal representative"), max_length=254)
     # letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
+    # last_balance_sheet = models.FileField(
+    #     _("First page of last balance sheet"), max_length=300, storage=PrivateMediaStorageClass(),
+    # )
 
     class Meta:
         verbose_name_plural = _("Organizations")
@@ -244,22 +295,57 @@ class Candidate(StatusModel, TimeStampedModel):
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
 
     name = models.CharField(_("Name"), max_length=254)
-    description = models.TextField(_("Description"))
-    role = models.CharField(_("Role"), max_length=254)
-    founder = models.BooleanField(_("Founder/Associate"), default=False)
-    representative = models.BooleanField(_("Legal representative"), default=False)
-    board_member = models.BooleanField(_("Board member"), default=False)
-    experience = models.TextField(_("Professional experience"))
-    studies = models.TextField(_("Studies"))
+    description = models.TextField(_("Description"), max_length=1000)
+    cv = models.FileField(_("Curriculum Vitae"), max_length=300, storage=PrivateMediaStorageClass())
+    role = models.CharField(_("Role in organization"), max_length=254)
+
+    # founder = models.BooleanField(_("Founder/Associate"), default=False)
+    # representative = models.BooleanField(_("Legal representative"), default=False)
+    # board_member = models.BooleanField(_("Board member"), default=False)
+
+    experience = models.TextField(_("Professional experience"), max_length=2000)
+    studies = models.TextField(_("Studies"), max_length=2000)
+
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
     photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
 
-    mandate = models.FileField(_("Mandate from the organization"), max_length=300, storage=PrivateMediaStorageClass(),)
-    letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
-    statement = models.FileField(_("Statement of conformity"), max_length=300, storage=PrivateMediaStorageClass(),)
-    cv = models.FileField(_("Curriculum Vitae"), max_length=300, storage=PrivateMediaStorageClass())
-    legal_record = models.FileField(_("Legal record"), max_length=300, storage=PrivateMediaStorageClass())
+    mandate = models.FileField(
+        _("Mandate from the organization"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Mandat din partea organizației (semnat - inclusiv prin semnatură electronică)",
+    )
+    letter = models.FileField(
+        _("Letter of intent"),
+        max_length=300,
+        null=True,
+        storage=PrivateMediaStorageClass(),
+        help_text="Scrisoare de intenție (cu menționarea domeniului pe care dorește să-l reprezinte în cadrul CES) din care să rezulte desfăşurarea de activităţi de influenţare a politicilor publice și de reprezentare a intereselor unor grupuri de organizaţii care desfăşoară o activitate de interes public",
+    )
+    statement = models.FileField(
+        _("Statement of conformity"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Declarație de interese (descarcă modelul de aici https://drive.google.com/file/d/1BOquxpQnuCPmhlt9HFjklCY_oZARVlz1/view?usp=sharing)",
+    )
+    tax_records = models.FileField(
+        _("Tax records"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Cazier fiscal, valabil la data depunerii candidaturii",
+    )
+    legal_records = models.FileField(
+        _("Legal records"),
+        null=True,
+        blank=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Cazier judiciar (optional)",
+    )
 
     class Meta:
         verbose_name_plural = _("Candidates")
@@ -282,7 +368,12 @@ class Candidate(StatusModel, TimeStampedModel):
     def vote_count(self):
         return self.votes.count()
 
-    vote_count.short_description = _("Vote count")
+    vote_count.short_description = _("Votes")
+
+    def supporters_count(self):
+        return self.supporters.count()
+
+    supporters_count.short_description = _("Supporters")
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
