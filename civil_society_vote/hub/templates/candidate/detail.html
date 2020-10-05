@@ -71,7 +71,7 @@
 
 <div class="container detail-desc">
     <div class="detail-desc-title">
-        <span class="colorblock" style="background-color:#5E72E4;"></span>
+        <span class="candidate-colorblock"></span>
         {% trans "General information" %}
     </div>
     <p><span class="label">{% trans 'Role' %}:</span> {{ candidate.role }}</p>
@@ -85,7 +85,7 @@
 {% if "view_data_candidate" in user_permissions %}
 <div class="container detail-desc">
     <div class="detail-desc-title">
-        <span class="colorblock" style="background-color:#5876C1;"></span>
+        <span class="candidate-colorblock"></span>
         {% trans "Documents" %}
     </div>
     {% if candidate.cv %}
@@ -134,7 +134,7 @@
 
 <div class="container detail-desc">
     <div class="detail-desc-title">
-        <span class="colorblock" style="background-color:#8898AA;"></span>
+        <span class="candidate-colorblock"></span>
     {{ candidate.org.name }}</div>
     <p><span class="label">{% trans 'Founders/Associates' %}:</span> {{ candidate.org.founders }}</p>
     <p><span class="label">{% trans 'Board council' %}:</span> {{ candidate.org.board_council }}</p>
