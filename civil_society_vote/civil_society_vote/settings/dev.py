@@ -12,7 +12,7 @@ AUTH_PASSWORD_VALIDATORS = []
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-if env("ENABLE_DEBUG_TOOLBAR"):
+if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
     MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
@@ -30,3 +30,9 @@ CACHES = {
         "LOCATION": "/tmp/file_resubmit/",
     },
 }
+
+if not DEBUG:
+    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
+
+    STATIC_ROOT = os.path.join(BASE_DIR, "../", "static")
+    STATICFILES_DIRS = []
