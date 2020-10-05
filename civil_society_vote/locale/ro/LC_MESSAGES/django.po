@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 13:50+0000\n"
+"POT-Creation-Date: 2020-10-05 17:45+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -196,19 +196,19 @@ msgstr "Fișier CSV încărcat"
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/forms.py:76
+#: hub/forms.py:102
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/forms.py:79
+#: hub/forms.py:105
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja un candidat"
 
-#: hub/forms.py:102
+#: hub/forms.py:128
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:107
+#: hub/forms.py:133
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -472,7 +472,7 @@ msgstr "Cazier juridic"
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:353 hub/templates/candidate/list.html:30
+#: hub/models.py:353 hub/templates/candidate/list.html:36
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr "Candidați"
@@ -1174,27 +1174,21 @@ msgstr "în parteneriat cu"
 msgid "Upload document"
 msgstr "Încarcă document"
 
-#: hub/templates/footer.html:23
-#, fuzzy
-#| msgid "Media partners"
-msgid "Partners"
-msgstr "Parteneri media"
-
-#: hub/templates/footer.html:24
+#: hub/templates/footer.html:16
 msgid "About VotONG"
 msgstr ""
 
-#: hub/templates/footer.html:25
+#: hub/templates/footer.html:17
 #, fuzzy
 #| msgid "Privacy policy"
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
 
-#: hub/templates/footer.html:26
+#: hub/templates/footer.html:18
 msgid "Terms and conditions"
 msgstr "Termeni și condiții de utilizare"
 
-#: hub/templates/footer.html:28
+#: hub/templates/footer.html:20
 msgid "Get Involved"
 msgstr "Implică-te"
 
@@ -1218,15 +1212,19 @@ msgstr "Înscriere organizație"
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: hub/templates/header.html:75
+#: hub/templates/header.html:62
+msgid "Vote"
+msgstr "Vot"
+
+#: hub/templates/header.html:70
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:87 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:82 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:92 hub/templates/registration/login.html:15
+#: hub/templates/header.html:87 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr "Autentificare"
@@ -1982,6 +1980,11 @@ msgstr ""
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
 
+#, fuzzy
+#~| msgid "Media partners"
+#~ msgid "Partners"
+#~ msgstr "Parteneri media"
+
 #~ msgid "Founder/Associate"
 #~ msgstr "Asociat/Fondator"
 
@@ -2501,9 +2504,6 @@ msgstr ""
 
 #~ msgid "OFF"
 #~ msgstr "OFF"
-
-#~ msgid "Vote"
-#~ msgstr "Vot"
 
 #~ msgid "Motivation"
 #~ msgstr "Motivație"
