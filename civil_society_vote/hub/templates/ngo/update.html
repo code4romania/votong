@@ -26,6 +26,9 @@
     {% endif %}
     </li>
     <li><a href="#">Voturile mele</a></li>
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
   </ul>
 </div>
 

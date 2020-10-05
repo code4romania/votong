@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 17:45+0000\n"
+"POT-Creation-Date: 2020-10-05 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,17 +69,23 @@ msgstr ""
 msgid "Change Email"
 msgstr ""
 
-#: accounts/templates/partials/sections.html:6
+#: accounts/templates/partials/sections.html:9
+#: accounts/templates/partials/sections.html:17
+#: hub/templates/candidate/list.html:31
+msgid "Back"
+msgstr ""
+
+#: accounts/templates/partials/sections.html:23
 #: hub/templates/registration/reset_password.html:15
 #: hub/templates/registration/reset_password.html:38
 msgid "Reset password"
 msgstr ""
 
-#: accounts/templates/partials/sections.html:10
+#: accounts/templates/partials/sections.html:27
 msgid "Change email"
 msgstr ""
 
-#: accounts/templates/partials/sections.html:14
+#: accounts/templates/partials/sections.html:31
 msgid "Change avatar"
 msgstr ""
 
@@ -235,7 +241,6 @@ msgstr ""
 
 #: hub/models.py:91
 #, fuzzy
-#| msgid "Pending Organisations"
 msgid "Pending organizations digest email"
 msgstr "Organizații nevalidate"
 
@@ -551,10 +556,6 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/list.html:31
-msgid "Back"
-msgstr ""
-
 #: hub/templates/candidate/list.html:94
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
@@ -593,6 +594,11 @@ msgstr "Candidați propusi"
 #: hub/templates/committee/partials/nav.html:12
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
+
+#: hub/templates/committee/partials/nav.html:15
+#: hub/templates/ngo/update.html:30
+msgid "Settings"
+msgstr ""
 
 #: hub/templates/contact.html:15
 msgid "Contact us"
@@ -1016,19 +1022,15 @@ msgstr ""
 msgid "Metodology"
 msgstr ""
 
-#: hub/templates/header.html:62
-msgid "Vote"
-msgstr ""
-
-#: hub/templates/header.html:70
+#: hub/templates/header.html:66
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:82 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:78 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:87 hub/templates/registration/login.html:15
+#: hub/templates/header.html:83 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr ""
@@ -1077,7 +1079,7 @@ msgstr ""
 msgid "Send registration request"
 msgstr ""
 
-#: hub/templates/ngo/update.html:61
+#: hub/templates/ngo/update.html:64
 msgid "Update organization"
 msgstr ""
 
