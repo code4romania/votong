@@ -1,6 +1,10 @@
-name: Transfer to dev env and run
+name: Transfer to dev/prod env and run
 
-on: [push]
+on: 
+  push:
+    branches: 
+      - develop
+      - master
 
 jobs:
   build:
@@ -8,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: executing remote ssh commands
+      - name: executing remote ssh commands on dev env
         if: github.ref == 'refs/heads/develop'
         uses: appleboy/ssh-action@master
         with:
@@ -16,3 +20,12 @@ jobs:
           username: ${{ secrets.DEV_SERVER_SSH_USERNAME }}
           key: ${{ secrets.DEV_SERVER_SSH_KEY }}
           script: "/root/votong/deploy/pull.sh"
+      
+      - name: executing remote ssh commands on production env
+        if: github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_SERVER_IP }}
+          username: ${{ secrets.PROD_SERVER_SSH_USERNAME }}
+          key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+          script: "/home/ubuntu/civil_society_vote/deploy/pull.sh"

@@ -26,6 +26,12 @@
     </form>
 </div>
 
+{% if current_domain %}
+    <h2 class="section-title uppercase">
+       <span class="is-4"><<</span> <a href="{% url 'candidates' %}">{% trans "Back" %}</a>
+    </h2>
+{% endif %}
+
 <h2 class="section-title uppercase">
     {% trans "Candidates" %}
 </h2>

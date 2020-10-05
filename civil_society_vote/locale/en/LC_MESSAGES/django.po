@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 15:20+0000\n"
+"POT-Creation-Date: 2020-10-05 13:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,12 +551,16 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/list.html:88
+#: hub/templates/candidate/list.html:31
+msgid "Back"
+msgstr ""
+
+#: hub/templates/candidate/list.html:94
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:104
+#: hub/templates/candidate/list.html:110
 #: hub/templates/committee/candidates.html:59
 #: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:193
 msgid "No results matching query"

@@ -16,12 +16,12 @@
         {% for domain in domains %}
         {% if current_domain.id == domain.id %}
         <a class="has-text-black filter-link"
-            href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' %}">
+            href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' remove_query_param='q' %}">
             <div class="card filter-card-active">
                 <div class="filter-icon-active">
                     {% else%}
                     <a class="has-text-black filter-link"
-                        href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' %}">
+                        href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' remove_query_param='q' %}">
                         <div class="card filter-card ">
                             <div class="filter-icon">
                                 {% endif %}
