@@ -53,19 +53,15 @@
 
                         {% avatar user 65 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
 
-                        <a href="{% url 'account-password-reset' %}" class="navbar-item">
-                            {{ user.email }}
-                        </a>
-
                         {% if user|in_committee_group %}
-                            <a href="{% url 'committee-ngos' %}" class="navbar-item">
-                                {% trans "Vote" %}
-                            </a>
+                        <a href="{% url 'committee-ngos' %}" class="navbar-item">
                         {% elif user.orgs.exists %}
-                            <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
-                                {{ user.orgs.first.name }}
-                            </a>
+                        <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
+                        {% else %}
+                        <a href="{% url 'account-password-reset' %}" class="navbar-item">
                         {% endif %}
+                            {{ user.email|truncatechars:24 }}
+                        </a>
 
                         <a href="{% url 'logout' %}" class="navbar-item">{% trans "Logout" %}</a>
 
