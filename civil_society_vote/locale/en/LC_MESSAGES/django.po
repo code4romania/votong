@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 14:24+0000\n"
+"POT-Creation-Date: 2020-10-05 15:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,19 +185,19 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:77
+#: hub/forms.py:76
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:80
+#: hub/forms.py:79
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:103
+#: hub/forms.py:102
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:108
+#: hub/forms.py:107
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -283,7 +283,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:124 hub/models.py:298 hub/templates/candidate/detail.html:68
+#: hub/models.py:124 hub/models.py:298 hub/templates/candidate/detail.html:72
 #: hub/templates/ngo/detail.html:60
 msgid "Description"
 msgstr ""
@@ -367,7 +367,7 @@ msgstr "The name of the legal representative"
 msgid "Organisation Head Name"
 msgstr "Organisation E-mail address"
 
-#: hub/models.py:176 hub/templates/candidate/detail.html:147
+#: hub/models.py:176 hub/templates/candidate/detail.html:149
 #: hub/templates/ngo/detail.html:65
 msgid "Board council"
 msgstr ""
@@ -408,7 +408,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:299 hub/templates/candidate/detail.html:96
+#: hub/models.py:299 hub/templates/candidate/detail.html:98
 msgid "Curriculum Vitae"
 msgstr ""
 
@@ -418,11 +418,11 @@ msgstr ""
 msgid "Role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:306 hub/templates/candidate/detail.html:78
+#: hub/models.py:306 hub/templates/candidate/detail.html:83
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:307 hub/templates/candidate/detail.html:79
+#: hub/models.py:307 hub/templates/candidate/detail.html:84
 msgid "Studies"
 msgstr ""
 
@@ -438,61 +438,65 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:314 hub/templates/candidate/detail.html:112
+#: hub/models.py:314 hub/templates/candidate/detail.html:114
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:321 hub/templates/candidate/detail.html:104
+#: hub/models.py:321 hub/templates/candidate/detail.html:106
 #: hub/templates/ngo/detail.html:90
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:328 hub/templates/candidate/detail.html:120
+#: hub/models.py:328 hub/templates/candidate/detail.html:122
 msgid "Statement of conformity"
 msgstr ""
 
-#: hub/models.py:335 hub/templates/candidate/detail.html:128
+#: hub/models.py:335 hub/templates/candidate/detail.html:130
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:342 hub/templates/candidate/detail.html:136
+#: hub/models.py:342 hub/templates/candidate/detail.html:138
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:351 hub/templates/candidate/list.html:30
+#: hub/models.py:350
+msgid "Is proposed?"
+msgstr ""
+
+#: hub/models.py:353 hub/templates/candidate/list.html:30
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:352
+#: hub/models.py:354
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:371
+#: hub/models.py:373
 msgid "Votes"
 msgstr ""
 
-#: hub/models.py:376
+#: hub/models.py:378
 msgid "Supporters"
 msgstr ""
 
-#: hub/models.py:382
+#: hub/models.py:384
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:407
+#: hub/models.py:409
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:408
+#: hub/models.py:410
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:427
+#: hub/models.py:429
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:428
+#: hub/models.py:430
 msgid "Candidate supporter"
 msgstr ""
 
@@ -523,33 +527,24 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:75
+#: hub/templates/candidate/detail.html:80
 msgid "General information"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:77
+#: hub/templates/candidate/detail.html:82
 msgid "Role"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:80
-msgid "Founder/Associate"
-msgstr ""
-
-#: hub/templates/candidate/detail.html:81
-#: hub/templates/candidate/detail.html:148
-msgid "Legal representative"
-msgstr ""
-
-#: hub/templates/candidate/detail.html:82
-msgid "Board member"
-msgstr ""
-
-#: hub/templates/candidate/detail.html:89 hub/templates/ngo/detail.html:73
+#: hub/templates/candidate/detail.html:91 hub/templates/ngo/detail.html:73
 msgid "Documents"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:146
+#: hub/templates/candidate/detail.html:148
 msgid "Founders/Associates"
+msgstr ""
+
+#: hub/templates/candidate/detail.html:150
+msgid "Legal representative"
 msgstr ""
 
 #: hub/templates/candidate/list.html:17 hub/templates/ngo/list.html:14
@@ -568,11 +563,11 @@ msgid "No results matching query"
 msgstr ""
 
 #: hub/templates/candidate/register_request.html:60
-msgid "Propose candidate"
+msgid "Save profile"
 msgstr ""
 
-#: hub/templates/candidate/update.html:54
-msgid "Update candidate"
+#: hub/templates/candidate/update.html:55
+msgid "Update profile"
 msgstr ""
 
 #: hub/templates/committee/candidates.html:20
@@ -1078,7 +1073,7 @@ msgstr ""
 msgid "Send registration request"
 msgstr ""
 
-#: hub/templates/ngo/update.html:60
+#: hub/templates/ngo/update.html:61
 msgid "Update organization"
 msgstr ""
 

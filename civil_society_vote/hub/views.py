@@ -229,7 +229,7 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        return Candidate.objects.filter(org__status=Organization.STATUS.accepted)
+        return Candidate.objects.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())

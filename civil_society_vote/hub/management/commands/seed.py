@@ -142,6 +142,7 @@ class Command(BaseCommand):
                         email=fake.safe_email(),
                         phone=fake.phone_number(),
                         domain=domain,
+                        is_proposed=True,
                     )
 
                     candidate.photo.name = "photo-placeholder.gif"

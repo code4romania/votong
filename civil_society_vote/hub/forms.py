@@ -27,7 +27,6 @@ class OrganizationForm(forms.ModelForm):
         "organisation_head_name",
         "board_council",
         "logo",
-        "last_balance_sheet",
         "statute",
     ]
 
@@ -62,7 +61,7 @@ class OrganizationForm(forms.ModelForm):
 class CandidateRegisterForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
-        fields = "__all__"
+        exclude = ["is_proposed", "status", "status_changed"]
 
         widgets = {
             "org": forms.HiddenInput(),
@@ -88,10 +87,10 @@ class CandidateRegisterForm(forms.ModelForm):
 class CandidateUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
-        fields = "__all__"
-        exclude = ["org"]
+        exclude = ["org", "status", "status_changed"]
 
         widgets = {
+            "is_proposed": forms.HiddenInput(),
             "email": EmailInput(),
         }
 

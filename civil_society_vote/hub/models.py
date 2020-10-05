@@ -347,6 +347,8 @@ class Candidate(StatusModel, TimeStampedModel):
         help_text="Cazier judiciar (optional)",
     )
 
+    is_proposed = models.BooleanField(_("Is proposed?"), default=False)
+
     class Meta:
         verbose_name_plural = _("Candidates")
         verbose_name = _("Candidate")
