@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 17:45+0000\n"
+"POT-Creation-Date: 2020-10-05 19:11+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -74,17 +74,23 @@ msgstr "Email"
 msgid "Change Email"
 msgstr "Schimbă email"
 
-#: accounts/templates/partials/sections.html:6
+#: accounts/templates/partials/sections.html:9
+#: accounts/templates/partials/sections.html:17
+#: hub/templates/candidate/list.html:31
+msgid "Back"
+msgstr "Înapoi"
+
+#: accounts/templates/partials/sections.html:23
 #: hub/templates/registration/reset_password.html:15
 #: hub/templates/registration/reset_password.html:38
 msgid "Reset password"
 msgstr "Resetează parola"
 
-#: accounts/templates/partials/sections.html:10
+#: accounts/templates/partials/sections.html:27
 msgid "Change email"
 msgstr "Schimbă email"
 
-#: accounts/templates/partials/sections.html:14
+#: accounts/templates/partials/sections.html:31
 msgid "Change avatar"
 msgstr "Schimbă avatar"
 
@@ -562,10 +568,6 @@ msgstr "Reprezentant legal"
 msgid "Search..."
 msgstr "Caută..."
 
-#: hub/templates/candidate/list.html:31
-msgid "Back"
-msgstr "Înapoi"
-
 #: hub/templates/candidate/list.html:94
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
@@ -590,28 +592,25 @@ msgid "proposed"
 msgstr "propuși"
 
 #: hub/templates/committee/candidates.html:20
-#, fuzzy
-#| msgid "Rejected"
 msgid "selected"
 msgstr "Respins"
 
 #: hub/templates/committee/partials/nav.html:6
-#, fuzzy
-#| msgid "Organizations"
 msgid "Pending Organisations"
 msgstr "Organizații"
 
 #: hub/templates/committee/partials/nav.html:9
-#, fuzzy
-#| msgid "Add candidate"
 msgid "Pending candidates"
 msgstr "Adaugă candidat"
 
 #: hub/templates/committee/partials/nav.html:12
-#, fuzzy
-#| msgid "Add candidate"
 msgid "Accepted candidates"
 msgstr "Adaugă candidat"
+
+#: hub/templates/committee/partials/nav.html:15
+#: hub/templates/ngo/update.html:30
+msgid "Settings"
+msgstr "Setări"
 
 #: hub/templates/contact.html:15
 msgid "Contact us"
@@ -1212,19 +1211,15 @@ msgstr "Înscriere organizație"
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: hub/templates/header.html:62
-msgid "Vote"
-msgstr "Vot"
-
-#: hub/templates/header.html:70
+#: hub/templates/header.html:66
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:82 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:78 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:87 hub/templates/registration/login.html:15
+#: hub/templates/header.html:83 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr "Autentificare"
@@ -1274,7 +1269,7 @@ msgstr "Resetează filtrele"
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
-#: hub/templates/ngo/update.html:61
+#: hub/templates/ngo/update.html:64
 msgid "Update organization"
 msgstr "Modifică organizație"
 
@@ -1979,6 +1974,9 @@ msgstr ""
 "noastră te va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
+
+#~ msgid "Vote"
+#~ msgstr "Vot"
 
 #, fuzzy
 #~| msgid "Media partners"
