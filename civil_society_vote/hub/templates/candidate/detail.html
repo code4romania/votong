@@ -43,12 +43,15 @@
             </div>
             <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
         </div>
+
         <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
+
         <div class="need-title is-hidden-mobile">
             <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
         </div>
         <div class="need-subtitle is-hidden-tablet">{{candidate.org}}</div>
-        <div class="need-description">{{candidate.email}}</div>
+
+        <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
     <div class="buttons">
@@ -63,9 +66,11 @@
 </div>
 
 <hr/>
+
 {% if candidate.description %}
 <div class="container candidate-desc">
-    <p><b>{% trans 'Description' %}:</b> {{ candidate.description }}</p>
+    <p class="label">{% trans 'Description' %}:</p>
+    {{ candidate.description|linebreaks }}
 </div>
 {% endif %}
 
@@ -74,12 +79,9 @@
         <span class="candidate-colorblock"></span>
         {% trans "General information" %}
     </div>
-    <p><span class="label">{% trans 'Role' %}:</span> {{ candidate.role }}</p>
-    <p><span class="label">{% trans 'Professional experience' %}:</span> {{ candidate.experience }}</p>
-    <p><span class="label">{% trans 'Studies' %}:</span> {{ candidate.studies }}</p>
-    <p><span class="label">{% trans 'Founder/Associate' %}:</span> {{ candidate.founder|yesno:"DA,NU" }}</p>
-    <p><span class="label">{% trans 'Legal representative' %}:</span> {{ candidate.representative|yesno:"DA,NU" }}</p>
-    <p><span class="label">{% trans 'Board member' %}:</span> {{ candidate.board_member|yesno:"DA,NU" }}</p>
+    <div><p class="label">{% trans 'Role' %}:</p> {{ candidate.role }}</div>
+    <div><p class="label">{% trans 'Professional experience' %}:</p> {{ candidate.experience|linebreaks }}</div>
+    <div><p class="label">{% trans 'Studies' %}:</p> {{ candidate.studies|linebreaks }}</div>
 </div>
 
 {% if "view_data_candidate" in user_permissions %}
@@ -120,13 +122,20 @@
         <a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a>
     </p>
     {% endif %}
-    {% if candidate.legal_record %}
+    {% if candidate.tax_records %}
     <p>
         <span class="icon">
-
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ candidate.legal_record.url }}">{% trans 'Legal record' %}</a>
+        <a href="{{ candidate.tax_records.url }}">{% trans 'Tax records' %}</a>
+    </p>
+    {% endif %}
+    {% if candidate.legal_records %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.legal_records.url }}">{% trans 'Legal records' %}</a>
     </p>
     {% endif %}
 </div>

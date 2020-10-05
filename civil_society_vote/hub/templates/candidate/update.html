@@ -40,7 +40,7 @@
         </div>
         </article>
     {% else %}
-        <form class="ces-form" method="post" enctype="multipart/form-data" >
+        <form class="ces-form" method="post" enctype="multipart/form-data" id="candidate-update-form">
             {% csrf_token %}
 
             {{ form.non_field_errors }}
@@ -51,8 +51,15 @@
 
             {{ form|crispy }}
 
-            <input class="button is-success is-pulled-right" type="submit" value='{% trans "Update candidate" %}'>
+            <div class="has-text-right">
+              <input class="button is-success is-medium" type="submit" value='{% trans "Update profile" %}'>
+            </div>
         </form>
     {% endif %}
+</div>
+
+<hr />
+<div class="container has-text-centered">
+  <a href="#" class="button is-primary is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
 </div>
 {% endblock %}

@@ -119,9 +119,14 @@ class Command(BaseCommand):
                 )
 
                 org.logo.name = "logo-demo.png"
-                org.last_balance_sheet.name = "test.pdf"
+                org.report_2019.name = "test.pdf"
+                org.report_2018.name = "test.pdf"
+                org.report_2017.name = "test.pdf"
+                org.fiscal_certificate.name = "test.pdf"
                 org.statute.name = "test.pdf"
+                org.statement.name = "test.pdf"
                 # org.letter.name = "test.pdf"
+                # org.last_balance_sheet.name = "test.pdf"
                 org.save()
 
                 if status == "rejected":
@@ -137,6 +142,7 @@ class Command(BaseCommand):
                         email=fake.safe_email(),
                         phone=fake.phone_number(),
                         domain=domain,
+                        is_proposed=True,
                     )
 
                     candidate.photo.name = "photo-placeholder.gif"
@@ -144,7 +150,7 @@ class Command(BaseCommand):
                     candidate.letter.name = "test.pdf"
                     candidate.statement.name = "test.pdf"
                     candidate.cv.name = "test.pdf"
-                    candidate.legal_record.name = "test.pdf"
+                    candidate.tax_records.name = "test.pdf"
                     candidate.save()
 
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
