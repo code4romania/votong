@@ -5,9 +5,11 @@ DEBUG = TEMPLATE_DEBUG = False
 
 SECRET_KEY = env.str("SECRET_KEY")  # noqa
 
-ALLOWED_HOSTS = ["votong.ro", "www.votong.ro"]
+# ALLOWED_HOSTS = ["votong.ro", "www.votong.ro"]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 
 STATIC_ROOT = os.path.join(BASE_DIR, "../", "static")
 STATICFILES_DIRS = []
