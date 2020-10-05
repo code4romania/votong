@@ -43,6 +43,9 @@
         <form class="ces-form" method="post" enctype="multipart/form-data" id="candidate-update-form">
             {% csrf_token %}
 
+            <p><b>Nume:</b> {{candidate.name}}</p>
+            <br>
+
             {{ form.non_field_errors }}
 
             {% for hidden_field in form.hidden_fields %}
@@ -59,7 +62,16 @@
 </div>
 
 <hr />
+
+{% if candidate.is_proposed %}
+
+<div class="container has-text-centered">
+  <a href="#" class="button is-danger is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('False'); $('#candidate-update-form').submit(); return false;">Retrage candidat</a>
+</div>
+{% else %}
 <div class="container has-text-centered">
   <a href="#" class="button is-primary is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
 </div>
+{% endif %}
+
 {% endblock %}

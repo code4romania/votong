@@ -72,25 +72,62 @@
         <span class="ngo-colorblock"></span>
         {% trans "Documents" %}
     </div>
+
+    {% if candidate.report_2019 %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a></p>
+        <a href="{{ ngo.report_2019.url }}" title="{% trans 'Yearly report 2019' %}">{% trans 'Yearly report 2019' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.report_2018 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2018.url }}" title="{% trans 'Yearly report 2018' %}">{% trans 'Yearly report 2018' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.report_2017 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2017.url }}" title="{% trans 'Yearly report 2017' %}">{% trans 'Yearly report 2017' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.fiscal_certificate %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.statute %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
         <a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a>
     </p>
-    <!-- <p>
+    {% endif %}
+
+    {% if candidate.statement %}
+    <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.letter.url }}" title="{% trans 'Letter of intent' %}">{% trans 'Letter of intent' %}</a>
-    </p> -->
+        <a href="{{ ngo.statement.url }}" title="{% trans 'Statement' %}">{% trans 'Statement' %}</a>
+    </p>
     {% endif %}
 
+    {% endif %}
 </div>
 
 {% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and ngo.status == 'pending' %}

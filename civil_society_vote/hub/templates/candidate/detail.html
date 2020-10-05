@@ -55,10 +55,12 @@
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
     <div class="buttons">
+    {% if candidate.org != request.user.orgs.first %}
     {% if user|already_supported:candidate %}
       <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger is-medium">Retrage susținerea</a>
     {% else %}
       <a href="{% url 'candidate-support' candidate.id %}" class="button is-success is-medium">Susține</a>
+    {% endif %}
     {% endif %}
       <span style="width: 100%; padding: 10px;">Susținători: {% supporters candidate.id %}</span>
     </div>
@@ -119,7 +121,7 @@
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ candidate.statement.url }}">{% trans 'Statement of conformity' %}</a>
+        <a href="{{ candidate.statement.url }}">{% trans 'Statement of interests' %}</a>
     </p>
     {% endif %}
     {% if candidate.tax_records %}

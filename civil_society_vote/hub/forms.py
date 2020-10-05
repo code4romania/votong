@@ -34,7 +34,17 @@ class OrganizationCreateForm(forms.ModelForm):
 
     class Meta:
         model = models.Organization
-        exclude = ["user", "status", "status_changed"]
+        exclude = [
+            "user",
+            "status",
+            "status_changed",
+            "report_2019",
+            "report_2018",
+            "report_2017",
+            "fiscal_certificate",
+            "statute",
+            "statement",
+        ]
         widgets = {
             "email": EmailInput(),
             "legal_representative_email": EmailInput(),
@@ -113,7 +123,7 @@ class CandidateRegisterForm(forms.ModelForm):
 class CandidateUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
-        exclude = ["org", "status", "status_changed"]
+        exclude = ["org", "name", "status", "status_changed"]
 
         widgets = {
             "is_proposed": forms.HiddenInput(),

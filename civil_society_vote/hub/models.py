@@ -179,6 +179,7 @@ class Organization(StatusModel, TimeStampedModel):
     report_2019 = models.FileField(
         _("Yearly report 2019"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
@@ -186,6 +187,7 @@ class Organization(StatusModel, TimeStampedModel):
     report_2018 = models.FileField(
         _("Yearly report 2018"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
@@ -193,6 +195,7 @@ class Organization(StatusModel, TimeStampedModel):
     report_2017 = models.FileField(
         _("Yearly report 2017"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
@@ -200,6 +203,7 @@ class Organization(StatusModel, TimeStampedModel):
     fiscal_certificate = models.FileField(
         _("Fiscal certificate"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text="Certificat fiscal emis în ultimele 6 luni",
@@ -207,6 +211,7 @@ class Organization(StatusModel, TimeStampedModel):
     statute = models.FileField(
         _("NGO Statute"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/ suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
@@ -214,6 +219,7 @@ class Organization(StatusModel, TimeStampedModel):
     statement = models.FileField(
         _("Statement"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
@@ -325,11 +331,11 @@ class Candidate(StatusModel, TimeStampedModel):
         help_text="Scrisoare de intenție (cu menționarea domeniului pe care dorește să-l reprezinte în cadrul CES) din care să rezulte desfăşurarea de activităţi de influenţare a politicilor publice și de reprezentare a intereselor unor grupuri de organizaţii care desfăşoară o activitate de interes public",
     )
     statement = models.FileField(
-        _("Statement of conformity"),
+        _("Statement of interests"),
         null=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
-        help_text="Declarație de interese (descarcă modelul de aici https://drive.google.com/file/d/1BOquxpQnuCPmhlt9HFjklCY_oZARVlz1/view?usp=sharing)",
+        help_text="Descarcă modelul de aici https://drive.google.com/file/d/1BOquxpQnuCPmhlt9HFjklCY_oZARVlz1/view?usp=sharing",
     )
     tax_records = models.FileField(
         _("Tax records"),

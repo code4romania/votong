@@ -277,6 +277,9 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         kwargs["user"] = self.request.user
         return kwargs
 
+    def get_success_url(self):
+        return reverse("candidate-update", args=(self.object.id,))
+
 
 class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdateView):
     permission_required = "hub.change_candidate"
@@ -284,6 +287,9 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
     template_name = "candidate/update.html"
     model = Candidate
     form_class = CandidateUpdateForm
+
+    def get_success_url(self):
+        return reverse("candidate-update", args=(self.object.id,))
 
 
 class CandidateVoteView(LoginRequiredMixin, View):
@@ -312,6 +318,9 @@ class CandidateVoteView(LoginRequiredMixin, View):
 @permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
 def candidate_support(request, pk):
     candidate = get_object_or_404(Candidate, pk=pk)
+
+    if candidate.org == request.user.orgs.first():
+        return redirect("candidate-detail", pk=pk)
 
     try:
         supporter = CandidateSupporter.objects.get(user=request.user, candidate=candidate)

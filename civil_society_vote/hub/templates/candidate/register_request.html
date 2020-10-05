@@ -57,7 +57,9 @@
 
                 {{ form|crispy }}
 
-                <input class="button is-success is-pulled-right" type="submit" value="{% trans "Save profile" %}">
+                <div class="has-text-right">
+                  <input class="button is-success is-medium" type="submit" value='{% trans "Save profile" %}'>
+                </div>
             </form>
         {% endif %}
     </div>
