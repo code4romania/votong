@@ -60,7 +60,8 @@
             {{ form|crispy }}
 
             <div class="has-text-right">
-              <input class="button is-success is-medium" type="submit" value='{% trans "Update profile" %}'>
+              <input class="button is-success is-medium" type="submit"
+                     value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
             </div>
         </form>
     {% endif %}
