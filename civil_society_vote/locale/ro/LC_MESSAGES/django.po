@@ -828,8 +828,6 @@ msgid "Update organization"
 msgstr "Modifică organizație"
 
 #: hub/templates/partials/ces_header.html:5
-#, fuzzy
-#| msgid "CES elections"
 msgid "CES Elections"
 msgstr "Alegeri CES"
 
