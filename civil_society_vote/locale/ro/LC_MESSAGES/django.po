@@ -477,33 +477,33 @@ msgstr "Studii"
 
 #: hub/models.py:340
 msgid "Main Objectives"
-msgstr "Obiective principale"
+msgstr "Care sunt principalele obiective pe care ți le propui dacă vei obține un loc în Comitetul Economic și Social?"
 
 #: hub/models.py:341
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
-msgstr "Care sunt principalele obiective pe care ți le propui dacă vei obține un loc în Comitetul Economic și Social?"
+msgstr " "
 
 #: hub/models.py:342
 msgid "Main Points"
-msgstr "Puncte importante de pe agenda domeniuliu"
+msgstr "Care sunt cele mai relevante momente din experiența ta care te recomandă pentru a ocupa un loc in Comitetul Economic și Social?"
 
 #: hub/models.py:343
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
-msgstr "Care sunt cele mai importante puncte care ar trebui să existe pe agenda domeniului pentru care îți depui candidatura?"
+msgstr " "
 
 #: hub/models.py:344
 msgid "Relevant Moments"
-msgstr ""
+msgstr "Care sunt cele mai relevante momente din experiența ta care te recomandă pentru a ocupa un loc in Comitetul Economic și Social?"
 
 #: hub/models.py:345
 msgid "Momente relevante din experiența ta"
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
-msgstr "Care sunt cele mai relevante momente din experiența ta care te recomandă pentru a ocupa un loc in Comitetul Economic și Social?"
+msgstr " "
 
 #: hub/models.py:347 hub/templates/registration/login.html:40
 msgid "Email"
