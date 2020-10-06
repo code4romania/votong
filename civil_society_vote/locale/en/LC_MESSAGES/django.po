@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 08:06+0000\n"
+"POT-Creation-Date: 2020-10-06 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,76 +462,106 @@ msgstr ""
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:340 hub/templates/registration/login.html:40
-msgid "Email"
+#: hub/models.py:340
+msgid "Main Objectives"
 msgstr ""
 
 #: hub/models.py:341
-msgid "Phone"
+msgid ""
+"What are your main goals if you get a seat on the Economic and Social "
+"Committee?"
 msgstr ""
 
 #: hub/models.py:342
+msgid "Main Points"
+msgstr ""
+
+#: hub/models.py:343
+msgid ""
+"What are the most important points that should be on the agenda of the field "
+"for which you are applying?"
+msgstr ""
+
+#: hub/models.py:344
+msgid "Relevant Moments"
+msgstr ""
+
+#: hub/models.py:345
+msgid ""
+"What are the most relevant moments in your experience that recommend you to "
+"take a place in the Economic and Social Committee?"
+msgstr ""
+
+#: hub/models.py:347 hub/templates/registration/login.html:40
+msgid "Email"
+msgstr ""
+
+#: hub/models.py:348
+msgid "Phone"
+msgstr ""
+
+#: hub/models.py:349
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:345 hub/templates/candidate/detail.html:121
+#: hub/models.py:352 hub/templates/candidate/detail.html:121
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:352 hub/templates/candidate/detail.html:113
+#: hub/models.py:359 hub/templates/candidate/detail.html:113
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:359 hub/templates/candidate/detail.html:129
+#: hub/models.py:366 hub/templates/candidate/detail.html:129
 msgid "Statement of interests"
 msgstr ""
 
-#: hub/models.py:366 hub/templates/candidate/detail.html:140
+#: hub/models.py:373 hub/templates/candidate/detail.html:140
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:373 hub/templates/candidate/detail.html:148
+#: hub/models.py:380 hub/templates/candidate/detail.html:148
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:381
+#: hub/models.py:388
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:384 hub/templates/candidate/list.html:36
+#: hub/models.py:391 hub/templates/candidate/list.html:36
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:385
+#: hub/models.py:392
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:404
+#: hub/models.py:411
 msgid "Votes"
 msgstr ""
 
-#: hub/models.py:409
+#: hub/models.py:416
 msgid "Supporters"
 msgstr ""
 
-#: hub/models.py:415
+#: hub/models.py:422
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:440
+#: hub/models.py:447
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:441
+#: hub/models.py:448
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:460
+#: hub/models.py:467
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:461
+#: hub/models.py:468
 msgid "Candidate supporter"
 msgstr ""
 

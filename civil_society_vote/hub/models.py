@@ -337,6 +337,26 @@ class Candidate(StatusModel, TimeStampedModel):
     experience = models.TextField(_("Professional experience"), max_length=2000)
     studies = models.TextField(_("Studies"), max_length=2000)
 
+    main_objectives = models.TextField(
+        _("Main Objectives"),
+        max_length=1000,
+        help_text=_("What are your main goals if you get a seat on the Economic and Social Committee?"),
+    )
+    main_points = models.TextField(
+        _("Main Points"),
+        max_length=1000,
+        help_text=_(
+            "What are the most important points that should be on the agenda of the field for which you are applying?"
+        ),
+    )
+    relevant_moments = models.TextField(
+        _("Relevant Moments"),
+        max_length=1000,
+        help_text=_(
+            "What are the most relevant moments in your experience that recommend you to take a place in the Economic and Social Committee?"
+        ),
+    )
+
     email = models.EmailField(_("Email"))
     phone = models.CharField(_("Phone"), max_length=30)
     photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
