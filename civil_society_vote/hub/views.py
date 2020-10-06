@@ -270,15 +270,6 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
             raise PermissionDenied
 
-        org = request.user.orgs.first()
-        if not all(
-            [org.report_2019, org.report_2018, org.report_2017, org.fiscal_certificate, org.statute, org.statement]
-        ):
-            messages.warning(
-                request,
-                "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în 'Profilul Organizatiei'.",
-            )
-
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

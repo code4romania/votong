@@ -191,6 +191,14 @@ class Organization(StatusModel, TimeStampedModel):
         storage=PrivateMediaStorageClass(),
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
+    accept_terms_and_conditions = models.BooleanField(
+        _("I agree to the Terms and Conditions of the VotONG platform"), null=False, blank=False
+    )
+    politic_members = models.BooleanField(
+        _(
+            "I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties."
+        )
+    )
 
     report_2019 = models.FileField(
         _("Yearly report 2019"),
@@ -252,6 +260,19 @@ class Organization(StatusModel, TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_complete(self):
+        return all(
+            [
+                self.report_2019,
+                self.report_2018,
+                self.report_2017,
+                self.fiscal_certificate,
+                self.statute,
+                self.statement,
+            ]
+        )
 
     def get_absolute_url(self):
         return reverse("ngo-detail", args=[self.pk])

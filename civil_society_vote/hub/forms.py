@@ -69,6 +69,16 @@ class OrganizationCreateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
+    def clean_accept_terms_and_conditions(self):
+        if not self.cleaned_data.get("accept_terms_and_conditions"):
+            raise ValidationError(_("You need to accept terms and conditions."))
+        return self.cleaned_data.get("accept_terms_and_conditions")
+
+    def clean_politic_members(self):
+        if not self.cleaned_data.get("politic_members"):
+            raise ValidationError(_("Organisation members need to be apolitical."))
+        return self.cleaned_data.get("politic_members")
+
 
 class OrganizationUpdateForm(forms.ModelForm):
     field_order = ORG_FIELD_ORDER
@@ -97,10 +107,11 @@ class OrganizationUpdateForm(forms.ModelForm):
 class CandidateRegisterForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
-        exclude = ["is_proposed", "status", "status_changed"]
+        exclude = ["status", "status_changed"]
 
         widgets = {
             "org": forms.HiddenInput(),
+            "is_proposed": forms.HiddenInput(),
             "email": EmailInput(),
         }
 
@@ -118,6 +129,17 @@ class CandidateRegisterForm(forms.ModelForm):
 
     def clean_org(self):
         return self.user.orgs.first().id
+
+    def clean(self):
+        cleaned_data = super().clean()
+        org = cleaned_data.get("org")
+
+        if cleaned_data.get("is_proposed") and not org.is_complete:
+            raise ValidationError(
+                _("To add a candidate you must upload all required documents in " "'Organization Profile'")
+            )
+
+        return cleaned_data
 
 
 class CandidateUpdateForm(forms.ModelForm):
