@@ -86,7 +86,8 @@
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
                 </div>
-                <div class="need-description is-hidden-mobile">{{candidate.experience}}</div>
+                <!-- <div class="need-description is-hidden-mobile">{{candidate.experience}}</div> -->
+                <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
             </div>
 
             <div class="need-call2action">

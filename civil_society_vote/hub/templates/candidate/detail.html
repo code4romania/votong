@@ -19,7 +19,8 @@
 {% get_obj_perms user for candidate as "user_permissions" %}
 
 <div class="container">
-    <h1 class="section-title">{{ candidate.domain.name }}</h1>
+    <!-- <h1 class="section-title">{{ candidate.domain.name }}</h1> -->
+    <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
     <p class="section-text">{{ candidate.domain.description }}</p>
 </div>
 
