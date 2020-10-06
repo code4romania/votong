@@ -173,8 +173,8 @@
 
 <div class="container detail-desc">
   <div class="buttons vote-org-buttons">
-    <a href="{% url 'ngo-vote' ngo.id 'a' %}" class="button is-success is-large vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!')">Aproba</a>
-    <a href="{% url 'ngo-vote' ngo.id 'r' %}" class="button is-danger is-large vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!')">Respinge</a>
+    <a href="{% url 'ngo-vote' ngo.id 'a' %}" class="button is-success vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!')">Aprobă</a>
+    <a href="{% url 'ngo-vote' ngo.id 'r' %}" class="button is-danger vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!')">Respinge</a>
   </div>
 </div>
 

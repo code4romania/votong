@@ -21,7 +21,7 @@
       <a href="{% url 'candidate-update' candidate.id %}">Candidatul meu</a>
     </li>
     <li><a href="#">Voturile mele</a></li>
-    <li {% if active == "settings" %}class="is-active"{% endif %}>
+    <li {% if active == "settings" %}class="is-active" {% endif %}>
       <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
     </li>
   </ul>
@@ -29,7 +29,7 @@
 {% endif %}
 
 <h2 class="title border-b uppercase">
-    {% if candidate.is_proposed %}Profil{% else %}Editeaza profil{% endif %} candidat
+  {% if candidate.is_proposed %}Profil{% else %}Editeaza profil{% endif %} candidat
 </h2>
 
 <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidatului</a>
@@ -40,24 +40,29 @@
 {% if candidate.is_proposed %}
 
 <div class="container">
-    <a class="is-success button"
-       onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? window.location='{% url "candidate-revoke" candidate.id %}': false">
+  
+  <div class="columns">
+    <div class="column is-narrow">
+      <a class="is-success button"
+        onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? window.location='{% url "candidate-revoke" candidate.id %}': false">
         Propune un alt candidat
-    </a>
-    <br>
-    <br>
-
-    <a href="#" class="is-danger button"
-       onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? $('#id_is_proposed').val('False') && $('#candidate-update-form').submit() : false">Retrage candidat</a>
-    <br>
-    <br>
+      </a>
+    </div>
+    <div class="column is-narrow">
+      <a href="#" class="is-danger button"
+        onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? $('#id_is_proposed').val('False') && $('#candidate-update-form').submit() : false">Retrage
+        candidat</a>
+    </div>
+  </div>
 
 </div>
 {% else%}
 <div class="container">
     <p>
-        Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați și ultima secțiune de documente solicitate din Profilul organizației (tab-ul alăturat).
-        Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
+      Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați
+      și
+      ultima secțiune de documente solicitate din Profilul organizației (tab-ul alăturat).
+      Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
     </p>
     <br>
 </div>
@@ -65,42 +70,43 @@
 
 
 <div class="container">
-    {% if messages %}
-      {% for message in messages %}
-        <article class="message is-{{ message.tags }}">
-          <div class="message-body">{{ message }}</div>
-        </article>
-      {% endfor %}
-    {% else %}
-        <form class="ces-form" method="post" enctype="multipart/form-data" id="candidate-update-form">
-            {% csrf_token %}
+  {% if messages %}
+  {% for message in messages %}
+  <article class="message is-{{ message.tags }}">
+    <div class="message-body">{{ message }}</div>
+  </article>
+  {% endfor %}
+  {% else %}
+  <form class="ces-form" method="post" enctype="multipart/form-data" id="candidate-update-form">
+    {% csrf_token %}
 
-            {% if candidate.is_proposed %}
-            <p><b>Nume:</b> {{candidate.name}}</p>
-            <br>
-            {% endif %}
-
-            {{ form.non_field_errors }}
-
-            {% for hidden_field in form.hidden_fields %}
-                {{ hidden_field.errors }}
-            {% endfor %}
-
-            {{ form|crispy }}
-
-            <div class="has-text-right">
-              <input class="button is-success is-medium" type="submit"
-                     value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
-            </div>
-        </form>
+    {% if candidate.is_proposed %}
+    <p><b>Nume:</b> {{candidate.name}}</p>
+    <br>
     {% endif %}
+
+    {{ form.non_field_errors }}
+
+    {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {% endfor %}
+
+    {{ form|crispy }}
+
+    <div class="has-text-right">
+      <input class="button is-success" type="submit"
+        value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
+    </div>
+  </form>
+  {% endif %}
 </div>
 
 <hr />
 
 {% if user.orgs.first.is_complete and not candidate.is_proposed %}
 <div class="container has-text-centered">
-  <a href="#" class="button is-primary is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
+  <a href="#" class="button is-warning" style="width: 100%;"
+    onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
 </div>
 {% endif %}
 
