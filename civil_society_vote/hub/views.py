@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.contrib.sites.shortcuts import get_current_site
@@ -10,13 +11,18 @@ from django.template import Context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from django.views.generic.base import TemplateView
+from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionRequiredMixin
 
 from hub import utils
-from hub.forms import CandidateRegisterForm, CandidateUpdateForm, OrganizationCreateForm, OrganizationUpdateForm
+from hub.forms import (
+    CandidateRegisterForm,
+    CandidateUpdateForm,
+    ContactForm,
+    OrganizationCreateForm,
+    OrganizationUpdateForm,
+)
 from hub.models import Candidate, CandidateSupporter, CandidateVote, City, Domain, FeatureFlag, Organization
 
 
@@ -34,13 +40,15 @@ class MenuMixin:
         return context
 
 
-class HomeView(MenuMixin, TemplateView):
+class HomeView(MenuMixin, SuccessMessageMixin, FormView):
     template_name = "home.html"
+    form_class = ContactForm
+    success_url = "/"
+    success_message = _("Thank you! We'll get in touch soon!")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # TODO: Add needed context here
-        return context
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)
 
 
 class HubListView(MenuMixin, ListView):

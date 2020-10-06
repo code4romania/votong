@@ -150,10 +150,20 @@
         </p>
     </div>
     <div id="contact-form">
-        <form action="#" class="box">
+        {% if messages %}
+        <article class="message is-success">
+            <div class="message-body">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+        </article>
+        {% endif %}
+        <form action="" method="post" class="box">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" placeholder="Nume" />
+                    <input class="input" type="text" placeholder="Nume" name="name" />
+
                     <span class="icon is-small is-left">
                         <i class="fas fa-graduation-cap"></i>
                     </span>
@@ -162,7 +172,8 @@
 
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" placeholder="Email" />
+                    <input class="input" type="text" placeholder="Email" name="email" />
+
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -171,7 +182,7 @@
 
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <textarea class="input" placeholder="Mesaj"></textarea>
+                    <textarea class="input" placeholder="Mesaj" name="message"></textarea>
                     <span class="icon is-small is-left">
                         <i class="fas fa-unlock-alt"></i>
                     </span>
@@ -179,12 +190,13 @@
             </div>
 
             <label class="checkbox">
-                <input type="checkbox">
-                Sunt de acord cu <a href="{% url 'terms'%}">termenii și condițiile platformei VotONG</a>.
+                <input type="checkbox" name="terms_and_conditions">
+                Sunt de acord cu <a href="{% url 'terms' %}">termenii și condițiile platformei VotONG</a>.
             </label>
 
             <div id="contact-form-buttons">
                 <button type="submit" class="button is-warning">Trimite</button>
+                {% csrf_token %}
             </div>
         </form>
     </div>

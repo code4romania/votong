@@ -3,6 +3,7 @@ from captcha.widgets import ReCaptchaV3
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -179,3 +180,26 @@ class ImportCitiesForm(forms.Form):
         f = self.cleaned_data["csv_file"]
         if not f.name.lower().endswith(".csv"):
             raise ValidationError(_("Uploaded file is not a CSV file"))
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=True)
+    email = forms.CharField(required=True)
+    message = forms.CharField(required=True)
+    terms_and_conditions = forms.BooleanField(required=True)
+
+    captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "help"}), label="")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if not settings.RECAPTCHA_PUBLIC_KEY:
+            del self.fields["captcha"]
+
+    def send_email(self):
+        send_mail(
+            f"Contact {self.cleaned_data.get('name')}",
+            f"{self.cleaned_data.get('email')}: {self.cleaned_data.get('message')}",
+            settings.NO_REPLY_EMAIL,
+            (settings.DEFAULT_FROM_EMAIL,),
+        )

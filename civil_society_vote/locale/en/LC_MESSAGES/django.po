@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 08:48+0000\n"
+"POT-Creation-Date: 2020-10-06 10:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,33 +191,33 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:74
+#: hub/forms.py:76
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:79
+#: hub/forms.py:81
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:123
+#: hub/forms.py:125
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:126
+#: hub/forms.py:128
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:139
+#: hub/forms.py:140
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:165
+#: hub/forms.py:177
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:170
+#: hub/forms.py:182
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -302,7 +302,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:124 hub/models.py:329 hub/templates/candidate/detail.html:79
+#: hub/models.py:124 hub/models.py:329 hub/templates/candidate/detail.html:80
 msgid "Description"
 msgstr ""
 
@@ -444,7 +444,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:330 hub/templates/candidate/detail.html:105
+#: hub/models.py:330 hub/templates/candidate/detail.html:106
 msgid "Curriculum Vitae"
 msgstr ""
 
@@ -454,11 +454,11 @@ msgstr ""
 msgid "Role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:337 hub/templates/candidate/detail.html:90
+#: hub/models.py:337 hub/templates/candidate/detail.html:91
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:338 hub/templates/candidate/detail.html:91
+#: hub/models.py:338 hub/templates/candidate/detail.html:92
 msgid "Studies"
 msgstr ""
 
@@ -472,96 +472,96 @@ msgid ""
 "Committee?"
 msgstr ""
 
-#: hub/models.py:346
+#: hub/models.py:348
 msgid "Main Points"
 msgstr ""
 
-#: hub/models.py:349
+#: hub/models.py:351
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr ""
 
-#: hub/models.py:353
+#: hub/models.py:357
 msgid "Relevant Moments"
 msgstr ""
 
-#: hub/models.py:356
+#: hub/models.py:360
 msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr ""
 
-#: hub/models.py:360 hub/templates/registration/login.html:40
+#: hub/models.py:366 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:361
+#: hub/models.py:367
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:362
+#: hub/models.py:368
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:365 hub/templates/candidate/detail.html:121
+#: hub/models.py:371 hub/templates/candidate/detail.html:122
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:372 hub/templates/candidate/detail.html:113
+#: hub/models.py:378 hub/templates/candidate/detail.html:114
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:379 hub/templates/candidate/detail.html:129
+#: hub/models.py:385 hub/templates/candidate/detail.html:130
 msgid "Statement of interests"
 msgstr ""
 
-#: hub/models.py:386 hub/templates/candidate/detail.html:140
+#: hub/models.py:392 hub/templates/candidate/detail.html:141
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:393 hub/templates/candidate/detail.html:148
+#: hub/models.py:399 hub/templates/candidate/detail.html:149
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:401
+#: hub/models.py:407
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:404 hub/templates/candidate/list.html:36
+#: hub/models.py:410 hub/templates/candidate/list.html:36
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:405
+#: hub/models.py:411
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:424
+#: hub/models.py:430
 msgid "Votes"
 msgstr ""
 
-#: hub/models.py:429
+#: hub/models.py:435
 msgid "Supporters"
 msgstr ""
 
-#: hub/models.py:435
+#: hub/models.py:441
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:460
+#: hub/models.py:466
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:461
+#: hub/models.py:467
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:480
+#: hub/models.py:486
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:481
+#: hub/models.py:487
 msgid "Candidate supporter"
 msgstr ""
 
@@ -592,15 +592,15 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:87
+#: hub/templates/candidate/detail.html:88
 msgid "General information"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:89
+#: hub/templates/candidate/detail.html:90
 msgid "Role"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:92
+#: hub/templates/candidate/detail.html:99 hub/templates/ngo/detail.html:92
 msgid "Documents"
 msgstr ""
 
@@ -608,12 +608,12 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/list.html:94
+#: hub/templates/candidate/list.html:95
 #: hub/templates/committee/candidates.html:43
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:110
+#: hub/templates/candidate/list.html:111
 #: hub/templates/committee/candidates.html:59
 #: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:196
 msgid "No results matching query"
@@ -636,11 +636,11 @@ msgstr "Candidați propusi"
 msgid "Save profile"
 msgstr ""
 
-#: hub/templates/candidate/update.html:64
+#: hub/templates/candidate/update.html:93
 msgid "Publish changes"
 msgstr ""
 
-#: hub/templates/candidate/update.html:64
+#: hub/templates/candidate/update.html:93
 msgid "Update profile"
 msgstr ""
 
@@ -1235,59 +1235,67 @@ msgstr ""
 msgid "rohelp@code4.ro"
 msgstr ""
 
-#: hub/urls.py:24
+#: hub/urls.py:25
 msgid "candidates/"
 msgstr ""
 
-#: hub/urls.py:25
+#: hub/urls.py:26
 msgid "candidates/register"
 msgstr ""
 
-#: hub/urls.py:26
+#: hub/urls.py:27
 msgid "candidates/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:27
+#: hub/urls.py:28
 msgid "candidates/<int:pk>/vote"
 msgstr ""
 
-#: hub/urls.py:28
+#: hub/urls.py:29
 msgid "candidates/<int:pk>/support"
 msgstr ""
 
-#: hub/urls.py:29
-msgid "candidates/<int:pk>/update"
-msgstr ""
-
-#: hub/urls.py:30 hub/urls.py:37
-msgid "committee/ngos/"
+#: hub/urls.py:30
+msgid "candidates/<int:pk>/revoke"
 msgstr ""
 
 #: hub/urls.py:31
-msgid "committee/candidates/"
+msgid "candidates/<int:pk>/update"
 msgstr ""
 
-#: hub/urls.py:32
-msgid "ngos/"
+#: hub/urls.py:32 hub/urls.py:39
+msgid "committee/ngos/"
 msgstr ""
 
 #: hub/urls.py:33
-msgid "ngos/register"
+msgid "committee/candidates/"
 msgstr ""
 
 #: hub/urls.py:34
-msgid "ngos/<int:pk>"
+msgid "ngos/"
 msgstr ""
 
 #: hub/urls.py:35
-msgid "ngos/<int:pk>/vote/<str:action>"
+msgid "ngos/register"
 msgstr ""
 
 #: hub/urls.py:36
+msgid "ngos/<int:pk>"
+msgstr ""
+
+#: hub/urls.py:37
+msgid "ngos/<int:pk>/vote/<str:action>"
+msgstr ""
+
+#: hub/urls.py:38
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:161
+#: hub/views.py:47
+msgid "Thank you! We'll get in touch soon!"
+msgstr ""
+
+#: hub/views.py:168
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
