@@ -11,59 +11,57 @@
 
 {% block left-side-view %}
 
-<div class="columns is-centered">
-  <div class="column is-two-thirds">
 
-    {% if user.orgs.exists %}
 
-    <div class="tabs is-medium">
-      <ul>
-        <li>
-          <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
-        </li>
-        <li class="is-active">
-        {% if user.orgs.first.candidate %}
-          <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
-        {% else %}
-          <a href="{% url 'candidate-register-request' %}">Candidatul meu</a>
-        {% endif %}
-        </li>
-        <li><a href="#">Voturile mele</a></li>
-      </ul>
-    </div>
+{% if user.orgs.exists %}
 
+<div class="tabs is-medium">
+  <ul>
+    <li>
+      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+    </li>
+    <li class="is-active">
+    {% if user.orgs.first.candidate %}
+      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+    {% else %}
+      <a href="{% url 'candidate-register-request' %}">Adauga candidat</a>
     {% endif %}
-
-    <h2 class="title border-b uppercase">Adauga un candidat</h2>
-
-    <div class="container">
-        {% if messages %}
-            <article class="message is-success">
-            <div class="message-body">
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            </div>
-            </article>
-        {% else %}
-            <form method="post" enctype="multipart/form-data" >
-                {% csrf_token %}
-
-                {{ form.non_field_errors }}
-
-                {% for hidden_field in form.hidden_fields %}
-                    {{ hidden_field.errors }}
-                {% endfor %}
-
-                {{ form|crispy }}
-
-                <div class="has-text-right">
-                  <input class="button is-success is-medium" type="submit" value='{% trans "Save profile" %}'>
-                </div>
-            </form>
-        {% endif %}
-    </div>
-
-  </div>
+    </li>
+    <li><a href="#">Voturile mele</a></li>
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
+  </ul>
 </div>
+
+{% endif %}
+
+<h2 class="title border-b uppercase">Adauga un candidat</h2>
+
+<div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <article class="message is-{{ message.tags }}">
+          <div class="message-body">{{ message }}</div>
+        </article>
+      {% endfor %}
+    {% else %}
+        <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field.errors }}
+            {% endfor %}
+
+            {{ form|crispy }}
+
+            <div class="has-text-right">
+              <input class="button is-success is-medium" type="submit" value='{% trans "Save profile" %}'>
+            </div>
+        </form>
+    {% endif %}
+</div>
+
 {% endblock %}

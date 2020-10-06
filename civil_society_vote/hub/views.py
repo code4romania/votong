@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.contrib.sites.shortcuts import get_current_site
@@ -182,6 +183,9 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
     model = Organization
     form_class = OrganizationUpdateForm
 
+    def get_success_url(self):
+        return reverse("ngo-update", args=(self.object.id,))
+
 
 @permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
 def organization_vote(request, pk, action):
@@ -265,6 +269,16 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     def get(self, request, *args, **kwargs):
         if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
             raise PermissionDenied
+
+        org = request.user.orgs.first()
+        if not all(
+            [org.report_2019, org.report_2018, org.report_2017, org.fiscal_certificate, org.statute, org.statement]
+        ):
+            messages.warning(
+                request,
+                "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în 'Profilul Organizatiei'.",
+            )
+
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
