@@ -76,9 +76,11 @@
     </div>
 
     <p><span class="label">Reprezentant legal:</span> {{ ngo.legal_representative_name }}</p>
+    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
     <p><span class="label">Email reprezentant legal:</span> {{ ngo.legal_representative_email }}</p>
     {% if ngo.legal_representative_phone %}
     <p><span class="label">Telefon:</span> {{ ngo.legal_representative_phone }}</p>
+    {% endif %}
     {% endif %}
     <p><span class="label">Președintele organizației:</span> {{ ngo.organisation_head_name }}</p>
     <p><span class="label">Membrii Consiliului Director:</span> {{ ngo.board_council }}</p>
