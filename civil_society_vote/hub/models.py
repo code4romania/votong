@@ -163,6 +163,7 @@ class Organization(StatusModel, TimeStampedModel):
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
     address = models.CharField(_("Address"), max_length=254)
+    registration_number = models.CharField(_("Registration number"), max_length=20)
 
     email = models.EmailField(_("Organisation Email"))
     phone = models.CharField(_("Organisation Phone"), max_length=30, null=True, blank=True)
@@ -175,6 +176,21 @@ class Organization(StatusModel, TimeStampedModel):
     organisation_head_name = models.CharField(_("Organisation Head Name"), max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
+
+    last_balance_sheet = models.FileField(
+        _("First page of last balance sheet"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Prima pagină a ultimului bilanț contabil depus la Ministerul Finanțelor",
+    )
+    statute = models.FileField(
+        _("NGO Statute"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
+    )
 
     report_2019 = models.FileField(
         _("Yearly report 2019"),
@@ -208,14 +224,6 @@ class Organization(StatusModel, TimeStampedModel):
         storage=PrivateMediaStorageClass(),
         help_text="Certificat fiscal emis în ultimele 6 luni",
     )
-    statute = models.FileField(
-        _("NGO Statute"),
-        null=True,
-        blank=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-        help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/ suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
-    )
     statement = models.FileField(
         _("Statement"),
         null=True,
@@ -226,15 +234,11 @@ class Organization(StatusModel, TimeStampedModel):
     )
 
     # founders = models.CharField(_("Founders/Associates"), max_length=254)
-    # reg_com_number = models.CharField(_("Registration number"), max_length=20)
     # state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
     # purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
     # purpose_current = models.CharField(_("Current purpose"), max_length=254)
     # representative = models.CharField(_("Legal representative"), max_length=254)
     # letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
-    # last_balance_sheet = models.FileField(
-    #     _("First page of last balance sheet"), max_length=300, storage=PrivateMediaStorageClass(),
-    # )
 
     class Meta:
         verbose_name_plural = _("Organizations")

@@ -40,11 +40,11 @@
             </div>
             <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
         </div>
-        <div class="need-subtitle is-hidden-mobile">{{ ngo.email }}</div>
         <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
-        <div class="need-subtitle is-hidden-tablet">{{ ngo.email }}</div>
-        <div class="need-description">{{ ngo.domain }}</div>
+
+        {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
         <div class="need-description"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
+        {% endif %}
     </div>
 </div>
 
@@ -52,64 +52,54 @@
 <hr/>
 
 <div class="container detail-desc">
-    <div class="detail-desc-title">
-        <span class="ngo-colorblock"></span>
-        {% trans "About the organization" %}
-    </div>
+
     {% if ngo.description %}
-    <p><span class="label">{% trans 'Description' %}:</span> {{ ngo.description }}</p>
+    <p class="label">Scurta descriere:</p>
+    {{ ngo.description|linebreaks }}
     <hr>
     {% endif %}
-    <p><span class="label">{% trans 'Founders' %}:</span> {{ ngo.founders }}</p>
-    <p><span class="label">{% trans 'Representative' %}:</span> {{ ngo.representative }}</p>
-    <p><span class="label">{% trans 'Board council' %}:</span> {{ ngo.board_council }}</p>
-    <hr>
-    <p><span class="label">{% trans 'Initial purpose' %}:</span> {{ ngo.purpose_initial }}</p>
-    <p><span class="label">{% trans 'Current purpose' %}:</span> {{ ngo.purpose_current }}</p>
+
+    <div class="detail-desc-title">
+        <span class="ngo-colorblock"></span>
+        Informații generale
+    </div>
+
+    <p><span class="label">Numele organizației:</span> {{ ngo.name }}</p>
+    <p><span class="label">Email:</span> {{ ngo.email }}</p>
+    <p><span class="label">Telefon:</span> {{ ngo.phone }}</p>
+    <p><span class="label">Adresa fizică:</span> {{ ngo.address }}</p>
+    <p><span class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ ngo.registration_number }}</p>
+
+    <div class="detail-desc-title">
+        <span class="ngo-colorblock"></span>
+        Reprezentant legal
+    </div>
+
+    <p><span class="label">Reprezentant legal:</span> {{ ngo.legal_representative_name }}</p>
+    <p><span class="label">Email reprezentant legal:</span> {{ ngo.legal_representative_email }}</p>
+    {% if ngo.legal_representative_phone %}
+    <p><span class="label">Telefon:</span> {{ ngo.legal_representative_phone }}</p>
+    {% endif %}
+    <p><span class="label">Președintele organizației:</span> {{ ngo.organisation_head_name }}</p>
+    <p><span class="label">Membrii Consiliului Director:</span> {{ ngo.board_council }}</p>
 
     {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
+
     <div class="detail-desc-title">
         <span class="ngo-colorblock"></span>
         {% trans "Documents" %}
     </div>
 
-    {% if candidate.report_2019 %}
+    {% if ngo.last_balance_sheet %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.report_2019.url }}" title="{% trans 'Yearly report 2019' %}">{% trans 'Yearly report 2019' %}</a>
+        <a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a>
     </p>
     {% endif %}
 
-    {% if candidate.report_2018 %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.report_2018.url }}" title="{% trans 'Yearly report 2018' %}">{% trans 'Yearly report 2018' %}</a>
-    </p>
-    {% endif %}
-
-    {% if candidate.report_2017 %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.report_2017.url }}" title="{% trans 'Yearly report 2017' %}">{% trans 'Yearly report 2017' %}</a>
-    </p>
-    {% endif %}
-
-    {% if candidate.fiscal_certificate %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
-    </p>
-    {% endif %}
-
-    {% if candidate.statute %}
+    {% if ngo.statute %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
@@ -118,7 +108,43 @@
     </p>
     {% endif %}
 
-    {% if candidate.statement %}
+    {% if ngo.report_2019 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2019.url }}" title="{% trans 'Yearly report 2019' %}">{% trans 'Yearly report 2019' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.report_2018 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2018.url }}" title="{% trans 'Yearly report 2018' %}">{% trans 'Yearly report 2018' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.report_2017 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2017.url }}" title="{% trans 'Yearly report 2017' %}">{% trans 'Yearly report 2017' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.fiscal_certificate %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.statement %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
@@ -127,6 +153,15 @@
     </p>
     {% endif %}
 
+    {% endif %}
+
+    {% if ngo.candidate %}
+    <div class="detail-desc-title">
+        <span class="ngo-colorblock"></span>
+        Candidat
+    </div>
+
+    <p><span class="label">Candidat:</span> <a href="{% url 'candidate-detail' ngo.candidate.id %}">{{ ngo.candidate.name }}</a></p>
     {% endif %}
 </div>
 

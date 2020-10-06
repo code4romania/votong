@@ -155,11 +155,15 @@
 
 <div class="container detail-desc">
     <div class="detail-desc-title">
-        <span class="candidate-colorblock"></span>
-    {{ candidate.org.name }}</div>
-    <p><span class="label">{% trans 'Founders/Associates' %}:</span> {{ candidate.org.founders }}</p>
-    <p><span class="label">{% trans 'Board council' %}:</span> {{ candidate.org.board_council }}</p>
-    <p><span class="label">{% trans 'Legal representative' %}:</span> {{ candidate.org.representative }}</p>
+      <span class="candidate-colorblock"></span>
+      Organizație
+    </div>
+    <p><span class="label">Numele organizației:</span> <a href="{% url 'ngo-detail' candidate.org.id %}">{{ candidate.org.name }}</a></p>
+    {% if candidate.org.description %}
+    <p class="label">Scurta descriere:</p>
+    {{ candidate.org.description|linebreaks }}
+    <hr>
+    {% endif %}
     <hr>
 </div>
 

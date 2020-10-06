@@ -34,7 +34,9 @@
 
             {{ form|crispy }}
 
-            <input class="button is-success is-pulled-right" type="submit" value="{% trans "Send registration request" %}">
+            <div class="has-text-right">
+              <input class="button is-success is-medium" type="submit" value='{% trans "Send registration request" %}'>
+            </div>
         </form>
     {% endif %}
 </div>

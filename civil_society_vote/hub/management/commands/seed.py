@@ -106,7 +106,7 @@ class Command(BaseCommand):
                     email=fake.safe_email(),
                     phone=fake.phone_number(),
                     description=fake.text(),
-                    # reg_com_number=fake.ssn(),
+                    registration_number=fake.ssn(),
                     # purpose_initial=fake.sentence(),
                     # purpose_current=fake.sentence(),
                     # founders=fake.name(),
@@ -126,7 +126,7 @@ class Command(BaseCommand):
                 org.statute.name = "test.pdf"
                 org.statement.name = "test.pdf"
                 # org.letter.name = "test.pdf"
-                # org.last_balance_sheet.name = "test.pdf"
+                org.last_balance_sheet.name = "test.pdf"
                 org.save()
 
                 if status == "rejected":

@@ -14,6 +14,7 @@ ORG_FIELD_ORDER = [
     "county",
     "city",
     "address",
+    "registration_number",
     "email",
     "phone",
     "description",
@@ -42,7 +43,6 @@ class OrganizationCreateForm(forms.ModelForm):
             "report_2018",
             "report_2017",
             "fiscal_certificate",
-            "statute",
             "statement",
         ]
         widgets = {
