@@ -28,7 +28,9 @@
 </div>
 {% endif %}
 
-<h2 class="title border-b uppercase">Editeaza profil candidat</h2>
+<h2 class="title border-b uppercase">
+    {% if candidate.is_proposed %}Profil{% else %}Editeaza profil{% endif %} candidat
+</h2>
 
 <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidatului</a>
 <br><br>
