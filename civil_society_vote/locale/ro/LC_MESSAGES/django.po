@@ -756,11 +756,9 @@ msgstr "Încarcă document"
 
 #: hub/templates/footer.html:16
 msgid "About VotONG"
-msgstr ""
+msgstr "Despre VotONG"
 
 #: hub/templates/footer.html:17
-#, fuzzy
-#| msgid "Privacy policy"
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
 
