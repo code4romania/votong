@@ -598,11 +598,11 @@ msgstr "Organizații"
 
 #: hub/templates/committee/partials/nav.html:9
 msgid "Pending candidates"
-msgstr "Adaugă candidat"
+msgstr "Candidați propusi"
 
 #: hub/templates/committee/partials/nav.html:12
 msgid "Accepted candidates"
-msgstr "Adaugă candidat"
+msgstr "Candidați selectați"
 
 #: hub/templates/committee/partials/nav.html:15
 #: hub/templates/ngo/update.html:30
