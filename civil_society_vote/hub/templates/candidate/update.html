@@ -66,6 +66,7 @@
 
 <hr />
 
+{% if user.orgs.first.is_complete %}
 {% if candidate.is_proposed %}
 
 <div class="container has-text-centered">
@@ -75,6 +76,7 @@
 <div class="container has-text-centered">
   <a href="#" class="button is-primary is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
 </div>
+{% endif %}
 {% endif %}
 
 {% endblock %}

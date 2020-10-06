@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 07:01+0000\n"
+"POT-Creation-Date: 2020-10-06 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,19 +191,33 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:112
+#: hub/forms.py:74
+msgid "You need to accept terms and conditions."
+msgstr ""
+
+#: hub/forms.py:79
+msgid "Organisation members need to be apolitical."
+msgstr ""
+
+#: hub/forms.py:123
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:115
+#: hub/forms.py:126
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:143
+#: hub/forms.py:139
+msgid ""
+"To add a candidate you must upload all required documents in 'Organization "
+"Profile'"
+msgstr ""
+
+#: hub/forms.py:165
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:148
+#: hub/forms.py:170
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -284,15 +298,15 @@ msgstr ""
 msgid "Email templates"
 msgstr ""
 
-#: hub/models.py:123 hub/models.py:307
+#: hub/models.py:123 hub/models.py:328
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:124 hub/models.py:308 hub/templates/candidate/detail.html:79
+#: hub/models.py:124 hub/models.py:329 hub/templates/candidate/detail.html:79
 msgid "Description"
 msgstr ""
 
-#: hub/models.py:127 hub/templates/ngo/list.html:171
+#: hub/models.py:127
 msgid "Domain"
 msgstr ""
 
@@ -317,15 +331,15 @@ msgstr ""
 msgid "Cities"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:302
+#: hub/models.py:156 hub/models.py:323
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:302
+#: hub/models.py:156 hub/models.py:323
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:302
+#: hub/models.py:156 hub/models.py:323
 msgid "Rejected"
 msgstr ""
 
@@ -383,130 +397,141 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:181 hub/templates/ngo/detail.html:98
+#: hub/models.py:181 hub/templates/ngo/detail.html:100
 msgid "First page of last balance sheet"
 msgstr ""
 
-#: hub/models.py:188 hub/templates/ngo/detail.html:107
+#: hub/models.py:188 hub/templates/ngo/detail.html:109
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:196 hub/templates/ngo/detail.html:116
+#: hub/models.py:195
+msgid "I agree to the Terms and Conditions of the VotONG platform"
+msgstr ""
+
+#: hub/models.py:199
+msgid ""
+"I declare that the members of the management of the organization I represent "
+"(the President and the members of the Board of Directors) are not members of "
+"political parties."
+msgstr ""
+
+#: hub/models.py:204 hub/templates/ngo/detail.html:118
 msgid "Yearly report 2019"
 msgstr ""
 
-#: hub/models.py:204 hub/templates/ngo/detail.html:125
+#: hub/models.py:212 hub/templates/ngo/detail.html:127
 msgid "Yearly report 2018"
 msgstr ""
 
-#: hub/models.py:212 hub/templates/ngo/detail.html:134
+#: hub/models.py:220 hub/templates/ngo/detail.html:136
 msgid "Yearly report 2017"
 msgstr ""
 
-#: hub/models.py:220 hub/templates/ngo/detail.html:143
+#: hub/models.py:228 hub/templates/ngo/detail.html:145
 msgid "Fiscal certificate"
 msgstr ""
 
-#: hub/models.py:228 hub/templates/ngo/detail.html:152
+#: hub/models.py:236 hub/templates/ngo/detail.html:154
 msgid "Statement"
 msgstr ""
 
-#: hub/models.py:244 hub/templates/header.html:28
+#: hub/models.py:252 hub/templates/header.html:28
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:245
+#: hub/models.py:253
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:309 hub/templates/candidate/detail.html:105
+#: hub/models.py:330 hub/templates/candidate/detail.html:105
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:310
+#: hub/models.py:331
 #, fuzzy
 #| msgid "Pending Organisations"
 msgid "Role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:316 hub/templates/candidate/detail.html:90
+#: hub/models.py:337 hub/templates/candidate/detail.html:90
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:317 hub/templates/candidate/detail.html:91
+#: hub/models.py:338 hub/templates/candidate/detail.html:91
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:319 hub/templates/registration/login.html:40
+#: hub/models.py:340 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:320
+#: hub/models.py:341
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:321
+#: hub/models.py:342
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:324 hub/templates/candidate/detail.html:121
+#: hub/models.py:345 hub/templates/candidate/detail.html:121
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:331 hub/templates/candidate/detail.html:113
+#: hub/models.py:352 hub/templates/candidate/detail.html:113
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:338 hub/templates/candidate/detail.html:129
+#: hub/models.py:359 hub/templates/candidate/detail.html:129
 msgid "Statement of interests"
 msgstr ""
 
-#: hub/models.py:345 hub/templates/candidate/detail.html:140
+#: hub/models.py:366 hub/templates/candidate/detail.html:140
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:352 hub/templates/candidate/detail.html:148
+#: hub/models.py:373 hub/templates/candidate/detail.html:148
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:360
+#: hub/models.py:381
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:363 hub/templates/candidate/list.html:36
+#: hub/models.py:384 hub/templates/candidate/list.html:36
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:364
+#: hub/models.py:385
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:383
+#: hub/models.py:404
 msgid "Votes"
 msgstr ""
 
-#: hub/models.py:388
+#: hub/models.py:409
 msgid "Supporters"
 msgstr ""
 
-#: hub/models.py:394
+#: hub/models.py:415
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:419
+#: hub/models.py:440
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:420
+#: hub/models.py:441
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:439
+#: hub/models.py:460
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:440
+#: hub/models.py:461
 msgid "Candidate supporter"
 msgstr ""
 
@@ -545,7 +570,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:90
+#: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:92
 msgid "Documents"
 msgstr ""
 
@@ -560,7 +585,7 @@ msgstr ""
 
 #: hub/templates/candidate/list.html:110
 #: hub/templates/committee/candidates.html:59
-#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:193
+#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:196
 msgid "No results matching query"
 msgstr ""
 
@@ -571,7 +596,13 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: hub/templates/candidate/register_request.html:61
+#: hub/templates/candidate/register_request.html:64
+#, fuzzy
+#| msgid "Pending candidates"
+msgid "Propune candidate"
+msgstr "Candidați propusi"
+
+#: hub/templates/candidate/register_request.html:72
 msgid "Save profile"
 msgstr ""
 
@@ -634,343 +665,6 @@ msgstr ""
 #: hub/templates/contact.html:30
 msgid ""
 "If you encounter any technical difficulty, send us an e-mail: rohelp@code4.ro"
-msgstr ""
-
-#: hub/templates/cookies.html:15
-msgid "Confidentiality Policy"
-msgstr ""
-
-#: hub/templates/cookies.html:18
-msgid ""
-"This website uses cookies in order to provide users with a better browsing "
-"experience as well as services tailored to their needs and interests."
-msgstr ""
-
-#: hub/templates/cookies.html:19
-msgid ""
-"“Cookies” are used to facilitate access and delivery for the services "
-"required by Internet users such as personalizing settings (language, "
-"country, prices displayed in local currency etc.) “Cookies”, based on the "
-"information about users that they gather, help operators make their websites "
-"more effective so that they can be easier to access by users. They also make "
-"online advertising more effective and can help multimedia apps and content "
-"from other websites be more easily embedded, to make navigation easier."
-msgstr ""
-
-#: hub/templates/cookies.html:21
-msgid "What is a “Cookie”?"
-msgstr ""
-
-#: hub/templates/cookies.html:22
-msgid ""
-"Cookie (\"browser cookie\" or \"HTTP cookie\") is a small file, a succession "
-"of letters and numbers, that is stored on any terminal with Internet access "
-"(computers, mobile phones, tablets etc.) and is installed  upon a request "
-"from a server to a browser (ex: Internet Explorer, Chrome). “Cookies” do not "
-"contain any software programs, viruses or spyware and cannot access "
-"information on the user’s hard drive."
-msgstr ""
-
-#: hub/templates/cookies.html:23
-msgid ""
-"Cookie consists of a name and content, the length of its existence is "
-"limited, and it can be accessed again by the webserver when a user returns "
-"to the  website associated with that server."
-msgstr ""
-
-#: hub/templates/cookies.html:24
-msgid ""
-"Cookies do not request personal information nor do they personally identify "
-"internet users."
-msgstr ""
-
-#: hub/templates/cookies.html:25
-msgid ""
-"Session cookies - are cookies temporarily stored in the browser’s history "
-"where they are stored until the user leaves that website or closes the "
-"browser window."
-msgstr ""
-
-#: hub/templates/cookies.html:26
-msgid ""
-"Persistent Cookies - These are stored, for a predetermined length of time, "
-"on a computer hard drive or similar equipment. Persistent cookies include "
-"those placed by a different website than the one  the user is visiting at "
-"the time, so-called “third-party cookies”- that can be anonymously used to "
-"track a user’s interests - allowing them to receive ads more relevant to "
-"their interests."
-msgstr ""
-
-#: hub/templates/cookies.html:28
-msgid "What are the advantages of “Cookies”?"
-msgstr ""
-
-#: hub/templates/cookies.html:29
-msgid ""
-"A cookie contains information that connects users to a specific website. If "
-"a browser accesses the same server again it can read the information already "
-"stored in the cookie and react accordingly."
-msgstr ""
-
-#: hub/templates/cookies.html:31
-msgid "What is the average lifespan of a cookie?"
-msgstr ""
-
-#: hub/templates/cookies.html:32
-msgid ""
-"There are cookies that are exclusively used for a single session - these are "
-"no longer stored after the user has left the website. Permanent cookies are "
-"stored and reused every time the user returns to that website but can be "
-"deleted at any time by the user."
-msgstr ""
-
-#: hub/templates/cookies.html:34
-msgid "What are third party cookies?"
-msgstr ""
-
-#: hub/templates/cookies.html:35
-msgid ""
-"Some parts of the content or services on the accessed website can be placed "
-"there by third parties via banners, boxes or links - and all these "
-"instruments can contain cookies. These are called “third-party cookies” "
-"because they are not placed by the owner of the respective website, third "
-"party cookies do however have to abide by the law and by the site owner’s "
-"confidentiality policy."
-msgstr ""
-
-#: hub/templates/cookies.html:37
-msgid "How does this website use cookies?"
-msgstr ""
-
-#: hub/templates/cookies.html:38
-msgid "Upon visiting this website you may receive the following cookie types:"
-msgstr ""
-
-#: hub/templates/cookies.html:40 hub/templates/cookies.html:46
-msgid "Cookies used for finalizing your donation"
-msgstr ""
-
-#: hub/templates/cookies.html:41 hub/templates/cookies.html:49
-msgid "Cookies that are used to analyse general user data"
-msgstr ""
-
-#: hub/templates/cookies.html:42 hub/templates/cookies.html:52
-msgid "Registration cookies"
-msgstr ""
-
-#: hub/templates/cookies.html:44
-msgid "Some cookies can be third-party cookies."
-msgstr ""
-
-#: hub/templates/cookies.html:47
-msgid ""
-"Filling out the donation form consists of several steps. In order to follow "
-"up with a donor and offering them the needed documentation we will save a "
-"cookie that offers us a way to identify that donor (like a ticket). Every "
-"time the form is filled a new cookie is created or the existing one is "
-"overwritten."
-msgstr ""
-
-#: hub/templates/cookies.html:50
-msgid ""
-"Every time I use your visit this website the analytics software provided by "
-"a third-party generates a cookie used to analyze the user profile. Cookie "
-"tells us if you've ever visited this website before. The browser will let us "
-"know if you have this cookie installed, and if not, this cookie is "
-"generated. This allows us to Monitor the number of unique users visiting "
-"this website as well as how often they return. This cookie cannot be used to "
-"identify physical persons and it is only used for statistical purposes."
-msgstr ""
-
-#: hub/templates/cookies.html:53
-msgid ""
-"When registering to this website, we generate a cookie with your "
-"registration data. The cookie helps us in the next steps for communicating "
-"with the server. It is possible for this cookie to remain on your device if "
-"you do not follow through with all the registration steps.  However, this "
-"cookie will be overwritten the next time you attempt to register on this "
-"website."
-msgstr ""
-
-#: hub/templates/cookies.html:55
-msgid "Other third party cookies"
-msgstr ""
-
-#: hub/templates/cookies.html:56
-msgid ""
-"On some pages third parties can set up their own anonymous cookies for "
-"purposes of tracking an app’s success rate, or for customizing that app. Due "
-"to the way it is used, this website cannot access these cookies, just as "
-"third parties cannot access the cookies that belong to this website. For "
-"example when you share a page using a “share to social network” button on "
-"this website, that social network can track your activity."
-msgstr ""
-
-#: hub/templates/cookies.html:58
-msgid "What kind of information is stored and accessed through cookies?"
-msgstr ""
-
-#: hub/templates/cookies.html:59
-msgid ""
-"Cookies save information in a small text file allowing a website to "
-"recognize a browser. The web server will recognize the browser up until the "
-"cookie expires or is deleted. The cookie stores important information that "
-"improve the browsing experience (e.g. a serial number for your donation)"
-msgstr ""
-
-#: hub/templates/cookies.html:61
-msgid "Why are cookies important to the Internet?"
-msgstr ""
-
-#: hub/templates/cookies.html:62
-msgid ""
-"Cookies are one of the most important tools for a seamless, efficient "
-"Internet experience, helping to generate friendly browsing experiences "
-"tailored to the needs of every user. Refusing to accept cookies or "
-"deactivating them can make some websites impossible to use."
-msgstr ""
-
-#: hub/templates/cookies.html:63
-msgid ""
-"Refusing to accept cookies or deactivating them does not mean that you will "
-"no longer receive online ads, only that these ads will no longer take your "
-"interests or preferences into account as determined by your browsing "
-"behavior."
-msgstr ""
-
-#: hub/templates/cookies.html:65
-msgid "Security and confidentiality concerns"
-msgstr ""
-
-#: hub/templates/cookies.html:66
-msgid ""
-"Cookies are NOT viruses! They use plain text formats. They do not contain "
-"code strings and therefore cannot be triggered remotely nor can they "
-"activate themselves. They cannot duplicate or self-replicate across "
-"networks. As they cannot do any of the above that cannot be considered "
-"viruses."
-msgstr ""
-
-#: hub/templates/cookies.html:67
-msgid ""
-"However, some cookies can be used for bad purposes. As they can store user "
-"preferences and navigation history, both from a specific website and for a "
-"broad selection of sites, cookies can be used as a form of spyware. Many "
-"anti-spyware products know this and constantly mark cookies to be deleted as "
-"part of anti-virus or anti-spyware scans."
-msgstr ""
-
-#: hub/templates/cookies.html:68
-msgid ""
-"Most browsers have privacy settings allowing you to select the types of "
-"cookies to accept, their duration as well as auto-delete features that "
-"remove cookies once the user has visited a certain site."
-msgstr ""
-
-#: hub/templates/cookies.html:70
-msgid "Other Cookie security aspects"
-msgstr ""
-
-#: hub/templates/cookies.html:71
-msgid ""
-"As identity protection is very important and represents the right of every "
-"internet user, it is important for you to know what potential problems may "
-"be caused by cookies. Because cookies are used to constantly transmit "
-"information both ways between the browser and the website, unauthorised "
-"persons looking to compromise your security may intercept the information "
-"contained by cookies. Although this is very rare it can happen if your "
-"browser accesses the website by using an unencrypted network (e.g. an "
-"unsecured Wifi network)."
-msgstr ""
-
-#: hub/templates/cookies.html:72
-msgid ""
-"Other cookie-based attacks use wrong cookie settings on servers. If a "
-"website does not ask the browser to use encrypted channels only, attackers "
-"can use this vulnerability to trick browsers into  sending information via "
-"unencrypted channels. Attackers then use this information to access "
-"unauthorised websites. It is very important to take great care in choosing "
-"the right methods of protecting your personal information."
-msgstr ""
-
-#: hub/templates/cookies.html:74
-msgid "Advice for safe and responsible cookie-based browsing "
-msgstr ""
-
-#: hub/templates/cookies.html:75
-msgid ""
-"To the flexibility and the fact that the majority of the largest and most "
-"visited websites use cookies, they are inevitable. Deactivating cookies will "
-"no longer allow user access to some of the most important websites such as "
-"Youtube, Gmail, Yahoo and others. Here's some advice that can help you "
-"browse safely while retaining cookies:"
-msgstr ""
-
-#: hub/templates/cookies.html:77
-msgid ""
-"Customize your browser cookie settings to allow for a comfortable security "
-"level. If cookies are not a problem for you and you are the only person "
-"using that device you can set long cookie retention intervals in order to "
-"store your browsing history and your personal access data. If you share the "
-"device or computer you may want to set up the browser to delete your "
-"individual browsing data every time it is closed. This is one way to access "
-"websites that place cookies on your shared computer while deleting all your "
-"browsing data when closing the session."
-msgstr ""
-
-#: hub/templates/cookies.html:78
-msgid "install an anti-spyware app and keep it up-to-date"
-msgstr ""
-
-#: hub/templates/cookies.html:80
-msgid ""
-"Many anti-spyware apps include website attack detection. These apps prevent "
-"the browser from accessing websites that might exploit the browser’s "
-"vulnerabilities or download dangerous software. Ensure your browser is up-to-"
-"date. Many cookie-based attacks exploit the weak points of old browser "
-"versions."
-msgstr ""
-
-#: hub/templates/cookies.html:81
-msgid ""
-"Cookies are everywhere and cannot be avoided if you wish to access some of "
-"the largest and best websites on the internet, either local or "
-"international. The clear understanding of the way cookies work and the "
-"benefits they bring you can take the necessary security measures so that you "
-"always have a safe and satisfactory browsing experience."
-msgstr ""
-
-#: hub/templates/cookies.html:83
-msgid "How can I turn cookies off?"
-msgstr ""
-
-#: hub/templates/cookies.html:84
-msgid ""
-"Refusing to accept cookies or deactivating them can make some websites "
-"difficult or impossible to navigate or use. Refusing to accept cookies also "
-"does not mean that you will no longer receive online ads."
-msgstr ""
-
-#: hub/templates/cookies.html:85
-msgid ""
-"You can set up your browser to reject cookies automatically or you can "
-"select only some websites where cookies are enabled. But, for example, if "
-"you turn off cookies on this website you can not follow through with the "
-"next steps in filling out the form."
-msgstr ""
-
-#: hub/templates/cookies.html:86
-msgid ""
-"Modern browsers offer the ability to change cookie settings. You can usually "
-"find cookie settings under the “options” tab or the “preferences” menu of "
-"your browser."
-msgstr ""
-
-#: hub/templates/cookies.html:87
-msgid ""
-"For third-party cookies settings and for more information about online ad "
-"confidentiality, IAB Romania offers the following website: http://www."
-"youronlinechoices.com/ro/"
 msgstr ""
 
 #: hub/templates/developed-by.html:7
@@ -1048,10 +742,6 @@ msgstr ""
 
 #: hub/templates/ngo/list.html:110 hub/templates/ngo/list.html:117
 msgid "Reset filters"
-msgstr ""
-
-#: hub/templates/ngo/list.html:170
-msgid "Founders"
 msgstr ""
 
 #: hub/templates/ngo/register_request.html:38
@@ -1159,17 +849,17 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:15
+#: hub/templates/terms_and_conditions.html:13
 msgid "Terms and Conditions of use"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:18
+#: hub/templates/terms_and_conditions.html:16
 msgid ""
 "The present document establishes general terms and conditions of use for the "
 "rohelp.ro website for its potential users or beneficiaries."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:19
+#: hub/templates/terms_and_conditions.html:18
 msgid ""
 "\"Rohelp.ro\" (henceforth referred to as \"the website\", \"the site\",  "
 "\"the Platform\", \"rohelp.ro\") is a complete digital platform that helps "
@@ -1187,38 +877,38 @@ msgid ""
 "67/06.07.2016"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:22
+#: hub/templates/terms_and_conditions.html:23
 msgid "1. Purpose of the platform"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:24
+#: hub/templates/terms_and_conditions.html:25
 msgid ""
 "The main purpose of rohelp.ro is to transmit financial and in kind donations "
 "and facilitate access to volunteers for NGOs enrolled and validated on the "
 "platform, for the length of the COVID-19 crisis."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:26
+#: hub/templates/terms_and_conditions.html:28
 msgid ""
 "The site allo ws NGOs to enroll and create online profiles that showcases "
 "their work."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:27
+#: hub/templates/terms_and_conditions.html:30
 msgid ""
 "rohelp.ro also offers users of the platform who wish to support an NGO a "
 "form that collects their personal data, further detailed in article 2 of the "
 "present terms and conditions document"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:28
+#: hub/templates/terms_and_conditions.html:32
 msgid ""
 "The data collected via this form is used to send a message to the NGO been "
 "contacted or to make a donation as part of the platform via the Netopia "
 "payment processor."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:29
+#: hub/templates/terms_and_conditions.html:34
 msgid ""
 "The site also allows members of the general public to subscribe to our "
 "newsletter service, managed via the Mailchimp email platform. The data in "
@@ -1226,26 +916,26 @@ msgid ""
 "information towards the users who want to access the newsletter service."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:32
+#: hub/templates/terms_and_conditions.html:38
 msgid ""
 "If the user does not want to fill any data in the platform he or she can"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:34
-#: hub/templates/terms_and_conditions.html:53
+#: hub/templates/terms_and_conditions.html:40
+#: hub/templates/terms_and_conditions.html:65
 msgid ""
 "independently donate to an organisation with a profile on the site, using "
 "the financial data that each NGO lists on its profile page or,"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:35
-#: hub/templates/terms_and_conditions.html:54
+#: hub/templates/terms_and_conditions.html:42
+#: hub/templates/terms_and_conditions.html:67
 msgid ""
 "independently contact an organisation in order to send a message or an offer "
 "of help using the contact data that each NGO lists on its profile page."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:38
+#: hub/templates/terms_and_conditions.html:46
 msgid ""
 "RoHelp facilitates collecting funds, resources and volunteers by the "
 "registered organisations. All the donations processed through this platform "
@@ -1255,70 +945,70 @@ msgid ""
 "dedicated reporting section."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:40
+#: hub/templates/terms_and_conditions.html:49
 msgid "2. Use of Personal Data"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:41
+#: hub/templates/terms_and_conditions.html:50
 msgid ""
 "By filling in the forms available on the profile pages of each end you "
 "selected, we can collect the following personal data (henceforth referred to "
 "as “personal data”)"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:43
+#: hub/templates/terms_and_conditions.html:53
 msgid "name and surname"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:44
+#: hub/templates/terms_and_conditions.html:54
 msgid "e-mail"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:45
+#: hub/templates/terms_and_conditions.html:55
 msgid "phone number"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:48
+#: hub/templates/terms_and_conditions.html:58
 msgid "3. Grounds for data processing"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:49
+#: hub/templates/terms_and_conditions.html:59
 msgid ""
 "Code for Romania uses personal data for the sole purpose of helping users of "
 "the site interact with one or more organisations registered on rohelp.ro."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:50
+#: hub/templates/terms_and_conditions.html:61
 msgid ""
 "Code for Romania uses your personal data in order to allow  contacted NGOs "
 "to get back to you after your message has been sent."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:51
+#: hub/templates/terms_and_conditions.html:63
 msgid "Should you not want your personal data used you can:"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:57
+#: hub/templates/terms_and_conditions.html:71
 msgid ""
 "These personal data are directly sent to the NGO, they cannot be used in "
 "anyway by Code for Romania."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:59
+#: hub/templates/terms_and_conditions.html:74
 msgid "4. Length of data storage"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:60
+#: hub/templates/terms_and_conditions.html:75
 msgid ""
 "Personal data is temporarily stored for the duration of rohelp.ro’s "
 "functioning, as part of the COVID-19 pandemic response"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:62
+#: hub/templates/terms_and_conditions.html:78
 msgid "5. Submittal of personal data to third parties"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:63
+#: hub/templates/terms_and_conditions.html:79
 msgid ""
 "Code for Romania will only supply your personal data to the NGOs of your "
 "choice. Submitting a message to an organisation registered in the platform "
@@ -1327,43 +1017,43 @@ msgid ""
 "personal data is kept safe"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:64
+#: hub/templates/terms_and_conditions.html:81
 msgid ""
 "Data can also be supplied to institutions or authorities as well as to other "
 "accredited state bodies, on the basis and within the bounds of the law, only "
 "as part of an express request by said authorities."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:66
+#: hub/templates/terms_and_conditions.html:84
 msgid "6. Your Rights"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:67
+#: hub/templates/terms_and_conditions.html:85
 msgid ""
 "As a user of rohelp.ro, in accordance with Law no. 679/2016 as well as, "
 "beginning with the 25th of May 2018, in accordance with the General Data "
 "Protection Regulation, you have the following rights:"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:69
+#: hub/templates/terms_and_conditions.html:88
 msgid ""
 "the right to be informed about the use of your personal data by Code for "
 "Romania;"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:70
+#: hub/templates/terms_and_conditions.html:89
 msgid ""
 "the right to access your personal data, on demand and for free for one "
 "request per annum;"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:71
+#: hub/templates/terms_and_conditions.html:91
 msgid ""
 "the right to intervene in, rectify, delete or transfer your personal data on "
 "demand and for free;"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:72
+#: hub/templates/terms_and_conditions.html:93
 msgid ""
 "the right to contact the National Authority for the Oversight of the Use of "
 "Personal Data (headquartered in Bucharest, Sector 1, General Ghe. Magheru "
@@ -1371,21 +1061,21 @@ msgid ""
 "order to defend your rights as guaranteed by law;"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:73
+#: hub/templates/terms_and_conditions.html:95
 msgid "the right to oppose and to the individual automated decisional process;"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:74
+#: hub/templates/terms_and_conditions.html:96
 msgid ""
 "from the 25th of May 2018, in accordance with the General Data Protection "
 "Regulation, the right to restrict the use of your data."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:77
+#: hub/templates/terms_and_conditions.html:100
 msgid "7. Security and confidentiality"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:78
+#: hub/templates/terms_and_conditions.html:101
 msgid ""
 "The protection of your personal data while it is being used is a main and "
 "major concern for Code for Romania, which is why all personal data collected "
@@ -1395,7 +1085,7 @@ msgid ""
 "data is kept and transmitted securely and confidentially."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:79
+#: hub/templates/terms_and_conditions.html:103
 msgid ""
 "All personal data used on this site is stored and processed on servers "
 "situated within the European Union, falling under EU personal data "
@@ -1403,14 +1093,14 @@ msgid ""
 "European Union territory."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:80
+#: hub/templates/terms_and_conditions.html:105
 msgid ""
 "Code for Romania will not reveal personal data regarding your visits to this "
 "website, with the sole exception of proper legal requests by the authorities "
 "or situations mentioned as part of this Terms and Conditions document."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:81
+#: hub/templates/terms_and_conditions.html:107
 msgid ""
 "If we are to discover an incident regarding personal data security that "
 "presents a risk to the rights and liberties of our users, we will notify the "
@@ -1419,11 +1109,11 @@ msgid ""
 "risk to your rights and liberties, you will be notified as well."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:83
+#: hub/templates/terms_and_conditions.html:110
 msgid "8. Trademark and Copyright"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:84
+#: hub/templates/terms_and_conditions.html:111
 msgid ""
 "The copyright for all information on this website belongs to Code for "
 "Romania. No material present on this website can be reproduced, wholly or in "
@@ -1431,18 +1121,18 @@ msgid ""
 "copyright holder."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:86
+#: hub/templates/terms_and_conditions.html:114
 msgid "All rights reserved."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:87
+#: hub/templates/terms_and_conditions.html:115
 msgid ""
 "The use of this site for the purpose of destroying or altering it, its "
 "security or its contents ior for discrediting or harrassin rohelp.ro or Code "
 "for Romania is strictly forbidden."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:88
+#: hub/templates/terms_and_conditions.html:117
 msgid ""
 "Code for Romania will apply all technical and organisational security "
 "measures in order to protect the data under its control against any and all "
@@ -1450,62 +1140,64 @@ msgid ""
 "well as to prevent the access of unauthorised persons."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:91
+#: hub/templates/terms_and_conditions.html:121
 msgid "9. Changes to the general Terms and Conditions for using the Site"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:92
+#: hub/templates/terms_and_conditions.html:122
 msgid ""
 "“The General Terms and Conditions” document constitutes, in its entirety, an "
 "agreement between yourself and Code for Romania for the use of rohelp.ro."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:93
+#: hub/templates/terms_and_conditions.html:124
 msgid ""
 "Code for Romania reserves the right to revise and update “The General Terms "
 "and Conditions” at any time, with no prior notification or need for user "
 "consent."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:94
+#: hub/templates/terms_and_conditions.html:126
 msgid ""
 "For any further questions regarding the information on this page please "
 "write to rohelp@code4.ro."
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:96
+#: hub/templates/terms_and_conditions.html:129
 msgid "10. About Code for Romania"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:98
+#: hub/templates/terms_and_conditions.html:131
 #, python-format
 msgid ""
 "\n"
-"                Code for Romania is an independent, unaffiliated and "
-"apolitical NGO, founded in 2016, whose main purpose is to mobilise young IT "
-"professionals to create digital tools that help solve social problems. Code "
-"for Romania was founded and operates in accordance to  Romanian law, its "
-"constitutive documents, its statute and its <a href=\"%(link)s\" target="
-"\"%(target)s\">code of conduct</a>.\n"
-"                "
+"            Code for Romania is an independent, unaffiliated and apolitical "
+"NGO, founded in 2016, whose main purpose\n"
+"            is to mobilise young IT professionals to create digital tools "
+"that help solve social problems. Code for\n"
+"            Romania was founded and operates in accordance to Romanian law, "
+"its constitutive documents, its statute\n"
+"            and its <a href=\"%(link)s\" target=\"%(target)s\">code of "
+"conduct</a>.\n"
+"            "
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:103
+#: hub/templates/terms_and_conditions.html:139
 msgid "11. Contact Code for Romania"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:104
+#: hub/templates/terms_and_conditions.html:140
 msgid ""
 "For any questions or issues, as well as to ensure your rights in regards to "
 "the processing of personal data by Code for Romania, you can contact us at:"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:105
+#: hub/templates/terms_and_conditions.html:142
 msgid ""
 "Alba Iulia Place no. 7, I6 building, 1st floor, apt. 6, Bucharest, Romania"
 msgstr ""
 
-#: hub/templates/terms_and_conditions.html:106
+#: hub/templates/terms_and_conditions.html:143
 msgid "rohelp@code4.ro"
 msgstr ""
 

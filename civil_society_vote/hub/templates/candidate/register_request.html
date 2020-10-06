@@ -46,7 +46,7 @@
         </article>
       {% endfor %}
     {% else %}
-        <form method="post" enctype="multipart/form-data" >
+        <form method="post" enctype="multipart/form-data" id="add-candidate-form">
             {% csrf_token %}
 
             {{ form.non_field_errors }}
@@ -57,9 +57,22 @@
 
             {{ form|crispy }}
 
-            <div class="has-text-right">
-              <input class="button is-success is-medium" type="submit" value='{% trans "Save profile" %}'>
+            {% if user.orgs.first.is_complete %}
+            <div class="container has-text-left">
+                <a href="#" class="button is-danger is-medium" style="width: 100%;"
+                   onclick="$('#id_is_proposed').val('True'); $('#add-candidate-form').submit(); return false;">
+                    {% trans "Propune candidate" %}
+                </a>
             </div>
+            {% endif %}
+
+            <div class="container has-text-left">
+                <a href="#" class="button is-success is-medium" style="width: 100%;"
+                   onclick="$('#id_is_proposed').val('False'); $('#add-candidate-form').submit(); return false;">
+                    {% trans "Save profile" %}
+                </a>
+            </div>
+
         </form>
     {% endif %}
 </div>
