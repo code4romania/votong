@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 06:34+0000\n"
+"POT-Creation-Date: 2020-10-06 07:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -375,7 +375,7 @@ msgstr "The name of the legal representative"
 msgid "Organisation Head Name"
 msgstr "Organisation E-mail address"
 
-#: hub/models.py:177 hub/templates/candidate/detail.html:161
+#: hub/models.py:177
 msgid "Board council"
 msgstr ""
 
@@ -547,14 +547,6 @@ msgstr ""
 
 #: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:90
 msgid "Documents"
-msgstr ""
-
-#: hub/templates/candidate/detail.html:160
-msgid "Founders/Associates"
-msgstr ""
-
-#: hub/templates/candidate/detail.html:162
-msgid "Legal representative"
 msgstr ""
 
 #: hub/templates/candidate/list.html:17 hub/templates/ngo/list.html:14
@@ -1062,7 +1054,7 @@ msgstr ""
 msgid "Founders"
 msgstr ""
 
-#: hub/templates/ngo/register_request.html:37
+#: hub/templates/ngo/register_request.html:38
 msgid "Send registration request"
 msgstr ""
 

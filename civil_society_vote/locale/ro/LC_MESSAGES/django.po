@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 06:34+0000\n"
+"POT-Creation-Date: 2020-10-06 07:01+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -383,7 +383,7 @@ msgstr "Telefon reprezentant legal (opțional)"
 msgid "Organisation Head Name"
 msgstr "Președintele organizației (numele complet)"
 
-#: hub/models.py:177 hub/templates/candidate/detail.html:161
+#: hub/models.py:177
 msgid "Board council"
 msgstr ""
 "Consiliu Director (adaugă numele complet al fiecărui membru, separate prin "
@@ -558,14 +558,6 @@ msgstr "Funcție"
 #: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:90
 msgid "Documents"
 msgstr "Documente"
-
-#: hub/templates/candidate/detail.html:160
-msgid "Founders/Associates"
-msgstr "Asociați/Fondatori"
-
-#: hub/templates/candidate/detail.html:162
-msgid "Legal representative"
-msgstr "Reprezentant legal"
 
 #: hub/templates/candidate/list.html:17 hub/templates/ngo/list.html:14
 msgid "Search..."
@@ -1249,7 +1241,7 @@ msgstr "Resetează filtrele"
 msgid "Founders"
 msgstr "Fondatori"
 
-#: hub/templates/ngo/register_request.html:37
+#: hub/templates/ngo/register_request.html:38
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
@@ -1915,6 +1907,12 @@ msgstr ""
 "noastră te va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
+
+#~ msgid "Founders/Associates"
+#~ msgstr "Asociați/Fondatori"
+
+#~ msgid "Legal representative"
+#~ msgstr "Reprezentant legal"
 
 #~ msgid "About the organization"
 #~ msgstr "Despre organizație"
