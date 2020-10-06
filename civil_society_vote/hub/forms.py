@@ -133,9 +133,8 @@ class CandidateRegisterForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        org = cleaned_data.get("org")
 
-        if cleaned_data.get("is_proposed") and not org.is_complete:
+        if cleaned_data.get("is_proposed") and not self.user.orgs.first().is_complete:
             raise ValidationError(
                 _("To add a candidate you must upload all required documents in " "'Organization Profile'")
             )

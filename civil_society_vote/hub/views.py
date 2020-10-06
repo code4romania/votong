@@ -1,11 +1,10 @@
-from django.conf import settings
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
 from django.urls import reverse
@@ -318,6 +317,20 @@ class CandidateVoteView(LoginRequiredMixin, View):
         #         to=settings.VOTE_AUDIT_EMAIL,
         #     )
         # return HttpResponse()
+
+
+@permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
+def revoke_candidate(request, pk):
+    candidate = get_object_or_404(Candidate, pk=pk)
+
+    if candidate.org != request.user.orgs.first():
+        return redirect("candidate-detail", pk=pk)
+
+    with transaction.atomic():
+        candidate.supporters.all().delete()
+        candidate.delete()
+
+    return redirect("candidate-register-request")
 
 
 @permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
