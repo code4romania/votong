@@ -43,7 +43,7 @@ class MenuMixin:
 class HomeView(MenuMixin, SuccessMessageMixin, FormView):
     template_name = "home.html"
     form_class = ContactForm
-    success_url = "/"
+    success_url = "/#contact"
     success_message = _("Thank you! We'll get in touch soon!")
 
     def form_valid(self, form):
