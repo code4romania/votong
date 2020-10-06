@@ -9,6 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}VotONG{% endblock %}</title>
     <meta name="description" content="" />
+    
+    <meta property="og:title" content="VotONG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://votong.ro" />
+    <meta property="og:image" content="{% static "images/og_image.png" %}" />
+    <meta property="og:description" content="Platforma prin care societatea civilă își va putea alege în mod transparent reprezentanții în diferite organisme și foruri consultative din instituții-cheie pentru democrația românească." />
 
     {% block meta_tags %}{% with title="VotONG" %}{% meta_tags %}{% endwith %}{% endblock %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700&subset=latin-ext">
