@@ -31,3 +31,13 @@ def already_supported(user, candidate):
     if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
         return True
     return False
+
+
+@register.filter
+def has_all_org_documents(user):
+    org = user.orgs.first()
+
+    if all([org.report_2019, org.report_2018, org.report_2017, org.fiscal_certificate, org.statute, org.statement]):
+        return True
+
+    return False

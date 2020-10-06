@@ -51,6 +51,11 @@
         </div>
         <div class="need-subtitle is-hidden-tablet">{{candidate.org}}</div>
 
+        {% if "view_data_candidate" in user_permissions %}
+          <div class="need-subtitle">Email: {{candidate.email}}</div>
+          <div class="need-subtitle">Tel.: {{candidate.phone}}</div>
+        {% endif %}
+
         <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
@@ -86,7 +91,7 @@
     <div><p class="label">{% trans 'Studies' %}:</p> {{ candidate.studies|linebreaks }}</div>
 </div>
 
-{% if "view_data_candidate" in user_permissions %}
+
 <div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="candidate-colorblock"></span>
@@ -124,6 +129,9 @@
         <a href="{{ candidate.statement.url }}">{% trans 'Statement of interests' %}</a>
     </p>
     {% endif %}
+
+    {% if "view_data_candidate" in user_permissions %}
+
     {% if candidate.tax_records %}
     <p>
         <span class="icon">
@@ -140,8 +148,10 @@
         <a href="{{ candidate.legal_records.url }}">{% trans 'Legal records' %}</a>
     </p>
     {% endif %}
+
+    {% endif %}
 </div>
-{% endif %}
+
 
 <div class="container detail-desc">
     <div class="detail-desc-title">

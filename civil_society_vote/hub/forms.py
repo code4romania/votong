@@ -121,9 +121,11 @@ class CandidateRegisterForm(forms.ModelForm):
 
 
 class CandidateUpdateForm(forms.ModelForm):
+    field_order = ["name"]
+
     class Meta:
         model = models.Candidate
-        exclude = ["org", "name", "status", "status_changed"]
+        exclude = ["org", "status", "status_changed"]
 
         widgets = {
             "is_proposed": forms.HiddenInput(),
@@ -132,6 +134,9 @@ class CandidateUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if self.instance.is_proposed:
+            del self.fields["name"]
 
 
 class ImportCitiesForm(forms.Form):

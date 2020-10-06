@@ -21,6 +21,9 @@
       <a href="{% url 'candidate-update' candidate.id %}">Candidatul meu</a>
     </li>
     <li><a href="#">Voturile mele</a></li>
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
   </ul>
 </div>
 {% endif %}
@@ -32,19 +35,19 @@
 
 <div class="container">
     {% if messages %}
-        <article class="message is-success">
-        <div class="message-body">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
+      {% for message in messages %}
+        <article class="message is-{{ message.tags }}">
+          <div class="message-body">{{ message }}</div>
         </article>
+      {% endfor %}
     {% else %}
         <form class="ces-form" method="post" enctype="multipart/form-data" id="candidate-update-form">
             {% csrf_token %}
 
+            {% if candidate.is_proposed %}
             <p><b>Nume:</b> {{candidate.name}}</p>
             <br>
+            {% endif %}
 
             {{ form.non_field_errors }}
 
