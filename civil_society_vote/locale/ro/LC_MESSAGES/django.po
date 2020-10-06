@@ -224,7 +224,7 @@ msgid ""
 "Profile'"
 msgstr ""
 "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în "
-"'Profilul Organizatiei'"
+"'Profilul Organizației'"
 
 #: hub/forms.py:165
 msgid "CSV file"
@@ -369,7 +369,7 @@ msgstr "Adresa"
 
 #: hub/models.py:166
 msgid "Registration number"
-msgstr "Număr înregistrare Registrul Național"
+msgstr "Număr înregistrare Registrul Național"
 
 #: hub/models.py:168
 msgid "Organisation Email"
@@ -449,7 +449,7 @@ msgstr "Certificat fiscal"
 
 #: hub/models.py:236 hub/templates/ngo/detail.html:154
 msgid "Statement"
-msgstr "Declarație pe propria răspundere"
+msgstr "Declarație pe propria răspundere"
 
 #: hub/models.py:252 hub/templates/header.html:28
 msgid "Organizations"
@@ -465,11 +465,11 @@ msgstr "Curriculum Vitae"
 
 #: hub/models.py:331
 msgid "Role in organization"
-msgstr "Funcție în organizație"
+msgstr "Funcție în organizație"
 
 #: hub/models.py:337 hub/templates/candidate/detail.html:90
 msgid "Professional experience"
-msgstr "Activitate profesională"
+msgstr "Activitate profesională"
 
 #: hub/models.py:338 hub/templates/candidate/detail.html:91
 msgid "Studies"
@@ -519,7 +519,7 @@ msgstr "Fotografie"
 
 #: hub/models.py:352 hub/templates/candidate/detail.html:121
 msgid "Mandate from the organization"
-msgstr "Mandat din partea organizației, ștampilat și semnat"
+msgstr "Mandat din partea organizației, ștampilat și semnat"
 
 #: hub/models.py:359 hub/templates/candidate/detail.html:113
 msgid "Letter of intent"
@@ -613,7 +613,7 @@ msgstr "Informații generale"
 
 #: hub/templates/candidate/detail.html:89
 msgid "Role"
-msgstr "Funcție"
+msgstr "Funcție"
 
 #: hub/templates/candidate/detail.html:98 hub/templates/ngo/detail.html:92
 msgid "Documents"
@@ -1490,7 +1490,7 @@ msgstr ""
 "contact@votong.ro."
 
 #~ msgid "Founders/Associates"
-#~ msgstr "Asociați/Fondatori"
+#~ msgstr "Asociați/Fondatori"
 
 #~ msgid "Legal representative"
 #~ msgstr "Reprezentant legal"
@@ -1964,7 +1964,7 @@ msgstr ""
 #~ msgstr "Reprezentant legal"
 
 #~ msgid "Initial purpose"
-#~ msgstr "Scop inițial"
+#~ msgstr "Scop inițial"
 
 #~ msgid "Current purpose"
 #~ msgstr "Scop actual"
@@ -2296,7 +2296,7 @@ msgstr ""
 #~ msgstr "Code for Romania: Septimius Pârvu, Raul Ritea"
 
 #~ msgid "Current state"
-#~ msgstr "Starea actuală"
+#~ msgstr "Starea actuală"
 
 #~ msgid "About RoHelp"
 #~ msgstr "Despre RoHelp"
@@ -2607,30 +2607,30 @@ msgstr ""
 #~ msgstr "Pot să ajut eu!"
 
 #~ msgid "Academic and professional"
-#~ msgstr "Organizații academice și profesionale"
+#~ msgstr "Organizații academice și profesionale"
 
 #~ msgid "Education and health"
-#~ msgstr "Organizații din domeniul sănătății/educației"
+#~ msgstr "Organizații din domeniul sănătății/educației"
 
 #~ msgid "Agricultural and cooperative"
-#~ msgstr "Organizații cooperatiste și agricole"
+#~ msgstr "Organizații cooperatiste și agricole"
 
 #~ msgid "Environmental"
-#~ msgstr "Organizații din domeniul mediului"
+#~ msgstr "Organizații din domeniul mediului"
 
 #~ msgid "Social, family, people with disabilities and the elderly"
 #~ msgstr ""
-#~ "Organizații din domeniul social, familia și persoane cu dizabiltăți și "
+#~ "Organizații din domeniul social, familia și persoane cu dizabiltăți și "
 #~ "pensionari"
 
 #~ msgid "Human rights"
-#~ msgstr "Organizații pentru Protecția Drepturilor Omului"
+#~ msgstr "Organizații pentru Protecția Drepturilor Omului"
 
 #~ msgid "CV"
 #~ msgstr "CV"
 
 #~ msgid "Experience"
-#~ msgstr "Activitate profesională"
+#~ msgstr "Activitate profesională"
 
 #~ msgid "About the candidate"
 #~ msgstr "Despre candidat"

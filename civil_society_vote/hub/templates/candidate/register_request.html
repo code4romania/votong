@@ -18,13 +18,13 @@
 <div class="tabs is-medium">
   <ul>
     <li>
-      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizatiei</a>
+      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizației</a>
     </li>
     <li class="is-active">
     {% if user.orgs.first.candidate %}
       <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
     {% else %}
-      <a href="{% url 'candidate-register-request' %}">Adauga candidat</a>
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
     {% endif %}
     </li>
     <li><a href="#">Voturile mele</a></li>
