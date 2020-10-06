@@ -341,6 +341,8 @@ class Candidate(StatusModel, TimeStampedModel):
         _("Main Objectives"),
         max_length=1000,
         help_text=_("What are your main goals if you get a seat on the Economic and Social Committee?"),
+        blank=True,
+        null=True,
     )
     main_points = models.TextField(
         _("Main Points"),
@@ -348,6 +350,8 @@ class Candidate(StatusModel, TimeStampedModel):
         help_text=_(
             "What are the most important points that should be on the agenda of the field for which you are applying?"
         ),
+        blank=True,
+        null=True,
     )
     relevant_moments = models.TextField(
         _("Relevant Moments"),
@@ -355,6 +359,8 @@ class Candidate(StatusModel, TimeStampedModel):
         help_text=_(
             "What are the most relevant moments in your experience that recommend you to take a place in the Economic and Social Committee?"
         ),
+        blank=True,
+        null=True,
     )
 
     email = models.EmailField(_("Email"))

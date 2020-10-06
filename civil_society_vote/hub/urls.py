@@ -17,6 +17,7 @@ from hub.views import (
     OrganizationUpdateView,
     candidate_support,
     organization_vote,
+    revoke_candidate,
 )
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>"), CandidateDetailView.as_view(), name="candidate-detail"),
     path(_("candidates/<int:pk>/vote"), CandidateVoteView.as_view(), name="candidate-vote"),
     path(_("candidates/<int:pk>/support"), candidate_support, name="candidate-support"),
+    path(_("candidates/<int:pk>/revoke"), revoke_candidate, name="candidate-revoke"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),

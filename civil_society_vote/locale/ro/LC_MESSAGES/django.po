@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 08:20+0000\n"
+"POT-Creation-Date: 2020-10-06 08:48+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -475,106 +475,112 @@ msgstr "Activitate profesională"
 msgid "Studies"
 msgstr "Studii"
 
-#: hub/models.py:340
-msgid "Main Objectives"
-msgstr "Care sunt principalele obiective pe care ți le propui dacă vei obține un loc în Comitetul Economic și Social?"
-
 #: hub/models.py:341
+msgid "Main Objectives"
+msgstr ""
+"Care sunt principalele obiective pe care ți le propui dacă vei obține un loc "
+"în Comitetul Economic și Social?"
+
+#: hub/models.py:343
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
 msgstr " "
 
-#: hub/models.py:342
+#: hub/models.py:346
 msgid "Main Points"
-msgstr "Care sunt cele mai relevante momente din experiența ta care te recomandă pentru a ocupa un loc in Comitetul Economic și Social?"
+msgstr ""
+"Care sunt cele mai relevante momente din experiența ta care te recomandă "
+"pentru a ocupa un loc in Comitetul Economic și Social?"
 
-#: hub/models.py:343
+#: hub/models.py:349
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr " "
 
-#: hub/models.py:344
+#: hub/models.py:353
 msgid "Relevant Moments"
-msgstr "Care sunt cele mai relevante momente din experiența ta care te recomandă pentru a ocupa un loc in Comitetul Economic și Social?"
+msgstr ""
+"Care sunt cele mai relevante momente din experiența ta care te recomandă "
+"pentru a ocupa un loc in Comitetul Economic și Social?"
 
-#: hub/models.py:345
-msgid "Momente relevante din experiența ta"
+#: hub/models.py:356
+msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr " "
 
-#: hub/models.py:347 hub/templates/registration/login.html:40
+#: hub/models.py:360 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr "Email"
 
-#: hub/models.py:348
+#: hub/models.py:361
 msgid "Phone"
 msgstr "Telefon"
 
-#: hub/models.py:349
+#: hub/models.py:362
 msgid "Photo"
 msgstr "Fotografie"
 
-#: hub/models.py:352 hub/templates/candidate/detail.html:121
+#: hub/models.py:365 hub/templates/candidate/detail.html:121
 msgid "Mandate from the organization"
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/models.py:359 hub/templates/candidate/detail.html:113
+#: hub/models.py:372 hub/templates/candidate/detail.html:113
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
-#: hub/models.py:366 hub/templates/candidate/detail.html:129
+#: hub/models.py:379 hub/templates/candidate/detail.html:129
 msgid "Statement of interests"
 msgstr "Declarație de interese"
 
-#: hub/models.py:373 hub/templates/candidate/detail.html:140
+#: hub/models.py:386 hub/templates/candidate/detail.html:140
 msgid "Tax records"
 msgstr "Cazier fiscal"
 
-#: hub/models.py:380 hub/templates/candidate/detail.html:148
+#: hub/models.py:393 hub/templates/candidate/detail.html:148
 msgid "Legal records"
 msgstr "Cazier juridic"
 
-#: hub/models.py:388
+#: hub/models.py:401
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:391 hub/templates/candidate/list.html:36
+#: hub/models.py:404 hub/templates/candidate/list.html:36
 #: hub/templates/committee/candidates.html:19 hub/templates/header.html:41
 msgid "Candidates"
 msgstr "Candidați"
 
-#: hub/models.py:392
+#: hub/models.py:405
 msgid "Candidate"
 msgstr "Candidat"
 
-#: hub/models.py:411
+#: hub/models.py:424
 msgid "Votes"
 msgstr "Voturi"
 
-#: hub/models.py:416
+#: hub/models.py:429
 msgid "Supporters"
 msgstr "Susținători"
 
-#: hub/models.py:422
+#: hub/models.py:435
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:447
+#: hub/models.py:460
 msgid "Canditate votes"
 msgstr "Voturi candidați"
 
-#: hub/models.py:448
+#: hub/models.py:461
 msgid "Candidate vote"
 msgstr "Vot candidat"
 
-#: hub/models.py:467
+#: hub/models.py:480
 msgid "Canditate supporters"
 msgstr "Susținători candidat"
 
-#: hub/models.py:468
+#: hub/models.py:481
 msgid "Candidate supporter"
 msgstr "Susținător candidat"
 
@@ -651,7 +657,11 @@ msgstr "Propune candidat"
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: hub/templates/candidate/update.html:61
+#: hub/templates/candidate/update.html:64
+msgid "Publish changes"
+msgstr "Publică modificările"
+
+#: hub/templates/candidate/update.html:64
 msgid "Update profile"
 msgstr "Modifică profil"
 

@@ -3,6 +3,7 @@ from captcha.widgets import ReCaptchaV3
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django_crispy_bulma.widgets import EmailInput
@@ -132,9 +133,8 @@ class CandidateRegisterForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        org = cleaned_data.get("org")
 
-        if cleaned_data.get("is_proposed") and not org.is_complete:
+        if cleaned_data.get("is_proposed") and not self.user.orgs.first().is_complete:
             raise ValidationError(
                 _("To add a candidate you must upload all required documents in " "'Organization Profile'")
             )
@@ -159,6 +159,17 @@ class CandidateUpdateForm(forms.ModelForm):
 
         if self.instance.is_proposed:
             del self.fields["name"]
+
+    def save(self, commit=True):
+        candidate = models.Candidate.objects.get(pk=self.instance.id)
+
+        if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
+            if commit:
+                with transaction.atomic():
+                    candidate.supporters.all().delete()
+                    return super().save(commit)
+
+        return super().save(commit)
 
 
 class ImportCitiesForm(forms.Form):

@@ -28,10 +28,30 @@
 </div>
 {% endif %}
 
-<h2 class="title border-b uppercase">Editeaza profil candidat</h2>
+<h2 class="title border-b uppercase">
+    {% if candidate.is_proposed %}Profil{% else %}Editeaza profil{% endif %} candidat
+</h2>
 
 <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidatului</a>
-<br><br>
+<br>
+<br>
+
+
+{% if candidate.is_proposed %}
+
+<div class="container">
+    <a class="is-success button"
+       onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? window.location='{% url "candidate-revoke" candidate.id %}': false">
+        Propune un alt candidat
+    </a>
+    <br>
+    <br>
+    <a href="#" class="is-danger button"
+       onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? $('#id_is_proposed').val('False') && $('#candidate-update-form').submit() : false">Retrage candidat</a>
+    <br>
+    <br>
+</div>
+{% endif %}
 
 <div class="container">
     {% if messages %}
@@ -58,7 +78,8 @@
             {{ form|crispy }}
 
             <div class="has-text-right">
-              <input class="button is-success is-medium" type="submit" value='{% trans "Update profile" %}'>
+              <input class="button is-success is-medium" type="submit"
+                     value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
             </div>
         </form>
     {% endif %}
@@ -66,17 +87,10 @@
 
 <hr />
 
-{% if user.orgs.first.is_complete %}
-{% if candidate.is_proposed %}
-
-<div class="container has-text-centered">
-  <a href="#" class="button is-danger is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('False'); $('#candidate-update-form').submit(); return false;">Retrage candidat</a>
-</div>
-{% else %}
+{% if user.orgs.first.is_complete and not candidate.is_proposed %}
 <div class="container has-text-centered">
   <a href="#" class="button is-primary is-medium" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
 </div>
-{% endif %}
 {% endif %}
 
 {% endblock %}
