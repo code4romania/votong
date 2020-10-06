@@ -182,7 +182,6 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
-        help_text="Prima pagină a ultimului bilanț contabil depus la Ministerul Finanțelor",
     )
     statute = models.FileField(
         _("NGO Statute"),
@@ -401,7 +400,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
-        help_text="Cazier judiciar (optional)",
+        help_text="Cazier juridic (optional)",
     )
 
     is_proposed = models.BooleanField(_("Is proposed?"), default=False)
