@@ -116,6 +116,8 @@ class Command(BaseCommand):
                     organisation_head_name=fake.name(),
                     board_council=fake.name(),
                     status=status,
+                    accept_terms_and_conditions=True,
+                    politic_members=True
                 )
 
                 org.logo.name = "logo-demo.png"
