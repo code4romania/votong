@@ -611,11 +611,11 @@ msgstr "Organizații"
 
 #: hub/templates/committee/partials/nav.html:9
 msgid "Pending candidates"
-msgstr "Adaugă candidat"
+msgstr "Candidați propusi"
 
 #: hub/templates/committee/partials/nav.html:12
 msgid "Accepted candidates"
-msgstr "Adaugă candidat"
+msgstr "Candidați selectați"
 
 #: hub/templates/contact.html:15
 msgid "Contact us"
