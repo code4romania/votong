@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hub', '0026_remove_organization_politic_members'),
+        ("hub", "0026_remove_organization_politic_members"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='organization',
-            name='politic_members',
-            field=models.BooleanField(blank=True, null=True, verbose_name='I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties.'),
+            model_name="organization",
+            name="politic_members",
+            field=models.BooleanField(
+                blank=True,
+                null=True,
+                verbose_name="I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties.",
+            ),
         ),
     ]

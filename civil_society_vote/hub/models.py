@@ -178,10 +178,7 @@ class Organization(StatusModel, TimeStampedModel):
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
 
     last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"),
-        null=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
+        _("First page of last balance sheet"), null=True, max_length=300, storage=PrivateMediaStorageClass(),
     )
     statute = models.FileField(
         _("NGO Statute"),
@@ -196,7 +193,9 @@ class Organization(StatusModel, TimeStampedModel):
     politic_members = models.BooleanField(
         _(
             "I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties."
-        ), null=True, blank=True
+        ),
+        null=True,
+        blank=True,
     )
 
     report_2019 = models.FileField(
