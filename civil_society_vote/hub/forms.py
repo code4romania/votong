@@ -46,6 +46,7 @@ class OrganizationCreateForm(forms.ModelForm):
             "report_2017",
             "fiscal_certificate",
             "statement",
+            'politic_members',
         ]
         widgets = {
             "email": EmailInput(),

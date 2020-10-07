@@ -193,11 +193,11 @@ class Organization(StatusModel, TimeStampedModel):
     accept_terms_and_conditions = models.BooleanField(
         _("I agree to the Terms and Conditions of the VotONG platform"), null=False, blank=False
     )
-    # politic_members = models.BooleanField(
-    #     _(
-    #         "I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties."
-    #     )
-    # )
+    politic_members = models.BooleanField(
+        _(
+            "I declare that the members of the management of the organization I represent (the President and the members of the Board of Directors) are not members of political parties."
+        ), null=True, blank=True
+    )
 
     report_2019 = models.FileField(
         _("Yearly report 2019"),
@@ -270,6 +270,7 @@ class Organization(StatusModel, TimeStampedModel):
                 self.fiscal_certificate,
                 self.statute,
                 self.statement,
+                self.politic_members,
             ]
         )
 
