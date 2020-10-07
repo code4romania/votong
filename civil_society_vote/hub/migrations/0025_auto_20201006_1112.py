@@ -7,18 +7,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hub', '0024_auto_20201006_0937'),
+        ("hub", "0024_auto_20201006_0937"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='candidate',
-            name='legal_records',
-            field=models.FileField(blank=True, help_text='Cazier juridic (optional)', max_length=300, null=True, storage=django.core.files.storage.FileSystemStorage(), upload_to='', verbose_name='Legal records'),
+            model_name="candidate",
+            name="legal_records",
+            field=models.FileField(
+                blank=True,
+                help_text="Cazier juridic (optional)",
+                max_length=300,
+                null=True,
+                storage=django.core.files.storage.FileSystemStorage(),
+                upload_to="",
+                verbose_name="Legal records",
+            ),
         ),
         migrations.AlterField(
-            model_name='organization',
-            name='last_balance_sheet',
-            field=models.FileField(max_length=300, null=True, storage=django.core.files.storage.FileSystemStorage(), upload_to='', verbose_name='First page of last balance sheet'),
+            model_name="organization",
+            name="last_balance_sheet",
+            field=models.FileField(
+                max_length=300,
+                null=True,
+                storage=django.core.files.storage.FileSystemStorage(),
+                upload_to="",
+                verbose_name="First page of last balance sheet",
+            ),
         ),
     ]
