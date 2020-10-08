@@ -1,77 +1,78 @@
 footer {
-  background-color: var(--black);
-  padding-top: 40px;
-  padding-bottom: 60px;
-  color: #fff;
-  text-align: center;
+    background-color: var(--black);
+    padding-top: 40px;
+    padding-bottom: 60px;
+    color: #fff;
+    text-align: center;
 }
 
-  footer a {
+footer a {
     color: #fff;
-  }
+}
 
-  footer a:not(.button):hover {
+footer a:not(.button):hover {
     color: #fff;
     text-decoration: underline;
-  }
+}
 
-  footer .branding {
+footer .branding {
     text-align: right;
-  }
+}
 
-    footer .branding > div {
-      margin-left: 30px;
-      display: inline-block;
-      font-size: 12px;
-    }
-
-    footer .branding a {
-      margin-left: 10px;
-    }
-
-    footer .branding .civicLab-logo {
-      height: 20px;
-    }
-
-    footer .branding .code4Ro-logo {
-      height: 27px;
-    }
-
-  #footer-links {
+footer .branding > div {
+    margin-left: 30px;
     display: inline-block;
-    list-style: none;
-    padding: 32px 0;
-    border-bottom: 1px solid #fff;
-    margin: 35px 0;
+    font-size: 12px;
+}
+
+footer .branding a {
+    margin-left: 10px;
+}
+
+footer .branding .civicLab-logo {
+    height: 20px;
+}
+
+footer .branding .code4Ro-logo {
+    height: 27px;
+}
+
+#footer-links {
+  display: flex;
+  flex-direction: row;
+  padding: 32px 0;
+  border-bottom: 1px solid #fff;
+  margin: 35px 0;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#footer-links li a:not(.button) {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px){
+  #footer-links {
+    flex-direction: column;
   }
 
-    #footer-links li {
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 30px;
-    }
+  #footer-links li {
+    padding: 10px;
+  }
 
-    #footer-links li:first-child {
-      margin-left: 0;
-    }
 
-    #footer-links li:last-child {
-      margin-right: 0;
-    }
+}
 
-      #footer-links li a:not(.button) {
-        color: #fff;
-        text-decoration: underline;
-      }
 
-  #footer-social {
+#footer-social {
     display: inline-block;
     list-style: none;
     margin-top: 30px;
-  }
+}
 
-    #footer-social li {
-      display: inline-block;
-      margin: 0 25px;
-    }
+#footer-social li {
+    display: inline-block;
+    margin: 0 25px;
+}
 
