@@ -53,7 +53,7 @@
 
                         {% avatar user 65 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
 
-                        {% if user|in_committee_group %}
+                        {% if user|in_committee_or_staff_group %}
                         <a href="{% url 'committee-ngos' %}" class="navbar-item">
                         {% elif user.orgs.exists %}
                         <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">

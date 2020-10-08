@@ -19,32 +19,33 @@
             href="{% spurl base='{{ current_url }}' remove_query_param='domain' remove_query_param='page' remove_query_param='q' %}">
             <div class="card filter-card-active">
                 <div class="filter-icon-active">
-                    {% else%}
-                    <a class="has-text-black filter-link"
-                        href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' remove_query_param='q' %}">
-                        <div class="card filter-card ">
-                            <div class="filter-icon">
-                                {% endif %}
-                                <i class="far fa-check-circle fa-lg has-text-white"></i>
-                            </div>
-                            <div class="filter-card-content">{{ domain.name }}</div>
-                        </div>
-                    </a>
-                    {% endfor %}
+        {% else%}
+        <a class="has-text-black filter-link"
+            href="{% spurl base='{{ current_url }}' set_query='domain={{ domain.id }}' remove_query_param='page' remove_query_param='q' %}">
+            <div class="card filter-card ">
+                <div class="filter-icon">
+        {% endif %}
+                    <i class="far fa-check-circle fa-lg has-text-white"></i>
                 </div>
+                <div class="filter-card-content">{{ domain.name }}</div>
             </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
 
-            {% if current_domain %}
-            <div class="container section">
-                <h1 class="section-title">{{ current_domain.name }}</h1>
-                <p class="section-text">{{ current_domain.description }}</p>
-            </div>
-            {% endif %}
+{% if current_domain %}
+<div class="container section">
+    <h1 class="section-title">{{ current_domain.name }}</h1>
+    <p class="section-text">{{ current_domain.description }}</p>
+</div>
+{% endif %}
 
-            {% endblock %}
+{% endblock %}
 
-            <div class="container section tight-container">
-                {% block left-side-view %}
-                {% endblock %}
-            </div>
-            {% endblock %}
+<div class="container section tight-container">
+  {% block left-side-view %}
+  {% endblock %}
+</div>
+
+{% endblock %}

@@ -1,33 +1,29 @@
 {% load i18n %}
 {% load hub_tags %}
 
-<div class="tabs is-centered">
+<div class="tabs is-medium">
     <ul>
-        {% if user|in_committee_group %}
+        {% if user|in_committee_or_staff_group %}
         <li>
-        <a href="{% url 'committee-ngos' %}" class="navbar-item">
-            {% trans 'Back' %}
-        </a>
+          <a href="{% url 'committee-ngos' %}">{% trans 'Back' %}</a>
         </li>
         {% endif %}
 
         {% if user.orgs.exists %}
         <li>
-        <a href="{% url 'ngo-update' user.orgs.first.id %}" class="navbar-item">
-            {% trans 'Back' %}
-        </a>
+          <a href="{% url 'ngo-update' user.orgs.first.id %}">{% trans 'Back' %}</a>
         </li>
         {% endif %}
 
-        <li {% if active == 'password-reset' %}class="is-active"{% endif %} class="navbar-item">
+        <li {% if active == 'password-reset' %}class="is-active"{% endif %}>
             <a href="{% url 'account-password-reset' %}">{% trans 'Reset password' %}</a>
         </li>
 
-        <li {% if active == 'change-email' %}class="is-active"{% endif %} class="navbar-item">
+        <li {% if active == 'change-email' %}class="is-active"{% endif %}>
             <a href="{% url 'account-change-email' %}">{% trans 'Change email' %}</a>
         </li>
 
-        <li {% if active == 'change-avatar' %}class="is-active"{% endif %} class="navbar-item">
+        <li {% if active == 'change-avatar' %}class="is-active"{% endif %}>
             <a href="{% url 'avatar_change' %}">{% trans 'Change avatar' %}</a>
         </li>
     </ul>

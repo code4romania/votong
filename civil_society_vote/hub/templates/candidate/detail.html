@@ -98,6 +98,7 @@
         <span class="candidate-colorblock"></span>
         {% trans "Documents" %}
     </div>
+
     {% if candidate.cv %}
     <p>
         <span class="icon">
@@ -106,6 +107,7 @@
         <a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a>
     </p>
     {% endif %}
+
     {% if candidate.letter %}
     <p>
         <span class="icon">
@@ -114,6 +116,7 @@
         <a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a>
     </p>
     {% endif %}
+
     {% if candidate.mandate %}
     <p>
         <span class="icon">
@@ -122,6 +125,7 @@
         <a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a>
     </p>
     {% endif %}
+
     {% if candidate.statement %}
     <p>
         <span class="icon">
@@ -133,22 +137,23 @@
 
     {% if "view_data_candidate" in user_permissions %}
 
-    {% if candidate.tax_records %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.tax_records.url }}">{% trans 'Tax records' %}</a>
-    </p>
-    {% endif %}
-    {% if candidate.legal_records %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.legal_records.url }}">{% trans 'Legal records' %}</a>
-    </p>
-    {% endif %}
+      {% if candidate.tax_records %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ candidate.tax_records.url }}">{% trans 'Tax records' %}</a>
+      </p>
+      {% endif %}
+
+      {% if candidate.legal_records %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ candidate.legal_records.url }}">{% trans 'Legal records' %}</a>
+      </p>
+      {% endif %}
 
     {% endif %}
 </div>
