@@ -161,7 +161,7 @@ class CandidateRegisterForm(forms.ModelForm):
 
         if cleaned_data.get("is_proposed") and not self.user.orgs.first().is_complete:
             raise ValidationError(
-                _("To add a candidate you must upload all required documents in " "'Organization Profile'")
+                _("To add a candidate you must upload all required documents in 'Organization Profile'")
             )
 
         return cleaned_data
