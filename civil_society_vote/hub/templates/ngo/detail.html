@@ -66,7 +66,9 @@
 
     <p><span class="label">Numele organizației:</span> {{ ngo.name }}</p>
     <p><span class="label">Email:</span> {{ ngo.email }}</p>
+    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
     <p><span class="label">Telefon:</span> {{ ngo.phone }}</p>
+    {% endif %}
     <p><span class="label">Adresa fizică:</span> {{ ngo.address }}</p>
     <p><span class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ ngo.registration_number }}</p>
 
@@ -85,29 +87,40 @@
     <p><span class="label">Președintele organizației:</span> {{ ngo.organisation_head_name }}</p>
     <p><span class="label">Membrii Consiliului Director:</span> {{ ngo.board_council }}</p>
 
-    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-
     <div class="detail-desc-title">
         <span class="ngo-colorblock"></span>
         {% trans "Documents" %}
     </div>
 
-    {% if ngo.last_balance_sheet %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a>
-    </p>
-    {% endif %}
+    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
 
-    {% if ngo.statute %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a>
-    </p>
+      {% if ngo.last_balance_sheet %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ ngo.last_balance_sheet.url }}" title="{% trans 'First page of last balance sheet' %}">{% trans 'First page of last balance sheet' %}</a>
+      </p>
+      {% endif %}
+
+      {% if ngo.statute %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a>
+      </p>
+      {% endif %}
+
+      {% if ngo.fiscal_certificate %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
+      </p>
+      {% endif %}
+
     {% endif %}
 
     {% if ngo.report_2019 %}
@@ -137,15 +150,6 @@
     </p>
     {% endif %}
 
-    {% if ngo.fiscal_certificate %}
-    <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
-    </p>
-    {% endif %}
-
     {% if ngo.statement %}
     <p>
         <span class="icon">
@@ -153,8 +157,6 @@
         </span>
         <a href="{{ ngo.statement.url }}" title="{% trans 'Statement' %}">{% trans 'Statement' %}</a>
     </p>
-    {% endif %}
-
     {% endif %}
 
     {% if ngo.candidate %}

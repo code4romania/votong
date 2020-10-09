@@ -13,7 +13,7 @@ from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from guardian.decorators import permission_required_or_403
-from guardian.mixins import LoginRequiredMixin, PermissionListMixin, PermissionRequiredMixin
+from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from hub import utils
 from hub.forms import (
@@ -23,7 +23,17 @@ from hub.forms import (
     OrganizationCreateForm,
     OrganizationUpdateForm,
 )
-from hub.models import Candidate, CandidateSupporter, CandidateVote, City, Domain, FeatureFlag, Organization
+from hub.models import (
+    COMMITTEE_GROUP,
+    STAFF_GROUP,
+    Candidate,
+    CandidateSupporter,
+    CandidateVote,
+    City,
+    Domain,
+    FeatureFlag,
+    Organization,
+)
 
 
 class MenuMixin:
@@ -91,24 +101,26 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
-class CommitteeOrganizationListView(LoginRequiredMixin, PermissionListMixin, HubListView):
-    permission_required = "hub.approve_organization"
-    raise_exception = True
+class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
     paginate_by = 9
     template_name = "committee/list.html"
 
     def get_queryset(self):
+        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+            raise PermissionDenied
+
         return Organization.objects.filter(status=Organization.STATUS.pending).order_by("-created")
 
 
-class CommitteeCandidatesListView(LoginRequiredMixin, PermissionListMixin, HubListView):
+class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
     allow_filters = ["status"]
-    permission_required = "hub.vote_candidate"
-    raise_exception = True
     paginate_by = 9
     template_name = "committee/candidates.html"
 
     def get_queryset(self):
+        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+            raise PermissionDenied
+
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
         return Candidate.objects.filter(**filters)
 
