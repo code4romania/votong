@@ -16,8 +16,11 @@
 
 <div class="container">
     <h2 class="title border-b uppercase">
-        {% trans 'Candidates' %}
-        {% if filtering == "pending" %}{% trans 'proposed' %}{% else %}{% trans 'selected' %}{%endif%}
+        {% if filtering == "pending" %}
+          {% trans 'Pending candidates' %}
+        {% else %}
+          {% trans 'Accepted candidates' %}
+        {%endif%}
     </h2>
 
     {% if page_obj %}
