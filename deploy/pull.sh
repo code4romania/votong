@@ -1,5 +1,5 @@
-cd /home/ubuntu/civil_society_vote
+cd /root/votong
 git pull
-sudo docker-compose down
-sudo docker-compose build
-sudo docker-compose up -d
+docker-compose down
+docker-compose build
+docker-compose up -d
