@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.db import transaction
 from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django_crispy_bulma.widgets import EmailInput
 
@@ -26,7 +27,15 @@ ORG_FIELD_ORDER = [
     "organisation_head_name",
     "board_council",
     "logo",
+    "last_balance_sheet",
     "statute",
+    "report_2019",
+    "report_2018",
+    "report_2017",
+    "fiscal_certificate",
+    "statement",
+    "politic_members",
+    "accept_terms_and_conditions",
 ]
 
 
@@ -72,15 +81,17 @@ class OrganizationCreateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
+        self.fields["accept_terms_and_conditions"].label = mark_safe(
+            _(
+                'I agree to the <a href="https://votong.ro/ro/termeni/" target="_blank">Terms and Conditions</a> '
+                "of the VotONG platform"
+            )
+        )
+
     def clean_accept_terms_and_conditions(self):
         if not self.cleaned_data.get("accept_terms_and_conditions"):
             raise ValidationError(_("You need to accept terms and conditions."))
         return self.cleaned_data.get("accept_terms_and_conditions")
-
-    def clean_politic_members(self):
-        if not self.cleaned_data.get("politic_members"):
-            raise ValidationError(_("Organisation members need to be apolitical."))
-        return self.cleaned_data.get("politic_members")
 
 
 class OrganizationUpdateForm(forms.ModelForm):
@@ -105,6 +116,18 @@ class OrganizationUpdateForm(forms.ModelForm):
                 self.fields["city"].queryset = models.City.objects.filter(county__iexact=self.data["county"])
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
+
+        self.fields["politic_members"].label = mark_safe(
+            _(
+                "I declare that the members of the management of the organization I represent (the President and the "
+                "members of the Board of Directors) are not members of political parties."
+            )
+        )
+
+    def clean_politic_members(self):
+        if not self.cleaned_data.get("politic_members"):
+            raise ValidationError(_("Organisation members need to be apolitical."))
+        return self.cleaned_data.get("politic_members")
 
 
 class CandidateRegisterForm(forms.ModelForm):
@@ -138,7 +161,7 @@ class CandidateRegisterForm(forms.ModelForm):
 
         if cleaned_data.get("is_proposed") and not self.user.orgs.first().is_complete:
             raise ValidationError(
-                _("To add a candidate you must upload all required documents in " "'Organization Profile'")
+                _("To add a candidate you must upload all required documents in 'Organization Profile'")
             )
 
         return cleaned_data

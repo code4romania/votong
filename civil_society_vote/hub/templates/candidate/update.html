@@ -40,7 +40,7 @@
 {% if candidate.is_proposed %}
 
 <div class="container">
-  
+
   <div class="columns">
     <div class="column is-narrow">
       <a class="is-success button"
@@ -60,14 +60,14 @@
 <div class="container">
     <p>
       Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați
-      și
-      ultima secțiune de documente solicitate din Profilul organizației (tab-ul alăturat).
+      și ultima secțiune de documente solicitate din <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>.
       Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
     </p>
     <br>
 </div>
 {% endif %}
 
+<br>
 
 <div class="container">
   {% if messages %}
@@ -88,7 +88,15 @@
     {{ form.non_field_errors }}
 
     {% for hidden_field in form.hidden_fields %}
-    {{ hidden_field.errors }}
+    {% if hidden_field.errors %}
+    <article class="message is-danger"><div class="message-body">{{ hidden_field.errors }}</div></article>
+    {% endif %}
+    {% endfor %}
+
+    {% for field in form %}
+    {% if field.errors %}
+    <article class="message is-danger"><div class="message-body">{{ field.errors }}</div></article>
+    {% endif %}
     {% endfor %}
 
     {{ form|crispy }}

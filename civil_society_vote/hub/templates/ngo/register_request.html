@@ -29,7 +29,15 @@
             {{ form.non_field_errors }}
 
             {% for hidden_field in form.hidden_fields %}
-                {{ hidden_field.errors }}
+            {% if hidden_field.errors %}
+            <article class="message is-danger"><div class="message-body">{{ hidden_field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {% for field in form %}
+            {% if field.errors %}
+            <article class="message is-danger"><div class="message-body">{{ field.errors }}</div></article>
+            {% endif %}
             {% endfor %}
 
             {{ form|crispy }}
