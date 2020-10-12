@@ -6,6 +6,9 @@
 
 #alegeri-inscriere h2 {
   font-size: 35px;
+  padding: 0.5em 0;
+  color: var(--dark-gray);
+
 }
 
 #alegeri-inscriere .button {
