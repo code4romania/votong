@@ -1,4 +1,4 @@
-cd /root/votong
+cd $VOTONG_HOME
 git pull
 docker-compose down
 docker-compose build
