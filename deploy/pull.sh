@@ -1,5 +1,5 @@
 #! /usr/bin/env sh 
-set -v
+set -x
 cd $VOTONG_HOME
 git pull
 docker-compose down
