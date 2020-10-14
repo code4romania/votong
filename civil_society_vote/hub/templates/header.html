@@ -8,7 +8,7 @@
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{% url 'home' %}">
-                        <img src="{% static "images/logo.svg" %}" alt="VotONg logo" width="200">
+                        <img src="{% static "images/votong_by_c4ro.svg" %}" alt="VotONg logo" width="200">
                     </a>
 
                     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -20,6 +20,10 @@
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end has-text-centered-touch">
+                        <a  href="{% url 'home' %}" class="navbar-item">
+                            {% trans "Home" %}
+                        </a>
+
                         <a  href="{% url 'about' %}" class="navbar-item">
                             {% trans "About the platform" %}
                         </a>
@@ -51,7 +55,7 @@
 
                         {% if request.user.is_authenticated %}
 
-                        {% avatar user 65 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
+                        {% avatar user 50 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
 
                         {% if user|in_committee_or_staff_group %}
                         <a href="{% url 'committee-ngos' %}" class="navbar-item">
