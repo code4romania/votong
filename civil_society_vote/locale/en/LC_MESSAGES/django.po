@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 10:18+0000\n"
+"POT-Creation-Date: 2020-10-14 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,23 +151,27 @@ msgstr ""
 msgid "terms/"
 msgstr ""
 
-#: civil_society_vote/urls.py:24
+#: civil_society_vote/urls.py:22
+msgid "platform_rules/"
+msgstr ""
+
+#: civil_society_vote/urls.py:25
 msgid "accounts/"
 msgstr ""
 
-#: civil_society_vote/urls.py:26
+#: civil_society_vote/urls.py:27
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: civil_society_vote/urls.py:34
+#: civil_society_vote/urls.py:35
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: civil_society_vote/urls.py:39
+#: civil_society_vote/urls.py:40
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: civil_society_vote/urls.py:44
+#: civil_society_vote/urls.py:45
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
@@ -191,46 +195,46 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:85
+#: hub/forms.py:86
 msgid ""
 "I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank"
 "\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:91
+#: hub/forms.py:93
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:119
+#: hub/forms.py:122
 msgid ""
 "I declare that the members of the management of the organization I represent "
 "(the President and the members of the Board of Directors) are not members of "
 "political parties."
 msgstr ""
 
-#: hub/forms.py:125
+#: hub/forms.py:129
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:145
+#: hub/forms.py:149
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:148
+#: hub/forms.py:152
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:160
+#: hub/forms.py:164
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:197
+#: hub/forms.py:201
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:202
+#: hub/forms.py:206
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -648,11 +652,11 @@ msgstr "Candidați propusi"
 msgid "Save profile"
 msgstr ""
 
-#: hub/templates/candidate/update.html:107
+#: hub/templates/candidate/update.html:106
 msgid "Publish changes"
 msgstr ""
 
-#: hub/templates/candidate/update.html:107
+#: hub/templates/candidate/update.html:106
 msgid "Update profile"
 msgstr ""
 
@@ -666,6 +670,7 @@ msgstr "Candidați propusi"
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
+#: hub/templates/committee/list.html:19
 #: hub/templates/committee/partials/nav.html:6
 msgid "Pending Organisations"
 msgstr "Organizații nevalidate"
@@ -724,14 +729,18 @@ msgid "About VotONG"
 msgstr ""
 
 #: hub/templates/footer.html:17
-msgid "Privacy Policy"
+msgid "Platform rules"
 msgstr ""
 
 #: hub/templates/footer.html:18
+msgid "Privacy Policy"
+msgstr ""
+
+#: hub/templates/footer.html:19
 msgid "Terms and conditions"
 msgstr ""
 
-#: hub/templates/footer.html:20
+#: hub/templates/footer.html:21
 msgid "Get Involved"
 msgstr ""
 
