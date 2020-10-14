@@ -7,44 +7,66 @@
 
 {% block content %}
 <div class="container">
-    {% block left-side-view %}
-    <div class="container tight-container content mb-50">
-        <h1>
-            Despre proiect
+
+    <div class="container section has-text-centered">
+        <h1 class="title">
+            Despre VotONG
         </h1>
 
+        <p class="subtitle border-b" style="margin: 0 10%">
+            VotONG este platforma prin care societatea civilă își va putea alege reprezentanții transparent, printr-un
+            proces electiv bazat pe o participare deschisă a cât mai multor ONG-uri.
+        </p>
+    </div>
+
+    {% block left-side-view %}
+    <div class="container tight-container content mb-50">
         <p>
-            VotONG este platforma prin care societatea civilă își va putea alege reprezentanții transparent,
-            printr-un proces electiv bazat pe o participare deschisă a cât mai multor ONG-uri.
-            Platforma permite organizarea de runde electorale în care organizațiile neguvernamentale pot
-            nominaliza proprii candidați, pot susține deschis o candidatură sau alta și pot vota în cadrul
-            alegerilor deschise prin acest sistem.
+            În cadrul programului de cercetare și proiectare de soluții derulat de Code for Romania ne-am aplecat
+            atenția asupra sectorului neguvernamental pentru a identifica punctele nevralgice ale societății civile și
+            pentru a interveni cu soluții digitale acolo unde putem produce o schimbare în bine. Adesea proiectăm
+            soluții care digitalizează procese și care simplifică proceduri și mecanici care au nevoie de eficientizare,
+            dar în multe dintre cazuri venim cu propuneri de soluții care răspund nevoii de a construi instrumente
+            complet noi care rezolvă probleme cu sprijinul tehnologiei.
         </p>
 
         <p>
-            Validarea organizațiilor este un proces anual care va ajuta întregul sector să mențină facil și o bază de
-            date dinamică în care se regăsesc majoritatea organizațiilor active din România.
+            Soluția pe care o utilizați chiar în acest moment este o platformă care răspunde nevoii de creștere a
+            legitimității reprezentanților prin mecanisme clare și transparente de alegere a vocilor care duc mai
+            departe misiunile sectorului în forurile de decizie. VotONG este, așadar, mecanismul de autoreglementare
+            prin care societatea civilă își alege propunerile de reprezentanți în instituții publice.
         </p>
 
         <p>
-            Prima rundă de alegeri organizată prin platforma VotONG este cea dedicată propunerii reprezentanților
-            societății civile în Comitetul Economic și Social (CES). Prin intermediul acestei platforme venim în
-            sprijinul sectorului pentru a asigura alegerea pe criterii clare a reprezentanților care vor fi
-            propuși spre a ocupa cele 15 fotolii disponibile în CES.
+            Prin acest mecanism transparent, auditabil, deschis tuturor organizațiilor societății civile ne dorim
+            desemnarea unor persoane cu o mai mare reprezentativitate și legitimitate astfel încât instituțiile în care
+            își vor desfășura activitatea vor deveni mai funcționale. De aceea vă adresăm invitația de a ne însoți în
+            acest demers pentru că împreună putem declanșa schimbările pozitive pe care ni le dorim pentru societatea
+            românească.
+        </p>
+
+        <div class="columns is-vcentered">
+            <div class="column">VotONG este proiectat de Code for Romania în Civic Labs și dezvoltat pro-bono de către
+                voluntarii
+                organizației noastre. Acest proiect nu are nicio altă sursă de finanțare și este administrat în
+                întregime din donațiile voastre.</div>
+            <div class="column is-6-mobile is-4-tablet is-3-desktop is-paddingless">
+                <img src="{% static "images/tfsg.svg" %}" alt="Tech for Social Good logo">
+            </div>
+        </div>
+
+        <p>
+            VotONG este o platformă care deservește alegerea reprezentanților societății civile în forurile consultative
+            prevăzute de lege precum și orice alte funcțiuni de reprezentare pentru societatea civilă.
         </p>
 
         <p>
-            Dincolo de importanța majoră a prezenței în CES, locul în care sunt avizate (cu rol consultativ) toate
-            propunerile legislative, este esențial să marcăm faptul că anul 2020 este cu atât mai relevant cu cât este
-            pentru prima dată când conducerea Comitetului Economic și Social ajunge, prin rotație, să fie asigurată de
-            unul din cei 15 reprezentanți ai sectorului în acest organism. Este un moment în care sectorul ONG din
-            România are șansa de a demonstra, din nou, gradul ridicat de profesionalism și competențele sale la cel mai
-            înalt nivel.
-        </p>
-
-        <p>
-            Asigurarea reprezentativității societății civile este extrem de importantă, pentru a ne putea face vocile
-            auzite în momentul luării de decizii care pot influența întreaga societate.
+            Astfel că, aici, prin mecanicile configurate în platformă și conform cu regulamentul acesteia se vor
+            organiza alegeri libere pentru desemnarea candidaților care vor fi propuși spre numire în forurile
+            consultative prevăzute de legislații specifice, în vigoare, cum ar fi: Consiliul Economic și Social (CES),
+            Comitetul Economic și Social European (CESE), Consiliul Național pentru Combaterea Discriminării (CNCD),
+            Consiliul Superior al Magistraturii, Consiliul Național de Integritate, Comitetele de monitorizare pe
+            diferite domenii (ex: monitorizarea absorbției și implementării fondurilor structurale) și altele.
         </p>
 
         <p>
@@ -64,6 +86,9 @@
                 <img src="{% static "images/codeforromania.png" %}" alt="Code for Romania logo">
             </div>
         </div>
+
+        <p>Pentru a consulta regulamentul de functionare al platformei VotONG, te rugam sa accesezi <a
+                href="{% url 'platform_rules' %}">acest link</a>.</p>
     </div>
     {% endblock %}
 </div>
