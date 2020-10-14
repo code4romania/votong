@@ -770,8 +770,6 @@ msgid "About VotONG"
 msgstr "Despre VotONG"
 
 #: hub/templates/footer.html:17
-#, fuzzy
-#| msgid "platform_rules/"
 msgid "Platform rules"
 msgstr "Regulamentul platformei"
 
