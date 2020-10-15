@@ -187,8 +187,9 @@ class Organization(StatusModel, TimeStampedModel):
         storage=PrivateMediaStorageClass(),
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
-    accept_terms_and_conditions = models.BooleanField(_("Accepted Terms and Conditions"), null=False, blank=False)
-    politic_members = models.BooleanField(_("Has political party members"), null=True, blank=True)
+
+    accept_terms_and_conditions = models.BooleanField(_("Accepted Terms and Conditions"), default=False)
+    politic_members = models.BooleanField(_("Has political party members"), default=False)
 
     report_2019 = models.FileField(
         _("Yearly report 2019"),
