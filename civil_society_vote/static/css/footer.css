@@ -16,25 +16,26 @@ footer a:not(.button):hover {
 }
 
 footer .branding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .branding > span {
+    display: inline-block;
+    font-size: 10px;
+    width: 200px;
     text-align: right;
 }
 
-footer .branding > div {
-    margin-left: 30px;
-    display: inline-block;
-    font-size: 12px;
-}
-
 footer .branding a {
-    margin-left: 10px;
-}
-
-footer .branding .civicLab-logo {
-    height: 20px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
 }
 
 footer .branding .code4Ro-logo {
-    height: 27px;
+    height: 45px;
 }
 
 #footer-links {
