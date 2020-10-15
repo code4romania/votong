@@ -45,22 +45,19 @@
                     <div class="box-icon">
                         <img src="{% static "images/1-inscriere.svg" %}" alt="Sign up icon" />
                     </div>
-                    <p class="tile-title">Pasul 1: Înscrierea</p>
+                    <p class="tile-title">Pasul 1: Eligibilitate</p>
                     <p>
-                        Fiecare ONG se poate înscrie în platformă cu ajutorul unui formular simplu disponibil în meniul
-                        acestei platforme. Pentru a intra în VotONG există o serie de condiții prestabilite care
-                        trebuiesc îndeplinite.
+                        Se pot înscrie în platformă toate asociațiile, fundațile sau federațiile înregistrate legal în România, orice fundație pentru tineret sau Fundația Națională pentru Tineret, precum și Societatea Națională de Cruce Roșie din România și a structurilor sale cu personalitate juridică, care respectă condițiile din regulament.
                     </p>
                 </div>
                 <div class="tile is-child box">
                     <div class="box-icon">
                         <img src="{% static "images/2-validare.svg" %}" alt="Validation icon" />
                     </div>
-                    <p class="tile-title">Pasul 2: Validarea</p>
+                    <p class="tile-title">Pasul 2: Înscriere</p>
                     <p>
-                        După înscriere fiecare ONG este validat. Administratorul platformei va verifica informațiile
-                        prezentate în formularul completat și va contacta organizația dacă sunt necesare și alte
-                        documente. </p>
+                        Organizațiile se pot înscrie în platformă cu ajutorul unui formular simplu disponibil în meniul acestei platforme. Pentru a intra în VotONG există o serie de condiții prestabilite care trebuiesc îndeplinite și care pot fi consultate în Regulamentul platformei.
+                    </p>
                 </div>
             </div>
         </div>
@@ -70,22 +67,39 @@
                     <div class="box-icon">
                         <img src="{% static "images/3-votare.svg" %}" alt="Vote icon" />
                     </div>
-                    <p class="tile-title">Pasul 3: Votul</p>
+                    <p class="tile-title">Pasul 3: Validare</p>
                     <p>
-                        Dacă există alegeri în curs, fiecare ONG care se califică, potrivit regulamentului fiecărei
-                        runde, poate să propună candidaturi pentru a intra în cursa electorală. Organizațiile pot de
-                        asemenea și să își exprime susținerea pentru candidați.
+                        După înscriere fiecare ONG este validat. Administratorul platformei va verifica informațiile prezentate în formularul completat și va contacta organizația dacă sunt necesare și alte documente. Validarea organizațiilor înscrise va avea loc anual.
                     </p>
                 </div>
                 <div class="tile is-child box">
                     <div class="box-icon">
-                        <img src="{% static "images/4-rezultate.svg" %}" alt="Results icon" />
+                        <img src="{% static "images/4-vot.svg" %}" alt="Results icon" />
                     </div>
-                    <p class="tile-title">Step 4: Rezultate</p>
+                    <p class="tile-title">Step 4: Vot</p>
                     <p>
-                        Rezultatele fiecărei runde de alegeri vor fi publicate pe platformă și anunțate prin e-mail
-                        către toate organizațiile care au participat la runda de vot.
+                        Dacă există alegeri în curs, fiecare ONG care se califică, potrivit regulamentului fiecărei runde, poate să propună candidaturi pentru a intra în cursa electorală. Organizațiile pot de asemenea și să își exprime susținerea pentru candidați.
                     </p>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-ancestor has-text-centered">
+            <div class="tile is-12 is-parent">
+                <div class="tile is-child box">
+                    <div class="box-icon">
+                        <img src="{% static "images/5-rezultate.png" %}" alt="Sign up icon" />
+                    </div>
+                    <p class="tile-title">Pasul 5: Rezultate</p>
+                    <p>
+                        Rezultatele fiecărei runde de alegeri vor fi publicate pe platformă și anunțate prin e-mail către toate organizațiile care au participat la runda de vot.
+                    </p>
+                </div>
+                <div class="tile is-child box rules-box">
+                    <p class="tile-title">Regulament</p>
+                    <p>
+                        Citește aici detalii despre regulamentul de funcționare al platformei Vot ONG.
+                    </p>
+                    <a href="{% url 'rules' %}" class="button is-warning">Vezi Regulament</a>
                 </div>
             </div>
         </div>
