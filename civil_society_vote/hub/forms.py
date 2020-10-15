@@ -55,7 +55,6 @@ class OrganizationCreateForm(forms.ModelForm):
             "report_2017",
             "fiscal_certificate",
             "statement",
-            "politic_members",
         ]
         widgets = {
             "email": EmailInput(),
@@ -88,10 +87,22 @@ class OrganizationCreateForm(forms.ModelForm):
             )
         )
 
+        self.fields["politic_members"].label = mark_safe(
+            _(
+                "I declare that the members of the management of the organization I represent (the President and the "
+                "members of the Board of Directors) are not members of political parties."
+            )
+        )
+
     def clean_accept_terms_and_conditions(self):
         if not self.cleaned_data.get("accept_terms_and_conditions"):
             raise ValidationError(_("You need to accept terms and conditions."))
         return self.cleaned_data.get("accept_terms_and_conditions")
+
+    def clean_politic_members(self):
+        if not self.cleaned_data.get("politic_members"):
+            raise ValidationError(_("Organisation members need to be apolitical."))
+        return self.cleaned_data.get("politic_members")
 
 
 class OrganizationUpdateForm(forms.ModelForm):

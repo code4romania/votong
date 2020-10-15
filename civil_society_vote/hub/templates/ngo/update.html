@@ -56,13 +56,13 @@
 
             {% for hidden_field in form.hidden_fields %}
             {% if hidden_field.errors %}
-            <article class="message is-danger"><div class="message-body">{{ hidden_field.errors }}</div></article>
+            <article class="message is-danger"><div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div></article>
             {% endif %}
             {% endfor %}
 
             {% for field in form %}
             {% if field.errors %}
-            <article class="message is-danger"><div class="message-body">{{ field.errors }}</div></article>
+            <article class="message is-danger"><div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div></article>
             {% endif %}
             {% endfor %}
 
