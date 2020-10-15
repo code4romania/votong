@@ -82,7 +82,7 @@ class OrganizationCreateForm(forms.ModelForm):
 
         self.fields["accept_terms_and_conditions"].label = mark_safe(
             _(
-                'I agree to the <a href="https://votong.ro/ro/termeni/" target="_blank">Terms and Conditions</a> '
+                'I agree to the <a href="https://votong.ro/ro/termeni/" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> '
                 "of the VotONG platform"
             )
         )
