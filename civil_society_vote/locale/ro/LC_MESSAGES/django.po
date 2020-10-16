@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-14 12:10+0000\n"
+"POT-Creation-Date: 2020-10-16 08:54+0000\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -158,31 +158,31 @@ msgstr "despre/"
 msgid "rules/"
 msgstr "regulament/"
 
-#: civil_society_vote/urls.py:20
+#: civil_society_vote/urls.py:19
 msgid "terms/"
 msgstr "termeni/"
 
-#: civil_society_vote/urls.py:22
+#: civil_society_vote/urls.py:21
 msgid "platform_rules/"
 msgstr "regulamentul_platformei"
 
-#: civil_society_vote/urls.py:25
+#: civil_society_vote/urls.py:24
 msgid "accounts/"
 msgstr "cont/"
 
-#: civil_society_vote/urls.py:27
+#: civil_society_vote/urls.py:26
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: civil_society_vote/urls.py:35
+#: civil_society_vote/urls.py:34
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: civil_society_vote/urls.py:40
+#: civil_society_vote/urls.py:39
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: civil_society_vote/urls.py:45
+#: civil_society_vote/urls.py:44
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
@@ -206,19 +206,15 @@ msgstr "Fișier CSV încărcat"
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/forms.py:86
+#: hub/forms.py:85
 msgid ""
-"I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank"
-"\">Terms and Conditions</a> of the VotONG platform"
+"I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank"
 "\">Termenii și condițiile</a> platformei VotONG"
 
-#: hub/forms.py:93
-msgid "You need to accept terms and conditions."
-msgstr "Trebuie să accepți termenii și condiții de utilizare"
-
-#: hub/forms.py:122
+#: hub/forms.py:92 hub/forms.py:133
 msgid ""
 "I declare that the members of the management of the organization I represent "
 "(the President and the members of the Board of Directors) are not members of "
@@ -227,19 +223,23 @@ msgstr ""
 "Declar că membrii conducerii organizației pe care o reprezint (Președintele "
 "și membrii Consiliului Director) nu sunt membri în partide politice."
 
-#: hub/forms.py:129
+#: hub/forms.py:99
+msgid "You need to accept terms and conditions."
+msgstr "Trebuie să accepți termenii și condiții de utilizare"
+
+#: hub/forms.py:104 hub/forms.py:140
 msgid "Organisation members need to be apolitical."
 msgstr "Membrii organizației trebuie să fie apolitici."
 
-#: hub/forms.py:149
+#: hub/forms.py:160
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/forms.py:152
+#: hub/forms.py:163
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja un candidat"
 
-#: hub/forms.py:164
+#: hub/forms.py:175
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -247,11 +247,11 @@ msgstr ""
 "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în "
 "'Profilul Organizației'"
 
-#: hub/forms.py:201
+#: hub/forms.py:212
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:206
+#: hub/forms.py:217
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -260,8 +260,6 @@ msgid "Active"
 msgstr "Activ"
 
 #: hub/models.py:79
-#, fuzzy
-#| msgid "inactive"
 msgid "Inactive"
 msgstr "Inactiv"
 
@@ -290,10 +288,8 @@ msgid "Enable candidate voting"
 msgstr "Activează votare candidat"
 
 #: hub/models.py:91
-#, fuzzy
-#| msgid "Organizations"
 msgid "Pending organizations digest email"
-msgstr "Organizații"
+msgstr "Model e-mail pentru organizații în așteptare"
 
 #: hub/models.py:92
 msgid "Your organization was approved"
@@ -335,11 +331,11 @@ msgstr "Șablon email"
 msgid "Email templates"
 msgstr "Șabloane email"
 
-#: hub/models.py:123 hub/models.py:319
+#: hub/models.py:123 hub/models.py:320
 msgid "Name"
 msgstr "Nume"
 
-#: hub/models.py:124 hub/models.py:320 hub/templates/candidate/detail.html:80
+#: hub/models.py:124 hub/models.py:321 hub/templates/candidate/detail.html:80
 msgid "Description"
 msgstr "Descriere"
 
@@ -368,15 +364,15 @@ msgstr "E reședință de județ"
 msgid "Cities"
 msgstr "Orașe"
 
-#: hub/models.py:156 hub/models.py:314
+#: hub/models.py:156 hub/models.py:315
 msgid "Pending"
 msgstr "În așteptare"
 
-#: hub/models.py:156 hub/models.py:314
+#: hub/models.py:156 hub/models.py:315
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: hub/models.py:156 hub/models.py:314
+#: hub/models.py:156 hub/models.py:315
 msgid "Rejected"
 msgstr "Respins"
 
@@ -439,164 +435,164 @@ msgstr ""
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: hub/models.py:190
+#: hub/models.py:191
 msgid "Accepted Terms and Conditions"
 msgstr "A acceptat termenii și condițiile"
 
-#: hub/models.py:191
+#: hub/models.py:192
 msgid "Has political party members"
 msgstr "Are membrii în partide politice"
 
-#: hub/models.py:194 hub/templates/ngo/detail.html:131
+#: hub/models.py:195 hub/templates/ngo/detail.html:131
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: hub/models.py:202 hub/templates/ngo/detail.html:140
+#: hub/models.py:203 hub/templates/ngo/detail.html:140
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: hub/models.py:210 hub/templates/ngo/detail.html:149
+#: hub/models.py:211 hub/templates/ngo/detail.html:149
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: hub/models.py:218 hub/templates/ngo/detail.html:120
+#: hub/models.py:219 hub/templates/ngo/detail.html:120
 msgid "Fiscal certificate"
 msgstr "Certificat fiscal"
 
-#: hub/models.py:226 hub/templates/ngo/detail.html:158
+#: hub/models.py:227 hub/templates/ngo/detail.html:158
 msgid "Statement"
 msgstr "Declarație pe propria răspundere"
 
-#: hub/models.py:242 hub/templates/header.html:28
+#: hub/models.py:243 hub/templates/header.html:32
 msgid "Organizations"
 msgstr "Organizații"
 
-#: hub/models.py:243
+#: hub/models.py:244
 msgid "Organization"
 msgstr "Organizație"
 
-#: hub/models.py:321 hub/templates/candidate/detail.html:107
+#: hub/models.py:322 hub/templates/candidate/detail.html:107
 msgid "Curriculum Vitae"
 msgstr "Curriculum Vitae"
 
-#: hub/models.py:322
+#: hub/models.py:323
 msgid "Role in organization"
 msgstr "Funcție în organizație"
 
-#: hub/models.py:328 hub/templates/candidate/detail.html:91
+#: hub/models.py:329 hub/templates/candidate/detail.html:91
 msgid "Professional experience"
 msgstr "Activitate profesională"
 
-#: hub/models.py:329 hub/templates/candidate/detail.html:92
+#: hub/models.py:330 hub/templates/candidate/detail.html:92
 msgid "Studies"
 msgstr "Studii"
 
-#: hub/models.py:332
+#: hub/models.py:333
 msgid "Main Objectives"
 msgstr ""
 "Care sunt principalele obiective pe care ți le propui dacă vei obține un loc "
 "în Comitetul Economic și Social?"
 
-#: hub/models.py:334
+#: hub/models.py:335
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
 msgstr " "
 
-#: hub/models.py:339
+#: hub/models.py:340
 msgid "Main Points"
 msgstr ""
 "Care sunt cele mai relevante momente din experiența ta care te recomandă "
 "pentru a ocupa un loc in Comitetul Economic și Social?"
 
-#: hub/models.py:342
+#: hub/models.py:343
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr " "
 
-#: hub/models.py:348
+#: hub/models.py:349
 msgid "Relevant Moments"
 msgstr ""
 "Care sunt cele mai relevante momente din experiența ta care te recomandă "
 "pentru a ocupa un loc in Comitetul Economic și Social?"
 
-#: hub/models.py:351
+#: hub/models.py:352
 msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr " "
 
-#: hub/models.py:357 hub/templates/registration/login.html:40
+#: hub/models.py:358 hub/templates/registration/login.html:40
 msgid "Email"
 msgstr "Email"
 
-#: hub/models.py:358
+#: hub/models.py:359
 msgid "Phone"
 msgstr "Telefon"
 
-#: hub/models.py:359
+#: hub/models.py:360
 msgid "Photo"
 msgstr "Fotografie"
 
-#: hub/models.py:362 hub/templates/candidate/detail.html:125
+#: hub/models.py:363 hub/templates/candidate/detail.html:125
 msgid "Mandate from the organization"
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/models.py:369 hub/templates/candidate/detail.html:116
+#: hub/models.py:370 hub/templates/candidate/detail.html:116
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
-#: hub/models.py:376 hub/templates/candidate/detail.html:134
+#: hub/models.py:377 hub/templates/candidate/detail.html:134
 msgid "Statement of interests"
 msgstr "Declarație de interese"
 
-#: hub/models.py:383 hub/templates/candidate/detail.html:145
+#: hub/models.py:384 hub/templates/candidate/detail.html:145
 msgid "Tax records"
 msgstr "Cazier fiscal"
 
-#: hub/models.py:390 hub/templates/candidate/detail.html:154
+#: hub/models.py:391 hub/templates/candidate/detail.html:154
 msgid "Legal records"
 msgstr "Cazier juridic"
 
-#: hub/models.py:398
+#: hub/models.py:399
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:401 hub/templates/candidate/list.html:36
-#: hub/templates/header.html:41
+#: hub/models.py:402 hub/templates/candidate/list.html:36
+#: hub/templates/header.html:45
 msgid "Candidates"
 msgstr "Candidați"
 
-#: hub/models.py:402
+#: hub/models.py:403
 msgid "Candidate"
 msgstr "Candidat"
 
-#: hub/models.py:421
+#: hub/models.py:422
 msgid "Votes"
 msgstr "Voturi"
 
-#: hub/models.py:426
+#: hub/models.py:427
 msgid "Supporters"
 msgstr "Susținători"
 
-#: hub/models.py:432
+#: hub/models.py:433
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:457
+#: hub/models.py:458
 msgid "Canditate votes"
 msgstr "Voturi candidați"
 
-#: hub/models.py:458
+#: hub/models.py:459
 msgid "Candidate vote"
 msgstr "Vot candidat"
 
-#: hub/models.py:477
+#: hub/models.py:478
 msgid "Canditate supporters"
 msgstr "Susținători candidat"
 
-#: hub/models.py:478
+#: hub/models.py:479
 msgid "Candidate supporter"
 msgstr "Susținător candidat"
 
@@ -664,9 +660,7 @@ msgid "Settings"
 msgstr "Setări"
 
 #: hub/templates/candidate/register_request.html:72
-#, fuzzy
-#| msgid "Propose candidate"
-msgid "Propune candidate"
+msgid "Propose candidate"
 msgstr "Propune candidat"
 
 #: hub/templates/candidate/register_request.html:80
@@ -695,63 +689,6 @@ msgstr "Candidați selectați"
 #: hub/templates/committee/partials/nav.html:6
 msgid "Pending Organisations"
 msgstr "Organizații nevalidate"
-
-#: hub/templates/contact.html:15
-msgid "Contact us"
-msgstr "Contactează-ne"
-
-#: hub/templates/contact.html:19
-#, python-format
-msgid ""
-"\n"
-"                    <span class=\"%(class)s\">If you are an NGO "
-"representative</span>, and your NGO is legally registered in Romania while "
-"also directly participating in the COVID-19 relief response you can join "
-"RoHelp <a href=\"%(the_url)s\" target=\"%(target)s\">here</a>. If you meet "
-"all eligibility criteria and your organization is validated in accordance to "
-"the rules and terms of use of the platform you'll be able to access your NGO "
-"account on the platform and will be able to solicit support, be it "
-"financial, material or volunteer-based.\n"
-"                    "
-msgstr ""
-"\n"
-"                <span class=\"%(class)s\">Dacă reprezinți o organizație</"
-"span>, legal constituită și derulezi activități menite să contribuie la "
-"ameliorarea efectelor epidemiei cu COVID-19, te poți înregistra în platformă "
-"<a href=\"%(the_url)s\" target=\"%(target)s\">aici</a>. Dacă îndeplinești "
-"toate criteriile de eligibilitate și organizația ta este validată conform "
-"regulamentului de utilizare a platformei îți vei putea accesa contul de ONG "
-"din platformă și vei putea solicita sprijin financiar, în resurse materiale "
-"sau voluntari.\n"
-"                "
-
-#: hub/templates/contact.html:24
-#, python-format
-msgid ""
-"\n"
-"                    <span class=\"%(class)s\">If you want to help out</"
-"span>, you can use the platform to identify the most stringent needs and "
-"active NGOs in your area or at the national level, and help out in any way "
-"you can, by donations, material support or through your skillset, as a "
-"volunteer. Even any social media share of a NGO page or city page from the "
-"RoHelp platform helps in the COVID-19 relief effort.\n"
-"                    "
-msgstr ""
-"\n"
-"                <span class=\"%(class)s\">Dacă vrei să ajuți</span>, "
-"folosește-te de platforma RoHelp pentru a putea identifica cele mai urgente "
-"nevoi și organizațiile din orașul tău sau la nivel național pe care ai putea "
-"să le sprijini cu donații, cu resurse materiale sau cu skill-urile tale, în "
-"regim de voluntariat. Orice share al unei pagini de organizații sau pagini "
-"de oraș din RoHelp ajută la eforturile de combatere a crizei. \n"
-"                "
-
-#: hub/templates/contact.html:30
-msgid ""
-"If you encounter any technical difficulty, send us an e-mail: rohelp@code4.ro"
-msgstr ""
-"Dacă întâmpini orice dificultate tehnică, te rugăm să ne transmiți un mesaj "
-"pe adresa: rohelp@code4.ro"
 
 #: hub/templates/developed-by.html:7
 msgid "A project developed by"
@@ -786,34 +723,38 @@ msgid "Get Involved"
 msgstr "Implică-te"
 
 #: hub/templates/header.html:24
+msgid "Home"
+msgstr ""
+
+#: hub/templates/header.html:28
 msgid "About the platform"
 msgstr "Despre platformă"
 
-#: hub/templates/header.html:32
+#: hub/templates/header.html:36
 msgid "History"
 msgstr "Istoric"
 
-#: hub/templates/header.html:33
+#: hub/templates/header.html:37
 msgid "CES elections"
 msgstr "Alegeri CES"
 
-#: hub/templates/header.html:37
+#: hub/templates/header.html:41
 msgid "Register your organisation"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:45 hub/templates/partials/ces_header.html:16
+#: hub/templates/header.html:49 hub/templates/partials/ces_header.html:16
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: hub/templates/header.html:66
+#: hub/templates/header.html:70
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:78 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:82 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:83 hub/templates/registration/login.html:15
+#: hub/templates/header.html:87 hub/templates/registration/login.html:15
 #: hub/templates/registration/login.html:59
 msgid "Login"
 msgstr "Autentificare"
@@ -887,8 +828,6 @@ msgid "Please login to see this page."
 msgstr "Va rugam sa va autentificati pentru a vizualiza aceasta pagina."
 
 #: hub/templates/registration/login.html:42
-#, fuzzy
-#| msgid "e-mail"
 msgid "email"
 msgstr "Email"
 
@@ -987,8 +926,6 @@ msgid "candidates/<int:pk>/support"
 msgstr "candidati/<int:pk>/sustinere"
 
 #: hub/urls.py:30
-#, fuzzy
-#| msgid "candidates/<int:pk>/vote"
 msgid "candidates/<int:pk>/revoke"
 msgstr "candidati/<int:pk>/vot"
 
@@ -1041,6 +978,59 @@ msgstr ""
 "noastră te va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
+
+#~ msgid "Contact us"
+#~ msgstr "Contactează-ne"
+
+#~ msgid ""
+#~ "\n"
+#~ "                    <span class=\"%(class)s\">If you are an NGO "
+#~ "representative</span>, and your NGO is legally registered in Romania "
+#~ "while also directly participating in the COVID-19 relief response you can "
+#~ "join RoHelp <a href=\"%(the_url)s\" target=\"%(target)s\">here</a>. If "
+#~ "you meet all eligibility criteria and your organization is validated in "
+#~ "accordance to the rules and terms of use of the platform you'll be able "
+#~ "to access your NGO account on the platform and will be able to solicit "
+#~ "support, be it financial, material or volunteer-based.\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "                <span class=\"%(class)s\">Dacă reprezinți o organizație</"
+#~ "span>, legal constituită și derulezi activități menite să contribuie la "
+#~ "ameliorarea efectelor epidemiei cu COVID-19, te poți înregistra în "
+#~ "platformă <a href=\"%(the_url)s\" target=\"%(target)s\">aici</a>. Dacă "
+#~ "îndeplinești toate criteriile de eligibilitate și organizația ta este "
+#~ "validată conform regulamentului de utilizare a platformei îți vei putea "
+#~ "accesa contul de ONG din platformă și vei putea solicita sprijin "
+#~ "financiar, în resurse materiale sau voluntari.\n"
+#~ "                "
+
+#~ msgid ""
+#~ "\n"
+#~ "                    <span class=\"%(class)s\">If you want to help out</"
+#~ "span>, you can use the platform to identify the most stringent needs and "
+#~ "active NGOs in your area or at the national level, and help out in any "
+#~ "way you can, by donations, material support or through your skillset, as "
+#~ "a volunteer. Even any social media share of a NGO page or city page from "
+#~ "the RoHelp platform helps in the COVID-19 relief effort.\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "                <span class=\"%(class)s\">Dacă vrei să ajuți</span>, "
+#~ "folosește-te de platforma RoHelp pentru a putea identifica cele mai "
+#~ "urgente nevoi și organizațiile din orașul tău sau la nivel național pe "
+#~ "care ai putea să le sprijini cu donații, cu resurse materiale sau cu "
+#~ "skill-urile tale, în regim de voluntariat. Orice share al unei pagini de "
+#~ "organizații sau pagini de oraș din RoHelp ajută la eforturile de "
+#~ "combatere a crizei. \n"
+#~ "                "
+
+#~ msgid ""
+#~ "If you encounter any technical difficulty, send us an e-mail: "
+#~ "rohelp@code4.ro"
+#~ msgstr ""
+#~ "Dacă întâmpini orice dificultate tehnică, te rugăm să ne transmiți un "
+#~ "mesaj pe adresa: rohelp@code4.ro"
 
 #~ msgid "proposed"
 #~ msgstr "propuși"

@@ -16,7 +16,6 @@ admin.site.index_title = _("Admin Civil Society Vote")
 urlpatterns = i18n_patterns(
     path(_("about/"), StaticPageView.as_view(template_name="about.html"), name="about"),
     path(_("rules/"), StaticPageView.as_view(template_name="rules.html"), name="rules"),
-    path("contact/", StaticPageView.as_view(template_name="contact.html"), name="contact"),
     path(_("terms/"), StaticPageView.as_view(template_name="terms_and_conditions.html"), name="terms",),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
