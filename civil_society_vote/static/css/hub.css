@@ -125,6 +125,15 @@ body {
     margin: 2em!important;
 }
 
+.tile.rules-box {
+    background-color: #F4F5F7;
+    padding-top: 60px;
+}
+
+    .tile.rules-box p {
+        margin-bottom: 15px;
+    }
+
 .tile-title {
     color: var(--dark-gray);
     font-size: 1.5em;
