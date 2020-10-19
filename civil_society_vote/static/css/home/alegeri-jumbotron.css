@@ -27,7 +27,8 @@
     padding: 20px 0 50px;
   }
 
-    #alegeri-buttons .button {
-      width: 247px;
-      font-weight: bold;
-    }
+  #alegeri-buttons .button {
+    margin:20px;
+    width: 247px;
+    font-weight: bold;
+  }
