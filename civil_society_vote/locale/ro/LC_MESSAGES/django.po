@@ -429,7 +429,7 @@ msgstr "Siglă"
 #: hub/models.py:181 hub/templates/ngo/detail.html:102
 msgid "First page of last balance sheet"
 msgstr ""
-"Prima pagină a ultimului bilanț contabil depus la Ministerul Finanțelor"
+"Prima pagină a bilanțului contabil pe anul 2019 depus la Ministerul Finanțelor"
 
 #: hub/models.py:184 hub/templates/ngo/detail.html:111
 msgid "NGO Statute"
