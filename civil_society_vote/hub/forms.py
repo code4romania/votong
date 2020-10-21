@@ -1,5 +1,4 @@
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -40,7 +39,7 @@ ORG_FIELD_ORDER = [
 
 
 class OrganizationCreateForm(forms.ModelForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "register"}), label="",)
+    captcha = ReCaptchaField(label="org_signup",)
 
     field_order = ORG_FIELD_ORDER
 
@@ -223,7 +222,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(required=True)
     terms_and_conditions = forms.BooleanField(required=True)
 
-    captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={"required_score": 0.3, "action": "help"}), label="")
+    captcha = ReCaptchaField(label="contact_form")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
