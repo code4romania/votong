@@ -39,7 +39,7 @@ ORG_FIELD_ORDER = [
 
 
 class OrganizationCreateForm(forms.ModelForm):
-    captcha = ReCaptchaField(label="org_signup",)
+    captcha = ReCaptchaField(label="",)
 
     field_order = ORG_FIELD_ORDER
 
@@ -222,7 +222,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(required=True)
     terms_and_conditions = forms.BooleanField(required=True)
 
-    captcha = ReCaptchaField(label="contact_form")
+    captcha = ReCaptchaField(label="")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
