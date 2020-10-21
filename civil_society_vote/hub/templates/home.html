@@ -165,6 +165,20 @@
         {% endif %}
 
         <form action="" method="post" class="box">
+            {{ form.non_field_errors }}
+
+            {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+            <article class="message is-danger"><div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {% for field in form %}
+            {% if field.errors %}
+            <article class="message is-danger"><div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
                     <input class="input" type="text" placeholder="Nume" name="name" />
@@ -195,7 +209,6 @@
             </div>
 
             {{ form.captcha }}
-            {{ form.captcha.errors }}
 
             <label class="checkbox">
                 <input type="checkbox" name="terms_and_conditions">
