@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 08:54+0000\n"
+"POT-Creation-Date: 2020-10-22 18:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,40 +201,40 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:92 hub/forms.py:133
+#: hub/forms.py:93 hub/forms.py:135
 msgid ""
 "I declare that the members of the management of the organization I represent "
 "(the President and the members of the Board of Directors) are not members of "
 "political parties."
 msgstr ""
 
-#: hub/forms.py:99
+#: hub/forms.py:100
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:104 hub/forms.py:140
+#: hub/forms.py:105 hub/forms.py:142
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:160
+#: hub/forms.py:162
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:163
+#: hub/forms.py:165
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:175
+#: hub/forms.py:177
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:212
+#: hub/forms.py:214
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:217
+#: hub/forms.py:219
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -508,7 +508,7 @@ msgid ""
 "take a place in the Economic and Social Committee?"
 msgstr ""
 
-#: hub/models.py:358 hub/templates/registration/login.html:40
+#: hub/models.py:358 hub/templates/registration/login.html:41
 msgid "Email"
 msgstr ""
 
@@ -629,10 +629,10 @@ msgstr ""
 msgid "View details"
 msgstr ""
 
-#: hub/templates/candidate/list.html:111
-#: hub/templates/committee/candidates.html:62
-#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:196
-msgid "No results matching query"
+#: hub/templates/candidate/list.html:112
+msgid ""
+"Aici vei putea vedea candidaturile propuse de pentru Consiliul Economic și "
+"Social pe măsură ce ele devin publice."
 msgstr ""
 
 #: hub/templates/candidate/register_request.html:32
@@ -670,6 +670,11 @@ msgstr "Candidați propusi"
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
+#: hub/templates/committee/candidates.html:62
+#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:196
+msgid "No results matching query"
+msgstr ""
+
 #: hub/templates/committee/list.html:19
 #: hub/templates/committee/partials/nav.html:6
 msgid "Pending Organisations"
@@ -687,23 +692,23 @@ msgstr ""
 msgid "Upload document"
 msgstr ""
 
-#: hub/templates/footer.html:16
+#: hub/templates/footer.html:14
 msgid "About VotONG"
 msgstr ""
 
-#: hub/templates/footer.html:17
+#: hub/templates/footer.html:15
 msgid "Platform rules"
 msgstr ""
 
-#: hub/templates/footer.html:18
+#: hub/templates/footer.html:16
 msgid "Privacy Policy"
 msgstr ""
 
-#: hub/templates/footer.html:19
+#: hub/templates/footer.html:17
 msgid "Terms and conditions"
 msgstr ""
 
-#: hub/templates/footer.html:21
+#: hub/templates/footer.html:19
 msgid "Get Involved"
 msgstr ""
 
@@ -727,7 +732,7 @@ msgstr ""
 msgid "Register your organisation"
 msgstr ""
 
-#: hub/templates/header.html:49 hub/templates/partials/ces_header.html:16
+#: hub/templates/header.html:49 hub/templates/partials/ces_header.html:21
 msgid "Metodology"
 msgstr ""
 
@@ -739,8 +744,8 @@ msgstr ""
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:87 hub/templates/registration/login.html:15
-#: hub/templates/registration/login.html:59
+#: hub/templates/header.html:87 hub/templates/registration/login.html:16
+#: hub/templates/registration/login.html:60
 msgid "Login"
 msgstr ""
 
@@ -769,24 +774,39 @@ msgid "Update organization"
 msgstr ""
 
 #: hub/templates/partials/ces_header.html:5
-msgid "CES Elections"
+msgid "Alegeri Consiliul Economic și Social"
 msgstr ""
 
 #: hub/templates/partials/ces_header.html:8
 msgid ""
-"Această rundă electorală este dedicată alegerii reprezentanților societății "
-"civile care vor fi propuși pentru a ocupa cele 15 fotolii dedicate "
-"sectorului ONG în Comitetul Economic și Social (CES). Dincolo de importanța "
-"majoră a prezenței în CES, locul în care sunt avizate (cu rol consultativ) "
-"toate propunerile legislative, este esențial să marcăm faptul că anul 2020 "
-"este cu atât mai relevant cu cât este pentru prima dată când conducerea "
+"Consiliul Economic şi Social este un organism cu rol consultativ în ceea ce "
+"privește stabilirea strategiilor şi politicilor economice şi sociale la "
+"nivel naţional şi este cheia pentru realizarea, promovarea şi dezvoltarea "
+"dialogului și a solidarităţii sociale. Membrii Consiliului au printre "
+"atribuții analizarea și avizarea proiectelor de hotărâri și de ordonanțe ale "
+"Guvernului și proiectele de lege care urmează să ajungă în Parlament, precum "
+"și a proiectelor de programe și strategii înainte de adoptare. Tot membrii "
+"CES sunt responsabili și de semnalarea către Guvern și Parlament a unor "
+"fenomene sociale și economice care trebuie să ajungă pe agenda pentru a fi "
+"întâmpinate de propuneri de acte normative. Nu în ultimul rând, acest "
+"Consiliu are un rol activ în analizarea stărilor conflictuale la nivel "
+"național sau în sector și propun modalități pentru a le soluționa, conduce "
+"analize și studii privind realitatea economică și socială din România și "
+"contribuie la implementarea de strategii, programe și standarde în ceea ce "
+"privește dialogul social."
+msgstr ""
+
+#: hub/templates/partials/ces_header.html:12
+msgid ""
+"Este esențial să marcăm faptul că anul 2020 este cu atât mai important "
+"pentru societatea civilă cu cât este pentru prima dată când conducerea "
 "Comitetului Economic și Social ajunge, prin rotație, să fie asigurată de "
 "unul din cei 15 reprezentanți al sectorului în acest organism. Este un "
 "moment în care sectorul ONG din România are șansa de a demonstra din nou "
 "gradul ridicat de profesionalism și competențele sale la cel mai înalt nivel."
 msgstr ""
 
-#: hub/templates/partials/ces_header.html:11
+#: hub/templates/partials/ces_header.html:16
 msgid ""
 "Puteți naviga prin cele șase secțiuni de mai jos pentru a analiza "
 "candidaturile anunțate, pentru a vă declara susținerea pentru unul sau mai "
@@ -795,33 +815,33 @@ msgid ""
 "butonul ”Metodologie” de mai jos."
 msgstr ""
 
-#: hub/templates/registration/login.html:20
+#: hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
-#: hub/templates/registration/login.html:29
+#: hub/templates/registration/login.html:30
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr ""
 
-#: hub/templates/registration/login.html:31
+#: hub/templates/registration/login.html:32
 msgid "Please login to see this page."
 msgstr ""
 
-#: hub/templates/registration/login.html:42
+#: hub/templates/registration/login.html:43
 msgid "email"
 msgstr ""
 
-#: hub/templates/registration/login.html:49
+#: hub/templates/registration/login.html:50
 msgid "Password"
 msgstr ""
 
-#: hub/templates/registration/login.html:51
+#: hub/templates/registration/login.html:52
 msgid "password"
 msgstr ""
 
-#: hub/templates/registration/login.html:61
+#: hub/templates/registration/login.html:62
 msgid "Forgot password?"
 msgstr ""
 

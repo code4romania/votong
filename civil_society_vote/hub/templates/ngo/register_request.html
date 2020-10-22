@@ -48,4 +48,13 @@
         </form>
     {% endif %}
 </div>
+
+<script>
+$( document ).ready(function() {
+  $("#file-input-logo").attr("required", true);
+  $("#file-input-last_balance_sheet").attr("required", true);
+  $("#file-input-statute").attr("required", true);
+});
+</script>
+
 {% endblock %}
