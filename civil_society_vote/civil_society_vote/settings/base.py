@@ -187,8 +187,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_CONFIG = env.email_url("EMAIL_URL", default="smtp://user:password@localhost:25")
 vars().update(EMAIL_CONFIG)
 
-DEFAULT_FROM_EMAIL = "contact@votong.ro"
-NO_REPLY_EMAIL = "contact@votong.ro"
+DEFAULT_FROM_EMAIL = "noreply@votong.ro"
+NO_REPLY_EMAIL = "noreply@votong.ro"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
 CRISPY_TEMPLATE_PACK = "bulma"
