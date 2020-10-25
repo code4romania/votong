@@ -2,8 +2,14 @@
 
 <div class="tabs is-medium">
     <ul>
-        <li {% if active == "ngos" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}">{% trans 'Pending Organisations' %}</a>
+        <li {% if active == "ngos-pending" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=pending">{% trans 'Pending Organisations' %}</a>
+        </li>
+        <li {% if active == "ngos-accepted" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=accepted">{% trans 'Accepted Organisations' %}</a>
+        </li>
+        <li {% if active == "ngos-rejected" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=rejected">{% trans 'Rejected Organisations' %}</a>
         </li>
         <li {% if active == "pending" %}class="is-active"{% endif %}>
             <a href="{% url 'committee-candidates' %}?status=pending">{% trans 'Pending candidates' %}</a>
