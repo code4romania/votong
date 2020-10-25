@@ -386,7 +386,7 @@ msgstr "Adresa"
 
 #: hub/models.py:166
 msgid "Registration number"
-msgstr "Număr înregistrare Registrul Național"
+msgstr "Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 12/12.12.2012)"
 
 #: hub/models.py:168
 msgid "Organisation Email"
@@ -414,7 +414,7 @@ msgstr "Telefon reprezentant legal (opțional)"
 
 #: hub/models.py:176
 msgid "Organisation Head Name"
-msgstr "Președintele organizației (numele complet)"
+msgstr "Numele complet al președintelui organizației (sau director executiv dacă este cazul)"
 
 #: hub/models.py:177
 msgid "Board council"
