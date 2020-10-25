@@ -12,14 +12,14 @@
 
 {% block left-side-view %}
 
-{% include "committee/partials/nav.html" with active=filtering %}
+{% include "committee/partials/nav.html" with active=filtering counters=counters %}
 
 <div class="container">
     <h2 class="title border-b uppercase">
         {% if filtering == "pending" %}
-          {% trans 'Pending candidates' %}
+          {% trans 'Pending candidates' %} ({{ counters.candidates_pending }})
         {% else %}
-          {% trans 'Accepted candidates' %}
+          {% trans 'Accepted candidates' %} ({{ counters.candidates_accepted }})
         {%endif%}
     </h2>
 

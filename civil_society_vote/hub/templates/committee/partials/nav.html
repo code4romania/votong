@@ -2,14 +2,20 @@
 
 <div class="tabs is-medium">
     <ul>
-        <li {% if active == "ngos" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}">{% trans 'Pending Organisations' %}</a>
+        <li {% if active == "ngos-pending" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=pending">{% trans 'Pending Organisations' %} ({{ counters.ngos_pending }})</a>
+        </li>
+        <li {% if active == "ngos-accepted" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=accepted">{% trans 'Accepted Organisations' %} ({{ counters.ngos_accepted }})</a>
+        </li>
+        <li {% if active == "ngos-rejected" %}class="is-active"{% endif %}>
+            <a href="{% url 'committee-ngos' %}?status=rejected">{% trans 'Rejected Organisations' %} ({{ counters.ngos_rejected }})</a>
         </li>
         <li {% if active == "pending" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-candidates' %}?status=pending">{% trans 'Pending candidates' %}</a>
+            <a href="{% url 'committee-candidates' %}?status=pending">{% trans 'Pending candidates' %} ({{ counters.candidates_pending }})</a>
         </li>
         <li {% if active == "accepted" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-candidates' %}?status=accepted">{% trans 'Accepted candidates' %}</a>
+            <a href="{% url 'committee-candidates' %}?status=accepted">{% trans 'Accepted candidates' %} ({{ counters.candidates_accepted }})</a>
         </li>
         <li {% if active == "settings" %}class="is-active"{% endif %}>
             <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 13:41+0200\n"
+"POT-Creation-Date: 2020-10-25 16:20+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -386,7 +386,9 @@ msgstr "Adresa"
 
 #: hub/models.py:166
 msgid "Registration number"
-msgstr "Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 12/12.12.2012)"
+msgstr ""
+"Numărul de înregistrare în Registrul Național al ONG-urilor (de forma "
+"12/12.12.2012)"
 
 #: hub/models.py:168
 msgid "Organisation Email"
@@ -414,7 +416,9 @@ msgstr "Telefon reprezentant legal (opțional)"
 
 #: hub/models.py:176
 msgid "Organisation Head Name"
-msgstr "Numele complet al președintelui organizației (sau director executiv dacă este cazul)"
+msgstr ""
+"Numele complet al președintelui organizației (sau director executiv dacă "
+"este cazul)"
 
 #: hub/models.py:177
 msgid "Board council"
@@ -655,7 +659,7 @@ msgstr ""
 
 #: hub/templates/candidate/register_request.html:32
 #: hub/templates/candidate/update.html:25
-#: hub/templates/committee/partials/nav.html:15
+#: hub/templates/committee/partials/nav.html:21
 #: hub/templates/ngo/update.html:30
 msgid "Settings"
 msgstr "Setări"
@@ -677,24 +681,34 @@ msgid "Update profile"
 msgstr "Modifică profil"
 
 #: hub/templates/committee/candidates.html:20
-#: hub/templates/committee/partials/nav.html:9
+#: hub/templates/committee/partials/nav.html:15
 msgid "Pending candidates"
 msgstr "Candidați propusi"
 
 #: hub/templates/committee/candidates.html:22
-#: hub/templates/committee/partials/nav.html:12
+#: hub/templates/committee/partials/nav.html:18
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
 #: hub/templates/committee/candidates.html:62
-#: hub/templates/committee/list.html:62 hub/templates/ngo/list.html:196
+#: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:196
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
-#: hub/templates/committee/list.html:19
+#: hub/templates/committee/list.html:21
 #: hub/templates/committee/partials/nav.html:6
 msgid "Pending Organisations"
 msgstr "Organizații nevalidate"
+
+#: hub/templates/committee/list.html:23
+#: hub/templates/committee/partials/nav.html:9
+msgid "Accepted Organisations"
+msgstr "Organizații validate"
+
+#: hub/templates/committee/list.html:25
+#: hub/templates/committee/partials/nav.html:12
+msgid "Rejected Organisations"
+msgstr "Organizații respinse"
 
 #: hub/templates/developed-by.html:7
 msgid "A project developed by"
@@ -954,15 +968,13 @@ msgstr "candidati/<int:pk>/revocare"
 msgid "candidates/<int:pk>/update"
 msgstr "candidati/<int:pk>/actualizare"
 
-#: hub/urls.py:32 hub/urls.py:39
+#: hub/urls.py:32
 msgid "committee/ngos/"
 msgstr "comisie/organizatii/"
 
 #: hub/urls.py:33
-#, fuzzy
-#| msgid "committee/ngos/"
 msgid "committee/candidates/"
-msgstr "comisie/organizatii/"
+msgstr "comisie/candidati/"
 
 #: hub/urls.py:34
 msgid "ngos/"
@@ -988,7 +1000,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta curând!"
 
-#: hub/views.py:180
+#: hub/views.py:188
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "

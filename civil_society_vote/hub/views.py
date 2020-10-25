@@ -102,6 +102,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
 
 
 class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
+    allow_filters = ["status"]
     paginate_by = 9
     template_name = "committee/list.html"
 
@@ -109,7 +110,24 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
         if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
             raise PermissionDenied
 
-        return Organization.objects.filter(status=Organization.STATUS.pending).order_by("-created")
+        filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
+
+        if not filters:
+            return Organization.objects.filter(status=Organization.STATUS.pending).order_by("-created")
+
+        return Organization.objects.filter(**filters).order_by("-created")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filtering"] = "ngos-" + self.request.GET.get("status", Organization.STATUS.pending)
+        context["counters"] = {
+            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
+            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
+            "candidates_pending": Candidate.objects.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects.filter(status=Candidate.STATUS.accepted).count(),
+        }
+        return context
 
 
 class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
@@ -127,6 +145,13 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filtering"] = self.request.GET.get("status", Candidate.STATUS.pending)
+        context["counters"] = {
+            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
+            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
+            "candidates_pending": Candidate.objects.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects.filter(status=Candidate.STATUS.accepted).count(),
+        }
         return context
 
 
