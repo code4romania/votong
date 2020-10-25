@@ -79,6 +79,7 @@ class OrganizationCreateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
+        self.fields["accept_terms_and_conditions"].required = True
         self.fields["accept_terms_and_conditions"].label = mark_safe(
             _(
                 'I agree to the <a href="https://votong.ro/ro/termeni/" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> '
@@ -86,6 +87,7 @@ class OrganizationCreateForm(forms.ModelForm):
             )
         )
 
+        self.fields["politic_members"].required = True
         self.fields["politic_members"].label = mark_safe(
             _(
                 "I declare that the members of the management of the organization I represent (the President and the "
@@ -127,6 +129,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
+        self.fields["politic_members"].required = True
         self.fields["politic_members"].label = mark_safe(
             _(
                 "I declare that the members of the management of the organization I represent (the President and the "
