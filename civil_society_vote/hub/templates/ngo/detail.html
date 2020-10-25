@@ -79,6 +79,8 @@
     {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
     <p><span class="label">Telefon:</span> {{ ngo.phone }}</p>
     {% endif %}
+    <p><span class="label">Județ:</span> {{ ngo.city.county }}</p>
+    <p><span class="label">Localitate:</span> {{ ngo.city.city }}</p>
     <p><span class="label">Adresa fizică:</span> {{ ngo.address }}</p>
     <p><span class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ ngo.registration_number }}</p>
 
