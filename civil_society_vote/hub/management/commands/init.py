@@ -26,12 +26,7 @@ Echipa VotONG
 """
 
 ORG_REJECTED_TEXT = """
-Buna {{ representative }},
-
-Ne pare rau, dar cererea de inscriere a organizatiei "{{ name }}" in platforma VotONG a fost respinsa.
-
-Va multumim!
-Echipa VotONG
+{{ rejection_message }}
 """
 
 

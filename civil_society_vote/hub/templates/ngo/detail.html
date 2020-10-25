@@ -169,15 +169,50 @@
     {% endif %}
 </div>
 
-{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and ngo.status == 'pending' %}
+{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions %}
 
 <hr>
 
 <div class="container detail-desc">
+
+{% if ngo.status == 'rejected' %}
+  <p class="label">Motivul respingerii:</p>
+  {{ ngo.rejection_message|linebreaks }}
+{% elif ngo.status == 'pending' %}
   <div class="buttons vote-org-buttons">
-    <a href="{% url 'ngo-vote' ngo.id 'a' %}" class="button is-success vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!')">Aprobă</a>
-    <a href="{% url 'ngo-vote' ngo.id 'r' %}" class="button is-danger vote-org-button" onclick="return window.confirm('Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!')">Respinge</a>
+    <a href="{% url 'ngo-vote' ngo.id 'a' %}" id="action-approve" class="button is-success vote-org-button">Aprobă</a>
+    <a href="{% url 'ngo-vote' ngo.id 'r' %}" id="action-reject" class="button is-danger vote-org-button">Respinge</a>
   </div>
+
+  <article id="reject-org-error" class="message is-danger" style="display: none;">
+    <div class="message-body">Trebuie să completezi un motiv de respingere. Acesta va fi trimis prin email organizației.</div>
+  </article>
+  <textarea id="rejection-message" name="rejection_message" class="textarea" placeholder="Scrie aici motivul respingerii. Acesta va fi trimis prin email organizației."></textarea>
+
+  <script>
+  $( document ).ready(function() {
+    $( ".vote-org-button" ).on( "click", function( event ) {
+      var action = $( this ).attr("id");
+      var message = $( "#rejection-message" ).val();
+
+      if ( action === "action-approve" ) {
+        return window.confirm("Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!");
+      } else if ( action === "action-reject" ) {
+        if ( message.length > 0 ) {
+          $( this ).attr( "href" , "{% url 'ngo-vote' ngo.id 'r' %}?rejection-message=" + encodeURIComponent(message));
+          return window.confirm("Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!");
+        } else {
+          $( "#reject-org-error" ).show();
+          return false;
+        }
+      }
+
+      return false;
+    });
+  });
+  </script>
+{% endif %}
+
 </div>
 
 {% endif %}

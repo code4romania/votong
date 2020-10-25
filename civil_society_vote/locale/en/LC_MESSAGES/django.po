@@ -195,46 +195,46 @@ msgstr ""
 msgid "Import Cities"
 msgstr ""
 
-#: hub/forms.py:85
+#: hub/forms.py:86
 msgid ""
 "I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:93 hub/forms.py:135
+#: hub/forms.py:94 hub/forms.py:136
 msgid ""
 "I declare that the members of the management of the organization I represent "
 "(the President and the members of the Board of Directors) are not members of "
 "political parties."
 msgstr ""
 
-#: hub/forms.py:100
+#: hub/forms.py:101
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:105 hub/forms.py:142
+#: hub/forms.py:106 hub/forms.py:143
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:162
+#: hub/forms.py:163
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:165
+#: hub/forms.py:166
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:177
+#: hub/forms.py:178
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:214
+#: hub/forms.py:215
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:219
+#: hub/forms.py:220
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -315,11 +315,11 @@ msgstr ""
 msgid "Email templates"
 msgstr ""
 
-#: hub/models.py:123 hub/models.py:320
+#: hub/models.py:123 hub/models.py:325
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:124 hub/models.py:321 hub/templates/candidate/detail.html:80
+#: hub/models.py:124 hub/models.py:326 hub/templates/candidate/detail.html:80
 msgid "Description"
 msgstr ""
 
@@ -348,15 +348,15 @@ msgstr ""
 msgid "Cities"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:315
+#: hub/models.py:156 hub/models.py:320
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:315
+#: hub/models.py:156 hub/models.py:320
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:156 hub/models.py:315
+#: hub/models.py:156 hub/models.py:320
 msgid "Rejected"
 msgstr ""
 
@@ -452,132 +452,140 @@ msgstr ""
 msgid "Statement"
 msgstr ""
 
-#: hub/models.py:243 hub/templates/header.html:32
+#: hub/models.py:242
+msgid "Rejection message"
+msgstr ""
+
+#: hub/models.py:245 hub/templates/header.html:32
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:244
+#: hub/models.py:246
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:322 hub/templates/candidate/detail.html:107
+#: hub/models.py:278
+msgid "You must write a rejection message."
+msgstr ""
+
+#: hub/models.py:327 hub/templates/candidate/detail.html:107
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:323
+#: hub/models.py:328
 #, fuzzy
 #| msgid "Pending Organisations"
 msgid "Role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:329 hub/templates/candidate/detail.html:91
+#: hub/models.py:334 hub/templates/candidate/detail.html:91
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:330 hub/templates/candidate/detail.html:92
+#: hub/models.py:335 hub/templates/candidate/detail.html:92
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:333
+#: hub/models.py:338
 msgid "Main Objectives"
 msgstr ""
 
-#: hub/models.py:335
+#: hub/models.py:340
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
 msgstr ""
 
-#: hub/models.py:340
+#: hub/models.py:345
 msgid "Main Points"
 msgstr ""
 
-#: hub/models.py:343
+#: hub/models.py:348
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr ""
 
-#: hub/models.py:349
+#: hub/models.py:354
 msgid "Relevant Moments"
 msgstr ""
 
-#: hub/models.py:352
+#: hub/models.py:357
 msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr ""
 
-#: hub/models.py:358 hub/templates/registration/login.html:41
+#: hub/models.py:363 hub/templates/registration/login.html:41
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:359
+#: hub/models.py:364
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:360
+#: hub/models.py:365
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:363 hub/templates/candidate/detail.html:125
+#: hub/models.py:368 hub/templates/candidate/detail.html:125
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:370 hub/templates/candidate/detail.html:116
+#: hub/models.py:375 hub/templates/candidate/detail.html:116
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:377 hub/templates/candidate/detail.html:134
+#: hub/models.py:382 hub/templates/candidate/detail.html:134
 msgid "Statement of interests"
 msgstr ""
 
-#: hub/models.py:384 hub/templates/candidate/detail.html:145
+#: hub/models.py:389 hub/templates/candidate/detail.html:145
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:391 hub/templates/candidate/detail.html:154
+#: hub/models.py:396 hub/templates/candidate/detail.html:154
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:399
+#: hub/models.py:404
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:402 hub/templates/candidate/list.html:36
+#: hub/models.py:407 hub/templates/candidate/list.html:36
 #: hub/templates/header.html:45
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:403
+#: hub/models.py:408
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:422
+#: hub/models.py:427
 msgid "Votes"
 msgstr ""
 
-#: hub/models.py:427
+#: hub/models.py:432
 msgid "Supporters"
 msgstr ""
 
-#: hub/models.py:433
+#: hub/models.py:438
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:458
+#: hub/models.py:463
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:459
+#: hub/models.py:464
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:478
+#: hub/models.py:483
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:479
+#: hub/models.py:484
 msgid "Candidate supporter"
 msgstr ""
 
@@ -973,7 +981,7 @@ msgstr ""
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:57
+#: hub/views.py:59
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
