@@ -246,19 +246,23 @@ def organization_vote(request, pk, action):
         if action == "r":
             org.rejection_message = unquote(request.GET.get("rejection-message", ""))
             org.status = Organization.STATUS.rejected
-            org.save()
-            utils.send_email(
-                template="org_rejected",
-                context=Context(
-                    {
-                        "representative": org.legal_representative_name,
-                        "name": org.name,
-                        "rejection_message": org.rejection_message,
-                    }
-                ),
-                subject="Cerere de inscriere respinsa",
-                to=org.email,
-            )
+
+            if org.rejection_message:
+                org.save()
+                utils.send_email(
+                    template="org_rejected",
+                    context=Context(
+                        {
+                            "representative": org.legal_representative_name,
+                            "name": org.name,
+                            "rejection_message": org.rejection_message,
+                        }
+                    ),
+                    subject="Cerere de inscriere respinsa",
+                    to=org.email,
+                )
+            else:
+                messages.error(request, _("You must write a rejection message."))
         elif action == "a":
             org.status = Organization.STATUS.accepted
             org.save()

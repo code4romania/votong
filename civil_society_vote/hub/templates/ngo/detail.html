@@ -20,6 +20,16 @@
 
 {% get_obj_perms user for ngo as "user_permissions" %}
 
+{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and messages %}
+    <article class="message is-danger">
+    <div class="message-body">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    </article>
+{% endif %}
+
 <div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
         {% if ngo.logo %}

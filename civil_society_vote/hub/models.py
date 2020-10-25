@@ -274,9 +274,6 @@ class Organization(StatusModel, TimeStampedModel):
     def save(self, *args, **kwargs):
         create = False if self.id else True
 
-        if self.status == self.STATUS.rejected and not self.rejection_message:
-            raise ValidationError(_("You must write a rejection message."))
-
         if self.city:
             self.county = self.city.county
         else:
