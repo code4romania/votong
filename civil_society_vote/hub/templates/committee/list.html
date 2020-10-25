@@ -13,16 +13,16 @@
 
 {% block left-side-view %}
 
-{% include "committee/partials/nav.html" with active=filtering %}
+{% include "committee/partials/nav.html" with active=filtering counters=counters %}
 
 <div class="container">
 
   {% if filtering == "ngos-pending" %}
-    <h2 class="title border-b uppercase">{% trans 'Pending Organisations' %}</h2>
+    <h2 class="title border-b uppercase">{% trans 'Pending Organisations' %} ({{ counters.ngos_pending }})</h2>
   {% elif filtering == "ngos-accepted" %}
-    <h2 class="title border-b uppercase">{% trans 'Accepted Organisations' %}</h2>
+    <h2 class="title border-b uppercase">{% trans 'Accepted Organisations' %} ({{ counters.ngos_accepted }})</h2>
   {% elif filtering == "ngos-rejected" %}
-    <h2 class="title border-b uppercase">{% trans 'Rejected Organisations' %}</h2>
+    <h2 class="title border-b uppercase">{% trans 'Rejected Organisations' %} ({{ counters.ngos_rejected }})</h2>
   {% endif %}
 
     {% if page_obj %}
