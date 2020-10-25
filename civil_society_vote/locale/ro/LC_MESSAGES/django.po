@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-22 18:09+0300\n"
+"POT-Creation-Date: 2020-10-25 13:41+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -770,8 +770,8 @@ msgid "Project developed in the program"
 msgstr "Proiect dezvoltat în programul"
 
 #: hub/templates/ngo/list.html:27
-msgid "Organizations list"
-msgstr "Organizații"
+msgid "Registered organisations"
+msgstr "Organizații înscrise"
 
 #: hub/templates/ngo/list.html:54 hub/templates/ngo/list.html:89
 msgid "All"
@@ -999,6 +999,9 @@ msgstr ""
 "noastră te va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
+
+#~ msgid "Organizations list"
+#~ msgstr "Organizații"
 
 #~ msgid "CES Elections"
 #~ msgstr "Alegeri CES"

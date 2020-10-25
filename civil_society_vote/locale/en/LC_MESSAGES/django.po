@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-22 18:09+0300\n"
+"POT-Creation-Date: 2020-10-25 13:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -754,8 +754,10 @@ msgid "Project developed in the program"
 msgstr ""
 
 #: hub/templates/ngo/list.html:27
-msgid "Organizations list"
-msgstr ""
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Registered organisations"
+msgstr "Organizații nevalidate"
 
 #: hub/templates/ngo/list.html:54 hub/templates/ngo/list.html:89
 msgid "All"
