@@ -126,8 +126,8 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
             "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
             "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
             "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects.filter(status=Candidate.STATUS.accepted).count(),
+            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
         }
         return context
 
@@ -142,7 +142,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
-        return Candidate.objects.filter(**filters)
+        return Candidate.objects_with_org.filter(**filters)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -151,8 +151,8 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
             "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
             "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
             "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects.filter(status=Candidate.STATUS.accepted).count(),
+            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
         }
         return context
 
@@ -290,7 +290,7 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        return Candidate.objects.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
+        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -386,7 +386,8 @@ def revoke_candidate(request, pk):
 
     with transaction.atomic():
         candidate.supporters.all().delete()
-        candidate.delete()
+        candidate.initial_org = candidate.org
+        candidate.save()
 
     return redirect("candidate-register-request")
 

@@ -43,15 +43,10 @@
 
   <div class="columns">
     <div class="column is-narrow">
-      <a class="is-success button"
-        onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? window.location='{% url "candidate-revoke" candidate.id %}': false">
-        Propune un alt candidat
+      <a class="is-danger button"
+        onclick="window.confirm('ATENȚIE! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidat cât și datele introduse în sistem ale acestuia. Continuați?') ? window.location='{% url "candidate-revoke" candidate.id %}': false">
+        Retrage candidat
       </a>
-    </div>
-    <div class="column is-narrow">
-      <a href="#" class="is-danger button"
-        onclick="window.confirm('Atenție! Această acțiune aduce cu sine pierderea susținerii obținute pentru candidatul deja propus. Continuați?') ? $('#id_is_proposed').val('False') && $('#candidate-update-form').submit() : false">Retrage
-        candidat</a>
     </div>
   </div>
 
