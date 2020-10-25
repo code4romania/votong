@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 16:20+0200\n"
+"POT-Creation-Date: 2020-10-25 20:46+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -120,20 +120,16 @@ msgid "Change my password"
 msgstr "Schimbă-mi parola"
 
 #: accounts/urls.py:6
-#, fuzzy
-#| msgid "The password was reset"
 msgid "password-reset/"
-msgstr "Parola a fost resetata"
+msgstr "reseteaza-parola/"
 
 #: accounts/urls.py:7
 msgid "change-avatar/"
 msgstr "schimba-avatar/"
 
 #: accounts/urls.py:8
-#, fuzzy
-#| msgid "e-mail"
 msgid "change-email/"
-msgstr "Email"
+msgstr "schimba-email/"
 
 #: accounts/views.py:17
 msgid "Password was updated successfully"
@@ -164,7 +160,7 @@ msgstr "termeni/"
 
 #: civil_society_vote/urls.py:21
 msgid "platform_rules/"
-msgstr "regulamentul_platformei"
+msgstr "regulamentul_platformei/"
 
 #: civil_society_vote/urls.py:24
 msgid "accounts/"
@@ -1008,7 +1004,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta curând!"
 
-#: hub/views.py:188
+#: hub/views.py:207
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
