@@ -54,6 +54,7 @@ class OrganizationCreateForm(forms.ModelForm):
             "report_2017",
             "fiscal_certificate",
             "statement",
+            "rejection_message",
         ]
         widgets = {
             "email": EmailInput(),
@@ -111,7 +112,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     class Meta:
         model = models.Organization
-        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions"]
+        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
         widgets = {
             "email": EmailInput(),
             "legal_representative_email": EmailInput(),

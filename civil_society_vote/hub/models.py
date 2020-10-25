@@ -239,6 +239,8 @@ class Organization(StatusModel, TimeStampedModel):
     # representative = models.CharField(_("Legal representative"), max_length=254)
     # letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
 
+    rejection_message = models.TextField(_("Rejection message"), blank=True)
+
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
@@ -271,6 +273,9 @@ class Organization(StatusModel, TimeStampedModel):
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
+
+        if self.status == self.STATUS.rejected and not self.rejection_message:
+            raise ValidationError(_("You must write a rejection message."))
 
         if self.city:
             self.county = self.city.county

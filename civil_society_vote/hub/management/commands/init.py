@@ -30,6 +30,9 @@ Buna {{ representative }},
 
 Ne pare rau, dar cererea de inscriere a organizatiei "{{ name }}" in platforma VotONG a fost respinsa.
 
+Motivul respingerii:
+{{ rejection_message }}
+
 Va multumim!
 Echipa VotONG
 """
