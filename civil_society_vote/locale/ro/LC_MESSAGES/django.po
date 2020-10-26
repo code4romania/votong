@@ -383,8 +383,7 @@ msgstr "Adresa"
 #: hub/models.py:166
 msgid "Registration number"
 msgstr ""
-"Numărul de înregistrare în Registrul Național al ONG-urilor (de forma "
-"12/12.12.2012)"
+"Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 11111/A/2016)"
 
 #: hub/models.py:168
 msgid "Organisation Email"
