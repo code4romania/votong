@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 20:58+0200\n"
+"POT-Creation-Date: 2020-10-26 16:28+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -383,7 +383,8 @@ msgstr "Adresa"
 #: hub/models.py:166
 msgid "Registration number"
 msgstr ""
-"Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 11111/A/2016)"
+"Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 11111/"
+"A/2016)"
 
 #: hub/models.py:168
 msgid "Organisation Email"
@@ -425,13 +426,13 @@ msgstr ""
 msgid "Logo"
 msgstr "Siglă"
 
-#: hub/models.py:181 hub/templates/ngo/detail.html:112
+#: hub/models.py:181 hub/templates/ngo/detail.html:114
 msgid "First page of last balance sheet"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul 2019 depus la Ministerul "
 "Finanțelor"
 
-#: hub/models.py:184 hub/templates/ngo/detail.html:121
+#: hub/models.py:184 hub/templates/ngo/detail.html:123
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
@@ -443,23 +444,23 @@ msgstr "A acceptat termenii și condițiile"
 msgid "Has political party members"
 msgstr "Are membrii în partide politice"
 
-#: hub/models.py:195 hub/templates/ngo/detail.html:141
+#: hub/models.py:195 hub/templates/ngo/detail.html:143
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: hub/models.py:203 hub/templates/ngo/detail.html:150
+#: hub/models.py:203 hub/templates/ngo/detail.html:152
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: hub/models.py:211 hub/templates/ngo/detail.html:159
+#: hub/models.py:211 hub/templates/ngo/detail.html:161
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: hub/models.py:219 hub/templates/ngo/detail.html:130
+#: hub/models.py:219 hub/templates/ngo/detail.html:132
 msgid "Fiscal certificate"
 msgstr "Certificat fiscal"
 
-#: hub/models.py:227 hub/templates/ngo/detail.html:168
+#: hub/models.py:227 hub/templates/ngo/detail.html:170
 msgid "Statement"
 msgstr "Declarație pe propria răspundere"
 
@@ -637,7 +638,7 @@ msgstr "Informații generale"
 msgid "Role"
 msgstr "Funcție"
 
-#: hub/templates/candidate/detail.html:99 hub/templates/ngo/detail.html:102
+#: hub/templates/candidate/detail.html:99 hub/templates/ngo/detail.html:104
 msgid "Documents"
 msgstr "Documente"
 

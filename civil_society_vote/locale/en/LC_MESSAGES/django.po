@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 20:58+0200\n"
+"POT-Creation-Date: 2020-10-26 16:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -414,11 +414,11 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:181 hub/templates/ngo/detail.html:112
+#: hub/models.py:181 hub/templates/ngo/detail.html:114
 msgid "First page of last balance sheet"
 msgstr ""
 
-#: hub/models.py:184 hub/templates/ngo/detail.html:121
+#: hub/models.py:184 hub/templates/ngo/detail.html:123
 msgid "NGO Statute"
 msgstr ""
 
@@ -432,23 +432,23 @@ msgstr "Candidați selectați"
 msgid "Has political party members"
 msgstr ""
 
-#: hub/models.py:195 hub/templates/ngo/detail.html:141
+#: hub/models.py:195 hub/templates/ngo/detail.html:143
 msgid "Yearly report 2019"
 msgstr ""
 
-#: hub/models.py:203 hub/templates/ngo/detail.html:150
+#: hub/models.py:203 hub/templates/ngo/detail.html:152
 msgid "Yearly report 2018"
 msgstr ""
 
-#: hub/models.py:211 hub/templates/ngo/detail.html:159
+#: hub/models.py:211 hub/templates/ngo/detail.html:161
 msgid "Yearly report 2017"
 msgstr ""
 
-#: hub/models.py:219 hub/templates/ngo/detail.html:130
+#: hub/models.py:219 hub/templates/ngo/detail.html:132
 msgid "Fiscal certificate"
 msgstr ""
 
-#: hub/models.py:227 hub/templates/ngo/detail.html:168
+#: hub/models.py:227 hub/templates/ngo/detail.html:170
 msgid "Statement"
 msgstr ""
 
@@ -620,7 +620,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:99 hub/templates/ngo/detail.html:102
+#: hub/templates/candidate/detail.html:99 hub/templates/ngo/detail.html:104
 msgid "Documents"
 msgstr ""
 
