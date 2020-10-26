@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 16:44+0200\n"
+"POT-Creation-Date: 2020-10-26 17:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,14 +231,14 @@ msgid ""
 msgstr ""
 
 #: hub/forms.py:208
-msgid "Error! Please contact the site admin."
+msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:217
+#: hub/forms.py:214
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:222
+#: hub/forms.py:219
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -471,7 +471,7 @@ msgstr ""
 #: hub/models.py:334
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
-"as an official proposal of the organization."
+"as the official proposal of the organization."
 msgstr ""
 
 #: hub/models.py:341 hub/templates/candidate/detail.html:107
@@ -579,19 +579,19 @@ msgstr ""
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:484
+#: hub/models.py:488
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:485
+#: hub/models.py:489
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:504
+#: hub/models.py:508
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:505
+#: hub/models.py:509
 msgid "Candidate supporter"
 msgstr ""
 

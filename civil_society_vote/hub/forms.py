@@ -204,11 +204,8 @@ class CandidateUpdateForm(forms.ModelForm):
 
         if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
             if commit:
-                # This error should not be raised unless someone messes with the source code of the page
-                raise ValidationError(_("Error! Please contact the site admin."))
-                # with transaction.atomic():
-                #     candidate.supporters.all().delete()
-                #     return super().save(commit)
+                # This will not be raised unless someone messes with the source code of the form
+                raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
 
         return super().save(commit)
 
