@@ -168,8 +168,9 @@
     {% if candidate.org.description %}
     <p class="label">Scurta descriere:</p>
     {{ candidate.org.description|linebreaks }}
-    <hr>
     {% endif %}
+    <p><span class="label">Județ:</span> {{ candidate.org.city.county }}</p>
+    <p><span class="label">Localitate:</span> {{ candidate.org.city.city }}</p>
     <hr>
 </div>
 
