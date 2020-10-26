@@ -313,10 +313,27 @@ class Organization(StatusModel, TimeStampedModel):
         return user
 
 
+class CandidatesWithOrgManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(org=None)
+
+
 class Candidate(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    org = models.OneToOneField("Organization", on_delete=models.CASCADE, related_name="candidate")
+    org = models.OneToOneField(
+        "Organization", on_delete=models.CASCADE, related_name="candidate", null=True, blank=True
+    )
+    initial_org = models.ForeignKey(
+        "Organization",
+        on_delete=models.CASCADE,
+        related_name="candidates",
+        null=True,
+        blank=True,
+        help_text=_(
+            "If this is set, the `org` field will be unset and the candidate is removed as the official proposal of the organization."
+        ),
+    )
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
 
     name = models.CharField(_("Name"), max_length=254)
@@ -400,6 +417,9 @@ class Candidate(StatusModel, TimeStampedModel):
 
     is_proposed = models.BooleanField(_("Is proposed?"), default=False)
 
+    objects = models.Manager()
+    objects_with_org = CandidatesWithOrgManager()
+
     class Meta:
         verbose_name_plural = _("Candidates")
         verbose_name = _("Candidate")
@@ -433,6 +453,14 @@ class Candidate(StatusModel, TimeStampedModel):
 
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
+
+        # This covers the flow when a candidate is withdrawn as the official proposal or the organization, while
+        # in the same time keeping the old candidate record and backwards compatibility with the one-to-one relations
+        # that are used in the rest of the codebase.
+        # TODO: Refactor this flow to make it less hacky and have a single relationship back to organization.
+        if self.id and self.initial_org:
+            self.org = None
+            self.is_proposed = False
 
         super().save(*args, **kwargs)
 

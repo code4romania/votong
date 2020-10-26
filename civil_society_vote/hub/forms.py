@@ -147,7 +147,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 class CandidateRegisterForm(forms.ModelForm):
     class Meta:
         model = models.Candidate
-        exclude = ["status", "status_changed"]
+        exclude = ["initial_org", "status", "status_changed"]
 
         widgets = {
             "org": forms.HiddenInput(),
@@ -162,7 +162,7 @@ class CandidateRegisterForm(forms.ModelForm):
         if not self.user.orgs.exists():
             raise ValidationError(_("Authenticated user does not have an organization."))
 
-        if models.Candidate.objects.filter(org=self.user.orgs.first()).exists():
+        if models.Candidate.objects_with_org.filter(org=self.user.orgs.first()).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
         self.initial["org"] = self.user.orgs.first().id
@@ -186,7 +186,7 @@ class CandidateUpdateForm(forms.ModelForm):
 
     class Meta:
         model = models.Candidate
-        exclude = ["org", "status", "status_changed"]
+        exclude = ["org", "initial_org", "status", "status_changed"]
 
         widgets = {
             "is_proposed": forms.HiddenInput(),
@@ -200,13 +200,12 @@ class CandidateUpdateForm(forms.ModelForm):
             del self.fields["name"]
 
     def save(self, commit=True):
-        candidate = models.Candidate.objects.get(pk=self.instance.id)
+        candidate = models.Candidate.objects_with_org.get(pk=self.instance.id)
 
         if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
             if commit:
-                with transaction.atomic():
-                    candidate.supporters.all().delete()
-                    return super().save(commit)
+                # This will not be raised unless someone messes with the source code of the form
+                raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
 
         return super().save(commit)
 
