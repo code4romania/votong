@@ -326,7 +326,6 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     def get(self, request, *args, **kwargs):
         if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
             raise PermissionDenied
-
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -352,6 +351,11 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
     def get_success_url(self):
         return reverse("candidate-update", args=(self.object.id,))
+
+    def post(self, request, *args, **kwargs):
+        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+            raise PermissionDenied
+        return super().post(request, *args, **kwargs)
 
 
 class CandidateVoteView(LoginRequiredMixin, View):
@@ -379,6 +383,9 @@ class CandidateVoteView(LoginRequiredMixin, View):
 
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
 def revoke_candidate(request, pk):
+    if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        raise PermissionDenied
+
     candidate = get_object_or_404(Candidate, pk=pk)
 
     if candidate.org != request.user.orgs.first():

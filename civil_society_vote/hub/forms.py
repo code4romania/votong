@@ -1,7 +1,7 @@
 from captcha.fields import ReCaptchaField
 from django import forms
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.mail import send_mail
 from django.db import transaction
 from django.urls import reverse_lazy
@@ -196,15 +196,23 @@ class CandidateUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        if not models.FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+            for key in self.fields.keys():
+                self.fields[key].widget.attrs["disabled"] = True
+
         if self.instance.is_proposed:
             del self.fields["name"]
 
     def save(self, commit=True):
+        if not models.FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+            # This should not happen unless someone messes with the form code
+            raise PermissionDenied
+
         candidate = models.Candidate.objects_with_org.get(pk=self.instance.id)
 
         if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
             if commit:
-                # This will not be raised unless someone messes with the source code of the form
+                # This should not happen unless someone messes with the form code
                 raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
 
         return super().save(commit)
