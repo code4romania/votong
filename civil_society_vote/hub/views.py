@@ -198,6 +198,12 @@ class OrganizationDetailView(HubDetailView):
     context_object_name = "ngo"
     model = Organization
 
+    def get_queryset(self):
+        if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+            return Organization.objects.all()
+
+        return Organization.objects.filter(status=Organization.STATUS.accepted)
+
 
 class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "ngo/register_request.html"
@@ -316,6 +322,12 @@ class CandidateDetailView(HubDetailView):
     template_name = "candidate/detail.html"
     context_object_name = "candidate"
     model = Candidate
+
+    def get_queryset(self):
+        if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+            return Candidate.objects_with_org.all()
+
+        return Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted)
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
