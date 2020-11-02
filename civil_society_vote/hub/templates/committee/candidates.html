@@ -1,7 +1,7 @@
 {% extends 'ngo/base.html' %}
-{% load static %}
+{% load static i18n %}
 {% load spurl %}
-{% load i18n %}
+{% load hub_tags %}
 
 
 {% block domain-filters %}
@@ -37,7 +37,10 @@
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
                 </div>
-                <div class="need-description is-hidden-mobile">{{candidate.experience}}</div>
+            </div>
+
+            <div>
+              <p>Susținători: {% supporters candidate.id %}</p>
             </div>
 
             <div class="need-call2action">

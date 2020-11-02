@@ -6,7 +6,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
@@ -142,7 +142,11 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
-        return Candidate.objects_with_org.filter(**filters)
+        return (
+            Candidate.objects_with_org.filter(**filters)
+            .annotate(supporters_count=Count("supporters"))
+            .order_by("-supporters_count")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
