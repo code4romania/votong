@@ -132,8 +132,8 @@ class CandidateSupporterInline(admin.TabularInline):
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
-    list_display = ("name", "org", "role", "domain", "is_proposed", "supporters_count", "vote_count", "created")
-    list_filter = ("is_proposed", "domain")
+    list_display = ("name", "org", "domain", "is_proposed", "status", "supporters_count", "vote_count", "created")
+    list_filter = ("is_proposed", "status", "domain")
     search_fields = ("name", "email", "org__name")
     readonly_fields = ["org"]
     inlines = [CandidateVoteInline, CandidateSupporterInline]

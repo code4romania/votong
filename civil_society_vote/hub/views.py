@@ -300,7 +300,12 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
+        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+            return Candidate.objects_with_org.none()
+
+        return Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+        )
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -331,7 +336,9 @@ class CandidateDetailView(HubDetailView):
         if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
             return Candidate.objects_with_org.all()
 
-        return Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted)
+        return Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+        )
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
