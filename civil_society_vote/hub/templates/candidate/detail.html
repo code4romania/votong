@@ -58,6 +58,10 @@
         {% endif %}
 
         <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
+
+        {% if CANDIDATE_VOTING_ENABLED %}
+        <div class="need-description"><b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b></div>
+        {% endif %}
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
     <div class="buttons">
