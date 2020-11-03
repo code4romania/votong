@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 17:05+0200\n"
+"POT-Creation-Date: 2020-11-03 08:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,15 +230,15 @@ msgid ""
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:208
+#: hub/forms.py:216
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:214
+#: hub/forms.py:222
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:219
+#: hub/forms.py:227
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -639,7 +639,7 @@ msgid "Search..."
 msgstr ""
 
 #: hub/templates/candidate/list.html:95
-#: hub/templates/committee/candidates.html:46
+#: hub/templates/committee/candidates.html:49
 msgid "View details"
 msgstr ""
 
@@ -666,11 +666,11 @@ msgstr "Candidați propusi"
 msgid "Save profile"
 msgstr ""
 
-#: hub/templates/candidate/update.html:101
+#: hub/templates/candidate/update.html:100
 msgid "Publish changes"
 msgstr ""
 
-#: hub/templates/candidate/update.html:101
+#: hub/templates/candidate/update.html:100
 msgid "Update profile"
 msgstr ""
 
@@ -684,7 +684,7 @@ msgstr "Candidați propusi"
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
-#: hub/templates/committee/candidates.html:62
+#: hub/templates/committee/candidates.html:65
 #: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:196
 msgid "No results matching query"
 msgstr ""
@@ -991,7 +991,7 @@ msgstr ""
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:207
+#: hub/views.py:217
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -999,6 +999,6 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:265
+#: hub/views.py:275
 msgid "You must write a rejection message."
 msgstr ""

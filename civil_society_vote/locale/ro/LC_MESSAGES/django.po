@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 17:05+0200\n"
+"POT-Creation-Date: 2020-11-03 08:48+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -243,15 +243,15 @@ msgstr ""
 "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în "
 "'Profilul Organizației'"
 
-#: hub/forms.py:208
+#: hub/forms.py:216
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:214
+#: hub/forms.py:222
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:219
+#: hub/forms.py:227
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -657,7 +657,7 @@ msgid "Search..."
 msgstr "Caută..."
 
 #: hub/templates/candidate/list.html:95
-#: hub/templates/committee/candidates.html:46
+#: hub/templates/committee/candidates.html:49
 msgid "View details"
 msgstr "Vizualizează detalii"
 
@@ -682,11 +682,11 @@ msgstr "Propune candidat"
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: hub/templates/candidate/update.html:101
+#: hub/templates/candidate/update.html:100
 msgid "Publish changes"
 msgstr "Publică modificările"
 
-#: hub/templates/candidate/update.html:101
+#: hub/templates/candidate/update.html:100
 msgid "Update profile"
 msgstr "Modifică profil"
 
@@ -700,7 +700,7 @@ msgstr "Candidați propusi"
 msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
-#: hub/templates/committee/candidates.html:62
+#: hub/templates/committee/candidates.html:65
 #: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:196
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
@@ -1010,7 +1010,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta curând!"
 
-#: hub/views.py:207
+#: hub/views.py:217
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1022,7 +1022,7 @@ msgstr ""
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:265
+#: hub/views.py:275
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
 
