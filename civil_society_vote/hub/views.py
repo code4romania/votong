@@ -1,5 +1,6 @@
 from urllib.parse import unquote
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
@@ -7,7 +8,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
 from django.urls import reverse
@@ -301,7 +302,9 @@ class CandidateListView(HubListView):
 
     def get_qs(self):
         if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return Candidate.objects_with_org.none()
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.pending, is_proposed=True
+            )
 
         return Candidate.objects_with_org.filter(
             org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
@@ -335,6 +338,11 @@ class CandidateDetailView(HubDetailView):
     def get_queryset(self):
         if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
             return Candidate.objects_with_org.all()
+
+        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.pending, is_proposed=True
+            )
 
         return Candidate.objects_with_org.filter(
             org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
@@ -383,25 +391,35 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 class CandidateVoteView(LoginRequiredMixin, View):
     def get(self, request, pk):
+        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+            return HttpResponseBadRequest()
+
+        try:
+            candidate = Candidate.objects.get(
+                pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            )
+            vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
+        except Exception:
+            return HttpResponseBadRequest()
+
+        if settings.VOTE_AUDIT_EMAIL:
+            current_site = get_current_site(request)
+            protocol = "https" if request.is_secure() else "http"
+            utils.send_email(
+                template="vote_audit",
+                context=Context(
+                    {
+                        "org": vote.user.orgs.first().name,
+                        "candidate": vote.candidate.name,
+                        "timestamp": vote.created.isoformat(),
+                        "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
+                        "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
+                    }
+                ),
+                subject=f"[VOTONG] Vot candidat: {vote.candidate.name}",
+                to=settings.VOTE_AUDIT_EMAIL,
+            )
         return HttpResponse()
-
-        # if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-        #     return HttpResponseBadRequest()
-
-        # try:
-        #     candidate = Candidate.objects.get(pk=pk)
-        #     vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
-        # except Exception:
-        #     return HttpResponseBadRequest()
-
-        # if settings.VOTE_AUDIT_EMAIL:
-        #     utils.send_email(
-        #         template="mail/vote_audit.html",
-        #         context={"vote": vote},
-        #         subject="Vot candidat",
-        #         to=settings.VOTE_AUDIT_EMAIL,
-        #     )
-        # return HttpResponse()
 
 
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))

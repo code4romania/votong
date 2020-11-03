@@ -91,6 +91,7 @@ EMAIL_TEMPLATE_CHOICES = Choices(
     ("pending_orgs_digest", _("Pending organizations digest email")),
     ("org_approved", _("Your organization was approved")),
     ("org_rejected", _("Your organization was rejected")),
+    ("vote_audit", _("Vote audit log")),
 )
 
 

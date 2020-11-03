@@ -29,6 +29,14 @@ ORG_REJECTED_TEXT = """
 {{ rejection_message }}
 """
 
+VOTE_AUDIT_TEXT = """
+{{ org }} a votat cu {{ candidate }} la {{ timestamp }}
+
+Organizatie: {{ org_link }}
+
+Candidat: {{ candidate_link }}
+"""
+
 
 class Command(BaseCommand):
     help = "Add functional data to the system. E.g. user groups, etc."
@@ -56,6 +64,11 @@ class Command(BaseCommand):
         template, created = EmailTemplate.objects.get_or_create(template="org_rejected")
         if created:
             template.text_content = ORG_REJECTED_TEXT
+            template.save()
+
+        template, created = EmailTemplate.objects.get_or_create(template="vote_audit")
+        if created:
+            template.text_content = VOTE_AUDIT_TEXT
             template.save()
 
         self.stdout.write(self.style.SUCCESS("Initialization done!"))
