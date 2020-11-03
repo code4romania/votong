@@ -36,11 +36,19 @@
 <br>
 <br>
 
-
-{% if candidate.is_proposed %}
-
+{% if not user.orgs.first.is_complete %}
 <div class="container">
+    <p>
+      Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați
+      și ultima secțiune de documente solicitate din <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>.
+      Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
+    </p>
+    <br>
+</div>
+{% endif %}
 
+{% if CANDIDATE_REGISTRATION_ENABLED and candidate.is_proposed %}
+<div class="container">
   <div class="columns">
     <div class="column is-narrow">
       <a class="is-danger button"
@@ -49,16 +57,6 @@
       </a>
     </div>
   </div>
-
-</div>
-{% else%}
-<div class="container">
-    <p>
-      Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați
-      și ultima secțiune de documente solicitate din <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>.
-      Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
-    </p>
-    <br>
 </div>
 {% endif %}
 
@@ -96,17 +94,19 @@
 
     {{ form|crispy }}
 
+    {% if CANDIDATE_REGISTRATION_ENABLED %}
     <div class="has-text-right">
       <input class="button is-success" type="submit"
         value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
     </div>
+    {% endif %}
   </form>
   {% endif %}
 </div>
 
 <hr />
 
-{% if user.orgs.first.is_complete and not candidate.is_proposed %}
+{% if CANDIDATE_REGISTRATION_ENABLED and user.orgs.first.is_complete and not candidate.is_proposed %}
 <div class="container has-text-centered">
   <a href="#" class="button is-warning" style="width: 100%;"
     onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidat</a>
