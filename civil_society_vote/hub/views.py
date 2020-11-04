@@ -477,7 +477,7 @@ def candidate_status_confirm(request, pk):
 
     candidate = get_object_or_404(Candidate, pk=pk)
 
-    if candidate.org == request.user.orgs.first():
+    if candidate.org == request.user.orgs.first() or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)
 
     confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)

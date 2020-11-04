@@ -60,7 +60,12 @@
         <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
 
         {% if CANDIDATE_VOTING_ENABLED or "approve_candidate" in user_permissions %}
-        <div class="need-description"><b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b></div>
+        <div class="need-description">
+          <b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
+          {% if candidate.status != 'pending' %}
+            {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
+          {% endif %}
+        </div>
         {% endif %}
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
@@ -76,7 +81,7 @@
       </div>
     {% endif %}
 
-    {% if not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate %}
+    {% if not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
       <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">Confirmă starea aplicației</a>
     {% endif %}
 </div>

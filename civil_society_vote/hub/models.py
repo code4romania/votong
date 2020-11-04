@@ -502,7 +502,7 @@ class CandidateVote(TimeStampedModel):
         ]
 
     def __str__(self):
-        return f"{self.user} - {self. candidate}"
+        return f"{self.user.get_full_name()} - {self. candidate}"
 
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
@@ -521,7 +521,7 @@ class CandidateSupporter(TimeStampedModel):
         ]
 
     def __str__(self):
-        return f"{self.user} - {self. candidate}"
+        return f"{self.user.get_full_name()} - {self. candidate}"
 
 
 class CandidateConfirmation(TimeStampedModel):
@@ -536,4 +536,4 @@ class CandidateConfirmation(TimeStampedModel):
         ]
 
     def __str__(self):
-        return f"{self.user} - {self. candidate}"
+        return f"{self.user.get_full_name()} - {self. candidate}"

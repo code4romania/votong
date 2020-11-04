@@ -268,7 +268,7 @@ class CandidateAdmin(admin.ModelAdmin):
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
     readonly_fields = ["status", "status_changed"]
-    inlines = [CandidateVoteInline, CandidateSupporterInline, CandidateConfirmationInline]
+    inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
