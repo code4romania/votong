@@ -6,7 +6,6 @@ from hub.views import (
     CandidateListView,
     CandidateRegisterRequestCreateView,
     CandidateUpdateView,
-    CandidateVoteView,
     CityAutocomplete,
     CommitteeCandidatesListView,
     CommitteeOrganizationListView,
@@ -15,9 +14,11 @@ from hub.views import (
     OrganizationListView,
     OrganizationRegisterRequestCreateView,
     OrganizationUpdateView,
+    candidate_revoke,
+    candidate_status_confirm,
     candidate_support,
+    candidate_vote,
     organization_vote,
-    revoke_candidate,
 )
 
 urlpatterns = [
@@ -25,9 +26,10 @@ urlpatterns = [
     path(_("candidates/"), CandidateListView.as_view(), name="candidates"),
     path(_("candidates/register"), CandidateRegisterRequestCreateView.as_view(), name="candidate-register-request",),
     path(_("candidates/<int:pk>"), CandidateDetailView.as_view(), name="candidate-detail"),
-    path(_("candidates/<int:pk>/vote"), CandidateVoteView.as_view(), name="candidate-vote"),
+    path(_("candidates/<int:pk>/vote"), candidate_vote, name="candidate-vote"),
     path(_("candidates/<int:pk>/support"), candidate_support, name="candidate-support"),
-    path(_("candidates/<int:pk>/revoke"), revoke_candidate, name="candidate-revoke"),
+    path(_("candidates/<int:pk>/revoke"), candidate_revoke, name="candidate-revoke"),
+    path(_("candidates/<int:pk>/status-confirm"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),

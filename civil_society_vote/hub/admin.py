@@ -5,17 +5,24 @@ from accounts.models import User
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
+from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Count
 from django.shortcuts import redirect, render
+from django.template import Context
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
+from hub import utils
 from hub.forms import ImportCitiesForm
 from hub.models import (
+    COMMITTEE_GROUP,
     COUNTIES,
     COUNTY_RESIDENCE,
     Candidate,
+    CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
@@ -130,20 +137,145 @@ class CandidateSupporterInline(admin.TabularInline):
         return False
 
 
+class CandidateConfirmationInline(admin.TabularInline):
+    model = CandidateConfirmation
+    fields = ["user", "candidate"]
+    readonly_fields = ["user", "candidate"]
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class CandidateSupportersListFilter(admin.SimpleListFilter):
+    title = _("supporters")
+    parameter_name = "supporters"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("gte10", _("10 or more")),
+            ("lt10", _("less than 10")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "lt10":
+            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__lt=10)
+        if self.value() == "gte10":
+            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__gte=10)
+
+
+class CandidateConfirmationsListFilter(admin.SimpleListFilter):
+    title = _("confirmations")
+    parameter_name = "confirmations"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("5", _("5")),
+            ("lt5", _("less than 5")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "lt5":
+            return queryset.annotate(confirmations_count=Count("confirmations")).filter(confirmations_count__lt=5)
+        if self.value() == "5":
+            return queryset.annotate(confirmations_count=Count("confirmations")).filter(confirmations_count=5)
+
+
+def send_confirm_email_to_committee(request, candidate, to_email):
+    current_site = get_current_site(request)
+    protocol = "https" if request.is_secure() else "http"
+
+    confirmation_link_path = reverse("candidate-detail", args=(candidate.pk,))
+    confirmation_link = f"{protocol}://{current_site.domain}{confirmation_link_path}"
+
+    utils.send_email(
+        template="confirmation",
+        context=Context(
+            {
+                "candidate": candidate.name,
+                "status": Candidate.STATUS[candidate.status],
+                "confirmation_link": confirmation_link,
+            }
+        ),
+        subject=f"[VOTONG] Confirmare candidat: {candidate.name}",
+        to=to_email,
+    )
+
+
+def reject_candidates(modeladmin, request, queryset):
+    committee_emails = Group.objects.get(name=COMMITTEE_GROUP).user_set.all().values_list("email", flat=True)
+
+    for candidate in queryset:
+        # only take action if there is a chance in the status
+        if candidate.status != Candidate.STATUS.rejected:
+            CandidateConfirmation.objects.filter(candidate=candidate).delete()
+            for to_email in committee_emails:
+                send_confirm_email_to_committee(request, candidate, to_email)
+
+    queryset.update(status=Candidate.STATUS.rejected)
+
+
+reject_candidates.short_description = _("Set selected candidates status to REJECTED")
+
+
+def accept_candidates(modeladmin, request, queryset):
+    committee_emails = Group.objects.get(name=COMMITTEE_GROUP).user_set.all().values_list("email", flat=True)
+
+    for candidate in queryset:
+        # only take action if there is a chance in the status
+        if candidate.status != Candidate.STATUS.accepted:
+            CandidateConfirmation.objects.filter(candidate=candidate).delete()
+            for to_email in committee_emails:
+                send_confirm_email_to_committee(request, candidate, to_email)
+
+    queryset.update(status=Candidate.STATUS.accepted)
+
+
+accept_candidates.short_description = _("Set selected candidates status to ACCEPTED")
+
+
+def pending_candidates(modeladmin, request, queryset):
+    for candidate in queryset:
+        # only take action if there is a chance in the status
+        if candidate.status != Candidate.STATUS.pending:
+            CandidateConfirmation.objects.filter(candidate=candidate).delete()
+
+    queryset.update(status=Candidate.STATUS.pending)
+
+
+pending_candidates.short_description = _("Set selected candidates status to PENDING")
+
+
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
-    list_display = ("name", "org", "domain", "is_proposed", "status", "supporters_count", "vote_count", "created")
-    list_filter = ("is_proposed", "status", "domain")
-    search_fields = ("name", "email", "org__name")
-    readonly_fields = ["org"]
-    inlines = [CandidateVoteInline, CandidateSupporterInline]
+    list_display = [
+        "name",
+        "org",
+        "domain",
+        "is_proposed",
+        "status",
+        "supporters_count",
+        "confirmations_count",
+        "vote_count",
+        "created",
+    ]
+    list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
+    search_fields = ["name", "email", "org__name"]
+    readonly_fields = ["status", "status_changed"]
+    inlines = [CandidateVoteInline, CandidateSupporterInline, CandidateConfirmationInline]
+    actions = [accept_candidates, reject_candidates, pending_candidates]
+    list_per_page = 20
 
     def has_add_permission(self, request, obj=None):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
         return False
 
     def has_change_permission(self, request, obj=None):

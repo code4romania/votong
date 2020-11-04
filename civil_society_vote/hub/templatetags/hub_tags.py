@@ -1,6 +1,6 @@
 from django import template
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, CandidateSupporter, CandidateVote
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, CandidateConfirmation, CandidateSupporter, CandidateVote
 
 register = template.Library()
 
@@ -13,6 +13,13 @@ def already_voted_candidate_or_domain(user, candidate):
     if CandidateVote.objects.filter(user=user, domain=candidate.domain).exists():
         return True
 
+    return False
+
+
+@register.filter
+def already_confirmed_candidate_status(user, candidate):
+    if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
+        return True
     return False
 
 

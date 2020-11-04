@@ -37,6 +37,12 @@ Organizatie: {{ org_link }}
 Candidat: {{ candidate_link }}
 """
 
+CONFIRM_TEXT = """
+Administratorul site-ului votong.ro a schimbatul statusul candidatului "{{ candidate }}" în "{{ status }}".
+
+Urmează acest link pentru a confirma acțiunea: {{ confirmation_link }}
+"""
+
 
 class Command(BaseCommand):
     help = "Add functional data to the system. E.g. user groups, etc."
@@ -69,6 +75,11 @@ class Command(BaseCommand):
         template, created = EmailTemplate.objects.get_or_create(template="vote_audit")
         if created:
             template.text_content = VOTE_AUDIT_TEXT
+            template.save()
+
+        template, created = EmailTemplate.objects.get_or_create(template="confirmation")
+        if created:
+            template.text_content = CONFIRM_TEXT
             template.save()
 
         self.stdout.write(self.style.SUCCESS("Initialization done!"))
