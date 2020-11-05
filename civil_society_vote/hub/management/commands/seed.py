@@ -160,9 +160,10 @@ class Command(BaseCommand):
         self.stdout.write("Loaded organizations data")
 
         for flag in [x[0] for x in FLAG_CHOICES]:
-            feature_flag_obj, _ = FeatureFlag.objects.get_or_create(flag=flag)
-            feature_flag_obj.is_enabled = True
-            feature_flag_obj.save()
-            self.stdout.write(f"Enabled '{flag}' flag")
+            feature_flag_obj, created = FeatureFlag.objects.get_or_create(flag=flag)
+            if created:
+                feature_flag_obj.is_enabled = True
+                feature_flag_obj.save()
+                self.stdout.write(f"Enabled '{flag}' flag")
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))
