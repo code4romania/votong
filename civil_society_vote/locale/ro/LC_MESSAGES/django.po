@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 09:11+0200\n"
+"POT-Creation-Date: 2020-11-05 11:49+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -573,8 +573,8 @@ msgstr " "
 #: hub/models.py:362
 msgid "Main Points"
 msgstr ""
-"Care sunt cele mai relevante momente din experiența ta care te recomandă "
-"pentru a ocupa un loc in Comitetul Economic și Social?"
+"Care considerați că ar trebui să fie cele mai importante puncte de pe "
+"agenda doemniului pentru care aplicați?"
 
 #: hub/models.py:365
 msgid ""
@@ -738,11 +738,11 @@ msgstr "Propune candidat"
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: hub/templates/candidate/update.html:100
+#: hub/templates/candidate/update.html:101
 msgid "Publish changes"
 msgstr "Publică modificările"
 
-#: hub/templates/candidate/update.html:100
+#: hub/templates/candidate/update.html:101
 msgid "Update profile"
 msgstr "Modifică profil"
 
