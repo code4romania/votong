@@ -38,12 +38,13 @@
 
 {% if not user.orgs.first.is_complete %}
 <div class="container">
-    <p>
+<div class="message is-danger">
+    <p style="font-weight: bold; font-size: 18px; padding: 10px 20px;">
       Pentru a putea finaliza profilul unui candidat și pentru a-l putea propune în cursă este important să completați
       și ultima secțiune de documente solicitate din <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>.
-      Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>
+      Pentru orice întrebare ne puteți scrie la <a href="mailto:contact@votong.ro">contact@votong.ro</a>.
     </p>
-    <br>
+</div>
 </div>
 {% endif %}
 
