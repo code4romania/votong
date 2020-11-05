@@ -36,7 +36,7 @@
 <br>
 <br>
 
-{% if user.orgs.first.is_complete %}
+{% if not user.orgs.first.is_complete %}
 <div class="container">
 <div class="message is-danger">
     <p style="font-weight: bold; font-size: 18px; padding: 10px 20px;">
