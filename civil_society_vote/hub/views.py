@@ -437,7 +437,7 @@ def candidate_support(request, pk):
     if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
         raise PermissionDenied
 
-    candidate = get_object_or_404(Candidate, pk=pk)
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
 
     if candidate.org == request.user.orgs.first():
         return redirect("candidate-detail", pk=pk)
