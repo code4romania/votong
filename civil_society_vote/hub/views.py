@@ -338,17 +338,7 @@ class CandidateDetailView(HubDetailView):
         if self.request.user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
             return Candidate.objects_with_org.all()
 
-        if FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
-            return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.pending, is_proposed=True
-            )
-
-        if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-            )
-
-        return Candidate.objects_with_org.none()
+        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
@@ -447,7 +437,7 @@ def candidate_support(request, pk):
     if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
         raise PermissionDenied
 
-    candidate = get_object_or_404(Candidate, pk=pk)
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
 
     if candidate.org == request.user.orgs.first():
         return redirect("candidate-detail", pk=pk)

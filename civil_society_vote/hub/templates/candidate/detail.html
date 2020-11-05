@@ -59,16 +59,15 @@
 
         <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
 
-        {% if CANDIDATE_VOTING_ENABLED or "approve_candidate" in user_permissions %}
         <div class="need-description">
           <b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
-          {% if candidate.status != 'pending' %}
+          {% if "approve_candidate" in user_permissions and candidate.status != 'pending' %}
             {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
           {% endif %}
         </div>
-        {% endif %}
+
     </div>
-    {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
+    {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions and candidate.is_proposed %}
       <div class="buttons">
       {% if candidate.org != request.user.orgs.first %}
         {% if user|already_supported:candidate %}
