@@ -59,21 +59,30 @@
 
         <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
 
-        {% if CANDIDATE_VOTING_ENABLED %}
-        <div class="need-description"><b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b></div>
+        {% if CANDIDATE_VOTING_ENABLED or "approve_candidate" in user_permissions %}
+        <div class="need-description">
+          <b>Stare aplicație: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
+          {% if candidate.status != 'pending' %}
+            {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
+          {% endif %}
+        </div>
         {% endif %}
     </div>
     {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
-    <div class="buttons">
-    {% if candidate.org != request.user.orgs.first %}
-    {% if user|already_supported:candidate %}
-      <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">Retrage susținerea</a>
-    {% else %}
-      <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">Susține</a>
+      <div class="buttons">
+      {% if candidate.org != request.user.orgs.first %}
+        {% if user|already_supported:candidate %}
+          <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">Retrage susținerea</a>
+        {% else %}
+          <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">Susține</a>
+        {% endif %}
+      {% endif %}
+        <span style="width: 100%; padding: 10px;">Susținători: {% supporters candidate.id %}</span>
+      </div>
     {% endif %}
-    {% endif %}
-      <span style="width: 100%; padding: 10px;">Susținători: {% supporters candidate.id %}</span>
-    </div>
+
+    {% if not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
+      <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">Confirmă starea aplicației</a>
     {% endif %}
 </div>
 

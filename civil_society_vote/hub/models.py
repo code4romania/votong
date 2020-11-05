@@ -92,6 +92,7 @@ EMAIL_TEMPLATE_CHOICES = Choices(
     ("org_approved", _("Your organization was approved")),
     ("org_rejected", _("Your organization was rejected")),
     ("vote_audit", _("Vote audit log")),
+    ("confirmation", _("Confirmation email")),
 )
 
 
@@ -294,6 +295,7 @@ class Organization(StatusModel, TimeStampedModel):
         if create:
             assign_perm("view_data_organization", Group.objects.get(name=STAFF_GROUP), self)
             assign_perm("view_data_organization", Group.objects.get(name=SUPPORT_GROUP), self)
+
             assign_perm("view_data_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
             assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
@@ -439,16 +441,6 @@ class Candidate(StatusModel, TimeStampedModel):
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
 
-    def vote_count(self):
-        return self.votes.count()
-
-    vote_count.short_description = _("Votes")
-
-    def supporters_count(self):
-        return self.supporters.count()
-
-    supporters_count.short_description = _("Supporters")
-
     def save(self, *args, **kwargs):
         create = False if self.id else True
 
@@ -473,6 +465,7 @@ class Candidate(StatusModel, TimeStampedModel):
 
             assign_perm("approve_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
             assign_perm("view_data_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
+
             assign_perm("view_data_candidate", Group.objects.get(name=STAFF_GROUP), self)
             assign_perm("view_data_candidate", Group.objects.get(name=SUPPORT_GROUP), self)
 
@@ -494,7 +487,7 @@ class CandidateVote(TimeStampedModel):
         ]
 
     def __str__(self):
-        return f"{self.user} - {self. candidate}"
+        return f"{self.user.get_full_name()} - {self. candidate}"
 
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
@@ -513,4 +506,19 @@ class CandidateSupporter(TimeStampedModel):
         ]
 
     def __str__(self):
-        return f"{self.user} - {self. candidate}"
+        return f"{self.user.get_full_name()} - {self. candidate}"
+
+
+class CandidateConfirmation(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="confirmations")
+
+    class Meta:
+        verbose_name_plural = _("Canditate confirmations")
+        verbose_name = _("Candidate confirmation")
+        constraints = [
+            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),
+        ]
+
+    def __str__(self):
+        return f"{self.user.get_full_name()} - {self. candidate}"

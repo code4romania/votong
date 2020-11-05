@@ -30,6 +30,7 @@ from hub.models import (
     COMMITTEE_GROUP,
     STAFF_GROUP,
     Candidate,
+    CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
@@ -301,14 +302,17 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+        if FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted, status=Candidate.STATUS.pending, is_proposed=True
             )
 
-        return Candidate.objects_with_org.filter(
-            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-        )
+        if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            )
+
+        return Candidate.objects_with_org.none()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -339,14 +343,17 @@ class CandidateDetailView(HubDetailView):
         if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
             return Candidate.objects_with_org.all()
 
-        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+        if FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted, status=Candidate.STATUS.pending, is_proposed=True
             )
 
-        return Candidate.objects_with_org.filter(
-            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-        )
+        if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            )
+
+        return Candidate.objects_with_org.none()
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
@@ -384,47 +391,47 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return reverse("candidate-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
             raise PermissionDenied
         return super().post(request, *args, **kwargs)
 
 
-class CandidateVoteView(LoginRequiredMixin, View):
-    def get(self, request, pk):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return HttpResponseBadRequest()
+@permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
+def candidate_vote(self, request, pk):
+    if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+        return HttpResponseBadRequest()
 
-        try:
-            candidate = Candidate.objects.get(
-                pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-            )
-            vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
-        except Exception:
-            return HttpResponseBadRequest()
+    try:
+        candidate = Candidate.objects.get(
+            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+        )
+        vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
+    except Exception:
+        return HttpResponseBadRequest()
 
-        if settings.VOTE_AUDIT_EMAIL:
-            current_site = get_current_site(request)
-            protocol = "https" if request.is_secure() else "http"
-            utils.send_email(
-                template="vote_audit",
-                context=Context(
-                    {
-                        "org": vote.user.orgs.first().name,
-                        "candidate": vote.candidate.name,
-                        "timestamp": vote.created.isoformat(),
-                        "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
-                        "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
-                    }
-                ),
-                subject=f"[VOTONG] Vot candidat: {vote.candidate.name}",
-                to=settings.VOTE_AUDIT_EMAIL,
-            )
-        return HttpResponse()
+    if settings.VOTE_AUDIT_EMAIL:
+        current_site = get_current_site(request)
+        protocol = "https" if request.is_secure() else "http"
+        utils.send_email(
+            template="vote_audit",
+            context=Context(
+                {
+                    "org": vote.user.orgs.first().name,
+                    "candidate": vote.candidate.name,
+                    "timestamp": vote.created.isoformat(),
+                    "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
+                    "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
+                }
+            ),
+            subject=f"[VOTONG] Vot candidat: {vote.candidate.name}",
+            to=settings.VOTE_AUDIT_EMAIL,
+        )
+    return HttpResponse()
 
 
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
-def revoke_candidate(request, pk):
-    if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+def candidate_revoke(request, pk):
+    if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
         raise PermissionDenied
 
     candidate = get_object_or_404(Candidate, pk=pk)
@@ -442,6 +449,9 @@ def revoke_candidate(request, pk):
 
 @permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
 def candidate_support(request, pk):
+    if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
+        raise PermissionDenied
+
     candidate = get_object_or_404(Candidate, pk=pk)
 
     if candidate.org == request.user.orgs.first():
@@ -453,6 +463,25 @@ def candidate_support(request, pk):
         CandidateSupporter.objects.create(user=request.user, candidate=candidate)
     else:
         supporter.delete()
+
+    return redirect("candidate-detail", pk=pk)
+
+
+@permission_required_or_403("hub.approve_candidate", (Candidate, "pk", "pk"))
+def candidate_status_confirm(request, pk):
+    if (
+        FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists()
+        or FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists()
+        or FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists()
+    ):
+        raise PermissionDenied
+
+    candidate = get_object_or_404(Candidate, pk=pk)
+
+    if candidate.org == request.user.orgs.first() or candidate.status == Candidate.STATUS.pending:
+        return redirect("candidate-detail", pk=pk)
+
+    confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
 
     return redirect("candidate-detail", pk=pk)
 
