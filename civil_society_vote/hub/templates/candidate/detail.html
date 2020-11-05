@@ -68,7 +68,7 @@
         </div>
         {% endif %}
     </div>
-    {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions %}
+    {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions and candidate.is_proposed %}
       <div class="buttons">
       {% if candidate.org != request.user.orgs.first %}
         {% if user|already_supported:candidate %}
