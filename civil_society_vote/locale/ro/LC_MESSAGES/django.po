@@ -574,7 +574,7 @@ msgstr " "
 msgid "Main Points"
 msgstr ""
 "Care considerați că ar trebui să fie cele mai importante puncte de pe "
-"agenda doemniului pentru care aplicați?"
+"agenda domeniului pentru care aplicați?"
 
 #: hub/models.py:365
 msgid ""
