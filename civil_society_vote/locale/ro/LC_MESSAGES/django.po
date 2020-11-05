@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-04 20:49+0200\n"
+"POT-Creation-Date: 2020-11-05 09:11+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -211,12 +211,12 @@ msgid "confirmations"
 msgstr "confirmări"
 
 #: hub/admin.py:179
-msgid "5"
-msgstr "5"
+msgid "5 or more"
+msgstr "5 sau mai multe"
 
 #: hub/admin.py:180
 msgid "less than 5"
-msgstr "mai puțin de 5"
+msgstr "mai puține de 5"
 
 #: hub/admin.py:224
 msgid "Set selected candidates status to REJECTED"
@@ -230,11 +230,23 @@ msgstr "Modifică starea candidaților selectați în APROBAT"
 msgid "Set selected candidates status to PENDING"
 msgstr "Modifică starea candidaților selectați în ÎN AȘTEPTARE"
 
-#: hub/admin.py:370
+#: hub/admin.py:287
+msgid "Votes"
+msgstr "Voturi"
+
+#: hub/admin.py:293
+msgid "Supporters"
+msgstr "Susținători"
+
+#: hub/admin.py:299
+msgid "Confirmations"
+msgstr "Confirmări"
+
+#: hub/admin.py:397
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: hub/admin.py:378
+#: hub/admin.py:405
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
@@ -627,43 +639,31 @@ msgstr "Candidați"
 msgid "Candidate"
 msgstr "Candidat"
 
-#: hub/models.py:447
-msgid "Votes"
-msgstr "Voturi"
-
-#: hub/models.py:452
-msgid "Supporters"
-msgstr "Susținători"
-
-#: hub/models.py:457
-msgid "Confirmations"
-msgstr "Confirmări"
-
-#: hub/models.py:463
+#: hub/models.py:448
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:497
+#: hub/models.py:482
 msgid "Canditate votes"
 msgstr "Voturi candidați"
 
-#: hub/models.py:498
+#: hub/models.py:483
 msgid "Candidate vote"
 msgstr "Vot candidat"
 
-#: hub/models.py:517
+#: hub/models.py:502
 msgid "Canditate supporters"
 msgstr "Susținători candidat"
 
-#: hub/models.py:518
+#: hub/models.py:503
 msgid "Candidate supporter"
 msgstr "Susținător candidat"
 
-#: hub/models.py:532
+#: hub/models.py:517
 msgid "Canditate confirmations"
 msgstr "Confirmări candidat"
 
-#: hub/models.py:533
+#: hub/models.py:518
 msgid "Candidate confirmation"
 msgstr "Confirmare candidat"
 
@@ -1085,6 +1085,9 @@ msgstr ""
 #: hub/views.py:277
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
+
+#~ msgid "5"
+#~ msgstr "5"
 
 #~ msgid "Organizations list"
 #~ msgstr "Organizații"

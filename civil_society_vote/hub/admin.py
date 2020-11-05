@@ -165,9 +165,9 @@ class CandidateSupportersListFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == "lt10":
-            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__lt=10)
+            return queryset.filter(supporters_count__lt=10)
         if self.value() == "gte10":
-            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__gte=10)
+            return queryset.filter(supporters_count__gte=10)
 
 
 class CandidateConfirmationsListFilter(admin.SimpleListFilter):
@@ -176,15 +176,15 @@ class CandidateConfirmationsListFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return (
-            ("5", _("5")),
+            ("gte5", _("5 or more")),
             ("lt5", _("less than 5")),
         )
 
     def queryset(self, request, queryset):
         if self.value() == "lt5":
-            return queryset.annotate(confirmations_count=Count("confirmations")).filter(confirmations_count__lt=5)
-        if self.value() == "5":
-            return queryset.annotate(confirmations_count=Count("confirmations")).filter(confirmations_count=5)
+            return queryset.filter(confirmations_count__lt=5)
+        if self.value() == "gte5":
+            return queryset.filter(confirmations_count__gte=5)
 
 
 def send_confirm_email_to_committee(request, candidate, to_email):
@@ -262,7 +262,7 @@ class CandidateAdmin(admin.ModelAdmin):
         "status",
         "supporters_count",
         "confirmations_count",
-        "vote_count",
+        "votes_count",
         "created",
     ]
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
@@ -271,6 +271,33 @@ class CandidateAdmin(admin.ModelAdmin):
     inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(
+            votes_count=Count("votes", distinct=True),
+            supporters_count=Count("supporters", distinct=True),
+            confirmations_count=Count("confirmations", distinct=True),
+        )
+        return queryset
+
+    def votes_count(self, obj):
+        return obj.votes_count
+
+    votes_count.short_description = _("Votes")
+    votes_count.admin_order_field = "votes_count"
+
+    def supporters_count(self, obj):
+        return obj.supporters_count
+
+    supporters_count.short_description = _("Supporters")
+    supporters_count.admin_order_field = "supporters_count"
+
+    def confirmations_count(self, obj):
+        return obj.confirmations_count
+
+    confirmations_count.short_description = _("Confirmations")
+    confirmations_count.admin_order_field = "confirmations_count"
 
     def has_add_permission(self, request, obj=None):
         return False

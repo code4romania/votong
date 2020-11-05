@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-04 20:49+0200\n"
+"POT-Creation-Date: 2020-11-05 09:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,7 +204,7 @@ msgid "confirmations"
 msgstr ""
 
 #: hub/admin.py:179
-msgid "5"
+msgid "5 or more"
 msgstr ""
 
 #: hub/admin.py:180
@@ -223,11 +223,23 @@ msgstr ""
 msgid "Set selected candidates status to PENDING"
 msgstr ""
 
-#: hub/admin.py:370
+#: hub/admin.py:287
+msgid "Votes"
+msgstr ""
+
+#: hub/admin.py:293
+msgid "Supporters"
+msgstr ""
+
+#: hub/admin.py:299
+msgid "Confirmations"
+msgstr ""
+
+#: hub/admin.py:397
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:378
+#: hub/admin.py:405
 msgid "Import Cities"
 msgstr ""
 
@@ -613,43 +625,31 @@ msgstr ""
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:447
-msgid "Votes"
-msgstr ""
-
-#: hub/models.py:452
-msgid "Supporters"
-msgstr ""
-
-#: hub/models.py:457
-msgid "Confirmations"
-msgstr ""
-
-#: hub/models.py:463
+#: hub/models.py:448
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:497
+#: hub/models.py:482
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:498
+#: hub/models.py:483
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:517
+#: hub/models.py:502
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:518
+#: hub/models.py:503
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:532
+#: hub/models.py:517
 msgid "Canditate confirmations"
 msgstr ""
 
-#: hub/models.py:533
+#: hub/models.py:518
 msgid "Candidate confirmation"
 msgstr ""
 
