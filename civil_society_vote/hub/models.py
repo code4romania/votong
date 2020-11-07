@@ -493,7 +493,7 @@ class CandidateVote(TimeStampedModel):
         self.domain = self.candidate.domain
 
         votes_for_domain = CandidateVote.objects.filter(user=self.user, domain=self.domain).count()
-        if votes_for_domain == self.domain.seats:
+        if votes_for_domain >= self.domain.seats:
             raise Exception("Maximum number of votes reached")
 
         super().save(*args, **kwargs)

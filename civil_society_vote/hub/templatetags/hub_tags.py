@@ -11,7 +11,7 @@ def can_vote_candidate(user, candidate):
         return False
 
     votes_for_domain = CandidateVote.objects.filter(user=user, domain=candidate.domain).count()
-    if votes_for_domain == candidate.domain.seats:
+    if votes_for_domain >= candidate.domain.seats:
         return False
 
     return True
