@@ -265,10 +265,55 @@ class CandidateAdmin(admin.ModelAdmin):
         "votes_count",
         "created",
     ]
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": (
+                    "org",
+                    "initial_org",
+                    "name",
+                    "domain",
+                    "description",
+                    "cv",
+                    "role",
+                    "experience",
+                    "studies",
+                    "main_objectives",
+                    "main_points",
+                    "relevant_moments",
+                    "email",
+                    "phone",
+                    "photo",
+                    "mandate",
+                    "letter",
+                    "statement",
+                    "tax_records",
+                    "legal_records",
+                    "is_proposed",
+                    "status",
+                    "status_changed",
+                    "modified",
+                    "created",
+                    "supporters_count",
+                    "confirmations_count",
+                    "votes_count",
+                )
+            },
+        ),
+    ]
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
-    readonly_fields = ["status", "status_changed"]
-    inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
+    readonly_fields = [
+        "status",
+        "status_changed",
+        "supporters_count",
+        "confirmations_count",
+        "votes_count",
+        "modified",
+        "created",
+    ]
+    inlines = [CandidateSupporterInline, CandidateConfirmationInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
