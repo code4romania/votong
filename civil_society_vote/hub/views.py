@@ -382,9 +382,9 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 
 @permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
-def candidate_vote(self, request, pk):
+def candidate_vote(request, pk):
     if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-        return HttpResponseBadRequest()
+        raise PermissionDenied
 
     try:
         candidate = Candidate.objects.get(
@@ -392,7 +392,7 @@ def candidate_vote(self, request, pk):
         )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
-        return HttpResponseBadRequest()
+        raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
         current_site = get_current_site(request)
@@ -411,7 +411,8 @@ def candidate_vote(self, request, pk):
             subject=f"[VOTONG] Vot candidat: {vote.candidate.name}",
             to=settings.VOTE_AUDIT_EMAIL,
         )
-    return HttpResponse()
+
+    return redirect("candidate-detail", pk=pk)
 
 
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))

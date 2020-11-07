@@ -83,6 +83,19 @@
   {% if not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
   <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">Confirmă starea aplicației</a>
   {% endif %}
+
+  {% if CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and "vote_candidate" in user_permissions and candidate.status == 'accepted' %}
+
+  {% if user|can_vote_candidate:candidate %}
+  <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">Votează</a>
+  {% elif user|already_voted_candidate:candidate %}
+  <span class="tag is-success">✔ VOTAT</span>
+  {% else %}
+  <span class="tag is-warning">Ai utilizat deja toate voturile alocate pentru acest domeniu.</span>
+  {% endif %}
+
+  {% endif %}
+
 </div>
 
 <hr />
