@@ -408,10 +408,59 @@ class CityAdmin(admin.ModelAdmin):
         return render(request, "admin/hub/city/import_cities.html", context)
 
 
+def flags_phase_1(modeladmin, request, queryset):
+    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
+
+
+flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate regisrations")
+
+
+def flags_phase_2(modeladmin, request, queryset):
+    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
+
+
+flags_phase_2.short_description = _("Set flags for PHASE 2 - candidate validation")
+
+
+def flags_phase_3(modeladmin, request, queryset):
+    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=True)
+
+
+flags_phase_3.short_description = _("Set flags for PHASE 3 - voting")
+
+
+def flags_final_phase(modeladmin, request, queryset):
+    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
+    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
+
+
+flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")
+
+
 @admin.register(FeatureFlag)
 class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
+    actions = [flags_phase_1, flags_phase_2, flags_phase_3, flags_final_phase]
 
     def has_add_permission(self, request):
         return False
