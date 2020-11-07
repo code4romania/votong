@@ -313,7 +313,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
 @admin.register(Domain)
 class DomainAdmin(admin.ModelAdmin):
-    list_display = ["name", "description"]
+    list_display = ["name", "seats", "description"]
 
     def has_add_permission(self, request):
         if request.user.is_superuser:

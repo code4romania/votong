@@ -124,6 +124,7 @@ class EmailTemplate(TimeStampedModel):
 class Domain(TimeStampedModel):
     name = models.CharField(_("Name"), max_length=254, unique=True)
     description = models.TextField(_("Description"))
+    seats = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
         verbose_name = _("Domain")
@@ -483,7 +484,6 @@ class CandidateVote(TimeStampedModel):
         verbose_name = _("Candidate vote")
         constraints = [
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
-            models.UniqueConstraint(fields=["user", "domain"], name="unique_candidate_domain_vote"),
         ]
 
     def __str__(self):
@@ -491,6 +491,11 @@ class CandidateVote(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
+
+        votes_for_domain = CandidateVote.objects.filter(user=self.user, domain=self.domain).count()
+        if votes_for_domain >= self.domain.seats:
+            raise Exception("Maximum number of votes reached")
+
         super().save(*args, **kwargs)
 
 

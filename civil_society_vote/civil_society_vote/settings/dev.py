@@ -10,7 +10,7 @@ INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS
 
 AUTH_PASSWORD_VALIDATORS = []
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]

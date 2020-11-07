@@ -6,13 +6,21 @@ register = template.Library()
 
 
 @register.filter
-def already_voted_candidate_or_domain(user, candidate):
+def can_vote_candidate(user, candidate):
+    if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
+        return False
+
+    votes_for_domain = CandidateVote.objects.filter(user=user, domain=candidate.domain).count()
+    if votes_for_domain >= candidate.domain.seats:
+        return False
+
+    return True
+
+
+@register.filter
+def already_voted_candidate(user, candidate):
     if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
         return True
-
-    if CandidateVote.objects.filter(user=user, domain=candidate.domain).exists():
-        return True
-
     return False
 
 
