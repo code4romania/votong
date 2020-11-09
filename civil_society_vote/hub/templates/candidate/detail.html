@@ -61,13 +61,14 @@
 
     <div class="need-description">
       <b>Status candidat: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
-      {% if "approve_candidate" in user_permissions and candidate.status != 'pending' %}
+      {% if not user.is_superuser and "approve_candidate" in user_permissions and candidate.status != 'pending' %}
       {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
       {% endif %}
     </div>
 
   </div>
-  {% if CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions and candidate.is_proposed %}
+
+  {% if not user.is_superuser and CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions and candidate.is_proposed %}
   <div class="buttons">
     {% if candidate.org != request.user.orgs.first %}
     {% if user|already_supported:candidate %}
@@ -80,11 +81,11 @@
   </div>
   {% endif %}
 
-  {% if not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
+  {% if not user.is_superuser and not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
   <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">Confirmă starea aplicației</a>
   {% endif %}
 
-  {% if CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and "vote_candidate" in user_permissions and candidate.status == 'accepted' %}
+  {% if not user.is_superuser and CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and "vote_candidate" in user_permissions and candidate.status == 'accepted' %}
 
   {% if user|can_vote_candidate:candidate %}
   <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">Votează</a>
