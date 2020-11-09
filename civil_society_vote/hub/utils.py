@@ -18,7 +18,9 @@ def send_email(template, context, subject, to):
     tpl = EmailTemplate.objects.get(template=template)
 
     text_content = Template(tpl.text_content).render(context)
-    msg = EmailMultiAlternatives(subject, text_content, settings.NO_REPLY_EMAIL, [to])
+    msg = EmailMultiAlternatives(
+        subject, text_content, settings.NO_REPLY_EMAIL, [to], headers={"X-SES-CONFIGURATION-SET": "votong"}
+    )
 
     if tpl.html_content:
         html_content = Template(tpl.html_content).render(context)
