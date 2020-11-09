@@ -124,7 +124,11 @@ class EmailTemplate(TimeStampedModel):
 class Domain(TimeStampedModel):
     name = models.CharField(_("Name"), max_length=254, unique=True)
     description = models.TextField(_("Description"))
-    seats = models.PositiveSmallIntegerField(default=0)
+    seats = models.PositiveSmallIntegerField(
+        _("Number of seats"),
+        default=0,
+        help_text="Numărul de locuri disponibile într-un domeniu este egal cu numărul de voturi pe are un elector le poate exprima în acel domeniu. Setând numărul de locuri se setează și numărul maxim de voturi.",
+    )
 
     class Meta:
         verbose_name = _("Domain")
