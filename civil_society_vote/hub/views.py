@@ -29,6 +29,7 @@ from hub.forms import (
 from hub.models import (
     COMMITTEE_GROUP,
     STAFF_GROUP,
+    SUPPORT_GROUP,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
@@ -111,7 +112,7 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
     template_name = "committee/list.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -140,7 +141,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
     template_name = "committee/candidates.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -205,7 +206,7 @@ class OrganizationDetailView(HubDetailView):
     model = Organization
 
     def get_queryset(self):
-        if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+        if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
             return Organization.objects.all()
 
         return Organization.objects.filter(status=Organization.STATUS.accepted)
@@ -335,7 +336,7 @@ class CandidateDetailView(HubDetailView):
     model = Candidate
 
     def get_queryset(self):
-        if self.request.user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists():
+        if self.request.user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
             return Candidate.objects_with_org.all()
 
         return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)

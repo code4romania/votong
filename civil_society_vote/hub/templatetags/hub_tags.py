@@ -1,6 +1,6 @@
 from django import template
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, CandidateConfirmation, CandidateSupporter, CandidateVote
+from hub.models import COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP, CandidateConfirmation, CandidateSupporter, CandidateVote
 
 register = template.Library()
 
@@ -32,8 +32,8 @@ def already_confirmed_candidate_status(user, candidate):
 
 
 @register.filter
-def in_committee_or_staff_group(user):
-    return user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP]).exists()
+def in_committee_or_staff_groups(user):
+    return user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
 
 
 @register.simple_tag

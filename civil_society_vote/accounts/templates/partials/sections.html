@@ -3,7 +3,7 @@
 
 <div class="tabs is-medium">
     <ul>
-        {% if user|in_committee_or_staff_group %}
+        {% if user|in_committee_or_staff_groups %}
         <li>
           <a href="{% url 'committee-ngos' %}">{% trans 'Back' %}</a>
         </li>
