@@ -336,7 +336,10 @@ class CandidateDetailView(HubDetailView):
     model = Candidate
 
     def get_queryset(self):
-        if self.request.user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+        if (
+            self.request.user
+            and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
+        ):
             return Candidate.objects_with_org.all()
 
         return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)

@@ -1,6 +1,13 @@
 from django import template
 
-from hub.models import COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP, CandidateConfirmation, CandidateSupporter, CandidateVote
+from hub.models import (
+    COMMITTEE_GROUP,
+    STAFF_GROUP,
+    SUPPORT_GROUP,
+    CandidateConfirmation,
+    CandidateSupporter,
+    CandidateVote,
+)
 
 register = template.Library()
 
