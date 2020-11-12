@@ -185,6 +185,9 @@ class OrganizationListView(HubListView):
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
         context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
+        context["counters"] = {
+            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+        }
 
         if self.request.GET.get("county"):
             orgs = orgs.filter(county=self.request.GET.get("county"))
