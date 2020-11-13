@@ -8,6 +8,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q
+from django.db.utils import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
@@ -280,8 +281,13 @@ def organization_vote(request, pk, action):
             else:
                 messages.error(request, _("You must write a rejection message."))
         elif action == "a":
-            org.status = Organization.STATUS.accepted
-            org.save()
+            try:
+                org.status = Organization.STATUS.accepted
+                org.save()
+            except IntegrityError as exc:
+                if 'duplicate key value violates unique constraint "accounts_user_email_key"' in str(exc):
+                    messages.error(request, _("An organization with the same email address is already registered."))
+
             current_site = get_current_site(request)
             protocol = "https" if request.is_secure() else "http"
             utils.send_email(

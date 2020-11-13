@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django_crispy_bulma.widgets import EmailInput
 
-from hub import models
+from hub.models import Candidate, City, FeatureFlag, Organization
 
 ORG_FIELD_ORDER = [
     "name",
@@ -44,7 +44,7 @@ class OrganizationCreateForm(forms.ModelForm):
     field_order = ORG_FIELD_ORDER
 
     class Meta:
-        model = models.Organization
+        model = Organization
         exclude = [
             "user",
             "status",
@@ -68,7 +68,7 @@ class OrganizationCreateForm(forms.ModelForm):
         if not settings.RECAPTCHA_PUBLIC_KEY:
             del self.fields["captcha"]
 
-        self.fields["city"].queryset = models.City.objects.none()
+        self.fields["city"].queryset = City.objects.none()
 
         if "city" not in self.data:
             self.fields["city"].widget.attrs.update({"disabled": "true"})
@@ -76,7 +76,7 @@ class OrganizationCreateForm(forms.ModelForm):
         if "county" in self.data:
             try:
                 county = self.data.get("county")
-                self.fields["city"].queryset = models.City.objects.filter(county__iexact=county)
+                self.fields["city"].queryset = City.objects.filter(county__iexact=county)
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
@@ -96,6 +96,14 @@ class OrganizationCreateForm(forms.ModelForm):
             )
         )
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if Organization.objects.filter(
+            email=email, status__in=[Organization.STATUS.accepted, Organization.STATUS.pending]
+        ).exists():
+            raise ValidationError(_("An organization with the same email address is already registered."))
+        return self.cleaned_data.get("email")
+
     def clean_accept_terms_and_conditions(self):
         if not self.cleaned_data.get("accept_terms_and_conditions"):
             raise ValidationError(_("You need to accept terms and conditions."))
@@ -111,7 +119,7 @@ class OrganizationUpdateForm(forms.ModelForm):
     field_order = ORG_FIELD_ORDER
 
     class Meta:
-        model = models.Organization
+        model = Organization
         exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
         widgets = {
             "email": EmailInput(),
@@ -122,11 +130,11 @@ class OrganizationUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["city"].queryset = models.City.objects.filter(county__iexact=self.instance.county)
+        self.fields["city"].queryset = City.objects.filter(county__iexact=self.instance.county)
 
         if "county" in self.data:
             try:
-                self.fields["city"].queryset = models.City.objects.filter(county__iexact=self.data["county"])
+                self.fields["city"].queryset = City.objects.filter(county__iexact=self.data["county"])
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
@@ -138,6 +146,14 @@ class OrganizationUpdateForm(forms.ModelForm):
             )
         )
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if Organization.objects.filter(
+            email=email, status__in=[Organization.STATUS.accepted, Organization.STATUS.pending]
+        ).exists():
+            raise ValidationError(_("An organization with the same email address is already registered."))
+        return self.cleaned_data.get("email")
+
     def clean_politic_members(self):
         if not self.cleaned_data.get("politic_members"):
             raise ValidationError(_("Organisation members need to be apolitical."))
@@ -146,7 +162,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 
 class CandidateRegisterForm(forms.ModelForm):
     class Meta:
-        model = models.Candidate
+        model = Candidate
         exclude = ["initial_org", "status", "status_changed"]
 
         widgets = {
@@ -162,7 +178,7 @@ class CandidateRegisterForm(forms.ModelForm):
         if not self.user.orgs.exists():
             raise ValidationError(_("Authenticated user does not have an organization."))
 
-        if models.Candidate.objects_with_org.filter(org=self.user.orgs.first()).exists():
+        if Candidate.objects_with_org.filter(org=self.user.orgs.first()).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
         self.initial["org"] = self.user.orgs.first().id
@@ -185,7 +201,7 @@ class CandidateUpdateForm(forms.ModelForm):
     field_order = ["name"]
 
     class Meta:
-        model = models.Candidate
+        model = Candidate
         exclude = ["org", "initial_org", "status", "status_changed"]
 
         widgets = {
@@ -196,7 +212,7 @@ class CandidateUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not models.FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
             for key in self.fields.keys():
                 self.fields[key].widget.attrs["disabled"] = True
 
@@ -204,11 +220,11 @@ class CandidateUpdateForm(forms.ModelForm):
             del self.fields["name"]
 
     def save(self, commit=True):
-        if not models.FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
             # This should not happen unless someone messes with the form code
             raise PermissionDenied
 
-        candidate = models.Candidate.objects_with_org.get(pk=self.instance.id)
+        candidate = Candidate.objects_with_org.get(pk=self.instance.id)
 
         if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
             if commit:

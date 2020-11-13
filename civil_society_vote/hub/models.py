@@ -305,11 +305,8 @@ class Organization(StatusModel, TimeStampedModel):
             assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
     def create_owner(self):
-        user, created = User.objects.get_or_create(username=self.email)
-
-        if not created:
-            return user
-
+        user = User()
+        user.username = self.email
         user.email = self.email
         user.set_password(get_random_string())
         user.is_active = True
