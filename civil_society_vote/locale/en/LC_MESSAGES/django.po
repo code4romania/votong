@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 18:17+0200\n"
+"POT-Creation-Date: 2020-11-13 16:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,44 +265,48 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:94 hub/forms.py:136
+#: hub/forms.py:94 hub/forms.py:144
 msgid ""
 "I declare that the members of the management of the organization I represent "
 "(the President and the members of the Board of Directors) are not members of "
 "political parties."
 msgstr ""
 
-#: hub/forms.py:101
+#: hub/forms.py:104 hub/forms.py:154 hub/views.py:289
+msgid "An organization with the same email address is already registered."
+msgstr ""
+
+#: hub/forms.py:109
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:106 hub/forms.py:143
+#: hub/forms.py:114 hub/forms.py:159
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:163
+#: hub/forms.py:179
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:166
+#: hub/forms.py:182
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:178
+#: hub/forms.py:194
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:216
+#: hub/forms.py:232
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:222
+#: hub/forms.py:238
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:227
+#: hub/forms.py:243
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -393,11 +397,11 @@ msgstr ""
 msgid "Email templates"
 msgstr ""
 
-#: hub/models.py:125 hub/models.py:347
+#: hub/models.py:125 hub/models.py:344
 msgid "Name"
 msgstr ""
 
-#: hub/models.py:126 hub/models.py:348 hub/templates/candidate/detail.html:106
+#: hub/models.py:126 hub/models.py:345 hub/templates/candidate/detail.html:106
 msgid "Description"
 msgstr ""
 
@@ -430,15 +434,15 @@ msgstr ""
 msgid "Cities"
 msgstr ""
 
-#: hub/models.py:163 hub/models.py:330
+#: hub/models.py:163 hub/models.py:327
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:163 hub/models.py:330
+#: hub/models.py:163 hub/models.py:327
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:163 hub/models.py:330
+#: hub/models.py:163 hub/models.py:327
 msgid "Rejected"
 msgstr ""
 
@@ -546,130 +550,130 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:342
+#: hub/models.py:339
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:349 hub/templates/candidate/detail.html:139
+#: hub/models.py:346 hub/templates/candidate/detail.html:139
 msgid "Curriculum Vitae"
 msgstr ""
 
-#: hub/models.py:350
+#: hub/models.py:347
 #, fuzzy
 #| msgid "Pending Organisations"
 msgid "Role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:356 hub/templates/candidate/detail.html:120
+#: hub/models.py:353 hub/templates/candidate/detail.html:120
 msgid "Professional experience"
 msgstr ""
 
-#: hub/models.py:357 hub/templates/candidate/detail.html:123
+#: hub/models.py:354 hub/templates/candidate/detail.html:123
 msgid "Studies"
 msgstr ""
 
-#: hub/models.py:360
+#: hub/models.py:357
 msgid "Main Objectives"
 msgstr ""
 
-#: hub/models.py:362
+#: hub/models.py:359
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
 msgstr ""
 
-#: hub/models.py:367
+#: hub/models.py:364
 msgid "Main Points"
 msgstr ""
 
-#: hub/models.py:370
+#: hub/models.py:367
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr ""
 
-#: hub/models.py:376
+#: hub/models.py:373
 msgid "Relevant Moments"
 msgstr ""
 
-#: hub/models.py:379
+#: hub/models.py:376
 msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr ""
 
-#: hub/models.py:385 hub/templates/registration/login.html:41
+#: hub/models.py:382 hub/templates/registration/login.html:41
 msgid "Email"
 msgstr ""
 
-#: hub/models.py:386
+#: hub/models.py:383
 msgid "Phone"
 msgstr ""
 
-#: hub/models.py:387
+#: hub/models.py:384
 msgid "Photo"
 msgstr ""
 
-#: hub/models.py:390 hub/templates/candidate/detail.html:157
+#: hub/models.py:387 hub/templates/candidate/detail.html:157
 msgid "Mandate from the organization"
 msgstr ""
 
-#: hub/models.py:397 hub/templates/candidate/detail.html:148
+#: hub/models.py:394 hub/templates/candidate/detail.html:148
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:404 hub/templates/candidate/detail.html:166
+#: hub/models.py:401 hub/templates/candidate/detail.html:166
 msgid "Statement of interests"
 msgstr ""
 
-#: hub/models.py:411 hub/templates/candidate/detail.html:177
+#: hub/models.py:408 hub/templates/candidate/detail.html:177
 msgid "Tax records"
 msgstr ""
 
-#: hub/models.py:418 hub/templates/candidate/detail.html:186
+#: hub/models.py:415 hub/templates/candidate/detail.html:186
 msgid "Legal records"
 msgstr ""
 
-#: hub/models.py:426
+#: hub/models.py:423
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:432 hub/templates/candidate/list.html:36
+#: hub/models.py:429 hub/templates/candidate/list.html:36
 #: hub/templates/header.html:45
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:433
+#: hub/models.py:430
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:453
+#: hub/models.py:450
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:487
+#: hub/models.py:484
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:488
+#: hub/models.py:485
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:511
+#: hub/models.py:508
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:512
+#: hub/models.py:509
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:526
+#: hub/models.py:523
 msgid "Canditate confirmations"
 msgstr ""
 
-#: hub/models.py:527
+#: hub/models.py:524
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -1069,11 +1073,11 @@ msgstr ""
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:61
+#: hub/views.py:63
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:219
+#: hub/views.py:224
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1081,6 +1085,6 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:277
+#: hub/views.py:282
 msgid "You must write a rejection message."
 msgstr ""
