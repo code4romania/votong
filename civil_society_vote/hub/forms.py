@@ -92,7 +92,7 @@ class OrganizationCreateForm(forms.ModelForm):
         self.fields["politic_members"].label = mark_safe(
             _(
                 "I declare that the members of the management of the organization I represent (the President and the "
-                "members of the Board of Directors) are not members of political parties."
+                "members of the Board of Directors) do not occupy leading positions of political parties and are not elected officials."
             )
         )
 
@@ -142,7 +142,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         self.fields["politic_members"].label = mark_safe(
             _(
                 "I declare that the members of the management of the organization I represent (the President and the "
-                "members of the Board of Directors) are not members of political parties."
+                "members of the Board of Directors) do not occupy leading positions of political parties and are not elected officials."
             )
         )
 
