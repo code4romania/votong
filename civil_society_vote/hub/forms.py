@@ -148,9 +148,13 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if Organization.objects.filter(
-            email=email, status__in=[Organization.STATUS.accepted, Organization.STATUS.pending]
-        ).exists():
+        if (
+            Organization.objects.filter(
+                email=email, status__in=[Organization.STATUS.accepted, Organization.STATUS.pending]
+            )
+            .exclude(user=self.instance.user)
+            .exists()
+        ):
             raise ValidationError(_("An organization with the same email address is already registered."))
         return self.cleaned_data.get("email")
 

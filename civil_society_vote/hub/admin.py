@@ -73,7 +73,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
     list_filter = ("status", ("county", CountyFilter))
     search_fields = ("name", "legal_representative_name", "email")
-    readonly_fields = ["user", "status_changed"]
+    readonly_fields = ["status_changed"]
     autocomplete_fields = ["city"]
     list_per_page = 20
 
