@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-14 15:47+0200\n"
+"POT-Creation-Date: 2020-11-19 15:19+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "This email can't be set."
 msgstr "Acest email nu poate fi ales."
 
-#: accounts/models.py:8 hub/templates/registration/reset_password.html:30
+#: accounts/models.py:8 hub/templates/registration/reset_password.html:41
 msgid "email address"
 msgstr "adresa email"
 
@@ -82,7 +82,7 @@ msgstr "Înapoi"
 
 #: accounts/templates/partials/sections.html:19
 #: hub/templates/registration/reset_password.html:15
-#: hub/templates/registration/reset_password.html:38
+#: hub/templates/registration/reset_password.html:49
 msgid "Reset password"
 msgstr "Resetează parola"
 
@@ -284,7 +284,7 @@ msgstr ""
 "nu sunt membri ai conducerii unui partid politic sau persoane care au fost "
 "alese într-o funcție publică"
 
-#: hub/forms.py:104 hub/forms.py:154 hub/views.py:289
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:289
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -292,19 +292,19 @@ msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 msgid "You need to accept terms and conditions."
 msgstr "Trebuie să accepți termenii și condiții de utilizare"
 
-#: hub/forms.py:114 hub/forms.py:159
+#: hub/forms.py:114 hub/forms.py:163
 msgid "Organisation members need to be apolitical."
 msgstr "Membrii organizației trebuie să fie apolitici."
 
-#: hub/forms.py:179
+#: hub/forms.py:183
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/forms.py:182
+#: hub/forms.py:186
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja un candidat"
 
-#: hub/forms.py:194
+#: hub/forms.py:198
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -312,15 +312,15 @@ msgstr ""
 "Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în "
 "'Profilul Organizației'"
 
-#: hub/forms.py:232
+#: hub/forms.py:236
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:238
+#: hub/forms.py:242
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:243
+#: hub/forms.py:247
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -972,6 +972,20 @@ msgstr "Ai uitat parola?"
 #: hub/templates/registration/reset_password.html:20
 msgid "The email address you entered is not valid. Please try again."
 msgstr "Adresa de email pe care ai introdus-o nu este valida. Inceaca din nou."
+
+#: hub/templates/registration/reset_password.html:27
+msgid ""
+"\n"
+"        In order to reset your password, please enter the organisation e-"
+"mail address. This is the e-mail address that\n"
+"        you filled in, under <b>Organisation E-mail</b>, when you signed "
+"your organisation up.\n"
+"        "
+msgstr ""
+"\n"
+"Pentru a vă reseta parola, introduceți adresa de E-mail a organizației. "
+"Aceasta este adresa de E-mail completată în câmpul <b>Adresa de E-mail a "
+"organizației</b>, în procesul de înscreire."
 
 #: hub/templates/registration/reset_password_complete.html:15
 msgid "The password was reset"
