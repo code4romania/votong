@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-14 15:47+0200\n"
+"POT-Creation-Date: 2020-11-19 15:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "This email can't be set."
 msgstr ""
 
-#: accounts/models.py:8 hub/templates/registration/reset_password.html:30
+#: accounts/models.py:8 hub/templates/registration/reset_password.html:41
 msgid "email address"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 
 #: accounts/templates/partials/sections.html:19
 #: hub/templates/registration/reset_password.html:15
-#: hub/templates/registration/reset_password.html:38
+#: hub/templates/registration/reset_password.html:49
 msgid "Reset password"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgid ""
 "leading positions of political parties and are not elected officials."
 msgstr ""
 
-#: hub/forms.py:104 hub/forms.py:154 hub/views.py:289
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:289
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -280,33 +280,33 @@ msgstr ""
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:114 hub/forms.py:159
+#: hub/forms.py:114 hub/forms.py:163
 msgid "Organisation members need to be apolitical."
 msgstr ""
 
-#: hub/forms.py:179
+#: hub/forms.py:183
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:182
+#: hub/forms.py:186
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:194
+#: hub/forms.py:198
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:232
+#: hub/forms.py:236
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:238
+#: hub/forms.py:242
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:243
+#: hub/forms.py:247
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -959,6 +959,16 @@ msgstr ""
 
 #: hub/templates/registration/reset_password.html:20
 msgid "The email address you entered is not valid. Please try again."
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:27
+msgid ""
+"\n"
+"        In order to reset your password, please enter the organisation e-"
+"mail address. This is the e-mail address that\n"
+"        you filled in, under <b>Organisation E-mails</b>, when you signed "
+"your organisation up.\n"
+"        "
 msgstr ""
 
 #: hub/templates/registration/reset_password_complete.html:15
