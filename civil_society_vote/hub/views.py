@@ -161,6 +161,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
             "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
             "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
             "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
+            "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
         }
         return context
 
