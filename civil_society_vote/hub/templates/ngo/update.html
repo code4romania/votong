@@ -25,7 +25,9 @@
       <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
     {% endif %}
     </li>
-    <li><a href="#">Voturile mele</a></li>
+    <li>
+      <a href="{% url 'votes' %}">Voturile mele</a>
+    </li>
     <li {% if active == "settings" %}class="is-active"{% endif %}>
       <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
     </li>

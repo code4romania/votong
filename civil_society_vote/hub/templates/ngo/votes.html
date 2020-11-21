@@ -1,0 +1,134 @@
+{% extends 'ngo/base.html' %}
+{% load static i18n %}
+{% load spurl %}
+{% load hub_tags %}
+
+
+{% block domain-filters %}
+{% endblock domain-filters %}
+
+{% block extra-header %}
+{% endblock extra-header %}
+
+{% block left-side-view %}
+
+{% if user.orgs.exists %}
+
+<div class="tabs is-medium">
+  <ul>
+    <li>
+      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizației</a>
+    </li>
+    <li>
+    {% if user.orgs.first.candidate %}
+      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+    {% else %}
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
+    {% endif %}
+    </li>
+    <li class="is-active">
+      <a href="{% url 'votes' %}">Voturile mele</a>
+    </li>
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
+  </ul>
+</div>
+
+{% endif %}
+
+<div class="container">
+    <h2 class="title border-b uppercase">
+        {% trans 'My votes' %}
+    </h2>
+
+    <div class="container tight-container content">
+        <table>
+            <tr>
+                <th></th>
+                <th>Secțiuni</th>
+                <th>Număr maxim de voturi </th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Organizații academice, profesionale, think-tank (corespund categoriei “comunități științifice și
+                    academice”)
+                </td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Organizații cooperatiste, agricole, de dezvoltare rurală</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Organizații din domeniul social (familie, persoane cu dizabilități, pensionari etc)</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Organizații din domeniul sănătate, educație și tineri</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Organizații din domeniul protectiei mediului înconjurator, ecologiei, dezvoltării durabile</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Organizații pentru protecţia drepturilor omului</td>
+                <td>3</td>
+            </tr>
+        </table>
+    </div>
+
+    {% if page_obj %}
+
+    <div class="is-multiline">
+        {% for candidate in page_obj %}
+
+        <div class="need is-flex container">
+            <div class="card-info">
+                <div class="flex-align-center">
+                    <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
+                </div>
+                <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
+                <div class="need-subtitle is-hidden-mobile">{{candidate.domain}}</div>
+                <div class="need-title is-hidden-mobile">
+                    <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
+                </div>
+            </div>
+
+            <div class="need-call2action">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
+                    href="{% url 'candidate-detail' candidate.pk %}">
+                    {% trans "View details" %}
+                </a>
+            </div>
+        </div>
+
+
+        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
+        <hr class="is-hidden-mobile half-width" />
+        {% endfor %}
+    </div>
+</div>
+
+{% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+
+{% else %}
+<div class="content is-medium">
+    <p style="text-align: center;">{% trans "No results matching query" %}</p>
+</div>
+{% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+{% with current_url=request.get_full_path %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
