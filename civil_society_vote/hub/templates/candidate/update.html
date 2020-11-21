@@ -20,7 +20,9 @@
     <li class="is-active">
       <a href="{% url 'candidate-update' candidate.id %}">Candidatul meu</a>
     </li>
-    <li><a href="#">Voturile mele</a></li>
+    <li>
+      <a href="{% url 'votes' %}">Voturile mele</a>
+    </li>
     <li {% if active == "settings" %}class="is-active" {% endif %}>
       <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
     </li>

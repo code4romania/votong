@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-21 16:00+0200\n"
+"POT-Creation-Date: 2020-11-21 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,7 +272,7 @@ msgid ""
 "leading positions of political parties and are not elected officials."
 msgstr ""
 
-#: hub/forms.py:104 hub/forms.py:158 hub/views.py:290
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:307
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -721,7 +721,7 @@ msgid "Search..."
 msgstr ""
 
 #: hub/templates/candidate/list.html:95
-#: hub/templates/committee/candidates.html:49
+#: hub/templates/committee/candidates.html:49 hub/templates/ngo/votes.html:107
 msgid "View details"
 msgstr ""
 
@@ -731,28 +731,28 @@ msgid ""
 "Social pe măsură ce ele devin publice."
 msgstr ""
 
-#: hub/templates/candidate/register_request.html:32
-#: hub/templates/candidate/update.html:25
+#: hub/templates/candidate/register_request.html:34
+#: hub/templates/candidate/update.html:27
 #: hub/templates/committee/partials/nav.html:24
-#: hub/templates/ngo/update.html:30
+#: hub/templates/ngo/update.html:32 hub/templates/ngo/votes.html:33
 msgid "Settings"
 msgstr ""
 
-#: hub/templates/candidate/register_request.html:72
+#: hub/templates/candidate/register_request.html:74
 #, fuzzy
 #| msgid "Pending candidates"
 msgid "Propose candidate"
 msgstr "Candidați propusi"
 
-#: hub/templates/candidate/register_request.html:80
+#: hub/templates/candidate/register_request.html:82
 msgid "Save profile"
 msgstr ""
 
-#: hub/templates/candidate/update.html:102
+#: hub/templates/candidate/update.html:104
 msgid "Publish changes"
 msgstr ""
 
-#: hub/templates/candidate/update.html:102
+#: hub/templates/candidate/update.html:104
 msgid "Update profile"
 msgstr ""
 
@@ -768,6 +768,7 @@ msgstr "Candidați selectați"
 
 #: hub/templates/committee/candidates.html:65
 #: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:196
+#: hub/templates/ngo/votes.html:123
 msgid "No results matching query"
 msgstr ""
 
@@ -887,8 +888,12 @@ msgstr ""
 msgid "Send registration request"
 msgstr ""
 
-#: hub/templates/ngo/update.html:72
+#: hub/templates/ngo/update.html:74
 msgid "Update organization"
+msgstr ""
+
+#: hub/templates/ngo/votes.html:42
+msgid "My votes"
 msgstr ""
 
 #: hub/templates/partials/ces_header.html:5
@@ -1029,71 +1034,75 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: hub/urls.py:26
+#: hub/urls.py:27
 msgid "candidates/"
 msgstr ""
 
-#: hub/urls.py:27
+#: hub/urls.py:28
 msgid "candidates/register"
 msgstr ""
 
-#: hub/urls.py:28
+#: hub/urls.py:29
 msgid "candidates/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:29
+#: hub/urls.py:30
 msgid "candidates/<int:pk>/vote"
 msgstr ""
 
-#: hub/urls.py:30
+#: hub/urls.py:31
 msgid "candidates/<int:pk>/support"
 msgstr ""
 
-#: hub/urls.py:31
+#: hub/urls.py:32
 msgid "candidates/<int:pk>/revoke"
 msgstr ""
 
-#: hub/urls.py:32
+#: hub/urls.py:33
 msgid "candidates/<int:pk>/status-confirm"
 msgstr ""
 
-#: hub/urls.py:33
+#: hub/urls.py:34
 msgid "candidates/<int:pk>/update"
 msgstr ""
 
-#: hub/urls.py:34
-msgid "committee/ngos/"
-msgstr ""
-
 #: hub/urls.py:35
-msgid "committee/candidates/"
+msgid "candidates/votes"
 msgstr ""
 
 #: hub/urls.py:36
-msgid "ngos/"
+msgid "committee/ngos/"
 msgstr ""
 
 #: hub/urls.py:37
-msgid "ngos/register"
+msgid "committee/candidates/"
 msgstr ""
 
 #: hub/urls.py:38
-msgid "ngos/<int:pk>"
+msgid "ngos/"
 msgstr ""
 
 #: hub/urls.py:39
-msgid "ngos/<int:pk>/vote/<str:action>"
+msgid "ngos/register"
 msgstr ""
 
 #: hub/urls.py:40
+msgid "ngos/<int:pk>"
+msgstr ""
+
+#: hub/urls.py:41
+msgid "ngos/<int:pk>/vote/<str:action>"
+msgstr ""
+
+#: hub/urls.py:42
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:63
+#: hub/views.py:64
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:225
+#: hub/views.py:242
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1101,6 +1110,6 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:283
+#: hub/views.py:300
 msgid "You must write a rejection message."
 msgstr ""
