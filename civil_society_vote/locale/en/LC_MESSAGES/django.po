@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-19 15:19+0200\n"
+"POT-Creation-Date: 2020-11-21 16:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,7 +272,7 @@ msgid ""
 "leading positions of political parties and are not elected officials."
 msgstr ""
 
-#: hub/forms.py:104 hub/forms.py:158 hub/views.py:289
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:290
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 
 #: hub/templates/candidate/register_request.html:32
 #: hub/templates/candidate/update.html:25
-#: hub/templates/committee/partials/nav.html:21
+#: hub/templates/committee/partials/nav.html:24
 #: hub/templates/ngo/update.html:30
 msgid "Settings"
 msgstr ""
@@ -789,6 +789,12 @@ msgstr "Organizații nevalidate"
 #| msgid "Pending Organisations"
 msgid "Rejected Organisations"
 msgstr "Organizații nevalidate"
+
+#: hub/templates/committee/partials/nav.html:21
+#, fuzzy
+#| msgid "Accepted candidates"
+msgid "Rejected candidates"
+msgstr "Candidați selectați"
 
 #: hub/templates/developed-by.html:7
 msgid "A project developed by"
@@ -966,7 +972,7 @@ msgid ""
 "\n"
 "        In order to reset your password, please enter the organisation e-"
 "mail address. This is the e-mail address that\n"
-"        you filled in, under <b>Organisation E-mails</b>, when you signed "
+"        you filled in, under <b>Organisation E-mail</b>, when you signed "
 "your organisation up.\n"
 "        "
 msgstr ""
@@ -1087,7 +1093,7 @@ msgstr ""
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:224
+#: hub/views.py:225
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1095,6 +1101,6 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:282
+#: hub/views.py:283
 msgid "You must write a rejection message."
 msgstr ""
