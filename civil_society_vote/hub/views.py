@@ -178,9 +178,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, HubListView):
 
         voted_candidates = CandidateVote.objects.filter(user=self.request.user)
         print(voted_candidates)
-        return (
-            [element.candidate for element in voted_candidates]
-        )
+        return [element.candidate for element in voted_candidates]
 
 
 class OrganizationListView(HubListView):
