@@ -16,6 +16,15 @@
         {% trans "Puteți naviga prin cele șase secțiuni de mai jos pentru a analiza candidaturile anunțate, pentru a vă declara susținerea pentru unul sau mai mulți dintre candidați și, apoi, după validarea acestora, vă puteți exprima voturile finale. Mai multe detalii despre Regulament puteți găsi accesând butonul ”Metodologie” de mai jos." %}
     </p>
 
+    <p class="subtitle " style="margin: 0 10%">
+        {% blocktrans %}
+            Conform regulamentului fiecare elector are, în cadrul fiecărei secțiuni, un număr egal de voturi cu numărul fotoliilor alocate în Comitetul Economic și Social pentru fiecare dintre acestea.
+            <p class="subtitle has-text-weight-bold">
+                Votul odată exprimat, nu poate fi retras.
+            </p>
+        {% endblocktrans %}
+    </p>
+
 </div>
 <div class="section has-text-centered">
     <a href="{% url 'rules' %}" class="button is-warning">{% trans "Metodology" %}</a>
