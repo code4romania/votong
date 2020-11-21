@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-21 20:23+0200\n"
+"POT-Creation-Date: 2020-11-22 01:03+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -280,7 +280,7 @@ msgstr ""
 "nu sunt membri ai conducerii unui partid politic sau persoane care au fost "
 "alese într-o funcție publică"
 
-#: hub/forms.py:104 hub/forms.py:158 hub/views.py:307
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:305
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -854,7 +854,7 @@ msgstr "Alegeri CES"
 msgid "Register your organisation"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:49 hub/templates/partials/ces_header.html:21
+#: hub/templates/header.html:49 hub/templates/partials/ces_header.html:30
 msgid "Metodology"
 msgstr "Metodologie"
 
@@ -939,6 +939,18 @@ msgid ""
 "mulți dintre candidați și, apoi, după validarea acestora, vă puteți exprima "
 "voturile finale. Mai multe detalii despre Regulament puteți găsi accesând "
 "butonul ”Metodologie” de mai jos."
+msgstr ""
+
+#: hub/templates/partials/ces_header.html:20
+msgid ""
+"\n"
+"            Conform regulamentului fiecare elector are, în cadrul fiecărei "
+"secțiuni, un număr egal de voturi cu numărul fotoliilor alocate în Comitetul "
+"Economic și Social pentru fiecare dintre acestea.\n"
+"            <p class=\"subtitle has-text-weight-bold\">\n"
+"                Votul odată exprimat, nu poate fi retras.\n"
+"            </p>\n"
+"        "
 msgstr ""
 
 #: hub/templates/registration/login.html:21
@@ -1118,7 +1130,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta curând!"
 
-#: hub/views.py:242
+#: hub/views.py:240
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1130,7 +1142,7 @@ msgstr ""
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:300
+#: hub/views.py:298
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
 
