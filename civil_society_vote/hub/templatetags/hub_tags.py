@@ -7,7 +7,7 @@ from hub.models import (
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
-    Organization
+    Organization,
 )
 
 register = template.Library()
@@ -16,11 +16,11 @@ register = template.Library()
 @register.filter
 def cant_vote(user, candidate):
     orgs = Organization.objects.filter(user=user)
-    
+
     if not orgs:
         return True
-    
-    if any(org.status == 'accepted' for org in orgs):
+
+    if any(org.status == "accepted" for org in orgs):
         return False
     else:
         return True
