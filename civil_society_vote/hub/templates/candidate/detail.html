@@ -87,7 +87,9 @@
 
   {% if not user.is_superuser and CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and "vote_candidate" in user_permissions and candidate.status == 'accepted' %}
 
-  {% if user|can_vote_candidate:candidate %}
+  {% if user|cant_vote:candidate %}
+  <span class="tag is-danger">Nu poți vota la această rundă de alegeri.</span>
+  {% elif user|can_vote_candidate:candidate %}
   <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">Votează</a>
   {% elif user|already_voted_candidate:candidate %}
   <span class="tag is-success">✔ VOTAT</span>
