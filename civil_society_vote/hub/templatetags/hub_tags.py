@@ -4,6 +4,7 @@ from hub.models import (
     COMMITTEE_GROUP,
     STAFF_GROUP,
     SUPPORT_GROUP,
+    Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
@@ -77,3 +78,8 @@ def has_all_org_documents(user):
         return True
 
     return False
+
+
+@register.simple_tag
+def votes_per_candidate(candidate):
+    return CandidateVote.objects.filter(candidate=candidate).count()

@@ -1,7 +1,9 @@
 {% extends 'candidate/base.html' %}
 {% load static %}
 {% load spurl %}
+<!-- {% load cache %} -->
 {% load i18n %}
+{% load hub_tags %}
 
 {% block extra-header %}
 {% include "partials/ces_results_header.html" %}
@@ -68,7 +70,7 @@
                     <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
                 </div>
                 <!-- <div class="need-description is-hidden-mobile">{{candidate.experience}}</div> -->
-                <div class="need-title">Voturi: 0</div>
+                <div class="need-title">Voturi:  {% votes_per_candidate candidate %}</div>
                 <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
             </div>
 
