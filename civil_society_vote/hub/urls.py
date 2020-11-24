@@ -5,6 +5,7 @@ from hub.views import (
     CandidateDetailView,
     CandidateListView,
     CandidateRegisterRequestCreateView,
+    CandidateResultsView,
     CandidateUpdateView,
     CityAutocomplete,
     CommitteeCandidatesListView,
@@ -22,6 +23,7 @@ from hub.views import (
     organization_vote,
 )
 
+
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path(_("candidates/"), CandidateListView.as_view(), name="candidates"),
@@ -33,6 +35,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>/status-confirm"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
     path(_("candidates/votes"), ElectorCandidatesListView.as_view(), name="votes"),
+    path(_("candidates/ces-results"), CandidateResultsView.as_view(), name="ces-results"),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),
     path(_("ngos/"), OrganizationListView.as_view(), name="ngos"),
