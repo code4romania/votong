@@ -361,10 +361,9 @@ class CandidateResultsView(HubListView):
     template_name = "candidate/results.html"
 
     def get_qs(self):
-        if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-            )
+        return Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+        )
 
         return Candidate.objects_with_org.none()
 
