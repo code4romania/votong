@@ -1,7 +1,6 @@
 {% extends 'candidate/base.html' %}
 {% load static %}
 {% load spurl %}
-<!-- {% load cache %} -->
 {% load i18n %}
 {% load hub_tags %}
 
@@ -70,7 +69,10 @@
                     <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
                 </div>
                 <!-- <div class="need-description is-hidden-mobile">{{candidate.experience}}</div> -->
+                {% load cache %}
+                {% cache 86400 votes %}
                 <div class="need-title">Voturi:  {% votes_per_candidate candidate %}</div>
+                {% endcache %}
                 <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
             </div>
 
