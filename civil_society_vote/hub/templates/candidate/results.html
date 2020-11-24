@@ -41,8 +41,15 @@
     {% if page_obj %}
 
     <div class="is-multiline infinite-container">
-        {% for candidate in page_obj %}
+        {% for domain in domains %}
 
+        <div class="section-title">
+            {{domain.name}}
+        </div>
+
+        {% load cache %}
+        {% cache 86400 votes %}
+        {% for candidate in domain|candidates_in_domain %}
 
         <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
@@ -52,7 +59,7 @@
                 <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
                 {% endif %}
             </div>
-
+        
             <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
@@ -68,13 +75,12 @@
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
                 </div>
-                <!-- <div class="need-description is-hidden-mobile">{{candidate.experience}}</div> -->
-                {% load cache %}
-                {% cache 86400 votes %}
-                <div class="need-title">Voturi:  {% votes_per_candidate candidate %}</div>
-                {% endcache %}
+                {% if forloop.counter <= domain.seats %}
+                    <div class="need-title has-text-success">Câștigător provizoriu</div>
+                {% endif %}
+                <div class="need-title">Voturi: {% votes_per_candidate candidate %}</div>
             </div>
-
+        
             <div class="need-call2action">
                 <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
                     href="{% url 'candidate-detail' candidate.pk %}">
@@ -82,11 +88,16 @@
                 </a>
             </div>
         </div>
-
-
+        
+        
         <hr class="is-hidden-tablet" style="margin: 0 10%;" />
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}
+        {% endcache %}
+
+        {% endfor %}
+
+        
     </div>
 </div>
 

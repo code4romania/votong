@@ -1,4 +1,5 @@
 from django import template
+from django.db.models import Count
 
 from hub.models import (
     COMMITTEE_GROUP,
@@ -83,3 +84,7 @@ def has_all_org_documents(user):
 @register.simple_tag
 def votes_per_candidate(candidate):
     return CandidateVote.objects.filter(candidate=candidate).count()
+
+@register.filter
+def candidates_in_domain(domain):
+    return Candidate.objects.filter(domain=domain, status='accepted', is_proposed=True).annotate(votes_count=Count("votes", distinct=True)).order_by("-votes_count")

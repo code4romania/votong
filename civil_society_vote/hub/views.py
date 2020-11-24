@@ -365,8 +365,6 @@ class CandidateResultsView(HubListView):
             org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
         )
 
-        return Candidate.objects_with_org.none()
-
     def get_queryset(self):
         qs = self.search(self.get_qs())
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
