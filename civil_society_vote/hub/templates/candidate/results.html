@@ -47,6 +47,7 @@
         {% for candidate in domain|candidates_in_domain %}
 
         <div class="need is-flex container infinite-item">
+            
             <div class="card-image need-logo is-hidden-mobile">
                 {% if candidate.photo %}
                 <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -82,28 +83,19 @@
                     {% trans "View details" %}
                 </a>
             </div>
+
         </div>
-        
-        
+              
         <hr class="is-hidden-tablet" style="margin: 0 10%;" />
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}
 
-        {% endfor %}
-
-        
+        {% endfor %}    
     </div>
 </div>
 
 {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
-{% else %}
-<div class="content is-medium">
-    <!-- replace bellow trans with "No results matching query" when data is added -->
-    <p style="text-align: center;">
-        {% trans "Aici vei putea vedea candidaturile propuse de pentru Consiliul Economic și Social pe măsură ce ele devin publice." %}
-    </p>
-</div>
 {% endif %}
 </div>
 
