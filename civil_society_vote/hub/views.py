@@ -355,6 +355,36 @@ class CandidateListView(HubListView):
         return context
 
 
+class CandidateResultsView(HubListView):
+    allow_filters = ["domain"]
+    paginate_by = 9
+    template_name = "candidate/results.html"
+
+    def get_qs(self):
+        return Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+        )
+
+    def get_queryset(self):
+        qs = self.search(self.get_qs())
+        filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
+        return qs.filter(**filters)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_search"] = self.request.GET.get("q", "")
+
+        current_domain = self.request.GET.get("domain")
+        if current_domain:
+            try:
+                context["current_domain"] = Domain.objects.get(id=current_domain)
+            except Domain.DoesNotExist:
+                pass
+
+        context["domains"] = Domain.objects.all()
+        return context
+
+
 class CandidateDetailView(HubDetailView):
     template_name = "candidate/detail.html"
     context_object_name = "candidate"

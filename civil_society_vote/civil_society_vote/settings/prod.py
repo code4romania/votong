@@ -13,3 +13,5 @@ SECRET_KEY = env.str("SECRET_KEY")  # noqa
 
 STATIC_ROOT = os.path.join(BASE_DIR, "../", "static")
 STATICFILES_DIRS = []
+
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": "unique-snowflake",}}

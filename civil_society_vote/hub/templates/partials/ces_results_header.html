@@ -1,0 +1,12 @@
+{% load static i18n %}
+
+<div class="container section has-text-centered">
+    <h1 class="title border-b">
+        {% trans "Rezultate Provizorii Alegeri Consiliul Economic și Social" %}
+    </h1>
+</div>
+
+<div class="section has-text-centered">
+    <a href="{% url 'rules' %}" class="button is-warning">{% trans "Metodology" %}</a>
+    <a href="{% url 'candidates' %}" class="button is-warning"> {% trans 'CES elections' %}</a>
+</div>
