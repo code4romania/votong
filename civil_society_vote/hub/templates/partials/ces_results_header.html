@@ -1,12 +1,23 @@
 {% load static i18n %}
 
-<div class="container section has-text-centered">
-    <h1 class="title border-b">
+<div class="container section has-text-centered border-b">
+    <h1 class="title">
         {% trans "Rezultate Provizorii Alegeri Consiliul Economic și Social" %}
     </h1>
+
+    <p class="subtitle" style="margin: 0 10%">
+        Aici puteți consulta lista cu rezultatele provizorii ale alegerilor pentru desemnarea reprezentanților în Consiliul Economic și Social. Rezultatele finale vor fi publlicate pe data de 3 decembrie, conform cu calendarul anunțat în regulament. 
+    </p>
+
+    <ul class="subtitle" style="margin: 0 10%">
+        <li><b>25 – 26 noiembrie 2020</b> – depunerea contestațiilo</li>
+        <li><b>27 noiembrie 2020 – 01 decembrie 2020</b> – soluționarea contestațiilor</li>
+        <li><b>03 decembrie 2020</b> – publicarea și comunicarea rezultatelor finale ale alegerilor</li>
+        <li><b>04 decembrie 2020</b> – depunerea rezultatelor și dosarelor candidaților la Secretariatul General al Guvernului</li>
+    </ul>
 </div>
 
 <div class="section has-text-centered">
-    <a href="{% url 'rules' %}" class="button is-warning">{% trans "Metodology" %}</a>
+    <a href="{% url 'rules' %}" class="button is-warning">Regulament CES</a>
     <a href="{% url 'candidates' %}" class="button is-warning"> {% trans 'CES elections' %}</a>
 </div>

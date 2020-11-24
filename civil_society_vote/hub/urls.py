@@ -1,5 +1,6 @@
 from django.urls import include, path
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import cache_page
 
 from hub.views import (
     CandidateDetailView,
@@ -34,7 +35,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>/status-confirm"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
     path(_("candidates/votes"), ElectorCandidatesListView.as_view(), name="votes"),
-    path(_("candidates/ces-results"), CandidateResultsView.as_view(), name="ces-results"),
+    path(_("candidates/ces-results"), cache_page(60 * 60 * 24)(CandidateResultsView.as_view()), name="ces-results"),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),
     path(_("ngos/"), OrganizationListView.as_view(), name="ngos"),
