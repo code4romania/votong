@@ -357,6 +357,7 @@ class CandidateListView(HubListView):
 
 class CandidateResultsView(HubListView):
     allow_filters = ["domain"]
+    paginate_by = 23
     template_name = "candidate/results.html"
 
     def get_qs(self):
