@@ -955,10 +955,8 @@ msgid ""
 msgstr ""
 
 #: hub/templates/partials/ces_header.html:31
-#, fuzzy
-#| msgid "CES elections"
 msgid "CES Results"
-msgstr "Alegeri CES"
+msgstr "Rezultate provizorii CES"
 
 #: hub/templates/partials/ces_results_header.html:5
 msgid "Rezultate Provizorii Alegeri Consiliul Economic și Social"
