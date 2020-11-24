@@ -23,7 +23,6 @@ from hub.views import (
     organization_vote,
 )
 
-
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path(_("candidates/"), CandidateListView.as_view(), name="candidates"),
