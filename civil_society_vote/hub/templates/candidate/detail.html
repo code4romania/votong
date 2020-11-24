@@ -192,6 +192,29 @@
   {% endif %}
 </div>
 
+{% if candidate.main_objectives or candidate.main_points or candidate.relevant_moments %}
+<div class="container detail-desc">
+  <div class="detail-desc-title">
+    <span class="candidate-colorblock"></span>
+    {% trans "Q&A" %}
+  </div>
+  <div>
+    {% if candidate.main_objectives %}
+    <p class="label">{% trans 'What are your main goals if you get a seat on the Economic and Social Committee? ' %}</p> {{ candidate.main_objectives|linebreaks }}
+    {% endif %}
+  </div>
+  <div>
+    {% if candidate.main_points %}
+    <p class="label">{% trans 'What are the most important points that should be on the agenda of the field for which you are applying? ' %}</p> {{ candidate.main_points|linebreaks }}
+    {% endif %}
+  </div>
+  <div>
+    {% if candidate.relevant_moments %}
+    <p class="label">{% trans 'What are the most relevant moments in your experience that recommend you to take a place in the Economic and Social Committee? ' %}</p> {{ candidate.relevant_moments|linebreaks }}
+    {% endif %}
+  </div>
+</div>
+{% endif %}
 
 <div class="container detail-desc">
   <div class="detail-desc-title">
