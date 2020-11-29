@@ -79,6 +79,7 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # this is the default
     "guardian.backends.ObjectPermissionBackend",
+    "civil_society_vote.middleware.CaseInsensitiveUserModel"
 ]
 
 ROOT_URLCONF = "civil_society_vote.urls"
