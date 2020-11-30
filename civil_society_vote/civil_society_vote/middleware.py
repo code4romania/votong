@@ -1,5 +1,6 @@
 from accounts.models import User
 
+
 def ForceDefaultLanguageMiddleware(get_response):
     def middleware(request):
         if request.META.get("HTTP_ACCEPT_LANGUAGE"):
