@@ -17,6 +17,11 @@ urlpatterns = i18n_patterns(
     path(_("about/"), StaticPageView.as_view(template_name="about.html"), name="about"),
     path(_("rules/"), StaticPageView.as_view(template_name="rules.html"), name="rules"),
     path(_("terms/"), StaticPageView.as_view(template_name="terms_and_conditions.html"), name="terms",),
+    path(
+        _("comittee_public_statement/"),
+        StaticPageView.as_view(template_name="comittee_statement.html"),
+        name="comittee_public_statement",
+    ),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
     path("admin/", admin.site.urls),
