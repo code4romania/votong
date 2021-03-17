@@ -1,8 +1,9 @@
 from django.urls import include, path
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.cache import cache_page
 
 from hub.views import (
+    BlogListView,
+    BlogPostView,
     CandidateDetailView,
     CandidateListView,
     CandidateRegisterRequestCreateView,
@@ -44,5 +45,7 @@ urlpatterns = [
     path(_("ngos/<int:pk>/vote/<str:action>"), organization_vote, name="ngo-vote"),
     path(_("ngos/<int:pk>/update"), OrganizationUpdateView.as_view(), name="ngo-update"),
     path("ngos/city-autocomplete/", CityAutocomplete.as_view(), name="city-autocomplete"),
+    path("blog/", BlogListView.as_view(), name="blog-list"),
+    path("blog/<slug:slug>", BlogPostView.as_view(), name="blog-post"),
     path("i18n/", include("django.conf.urls.i18n")),
 ]

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.humanize",
     # apps
     "hub",
     "accounts",
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     "impersonate",
     "guardian",
     "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -231,6 +233,7 @@ CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
 CKEDITOR_CONFIGS = {
     "default": {"toolbar": "full", "height": 600, "width": 950,},
 }
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 if env("SENTRY_DSN"):
     import sentry_sdk

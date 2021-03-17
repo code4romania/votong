@@ -26,6 +26,7 @@ urlpatterns = i18n_patterns(
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     path(_("accounts/"), include("django.contrib.auth.urls")),
     path(
         _("accounts/reset-password/"),

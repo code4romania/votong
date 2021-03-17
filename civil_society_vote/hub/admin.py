@@ -21,6 +21,7 @@ from hub.models import (
     COMMITTEE_GROUP,
     COUNTIES,
     COUNTY_RESIDENCE,
+    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
@@ -483,6 +484,26 @@ class EmailTemplateAdmin(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return False
+
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ["title", "slug", "author", "published_date", "is_visible"]
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
         return False
 
     def has_change_permission(self, request, obj=None):

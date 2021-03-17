@@ -1,0 +1,82 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+{% block left-side-view %}
+
+<script>
+    window.onload = function () {
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            onAfterPageLoad: function(items) {
+                var more_link = $('.infinite-more-link')[0];
+                if (more_link === undefined) {
+                    // Waypoint.Infinite removes the anchor with the above class
+                    // after performing the last request.
+                    //
+                    // so at this point, we know there are no more items that can be loaded,
+                    // so we remove the pagination nav
+                    $('nav.loading').remove();
+                    $('nav.pagination').remove();
+                }
+            }
+        })
+    };
+</script>
+
+<div class="container">
+    <div class="container section has-text-centered">
+        <h1 class="title">
+            Articole VotONG
+        </h1>
+    </div>
+
+    {% if page_obj %}
+
+    <div class="is-multiline infinite-container">
+        {% for blog_post in blogpost_list %}
+
+        <div class="need is-flex container infinite-item">
+            <div class="card-info">
+                <div class="flex-align-center">
+                    <div class="need-title is-hidden-tablet">{{blog_post.title}}</div>
+                </div>
+                <div class="flex-align-center">
+                    <div class="need-subtitle is-hidden-tablet">{{blog_post.author}}</div>
+                </div>
+                <div class="flex-align-center">
+                    <div class="need-description is-hidden-tablet">{{blog_post.content_preview}}</div>
+                </div>
+
+                <div class="need-title is-hidden-mobile">
+                    <a class="has-text-black" href="{% url 'blog-post' blog_post.slug %}">{{blog_post.title}}</a>
+                </div>
+                <div class="need-subtitle is-hidden-mobile">{{blog_post.author}}</div>
+                <div class="need-description is-hidden-mobile">{{blog_post.content_preview}}</div>
+            </div>
+
+            <div class="need-call2action">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" href="{% url 'blog-post' blog_post.slug %}">
+                    {% trans "Read more" %}
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    </div>
+
+    {% include "shared/pagination.html" with page_obj=page_obj %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+{% with current_url=request.get_full_path %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
