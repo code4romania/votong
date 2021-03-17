@@ -4,9 +4,20 @@ from shutil import copyfile
 from accounts.models import User
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 from faker import Faker
 
-from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, STAFF_GROUP, Candidate, City, Domain, FeatureFlag, Organization
+from hub.models import (
+    COMMITTEE_GROUP,
+    FLAG_CHOICES,
+    STAFF_GROUP,
+    BlogPost,
+    Candidate,
+    City,
+    Domain,
+    FeatureFlag,
+    Organization,
+)
 
 fake = Faker()
 
@@ -165,5 +176,17 @@ class Command(BaseCommand):
                 feature_flag_obj.is_enabled = True
                 feature_flag_obj.save()
                 self.stdout.write(f"Enabled '{flag}' flag")
+
+        if not BlogPost.objects.count():
+            for i in range(20):
+                bp = BlogPost()
+                bp.title = fake.sentence()[:-1]
+                bp.slug = fake.slug()
+                bp.author = fake.name()
+                bp.content_preview = fake.paragraph(nb_sentences=5)
+                bp.content = "".join([f"<p>{fake.paragraph(nb_sentences=20)}</p>" for i in range(4)])
+                bp.is_visible = True
+                bp.published_date = timezone.now()
+                bp.save()
 
         self.stdout.write(self.style.SUCCESS("Seeding finished"))

@@ -1,5 +1,6 @@
 from accounts.models import User
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -106,6 +107,28 @@ class FeatureFlag(TimeStampedModel):
 
     def __str__(self):
         return f"{FLAG_CHOICES[self.flag]}"
+
+
+class BlogPost(TimeStampedModel):
+    title = models.CharField(_("Title"), max_length=254)
+    slug = models.SlugField(unique=True)
+    author = models.CharField(_("Author"), max_length=100)
+    content_preview = models.TextField(_("Content preview"))
+    content = RichTextUploadingField(_("Content"),)
+    is_visible = models.BooleanField(_("Is visible?"), default=False)
+    published_date = models.DateField(_("Date published"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("Blog post")
+        verbose_name_plural = _("Blog posts")
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse("blog-post", args=[self.slug])
+
+    def __str__(self):
+        return self.title
 
 
 class EmailTemplate(TimeStampedModel):

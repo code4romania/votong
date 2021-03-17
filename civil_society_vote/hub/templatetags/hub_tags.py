@@ -1,5 +1,7 @@
 from django import template
 from django.db.models import Count
+from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from hub.models import (
     COMMITTEE_GROUP,
@@ -93,3 +95,14 @@ def candidates_in_domain(domain):
         .annotate(votes_count=Count("votes", distinct=True))
         .order_by("-votes_count")
     )
+
+
+@register.simple_tag
+def show_blog_post_date_prefix(published_date):
+    today = timezone.now().date()
+    delta = today - published_date
+
+    if delta.days > 1:
+        return _("published on")
+
+    return _("published")

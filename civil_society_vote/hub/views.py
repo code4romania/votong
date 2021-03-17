@@ -9,10 +9,11 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q
 from django.db.utils import IntegrityError
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import Context
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
@@ -32,6 +33,7 @@ from hub.models import (
     NGO_GROUP,
     STAFF_GROUP,
     SUPPORT_GROUP,
+    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
@@ -539,3 +541,20 @@ class CityAutocomplete(View):
             cities = City.objects.filter(county__iexact=county).values_list("id", "city", named=True)
             response = [{"id": item.id, "city": item.city} for item in cities]
         return JsonResponse(response, safe=False)
+
+
+class BlogListView(MenuMixin, ListView):
+    model = BlogPost
+    template_name = "blog/list.html"
+    paginate_by = 9
+
+    def get_queryset(self):
+        return BlogPost.objects.filter(is_visible=True, published_date__lte=timezone.now().date())
+
+
+class BlogPostView(MenuMixin, DetailView):
+    model = BlogPost
+    template_name = "blog/post.html"
+
+    def get_queryset(self):
+        return BlogPost.objects.filter(is_visible=True, published_date__lte=timezone.now().date())

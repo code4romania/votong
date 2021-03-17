@@ -1,7 +1,14 @@
 {% load spurl %}
 {% load i18n %}
 
-<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+<nav class="loading columns is-centered">
+<div class="column is-two-thirds">
+  <br><br>
+  <progress class="progress is-large is-warning" max="100"></progress>
+<div>
+<nav>
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination" style="visibility:hidden;">
     <span class="step-links">
         {% if page_obj.has_previous %}
         <a class="pagination-previous" href="{% spurl base='{{ request.get_full_path }}' set_query='page=1' set_query='domain={{domain.id}}' %}">&laquo;
