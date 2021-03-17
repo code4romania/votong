@@ -549,7 +549,9 @@ class BlogListView(MenuMixin, ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        return BlogPost.objects.filter(is_visible=True, published_date__lte=timezone.now().date())
+        return BlogPost.objects.filter(is_visible=True, published_date__lte=timezone.now().date()).order_by(
+            "-published_date"
+        )
 
 
 class BlogPostView(MenuMixin, DetailView):
