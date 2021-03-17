@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-17 14:14+0200\n"
+"POT-Creation-Date: 2021-03-17 18:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -578,7 +578,7 @@ msgstr ""
 msgid "Rejection message"
 msgstr ""
 
-#: hub/models.py:275 hub/templates/header.html:32
+#: hub/models.py:275 hub/templates/header.html:34
 msgid "Organizations"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgid "Is proposed?"
 msgstr ""
 
 #: hub/models.py:452 hub/templates/candidate/list.html:39
-#: hub/templates/header.html:45
+#: hub/templates/header.html:47
 msgid "Candidates"
 msgstr ""
 
@@ -742,6 +742,10 @@ msgstr ""
 
 #: hub/templates/blog/post.html:17
 msgid "by"
+msgstr ""
+
+#: hub/templates/blog/post.html:24
+msgid "back to article list"
 msgstr ""
 
 #: hub/templates/bulma/file.html:12
@@ -897,32 +901,32 @@ msgstr ""
 msgid "About the platform"
 msgstr ""
 
-#: hub/templates/header.html:36
+#: hub/templates/header.html:38
 msgid "History"
 msgstr ""
 
-#: hub/templates/header.html:37
+#: hub/templates/header.html:39
 #: hub/templates/partials/ces_results_header.html:24
 msgid "CES elections"
 msgstr ""
 
-#: hub/templates/header.html:41
+#: hub/templates/header.html:43
 msgid "Register your organisation"
 msgstr ""
 
-#: hub/templates/header.html:49
+#: hub/templates/header.html:51
 msgid "Metodology"
 msgstr ""
 
-#: hub/templates/header.html:70
+#: hub/templates/header.html:72
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:82 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:84 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:87 hub/templates/registration/login.html:16
+#: hub/templates/header.html:89 hub/templates/registration/login.html:16
 #: hub/templates/registration/login.html:60
 msgid "Login"
 msgstr ""

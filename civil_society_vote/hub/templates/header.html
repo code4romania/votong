@@ -20,32 +20,34 @@
                 </div>
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-end has-text-centered-touch">
-                        <a  href="{% url 'home' %}" class="navbar-item">
+                        <a href="{% url 'home' %}" class="navbar-item">
                             {% trans "Home" %}
                         </a>
 
-                        <a  href="{% url 'about' %}" class="navbar-item">
+                        <a href="{% url 'about' %}" class="navbar-item">
                             {% trans "About the platform" %}
                         </a>
 
-                        <a  href="{% url 'ngos' %}" class="navbar-item">
+                        <a href="{% url 'blog-list' %}" class="navbar-item">Blog</a>
+
+                        <a href="{% url 'ngos' %}" class="navbar-item">
                             {% trans "Organizations" %}
                         </a>
 
-                        <a  href="{% url 'candidates' %}" class="navbar-item">
+                        <a href="{% url 'candidates' %}" class="navbar-item">
                             <!-- {% trans "History" %} -->
                             {% trans 'CES elections' %}
                         </a>
 
-                        <a  href="{% url 'ngos-register-request' %}" class="navbar-item">
+                        <a href="{% url 'ngos-register-request' %}" class="navbar-item">
                             {% trans "Register your organisation" %}
                         </a>
 
-                        <!-- <a  href="{% url 'candidates' %}" class="navbar-item">
+                        <!-- <a href="{% url 'candidates' %}" class="navbar-item">
                             {% trans "Candidates" %}
                         </a> -->
 
-                        <!-- <a  href="{% url 'rules' %}" class="navbar-item">
+                        <!-- <a href="{% url 'rules' %}" class="navbar-item">
                             {% trans "Metodology" %}
                         </a> -->
 
