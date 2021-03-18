@@ -144,6 +144,22 @@ class EmailTemplate(TimeStampedModel):
         return f"{EMAIL_TEMPLATE_CHOICES[self.template]}"
 
 
+class Election(TimeStampedModel):
+    name = models.CharField(_("Name"), max_length=254, unique=True)
+    description = models.TextField(_("Description"))
+    is_active = models.BooleanField(_("Active"), default=False)
+
+    class Meta:
+        verbose_name = _("Election")
+        verbose_name_plural = _("Elections")
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            # There can be only one active Election, so disable the other ones
+            Election.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+
 class Domain(TimeStampedModel):
     name = models.CharField(_("Name"), max_length=254, unique=True)
     description = models.TextField(_("Description"))

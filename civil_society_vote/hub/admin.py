@@ -28,6 +28,7 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
+    Election,
     EmailTemplate,
     FeatureFlag,
     Organization,
@@ -59,6 +60,12 @@ admin.site.register(User, ImpersonableUserAdmin)
 
 class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
+
+
+@admin.register(Election)
+class ElectionAdmin(admin.ModelAdmin):
+    list_display = ("name", )
+    list_filter = ("is_active", "modified", )    
 
 
 @admin.register(Organization)
