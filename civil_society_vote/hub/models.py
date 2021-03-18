@@ -370,7 +370,7 @@ class CandidatesWithOrgManager(models.Manager):
 class Candidate(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    org = models.OneToOneField(
+    org = models.ForeignKey(
         "Organization", on_delete=models.CASCADE, related_name="candidate", null=True, blank=True
     )
     initial_org = models.ForeignKey(
