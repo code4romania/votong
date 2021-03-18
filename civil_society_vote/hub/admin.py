@@ -68,13 +68,30 @@ class ElectionAdmin(admin.ModelAdmin):
     list_filter = ("is_active", "modified", )    
 
 
+class CandidateInline(admin.TabularInline):
+    model = Candidate
+    fk_name = "org"
+    fields = ["name", "role"]
+    readonly_fields = ["name", "role"]
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
+    inlines = [CandidateInline]
     list_display = (
         "name",
         "election",
         "get_user",
-        "get_candidate",
         "city",
         "legal_representative_name",
         "status",
@@ -105,13 +122,6 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f'<a href="{user_url}">{obj.user.email}</a>')
 
     get_user.short_description = _("user")
-
-    def get_candidate(self, obj=None):
-        if obj and obj.candidate:
-            user_url = reverse("admin:hub_candidate_change", args=(obj.candidate.id,))
-            return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
-
-    get_candidate.short_description = _("candidate")
 
 
 class CandidateVoteInline(admin.TabularInline):
