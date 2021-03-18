@@ -330,9 +330,10 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
+        active_election = Election.get_active_election()
         if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
             return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+                org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
             )
 
         return Candidate.objects_with_org.none()
@@ -363,8 +364,9 @@ class CandidateResultsView(HubListView):
     template_name = "candidate/results.html"
 
     def get_qs(self):
+        active_election = Election.get_active_election()
         return Candidate.objects_with_org.filter(
-            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
         )
 
     def get_queryset(self):
@@ -397,9 +399,10 @@ class CandidateDetailView(HubDetailView):
             self.request.user
             and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
         ):
-            return Candidate.objects_with_org.all()
+            return Candidate.objects_with_org.filter(org__election=active_election).all()
 
-        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
+        active_election = Election.get_active_election()
+        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, org__election=active_election, is_proposed=True)
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
@@ -447,9 +450,10 @@ def candidate_vote(request, pk):
     if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
         raise PermissionDenied
 
+    active_election = Election.get_active_election()
     try:
         candidate = Candidate.objects.get(
-            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            pk=pk, org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
         )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
