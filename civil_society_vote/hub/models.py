@@ -162,6 +162,13 @@ class Election(TimeStampedModel):
             Election.objects.filter(is_active=True).update(is_active=False)
         super().save(*args, **kwargs)
 
+    @staticmethod
+    def get_active_election():
+        try:
+            return Election.objects.filter(is_active=True).all()[0]
+        except KeyError:
+            return None
+
 
 class Domain(TimeStampedModel):
     election = models.ForeignKey(Election, blank=True, null=True, on_delete=models.SET_NULL)
