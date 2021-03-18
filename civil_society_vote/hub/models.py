@@ -209,6 +209,12 @@ class City(models.Model):
         super().save(*args, **kwargs)
 
 
+class ActiveElectionManager(models.Manager):
+    def get_queryset(self):
+        active_election = Election.get_active_election()
+        return super().get_queryset().filter(election=active_election)
+
+
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
@@ -299,6 +305,9 @@ class Organization(StatusModel, TimeStampedModel):
 
     rejection_message = models.TextField(_("Rejection message"), blank=True)
 
+    objects = models.Manager()
+    objects_with_active_election = ActiveElectionManager()
+
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
@@ -372,6 +381,12 @@ class Organization(StatusModel, TimeStampedModel):
 class CandidatesWithOrgManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().exclude(org=None)
+
+
+class CandidatesWithActiveElectionManager(models.Manager):
+    def get_queryset(self):
+        active_election = Election.get_active_election()
+        return super().get_queryset().exclude(org=None).filter(org__election=active_election)
 
 
 class Candidate(StatusModel, TimeStampedModel):
@@ -475,6 +490,7 @@ class Candidate(StatusModel, TimeStampedModel):
 
     objects = models.Manager()
     objects_with_org = CandidatesWithOrgManager()
+    objects_with_active_election = CandidatesWithActiveElectionManager()
 
     class Meta:
         verbose_name_plural = _("Candidates")

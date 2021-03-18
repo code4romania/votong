@@ -122,19 +122,19 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
 
         if not filters:
-            return Organization.objects.filter(status=Organization.STATUS.pending).order_by("-created")
+            return Organization.objects_with_active_election.filter(status=Organization.STATUS.pending).order_by("-created")
 
-        return Organization.objects.filter(**filters).order_by("-created")
+        return Organization.objects_with_active_election.filter(**filters).order_by("-created")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filtering"] = "ngos-" + self.request.GET.get("status", Organization.STATUS.pending)
         context["counters"] = {
-            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
-            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
+            "ngos_pending": Organization.objects_with_active_election.filter(status=Organization.STATUS.pending).count(),
+            "ngos_accepted": Organization.objects_with_active_election.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_rejected": Organization.objects_with_active_election.filter(status=Organization.STATUS.rejected).count(),
+            "candidates_pending": Candidate.objects_with_active_election.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects_with_active_election.filter(status=Candidate.STATUS.accepted).count(),
         }
         return context
 
@@ -150,7 +150,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
         return (
-            Candidate.objects_with_org.filter(**filters)
+            Candidate.objects_with_active_election.filter(**filters)
             .annotate(supporters_count=Count("supporters"))
             .order_by("-supporters_count")
         )
@@ -159,12 +159,12 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
         context = super().get_context_data(**kwargs)
         context["filtering"] = self.request.GET.get("status", Candidate.STATUS.pending)
         context["counters"] = {
-            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
-            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
-            "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
+            "ngos_pending": Organization.objects_with_active_election.filter(status=Organization.STATUS.pending).count(),
+            "ngos_accepted": Organization.objects_with_active_election.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_rejected": Organization.objects_with_active_election.filter(status=Organization.STATUS.rejected).count(),
+            "candidates_pending": Candidate.objects_with_active_election.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_accepted": Candidate.objects_with_active_election.filter(status=Candidate.STATUS.accepted).count(),
+            "candidates_rejected": Candidate.objects_with_active_election.filter(status=Candidate.STATUS.rejected).count(),
         }
         return context
 
@@ -189,7 +189,7 @@ class OrganizationListView(HubListView):
     template_name = "ngo/list.html"
 
     def get_qs(self):
-        return Organization.objects.filter(status=Organization.STATUS.accepted)
+        return Organization.objects_with_active_election.filter(status=Organization.STATUS.accepted)
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -205,7 +205,7 @@ class OrganizationListView(HubListView):
         context["current_city"] = self.request.GET.get("city")
         context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
         context["counters"] = {
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_accepted": Organization.objects_with_active_election.filter(status=Organization.STATUS.accepted).count(),
         }
 
         if self.request.GET.get("county"):
@@ -274,7 +274,7 @@ def organization_vote(request, pk, action):
         raise PermissionDenied
 
     try:
-        org = Organization.objects.get(pk=pk, status=Organization.STATUS.pending)
+        org = Organization.objects_with_active_election.get(pk=pk, status=Organization.STATUS.pending)
     except Organization.DoesNotExist:
         pass
     else:
@@ -330,13 +330,12 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        active_election = Election.get_active_election()
         if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
-            return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
+            return Candidate.objects_with_active_election.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
             )
 
-        return Candidate.objects_with_org.none()
+        return Candidate.objects_with_active_election.none()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -364,9 +363,8 @@ class CandidateResultsView(HubListView):
     template_name = "candidate/results.html"
 
     def get_qs(self):
-        active_election = Election.get_active_election()
-        return Candidate.objects_with_org.filter(
-            org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
+        return Candidate.objects_with_active_election.filter(
+            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
         )
 
     def get_queryset(self):
@@ -399,10 +397,9 @@ class CandidateDetailView(HubDetailView):
             self.request.user
             and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
         ):
-            return Candidate.objects_with_org.filter(org__election=active_election).all()
+            return Candidate.objects_with_active_election.all()
 
-        active_election = Election.get_active_election()
-        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, org__election=active_election, is_proposed=True)
+        return Candidate.objects_with_active_election.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
@@ -450,10 +447,9 @@ def candidate_vote(request, pk):
     if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
         raise PermissionDenied
 
-    active_election = Election.get_active_election()
     try:
         candidate = Candidate.objects.get(
-            pk=pk, org__status=Organization.STATUS.accepted, org__election=active_election, status=Candidate.STATUS.accepted, is_proposed=True
+            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
         )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
