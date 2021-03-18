@@ -153,6 +153,9 @@ class Election(TimeStampedModel):
         verbose_name = _("Election")
         verbose_name_plural = _("Elections")
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if self.is_active:
             # There can be only one active Election, so disable the other ones
@@ -161,6 +164,7 @@ class Election(TimeStampedModel):
 
 
 class Domain(TimeStampedModel):
+    election = models.ForeignKey(Election, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(_("Name"), max_length=254, unique=True)
     description = models.TextField(_("Description"))
     seats = models.PositiveSmallIntegerField(
@@ -174,7 +178,7 @@ class Domain(TimeStampedModel):
         verbose_name_plural = _("Domains")
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.election)
 
 
 class City(models.Model):
@@ -205,6 +209,7 @@ class Organization(StatusModel, TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
     )
 
+    election = models.ForeignKey(Election, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(_("NGO Name"), max_length=254)
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
@@ -298,7 +303,7 @@ class Organization(StatusModel, TimeStampedModel):
         )
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.election)
 
     @property
     def is_complete(self):

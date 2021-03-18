@@ -72,6 +72,7 @@ class ElectionAdmin(admin.ModelAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = (
         "name",
+        "election",
         "get_user",
         "get_candidate",
         "city",
@@ -79,7 +80,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         "status",
         "created",
     )
-    list_filter = ("status", ("county", CountyFilter))
+    list_filter = ("election", "status", ("county", CountyFilter))
     search_fields = ("name", "legal_representative_name", "email")
     readonly_fields = ["status_changed"]
     autocomplete_fields = ["city"]
@@ -265,6 +266,7 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "org",
+        "org_election",
         "domain",
         "is_proposed",
         "status",
@@ -273,12 +275,16 @@ class CandidateAdmin(admin.ModelAdmin):
         "votes_count",
         "created",
     ]
-    list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
+    list_filter = ["org__election", "is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
     readonly_fields = ["status", "status_changed"]
+    raw_id_fields = ["org", "initial_org", "domain"]
     inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
+
+    def org_election(self, obj):
+        return obj.org.election
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -321,7 +327,8 @@ class CandidateAdmin(admin.ModelAdmin):
 
 @admin.register(Domain)
 class DomainAdmin(admin.ModelAdmin):
-    list_display = ["name", "seats", "description"]
+    list_display = ["name", "election", "seats", "description"]
+    list_filter = ("election", )
 
     def has_add_permission(self, request):
         if request.user.is_superuser:
