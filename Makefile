@@ -7,7 +7,7 @@ help:
 	@echo "clean - shut down containers and clean python cache and test files"
 
 lint:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "isort . && black --exclude venv/ -l 120 -t py37 ."
+	docker-compose run --rm --no-deps --entrypoint "bash -c" web "isort . && black --exclude venv/ -t py37 ."
 
 migrations:
 	docker-compose run --rm --entrypoint "bash -c" web "./manage.py makemigrations hub"

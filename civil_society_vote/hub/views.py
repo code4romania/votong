@@ -188,6 +188,14 @@ class OrganizationListView(HubListView):
     paginate_by = 9
     template_name = "ngo/list.html"
 
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+
+        if self.request.GET.get("q"):
+            response["X-Robots-Tag"] = "noindex"
+
+        return response
+
     def get_qs(self):
         return Organization.objects.filter(status=Organization.STATUS.accepted)
 
