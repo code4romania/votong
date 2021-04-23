@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django_crispy_bulma.widgets import EmailInput
 
-from hub.models import Candidate, City, FeatureFlag, Organization
+from hub.models import Candidate, City, FeatureFlag, Organization, Election
 
 ORG_FIELD_ORDER = [
     "name",
@@ -47,6 +47,7 @@ class OrganizationCreateForm(forms.ModelForm):
         model = Organization
         exclude = [
             "user",
+            "election",
             "status",
             "status_changed",
             "report_2019",
@@ -114,13 +115,23 @@ class OrganizationCreateForm(forms.ModelForm):
             raise ValidationError(_("Organisation members need to be apolitical."))
         return self.cleaned_data.get("politic_members")
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if not instance.election:
+            # Set the current active Election for this Organization
+            instance.election = Election.get_active_election()
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance
+
 
 class OrganizationUpdateForm(forms.ModelForm):
     field_order = ORG_FIELD_ORDER
 
     class Meta:
         model = Organization
-        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
+        exclude = ["user", "election", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
         widgets = {
             "email": EmailInput(),
             "legal_representative_email": EmailInput(),

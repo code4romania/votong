@@ -144,7 +144,34 @@ class EmailTemplate(TimeStampedModel):
         return f"{EMAIL_TEMPLATE_CHOICES[self.template]}"
 
 
+class Election(TimeStampedModel):
+    name = models.CharField(_("Name"), max_length=254, unique=True)
+    description = models.TextField(_("Description"))
+    is_active = models.BooleanField(_("Active"), default=False)
+
+    class Meta:
+        verbose_name = _("Election")
+        verbose_name_plural = _("Elections")
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            # There can be only one active Election, so disable the other ones
+            Election.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    @staticmethod
+    def get_active_election():
+        try:
+            return Election.objects.filter(is_active=True).all()[0]
+        except KeyError:
+            return None
+
+
 class Domain(TimeStampedModel):
+    election = models.ForeignKey(Election, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(_("Name"), max_length=254, unique=True)
     description = models.TextField(_("Description"))
     seats = models.PositiveSmallIntegerField(
@@ -158,7 +185,7 @@ class Domain(TimeStampedModel):
         verbose_name_plural = _("Domains")
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.election)
 
 
 class City(models.Model):
@@ -182,6 +209,12 @@ class City(models.Model):
         super().save(*args, **kwargs)
 
 
+class ActiveElectionManager(models.Manager):
+    def get_queryset(self):
+        active_election = Election.get_active_election()
+        return super().get_queryset().filter(election=active_election)
+
+
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
@@ -189,6 +222,7 @@ class Organization(StatusModel, TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
     )
 
+    election = models.ForeignKey(Election, blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(_("NGO Name"), max_length=254)
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
@@ -271,6 +305,9 @@ class Organization(StatusModel, TimeStampedModel):
 
     rejection_message = models.TextField(_("Rejection message"), blank=True)
 
+    objects = models.Manager()
+    objects_with_active_election = ActiveElectionManager()
+
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
@@ -282,7 +319,7 @@ class Organization(StatusModel, TimeStampedModel):
         )
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.election)
 
     @property
     def is_complete(self):
@@ -346,10 +383,16 @@ class CandidatesWithOrgManager(models.Manager):
         return super().get_queryset().exclude(org=None)
 
 
+class CandidatesWithActiveElectionManager(models.Manager):
+    def get_queryset(self):
+        active_election = Election.get_active_election()
+        return super().get_queryset().exclude(org=None).filter(org__election=active_election)
+
+
 class Candidate(StatusModel, TimeStampedModel):
     STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
 
-    org = models.OneToOneField(
+    org = models.ForeignKey(
         "Organization", on_delete=models.CASCADE, related_name="candidate", null=True, blank=True
     )
     initial_org = models.ForeignKey(
@@ -447,6 +490,7 @@ class Candidate(StatusModel, TimeStampedModel):
 
     objects = models.Manager()
     objects_with_org = CandidatesWithOrgManager()
+    objects_with_active_election = CandidatesWithActiveElectionManager()
 
     class Meta:
         verbose_name_plural = _("Candidates")

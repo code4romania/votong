@@ -98,6 +98,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "hub.context_processors.hub_settings",
+                "hub.context_processors.active_election",
             ],
         },
     },

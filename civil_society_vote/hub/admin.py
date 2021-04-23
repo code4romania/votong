@@ -28,6 +28,7 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
+    Election,
     EmailTemplate,
     FeatureFlag,
     Organization,
@@ -61,18 +62,42 @@ class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
 
 
+@admin.register(Election)
+class ElectionAdmin(admin.ModelAdmin):
+    list_display = ("name", )
+    list_filter = ("is_active", "modified", )    
+
+
+class CandidateInline(admin.TabularInline):
+    model = Candidate
+    fk_name = "org"
+    fields = ["name", "role"]
+    readonly_fields = ["name", "role"]
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
+    inlines = [CandidateInline]
     list_display = (
         "name",
+        "election",
         "get_user",
-        "get_candidate",
         "city",
         "legal_representative_name",
         "status",
         "created",
     )
-    list_filter = ("status", ("county", CountyFilter))
+    list_filter = ("election", "status", ("county", CountyFilter))
     search_fields = ("name", "legal_representative_name", "email")
     readonly_fields = ["status_changed"]
     autocomplete_fields = ["city"]
@@ -97,13 +122,6 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f'<a href="{user_url}">{obj.user.email}</a>')
 
     get_user.short_description = _("user")
-
-    def get_candidate(self, obj=None):
-        if obj and obj.candidate:
-            user_url = reverse("admin:hub_candidate_change", args=(obj.candidate.id,))
-            return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
-
-    get_candidate.short_description = _("candidate")
 
 
 class CandidateVoteInline(admin.TabularInline):
@@ -258,6 +276,7 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "org",
+        "org_election",
         "domain",
         "is_proposed",
         "status",
@@ -266,12 +285,16 @@ class CandidateAdmin(admin.ModelAdmin):
         "votes_count",
         "created",
     ]
-    list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
+    list_filter = ["org__election", "is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
     readonly_fields = ["status", "status_changed"]
+    raw_id_fields = ["org", "initial_org", "domain"]
     inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
+
+    def org_election(self, obj):
+        return obj.org.election
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -314,7 +337,8 @@ class CandidateAdmin(admin.ModelAdmin):
 
 @admin.register(Domain)
 class DomainAdmin(admin.ModelAdmin):
-    list_display = ["name", "seats", "description"]
+    list_display = ["name", "election", "seats", "description"]
+    list_filter = ("election", )
 
     def has_add_permission(self, request):
         if request.user.is_superuser:

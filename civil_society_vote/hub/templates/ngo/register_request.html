@@ -11,7 +11,7 @@
 
 {% block left-side-view %}
 
-<h2 class="title border-b uppercase">{% trans "Register organization" %}</h2>
+<h2 class="title border-b uppercase">{% if ACTIVE_ELECTION %} {% trans "Register organization for" %} {{ ACTIVE_ELECTION }} {% else %} {% trans "Register organization" %} {% endif %}</h2>
 
 <div class="container">
     {% if messages %}

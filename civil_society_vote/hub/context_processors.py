@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from hub.models import FeatureFlag
+from hub.models import FeatureFlag, Election
 
 
 def hub_settings(context):
@@ -14,4 +14,10 @@ def hub_settings(context):
         "CANDIDATE_REGISTRATION_ENABLED": flags["enable_candidate_registration"],
         "CANDIDATE_SUPPORTING_ENABLED": flags["enable_candidate_supporting"],
         "CANDIDATE_VOTING_ENABLED": flags["enable_candidate_voting"],
+    }
+
+
+def active_election(context):
+    return { 
+        "ACTIVE_ELECTION": Election.get_active_election() ,
     }
