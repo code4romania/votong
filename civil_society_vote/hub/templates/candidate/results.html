@@ -14,26 +14,6 @@
 {% block domain-filters %}
 {% endblock%}
 
-
-<script>
-    window.onload = function () {
-        var infinite = new Waypoint.Infinite({
-            element: $('.infinite-container')[0],
-            onAfterPageLoad: function (items) {
-                var more_link = $('.infinite-more-link')[0];
-                if (more_link === undefined) {
-                    // Waypoint.Infinite removes the anchor with the above class
-                    // after performing the last request.
-                    //
-                    // so at this point, we know there are no more items that can be loaded,
-                    // so we remove the pagination nav
-                    $('nav.pagination').remove()
-                }
-            }
-        })
-    };
-</script>
-
 <div class="container">
     {% if page_obj %}
 
@@ -47,7 +27,7 @@
         {% for candidate in domain|candidates_in_domain %}
 
         <div class="need is-flex container infinite-item">
-            
+
             <div class="card-image need-logo is-hidden-mobile">
                 {% if candidate.photo %}
                 <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
@@ -55,7 +35,7 @@
                 <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
                 {% endif %}
             </div>
-        
+
             <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
@@ -76,7 +56,7 @@
                 {% endif %}
                 <div class="need-title">Voturi: {% votes_per_candidate candidate %}</div>
             </div>
-        
+
             <div class="need-call2action">
                 <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
                     href="{% url 'candidate-detail' candidate.pk %}">
@@ -85,12 +65,12 @@
             </div>
 
         </div>
-              
+
         <hr class="is-hidden-tablet" style="margin: 0 10%;" />
         <hr class="is-hidden-mobile half-width" />
         {% endfor %}
 
-        {% endfor %}    
+        {% endfor %}
     </div>
 </div>
 

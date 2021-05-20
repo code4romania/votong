@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}VotONG{% endblock %}</title>
     <meta name="description" content="" />
-    
+
     <meta property="og:title" content="VotONG" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://votong.ro" />
@@ -54,6 +54,25 @@
     </div>
 
     {% include "footer.html" %}
+
+<script>
+  $(function() {
+    if ( $('.infinite-container').length > 0 ) {
+      var infinite = new Waypoint.Infinite({
+          element: $('.infinite-container')[0],
+          onAfterPageLoad: function(items) {
+              if ($('.infinite-more-link')[0] === undefined) {
+                  // Waypoint.Infinite removes the anchor with the above class after performing the last request.
+                  // At this point, we know there are no more items that can be loaded, so we remove the pagination and loading nav.
+                  $('nav.loading').remove();
+                  $('nav.pagination').remove();
+              }
+          }
+      })
+    }
+  });
+</script>
+
 </body>
 
 </html>

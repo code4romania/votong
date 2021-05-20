@@ -1,6 +1,8 @@
 {% load spurl %}
 {% load i18n %}
 
+{% if page_obj.paginator.num_pages > 1 %}
+
 <nav class="loading columns is-centered">
 <div class="column is-two-thirds">
   <br><br>
@@ -42,3 +44,5 @@
     </span>
 
 </nav>
+
+{% endif %}
