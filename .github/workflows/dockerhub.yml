@@ -40,7 +40,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./src
+          context: ./
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ env.DOCKER_IMAGE_BASE }}:latest,${{ env.DOCKER_IMAGE_BASE }}:${{ env.RELEASE_VERSION }}
