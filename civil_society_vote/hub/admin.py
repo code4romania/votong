@@ -301,7 +301,7 @@ class CandidateAdmin(admin.ModelAdmin):
         return obj.votes.count()
 
     votes_count.short_description = _("Votes")
-    votes_count.admin_order_field = "votes_count"
+    # votes_count.admin_order_field = "votes_count"
 
     def supporters_count(self, obj):
         if settings.GLOBAL_SUPPORT_ENABLED:
@@ -310,13 +310,13 @@ class CandidateAdmin(admin.ModelAdmin):
             return "N/A"
 
     supporters_count.short_description = _("Supporters")
-    supporters_count.admin_order_field = "supporters_count"
+    # supporters_count.admin_order_field = "supporters_count"
 
     def confirmations_count(self, obj):
         return obj.confirmations.count()
 
     confirmations_count.short_description = _("Confirmations")
-    confirmations_count.admin_order_field = "confirmations_count"
+    # confirmations_count.admin_order_field = "confirmations_count"
 
     def has_add_permission(self, request, obj=None):
         return False

@@ -69,7 +69,7 @@ class Command(BaseCommand):
 
         if not Domain.objects.count():
             domains = [
-                {"name": "CE 2021", "description": fake.text()},
+                {"name": "CE 2021", "description": fake.text(), "seats": 5},
             ]
             for domain in domains:
                 Domain.objects.get_or_create(**domain)
