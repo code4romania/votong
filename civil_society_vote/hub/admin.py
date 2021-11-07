@@ -275,20 +275,20 @@ class CandidateAdmin(admin.ModelAdmin):
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        # if settings.GLOBAL_SUPPORT_ENABLED:
-        #     queryset = queryset.annotate(
-        #         votes_count=Count("votes", distinct=True),
-        #         supporters_count=Count("supporters", distinct=True),
-        #         confirmations_count=Count("confirmations", distinct=True),
-        #     )
-        # else:
-        #     queryset = queryset.annotate(
-        #         votes_count=Count("votes", distinct=True),
-        #         confirmations_count=Count("confirmations", distinct=True),
-        #     )
-        return queryset
+    # def get_queryset(self, request):
+    #     queryset = super().get_queryset(request)
+    #     if settings.GLOBAL_SUPPORT_ENABLED:
+    #         queryset = queryset.annotate(
+    #             votes_count=Count("votes", distinct=True),
+    #             supporters_count=Count("supporters", distinct=True),
+    #             confirmations_count=Count("confirmations", distinct=True),
+    #         )
+    #     else:
+    #         queryset = queryset.annotate(
+    #             votes_count=Count("votes", distinct=True),
+    #             confirmations_count=Count("confirmations", distinct=True),
+    #         )
+    #     return queryset
 
     def get_inline_instances(self, request, obj=None):
         if settings.GLOBAL_SUPPORT_ENABLED:
