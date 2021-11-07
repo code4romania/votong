@@ -24,6 +24,7 @@ env = environ.Env(
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     SENTRY_DSN=(str, ""),
     ANALYTICS_ENABLED=(bool, False),
+    GLOBAL_SUPPORT_ENABLED=(bool, False),
 )
 environ.Env.read_env(f"{root}/.env")  # reading .env file
 
@@ -247,3 +248,5 @@ if env("SENTRY_DSN"):
         send_default_pii=True,
         environment="staging" if DEBUG else "prod",
     )
+
+GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")
