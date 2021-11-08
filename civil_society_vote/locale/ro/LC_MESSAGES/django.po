@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 22:08+0200\n"
+"POT-Creation-Date: 2021-11-08 22:05+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -488,18 +488,6 @@ msgstr "Acceptat"
 #: hub/models.py:189 hub/models.py:357
 msgid "Rejected"
 msgstr "Respins"
-
-#: hub/models.py:190
-msgid "Eligible to vote"
-msgstr "Eligibil să voteze"
-
-#: hub/models.py:191
-msgid "Ineligible to vote"
-msgstr "Ineligibil să voteze"
-
-#: hub/models.py:192
-msgid "Disabled"
-msgstr "Dezactivat"
 
 #: hub/models.py:199
 msgid "NGO Name"
@@ -1229,6 +1217,15 @@ msgstr ""
 #: hub/views.py:309
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
+
+#~ msgid "Eligible to vote"
+#~ msgstr "Eligibil să voteze"
+
+#~ msgid "Ineligible to vote"
+#~ msgstr "Ineligibil să voteze"
+
+#~ msgid "Disabled"
+#~ msgstr "Dezactivat"
 
 #~ msgid "CES Results"
 #~ msgstr "Rezultate provizorii CES"

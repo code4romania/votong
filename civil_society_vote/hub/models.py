@@ -187,9 +187,9 @@ class Organization(StatusModel, TimeStampedModel):
         ("pending", _("Pending approval")),
         ("accepted", _("Accepted")),
         ("rejected", _("Rejected")),
-        ("eligible", _("Eligible to vote")),
-        ("ineligible", _("Ineligible to vote")),
-        ("disabled", _("Disabled")),
+        # ("eligible", _("Eligible to vote")),
+        # ("ineligible", _("Ineligible to vote")),
+        # ("disabled", _("Disabled")),
     )
 
     user = models.ForeignKey(
