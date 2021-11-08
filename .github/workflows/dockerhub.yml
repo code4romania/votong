@@ -16,6 +16,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -33,7 +40,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./
+          context: ./docker/web/
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ env.DOCKER_IMAGE_BASE }}:latest,${{ env.DOCKER_IMAGE_BASE }}:${{ env.RELEASE_VERSION }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
