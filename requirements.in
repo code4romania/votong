@@ -25,7 +25,7 @@ brotlipy
 requests
 
 # database
-psycopg2
+psycopg2<2.9
 
 # prod packages
 gunicorn

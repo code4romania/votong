@@ -69,15 +69,7 @@ class Command(BaseCommand):
 
         if not Domain.objects.count():
             domains = [
-                {"name": "Organizații academice și profesionale", "description": fake.text()},
-                {"name": "Organizații cooperatiste și agricole", "description": fake.text()},
-                {
-                    "name": "Organizații din domeniul social, familia și persoane cu dizabiltăți și pensionari",
-                    "description": fake.text(),
-                },
-                {"name": "Organizații din domeniul sănătății/educației", "description": fake.text()},
-                {"name": "Organizații din domeniul mediului", "description": fake.text()},
-                {"name": "Organizații pentru Protecția Drepturilor Omului", "description": fake.text()},
+                {"name": "CE 2021", "description": fake.text(), "seats": 5},
             ]
             for domain in domains:
                 Domain.objects.get_or_create(**domain)
@@ -167,6 +159,10 @@ class Command(BaseCommand):
                     candidate.save()
 
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
+
+            for candidate in Candidate.objects.order_by("?")[:10]:
+                candidate.status = "accepted"
+                candidate.save()
 
         self.stdout.write("Loaded organizations data")
 

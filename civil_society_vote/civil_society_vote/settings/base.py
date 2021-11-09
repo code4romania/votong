@@ -24,6 +24,7 @@ env = environ.Env(
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     SENTRY_DSN=(str, ""),
     ANALYTICS_ENABLED=(bool, False),
+    GLOBAL_SUPPORT_ENABLED=(bool, False),
 )
 environ.Env.read_env(f"{root}/.env")  # reading .env file
 
@@ -231,7 +232,7 @@ AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
 
 CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
 CKEDITOR_CONFIGS = {
-    "default": {"toolbar": "full", "height": 600, "width": 950,},
+    "default": {"toolbar": "full", "height": 600, "width": 950},
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -247,3 +248,5 @@ if env("SENTRY_DSN"):
         send_default_pii=True,
         environment="staging" if DEBUG else "prod",
     )
+
+GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")

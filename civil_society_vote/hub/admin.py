@@ -2,12 +2,13 @@ import csv
 import io
 
 from accounts.models import User
+from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
+from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.template import Context
 from django.urls import path, reverse
@@ -159,10 +160,12 @@ class CandidateSupportersListFilter(admin.SimpleListFilter):
     parameter_name = "supporters"
 
     def lookups(self, request, model_admin):
-        return (
-            ("gte10", _("10 or more")),
-            ("lt10", _("less than 10")),
-        )
+        if settings.GLOBAL_SUPPORT_ENABLED:
+            return (
+                ("gte10", _("10 or more")),
+                ("lt10", _("less than 10")),
+            )
+        return
 
     def queryset(self, request, queryset):
         if self.value() == "lt10":
@@ -269,36 +272,51 @@ class CandidateAdmin(admin.ModelAdmin):
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
     readonly_fields = ["status", "status_changed"]
-    inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        queryset = queryset.annotate(
-            votes_count=Count("votes", distinct=True),
-            supporters_count=Count("supporters", distinct=True),
-            confirmations_count=Count("confirmations", distinct=True),
-        )
-        return queryset
+    # def get_queryset(self, request):
+    #     queryset = super().get_queryset(request)
+    #     if settings.GLOBAL_SUPPORT_ENABLED:
+    #         queryset = queryset.annotate(
+    #             votes_count=Count("votes", distinct=True),
+    #             supporters_count=Count("supporters", distinct=True),
+    #             confirmations_count=Count("confirmations", distinct=True),
+    #         )
+    #     else:
+    #         queryset = queryset.annotate(
+    #             votes_count=Count("votes", distinct=True),
+    #             confirmations_count=Count("confirmations", distinct=True),
+    #         )
+    #     return queryset
+
+    def get_inline_instances(self, request, obj=None):
+        if settings.GLOBAL_SUPPORT_ENABLED:
+            inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
+        else:
+            inlines = [CandidateConfirmationInline, CandidateVoteInline]
+        return [inline(self.model, self.admin_site) for inline in inlines]
 
     def votes_count(self, obj):
-        return obj.votes_count
+        return obj.votes.count()
 
     votes_count.short_description = _("Votes")
-    votes_count.admin_order_field = "votes_count"
+    # votes_count.admin_order_field = "votes_count"
 
     def supporters_count(self, obj):
-        return obj.supporters_count
+        if settings.GLOBAL_SUPPORT_ENABLED:
+            return obj.supporters.count()
+        else:
+            return "N/A"
 
     supporters_count.short_description = _("Supporters")
-    supporters_count.admin_order_field = "supporters_count"
+    # supporters_count.admin_order_field = "supporters_count"
 
     def confirmations_count(self, obj):
-        return obj.confirmations_count
+        return obj.confirmations.count()
 
     confirmations_count.short_description = _("Confirmations")
-    confirmations_count.admin_order_field = "confirmations_count"
+    # confirmations_count.admin_order_field = "confirmations_count"
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -414,7 +432,7 @@ def flags_phase_1(modeladmin, request, queryset):
     FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
     FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
     FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=True)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=settings.GLOBAL_SUPPORT_ENABLED)
     FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
 
 
@@ -462,6 +480,15 @@ class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
     actions = [flags_phase_1, flags_phase_2, flags_phase_3, flags_final_phase]
+
+    def changelist_view(self, request, extra_context=None):
+        if "action" in request.POST:
+            if not request.POST.getlist(ACTION_CHECKBOX_NAME):
+                post = request.POST.copy()
+                for ff in FeatureFlag.objects.all():
+                    post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
+                request._set_post(post)
+        return super(FeatureFlagAdmin, self).changelist_view(request, extra_context)
 
     def has_add_permission(self, request):
         return False

@@ -39,9 +39,11 @@
                 </div>
             </div>
 
+            {% if GLOBAL_SUPPORT_ENABLED %}
             <div>
               <p>Susținători: {% supporters candidate.id %}</p>
             </div>
+            {% endif %}
 
             <div class="need-call2action">
                 <a class="button is-flex has-background-success has-text-weight-bold has-text-white"

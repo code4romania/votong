@@ -9,6 +9,7 @@ def hub_settings(context):
     return {
         "DEBUG": settings.DEBUG,
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
+        "GLOBAL_SUPPORT_ENABLED": settings.GLOBAL_SUPPORT_ENABLED,
         "ORG_REGISTRATION_ENABLED": flags["enable_org_registration"],
         "ORG_APPROVAL_ENABLED": flags["enable_org_approval"],
         "CANDIDATE_REGISTRATION_ENABLED": flags["enable_candidate_registration"],

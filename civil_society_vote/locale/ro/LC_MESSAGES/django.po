@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-17 18:02+0200\n"
+"POT-Creation-Date: 2021-11-08 22:05+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -182,87 +182,87 @@ msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
-#: hub/admin.py:52
+#: hub/admin.py:53
 msgid "groups"
 msgstr "grupuri"
 
-#: hub/admin.py:99
+#: hub/admin.py:100
 msgid "user"
 msgstr "utilizator"
 
-#: hub/admin.py:106
+#: hub/admin.py:107
 msgid "candidate"
 msgstr "candidat"
 
-#: hub/admin.py:158
+#: hub/admin.py:159
 msgid "supporters"
 msgstr "susținători"
 
-#: hub/admin.py:163
+#: hub/admin.py:165
 msgid "10 or more"
 msgstr "10 sau mai mulți"
 
-#: hub/admin.py:164
+#: hub/admin.py:166
 msgid "less than 10"
 msgstr "mai puțin de 10"
 
-#: hub/admin.py:175
+#: hub/admin.py:178
 msgid "confirmations"
 msgstr "confirmări"
 
-#: hub/admin.py:180
+#: hub/admin.py:183
 msgid "5 or more"
 msgstr "5 sau mai multe"
 
-#: hub/admin.py:181
+#: hub/admin.py:184
 msgid "less than 5"
 msgstr "mai puține de 5"
 
-#: hub/admin.py:225
+#: hub/admin.py:228
 msgid "Set selected candidates status to REJECTED"
 msgstr "Modifică starea candidaților selectați în RESPINS"
 
-#: hub/admin.py:241
+#: hub/admin.py:244
 msgid "Set selected candidates status to ACCEPTED"
 msgstr "Modifică starea candidaților selectați în APROBAT"
 
-#: hub/admin.py:253
+#: hub/admin.py:256
 msgid "Set selected candidates status to PENDING"
 msgstr "Modifică starea candidaților selectați în ÎN AȘTEPTARE"
 
-#: hub/admin.py:288
+#: hub/admin.py:303
 msgid "Votes"
 msgstr "Voturi"
 
-#: hub/admin.py:294
+#: hub/admin.py:312
 msgid "Supporters"
 msgstr "Susținători"
 
-#: hub/admin.py:300
+#: hub/admin.py:318
 msgid "Confirmations"
 msgstr "Confirmări"
 
-#: hub/admin.py:398
+#: hub/admin.py:416
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: hub/admin.py:406
+#: hub/admin.py:424
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/admin.py:421
+#: hub/admin.py:439
 msgid "Set flags for PHASE 1 - organization & candidate regisrations"
 msgstr ""
 
-#: hub/admin.py:433
+#: hub/admin.py:451
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:445
+#: hub/admin.py:463
 msgid "Set flags for PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:457
+#: hub/admin.py:475
 msgid "Set flags for FINAL PHASE - results"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 "nu sunt membri ai conducerii unui partid politic sau persoane care au fost "
 "alese într-o funcție publică"
 
-#: hub/forms.py:104 hub/forms.py:158 hub/views.py:307
+#: hub/forms.py:104 hub/forms.py:158 hub/views.py:316
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -440,11 +440,11 @@ msgstr "Șablon email"
 msgid "Email templates"
 msgstr "Șabloane email"
 
-#: hub/models.py:148 hub/models.py:367
+#: hub/models.py:148 hub/models.py:374
 msgid "Name"
 msgstr "Nume"
 
-#: hub/models.py:149 hub/models.py:368 hub/templates/candidate/detail.html:108
+#: hub/models.py:149 hub/models.py:375 hub/templates/candidate/detail.html:108
 msgid "Description"
 msgstr "Descriere"
 
@@ -460,12 +460,12 @@ msgstr "Domeniu"
 msgid "Domains"
 msgstr "Domenii"
 
-#: hub/models.py:165 hub/models.py:170 hub/models.py:194
+#: hub/models.py:165 hub/models.py:170 hub/models.py:201
 #: hub/templates/ngo/list.html:76
 msgid "City"
 msgstr "Oraș"
 
-#: hub/models.py:166 hub/models.py:193 hub/templates/ngo/list.html:41
+#: hub/models.py:166 hub/models.py:200 hub/templates/ngo/list.html:41
 msgid "County"
 msgstr "Județ"
 
@@ -477,250 +477,254 @@ msgstr "E reședință de județ"
 msgid "Cities"
 msgstr "Orașe"
 
-#: hub/models.py:186 hub/models.py:350
-msgid "Pending"
-msgstr "În așteptare"
+#: hub/models.py:187
+msgid "Pending approval"
+msgstr "Așteaptă aprobare"
 
-#: hub/models.py:186 hub/models.py:350
+#: hub/models.py:188 hub/models.py:357
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: hub/models.py:186 hub/models.py:350
+#: hub/models.py:189 hub/models.py:357
 msgid "Rejected"
 msgstr "Respins"
 
-#: hub/models.py:192
+#: hub/models.py:199
 msgid "NGO Name"
 msgstr "Numele organizației"
 
-#: hub/models.py:195
+#: hub/models.py:202
 msgid "Address"
 msgstr "Adresa"
 
-#: hub/models.py:196
+#: hub/models.py:203
 msgid "Registration number"
 msgstr ""
 "Numărul de înregistrare în Registrul Național al ONG-urilor (de forma 11111/"
 "A/2016)"
 
-#: hub/models.py:198
+#: hub/models.py:205
 msgid "Organisation Email"
 msgstr "Adresa de E-mail a organizației"
 
-#: hub/models.py:199
+#: hub/models.py:206
 msgid "Organisation Phone"
 msgstr "Telefon organizație (opțional)"
 
-#: hub/models.py:200
+#: hub/models.py:207
 msgid "Short Description"
 msgstr "Scurtă descriere (opțional)"
 
-#: hub/models.py:202
+#: hub/models.py:209
 msgid "Legal Representative Name"
 msgstr "Nume reprezentant legal"
 
-#: hub/models.py:203
+#: hub/models.py:210
 msgid "Legal Representative Email"
 msgstr "Adresă de E-mail a reprezentantului legal"
 
-#: hub/models.py:204
+#: hub/models.py:211
 msgid "Legal Representative Phone"
 msgstr "Telefon reprezentant legal (opțional)"
 
-#: hub/models.py:206
+#: hub/models.py:213
 msgid "Organisation Head Name"
 msgstr ""
 "Numele complet al președintelui organizației (sau director executiv dacă "
 "este cazul)"
 
-#: hub/models.py:207
+#: hub/models.py:214
 msgid "Board council"
 msgstr ""
 "Consiliu Director (adaugă numele complet al fiecărui membru, separate prin "
 "virgulă)"
 
-#: hub/models.py:208
+#: hub/models.py:215
 msgid "Logo"
 msgstr "Siglă"
 
-#: hub/models.py:211 hub/templates/ngo/detail.html:110
+#: hub/models.py:218 hub/templates/ngo/detail.html:110
 msgid "First page of last balance sheet"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul 2019 depus la Ministerul "
 "Finanțelor"
 
-#: hub/models.py:214 hub/templates/ngo/detail.html:119
+#: hub/models.py:221 hub/templates/ngo/detail.html:119
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: hub/models.py:221
+#: hub/models.py:228
 msgid "Accepted Terms and Conditions"
 msgstr "A acceptat termenii și condițiile"
 
-#: hub/models.py:222
+#: hub/models.py:229
 msgid "Has political party members"
 msgstr "Are membrii în partide politice"
 
-#: hub/models.py:225 hub/templates/ngo/detail.html:139
+#: hub/models.py:232 hub/templates/ngo/detail.html:139
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: hub/models.py:233 hub/templates/ngo/detail.html:148
+#: hub/models.py:240 hub/templates/ngo/detail.html:148
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: hub/models.py:241 hub/templates/ngo/detail.html:157
+#: hub/models.py:248 hub/templates/ngo/detail.html:157
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: hub/models.py:249 hub/templates/ngo/detail.html:128
+#: hub/models.py:256 hub/templates/ngo/detail.html:128
 msgid "Fiscal certificate"
 msgstr "Certificat fiscal"
 
-#: hub/models.py:257 hub/templates/ngo/detail.html:166
+#: hub/models.py:264 hub/templates/ngo/detail.html:166
 msgid "Statement"
 msgstr "Declarație pe propria răspundere"
 
-#: hub/models.py:272
+#: hub/models.py:279
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: hub/models.py:275 hub/templates/header.html:34
+#: hub/models.py:282 hub/templates/header.html:34
 msgid "Organizations"
 msgstr "Organizații"
 
-#: hub/models.py:276
+#: hub/models.py:283
 msgid "Organization"
 msgstr "Organizație"
 
-#: hub/models.py:362
+#: hub/models.py:357
+msgid "Pending"
+msgstr "În așteptare"
+
+#: hub/models.py:369
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:369 hub/templates/candidate/detail.html:141
+#: hub/models.py:376 hub/templates/candidate/detail.html:141
 msgid "Curriculum Vitae"
 msgstr "Curriculum Vitae"
 
-#: hub/models.py:370
+#: hub/models.py:377
 msgid "Role in organization"
 msgstr "Funcție în organizație"
 
-#: hub/models.py:376 hub/templates/candidate/detail.html:122
+#: hub/models.py:383 hub/templates/candidate/detail.html:122
 msgid "Professional experience"
 msgstr "Activitate profesională"
 
-#: hub/models.py:377 hub/templates/candidate/detail.html:125
+#: hub/models.py:384 hub/templates/candidate/detail.html:125
 msgid "Studies"
 msgstr "Studii"
 
-#: hub/models.py:380
+#: hub/models.py:387
 msgid "Main Objectives"
 msgstr ""
 "Care sunt principalele obiective pe care ți le propui dacă vei obține un loc "
 "în Comitetul Economic și Social?"
 
-#: hub/models.py:382
+#: hub/models.py:389
 msgid ""
 "What are your main goals if you get a seat on the Economic and Social "
 "Committee?"
 msgstr " "
 
-#: hub/models.py:387
+#: hub/models.py:394
 msgid "Main Points"
 msgstr ""
 "Care considerați că ar trebui să fie cele mai importante puncte de pe agenda "
 "domeniului pentru care aplicați?"
 
-#: hub/models.py:390
+#: hub/models.py:397
 msgid ""
 "What are the most important points that should be on the agenda of the field "
 "for which you are applying?"
 msgstr " "
 
-#: hub/models.py:396
+#: hub/models.py:403
 msgid "Relevant Moments"
 msgstr ""
 "Care sunt cele mai relevante momente din experiența ta care te recomandă "
 "pentru a ocupa un loc in Comitetul Economic și Social?"
 
-#: hub/models.py:399
+#: hub/models.py:406
 msgid ""
 "What are the most relevant moments in your experience that recommend you to "
 "take a place in the Economic and Social Committee?"
 msgstr " "
 
-#: hub/models.py:405 hub/templates/registration/login.html:41
+#: hub/models.py:412 hub/templates/registration/login.html:41
 msgid "Email"
 msgstr "Email"
 
-#: hub/models.py:406
+#: hub/models.py:413
 msgid "Phone"
 msgstr "Telefon"
 
-#: hub/models.py:407
+#: hub/models.py:414
 msgid "Photo"
 msgstr "Fotografie"
 
-#: hub/models.py:410 hub/templates/candidate/detail.html:159
+#: hub/models.py:417 hub/templates/candidate/detail.html:159
 msgid "Mandate from the organization"
 msgstr "Mandat din partea organizației, ștampilat și semnat"
 
-#: hub/models.py:417 hub/templates/candidate/detail.html:150
+#: hub/models.py:424 hub/templates/candidate/detail.html:150
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
-#: hub/models.py:424 hub/templates/candidate/detail.html:168
+#: hub/models.py:431 hub/templates/candidate/detail.html:168
 msgid "Statement of interests"
 msgstr "Declarație de interese"
 
-#: hub/models.py:431 hub/templates/candidate/detail.html:179
+#: hub/models.py:438 hub/templates/candidate/detail.html:179
 msgid "Tax records"
 msgstr "Cazier fiscal"
 
-#: hub/models.py:438 hub/templates/candidate/detail.html:188
+#: hub/models.py:445 hub/templates/candidate/detail.html:188
 msgid "Legal records"
 msgstr "Cazier juridic"
 
-#: hub/models.py:446
+#: hub/models.py:453
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:452 hub/templates/candidate/list.html:39
+#: hub/models.py:459 hub/templates/candidate/list.html:39
 #: hub/templates/header.html:47
 msgid "Candidates"
 msgstr "Candidați"
 
-#: hub/models.py:453
+#: hub/models.py:460
 msgid "Candidate"
 msgstr "Candidat"
 
-#: hub/models.py:473
+#: hub/models.py:480
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:507
+#: hub/models.py:514
 msgid "Canditate votes"
 msgstr "Voturi candidați"
 
-#: hub/models.py:508
+#: hub/models.py:515
 msgid "Candidate vote"
 msgstr "Vot candidat"
 
-#: hub/models.py:531
+#: hub/models.py:538
 msgid "Canditate supporters"
 msgstr "Susținători candidat"
 
-#: hub/models.py:532
+#: hub/models.py:539
 msgid "Candidate supporter"
 msgstr "Susținător candidat"
 
-#: hub/models.py:546
+#: hub/models.py:553
 msgid "Canditate confirmations"
 msgstr "Confirmări candidat"
 
-#: hub/models.py:547
+#: hub/models.py:554
 msgid "Candidate confirmation"
 msgstr "Confirmare candidat"
 
@@ -749,7 +753,7 @@ msgstr "Încărcare"
 msgid "Upload CSV file and add new cities"
 msgstr "Încarcă fișier CSV și adaugă orașe"
 
-#: hub/templates/blog/list.html:61
+#: hub/templates/blog/list.html:41
 msgid "Read more"
 msgstr "Citește mai mult"
 
@@ -809,8 +813,8 @@ msgstr ""
 msgid "Search..."
 msgstr "Caută..."
 
-#: hub/templates/candidate/list.html:98 hub/templates/candidate/results.html:83
-#: hub/templates/committee/candidates.html:49 hub/templates/ngo/votes.html:107
+#: hub/templates/candidate/list.html:79 hub/templates/candidate/results.html:63
+#: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:107
 msgid "View details"
 msgstr "Vizualizează detalii"
 
@@ -847,8 +851,8 @@ msgstr "Candidați propusi"
 msgid "Accepted candidates"
 msgstr "Candidați validați"
 
-#: hub/templates/committee/candidates.html:65
-#: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:196
+#: hub/templates/committee/candidates.html:67
+#: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:177
 #: hub/templates/ngo/votes.html:123
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
@@ -1088,15 +1092,15 @@ msgstr ""
 msgid "Initiated password reset"
 msgstr "S-a initializat resetarea parolei"
 
-#: hub/templates/shared/pagination.html:15
+#: hub/templates/shared/pagination.html:17
 msgid "first"
 msgstr "prima"
 
-#: hub/templates/shared/pagination.html:17
+#: hub/templates/shared/pagination.html:19
 msgid "previous"
 msgstr "precedenta"
 
-#: hub/templates/shared/pagination.html:25
+#: hub/templates/shared/pagination.html:27
 #, python-format
 msgid ""
 "\n"
@@ -1108,11 +1112,11 @@ msgstr ""
 "            \n"
 "        "
 
-#: hub/templates/shared/pagination.html:33
+#: hub/templates/shared/pagination.html:35
 msgid "next"
 msgstr "următoarea"
 
-#: hub/templates/shared/pagination.html:35
+#: hub/templates/shared/pagination.html:37
 msgid "last"
 msgstr "ultima"
 
@@ -1198,7 +1202,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta curând!"
 
-#: hub/views.py:242
+#: hub/views.py:251
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1210,9 +1214,18 @@ msgstr ""
 "Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:300
+#: hub/views.py:309
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
+
+#~ msgid "Eligible to vote"
+#~ msgstr "Eligibil să voteze"
+
+#~ msgid "Ineligible to vote"
+#~ msgstr "Ineligibil să voteze"
+
+#~ msgid "Disabled"
+#~ msgstr "Dezactivat"
 
 #~ msgid "CES Results"
 #~ msgstr "Rezultate provizorii CES"

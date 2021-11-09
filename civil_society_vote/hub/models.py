@@ -183,7 +183,14 @@ class City(models.Model):
 
 
 class Organization(StatusModel, TimeStampedModel):
-    STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
+    STATUS = Choices(
+        ("pending", _("Pending approval")),
+        ("accepted", _("Accepted")),
+        ("rejected", _("Rejected")),
+        # ("eligible", _("Eligible to vote")),
+        # ("ineligible", _("Ineligible to vote")),
+        # ("disabled", _("Disabled")),
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"

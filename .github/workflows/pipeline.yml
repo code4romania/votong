@@ -18,7 +18,7 @@ on:
 jobs:
   static_analysis:
     runs-on: ubuntu-latest
-    container: python:3.7.7-buster
+    container: python:3.9.7-buster
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
           cat requirements-dev.txt | grep black== | cut -d' ' -f1 | xargs pip install
       - name: Check code formatting with black
         run: |
-          black -l 120 -t py37 --check .
+          black -l 120 -t py38 --check .
       - name: Check imports order with isort
         run: |
           isort . --check
