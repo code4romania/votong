@@ -5,6 +5,7 @@ from accounts.models import User
 from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
+from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
@@ -480,6 +481,15 @@ class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
     actions = [flags_phase_1, flags_phase_2, flags_phase_3, flags_final_phase]
+
+    def changelist_view(self, request, extra_context=None):
+        if 'action' in request.POST:
+            if not request.POST.getlist(ACTION_CHECKBOX_NAME):
+                post = request.POST.copy()
+                for ff in FeatureFlag.objects.all():
+                    post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
+                request._set_post(post)
+        return super(FeatureFlagAdmin, self).changelist_view(request, extra_context)
 
     def has_add_permission(self, request):
         return False
