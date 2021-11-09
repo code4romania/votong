@@ -26,7 +26,7 @@ def send_email(template, context, subject, to):
         html_content = Template(tpl.html_content).render(context)
         msg.attach_alternative(html_content, "text/html")
 
-    return msg.send()
+    return msg.send(fail_silently=True)
 
 
 def build_full_url(request, obj):

@@ -473,7 +473,7 @@ def candidate_vote(request, pk):
                 {
                     "org": vote.user.orgs.first().name,
                     "candidate": vote.candidate.name,
-                    "timestamp": vote.created.isoformat(),
+                    "timestamp": timezone.localtime(vote.created).strftime("%H:%M:%S (%d/%m/%Y)"),
                     "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
                     "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
                 }

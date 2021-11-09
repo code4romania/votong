@@ -8,7 +8,7 @@ from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Count
+# from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.template import Context
 from django.urls import path, reverse

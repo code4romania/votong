@@ -232,7 +232,7 @@ AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
 
 CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
 CKEDITOR_CONFIGS = {
-    "default": {"toolbar": "full", "height": 600, "width": 950,},
+    "default": {"toolbar": "full", "height": 600, "width": 950},
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
 

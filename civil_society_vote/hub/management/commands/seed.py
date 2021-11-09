@@ -160,6 +160,10 @@ class Command(BaseCommand):
 
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
 
+            for candidate in Candidate.objects.order_by('?')[:10]:
+                candidate.status = "accepted"
+                candidate.save()
+
         self.stdout.write("Loaded organizations data")
 
         for flag in [x[0] for x in FLAG_CHOICES]:
