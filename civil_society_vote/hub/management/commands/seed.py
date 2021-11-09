@@ -160,7 +160,7 @@ class Command(BaseCommand):
 
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
 
-            for candidate in Candidate.objects.order_by('?')[:10]:
+            for candidate in Candidate.objects.order_by("?")[:10]:
                 candidate.status = "accepted"
                 candidate.save()
 

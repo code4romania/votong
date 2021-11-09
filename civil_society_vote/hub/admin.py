@@ -9,6 +9,7 @@ from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
+
 # from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.template import Context
@@ -483,7 +484,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
     actions = [flags_phase_1, flags_phase_2, flags_phase_3, flags_final_phase]
 
     def changelist_view(self, request, extra_context=None):
-        if 'action' in request.POST:
+        if "action" in request.POST:
             if not request.POST.getlist(ACTION_CHECKBOX_NAME):
                 post = request.POST.copy()
                 for ff in FeatureFlag.objects.all():
