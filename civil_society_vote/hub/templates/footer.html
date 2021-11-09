@@ -3,49 +3,51 @@
 
 <footer>
     <div class="container">
-        <div class="branding">
-            <span>Soluție proiectată, dezvoltată și administrată pro-bono de:</span>
-            <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer">
-                <img class="code4Ro-logo" src="{% static "images/code4romania-gray.svg" %}" alt="Code for Romania" />
-            </a>
+        <div class="columns mr-0">
+            <div class="column is-auto">
+                <div class="branding">
+                    <div class="mb-3">
+                        O soluție 
+                    </div>
+
+                    <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer" class="mb-3">
+                        <img class="code4Ro-logo" src="{% static "images/code4romania-black.svg" %}" alt="Code for Romania" />
+                    </a>
+
+                    <div class="mb-5 has-text-left">
+                        Organizație independentă, non-partizană, apolitică, neguvernamentală.
+                    </div>
+
+                    <div>
+                        &copy; 2021 Code for Romania.
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3 mobile-spacing">
+                <h4 class="pb-3">
+                    <strong>LINKURI UTILE</strong>
+                </h4>
+                <ul id="footer-links">
+                    <li><a href="{% url 'about' %}">{% trans "About VotONG" %}</a>
+                    <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a>
+                    <li><a href="{% url 'cookies'%}">{% trans "Privacy Policy" %}</a>
+                    <li><a href="{% url 'terms'%}">{% trans "Terms and conditions" %}</a>
+                </ul>
+            </div>
+
+            <div class="column is-3 mobile-spacing">
+                <h4 class="pb-3">
+                    <strong>CONTACTEAZĂ-NE</strong>
+                </h4>
+                <ul id="footer-links">
+                    <li><a href="https://www.facebook.com/code4romania/">Facebook</a>
+                    <li><a href="https://twitter.com/Code4Romania">Twitter</a>
+                    <li><a href="https://github.com/code4romania/votong/">GitHub</a>
+                    <li><a href="https://www.linkedin.com/company/code4romania/">LinkedIn</a>
+                </ul>
+            </div>
         </div>
-
-        <ul id="footer-links">
-            <li><a href="{% url 'about' %}">{% trans "About VotONG" %}</a>
-            <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a>
-            <li><a href="{% url 'cookies'%}">{% trans "Privacy Policy" %}</a>
-            <li><a href="{% url 'terms'%}">{% trans "Terms and conditions" %}</a>
-            <li>
-                <a href="#" class="button is-primary">{% trans "Get Involved" %}</a>
-            </li>
-        </ul>
-
-        <p>
-            Daca vrei să iei legătura cu noi o poți face pe e-mail la adresa:  <a href="mailto:contact@code4.ro">contact@code4.ro</a>
-        </p>
-
-        <ul id="footer-social">
-            <li>
-                <a href="https://www.facebook.com/code4romania/">
-                    <img src="{% static "images/social/facebook.svg" %}" alt="Facebook" />
-                </a>
-            </li>
-            <li>
-                <a href="https://twitter.com/Code4Romania">
-                    <img src="{% static "images/social/twitter.svg" %}" alt="Twitter" />
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/code4romania/votong/">
-                    <img src="{% static "images/social/github.svg" %}" alt="GitHub repo" />
-                </a>
-            </li>
-            <li>
-                <a href="https://www.linkedin.com/company/code4romania/">
-                    <img src="{% static "images/social/linkedin.svg" %}" alt="LinkedIn" />
-                </a>
-            </li>
-        </ul>
     </div>
 </footer>
 
