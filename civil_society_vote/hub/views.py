@@ -478,7 +478,7 @@ def candidate_vote(request, pk):
                     "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
                 }
             ),
-            subject=f"[VOTONG] Vot candidat: {vote.candidate.name}",
+            subject=f"[VOTONG] Vot candidatura: {vote.candidate.name}",
             to=settings.VOTE_AUDIT_EMAIL,
         )
 

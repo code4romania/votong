@@ -120,16 +120,18 @@ class Command(BaseCommand):
                     board_council=fake.name(),
                     status=status,
                     accept_terms_and_conditions=True,
-                    politic_members=True,
                 )
 
                 org.logo.name = "logo-demo.png"
+                org.report_2020.name = "test.pdf"
                 org.report_2019.name = "test.pdf"
                 org.report_2018.name = "test.pdf"
                 org.report_2017.name = "test.pdf"
-                org.fiscal_certificate.name = "test.pdf"
+                org.fiscal_certificate_anaf.name = "test.pdf"
+                org.fiscal_certificate_local.name = "test.pdf"
                 org.statute.name = "test.pdf"
-                org.statement.name = "test.pdf"
+                org.statement_discrimination.name = "test.pdf"
+                org.statement_political.name = "test.pdf"
                 # org.letter.name = "test.pdf"
                 org.last_balance_sheet.name = "test.pdf"
                 org.save()
@@ -138,24 +140,9 @@ class Command(BaseCommand):
                     self.stdout.write(f"Created organization {org}")
                 elif status == "accepted":
                     candidate = Candidate.objects.create(
-                        org=org,
-                        name=org.legal_representative_name,
-                        description=fake.text(),
-                        role=fake.job(),
-                        experience=fake.text(),
-                        studies=fake.text(),
-                        email=fake.safe_email(),
-                        phone=fake.phone_number(),
-                        domain=domain,
-                        is_proposed=True,
+                        org=org, domain=domain, name=org.legal_representative_name, role=fake.job(), is_proposed=True,
                     )
-
-                    candidate.photo.name = "photo-placeholder.gif"
-                    candidate.mandate.name = "test.pdf"
-                    candidate.letter.name = "test.pdf"
                     candidate.statement.name = "test.pdf"
-                    candidate.cv.name = "test.pdf"
-                    candidate.tax_records.name = "test.pdf"
                     candidate.save()
 
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
