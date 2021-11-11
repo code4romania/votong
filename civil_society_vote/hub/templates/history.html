@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load spurl %}
+{% load static i18n %}
+
+{% block content %}
+
+<div class="container section">
+    <h1 class="title  has-text-centered">
+        {% trans "Istoric alegeri" %}
+    </h1>
+
+    <p class="subtitle border-b has-text-centered" style="margin: 0 10%">
+        {% trans "Platforma VotONG a găzduit următoarele runde de alegeri." %}
+    </p>
+
+</div>
+<div class="container">
+    <div class="is-multiline infinite-container">
+
+        <div class="need is-flex container infinite-item">
+            <div class="card-info">
+                <div class="flex-align-center">
+                    <div class="need-title is-hidden-tablet">{% trans "Alegeri Consiliul Economic și Social" %}</div>
+                </div>
+                <div class="flex-align-center">
+                    <div class="need-description is-hidden-tablet">{% trans "Perioada 6 octombrie - 4 decembrie 2020" %}
+                    </div>
+                </div>
+
+                <div class="need-title is-hidden-mobile">
+                    <a class="has-text-black" href="/">{% trans "Alegeri Consiliul Economic și Social" %}</a>
+                </div>
+                <div class="need-description is-hidden-mobile">{% trans "Perioada 6 octombrie - 4 decembrie 2020" %}
+                </div>
+            </div>
+
+            <div class="need-call2action">
+                <a class="button is-flex has-background-success has-text-weight-bold has-text-white" target="_blank"
+                    rel="noopener noreferrer" href="https://ces2020.votong.ro/ro/candidates/ces-results">
+                    {% trans "Vizualizează" %}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -24,6 +24,7 @@ urlpatterns = i18n_patterns(
     ),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
+    path(_("history/"), StaticPageView.as_view(template_name="history.html"), name="history"),
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
@@ -50,7 +51,7 @@ urlpatterns = i18n_patterns(
         _("accounts/reset-password/complete/"),
         auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
         name="password_reset_complete",
-    ),
+    ),    
     path("me/", include("accounts.urls")),
     path("", include("hub.urls")),
 )

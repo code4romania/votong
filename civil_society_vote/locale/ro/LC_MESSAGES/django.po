@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 22:05+0200\n"
+"POT-Creation-Date: 2021-11-09 20:24+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -181,6 +181,10 @@ msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 #: civil_society_vote/urls.py:50
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
+
+#: civil_society_vote/urls.py:54
+msgid "history/"
+msgstr "istoric/"
 
 #: hub/admin.py:53
 msgid "groups"
