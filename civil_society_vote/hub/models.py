@@ -21,7 +21,7 @@ NGO_GROUP = "ONG"
 
 REPORTS_HELP_TEXT = (
     "Rapoartele anuale trebuie să includă sursele de finanțare din care să rezulte că organizația dispune de resurse "
-    "financiare şi umane pentru îndeplinirea mandatului de membru în Comisia Electorală a VotONG.git"
+    "financiare şi umane pentru îndeplinirea mandatului de membru în Comisia Electorală a VotONG."
 )
 
 
