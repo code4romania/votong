@@ -75,12 +75,7 @@ def already_supported(user, candidate):
 
 @register.filter
 def has_all_org_documents(user):
-    org = user.orgs.first()
-
-    if all([org.report_2019, org.report_2018, org.report_2017, org.fiscal_certificate, org.statute, org.statement]):
-        return True
-
-    return False
+    return user.orgs.first().is_complete()
 
 
 @register.simple_tag
