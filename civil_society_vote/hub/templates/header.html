@@ -61,7 +61,8 @@
                         </a> -->
 
 
-
+                        <!-- CES 2020 Remove ability to login -->
+                        {% comment %}
                         <div class="navbar-item">|</div>
 
                         {% if request.user.is_authenticated %}
@@ -98,6 +99,7 @@
                             {% trans "Login" %}
                         </a>
                         {% endif %}
+                        {% endcomment %}
 
 
                         {% comment %}
