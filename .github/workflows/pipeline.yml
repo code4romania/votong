@@ -29,7 +29,7 @@ jobs:
           cat requirements-dev.txt | grep black== | cut -d' ' -f1 | xargs pip install
       - name: Check code formatting with black
         run: |
-          black -l 120 -t py38 --check .
+          black --check .
       - name: Check imports order with isort
         run: |
-          isort . --check
+          isort --check .

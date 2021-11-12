@@ -207,7 +207,7 @@ def send_confirm_email_to_committee(request, candidate, to_email):
                 "confirmation_link": confirmation_link,
             }
         ),
-        subject=f"[VOTONG] Confirmare candidat: {candidate.name}",
+        subject=f"[VOTONG] Confirmare candidatura: {candidate.name}",
         to=to_email,
     )
 

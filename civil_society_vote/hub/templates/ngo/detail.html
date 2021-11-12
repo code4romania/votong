@@ -120,15 +120,33 @@
       </p>
       {% endif %}
 
-      {% if ngo.fiscal_certificate %}
+      {% if ngo.fiscal_certificate_anaf %}
       <p>
           <span class="icon">
             <i class="fas fa-lock"></i>
           </span>
-          <a href="{{ ngo.fiscal_certificate.url }}" title="{% trans 'Fiscal certificate' %}">{% trans 'Fiscal certificate' %}</a>
+          <a href="{{ ngo.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">{% trans 'Fiscal certificate ANAF' %}</a>
       </p>
       {% endif %}
 
+      {% if ngo.fiscal_certificate_local %}
+      <p>
+          <span class="icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <a href="{{ ngo.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">{% trans 'Fiscal certificate local' %}</a>
+      </p>
+      {% endif %}
+
+    {% endif %}
+
+    {% if ngo.report_2020 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2020.url }}" title="{% trans 'Yearly report 2020' %}">{% trans 'Yearly report 2020' %}</a>
+    </p>
     {% endif %}
 
     {% if ngo.report_2019 %}
@@ -158,22 +176,31 @@
     </p>
     {% endif %}
 
-    {% if ngo.statement %}
+    {% if ngo.statement_discrimination %}
     <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.statement.url }}" title="{% trans 'Statement' %}">{% trans 'Statement' %}</a>
+        <a href="{{ ngo.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">{% trans 'Non-discrimination statement' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.statement_political %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.statement_political.url }}" title="{% trans 'Non-political statement ' %}">{% trans 'Non-political statement' %}</a>
     </p>
     {% endif %}
 
     {% if ngo.candidate and ngo.candidate.is_proposed %}
     <div class="detail-desc-title">
         <span class="ngo-colorblock"></span>
-        Candidat
+        Candidatură
     </div>
 
-    <p><span class="label">Candidat:</span> <a href="{% url 'candidate-detail' ngo.candidate.id %}">{{ ngo.candidate.name }}</a></p>
+    <p><span class="label">Reprezentant:</span> <a href="{% url 'candidate-detail' ngo.candidate.id %}">{{ ngo.candidate.name }}</a></p>
     {% endif %}
 </div>
 

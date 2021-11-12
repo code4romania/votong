@@ -51,7 +51,7 @@ urlpatterns = i18n_patterns(
         _("accounts/reset-password/complete/"),
         auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
         name="password_reset_complete",
-    ),    
+    ),
     path("me/", include("accounts.urls")),
     path("", include("hub.urls")),
 )

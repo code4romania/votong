@@ -225,9 +225,14 @@ class Organization(StatusModel, TimeStampedModel):
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
 
-    accept_terms_and_conditions = models.BooleanField(_("Accepted Terms and Conditions"), default=False)
-    politic_members = models.BooleanField(_("Has political party members"), default=False)
-
+    report_2020 = models.FileField(
+        _("Yearly report 2020"),
+        null=True,
+        blank=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
+    )
     report_2019 = models.FileField(
         _("Yearly report 2019"),
         null=True,
@@ -252,29 +257,42 @@ class Organization(StatusModel, TimeStampedModel):
         storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
     )
-    fiscal_certificate = models.FileField(
-        _("Fiscal certificate"),
-        null=True,
-        blank=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-        help_text="Certificat fiscal emis în ultimele 6 luni",
-    )
-    statement = models.FileField(
-        _("Statement"),
+
+    statement_discrimination = models.FileField(
+        _("Non-discrimination statement"),
         null=True,
         blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
     )
+    statement_political = models.FileField(
+        _("Non-political statement"),
+        null=True,
+        blank=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Declarație pe propria răspundere prin care declar că ONG-ul nu are între membrii conducerii organizației (Președinte sau Consiliul Director) membri ai conducerii unui partid politic sau persoane care au fost alese într-o funcție publică.",
+    )
 
-    # founders = models.CharField(_("Founders/Associates"), max_length=254)
-    # state = models.CharField(_("Current state"), max_length=10, choices=STATE_CHOICES, default=STATE_CHOICES.active)
-    # purpose_initial = models.CharField(_("Initial purpose"), max_length=254)
-    # purpose_current = models.CharField(_("Current purpose"), max_length=254)
-    # representative = models.CharField(_("Legal representative"), max_length=254)
-    # letter = models.FileField(_("Letter of intent"), max_length=300, storage=PrivateMediaStorageClass())
+    fiscal_certificate_anaf = models.FileField(
+        _("Fiscal certificate ANAF"),
+        null=True,
+        blank=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Certificat fiscal emis de ANAF",
+    )
+    fiscal_certificate_local = models.FileField(
+        _("Fiscal certificate local"),
+        null=True,
+        blank=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
+        help_text="Certificat fiscal emis de Direcția de Impozite și Taxe Locale",
+    )
+
+    accept_terms_and_conditions = models.BooleanField(_("Accepted Terms and Conditions"), default=False)
 
     rejection_message = models.TextField(_("Rejection message"), blank=True)
 
@@ -293,15 +311,21 @@ class Organization(StatusModel, TimeStampedModel):
 
     @property
     def is_complete(self):
+        """
+        Validate if the Org uploaded all the requested info to proppose a Candidate
+        """
         return all(
             [
+                self.statute,
+                self.last_balance_sheet,
+                self.report_2020,
                 self.report_2019,
                 self.report_2018,
                 self.report_2017,
-                self.fiscal_certificate,
-                self.statute,
-                self.statement,
-                self.politic_members,
+                self.statement_discrimination,
+                self.statement_political,
+                self.fiscal_certificate_anaf,
+                self.fiscal_certificate_local,
             ]
         )
 
@@ -371,83 +395,22 @@ class Candidate(StatusModel, TimeStampedModel):
     )
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
 
-    name = models.CharField(_("Name"), max_length=254)
-    description = models.TextField(_("Description"), max_length=1000)
-    cv = models.FileField(_("Curriculum Vitae"), max_length=300, storage=PrivateMediaStorageClass())
-    role = models.CharField(_("Role in organization"), max_length=254)
-
-    # founder = models.BooleanField(_("Founder/Associate"), default=False)
-    # representative = models.BooleanField(_("Legal representative"), default=False)
-    # board_member = models.BooleanField(_("Board member"), default=False)
-
-    experience = models.TextField(_("Professional experience"), max_length=2000)
-    studies = models.TextField(_("Studies"), max_length=2000)
-
-    main_objectives = models.TextField(
-        _("Main Objectives"),
-        max_length=1000,
-        help_text=_("What are your main goals if you get a seat on the Economic and Social Committee?"),
-        blank=True,
-        null=True,
+    name = models.CharField(
+        _("Representative name"),
+        max_length=254,
+        help_text="Numele persoanei care va reprezenta organizatia in Comisia Electorală în cazul unui răspuns favorabil. Persoana desemnată trebuie să fie angajat în cadrul organizației și parte din structurile de conducere ale acesteia (membru în Consiliul Director, Director Executiv etc)",
     )
-    main_points = models.TextField(
-        _("Main Points"),
-        max_length=1000,
-        help_text=_(
-            "What are the most important points that should be on the agenda of the field for which you are applying?"
-        ),
-        blank=True,
-        null=True,
-    )
-    relevant_moments = models.TextField(
-        _("Relevant Moments"),
-        max_length=1000,
-        help_text=_(
-            "What are the most relevant moments in your experience that recommend you to take a place in the Economic and Social Committee?"
-        ),
-        blank=True,
-        null=True,
-    )
-
-    email = models.EmailField(_("Email"))
-    phone = models.CharField(_("Phone"), max_length=30)
-    photo = models.ImageField(_("Photo"), max_length=300, storage=PublicMediaStorageClass())
-
-    mandate = models.FileField(
-        _("Mandate from the organization"),
-        null=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-        help_text="Mandat din partea organizației (semnat - inclusiv prin semnatură electronică)",
-    )
-    letter = models.FileField(
-        _("Letter of intent"),
-        max_length=300,
-        null=True,
-        storage=PrivateMediaStorageClass(),
-        help_text="Scrisoare de intenție (cu menționarea domeniului pe care dorește să-l reprezinte în cadrul CES) din care să rezulte desfăşurarea de activităţi de influenţare a politicilor publice și de reprezentare a intereselor unor grupuri de organizaţii care desfăşoară o activitate de interes public",
+    role = models.CharField(
+        _("Representative role in organization"),
+        max_length=254,
+        help_text="Funcția în organizației a persoanei desemnate.",
     )
     statement = models.FileField(
-        _("Statement of interests"),
+        _("Representative statement"),
         null=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
-        help_text="Descarcă modelul de aici https://drive.google.com/file/d/1BOquxpQnuCPmhlt9HFjklCY_oZARVlz1/view?usp=sharing",
-    )
-    tax_records = models.FileField(
-        _("Tax records"),
-        null=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-        help_text="Cazier fiscal, valabil la data depunerii candidaturii",
-    )
-    legal_records = models.FileField(
-        _("Legal records"),
-        null=True,
-        blank=True,
-        max_length=300,
-        storage=PrivateMediaStorageClass(),
-        help_text="Cazier juridic (optional)",
+        help_text="Declarație pe propria răspundere a reprezentantului desemnat prin care declară că nu este membru al conducerii unui partid politic, nu a fost ales într-o funcție publică și nu este demnitar al statului român.",
     )
 
     is_proposed = models.BooleanField(_("Is proposed?"), default=False)
@@ -468,7 +431,7 @@ class Candidate(StatusModel, TimeStampedModel):
         )
 
     def __str__(self):
-        return f"{self.name} ({self.org})"
+        return f"{self.org} ({self.name})"
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])

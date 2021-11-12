@@ -26,41 +26,41 @@
 
 <div class="container need is-flex">
   <div class="card-image need-logo is-hidden-mobile">
-    {% if candidate.photo %}
-    <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+    {% if candidate.org.logo %}
+    <img src="{{ candidate.org.logo.url }}" alt="{{ candidate.org.name }}">
     {% else %}
-    <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+    <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
     {% endif %}
   </div>
 
   <div class="card-info">
     <div class="flex-align-center">
       <div class="card-image need-logo is-hidden-tablet">
-        {% if candidate.photo %}
-        <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+        {% if candidate.org.logo %}
+        <img src="{{ candidate.org.logo.url }}" alt="{{ candidate.org.name }}">
         {% else %}
-        <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+        <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
         {% endif %}
       </div>
-      <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
+      <div>
+        <div class="need-title is-hidden-tablet">
+          <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{candidate.org}}</a>
+        </div>
+        <div class="need-subtitle is-hidden-tablet">
+          Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
+        </div>
+      </div>
     </div>
-
-    <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
 
     <div class="need-title is-hidden-mobile">
-      <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
+      <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{candidate.org}}</a>
     </div>
-    <div class="need-subtitle is-hidden-tablet">{{candidate.org}}</div>
-
-    {% if "view_data_candidate" in user_permissions %}
-    <div class="need-subtitle">Email: {{candidate.email}}</div>
-    <div class="need-subtitle">Tel.: {{candidate.phone}}</div>
-    {% endif %}
-
-    <div class="need-subtitle">Sectiune: {{candidate.domain.name}}</div>
+    <div class="need-subtitle is-hidden-mobile">
+      Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
+    </div>
 
     <div class="need-description">
-      <b>Status candidat: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
+      <b>Stare candidatură: <span class="status-{{candidate.status}}">{% trans candidate.status.capitalize %}</span></b>
       {% if not user.is_superuser and "approve_candidate" in user_permissions and candidate.status != 'pending' %}
       {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
       {% endif %}
@@ -101,136 +101,108 @@
 
 </div>
 
-<hr />
-
-{% if candidate.description %}
-<div class="container candidate-desc">
-  <p class="label">{% trans 'Description' %}:</p>
-  {{ candidate.description|linebreaks }}
-</div>
-{% endif %}
-
 <div class="container detail-desc">
   <div class="detail-desc-title">
     <span class="candidate-colorblock"></span>
-    {% trans "General information" %}
+    {% trans "Candidate information" %}
   </div>
   <div>
-    <p class="label">{% trans 'Role' %}:</p> {{ candidate.role }}
-  </div>
-  <div>
-    <p class="label">{% trans 'Professional experience' %}:</p> {{ candidate.experience|linebreaks }}
-  </div>
-  <div>
-    <p class="label">{% trans 'Studies' %}:</p> {{ candidate.studies|linebreaks }}
-  </div>
-</div>
 
+    <p><span class="label">{% trans 'Representative name' %}:</span> {{ candidate.name }}</p>
+    <p><span class="label">{% trans 'Representative role' %}:</span> {{ candidate.role }}</p>
 
-<div class="container detail-desc">
-  <div class="detail-desc-title">
-    <span class="candidate-colorblock"></span>
-    {% trans "Documents" %}
-  </div>
-
-  {% if candidate.cv %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.cv.url }}">{% trans 'Curriculum Vitae' %}</a>
-  </p>
-  {% endif %}
-
-  {% if candidate.letter %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.letter.url }}">{% trans 'Letter of intent' %}</a>
-  </p>
-  {% endif %}
-
-  {% if candidate.mandate %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.mandate.url }}">{% trans 'Mandate from the organization' %}</a>
-  </p>
-  {% endif %}
-
-  {% if candidate.statement %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.statement.url }}">{% trans 'Statement of interests' %}</a>
-  </p>
-  {% endif %}
-
-  {% if "view_data_candidate" in user_permissions %}
-
-  {% if candidate.tax_records %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.tax_records.url }}">{% trans 'Tax records' %}</a>
-  </p>
-  {% endif %}
-
-  {% if candidate.legal_records %}
-  <p>
-    <span class="icon">
-      <i class="fas fa-lock"></i>
-    </span>
-    <a href="{{ candidate.legal_records.url }}">{% trans 'Legal records' %}</a>
-  </p>
-  {% endif %}
-
-  {% endif %}
-</div>
-
-{% if candidate.main_objectives or candidate.main_points or candidate.relevant_moments %}
-<div class="container detail-desc">
-  <div class="detail-desc-title">
-    <span class="candidate-colorblock"></span>
-    {% trans "Q&A" %}
-  </div>
-  <div>
-    {% if candidate.main_objectives %}
-    <p class="label">{% trans 'What are your main goals if you get a seat on the Economic and Social Committee? ' %}</p> {{ candidate.main_objectives|linebreaks }}
+    {% if candidate.statement %}
+    <p>
+      <span class="icon">
+        <i class="fas fa-lock"></i>
+      </span>
+      <a href="{{ candidate.statement.url }}">{% trans 'Representative statement' %}</a>
+    </p>
     {% endif %}
-  </div>
-  <div>
-    {% if candidate.main_points %}
-    <p class="label">{% trans 'What are the most important points that should be on the agenda of the field for which you are applying? ' %}</p> {{ candidate.main_points|linebreaks }}
-    {% endif %}
-  </div>
-  <div>
-    {% if candidate.relevant_moments %}
-    <p class="label">{% trans 'What are the most relevant moments in your experience that recommend you to take a place in the Economic and Social Committee? ' %}</p> {{ candidate.relevant_moments|linebreaks }}
-    {% endif %}
+
   </div>
 </div>
-{% endif %}
 
 <div class="container detail-desc">
-  <div class="detail-desc-title">
-    <span class="candidate-colorblock"></span>
-    Organizație
-  </div>
-  <p><span class="label">Numele organizației:</span> <a
-      href="{% url 'ngo-detail' candidate.org.id %}">{{ candidate.org.name }}</a></p>
-  {% if candidate.org.description %}
-  <p class="label">Scurta descriere:</p>
-  {{ candidate.org.description|linebreaks }}
-  {% endif %}
-  <p><span class="label">Județ:</span> {{ candidate.org.city.county }}</p>
-  <p><span class="label">Localitate:</span> {{ candidate.org.city.city }}</p>
-  <hr>
+    <div class="detail-desc-title">
+        <span class="ngo-colorblock"></span>
+        {% trans "Documents" %}
+    </div>
+
+    {% if candidate.org.report_2020 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2020.url }}" title="{% trans 'Yearly report 2020' %}">{% trans 'Yearly report 2020' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.report_2019 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2019.url }}" title="{% trans 'Yearly report 2019' %}">{% trans 'Yearly report 2019' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.report_2018 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2018.url }}" title="{% trans 'Yearly report 2018' %}">{% trans 'Yearly report 2018' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.report_2017 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2017.url }}" title="{% trans 'Yearly report 2017' %}">{% trans 'Yearly report 2017' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_anaf %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">{% trans 'Fiscal certificate ANAF' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_local %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">{% trans 'Fiscal certificate local' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.statement_discrimination %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">{% trans 'Non-discrimination statement' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.statement_political %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_political.url }}" title="{% trans 'Non-political statement ' %}">{% trans 'Non-political statement' %}</a>
+    </p>
+    {% endif %}
+
 </div>
+
 
 {% comment %}
 {% social_buttons obj=candidate %}

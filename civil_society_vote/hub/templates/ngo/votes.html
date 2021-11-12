@@ -21,9 +21,9 @@
     </li>
     <li>
     {% if user.orgs.first.candidate %}
-      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
+      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatura mea</a>
     {% else %}
-      <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
     {% endif %}
     </li>
     <li class="is-active">
@@ -49,38 +49,13 @@
                 <th>Secțiuni</th>
                 <th>Număr maxim de voturi </th>
             </tr>
+            {% for domain in domains %}
             <tr>
-                <td>1</td>
-                <td>Organizații academice, profesionale, think-tank (corespund categoriei “comunități științifice și
-                    academice”)
-                </td>
-                <td>2</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ domain.name }}</td>
+                <td>{{ domain.seats }}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Organizații cooperatiste, agricole, de dezvoltare rurală</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Organizații din domeniul social (familie, persoane cu dizabilități, pensionari etc)</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Organizații din domeniul sănătate, educație și tineri</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Organizații din domeniul protectiei mediului înconjurator, ecologiei, dezvoltării durabile</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Organizații pentru protecţia drepturilor omului</td>
-                <td>3</td>
-            </tr>
+            {% endfor %}
         </table>
     </div>
 

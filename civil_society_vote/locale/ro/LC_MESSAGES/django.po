@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-09 20:24+0200\n"
+"POT-Creation-Date: 2021-11-12 13:26+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -162,29 +162,29 @@ msgstr ""
 msgid "platform_rules/"
 msgstr "regulamentul_platformei/"
 
-#: civil_society_vote/urls.py:30
+#: civil_society_vote/urls.py:27
+msgid "history/"
+msgstr "istoric/"
+
+#: civil_society_vote/urls.py:31
 msgid "accounts/"
 msgstr "cont/"
 
-#: civil_society_vote/urls.py:32
+#: civil_society_vote/urls.py:33
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: civil_society_vote/urls.py:40
+#: civil_society_vote/urls.py:41
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: civil_society_vote/urls.py:45
+#: civil_society_vote/urls.py:46
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: civil_society_vote/urls.py:50
+#: civil_society_vote/urls.py:51
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
-
-#: civil_society_vote/urls.py:54
-msgid "history/"
-msgstr "istoric/"
 
 #: hub/admin.py:53
 msgid "groups"
@@ -196,7 +196,7 @@ msgstr "utilizator"
 
 #: hub/admin.py:107
 msgid "candidate"
-msgstr "candidat"
+msgstr "candidatură"
 
 #: hub/admin.py:159
 msgid "supporters"
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Set flags for FINAL PHASE - results"
 msgstr ""
 
-#: hub/forms.py:86
+#: hub/forms.py:90
 msgid ""
 "I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
@@ -278,53 +278,39 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank"
 "\">Termenii și condițiile</a> platformei VotONG"
 
-#: hub/forms.py:94 hub/forms.py:144
-msgid ""
-"I declare that the members of the management of the organization I represent "
-"(the President and the members of the Board of Directors) do not occupy "
-"leading positions of political parties and are not elected officials."
-msgstr ""
-"Declar ca membrii conducerii organizației (Președinte și Consiliu Director) "
-"nu sunt membri ai conducerii unui partid politic sau persoane care au fost "
-"alese într-o funcție publică"
-
-#: hub/forms.py:104 hub/forms.py:158 hub/views.py:316
+#: hub/forms.py:100 hub/forms.py:141 hub/views.py:316
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
-#: hub/forms.py:109
+#: hub/forms.py:105
 msgid "You need to accept terms and conditions."
 msgstr "Trebuie să accepți termenii și condiții de utilizare"
 
-#: hub/forms.py:114 hub/forms.py:163
-msgid "Organisation members need to be apolitical."
-msgstr "Membrii organizației trebuie să fie apolitici."
-
-#: hub/forms.py:183
+#: hub/forms.py:161
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/forms.py:186
+#: hub/forms.py:164
 msgid "Organization already has a candidate."
-msgstr "Organizatia are deja un candidat"
+msgstr "Organizatia are deja o candidatură"
 
-#: hub/forms.py:198
+#: hub/forms.py:176
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
-"Pentru a adăuga un candidat trebuie să încarci toate documentele necesare în "
+"Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare în "
 "'Profilul Organizației'"
 
-#: hub/forms.py:236
+#: hub/forms.py:214
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:242
+#: hub/forms.py:220
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:247
+#: hub/forms.py:225
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -350,15 +336,15 @@ msgstr "Activează votare organizație"
 
 #: hub/models.py:86
 msgid "Enable candidate registration"
-msgstr "Activează înregistrare candidat"
+msgstr "Activează înregistrare candidatură"
 
 #: hub/models.py:87
 msgid "Enable candidate supporting"
-msgstr "Activează susținere candidat"
+msgstr "Activează susținere candidatură"
 
 #: hub/models.py:88
 msgid "Enable candidate voting"
-msgstr "Activează votare candidat"
+msgstr "Activează votare candidatură"
 
 #: hub/models.py:92
 msgid "Pending organizations digest email"
@@ -444,11 +430,11 @@ msgstr "Șablon email"
 msgid "Email templates"
 msgstr "Șabloane email"
 
-#: hub/models.py:148 hub/models.py:374
+#: hub/models.py:148
 msgid "Name"
 msgstr "Nume"
 
-#: hub/models.py:149 hub/models.py:375 hub/templates/candidate/detail.html:108
+#: hub/models.py:149
 msgid "Description"
 msgstr "Descriere"
 
@@ -485,11 +471,11 @@ msgstr "Orașe"
 msgid "Pending approval"
 msgstr "Așteaptă aprobare"
 
-#: hub/models.py:188 hub/models.py:357
+#: hub/models.py:188 hub/models.py:381
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: hub/models.py:189 hub/models.py:357
+#: hub/models.py:189 hub/models.py:381
 msgid "Rejected"
 msgstr "Respins"
 
@@ -557,180 +543,123 @@ msgstr ""
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: hub/models.py:228
-msgid "Accepted Terms and Conditions"
-msgstr "A acceptat termenii și condițiile"
+#: hub/models.py:229 hub/templates/candidate/detail.html:137
+#: hub/templates/ngo/detail.html:148
+msgid "Yearly report 2020"
+msgstr "Raport anual 2020"
 
-#: hub/models.py:229
-msgid "Has political party members"
-msgstr "Are membrii în partide politice"
-
-#: hub/models.py:232 hub/templates/ngo/detail.html:139
+#: hub/models.py:237 hub/templates/candidate/detail.html:146
+#: hub/templates/ngo/detail.html:157
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: hub/models.py:240 hub/templates/ngo/detail.html:148
+#: hub/models.py:245 hub/templates/candidate/detail.html:155
+#: hub/templates/ngo/detail.html:166
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: hub/models.py:248 hub/templates/ngo/detail.html:157
+#: hub/models.py:253 hub/templates/candidate/detail.html:164
+#: hub/templates/ngo/detail.html:175
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: hub/models.py:256 hub/templates/ngo/detail.html:128
-msgid "Fiscal certificate"
-msgstr "Certificat fiscal"
+#: hub/models.py:262 hub/templates/candidate/detail.html:191
+#: hub/templates/ngo/detail.html:184
+msgid "Non-discrimination statement"
+msgstr "Declarație nediscriminare"
 
-#: hub/models.py:264 hub/templates/ngo/detail.html:166
-msgid "Statement"
-msgstr "Declarație pe propria răspundere"
+#: hub/models.py:270 hub/templates/candidate/detail.html:200
+#: hub/templates/ngo/detail.html:193
+msgid "Non-political statement"
+msgstr "Declarație neapartenență politică"
 
-#: hub/models.py:279
+#: hub/models.py:279 hub/templates/candidate/detail.html:173
+#: hub/templates/ngo/detail.html:128
+msgid "Fiscal certificate ANAF"
+msgstr "Certificat fiscal emis de ANAF"
+
+#: hub/models.py:287 hub/templates/candidate/detail.html:182
+#: hub/templates/ngo/detail.html:137
+msgid "Fiscal certificate local"
+msgstr "Certificat fiscal emis de Direcția de Impozite și Taxe Locale"
+
+#: hub/models.py:295
+msgid "Accepted Terms and Conditions"
+msgstr "A acceptat termenii și condițiile"
+
+#: hub/models.py:297
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: hub/models.py:282 hub/templates/header.html:34
+#: hub/models.py:300 hub/templates/header.html:43
 msgid "Organizations"
 msgstr "Organizații"
 
-#: hub/models.py:283
+#: hub/models.py:301
 msgid "Organization"
 msgstr "Organizație"
 
-#: hub/models.py:357
+#: hub/models.py:381
 msgid "Pending"
 msgstr "În așteptare"
 
-#: hub/models.py:369
+#: hub/models.py:393
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:376 hub/templates/candidate/detail.html:141
-msgid "Curriculum Vitae"
-msgstr "Curriculum Vitae"
+#: hub/models.py:399 hub/templates/candidate/detail.html:111
+msgid "Representative name"
+msgstr "Nume reprezentant"
 
-#: hub/models.py:377
-msgid "Role in organization"
-msgstr "Funcție în organizație"
+#: hub/models.py:404
+msgid "Representative role in organization"
+msgstr "Funcția reprezentantului în organizație"
 
-#: hub/models.py:383 hub/templates/candidate/detail.html:122
-msgid "Professional experience"
-msgstr "Activitate profesională"
+#: hub/models.py:409 hub/templates/candidate/detail.html:119
+msgid "Representative statement"
+msgstr "Declarație reprezentant"
 
-#: hub/models.py:384 hub/templates/candidate/detail.html:125
-msgid "Studies"
-msgstr "Studii"
-
-#: hub/models.py:387
-msgid "Main Objectives"
-msgstr ""
-"Care sunt principalele obiective pe care ți le propui dacă vei obține un loc "
-"în Comitetul Economic și Social?"
-
-#: hub/models.py:389
-msgid ""
-"What are your main goals if you get a seat on the Economic and Social "
-"Committee?"
-msgstr " "
-
-#: hub/models.py:394
-msgid "Main Points"
-msgstr ""
-"Care considerați că ar trebui să fie cele mai importante puncte de pe agenda "
-"domeniului pentru care aplicați?"
-
-#: hub/models.py:397
-msgid ""
-"What are the most important points that should be on the agenda of the field "
-"for which you are applying?"
-msgstr " "
-
-#: hub/models.py:403
-msgid "Relevant Moments"
-msgstr ""
-"Care sunt cele mai relevante momente din experiența ta care te recomandă "
-"pentru a ocupa un loc in Comitetul Economic și Social?"
-
-#: hub/models.py:406
-msgid ""
-"What are the most relevant moments in your experience that recommend you to "
-"take a place in the Economic and Social Committee?"
-msgstr " "
-
-#: hub/models.py:412 hub/templates/registration/login.html:41
-msgid "Email"
-msgstr "Email"
-
-#: hub/models.py:413
-msgid "Phone"
-msgstr "Telefon"
-
-#: hub/models.py:414
-msgid "Photo"
-msgstr "Fotografie"
-
-#: hub/models.py:417 hub/templates/candidate/detail.html:159
-msgid "Mandate from the organization"
-msgstr "Mandat din partea organizației, ștampilat și semnat"
-
-#: hub/models.py:424 hub/templates/candidate/detail.html:150
-msgid "Letter of intent"
-msgstr "Scrisoare de intenție"
-
-#: hub/models.py:431 hub/templates/candidate/detail.html:168
-msgid "Statement of interests"
-msgstr "Declarație de interese"
-
-#: hub/models.py:438 hub/templates/candidate/detail.html:179
-msgid "Tax records"
-msgstr "Cazier fiscal"
-
-#: hub/models.py:445 hub/templates/candidate/detail.html:188
-msgid "Legal records"
-msgstr "Cazier juridic"
-
-#: hub/models.py:453
+#: hub/models.py:416
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:459 hub/templates/candidate/list.html:39
-#: hub/templates/header.html:47
+#: hub/models.py:422 hub/templates/header.html:60
 msgid "Candidates"
-msgstr "Candidați"
+msgstr "Candidaturi"
 
-#: hub/models.py:460
+#: hub/models.py:423
 msgid "Candidate"
-msgstr "Candidat"
+msgstr "Candidatură"
 
-#: hub/models.py:480
+#: hub/models.py:443
 msgid "Cannot update candidate after votes have been cast."
-msgstr "Nu se poate modifica candidatul dupa ce s-au inregistrat voturi."
+msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:514
+#: hub/models.py:477
 msgid "Canditate votes"
-msgstr "Voturi candidați"
+msgstr "Voturi candidatură"
 
-#: hub/models.py:515
+#: hub/models.py:478
 msgid "Candidate vote"
-msgstr "Vot candidat"
+msgstr "Vot candidatură"
 
-#: hub/models.py:538
+#: hub/models.py:501
 msgid "Canditate supporters"
-msgstr "Susținători candidat"
+msgstr "Susținători candidatură"
 
-#: hub/models.py:539
+#: hub/models.py:502
 msgid "Candidate supporter"
-msgstr "Susținător candidat"
+msgstr "Susținător candidatură"
 
-#: hub/models.py:553
+#: hub/models.py:516
 msgid "Canditate confirmations"
-msgstr "Confirmări candidat"
+msgstr "Confirmări candidatură"
 
-#: hub/models.py:554
+#: hub/models.py:517
 msgid "Candidate confirmation"
-msgstr "Confirmare candidat"
+msgstr "Confirmare candidatură"
 
 #: hub/password_validation.py:14
 msgid "Your new password must be different."
@@ -773,67 +702,47 @@ msgstr "înapoi la lista de articole"
 msgid "Upload file"
 msgstr "Încarcă fișier"
 
-#: hub/templates/candidate/detail.html:116
-msgid "General information"
-msgstr "Informații generale"
+#: hub/templates/candidate/detail.html:107
+msgid "Candidate information"
+msgstr "Informații candidatură"
 
-#: hub/templates/candidate/detail.html:119
-msgid "Role"
-msgstr "Funcție"
+#: hub/templates/candidate/detail.html:112
+msgid "Representative role"
+msgstr "Funcție reprezentant"
 
-#: hub/templates/candidate/detail.html:133 hub/templates/ngo/detail.html:100
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:100
 msgid "Documents"
 msgstr "Documente"
 
-#: hub/templates/candidate/detail.html:199
-msgid "Q&A"
-msgstr ""
+#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:184
+msgid "Non-discrimination statement "
+msgstr "Declarație nediscriminare"
 
-#: hub/templates/candidate/detail.html:203
-msgid ""
-"What are your main goals if you get a seat on the Economic and Social "
-"Committee? "
-msgstr ""
-"Care sunt principalele obiective pe care ți le propui dacă vei obține un loc "
-"în Comitetul Economic și Social?"
-
-#: hub/templates/candidate/detail.html:208
-msgid ""
-"What are the most important points that should be on the agenda of the field "
-"for which you are applying? "
-msgstr ""
-"Care considerați că ar trebui să fie cele mai importante puncte de pe agenda "
-"domeniului pentru care aplicați?"
-
-#: hub/templates/candidate/detail.html:213
-msgid ""
-"What are the most relevant moments in your experience that recommend you to "
-"take a place in the Economic and Social Committee? "
-msgstr ""
-"Care sunt cele mai relevante momente din experiența ta care te recomandă "
-"pentru a ocupa un loc in Comitetul Economic și Social?"
+#: hub/templates/candidate/detail.html:200 hub/templates/ngo/detail.html:193
+msgid "Non-political statement "
+msgstr "Declarație neapartenență politică"
 
 #: hub/templates/candidate/list.html:20 hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr "Caută..."
 
 #: hub/templates/candidate/list.html:79 hub/templates/candidate/results.html:63
-#: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:107
+#: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:82
 msgid "View details"
 msgstr "Vizualizează detalii"
 
-#: hub/templates/candidate/register_request.html:34
+#: hub/templates/candidate/register_request.html:33
 #: hub/templates/candidate/update.html:27
 #: hub/templates/committee/partials/nav.html:24
 #: hub/templates/ngo/update.html:32 hub/templates/ngo/votes.html:33
 msgid "Settings"
 msgstr "Setări"
 
-#: hub/templates/candidate/register_request.html:74
+#: hub/templates/candidate/register_request.html:73
 msgid "Propose candidate"
-msgstr "Propune candidat"
+msgstr "Propune candidatură"
 
-#: hub/templates/candidate/register_request.html:82
+#: hub/templates/candidate/register_request.html:81
 msgid "Save profile"
 msgstr "Salvează profil"
 
@@ -848,16 +757,16 @@ msgstr "Modifică profil"
 #: hub/templates/committee/candidates.html:20
 #: hub/templates/committee/partials/nav.html:15
 msgid "Pending candidates"
-msgstr "Candidați propusi"
+msgstr "Candidaturi propuse"
 
 #: hub/templates/committee/candidates.html:22
 #: hub/templates/committee/partials/nav.html:18
 msgid "Accepted candidates"
-msgstr "Candidați validați"
+msgstr "Candidaturi validate"
 
 #: hub/templates/committee/candidates.html:67
 #: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:177
-#: hub/templates/ngo/votes.html:123
+#: hub/templates/ngo/votes.html:98
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
@@ -878,7 +787,7 @@ msgstr "Organizații respinse"
 
 #: hub/templates/committee/partials/nav.html:21
 msgid "Rejected candidates"
-msgstr "Candidați respinși"
+msgstr "Candidaturi respinse"
 
 #: hub/templates/developed-by.html:7
 msgid "A project developed by"
@@ -892,60 +801,51 @@ msgstr "în parteneriat cu"
 msgid "Upload document"
 msgstr "Încarcă document"
 
-#: hub/templates/footer.html:14
+#: hub/templates/footer.html:32
 msgid "About VotONG"
 msgstr "Despre VotONG"
 
-#: hub/templates/footer.html:15
+#: hub/templates/footer.html:33
 msgid "Platform rules"
 msgstr "Regulamentul platformei"
 
-#: hub/templates/footer.html:16
+#: hub/templates/footer.html:34
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
 
-#: hub/templates/footer.html:17
+#: hub/templates/footer.html:35
 msgid "Terms and conditions"
 msgstr "Termeni și condiții de utilizare"
 
-#: hub/templates/footer.html:19
-msgid "Get Involved"
-msgstr "Implică-te"
-
-#: hub/templates/header.html:24
+#: hub/templates/header.html:33
 msgid "Home"
 msgstr ""
 
-#: hub/templates/header.html:28
+#: hub/templates/header.html:37
 msgid "About the platform"
 msgstr "Despre platformă"
 
-#: hub/templates/header.html:38
+#: hub/templates/header.html:52
 msgid "History"
 msgstr "Istoric"
 
-#: hub/templates/header.html:39
-#: hub/templates/partials/ces_results_header.html:24
-msgid "CES elections"
-msgstr "Alegeri CES"
-
-#: hub/templates/header.html:43
+#: hub/templates/header.html:56
 msgid "Register your organisation"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:51
+#: hub/templates/header.html:64
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: hub/templates/header.html:72
+#: hub/templates/header.html:85
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/header.html:84 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:97 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/header.html:89 hub/templates/registration/login.html:16
+#: hub/templates/header.html:102 hub/templates/registration/login.html:16
 #: hub/templates/registration/login.html:60
 msgid "Login"
 msgstr "Autentificare"
@@ -978,42 +878,13 @@ msgstr "Modifică organizație"
 msgid "My votes"
 msgstr "Voturile mele"
 
-#: hub/templates/partials/ces_header.html:5
-msgid "Alegeri Consiliul Economic și Social"
-msgstr ""
-
-#: hub/templates/partials/ces_header.html:8
-msgid ""
-"Consiliul Economic şi Social este un organism cu rol consultativ în ceea ce "
-"privește stabilirea strategiilor şi politicilor economice şi sociale la "
-"nivel naţional şi este cheia pentru realizarea, promovarea şi dezvoltarea "
-"dialogului și a solidarităţii sociale. Membrii Consiliului au printre "
-"atribuții analizarea și avizarea proiectelor de hotărâri și de ordonanțe ale "
-"Guvernului și proiectele de lege care urmează să ajungă în Parlament, precum "
-"și a proiectelor de programe și strategii înainte de adoptare. Tot membrii "
-"CES sunt responsabili și de semnalarea către Guvern și Parlament a unor "
-"fenomene sociale și economice care trebuie să ajungă pe agenda pentru a fi "
-"întâmpinate de propuneri de acte normative. Nu în ultimul rând, acest "
-"Consiliu are un rol activ în analizarea stărilor conflictuale la nivel "
-"național sau în sector și propun modalități pentru a le soluționa, conduce "
-"analize și studii privind realitatea economică și socială din România și "
-"contribuie la implementarea de strategii, programe și standarde în ceea ce "
-"privește dialogul social."
-msgstr ""
-
-#: hub/templates/partials/ces_header.html:12
-msgid ""
-"Este esențial să marcăm faptul că anul 2020 este cu atât mai important "
-"pentru societatea civilă cu cât este pentru prima dată când conducerea "
-"Comitetului Economic și Social ajunge, prin rotație, să fie asigurată de "
-"unul din cei 15 reprezentanți al sectorului în acest organism. Este un "
-"moment în care sectorul ONG din România are șansa de a demonstra din nou "
-"gradul ridicat de profesionalism și competențele sale la cel mai înalt nivel."
-msgstr ""
-
 #: hub/templates/partials/ces_results_header.html:5
 msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
 msgstr ""
+
+#: hub/templates/partials/ces_results_header.html:24
+msgid "CES elections"
+msgstr "Alegeri CES"
 
 #: hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
@@ -1031,6 +902,10 @@ msgstr ""
 #: hub/templates/registration/login.html:32
 msgid "Please login to see this page."
 msgstr "Va rugam sa va autentificati pentru a vizualiza aceasta pagina."
+
+#: hub/templates/registration/login.html:41
+msgid "Email"
+msgstr "Email"
 
 #: hub/templates/registration/login.html:43
 msgid "email"
@@ -1124,55 +999,53 @@ msgstr "următoarea"
 msgid "last"
 msgstr "ultima"
 
-#: hub/templatetags/hub_tags.py:106
+#: hub/templatetags/hub_tags.py:101
 msgid "published on"
 msgstr "publicat în"
 
-#: hub/templatetags/hub_tags.py:108
+#: hub/templatetags/hub_tags.py:103
 msgid "published"
 msgstr "publicat"
 
 #: hub/urls.py:30
 msgid "candidates/"
-msgstr "candidati/"
+msgstr "candidatura/"
 
 #: hub/urls.py:31
 msgid "candidates/register"
-msgstr "candidati/inregistrare"
+msgstr "candidatura/inregistrare"
 
 #: hub/urls.py:32
 msgid "candidates/<int:pk>"
-msgstr "candidati/<int:pk>"
+msgstr "candidatura/<int:pk>"
 
 #: hub/urls.py:33
 msgid "candidates/<int:pk>/vote"
-msgstr "candidati/<int:pk>/vot"
+msgstr "candidatura/<int:pk>/vot"
 
 #: hub/urls.py:34
 msgid "candidates/<int:pk>/support"
-msgstr "candidati/<int:pk>/sustinere"
+msgstr "candidatura/<int:pk>/sustinere"
 
 #: hub/urls.py:35
 msgid "candidates/<int:pk>/revoke"
-msgstr "candidati/<int:pk>/revocare"
+msgstr "candidatura/<int:pk>/revocare"
 
 #: hub/urls.py:36
 msgid "candidates/<int:pk>/status-confirm"
-msgstr "candidati/<int:pk>/confirma-starea"
+msgstr "candidatura/<int:pk>/confirma-starea"
 
 #: hub/urls.py:37
 msgid "candidates/<int:pk>/update"
-msgstr "candidati/<int:pk>/actualizare"
+msgstr "candidatura/<int:pk>/actualizare"
 
 #: hub/urls.py:38
 msgid "candidates/votes"
-msgstr "candidati/voturi"
+msgstr "candidatura/voturi"
 
 #: hub/urls.py:39
-#, fuzzy
-#| msgid "candidates/register"
 msgid "candidates/ces-results"
-msgstr "candidati/inregistrare"
+msgstr "candidatura/ces-rezultate"
 
 #: hub/urls.py:40
 msgid "committee/ngos/"
@@ -1180,7 +1053,7 @@ msgstr "comisie/organizatii/"
 
 #: hub/urls.py:41
 msgid "committee/candidates/"
-msgstr "comisie/candidati/"
+msgstr "comisie/candidatura/"
 
 #: hub/urls.py:42
 msgid "ngos/"
@@ -1221,6 +1094,120 @@ msgstr ""
 #: hub/views.py:309
 msgid "You must write a rejection message."
 msgstr "Trebuie să completezi un motiv de respingere."
+
+#, fuzzy
+#~| msgid "About VotONG"
+#~ msgid "Alegeri VotONG"
+#~ msgstr "Despre VotONG"
+
+#~ msgid "Organizații candidate"
+#~ msgstr "Organizații candidate"
+
+#~ msgid "Get Involved"
+#~ msgstr "Implică-te"
+
+#~ msgid "Role"
+#~ msgstr "Funcție"
+
+#~ msgid ""
+#~ "I declare that the members of the management of the organization I "
+#~ "represent (the President and the members of the Board of Directors) do "
+#~ "not occupy leading positions of political parties and are not elected "
+#~ "officials."
+#~ msgstr ""
+#~ "Declar ca membrii conducerii organizației (Președinte și Consiliu "
+#~ "Director) nu sunt membri ai conducerii unui partid politic sau persoane "
+#~ "care au fost alese într-o funcție publică"
+
+#~ msgid "Organisation members need to be apolitical."
+#~ msgstr "Membrii organizației trebuie să fie apolitici."
+
+#~ msgid "Statement"
+#~ msgstr "Declarație pe propria răspundere"
+
+#~ msgid "Curriculum Vitae"
+#~ msgstr "Curriculum Vitae"
+
+#~ msgid "Professional experience"
+#~ msgstr "Activitate profesională"
+
+#~ msgid "Studies"
+#~ msgstr "Studii"
+
+#~ msgid "Main Objectives"
+#~ msgstr ""
+#~ "Care sunt principalele obiective pe care ți le propui dacă vei obține un "
+#~ "loc în Comitetul Economic și Social?"
+
+#~ msgid ""
+#~ "What are your main goals if you get a seat on the Economic and Social "
+#~ "Committee?"
+#~ msgstr " "
+
+#~ msgid "Main Points"
+#~ msgstr ""
+#~ "Care considerați că ar trebui să fie cele mai importante puncte de pe "
+#~ "agenda domeniului pentru care aplicați?"
+
+#~ msgid ""
+#~ "What are the most important points that should be on the agenda of the "
+#~ "field for which you are applying?"
+#~ msgstr " "
+
+#~ msgid "Relevant Moments"
+#~ msgstr ""
+#~ "Care sunt cele mai relevante momente din experiența ta care te recomandă "
+#~ "pentru a ocupa un loc in Comitetul Economic și Social?"
+
+#~ msgid ""
+#~ "What are the most relevant moments in your experience that recommend you "
+#~ "to take a place in the Economic and Social Committee?"
+#~ msgstr " "
+
+#~ msgid "Phone"
+#~ msgstr "Telefon"
+
+#~ msgid "Photo"
+#~ msgstr "Fotografie"
+
+#~ msgid "Mandate from the organization"
+#~ msgstr "Mandat din partea organizației, ștampilat și semnat"
+
+#~ msgid "Letter of intent"
+#~ msgstr "Scrisoare de intenție"
+
+#~ msgid "Statement of interests"
+#~ msgstr "Declarație de interese"
+
+#~ msgid "Tax records"
+#~ msgstr "Cazier fiscal"
+
+#~ msgid "Legal records"
+#~ msgstr "Cazier juridic"
+
+#~ msgid "General information"
+#~ msgstr "Informații generale"
+
+#~ msgid ""
+#~ "What are your main goals if you get a seat on the Economic and Social "
+#~ "Committee? "
+#~ msgstr ""
+#~ "Care sunt principalele obiective pe care ți le propui dacă vei obține un "
+#~ "loc în Comitetul Economic și Social?"
+
+#~ msgid ""
+#~ "What are the most important points that should be on the agenda of the "
+#~ "field for which you are applying? "
+#~ msgstr ""
+#~ "Care considerați că ar trebui să fie cele mai importante puncte de pe "
+#~ "agenda domeniului pentru care aplicați?"
+
+#~ msgid ""
+#~ "What are the most relevant moments in your experience that recommend you "
+#~ "to take a place in the Economic and Social Committee? "
+#~ msgstr ""
+#~ "Care sunt cele mai relevante momente din experiența ta care te recomandă "
+#~ "pentru a ocupa un loc in Comitetul Economic și Social?"
 
 #~ msgid "Eligible to vote"
 #~ msgstr "Eligibil să voteze"
@@ -2227,9 +2214,6 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgid "Founders"
 #~ msgstr "Fondatori"
 
-#~ msgid "Representative"
-#~ msgstr "Reprezentant legal"
-
 #~ msgid "Initial purpose"
 #~ msgstr "Scop inițial"
 
@@ -2285,7 +2269,7 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgstr "Membru în Consiliul Director"
 
 #~ msgid "Update candidate"
-#~ msgstr "Modifică candidat"
+#~ msgstr "Modifică candidatură"
 
 #~ msgid "Vote count"
 #~ msgstr "Număr voturi"
@@ -2751,11 +2735,6 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgstr "Parteneri media"
 
 #, fuzzy
-#~| msgid "Organization vote"
-#~ msgid "Organizatii nevalidate"
-#~ msgstr "Vot organizație"
-
-#, fuzzy
 #~| msgid "Candidates"
 #~ msgid "Candidati propusi"
 #~ msgstr "Candidați"
@@ -2805,10 +2784,10 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgstr "Cont"
 
 #~ msgid "View candidate page"
-#~ msgstr "Vezi pagina candidat"
+#~ msgstr "Vezi pagina candidatură"
 
 #~ msgid "Update candidate info"
-#~ msgstr "Modifică detalii candidat"
+#~ msgstr "Modifică detalii candidatură"
 
 #~ msgid "View organization page"
 #~ msgstr "Vezi pagina organizație"
@@ -2850,7 +2829,7 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgstr "Organizatie modificata cu succes!"
 
 #~ msgid "Thank you for signing up your candidate!"
-#~ msgstr "Multumim pentru propunerea de candidat!"
+#~ msgstr "Multumim pentru propunerea de candidatură!"
 
 #~ msgid "YES"
 #~ msgstr "DA"
@@ -2897,7 +2876,7 @@ msgstr "Trebuie să completezi un motiv de respingere."
 #~ msgstr "Activitate profesională"
 
 #~ msgid "About the candidate"
-#~ msgstr "Despre candidat"
+#~ msgstr "Despre candidatură"
 
 #~ msgid "RON donated"
 #~ msgstr "RON donați"
