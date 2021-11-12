@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:26+0200\n"
+"POT-Creation-Date: 2021-11-12 18:03+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -299,8 +299,8 @@ msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
-"Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare în "
-"'Profilul Organizației'"
+"Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare "
+"în 'Profilul Organizației'"
 
 #: hub/forms.py:214
 msgid "[ERROR 32202] Please contact the site administrator."
@@ -536,7 +536,7 @@ msgstr "Siglă"
 #: hub/models.py:218 hub/templates/ngo/detail.html:110
 msgid "First page of last balance sheet"
 msgstr ""
-"Prima pagină a bilanțului contabil pe anul 2019 depus la Ministerul "
+"Prima pagină a bilanțului contabil pe anul 2020 depus la Ministerul "
 "Finanțelor"
 
 #: hub/models.py:221 hub/templates/ngo/detail.html:119
