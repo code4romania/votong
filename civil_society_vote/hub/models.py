@@ -311,9 +311,13 @@ class Organization(StatusModel, TimeStampedModel):
 
     @property
     def is_complete(self):
+        """
+        Validate if the Org uploaded all the requested info to proppose a Candidate
+        """
         return all(
             [
                 self.statute,
+                self.last_balance_sheet,
                 self.report_2020,
                 self.report_2019,
                 self.report_2018,

@@ -12,7 +12,6 @@
 {% block left-side-view %}
 
 
-
 {% if user.orgs.exists %}
 
 <div class="tabs is-medium">
@@ -24,7 +23,7 @@
     {% if user.orgs.first.candidate %}
       <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatul meu</a>
     {% else %}
-      <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
     {% endif %}
     </li>
     <li>
@@ -38,7 +37,7 @@
 
 {% endif %}
 
-<h2 class="title border-b uppercase">Adaugă un candidat</h2>
+<h2 class="title border-b uppercase">Adaugă candidatură</h2>
 
 <div class="container">
     {% if messages %}

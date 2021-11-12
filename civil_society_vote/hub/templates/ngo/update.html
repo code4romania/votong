@@ -20,9 +20,9 @@
     </li>
     <li>
     {% if organization.candidate %}
-      <a href="{% url 'candidate-update' organization.candidate.id %}">Candidatul meu</a>
+      <a href="{% url 'candidate-update' organization.candidate.id %}">Candidatura mea</a>
     {% elif CANDIDATE_REGISTRATION_ENABLED %}
-      <a href="{% url 'candidate-register-request' %}">Adaugă candidat</a>
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
     {% endif %}
     </li>
     <li>

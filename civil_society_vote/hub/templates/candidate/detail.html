@@ -46,11 +46,17 @@
         <div class="need-title is-hidden-tablet">
           <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{candidate.org}}</a>
         </div>
+        <div class="need-subtitle is-hidden-tablet">
+          Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
+        </div>
       </div>
     </div>
 
     <div class="need-title is-hidden-mobile">
       <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{candidate.org}}</a>
+    </div>
+    <div class="need-subtitle is-hidden-mobile">
+      Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
     </div>
 
     <div class="need-description">
@@ -102,8 +108,8 @@
   </div>
   <div>
 
-    <p><span class="label">{% trans 'Name' %}:</span> {{ candidate.name }}</p>
-    <p><span class="label">{% trans 'Role' %}:</span> {{ candidate.role }}</p>
+    <p><span class="label">{% trans 'Representative name' %}:</span> {{ candidate.name }}</p>
+    <p><span class="label">{% trans 'Representative role' %}:</span> {{ candidate.role }}</p>
 
     {% if candidate.statement %}
     <p>
@@ -120,28 +126,79 @@
 <div class="container detail-desc">
     <div class="detail-desc-title">
         <span class="ngo-colorblock"></span>
-        Informații generale
+        {% trans "Documents" %}
     </div>
 
-    <p><span class="label">Numele organizației:</span> {{ candidate.org.name }}</p>
-    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-    <p><span class="label">Email:</span> {{ candidate.org.email }}</p>
+    {% if candidate.org.report_2020 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2020.url }}" title="{% trans 'Yearly report 2020' %}">{% trans 'Yearly report 2020' %}</a>
+    </p>
     {% endif %}
-    <p><span class="label">Județ:</span> {{ candidate.org.city.county }}</p>
-    <p><span class="label">Localitate:</span> {{ candidate.org.city.city }}</p>
-    <p><span class="label">Adresa fizică:</span> {{ candidate.org.address }}</p>
-    <p><span class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ candidate.org.registration_number }}</p>
 
-    <div class="detail-desc-title">
-        <span class="ngo-colorblock"></span>
-        Reprezentant legal
-    </div>
+    {% if candidate.org.report_2019 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2019.url }}" title="{% trans 'Yearly report 2019' %}">{% trans 'Yearly report 2019' %}</a>
+    </p>
+    {% endif %}
 
-    <p><span class="label">Reprezentant legal:</span> {{ candidate.org.legal_representative_name }}</p>
-    <p><span class="label">Președintele organizației:</span> {{ candidate.org.organisation_head_name }}</p>
-    <p><span class="label">Membrii Consiliului Director:</span> {{ candidate.org.board_council }}</p>
-    {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-    <p><span class="label">Email reprezentant legal:</span> {{ candidate.org.legal_representative_email }}</p>
+    {% if candidate.org.report_2018 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2018.url }}" title="{% trans 'Yearly report 2018' %}">{% trans 'Yearly report 2018' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.report_2017 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2017.url }}" title="{% trans 'Yearly report 2017' %}">{% trans 'Yearly report 2017' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_anaf %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">{% trans 'Fiscal certificate ANAF' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_local %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">{% trans 'Fiscal certificate local' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.statement_discrimination %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">{% trans 'Non-discrimination statement' %}</a>
+    </p>
+    {% endif %}
+
+    {% if candidate.org.statement_political %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_political.url }}" title="{% trans 'Non-political statement ' %}">{% trans 'Non-political statement' %}</a>
+    </p>
     {% endif %}
 
 </div>
