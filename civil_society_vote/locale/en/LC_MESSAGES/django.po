@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 13:16+0200\n"
+"POT-Creation-Date: 2021-11-12 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -159,29 +159,29 @@ msgstr ""
 msgid "platform_rules/"
 msgstr ""
 
-#: civil_society_vote/urls.py:30
+#: civil_society_vote/urls.py:27
+msgid "history/"
+msgstr "history/"
+
+#: civil_society_vote/urls.py:31
 msgid "accounts/"
 msgstr ""
 
-#: civil_society_vote/urls.py:32
+#: civil_society_vote/urls.py:33
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: civil_society_vote/urls.py:40
+#: civil_society_vote/urls.py:41
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: civil_society_vote/urls.py:45
+#: civil_society_vote/urls.py:46
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: civil_society_vote/urls.py:50
+#: civil_society_vote/urls.py:51
 msgid "accounts/reset-password/complete/"
 msgstr ""
-
-#: civil_society_vote/urls.py:54
-msgid "history/"
-msgstr "history/"
 
 #: hub/admin.py:53
 msgid "groups"
@@ -587,7 +587,7 @@ msgstr "Candidați selectați"
 msgid "Rejection message"
 msgstr ""
 
-#: hub/models.py:300 hub/templates/header.html:34
+#: hub/models.py:300 hub/templates/header.html:43
 msgid "Organizations"
 msgstr ""
 
@@ -627,8 +627,7 @@ msgstr "The name of the legal representative"
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:422 hub/templates/candidate/list.html:39
-#: hub/templates/header.html:47
+#: hub/models.py:422 hub/templates/header.html:60
 msgid "Candidates"
 msgstr ""
 
@@ -812,60 +811,51 @@ msgstr ""
 msgid "Upload document"
 msgstr ""
 
-#: hub/templates/footer.html:14
+#: hub/templates/footer.html:32
 msgid "About VotONG"
 msgstr ""
 
-#: hub/templates/footer.html:15
+#: hub/templates/footer.html:33
 msgid "Platform rules"
 msgstr ""
 
-#: hub/templates/footer.html:16
+#: hub/templates/footer.html:34
 msgid "Privacy Policy"
 msgstr ""
 
-#: hub/templates/footer.html:17
+#: hub/templates/footer.html:35
 msgid "Terms and conditions"
 msgstr ""
 
-#: hub/templates/footer.html:19
-msgid "Get Involved"
-msgstr ""
-
-#: hub/templates/header.html:24
+#: hub/templates/header.html:33
 msgid "Home"
 msgstr ""
 
-#: hub/templates/header.html:28
+#: hub/templates/header.html:37
 msgid "About the platform"
 msgstr ""
 
-#: hub/templates/header.html:38
+#: hub/templates/header.html:52
 msgid "History"
 msgstr ""
 
-#: hub/templates/header.html:39
-#: hub/templates/partials/ces_results_header.html:24
-msgid "CES elections"
-msgstr ""
-
-#: hub/templates/header.html:43
+#: hub/templates/header.html:56
 msgid "Register your organisation"
 msgstr ""
 
-#: hub/templates/header.html:51
+#: hub/templates/header.html:64
 msgid "Metodology"
 msgstr ""
 
-#: hub/templates/header.html:72
+#: hub/templates/header.html:85
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/header.html:84 hub/templates/ngo/register_request.html:14
+#: hub/templates/header.html:97 hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: hub/templates/header.html:89 hub/templates/registration/login.html:16
+#: hub/templates/header.html:102 hub/templates/registration/login.html:16
 #: hub/templates/registration/login.html:60
 msgid "Login"
 msgstr ""
@@ -900,41 +890,12 @@ msgstr ""
 msgid "My votes"
 msgstr ""
 
-#: hub/templates/partials/ces_header.html:5
-msgid "Alegeri Consiliul Economic și Social"
-msgstr ""
-
-#: hub/templates/partials/ces_header.html:8
-msgid ""
-"Consiliul Economic şi Social este un organism cu rol consultativ în ceea ce "
-"privește stabilirea strategiilor şi politicilor economice şi sociale la "
-"nivel naţional şi este cheia pentru realizarea, promovarea şi dezvoltarea "
-"dialogului și a solidarităţii sociale. Membrii Consiliului au printre "
-"atribuții analizarea și avizarea proiectelor de hotărâri și de ordonanțe ale "
-"Guvernului și proiectele de lege care urmează să ajungă în Parlament, precum "
-"și a proiectelor de programe și strategii înainte de adoptare. Tot membrii "
-"CES sunt responsabili și de semnalarea către Guvern și Parlament a unor "
-"fenomene sociale și economice care trebuie să ajungă pe agenda pentru a fi "
-"întâmpinate de propuneri de acte normative. Nu în ultimul rând, acest "
-"Consiliu are un rol activ în analizarea stărilor conflictuale la nivel "
-"național sau în sector și propun modalități pentru a le soluționa, conduce "
-"analize și studii privind realitatea economică și socială din România și "
-"contribuie la implementarea de strategii, programe și standarde în ceea ce "
-"privește dialogul social."
-msgstr ""
-
-#: hub/templates/partials/ces_header.html:12
-msgid ""
-"Este esențial să marcăm faptul că anul 2020 este cu atât mai important "
-"pentru societatea civilă cu cât este pentru prima dată când conducerea "
-"Comitetului Economic și Social ajunge, prin rotație, să fie asigurată de "
-"unul din cei 15 reprezentanți al sectorului în acest organism. Este un "
-"moment în care sectorul ONG din România are șansa de a demonstra din nou "
-"gradul ridicat de profesionalism și competențele sale la cel mai înalt nivel."
-msgstr ""
-
 #: hub/templates/partials/ces_results_header.html:5
 msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
+msgstr ""
+
+#: hub/templates/partials/ces_results_header.html:24
+msgid "CES elections"
 msgstr ""
 
 #: hub/templates/registration/login.html:21
@@ -1128,3 +1089,8 @@ msgstr ""
 #: hub/views.py:309
 msgid "You must write a rejection message."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Pending candidates"
+#~ msgid "Organizații candidate"
+#~ msgstr "Candidați propusi"
