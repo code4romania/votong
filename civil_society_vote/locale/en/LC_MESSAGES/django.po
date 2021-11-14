@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 18:03+0200\n"
+"POT-Creation-Date: 2021-11-14 18:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,7 +252,7 @@ msgid "Import Cities"
 msgstr ""
 
 #: hub/admin.py:439
-msgid "Set flags for PHASE 1 - organization & candidate regisrations"
+msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr ""
 
 #: hub/admin.py:451
@@ -289,21 +289,25 @@ msgstr ""
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:176
+#: hub/forms.py:182
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:214
+#: hub/forms.py:186
+msgid "Please add all candidate fields"
+msgstr ""
+
+#: hub/forms.py:227
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:220
+#: hub/forms.py:233
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:225
+#: hub/forms.py:238
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -611,55 +615,55 @@ msgstr ""
 msgid "Representative name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:404
+#: hub/models.py:405
 #, fuzzy
 #| msgid "Pending Organisations"
 msgid "Representative role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:409 hub/templates/candidate/detail.html:119
+#: hub/models.py:411 hub/templates/candidate/detail.html:119
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative statement"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:416
+#: hub/models.py:419
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:422 hub/templates/header.html:60
+#: hub/models.py:425 hub/templates/header.html:60
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:423
+#: hub/models.py:426
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:443
+#: hub/models.py:453
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:477
+#: hub/models.py:490
 msgid "Canditate votes"
 msgstr ""
 
-#: hub/models.py:478
+#: hub/models.py:491
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:501
+#: hub/models.py:514
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:502
+#: hub/models.py:515
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:516
+#: hub/models.py:529
 msgid "Canditate confirmations"
 msgstr ""
 
-#: hub/models.py:517
+#: hub/models.py:530
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -740,21 +744,21 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: hub/templates/candidate/register_request.html:73
+#: hub/templates/candidate/register_request.html:72
+msgid "Save profile"
+msgstr ""
+
+#: hub/templates/candidate/register_request.html:81
 #, fuzzy
 #| msgid "Pending candidates"
 msgid "Propose candidate"
 msgstr "Candidați propusi"
 
-#: hub/templates/candidate/register_request.html:81
-msgid "Save profile"
-msgstr ""
-
-#: hub/templates/candidate/update.html:104
+#: hub/templates/candidate/update.html:106
 msgid "Publish changes"
 msgstr ""
 
-#: hub/templates/candidate/update.html:104
+#: hub/templates/candidate/update.html:106
 msgid "Update profile"
 msgstr ""
 

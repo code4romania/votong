@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django_crispy_bulma.widgets import EmailInput
 
-from hub.models import Candidate, City, FeatureFlag, Organization
+from hub.models import Candidate, City, Domain, FeatureFlag, Organization
 
 ORG_FIELD_ORDER = [
     "name",
@@ -165,8 +165,14 @@ class CandidateRegisterForm(forms.ModelForm):
 
         self.initial["org"] = self.user.orgs.first().id
 
+        self.fields["domain"].widget.attrs["disabled"] = True
+        self.initial["domain"] = Domain.objects.first().id
+
     def clean_org(self):
         return self.user.orgs.first().id
+
+    def clean_domain(self):
+        return Domain.objects.first()
 
     def clean(self):
         cleaned_data = super().clean()
@@ -175,6 +181,9 @@ class CandidateRegisterForm(forms.ModelForm):
             raise ValidationError(
                 _("To add a candidate you must upload all required documents in 'Organization Profile'")
             )
+
+        if cleaned_data.get("is_proposed") and not self.user.orgs.first().candidate.is_complete:
+            raise ValidationError(_("Please add all candidate fields"))
 
         return cleaned_data
 
@@ -200,6 +209,10 @@ class CandidateUpdateForm(forms.ModelForm):
 
         if self.instance.is_proposed:
             del self.fields["name"]
+            del self.fields["domain"]
+
+            for key in self.fields.keys():
+                self.fields[key].widget.attrs["required"] = True
 
     def save(self, commit=True):
         if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():

@@ -393,21 +393,24 @@ class Candidate(StatusModel, TimeStampedModel):
             "If this is set, the `org` field will be unset and the candidate is removed as the official proposal of the organization."
         ),
     )
-    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates")
+    domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="candidates", null=True, blank=True)
 
     name = models.CharField(
         _("Representative name"),
         max_length=254,
+        blank=True,
         help_text="Numele persoanei care va reprezenta organizatia in Comisia Electorală în cazul unui răspuns favorabil. Persoana desemnată trebuie să fie angajat în cadrul organizației și parte din structurile de conducere ale acesteia (membru în Consiliul Director, Director Executiv etc)",
     )
     role = models.CharField(
         _("Representative role in organization"),
         max_length=254,
+        blank=True,
         help_text="Funcția în organizației a persoanei desemnate.",
     )
     statement = models.FileField(
         _("Representative statement"),
         null=True,
+        blank=True,
         max_length=300,
         storage=PrivateMediaStorageClass(),
         help_text="Declarație pe propria răspundere a reprezentantului desemnat prin care declară că nu este membru al conducerii unui partid politic, nu a fost ales într-o funcție publică și nu este demnitar al statului român.",
@@ -433,6 +436,13 @@ class Candidate(StatusModel, TimeStampedModel):
     def __str__(self):
         return f"{self.org} ({self.name})"
 
+    @property
+    def is_complete(self):
+        """
+        Validate if the Org uploaded all the requested info to proppose a Candidate
+        """
+        return all([self.domain, self.name, self.role, self.statement,])
+
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
 
@@ -441,6 +451,9 @@ class Candidate(StatusModel, TimeStampedModel):
 
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
+
+        # XXX: Remove this if more than one domain is defined in the database
+        self.domain = Domain.objects.first()
 
         # This covers the flow when a candidate is withdrawn as the official proposal or the organization, while
         # in the same time keeping the old candidate record and backwards compatibility with the one-to-one relations

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-12 18:03+0200\n"
+"POT-Creation-Date: 2021-11-14 18:10+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -255,7 +255,7 @@ msgid "Import Cities"
 msgstr "Încarcă orașe"
 
 #: hub/admin.py:439
-msgid "Set flags for PHASE 1 - organization & candidate regisrations"
+msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr ""
 
 #: hub/admin.py:451
@@ -294,7 +294,7 @@ msgstr "Utilizatorul autentificat nu are o organizație."
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja o candidatură"
 
-#: hub/forms.py:176
+#: hub/forms.py:182
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -302,15 +302,19 @@ msgstr ""
 "Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare "
 "în 'Profilul Organizației'"
 
-#: hub/forms.py:214
+#: hub/forms.py:186
+msgid "Please add all candidate fields"
+msgstr "Vă rugăm completați toate câmpurile candidaturii"
+
+#: hub/forms.py:227
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:220
+#: hub/forms.py:233
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:225
+#: hub/forms.py:238
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -613,51 +617,51 @@ msgstr ""
 msgid "Representative name"
 msgstr "Nume reprezentant"
 
-#: hub/models.py:404
+#: hub/models.py:405
 msgid "Representative role in organization"
 msgstr "Funcția reprezentantului în organizație"
 
-#: hub/models.py:409 hub/templates/candidate/detail.html:119
+#: hub/models.py:411 hub/templates/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Declarație reprezentant"
 
-#: hub/models.py:416
+#: hub/models.py:419
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:422 hub/templates/header.html:60
+#: hub/models.py:425 hub/templates/header.html:60
 msgid "Candidates"
 msgstr "Candidaturi"
 
-#: hub/models.py:423
+#: hub/models.py:426
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: hub/models.py:443
+#: hub/models.py:453
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: hub/models.py:477
+#: hub/models.py:490
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: hub/models.py:478
+#: hub/models.py:491
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: hub/models.py:501
+#: hub/models.py:514
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: hub/models.py:502
+#: hub/models.py:515
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: hub/models.py:516
+#: hub/models.py:529
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: hub/models.py:517
+#: hub/models.py:530
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -738,19 +742,19 @@ msgstr "Vizualizează detalii"
 msgid "Settings"
 msgstr "Setări"
 
-#: hub/templates/candidate/register_request.html:73
-msgid "Propose candidate"
-msgstr "Propune candidatură"
-
-#: hub/templates/candidate/register_request.html:81
+#: hub/templates/candidate/register_request.html:72
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: hub/templates/candidate/update.html:104
+#: hub/templates/candidate/register_request.html:81
+msgid "Propose candidate"
+msgstr "Propune candidatură"
+
+#: hub/templates/candidate/update.html:106
 msgid "Publish changes"
 msgstr "Publică modificările"
 
-#: hub/templates/candidate/update.html:104
+#: hub/templates/candidate/update.html:106
 msgid "Update profile"
 msgstr "Modifică profil"
 

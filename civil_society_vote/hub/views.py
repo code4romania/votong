@@ -446,9 +446,12 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return reverse("candidate-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
-            raise PermissionDenied
-        return super().post(request, *args, **kwargs)
+        if (
+            FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists()
+            or FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists()
+        ):
+            return super().post(request, *args, **kwargs)
+        raise PermissionDenied
 
 
 @permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
