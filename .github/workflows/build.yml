@@ -1,4 +1,4 @@
-name: Transfer to dev/prod env and run
+name: Transfer to staging env and run
 
 on: 
   push:

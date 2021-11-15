@@ -1,9 +1,9 @@
+name: Publish on Dockerhub
+
 on:
   push:
     tags:
       - "v*"
-
-name: Deploy
 
 env:
   DOCKER_IMAGE_BASE: code4romania/votong
