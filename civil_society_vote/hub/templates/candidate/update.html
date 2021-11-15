@@ -78,6 +78,8 @@
     {% csrf_token %}
 
     {% if candidate.is_proposed %}
+    <p><b>Domeniu:</b> {{candidate.domain}}</p>
+    <br>
     <p><b>Nume:</b> {{candidate.name}}</p>
     <br>
     {% endif %}
@@ -110,7 +112,7 @@
 
 <hr />
 
-{% if CANDIDATE_REGISTRATION_ENABLED and user.orgs.first.is_complete and not candidate.is_proposed %}
+{% if CANDIDATE_REGISTRATION_ENABLED and user.orgs.first.is_complete and candidate.is_complete and not candidate.is_proposed %}
 <div class="container has-text-centered">
   <a href="#" class="button is-warning" style="width: 100%;"
     onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">Propune candidatură</a>

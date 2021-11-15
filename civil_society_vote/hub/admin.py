@@ -436,7 +436,7 @@ def flags_phase_1(modeladmin, request, queryset):
     FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
 
 
-flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate regisrations")
+flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate registrations")
 
 
 def flags_phase_2(modeladmin, request, queryset):
