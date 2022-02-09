@@ -28,30 +28,30 @@ urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
-    path(_("accounts/"), include("django.contrib.auth.urls")),
-    path(
-        _("accounts/reset-password/"),
-        auth_views.PasswordResetView.as_view(
-            html_email_template_name="registration/reset_password_email.html",
-            template_name="registration/reset_password.html",
-        ),
-        name="password_reset",
-    ),
-    path(
-        _("accounts/reset-password/done/"),
-        auth_views.PasswordResetDoneView.as_view(template_name="registration/reset_password_done.html"),
-        name="password_reset_done",
-    ),
-    path(
-        _("accounts/reset-password/<uidb64>/<token>/"),
-        auth_views.PasswordResetConfirmView.as_view(template_name="registration/reset_password_confirm.html"),
-        name="password_reset_confirm",
-    ),
-    path(
-        _("accounts/reset-password/complete/"),
-        auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
-        name="password_reset_complete",
-    ),
+    # path(_("accounts/"), include("django.contrib.auth.urls")),
+    # path(
+    #     _("accounts/reset-password/"),
+    #     auth_views.PasswordResetView.as_view(
+    #         html_email_template_name="registration/reset_password_email.html",
+    #         template_name="registration/reset_password.html",
+    #     ),
+    #     name="password_reset",
+    # ),
+    # path(
+    #     _("accounts/reset-password/done/"),
+    #     auth_views.PasswordResetDoneView.as_view(template_name="registration/reset_password_done.html"),
+    #     name="password_reset_done",
+    # ),
+    # path(
+    #     _("accounts/reset-password/<uidb64>/<token>/"),
+    #     auth_views.PasswordResetConfirmView.as_view(template_name="registration/reset_password_confirm.html"),
+    #     name="password_reset_confirm",
+    # ),
+    # path(
+    #     _("accounts/reset-password/complete/"),
+    #     auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
+    #     name="password_reset_complete",
+    # ),
     path("me/", include("accounts.urls")),
     path("", include("hub.urls")),
 )
