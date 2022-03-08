@@ -45,6 +45,9 @@ class Migration(migrations.Migration):
                 ("text_content", models.TextField(verbose_name="Text content")),
                 ("html_content", ckeditor.fields.RichTextField(verbose_name="HTML content", blank=True)),
             ],
-            options={"verbose_name": "Email template", "verbose_name_plural": "Email templates",},
+            options={
+                "verbose_name": "Email template",
+                "verbose_name_plural": "Email templates",
+            },
         ),
     ]

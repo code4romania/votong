@@ -37,6 +37,9 @@ class Migration(migrations.Migration):
                 ("is_visible", models.BooleanField(default=False, verbose_name="Is visible?")),
                 ("published_date", models.DateField(blank=True, null=True, verbose_name="Date published")),
             ],
-            options={"verbose_name": "Blog post", "verbose_name_plural": "Blog posts",},
+            options={
+                "verbose_name": "Blog post",
+                "verbose_name_plural": "Blog posts",
+            },
         ),
     ]

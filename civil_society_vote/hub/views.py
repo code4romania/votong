@@ -85,7 +85,10 @@ class HubListView(MenuMixin, ListView):
         vector = SearchVector("name", weight="A", config="romanian_unaccent")
 
         result = (
-            queryset.annotate(rank=SearchRank(vector, search_query), similarity=TrigramSimilarity("name", query),)
+            queryset.annotate(
+                rank=SearchRank(vector, search_query),
+                similarity=TrigramSimilarity("name", query),
+            )
             .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
             .order_by("name")
             .distinct("name")

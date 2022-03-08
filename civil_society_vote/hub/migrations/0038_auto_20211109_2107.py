@@ -11,23 +11,74 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="candidate", name="cv",),
-        migrations.RemoveField(model_name="candidate", name="description",),
-        migrations.RemoveField(model_name="candidate", name="email",),
-        migrations.RemoveField(model_name="candidate", name="experience",),
-        migrations.RemoveField(model_name="candidate", name="legal_records",),
-        migrations.RemoveField(model_name="candidate", name="letter",),
-        migrations.RemoveField(model_name="candidate", name="main_objectives",),
-        migrations.RemoveField(model_name="candidate", name="main_points",),
-        migrations.RemoveField(model_name="candidate", name="mandate",),
-        migrations.RemoveField(model_name="candidate", name="phone",),
-        migrations.RemoveField(model_name="candidate", name="photo",),
-        migrations.RemoveField(model_name="candidate", name="relevant_moments",),
-        migrations.RemoveField(model_name="candidate", name="studies",),
-        migrations.RemoveField(model_name="candidate", name="tax_records",),
-        migrations.RemoveField(model_name="organization", name="fiscal_certificate",),
-        migrations.RemoveField(model_name="organization", name="politic_members",),
-        migrations.RemoveField(model_name="organization", name="statement",),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="cv",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="description",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="email",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="experience",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="legal_records",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="letter",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="main_objectives",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="main_points",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="mandate",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="phone",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="photo",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="relevant_moments",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="studies",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="tax_records",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="fiscal_certificate",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="politic_members",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="statement",
+        ),
         migrations.AddField(
             model_name="organization",
             name="fiscal_certificate_anaf",

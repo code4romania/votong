@@ -56,6 +56,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Feature flag", "verbose_name_plural": "Feature flags",},
+            options={
+                "verbose_name": "Feature flag",
+                "verbose_name_plural": "Feature flags",
+            },
         )
     ]

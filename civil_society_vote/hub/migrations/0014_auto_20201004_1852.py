@@ -39,7 +39,10 @@ class Migration(migrations.Migration):
                 ),
                 ("user", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
-            options={"verbose_name": "Candidate supporter", "verbose_name_plural": "Canditate supporters",},
+            options={
+                "verbose_name": "Candidate supporter",
+                "verbose_name_plural": "Canditate supporters",
+            },
         ),
         migrations.AddConstraint(
             model_name="candidatesupporter",
