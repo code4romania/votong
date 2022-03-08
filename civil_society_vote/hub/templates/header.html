@@ -47,14 +47,15 @@
                             Alegeri VotONG
                         </a>
 
-
                         <a href="{% url 'history' %}" class="navbar-item">
                             {% trans "History" %}
                         </a>
 
+                        {% if ORG_REGISTRATION_ENABLED %}
                         <a href="{% url 'ngos-register-request' %}" class="navbar-item">
                             {% trans "Register your organisation" %}
                         </a>
+                        {% endif %}
 
                         <!-- <a href="{% url 'candidates' %}" class="navbar-item">
                             {% trans "Candidates" %}
@@ -89,12 +90,6 @@
                         {% endif %}
 
                         {% else %}
-
-                        {% if ORG_REGISTRATION_ENABLED %}
-                        <!-- <a  href="{% url 'ngos-register-request'%}" class="navbar-item">
-                            {% trans "Register organization" %}
-                        </a> -->
-                        {% endif %}
 
                         <a  href="{% url 'login'%}" class="navbar-item">
                             {% trans "Login" %}
