@@ -40,7 +40,9 @@ ORG_FIELD_ORDER = [
 
 
 class OrganizationCreateForm(forms.ModelForm):
-    captcha = ReCaptchaField(label="",)
+    captcha = ReCaptchaField(
+        label="",
+    )
 
     field_order = ORG_FIELD_ORDER
 

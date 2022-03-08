@@ -11,11 +11,26 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="candidate", name="board_member",),
-        migrations.RemoveField(model_name="candidate", name="founder",),
-        migrations.RemoveField(model_name="candidate", name="legal_record",),
-        migrations.RemoveField(model_name="candidate", name="representative",),
-        migrations.RemoveField(model_name="organization", name="last_balance_sheet",),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="board_member",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="founder",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="legal_record",
+        ),
+        migrations.RemoveField(
+            model_name="candidate",
+            name="representative",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="last_balance_sheet",
+        ),
         migrations.AddField(
             model_name="candidate",
             name="legal_records",
@@ -153,7 +168,9 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterField(
-            model_name="candidate", name="studies", field=models.TextField(max_length=2000, verbose_name="Studies"),
+            model_name="candidate",
+            name="studies",
+            field=models.TextField(max_length=2000, verbose_name="Studies"),
         ),
         migrations.AlterField(
             model_name="organization",

@@ -77,7 +77,10 @@ COUNTIES = [x[0] for x in COUNTY_RESIDENCE]
 
 COUNTY_CHOICES = Choices(*[(x, x) for x in COUNTIES])
 
-STATE_CHOICES = Choices(("active", _("Active")), ("inactive", _("Inactive")),)
+STATE_CHOICES = Choices(
+    ("active", _("Active")),
+    ("inactive", _("Inactive")),
+)
 
 FLAG_CHOICES = Choices(
     ("enable_org_registration", _("Enable organization registration")),
@@ -114,7 +117,9 @@ class BlogPost(TimeStampedModel):
     slug = models.SlugField(unique=True)
     author = models.CharField(_("Author"), max_length=100)
     content_preview = models.TextField(_("Content preview"))
-    content = RichTextUploadingField(_("Content"),)
+    content = RichTextUploadingField(
+        _("Content"),
+    )
     is_visible = models.BooleanField(_("Is visible?"), default=False)
     published_date = models.DateField(_("Date published"), blank=True, null=True)
 
@@ -215,7 +220,10 @@ class Organization(StatusModel, TimeStampedModel):
     logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
 
     last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"), null=True, max_length=300, storage=PrivateMediaStorageClass(),
+        _("First page of last balance sheet"),
+        null=True,
+        max_length=300,
+        storage=PrivateMediaStorageClass(),
     )
     statute = models.FileField(
         _("NGO Statute"),
@@ -378,7 +386,11 @@ class CandidatesWithOrgManager(models.Manager):
 
 
 class Candidate(StatusModel, TimeStampedModel):
-    STATUS = Choices(("pending", _("Pending")), ("accepted", _("Accepted")), ("rejected", _("Rejected")),)
+    STATUS = Choices(
+        ("pending", _("Pending")),
+        ("accepted", _("Accepted")),
+        ("rejected", _("Rejected")),
+    )
 
     org = models.OneToOneField(
         "Organization", on_delete=models.CASCADE, related_name="candidate", null=True, blank=True
@@ -441,7 +453,14 @@ class Candidate(StatusModel, TimeStampedModel):
         """
         Validate if the Org uploaded all the requested info to proppose a Candidate
         """
-        return all([self.domain, self.name, self.role, self.statement,])
+        return all(
+            [
+                self.domain,
+                self.name,
+                self.role,
+                self.statement,
+            ]
+        )
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])

@@ -140,7 +140,11 @@ class Command(BaseCommand):
                     self.stdout.write(f"Created organization {org}")
                 elif status == "accepted":
                     candidate = Candidate.objects.create(
-                        org=org, domain=domain, name=org.legal_representative_name, role=fake.job(), is_proposed=True,
+                        org=org,
+                        domain=domain,
+                        name=org.legal_representative_name,
+                        role=fake.job(),
+                        is_proposed=True,
                     )
                     candidate.statement.name = "test.pdf"
                     candidate.save()

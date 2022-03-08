@@ -10,6 +10,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveConstraint(model_name="candidatevote", name="unique_candidate_domain_vote",),
-        migrations.AddField(model_name="domain", name="seats", field=models.PositiveSmallIntegerField(default=0),),
+        migrations.RemoveConstraint(
+            model_name="candidatevote",
+            name="unique_candidate_domain_vote",
+        ),
+        migrations.AddField(
+            model_name="domain",
+            name="seats",
+            field=models.PositiveSmallIntegerField(default=0),
+        ),
     ]

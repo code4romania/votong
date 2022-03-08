@@ -10,13 +10,34 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="organization", name="founders",),
-        migrations.RemoveField(model_name="organization", name="letter",),
-        migrations.RemoveField(model_name="organization", name="purpose_current",),
-        migrations.RemoveField(model_name="organization", name="purpose_initial",),
-        migrations.RemoveField(model_name="organization", name="reg_com_number",),
-        migrations.RemoveField(model_name="organization", name="representative",),
-        migrations.RemoveField(model_name="organization", name="state",),
+        migrations.RemoveField(
+            model_name="organization",
+            name="founders",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="letter",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="purpose_current",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="purpose_initial",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="reg_com_number",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="representative",
+        ),
+        migrations.RemoveField(
+            model_name="organization",
+            name="state",
+        ),
         migrations.AddField(
             model_name="organization",
             name="legal_representative_email",

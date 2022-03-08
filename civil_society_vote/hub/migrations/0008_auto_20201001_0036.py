@@ -10,7 +10,17 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="featureflag", name="status",),
-        migrations.RemoveField(model_name="featureflag", name="status_changed",),
-        migrations.AddField(model_name="featureflag", name="is_enabled", field=models.BooleanField(default=False),),
+        migrations.RemoveField(
+            model_name="featureflag",
+            name="status",
+        ),
+        migrations.RemoveField(
+            model_name="featureflag",
+            name="status_changed",
+        ),
+        migrations.AddField(
+            model_name="featureflag",
+            name="is_enabled",
+            field=models.BooleanField(default=False),
+        ),
     ]

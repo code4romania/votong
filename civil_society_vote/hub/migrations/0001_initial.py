@@ -98,7 +98,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Candidate", "verbose_name_plural": "Candidates",},
+            options={
+                "verbose_name": "Candidate",
+                "verbose_name_plural": "Candidates",
+            },
         ),
         migrations.CreateModel(
             name="City",
@@ -108,7 +111,11 @@ class Migration(migrations.Migration):
                 ("county", models.CharField(max_length=50, verbose_name="County")),
                 ("is_county_residence", models.BooleanField(default=False, verbose_name="Is county residence")),
             ],
-            options={"verbose_name": "City", "verbose_name_plural": "Cities", "unique_together": {("city", "county")},},
+            options={
+                "verbose_name": "City",
+                "verbose_name_plural": "Cities",
+                "unique_together": {("city", "county")},
+            },
         ),
         migrations.CreateModel(
             name="Domain",
@@ -129,7 +136,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=254, unique=True, verbose_name="Name")),
                 ("description", models.TextField(verbose_name="Description")),
             ],
-            options={"verbose_name": "Domain", "verbose_name_plural": "Domains",},
+            options={
+                "verbose_name": "Domain",
+                "verbose_name_plural": "Domains",
+            },
         ),
         migrations.CreateModel(
             name="Organization",
@@ -293,7 +303,11 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Organization", "verbose_name_plural": "Organizations", "ordering": ["name"],},
+            options={
+                "verbose_name": "Organization",
+                "verbose_name_plural": "Organizations",
+                "ordering": ["name"],
+            },
         ),
         migrations.CreateModel(
             name="OrganizationVote",
@@ -329,7 +343,10 @@ class Migration(migrations.Migration):
                 ),
                 ("user", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
             ],
-            options={"verbose_name": "Organization vote", "verbose_name_plural": "Organization votes",},
+            options={
+                "verbose_name": "Organization vote",
+                "verbose_name_plural": "Organization votes",
+            },
         ),
         migrations.CreateModel(
             name="CandidateVote",
@@ -361,7 +378,10 @@ class Migration(migrations.Migration):
                 ),
                 ("user", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
             ],
-            options={"verbose_name": "Candidate vote", "verbose_name_plural": "Canditate votes",},
+            options={
+                "verbose_name": "Candidate vote",
+                "verbose_name_plural": "Canditate votes",
+            },
         ),
         migrations.AddField(
             model_name="candidate",

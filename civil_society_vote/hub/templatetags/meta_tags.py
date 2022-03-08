@@ -16,5 +16,10 @@ def meta_tags(context):
         "type": "website",
         "title": _(context.get("title", "")),
         "image": request.build_absolute_uri(image_path),
-        "description": _(context.get("description", "",)),
+        "description": _(
+            context.get(
+                "description",
+                "",
+            )
+        ),
     }
