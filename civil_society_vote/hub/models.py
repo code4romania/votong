@@ -89,6 +89,7 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_registration", _("Enable candidate registration")),
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
+    ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
 )
 
 EMAIL_TEMPLATE_CHOICES = Choices(
@@ -471,8 +472,8 @@ class Candidate(StatusModel, TimeStampedModel):
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
 
-        # XXX: Remove this if more than one domain is defined in the database
-        self.domain = Domain.objects.first()
+        if FeatureFlag.objects.filter(flag="single_domain_round", is_enabled=True).exists():
+            self.domain = Domain.objects.first()
 
         # This covers the flow when a candidate is withdrawn as the official proposal or the organization, while
         # in the same time keeping the old candidate record and backwards compatibility with the one-to-one relations

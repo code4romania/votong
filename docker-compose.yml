@@ -1,9 +1,7 @@
-version: '3.7'
+version: "3.8"
 
 services:
   web:
-    stdin_open: true
-    tty: true
     build:
       context: .
       dockerfile: docker/web/Dockerfile
@@ -14,6 +12,9 @@ services:
       - "8010:8010"
     volumes:
       - ./:/opt
+    depends_on:
+      - db
+
   db:
     build:
       context: .
