@@ -167,14 +167,17 @@ class CandidateRegisterForm(forms.ModelForm):
 
         self.initial["org"] = self.user.orgs.first().id
 
-        self.fields["domain"].widget.attrs["disabled"] = True
-        self.initial["domain"] = Domain.objects.first().id
+        if FeatureFlag.objects.filter(flag="single_domain_round", is_enabled=True).exists():
+            self.fields["domain"].widget.attrs["disabled"] = True
+            self.initial["domain"] = Domain.objects.first().id
 
     def clean_org(self):
         return self.user.orgs.first().id
 
     def clean_domain(self):
-        return Domain.objects.first()
+        if FeatureFlag.objects.filter(flag="single_domain_round", is_enabled=True).exists():
+            return Domain.objects.first()
+        return self.cleaned_data.get("domain")
 
     def clean(self):
         cleaned_data = super().clean()
