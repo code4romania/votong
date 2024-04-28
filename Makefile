@@ -7,28 +7,28 @@ help:
 	@echo "clean - shut down containers and clean python cache and test files"
 
 lint:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "isort . && black --exclude venv/ ."
+	docker compose run --rm --no-deps --entrypoint "bash -c" web "isort . && black --exclude venv/ ."
 
 migrations:
-	docker-compose run --rm --entrypoint "bash -c" web "./manage.py makemigrations hub"
+	docker compose run --rm --entrypoint "bash -c" web "./manage.py makemigrations hub"
 
 migrate:
-	docker-compose run --rm --entrypoint "bash -c" web "./manage.py migrate"
+	docker compose run --rm --entrypoint "bash -c" web "./manage.py migrate"
 
 build-deps:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"
+	docker compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -o requirements.txt requirements.in"
 
 upgrade-deps:
-	docker-compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -r -U -o requirements.txt requirements.in"
+	docker compose run --rm --no-deps --entrypoint "bash -c" web "cd .. && pip-compile -r -U -o requirements-dev.txt requirements-dev.in requirements.in && pip-compile -r -U -o requirements.txt requirements.in"
 
 exec-%:
 	@echo "Welcome to $*"
-	@docker-compose exec $* bash
+	@docker compose exec $* bash
 
 clean: clean-docker
 
 clean-docker:
-	docker-compose down -t 60
+	docker compose down -t 60
 	docker system prune -f
 
 clean-db: clean-docker
@@ -43,7 +43,7 @@ clean-py:
 	find `pwd` -name 'htmlcov' -delete
 
 makemessages:
-	docker-compose exec web python manage.py makemessages
+	docker compose exec web python manage.py makemessages
 
 compilemessages:
-	docker-compose exec web python manage.py compilemessages
+	docker compose exec web python manage.py compilemessages
