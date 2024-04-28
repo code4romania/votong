@@ -6,6 +6,6 @@ SOURCE_DIR="${DEPLOY_DIR}/../"
 
 cd $SOURCE_DIR \
     && git pull \
-    && docker-compose down \
-    && docker-compose build \
-    && docker-compose up -d
+    && docker compose down \
+    && docker compose build \
+    && docker compose up -d
