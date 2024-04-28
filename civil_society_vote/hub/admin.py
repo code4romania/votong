@@ -13,7 +13,7 @@ from django.shortcuts import redirect, render
 from django.template import Context
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
 from hub import utils
