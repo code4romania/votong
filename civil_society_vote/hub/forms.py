@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from django_crispy_bulma.widgets import EmailInput
+# from django_crispy_bulma.widgets import EmailInput
 
 from hub.models import Candidate, City, Domain, FeatureFlag, Organization
 
@@ -63,8 +63,8 @@ class OrganizationCreateForm(forms.ModelForm):
             "rejection_message",
         ]
         widgets = {
-            "email": EmailInput(),
-            "legal_representative_email": EmailInput(),
+            # "email": EmailInput(),
+            # "legal_representative_email": EmailInput(),
             "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
         }
 
@@ -115,8 +115,8 @@ class OrganizationUpdateForm(forms.ModelForm):
         model = Organization
         exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
         widgets = {
-            "email": EmailInput(),
-            "legal_representative_email": EmailInput(),
+            # "email": EmailInput(),
+            # "legal_representative_email": EmailInput(),
             "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
         }
 
@@ -152,7 +152,7 @@ class CandidateRegisterForm(forms.ModelForm):
         widgets = {
             "org": forms.HiddenInput(),
             "is_proposed": forms.HiddenInput(),
-            "email": EmailInput(),
+            # "email": EmailInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -202,7 +202,7 @@ class CandidateUpdateForm(forms.ModelForm):
 
         widgets = {
             "is_proposed": forms.HiddenInput(),
-            "email": EmailInput(),
+            # "email": EmailInput(),
         }
 
     def __init__(self, *args, **kwargs):
