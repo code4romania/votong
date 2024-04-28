@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 # from django_crispy_bulma.widgets import EmailInput
 
 from hub.models import Candidate, City, Domain, FeatureFlag, Organization
