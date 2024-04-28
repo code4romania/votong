@@ -1,13 +1,11 @@
-FROM python:3.9-slim-buster
+FROM python:3.11.8-slim-bookworm
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential \
-        postgresql-client \
-        libpq-dev \
-        gettext \
-        wget \
-        git
+        wget nginx gcc xz-utils build-essential postgresql-client libpq-dev libffi-dev zlib1g-dev \
+        gettext git gcc g++ && \
+        python3 -m pip install --upgrade pip setuptools cython
+    
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
