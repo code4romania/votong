@@ -133,6 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "hub.password_validation.PasswordDifferentFromPrevious"},
 ]
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
