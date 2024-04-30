@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from pathlib import Path
 
 import environ
 from django.urls import reverse_lazy  # noqa
 
-root = environ.Path(__file__) - 3  # three folder back (/a/b/c/ - 3 = /)
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+ROOT = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = os.path.abspath(os.path.join(ROOT, "backend"))
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
@@ -37,10 +42,7 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
 )
-environ.Env.read_env(f"{root}/.env")  # reading .env file
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+environ.Env.read_env(f"{ROOT}/.env")  # reading .env file
 
 DEBUG = env("DEBUG")
 
@@ -200,10 +202,10 @@ if USE_S3:
 else:
     PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     MEDIA_URL = "/media/"
-    MEDIA_ROOT = str(root.path("mediafiles"))
+    MEDIA_ROOT = str(ROOT.path("mediafiles"))
 
-STATICFILES_DIRS = (str(root.path("static")),)
-STATIC_ROOT = str(root.path("staticfiles"))
+STATICFILES_DIRS = (str(ROOT.path("static")),)
+STATIC_ROOT = str(ROOT.path("staticfiles"))
 STATIC_URL = "/static/"
 
 
