@@ -371,7 +371,7 @@ class Organization(StatusModel, TimeStampedModel):
         user = User()
         user.username = self.email
         user.email = self.email
-        user.set_password(get_random_string())
+        user.set_password(get_random_string(10))
         user.is_active = True
         user.save()
 
