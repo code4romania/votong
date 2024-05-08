@@ -16,7 +16,8 @@ from django.urls import reverse_lazy  # noqa
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-ROOT = Path(__file__).resolve().parent.parent.parent
+# ROOT = Path(__file__).resolve().parent.parent.parent  # TODO: For when we'll use one settings.py
+ROOT = Path(__file__).resolve().parent.parent.parent.parent
 BASE_DIR = os.path.abspath(os.path.join(ROOT, "backend"))
 
 env = environ.Env(
@@ -202,10 +203,10 @@ if USE_S3:
 else:
     PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     MEDIA_URL = "/media/"
-    MEDIA_ROOT = str(ROOT.path("mediafiles"))
+    MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "mediafiles"))
 
-STATICFILES_DIRS = (str(ROOT.path("static")),)
-STATIC_ROOT = str(ROOT.path("staticfiles"))
+STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static")),)
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "staticfiles"))
 STATIC_URL = "/static/"
 
 
