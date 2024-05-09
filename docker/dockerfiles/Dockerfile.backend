@@ -83,6 +83,9 @@ ARG REVISION
 RUN touch /var/www/votong/.version && \
     echo "$VERSION+$(echo ${REVISION} | cut -c 1-7)" > /var/www/votong/.version
 
+
 ENTRYPOINT ["/init"]
+
+WORKDIR /var/www/votong/
 
 EXPOSE 80

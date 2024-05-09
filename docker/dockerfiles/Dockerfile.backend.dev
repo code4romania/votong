@@ -59,6 +59,8 @@ COPY ./backend/ .
 ENV PATH=/root/.local/bin:$PATH
 
 
+WORKDIR /var/www/votong/
+
 ENTRYPOINT ["/init"]
 
 EXPOSE 80
