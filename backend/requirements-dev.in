@@ -4,13 +4,11 @@ django-extensions~=3.2.2
 werkzeug~=3.0.2
 
 # tests
-Faker~=24.14.0
-pytest~=8.2.0
+faker~=24.14.0
 
-# style checker
-black~=24.4.2
-isort~=5.13.2
-flake8~=7.0.0
+## make sure to sync these with the ../.pre-commit-config.yaml file
+ruff~=0.3.7
+black~=24.3.0
 
 # utils
 ipython~=8.24.0
