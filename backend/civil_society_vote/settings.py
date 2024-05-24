@@ -147,6 +147,7 @@ INSTALLED_APPS = [
     # apps
     "hub",
     "accounts",
+    "utils",
     # third-party
     "avatar",
     "admin_auto_filters",
@@ -270,7 +271,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
 AUTH_USER_MODEL = "accounts.User"
+
+# superuser/admin seed data
+DJANGO_ADMIN_PASSWORD = env.str("DJANGO_ADMIN_PASSWORD", None)
+DJANGO_ADMIN_EMAIL = env.str("DJANGO_ADMIN_EMAIL", None)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
