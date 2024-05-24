@@ -35,7 +35,31 @@ from hub.models import (
 )
 
 
-class ImpersonableUserAdmin(UserAdminImpersonateMixin, UserAdmin):
+class NoUsernameUserAdmin(UserAdmin):
+    """
+    UserAdmin without the `username` field
+    """
+
+    fieldsets = (
+        (None, {"fields": ("email", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+
+class ImpersonableUserAdmin(UserAdminImpersonateMixin, NoUsernameUserAdmin):
     list_display = ("email", "get_groups", "is_active", "is_staff", "is_superuser")
     open_new_window = True
     pass

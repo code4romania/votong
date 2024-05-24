@@ -16,7 +16,7 @@ class User(AbstractUser):
         editable=False,
     )
     email = models.EmailField(verbose_name=_("email address"), blank=False, null=False, unique=True)
-    
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
