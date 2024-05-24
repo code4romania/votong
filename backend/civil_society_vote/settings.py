@@ -85,7 +85,6 @@ env = environ.Env(
     # recaptcha settings
     RECAPTCHA_PUBLIC_KEY=(str, ""),
     RECAPTCHA_PRIVATE_KEY=(str, ""),
-
     # TODO Settings Cleanup:
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
@@ -290,7 +289,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# 
+#
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
