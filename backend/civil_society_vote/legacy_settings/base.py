@@ -9,17 +9,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from pathlib import Path
 
 import environ
 from django.urls import reverse_lazy  # noqa
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-# ROOT = Path(__file__).resolve().parent.parent.parent  # TODO: For when we'll use one settings.py
-ROOT = Path(__file__).resolve().parent.parent.parent.parent
-BASE_DIR = os.path.abspath(os.path.join(ROOT, "backend"))
-
+root = environ.Path(__file__) - 3  # three folder back (/a/b/c/ - 3 = /)
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
@@ -31,19 +25,11 @@ env = environ.Env(
     SENTRY_DSN=(str, ""),
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
-    # email settings
-    EMAIL_SEND_METHOD=(str, "async"),
-    EMAIL_BACKEND=(str, "django.core.mail.backends.console.EmailBackend"),
-    EMAIL_HOST=(str, ""),
-    EMAIL_PORT=(str, ""),
-    EMAIL_HOST_USER=(str, ""),
-    EMAIL_HOST_PASSWORD=(str, ""),
-    EMAIL_USE_TLS=(str, ""),
-    EMAIL_FAIL_SILENTLY=(bool, False),
-    DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
-    NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
 )
-environ.Env.read_env(f"{ROOT}/.env")  # reading .env file
+environ.Env.read_env(f"{root}/.env")  # reading .env file
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = env("DEBUG")
 
@@ -68,9 +54,9 @@ INSTALLED_APPS = [
     "admin_auto_filters",
     "spurl",
     "crispy_forms",
-    # "django_crispy_bulma",
+    "django_crispy_bulma",
     "storages",
-    "django_recaptcha",
+    "captcha",
     "file_resubmit",
     "rangefilter",
     "impersonate",
@@ -121,19 +107,12 @@ TEMPLATES = [
 WSGI_APPLICATION = "civil_society_vote.wsgi.application"
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DATABASE_NAME"),
-        "USER": env("DATABASE_USER"),
-        "PASSWORD": env("DATABASE_PASSWORD"),
-        "HOST": env("DATABASE_HOST"),
-        "PORT": env("DATABASE_PORT"),
-    }
+    "default": env.db()  # looks for env var DATABASE_URL
+    # "extra": env.db("SQLITE_URL", default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3'),}",),
 }
-
 
 CACHES = {
     "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
@@ -153,8 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
     {"NAME": "hub.password_validation.PasswordDifferentFromPrevious"},
 ]
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -203,42 +180,19 @@ if USE_S3:
 else:
     PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "mediafiles"))
+    MEDIA_ROOT = str(root.path("mediafiles"))
 
-STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static")),)
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "staticfiles"))
+STATICFILES_DIRS = (str(root.path("static")),)
+STATIC_ROOT = str(root.path("staticfiles"))
 STATIC_URL = "/static/"
 
+# SMTP
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_CONFIG = env.email_url("EMAIL_URL", default="smtp://user:password@localhost:25")
+vars().update(EMAIL_CONFIG)
 
-# Email settings
-EMAIL_BACKEND = env.str("EMAIL_BACKEND")
-EMAIL_SEND_METHOD = env.str("EMAIL_SEND_METHOD")
-EMAIL_FAIL_SILENTLY = env.bool("EMAIL_FAIL_SILENTLY")
-
-DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
-NO_REPLY_EMAIL = env.str("NO_REPLY_EMAIL")
-
-if EMAIL_BACKEND == "django_ses.SESBackend":
-    AWS_SES_CONFIGURATION_SET_NAME = env.str("AWS_SES_CONFIGURATION_SET_NAME")
-
-    AWS_SES_AUTO_THROTTLE = env.float("AWS_SES_AUTO_THROTTLE", default=0.5)
-    AWS_SES_REGION_NAME = env.str("AWS_SES_REGION_NAME") if env("AWS_SES_REGION_NAME") else env("AWS_REGION_NAME")
-    AWS_SES_REGION_ENDPOINT = env.str("AWS_SES_REGION_ENDPOINT", default=f"email.{AWS_SES_REGION_NAME}.amazonaws.com")
-
-    AWS_SES_FROM_EMAIL = DEFAULT_FROM_EMAIL
-
-    USE_SES_V2 = env.bool("AWS_SES_USE_V2", default=True)
-
-    if aws_access_key := env("AWS_ACCESS_KEY_ID", default=None):
-        AWS_ACCESS_KEY_ID = aws_access_key
-        AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-else:
-    EMAIL_HOST = env.str("EMAIL_HOST")
-    EMAIL_PORT = env.str("EMAIL_PORT")
-    EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
-    EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
-
+DEFAULT_FROM_EMAIL = "contact@votong.ro"
+NO_REPLY_EMAIL = "noreply@votong.ro"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
 CRISPY_TEMPLATE_PACK = "bulma"
