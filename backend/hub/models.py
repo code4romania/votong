@@ -32,9 +32,6 @@ logger = logging.getLogger(__name__)
 def select_public_storage():
     return storages["public"]
 
-PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
-PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)
-
 
 COUNTY_RESIDENCE = [
     ("Alba", "Alba Iulia"),
