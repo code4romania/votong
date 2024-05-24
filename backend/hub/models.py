@@ -1,10 +1,12 @@
+import logging
+
 from accounts.models import User
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-from django.core.files.storage import get_storage_class
+from django.core.files.storage import storages
 from django.db import models
 from django.urls import reverse
 from django.utils.crypto import get_random_string
@@ -24,6 +26,11 @@ REPORTS_HELP_TEXT = (
     "financiare şi umane pentru îndeplinirea mandatului de membru în Comisia Electorală a VotONG."
 )
 
+logger = logging.getLogger(__name__)
+
+
+def select_public_storage():
+    return storages["public"]
 
 PrivateMediaStorageClass = get_storage_class(settings.PRIVATE_FILE_STORAGE)
 PublicMediaStorageClass = get_storage_class(settings.DEFAULT_FILE_STORAGE)
@@ -218,19 +225,19 @@ class Organization(StatusModel, TimeStampedModel):
 
     organisation_head_name = models.CharField(_("Organisation Head Name"), max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
-    logo = models.ImageField(_("Logo"), max_length=300, storage=PublicMediaStorageClass())
+    logo = models.ImageField(_("Logo"), max_length=300, storage=select_public_storage)
 
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet"),
         null=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
     )
     statute = models.FileField(
         _("NGO Statute"),
         null=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
 
@@ -239,7 +246,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
     )
     report_2019 = models.FileField(
@@ -247,7 +254,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
     )
     report_2018 = models.FileField(
@@ -255,7 +262,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
     )
     report_2017 = models.FileField(
@@ -263,7 +270,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text=REPORTS_HELP_TEXT,
     )
 
@@ -272,7 +279,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
     )
     statement_political = models.FileField(
@@ -280,7 +287,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Declarație pe propria răspundere prin care declar că ONG-ul nu are între membrii conducerii organizației (Președinte sau Consiliul Director) membri ai conducerii unui partid politic sau persoane care au fost alese într-o funcție publică.",
     )
 
@@ -289,7 +296,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Certificat fiscal emis de ANAF",
     )
     fiscal_certificate_local = models.FileField(
@@ -297,7 +304,7 @@ class Organization(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Certificat fiscal emis de Direcția de Impozite și Taxe Locale",
     )
 
@@ -425,7 +432,7 @@ class Candidate(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         max_length=300,
-        storage=PrivateMediaStorageClass(),
+        # storage=PrivateMediaStorageClass(),
         help_text="Declarație pe propria răspundere a reprezentantului desemnat prin care declară că nu este membru al conducerii unui partid politic, nu a fost ales într-o funcție publică și nu este demnitar al statului român.",
     )
 
