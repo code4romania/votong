@@ -116,6 +116,7 @@ env.bak/
 venv.bak/
 
 # IDE
+*.iml
 .idea/
 .vscode/
 
