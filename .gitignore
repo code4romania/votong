@@ -143,7 +143,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# static files generated from Django application using `collectstatic`
-media
-mediafiles
-staticfiles
+# ignore the static files destination directory
+backend/static
+backend/media

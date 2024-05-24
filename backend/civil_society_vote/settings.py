@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from copy import deepcopy
 from pathlib import Path
 
 import environ
@@ -16,10 +17,19 @@ import sentry_sdk
 from django.urls import reverse_lazy  # noqa
 
 
+# Constants for memory sizes
+KIBIBYTE = 1024
+MEBIBYTE = KIBIBYTE * 1024
+GIBIBYTE = MEBIBYTE * 1024
+TEBIBYTE = GIBIBYTE * 1024
+
+
+# Environment parameters
+root = Path(__file__).resolve().parent.parent.parent
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# ROOT = Path(__file__).resolve().parent.parent.parent  # TODO: For when we'll use one settings.py
-ROOT = Path(__file__).resolve().parent.parent.parent.parent
-BASE_DIR = os.path.abspath(os.path.join(ROOT, "backend"))
+BASE_DIR = os.path.abspath(os.path.join(root, "backend"))
+
 
 SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
 
@@ -51,12 +61,14 @@ env = environ.Env(
     ENABLE_DEBUG_TOOLBAR=(bool, False),
     ENVIRONMENT=(str, "production"),
     SECRET_KEY=(str, "replace-with-a-secret-key"),
-    LOG_LEVEL=(str, "INFO"),
+    LOGLEVEL=(str, "INFO"),
     ALLOWED_HOSTS=(list, ["*"]),
     IS_CONTAINERIZED=(bool, False),
     LANGUAGE_CODE=(str, "ro"),
     TIME_ZONE=(str, "Europe/Bucharest"),
     AUDITLOG_EXPIRY_DAYS=(int, 45),
+    DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 3 * MEBIBYTE),
+    MAX_DOCUMENT_SIZE=(int, 2 * MEBIBYTE),
     # db settings
     # DATABASE_ENGINE=(str, "sqlite3"),
     DATABASE_NAME=(str, "default"),
@@ -75,7 +87,6 @@ env = environ.Env(
     RECAPTCHA_PRIVATE_KEY=(str, ""),
 
     # TODO Settings Cleanup:
-    USE_S3=(bool, False),
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
     # email settings
@@ -90,7 +101,13 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
 )
-environ.Env.read_env(f"{ROOT}/.env")  # reading .env file
+
+# reading .env file
+dot_env_path = os.path.abspath(os.path.join(root, ".env"))
+environ.Env.read_env(dot_env_path)
+
+# SECURITY WARNING: keep the secret key used in production secret
+SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
 ENVIRONMENT = env.str("ENVIRONMENT")
@@ -367,9 +384,8 @@ STORAGES = {
 }
 
 if IS_CONTAINERIZED:
-    # Where ViteJS assets are built
-    STATIC_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "factory", "backend", "static"))
-    MEDIA_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "factory", "backend", "media"))
+    STATIC_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "votong", "backend", "static"))
+    MEDIA_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "votong", "backend", "media"))
 
 # Maximum request size excludind the uploaded files
 DATA_UPLOAD_MAX_MEMORY_SIZE = env.int("DATA_UPLOAD_MAX_MEMORY_SIZE")
@@ -403,8 +419,7 @@ else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "mediafiles"))
 
-STATICFILES_DIRS = [] #  TODO? (os.path.abspath(os.path.join(BASE_DIR, "static")),)
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "staticfiles"))
+STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static_extras")),)
 STATIC_URL = "/static/"
 
 
