@@ -1,14 +1,14 @@
 # django
 django-debug-toolbar~=4.3.0
-django-extensions~=3.2.2
-werkzeug~=3.0.2
+django-extensions~=3.2.3
+werkzeug~=3.0.3
 
 # tests
-faker~=24.14.0
+faker~=25.2.0
 
 ## make sure to sync these with the ../.pre-commit-config.yaml file
-ruff~=0.3.7
-black~=24.3.0
+ruff~=0.4.5
+black~=24.4.2
 
 # utils
 ipython~=8.24.0

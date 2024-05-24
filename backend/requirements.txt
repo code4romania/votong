@@ -8,9 +8,9 @@ asgiref==3.8.1
     # via django
 blessed==1.20.0
     # via -r requirements.in
-boto3==1.34.100
+boto3==1.34.112
     # via -r requirements.in
-botocore==1.34.100
+botocore==1.34.112
     # via
     #   boto3
     #   s3transfer
@@ -42,7 +42,7 @@ django==4.2.13
     #   django-storages
 django-admin-autocomplete-filter==0.7.1
     # via -r requirements.in
-django-admin-rangefilter==0.12.4
+django-admin-rangefilter==0.13.0
     # via -r requirements.in
 django-appconf==1.0.6
     # via django-avatar
@@ -106,11 +106,11 @@ python-dateutil==2.9.0.post0
     #   croniter
 pytz==2024.1
     # via croniter
-requests==2.31.0
+requests==2.32.2
     # via -r requirements.in
 s3transfer==0.10.1
     # via boto3
-sentry-sdk==2.0.1
+sentry-sdk==2.3.1
     # via -r requirements.in
 six==1.16.0
     # via
@@ -132,7 +132,7 @@ whitenoise==6.6.0
     # via -r requirements.in
 zope-event==5.0
     # via gevent
-zope-interface==6.3
+zope-interface==6.4.post2
     # via gevent
 
 # The following packages are considered to be unsafe in a requirements file:
