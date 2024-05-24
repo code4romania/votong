@@ -1,0 +1,178 @@
+{% extends 'ngo/base.html' %}
+{% load social_share %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+
+{% block content %}
+<div class="container">
+    {% block left-side-view %}
+    <div class="container tight-container content mb-50">
+        <h1>
+            Cum funcționează
+        </h1>
+
+        <p>
+            VotONG este un ecosistem de soluții tehnice care să deservească alegerea reprezentanților societății civile în forurile consultative prevăzute de lege precum și orice alte funcțiuni de reprezentare pentru societatea civilă.
+        </p>
+        <p>
+            Exemple de foruri consultative prevăzute de legislații specifice, în vigoare:
+        </p>
+        <ul>
+            <li>Consiliul Economic și Social (CES); </li>
+            <li>Comitetul Economic și Social European (CESE); </li>
+            <li>Consiliul Național pentru Combaterea Discriminării (CNCD) </li>
+            <li>Consiliul Superior al Magistraturii; </li>
+            <li>Consiliul Național de Integritate; </li>
+            <li>Comitetele de monitorizare pe diferite domenii (ex: monitorizarea absorbției și implementării
+                fondurilor structurale) </li>
+            <li>altele.</li>
+        </ul>
+
+        <h1>Cine poate participa la procesul de votare?</h1>
+
+        <p>Orice:</p>
+        <ul>
+            <li>asociație, fundație sau federație înregistrată legal în România conform OG 26/2000, și/sau Legii 21/1924 privind asociaţiile şi fundaţiile (cu modificările şi completările ulterioare),</li>
+            <li>fundație pentru tineret de la nivel județean sau a municipiului București, sau Fundația Națională pentru Tineret, înființată în baza legii 146/2002 (cu modificările și completările ulterioare) precum și </li>
+            <li>Societatea Națională de Cruce Roșie din România înființată în baza Legii 139/1995 (modificată și completată de Legea 524/2004) și a structurilor sale cu personalitate juridică,</li>
+        </ul>
+
+        <p>care a depus bilanţ contabil în anul premergător celui destinat alegerilor, cu excepția asociațiilor de întreprinzători și a asociațiilor de locatari. Nu sunt eligibile acele organizații în care membrii conducerii organizației (Președinte și Consiliu Director) sunt membri ai conducerii unui partid politic sau persoane care au fost alese într-o funcție publică.</p>
+
+        <p>O primă validare a organizațiilor prezente în platformă s-a desfășurat în toamna anului 2019. Începând din 2022, revalidarea organizațiilor din platformă se va face anual de către Asociația Code for Romania.</p>
+
+        <p>În funcție de specificul rundei electorale, pot fi adăugate criterii suplimentare celor de mai sus, urmând ca organizațiile care nu respectă toate noile criterii să aibă contul dezactivat pe perioada oricărei runde în care nu sunt eligibili pentru a-și exprima votul.</p>
+
+        <h1>
+            Rolul Asociației Code for Romania
+        </h1>
+
+        <p>
+            Asociația Code for Romania dezvoltă pro bono, asigură mentenanța, administrarea și suportul tehnic
+            pentru ecosistemul VotONG format din:
+        </p>
+
+        <ul>
+            <li>platforma de înscriere a ONG-urilor electori și de prezentare a candidaților</li>
+            <li>componenta de consultare;</li>
+            <li>componenta de vot.</li>
+        </ul>
+
+        <p>
+            Asociația Code for Romania, ca dezvoltator și administrator al VotONG își ia următoarele obligații:
+        </p>
+
+        <ul>
+            <li>Să dezvolte ecosistemul de vot în regim open source, urmând bunele practici la care aderă orice
+                produs tehnic dezvoltat de Code for Romania.</li>
+            <li>Să documenteze soluția pentru a permite inspectarea funcționării sale de către orice persoană.
+            </li>
+            <li>Să permită auditarea produsul tehnic și a modului de funcționare, atunci când acest lucru va fi
+                necesar.</li>
+            <li>Să ofere suport tehnic pe perioada campaniei și în timpul alegerilor. În cazul în care sunt
+                depistate erori în ecosistemul de vot, echipa tehnică le va remedia cu prioritate. În cazul în
+                care erorile pun sub semnul întrebării rezultatele legitime ale alegerilor, echipa tehnică va
+                reorganiza alegerile după remedierea erorilor. </li>
+            <li>Să creeze și să administreze un spațiu de discuții în platforma online Slack, folosind serviciul
+                gratuit oferit de această firmă.</li>
+            <li>Să nu propună candidați și să nu își exprime votul în cadrul niciunui rând de alegeri desfășurat
+                utilizând prezentul sistem informatic de vot. </li>
+            <li>Să asigure funcția administrativă și de secretariat a VotONG. </li>
+            <li>Să urmărească respectarea calendarului de desemnare a reprezentanților societății civile pentru
+                forurile consultative prevăzute de lege: Consiliul Economic și Social (CES), Comitetul Economic
+                și Social European (CESE), Consiliul Național pentru Combaterea Discriminării (CNCD), Consiliul
+                Superior al Magistraturii (CSM), Consiliul Național de Integritate, Comisiile de dialog social
+                din cadrul ministerelor României plus deconcentratele din teritoriu, coordonate de Prefecturi,
+                Comitetele de monitorizare pe diferite domenii (ex: monitorizarea absorbției și implementării
+                fondurilor structurale) ș.a.</li>
+            <li>Code for Romania își asumă responsabilitatea de a nu divulga opțiunile de vot, precum și de a
+                efectua o numărare corectă a voturilor, numărare care poate fi supusă unui audit extern.
+                Componenta de vot a ecosistemului va funcționa pe principiul votului nesecret. Atunci când un
+                reprezentat al unei asociații din platformă votează pentru un candidat, administratorii tehnici
+                ai platformei pot vedea cine a votat și care a fost opțiunea exprimată.</li>
+            <li>Asociația Code for Romania va desemna o singură persoană care va avea acces la datele despre
+                exprimarea voturilor și care va valida numărarea acestora. Persoana desemnată va încheia un
+                Acord de Confidențialitate care va fi luat la cunoștință de Comisia Electorală.</li>
+            <li>În cazul în care există o cerere de audit, echipa tehnică a Code for Romania își asumă
+                responsabilitatea de a permite și de a asista auditul asupra procesului de numărare a voturilor,
+                cât și asupra altor detalii tehnice care sunt de interes.</li>
+            <li>Să asigure deschiderea datelor cu caracter public din platformă, la standardele europene de
+                publicare a datelor deschise.</li>
+        </ul>
+
+        <h1>
+            Comisia Electorală a VotONG
+        </h1>
+
+        <p>
+            Componenţa Comisiei Electorale:
+        </p>
+        <ul>
+            <li>5 reprezentanți de ONG-uri, mandataţi de propriile organizații pentru a fi parte din Comisie.
+                Organizațiile respective nu vor participa și nu își vor desemna candidat în procesul de alegeri
+                - cu drept de vot. </li>
+            <li>1 reprezentant din partea Asociației Code for Romania ca administrator al platformei de vot
+                pentru societatea civilă, care include sistemul de vot - cu drept de vot doar asupra
+                chestiunilor care nu privesc validarea ONG-urilor electori, a candidatilor și a procesului de
+                vot;</li>
+            <li>1 reprezentant al instituției care organizează alegerile, care prezidează ședințele comisiei - fără drept de vot. </li>
+        </ul>
+
+        <p>
+            Comisia Electorală a VotONG își va desfășura activitatea și în cazul nedesemnării unui reprezentant din partea instituției care desfășoară alegerile. În acest caz, ședințele comisiei sunt prezidate de un reprezentant Code for Romania.
+        </p>
+
+        <p>
+            Cei 5 reprezentanți din partea societății civile sunt aleși pentru un mandat de 3 ani prin platforma VotONG. Mandatul comisiei actuale a început la 1 ianuarie 2022.
+        </p>
+
+        <p>
+            Cele 5 locuri locuri ale mandatului 2022-2025 sunt ocupate de: Fundația pentru Dezvoltarea Societății Civile (FDSC), Academia de Advocacy, Centrul de Resurse Juridice (CRJ), Federația Fundațiilor Comunitare, Centrul de Resurse pentru Comunitățile de Romi din Cluj.
+        </p>
+
+        <p>
+            Fiecare dintre cele 5 organizații membre ale Comisiei Electorale își desemnează un reprezentant unic în Comisia Electorală. Acesta trebuie să fie membru în organismele de conducere ale organizației și să nu fie membru al conducerii unui partid politic, să nu dețină o funcție publică aleasă sau una de demnitar al statului român.
+        </p>
+
+        <p>
+            Oricare dintre organizații își poate schimba reprezentantul în Comisia Electorală printr-o notificare scrisă, transmisă pe e-mail la adresa comisie@votong.ro. Informația va fi transmisă către toate organizațiile participante în platformă de către Asociația Code for Romania.
+        </p>
+
+        <h1>
+            Rolul Comisiei Electorale este:
+        </h1>
+
+        <ul>
+            <li>Dezvoltarea și aprobarea procedurii de alegere a reprezentanților societății civile pentru fiecare dintre forurile consultative prevăzute de lege. Procedura va cuprinde două secțiuni care definesc: (a) Criteriile de îndeplinit pentru a deveni ONG elector/votant valid; (b) Criteriile de îndeplinit pentru a deveni candidat valid al grupului societății civile (reprezentant de ONG). Procedura va trebui supusă unui proces de consultare cu societatea civilă folosind modulul de consultare al platformei VotONG. 
+            </li>
+            <li>Stabilirea calendarului alegerilor și aprobarea oricăror modificări a acestuia. </li>
+            <li>Depunerea de eforturi pentru ca ecosistemul VotONG să fie integrat/recunoscut în procesele de
+                constituire a structurilor consultative, în conformitate cu legislația specifică, pentru ocuparea
+                fotoliilor prevăzute pentru societatea civilă. </li>
+            <li>Validarea ONG-urilor electoare, care se va face prin vot nesecret; </li>
+            <li>Validarea candidaturilor înregistrate pentru alegeri; </li>
+            <li>Asigurarea și urmărirea procesului electoral, electronic și nesecret (opțiunile exprimate fiind vizibile doar reprezentantului Code for Romania, din poziția de administrator tehnic, care își asumă sarcina de a nu divulga aceste opțiuni), avand ca rezultat desemnarea reprezentanților societății civile în componența instituției care face obiectul alegerilor; </li>
+            <li>Formularea, depunerea și susținerea propunerii de desemnare a reprezentanților societății civile în
+                cadrul structurilor consultative către instituția pentru care se organizează alegerile;</li>
+            <li>Aducerea la cunoștința electorilor a deciziei instituției vizate privind componența structurii consultative.
+            </li>
+            <li>Aprobarea utilizării platformei VotONG.ro pentru proceduri de consultare sau alegere de
+                reprezentanți ai societății civile în afara desemnării pentru forurile consultative menționate
+                la punctul 1. </li>
+        </ul>
+
+        <h1>
+            Desfășurarea ședințelor Comisiei Electorale
+        </h1>
+
+        <ul>
+            <li>Fiecare organizație membră a Comisiei Electorale va comunica reprezentantul său precum și informațiile de contact ale acestuia la comisie@votong.ro</li>
+            <li>Ședințele Comisiei Electorale se desfășoară la cererea oricărui membru, transmisă de regulă cu cinci zile lucrătoare înainte către ceilalți membri și către comisie@votong.ro.</li>
+        </ul>
+
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+services:
+
+  db_base_psql:
+    container_name: votong_db_dev
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/Dockerfile.postgres
+    volumes:
+      - votong_psql:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: "${DATABASE_NAME}"
+      POSTGRES_USER: "${DATABASE_USER}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+    restart: always
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+
+  backend_base:
+    container_name: votong_backend_dev
+    env_file:
+      - .env
+    environment:
+      ENVIRONMENT: "development"
+      DATABASE_ENGINE: "postgresql"
+      DATABASE_HOST: "votong_db_dev"
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_USER: "${DATABASE_USER}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "${WEBAPP_PORT:-8030}:8000"
+    restart: on-failure

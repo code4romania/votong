@@ -1,0 +1,79 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block domain-filters %}
+{% endblock domain-filters %}
+
+{% block extra-header %}
+{% endblock extra-header %}
+
+{% block left-side-view %}
+
+{% if organization %}
+
+<div class="tabs is-medium">
+  <ul>
+    <li class="is-active">
+      <a href="{% url 'ngo-update' organization.id %}">Profilul organizației</a>
+    </li>
+    <li>
+    {% if organization.candidate %}
+      <a href="{% url 'candidate-update' organization.candidate.id %}">Candidatura mea</a>
+    {% elif CANDIDATE_REGISTRATION_ENABLED %}
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
+    {% endif %}
+    </li>
+    <li>
+      <a href="{% url 'votes' %}">Voturile mele</a>
+    </li>
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
+  </ul>
+</div>
+
+{% endif %}
+
+<h2 class="title border-b uppercase">Profilul organizației</h2>
+
+<a href="{% url 'ngo-detail' organization.id %}">Vezi profilul public al organizației</a>
+<br><br>
+
+<div class="container">
+    {% if messages %}
+        <article class="message is-success">
+        <div class="message-body">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        </article>
+    {% else %}
+        <form class="ces-form" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+            <article class="message is-danger"><div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {% for field in form %}
+            {% if field.errors %}
+            <article class="message is-danger"><div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {{ form|crispy }}
+
+            <div class="has-text-right">
+              <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+            </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

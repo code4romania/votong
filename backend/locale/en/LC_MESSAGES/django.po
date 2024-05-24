@@ -1,0 +1,1104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-17 11:36+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/forms.py:14
+msgid "This email can't be set."
+msgstr ""
+
+#: accounts/models.py:8 hub/templates/registration/reset_password.html:41
+msgid "email address"
+msgstr ""
+
+#: accounts/templates/avatar/change.html:47
+msgid "You haven't uploaded an avatar yet. Please upload one now."
+msgstr ""
+
+#: accounts/templates/avatar/change.html:50
+msgid "Your current avatar"
+msgstr ""
+
+#: accounts/templates/avatar/change.html:95
+msgid "Upload file..."
+msgstr ""
+
+#: accounts/templates/avatar/change.html:99
+msgid "No uploaded file"
+msgstr ""
+
+#: accounts/templates/avatar/change.html:106
+msgid "Upload New Image"
+msgstr ""
+
+#: accounts/templates/avatar/confirm_delete.html:14
+msgid "Please select the avatars that you would like to delete."
+msgstr ""
+
+#: accounts/templates/avatar/confirm_delete.html:17
+#, python-format
+msgid ""
+"You have no avatars to delete. Please <a href=\"%(avatar_change_url)s"
+"\">upload one</a> now."
+msgstr ""
+
+#: accounts/templates/avatar/confirm_delete.html:23
+msgid "Delete These"
+msgstr ""
+
+#: accounts/templates/change-email.html:39
+msgid "New email:"
+msgstr ""
+
+#: accounts/templates/change-email.html:51
+msgid "Change Email"
+msgstr ""
+
+#: accounts/templates/partials/sections.html:8
+#: accounts/templates/partials/sections.html:14
+#: hub/templates/candidate/list.html:34
+msgid "Back"
+msgstr ""
+
+#: accounts/templates/partials/sections.html:19
+#: hub/templates/registration/reset_password.html:15
+#: hub/templates/registration/reset_password.html:49
+msgid "Reset password"
+msgstr ""
+
+#: accounts/templates/partials/sections.html:23
+msgid "Change email"
+msgstr ""
+
+#: accounts/templates/partials/sections.html:27
+msgid "Change avatar"
+msgstr ""
+
+#: accounts/templates/password-reset.html:36
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: accounts/templates/password-reset.html:42
+msgid "Old password:"
+msgstr ""
+
+#: accounts/templates/password-reset.html:52
+#: hub/templates/registration/reset_password_confirm.html:40
+msgid "New password:"
+msgstr ""
+
+#: accounts/templates/password-reset.html:61
+#: hub/templates/registration/reset_password_confirm.html:49
+msgid "Confirm password:"
+msgstr ""
+
+#: accounts/templates/password-reset.html:72
+#: hub/templates/registration/reset_password_confirm.html:59
+msgid "Change my password"
+msgstr ""
+
+#: accounts/urls.py:6
+msgid "password-reset/"
+msgstr ""
+
+#: accounts/urls.py:7
+msgid "change-avatar/"
+msgstr ""
+
+#: accounts/urls.py:8
+msgid "change-email/"
+msgstr ""
+
+#: accounts/views.py:17
+msgid "Password was updated successfully"
+msgstr ""
+
+#: accounts/views.py:34
+msgid "Email was updated successfully"
+msgstr ""
+
+#: civil_society_vote/urls.py:11 civil_society_vote/urls.py:12
+#: civil_society_vote/urls.py:13
+msgid "Admin Civil Society Vote"
+msgstr ""
+
+#: civil_society_vote/urls.py:17
+msgid "about/"
+msgstr ""
+
+#: civil_society_vote/urls.py:18
+msgid "rules/"
+msgstr ""
+
+#: civil_society_vote/urls.py:20
+msgid "terms/"
+msgstr ""
+
+#: civil_society_vote/urls.py:25
+msgid "comittee_public_statement/"
+msgstr ""
+
+#: civil_society_vote/urls.py:30
+msgid "platform_rules/"
+msgstr ""
+
+#: civil_society_vote/urls.py:31
+msgid "history/"
+msgstr "history/"
+
+#: civil_society_vote/urls.py:35
+msgid "accounts/"
+msgstr ""
+
+#: civil_society_vote/urls.py:37
+msgid "accounts/reset-password/"
+msgstr ""
+
+#: civil_society_vote/urls.py:45
+msgid "accounts/reset-password/done/"
+msgstr ""
+
+#: civil_society_vote/urls.py:50
+msgid "accounts/reset-password/<uidb64>/<token>/"
+msgstr ""
+
+#: civil_society_vote/urls.py:55
+msgid "accounts/reset-password/complete/"
+msgstr ""
+
+#: hub/admin.py:53
+msgid "groups"
+msgstr ""
+
+#: hub/admin.py:100
+msgid "user"
+msgstr ""
+
+#: hub/admin.py:107
+msgid "candidate"
+msgstr ""
+
+#: hub/admin.py:159
+msgid "supporters"
+msgstr ""
+
+#: hub/admin.py:165
+msgid "10 or more"
+msgstr ""
+
+#: hub/admin.py:166
+msgid "less than 10"
+msgstr ""
+
+#: hub/admin.py:178
+msgid "confirmations"
+msgstr ""
+
+#: hub/admin.py:183
+msgid "5 or more"
+msgstr ""
+
+#: hub/admin.py:184
+msgid "less than 5"
+msgstr ""
+
+#: hub/admin.py:228
+msgid "Set selected candidates status to REJECTED"
+msgstr ""
+
+#: hub/admin.py:244
+msgid "Set selected candidates status to ACCEPTED"
+msgstr ""
+
+#: hub/admin.py:256
+msgid "Set selected candidates status to PENDING"
+msgstr ""
+
+#: hub/admin.py:303
+msgid "Votes"
+msgstr ""
+
+#: hub/admin.py:312
+msgid "Supporters"
+msgstr ""
+
+#: hub/admin.py:318
+msgid "Confirmations"
+msgstr ""
+
+#: hub/admin.py:420
+msgid "CSV file imported"
+msgstr ""
+
+#: hub/admin.py:428
+msgid "Import Cities"
+msgstr ""
+
+#: hub/admin.py:443
+msgid "Set flags for PHASE 1 - organization & candidate registrations"
+msgstr ""
+
+#: hub/admin.py:455
+msgid "Set flags for PHASE 2 - candidate validation"
+msgstr ""
+
+#: hub/admin.py:467
+msgid "Set flags for PHASE 3 - voting"
+msgstr ""
+
+#: hub/admin.py:479
+msgid "Set flags for FINAL PHASE - results"
+msgstr ""
+
+#: hub/forms.py:92
+msgid ""
+"I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
+msgstr ""
+
+#: hub/forms.py:102 hub/forms.py:143 hub/views.py:319
+msgid "An organization with the same email address is already registered."
+msgstr ""
+
+#: hub/forms.py:107
+msgid "You need to accept terms and conditions."
+msgstr ""
+
+#: hub/forms.py:163
+msgid "Authenticated user does not have an organization."
+msgstr ""
+
+#: hub/forms.py:166
+msgid "Organization already has a candidate."
+msgstr ""
+
+#: hub/forms.py:187
+msgid ""
+"To add a candidate you must upload all required documents in 'Organization "
+"Profile'"
+msgstr ""
+
+#: hub/forms.py:191
+msgid "Please add all candidate fields"
+msgstr ""
+
+#: hub/forms.py:232
+msgid "[ERROR 32202] Please contact the site administrator."
+msgstr ""
+
+#: hub/forms.py:238
+msgid "CSV file"
+msgstr ""
+
+#: hub/forms.py:243
+msgid "Uploaded file is not a CSV file"
+msgstr ""
+
+#: hub/models.py:81
+msgid "Active"
+msgstr ""
+
+#: hub/models.py:82
+msgid "Inactive"
+msgstr ""
+
+#: hub/models.py:86
+msgid "Enable organization registration"
+msgstr ""
+
+#: hub/models.py:87
+msgid "Enable organization approvals"
+msgstr ""
+
+#: hub/models.py:88
+msgid "Enable organization voting"
+msgstr ""
+
+#: hub/models.py:89
+msgid "Enable candidate registration"
+msgstr ""
+
+#: hub/models.py:90
+msgid "Enable candidate supporting"
+msgstr ""
+
+#: hub/models.py:91
+msgid "Enable candidate voting"
+msgstr ""
+
+#: hub/models.py:92
+msgid "Voting round with just one domain (some restrictions will apply)"
+msgstr ""
+
+#: hub/models.py:96
+#, fuzzy
+msgid "Pending organizations digest email"
+msgstr "Organizații nevalidate"
+
+#: hub/models.py:97
+msgid "Your organization was approved"
+msgstr ""
+
+#: hub/models.py:98
+msgid "Your organization was rejected"
+msgstr ""
+
+#: hub/models.py:99
+msgid "Vote audit log"
+msgstr ""
+
+#: hub/models.py:100
+#, fuzzy
+#| msgid "Organisation Email"
+msgid "Confirmation email"
+msgstr "Organisation E-mail address"
+
+#: hub/models.py:105
+msgid "Flag"
+msgstr ""
+
+#: hub/models.py:109
+msgid "Feature flag"
+msgstr ""
+
+#: hub/models.py:110
+msgid "Feature flags"
+msgstr ""
+
+#: hub/models.py:117
+msgid "Title"
+msgstr ""
+
+#: hub/models.py:119
+msgid "Author"
+msgstr ""
+
+#: hub/models.py:120
+msgid "Content preview"
+msgstr ""
+
+#: hub/models.py:122
+msgid "Content"
+msgstr ""
+
+#: hub/models.py:124
+msgid "Is visible?"
+msgstr ""
+
+#: hub/models.py:125
+msgid "Date published"
+msgstr ""
+
+#: hub/models.py:128
+msgid "Blog post"
+msgstr ""
+
+#: hub/models.py:129
+msgid "Blog posts"
+msgstr ""
+
+#: hub/models.py:141
+msgid "Template"
+msgstr ""
+
+#: hub/models.py:142
+msgid "Text content"
+msgstr ""
+
+#: hub/models.py:143
+msgid "HTML content"
+msgstr ""
+
+#: hub/models.py:146
+msgid "Email template"
+msgstr ""
+
+#: hub/models.py:147
+msgid "Email templates"
+msgstr ""
+
+#: hub/models.py:154
+msgid "Name"
+msgstr ""
+
+#: hub/models.py:155
+msgid "Description"
+msgstr ""
+
+#: hub/models.py:157
+msgid "Number of seats"
+msgstr ""
+
+#: hub/models.py:163
+msgid "Domain"
+msgstr ""
+
+#: hub/models.py:164
+msgid "Domains"
+msgstr ""
+
+#: hub/models.py:171 hub/models.py:176 hub/models.py:207
+#: hub/templates/ngo/list.html:76
+msgid "City"
+msgstr ""
+
+#: hub/models.py:172 hub/models.py:206 hub/templates/ngo/list.html:41
+msgid "County"
+msgstr ""
+
+#: hub/models.py:173
+msgid "Is county residence"
+msgstr ""
+
+#: hub/models.py:177
+msgid "Cities"
+msgstr ""
+
+#: hub/models.py:193
+msgid "Pending approval"
+msgstr ""
+
+#: hub/models.py:194 hub/models.py:392
+msgid "Accepted"
+msgstr ""
+
+#: hub/models.py:195 hub/models.py:393
+msgid "Rejected"
+msgstr ""
+
+#: hub/models.py:205
+msgid "NGO Name"
+msgstr ""
+
+#: hub/models.py:208
+msgid "Address"
+msgstr ""
+
+#: hub/models.py:209
+msgid "Registration number"
+msgstr ""
+
+#: hub/models.py:211
+msgid "Organisation Email"
+msgstr "Organisation E-mail address"
+
+#: hub/models.py:212
+msgid "Organisation Phone"
+msgstr "Organisation phone (optional)"
+
+#: hub/models.py:213
+msgid "Short Description"
+msgstr "A brief description (optional)"
+
+#: hub/models.py:215
+msgid "Legal Representative Name"
+msgstr "The name of the legal representative"
+
+#: hub/models.py:216
+#, fuzzy
+#| msgid "Legal Representative Name"
+msgid "Legal Representative Email"
+msgstr "The name of the legal representative"
+
+#: hub/models.py:217
+#, fuzzy
+#| msgid "Legal Representative Name"
+msgid "Legal Representative Phone"
+msgstr "The name of the legal representative"
+
+#: hub/models.py:219
+#, fuzzy
+#| msgid "Organisation Email"
+msgid "Organisation Head Name"
+msgstr "Organisation E-mail address"
+
+#: hub/models.py:220
+msgid "Board council"
+msgstr ""
+
+#: hub/models.py:221
+msgid "Logo"
+msgstr ""
+
+#: hub/models.py:224 hub/templates/ngo/detail.html:110
+msgid "First page of last balance sheet"
+msgstr ""
+
+#: hub/models.py:230 hub/templates/ngo/detail.html:119
+msgid "NGO Statute"
+msgstr ""
+
+#: hub/models.py:238 hub/templates/candidate/detail.html:137
+#: hub/templates/ngo/detail.html:148
+msgid "Yearly report 2020"
+msgstr ""
+
+#: hub/models.py:246 hub/templates/candidate/detail.html:146
+#: hub/templates/ngo/detail.html:157
+msgid "Yearly report 2019"
+msgstr ""
+
+#: hub/models.py:254 hub/templates/candidate/detail.html:155
+#: hub/templates/ngo/detail.html:166
+msgid "Yearly report 2018"
+msgstr ""
+
+#: hub/models.py:262 hub/templates/candidate/detail.html:164
+#: hub/templates/ngo/detail.html:175
+msgid "Yearly report 2017"
+msgstr ""
+
+#: hub/models.py:271 hub/templates/candidate/detail.html:191
+#: hub/templates/ngo/detail.html:184
+msgid "Non-discrimination statement"
+msgstr ""
+
+#: hub/models.py:279 hub/templates/candidate/detail.html:200
+#: hub/templates/ngo/detail.html:193
+msgid "Non-political statement"
+msgstr ""
+
+#: hub/models.py:288 hub/templates/candidate/detail.html:173
+#: hub/templates/ngo/detail.html:128
+msgid "Fiscal certificate ANAF"
+msgstr ""
+
+#: hub/models.py:296 hub/templates/candidate/detail.html:182
+#: hub/templates/ngo/detail.html:137
+msgid "Fiscal certificate local"
+msgstr ""
+
+#: hub/models.py:304
+#, fuzzy
+#| msgid "Accepted candidates"
+msgid "Accepted Terms and Conditions"
+msgstr "Candidați selectați"
+
+#: hub/models.py:306
+msgid "Rejection message"
+msgstr ""
+
+#: hub/models.py:309 hub/templates/header.html:43
+msgid "Organizations"
+msgstr ""
+
+#: hub/models.py:310
+msgid "Organization"
+msgstr ""
+
+#: hub/models.py:391
+msgid "Pending"
+msgstr ""
+
+#: hub/models.py:406
+msgid ""
+"If this is set, the `org` field will be unset and the candidate is removed "
+"as the official proposal of the organization."
+msgstr ""
+
+#: hub/models.py:412 hub/templates/candidate/detail.html:111
+#, fuzzy
+#| msgid "Legal Representative Name"
+msgid "Representative name"
+msgstr "The name of the legal representative"
+
+#: hub/models.py:418
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Representative role in organization"
+msgstr "Organizații nevalidate"
+
+#: hub/models.py:424 hub/templates/candidate/detail.html:119
+#, fuzzy
+#| msgid "Legal Representative Name"
+msgid "Representative statement"
+msgstr "The name of the legal representative"
+
+#: hub/models.py:432
+msgid "Is proposed?"
+msgstr ""
+
+#: hub/models.py:438 hub/templates/header.html:61
+msgid "Candidates"
+msgstr ""
+
+#: hub/models.py:439
+msgid "Candidate"
+msgstr ""
+
+#: hub/models.py:473
+msgid "Cannot update candidate after votes have been cast."
+msgstr ""
+
+#: hub/models.py:510
+msgid "Canditate votes"
+msgstr ""
+
+#: hub/models.py:511
+msgid "Candidate vote"
+msgstr ""
+
+#: hub/models.py:534
+msgid "Canditate supporters"
+msgstr ""
+
+#: hub/models.py:535
+msgid "Candidate supporter"
+msgstr ""
+
+#: hub/models.py:549
+msgid "Canditate confirmations"
+msgstr ""
+
+#: hub/models.py:550
+msgid "Candidate confirmation"
+msgstr ""
+
+#: hub/password_validation.py:15
+msgid "Your new password must be different."
+msgstr ""
+
+#: hub/password_validation.py:19
+msgid ""
+"Please correct the error below. Your new password must be different. Please "
+"try again."
+msgstr ""
+
+#: hub/templates/admin/dropdown_filter.html:3
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: hub/templates/admin/hub/city/change_list.html:10
+msgid "Import"
+msgstr ""
+
+#: hub/templates/admin/hub/city/import_cities.html:10
+msgid "Upload CSV file and add new cities"
+msgstr ""
+
+#: hub/templates/blog/list.html:41
+msgid "Read more"
+msgstr ""
+
+#: hub/templates/blog/post.html:17
+msgid "by"
+msgstr ""
+
+#: hub/templates/blog/post.html:24
+msgid "back to article list"
+msgstr ""
+
+#: hub/templates/bulma/file.html:12
+msgid "Upload file"
+msgstr ""
+
+#: hub/templates/candidate/detail.html:107
+msgid "Candidate information"
+msgstr ""
+
+#: hub/templates/candidate/detail.html:112
+#, fuzzy
+#| msgid "Legal Representative Name"
+msgid "Representative role"
+msgstr "The name of the legal representative"
+
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:100
+msgid "Documents"
+msgstr ""
+
+#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:184
+msgid "Non-discrimination statement "
+msgstr ""
+
+#: hub/templates/candidate/detail.html:200 hub/templates/ngo/detail.html:193
+msgid "Non-political statement "
+msgstr ""
+
+#: hub/templates/candidate/list.html:20 hub/templates/ngo/list.html:14
+msgid "Search..."
+msgstr ""
+
+#: hub/templates/candidate/list.html:79 hub/templates/candidate/results.html:63
+#: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:82
+msgid "View details"
+msgstr ""
+
+#: hub/templates/candidate/register_request.html:33
+#: hub/templates/candidate/update.html:27
+#: hub/templates/committee/partials/nav.html:24
+#: hub/templates/ngo/update.html:32 hub/templates/ngo/votes.html:33
+msgid "Settings"
+msgstr ""
+
+#: hub/templates/candidate/register_request.html:72
+msgid "Save profile"
+msgstr ""
+
+#: hub/templates/candidate/register_request.html:81
+#, fuzzy
+#| msgid "Pending candidates"
+msgid "Propose candidate"
+msgstr "Candidați propusi"
+
+#: hub/templates/candidate/update.html:106
+msgid "Publish changes"
+msgstr ""
+
+#: hub/templates/candidate/update.html:106
+msgid "Update profile"
+msgstr ""
+
+#: hub/templates/committee/candidates.html:20
+#: hub/templates/committee/partials/nav.html:15
+msgid "Pending candidates"
+msgstr "Candidați propusi"
+
+#: hub/templates/committee/candidates.html:22
+#: hub/templates/committee/partials/nav.html:18
+msgid "Accepted candidates"
+msgstr "Candidați selectați"
+
+#: hub/templates/committee/candidates.html:67
+#: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:177
+#: hub/templates/ngo/votes.html:98
+msgid "No results matching query"
+msgstr ""
+
+#: hub/templates/committee/list.html:21
+#: hub/templates/committee/partials/nav.html:6
+msgid "Pending Organisations"
+msgstr "Organizații nevalidate"
+
+#: hub/templates/committee/list.html:23
+#: hub/templates/committee/partials/nav.html:9
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Accepted Organisations"
+msgstr "Organizații nevalidate"
+
+#: hub/templates/committee/list.html:25
+#: hub/templates/committee/partials/nav.html:12
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Rejected Organisations"
+msgstr "Organizații nevalidate"
+
+#: hub/templates/committee/partials/nav.html:21
+#, fuzzy
+#| msgid "Accepted candidates"
+msgid "Rejected candidates"
+msgstr "Candidați selectați"
+
+#: hub/templates/developed-by.html:7
+msgid "A project developed by"
+msgstr ""
+
+#: hub/templates/developed-by.html:15
+msgid "in partnership with"
+msgstr ""
+
+#: hub/templates/django/forms/widgets/clearable_file_input.html:5
+msgid "Upload document"
+msgstr ""
+
+#: hub/templates/footer.html:32
+msgid "About VotONG"
+msgstr ""
+
+#: hub/templates/footer.html:33
+msgid "Platform rules"
+msgstr ""
+
+#: hub/templates/footer.html:34
+msgid "Privacy Policy"
+msgstr ""
+
+#: hub/templates/footer.html:35
+msgid "Terms and conditions"
+msgstr ""
+
+#: hub/templates/header.html:33
+msgid "Home"
+msgstr ""
+
+#: hub/templates/header.html:37
+msgid "About the platform"
+msgstr ""
+
+#: hub/templates/header.html:51
+msgid "History"
+msgstr ""
+
+#: hub/templates/header.html:56
+msgid "Register your organisation"
+msgstr ""
+
+#: hub/templates/header.html:65
+msgid "Metodology"
+msgstr ""
+
+#: hub/templates/header.html:84
+msgid "Logout"
+msgstr ""
+
+#: hub/templates/header.html:95 hub/templates/registration/login.html:16
+#: hub/templates/registration/login.html:60
+msgid "Login"
+msgstr ""
+
+#: hub/templates/incubated-by.html:7
+msgid "Project developed in the program"
+msgstr ""
+
+#: hub/templates/ngo/list.html:27
+#, fuzzy
+#| msgid "Pending Organisations"
+msgid "Registered organisations"
+msgstr "Organizații nevalidate"
+
+#: hub/templates/ngo/list.html:54 hub/templates/ngo/list.html:89
+msgid "All"
+msgstr ""
+
+#: hub/templates/ngo/list.html:110 hub/templates/ngo/list.html:117
+msgid "Reset filters"
+msgstr ""
+
+#: hub/templates/ngo/register_request.html:14
+msgid "Register organization"
+msgstr ""
+
+#: hub/templates/ngo/register_request.html:46
+msgid "Send registration request"
+msgstr ""
+
+#: hub/templates/ngo/update.html:74
+msgid "Update organization"
+msgstr ""
+
+#: hub/templates/ngo/votes.html:42
+msgid "My votes"
+msgstr ""
+
+#: hub/templates/partials/ces_results_header.html:5
+msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
+msgstr ""
+
+#: hub/templates/partials/ces_results_header.html:24
+msgid "CES elections"
+msgstr ""
+
+#: hub/templates/registration/login.html:21
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: hub/templates/registration/login.html:30
+msgid ""
+"Your account doesn't have access to this page. To proceed, please login with "
+"an account that has access."
+msgstr ""
+
+#: hub/templates/registration/login.html:32
+msgid "Please login to see this page."
+msgstr ""
+
+#: hub/templates/registration/login.html:41
+msgid "Email"
+msgstr ""
+
+#: hub/templates/registration/login.html:43
+msgid "email"
+msgstr ""
+
+#: hub/templates/registration/login.html:50
+msgid "Password"
+msgstr ""
+
+#: hub/templates/registration/login.html:52
+msgid "password"
+msgstr ""
+
+#: hub/templates/registration/login.html:62
+msgid "Forgot password?"
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:20
+msgid "The email address you entered is not valid. Please try again."
+msgstr ""
+
+#: hub/templates/registration/reset_password.html:27
+msgid ""
+"\n"
+"        In order to reset your password, please enter the organisation e-"
+"mail address. This is the e-mail address that\n"
+"        you filled in, under <b>Organisation E-mail</b>, when you signed "
+"your organisation up.\n"
+"        "
+msgstr ""
+
+#: hub/templates/registration/reset_password_complete.html:15
+msgid "The password was reset"
+msgstr ""
+
+#: hub/templates/registration/reset_password_complete.html:20
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:15
+msgid "Confirm password reset"
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:32
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: hub/templates/registration/reset_password_confirm.html:68
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: hub/templates/registration/reset_password_done.html:15
+msgid "Initiated password reset"
+msgstr ""
+
+#: hub/templates/shared/pagination.html:17
+msgid "first"
+msgstr ""
+
+#: hub/templates/shared/pagination.html:19
+msgid "previous"
+msgstr ""
+
+#: hub/templates/shared/pagination.html:27
+#, python-format
+msgid ""
+"\n"
+"            Page %(page)s of %(no_pages)s\n"
+"        "
+msgstr ""
+
+#: hub/templates/shared/pagination.html:35
+msgid "next"
+msgstr ""
+
+#: hub/templates/shared/pagination.html:37
+msgid "last"
+msgstr ""
+
+#: hub/templatetags/hub_tags.py:101
+msgid "published on"
+msgstr ""
+
+#: hub/templatetags/hub_tags.py:103
+msgid "published"
+msgstr ""
+
+#: hub/urls.py:30
+msgid "candidates/"
+msgstr ""
+
+#: hub/urls.py:32
+msgid "candidates/register"
+msgstr ""
+
+#: hub/urls.py:36
+msgid "candidates/<int:pk>"
+msgstr ""
+
+#: hub/urls.py:37
+msgid "candidates/<int:pk>/vote"
+msgstr ""
+
+#: hub/urls.py:38
+msgid "candidates/<int:pk>/support"
+msgstr ""
+
+#: hub/urls.py:39
+msgid "candidates/<int:pk>/revoke"
+msgstr ""
+
+#: hub/urls.py:40
+msgid "candidates/<int:pk>/status-confirm"
+msgstr ""
+
+#: hub/urls.py:41
+msgid "candidates/<int:pk>/update"
+msgstr ""
+
+#: hub/urls.py:42
+msgid "candidates/votes"
+msgstr ""
+
+#: hub/urls.py:43
+msgid "candidates/ces-results"
+msgstr ""
+
+#: hub/urls.py:44
+msgid "committee/ngos/"
+msgstr ""
+
+#: hub/urls.py:45
+msgid "committee/candidates/"
+msgstr ""
+
+#: hub/urls.py:46
+msgid "ngos/"
+msgstr ""
+
+#: hub/urls.py:48
+msgid "ngos/register"
+msgstr ""
+
+#: hub/urls.py:52
+msgid "ngos/<int:pk>"
+msgstr ""
+
+#: hub/urls.py:53
+msgid "ngos/<int:pk>/vote/<str:action>"
+msgstr ""
+
+#: hub/urls.py:54
+msgid "ngos/<int:pk>/update"
+msgstr ""
+
+#: hub/views.py:66
+msgid "Thank you! We'll get in touch soon!"
+msgstr ""
+
+#: hub/views.py:254
+msgid ""
+"Thank you for signing up! The form you filled in has reached us. Someone "
+"from our team will reach out to you as soon as your organization is "
+"validated. If you have any further questions, send us a message at "
+"contact@votong.ro"
+msgstr ""
+
+#: hub/views.py:312
+msgid "You must write a rejection message."
+msgstr ""
+
+#, fuzzy
+#~| msgid "Pending candidates"
+#~ msgid "Organizații candidate"
+#~ msgstr "Candidați propusi"

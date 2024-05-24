@@ -1,4 +1,4 @@
-name: votong_dev
+name: votong_prod
 
 services:
 
@@ -6,16 +6,18 @@ services:
     extends:
       file: docker-compose.base.yml
       service: db_base_psql
+    container_name: votong_db
 
   backend:
     extends:
       file: docker-compose.base.yml
       service: backend_base
+    container_name: votong_backend
     build:
       context: .
-      dockerfile: ./docker/dockerfiles/Dockerfile.backend.dev
+      dockerfile: ./docker/dockerfiles/Dockerfile.backend
     volumes:
-      - ./backend:/var/www/votong/backend
+      - ./backend/media:/var/www/votong/backend/media
     depends_on:
       - db
 

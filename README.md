@@ -43,7 +43,7 @@ None. Includes Bulma for stilying.
 
 ### Pre-requisites
 
-In order to run the project locally, you need to have [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/) installed.
+In order to run the project locally, you need to have [Docker](https://docs.docker.com/get-docker/) and the [docker compose](https://docs.docker.com/compose/) plugin installed.
 
 ### Initial set-up
 
@@ -53,15 +53,15 @@ Initialize the environment variables:
 cp .env.example .env
 ```
 
-Check the `.env` file and see if there are any environment variables that you might need to provide a value for or change. This file is used by `docker-compose` to pass the environment variables to the container it creates.
+Check the `.env` file and see if there are any environment variables that you might need to provide a value for or change. This file is used by `docker compose` to pass the environment variables to the container it creates.
 
 ### Starting the project
 
 Get the project up and running:
 
 ```bash
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 ```
 
 You should be able to access the local environment site and admin at the following URLs:
@@ -76,11 +76,11 @@ You can access the admin with email `admin@example.test` and password `secret` (
 If you have problems starting the project, first check out the [FAQ](https://github.com/code4romania/votong/wiki/FAQ) and if that doesn't work, ask someone from the project's channel.
 Maybe the issue you just had is worth adding to the [FAQ](https://github.com/code4romania/votong/wiki/FAQ), wouldn't it?
 
-To work on running containers that were started using `docker-compose up`, open another terminal and:
+To work on running containers that were started using `docker compose up`, open another terminal and:
 
 ```bash
 cd path/to/repo
-docker-compose exec web bash
+docker compose exec web bash
 ```
 
 **IMPORTANT**: Remember to run `make lint` before commiting your code in order to format the code properly. Thank you!
