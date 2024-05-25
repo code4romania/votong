@@ -15,7 +15,7 @@ jobs:
     name: Build Docker image
     uses: code4romania/.github/.github/workflows/build-push-image.yml@main
     with:
-      images: votong
+      images: code4romania/votong
       dockerfile: ./docker/dockerfiles/Dockerfile.backend
     secrets:
       username: ${{ secrets.DOCKER_HUB_USERNAME }}
