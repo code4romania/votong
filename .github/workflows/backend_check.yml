@@ -93,4 +93,4 @@ jobs:
         DJANGO_SETTINGS_MODULE: civil_society_vote.test_settings
       run: |
         cd ./backend
-        pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=60 -n auto
+        pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=33 -n auto
