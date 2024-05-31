@@ -153,7 +153,7 @@ INSTALLED_APPS = [
     "admin_auto_filters",
     "spurl",
     "crispy_forms",
-    # "django_crispy_bulma",
+    "django_crispy_bulma",
     "storages",
     "django_recaptcha",
     "file_resubmit",
