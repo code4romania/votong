@@ -28,6 +28,7 @@ exclude = [
     "venv",
     "migrations",
     "legacy_settings",
+    "django_crispy_bulma",
 ]
 
 # Same as Black.
@@ -83,6 +84,7 @@ target-version = ["py311"]
 extend-exclude = '''(
     (.+/)?migrations/.+
     | (.+/)?legacy_settings/.+
+    | (.+/)?django_crispy_bulma/.+
 )'''
 
 [tool.isort]
