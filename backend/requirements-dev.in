@@ -17,4 +17,11 @@ pdbpp~=0.10.3
 # dependency manangement
 pip-tools~=7.4.1
 
+# testing
+pytest~=8.2.0
+
+pytest-django~=4.8.0
+pytest-xdist~=3.6.1
+pytest-cov~=5.0.0
+
 -r requirements.txt
