@@ -59,7 +59,7 @@ urlpatterns = i18n_patterns(
     path("me/", include("accounts.urls")),
     path("", include("hub.urls")),
 ) + [
-    path('allauth/', include('allauth.urls')),
+    path("allauth/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:

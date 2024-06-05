@@ -570,7 +570,7 @@ GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")
 SOCIALACCOUNT_PROVIDERS = {
     "amazon_cognito": {
         "DOMAIN": "https://" + env.str("AWS_COGNITO_DOMAIN"),
-        "EMAIL_AUTHENTICATION": True, # TODO
+        "EMAIL_AUTHENTICATION": True,  # TODO
         "VERIFIED_EMAIL": True,  # TODO
         "APPS": [
             {
