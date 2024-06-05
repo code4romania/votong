@@ -16,9 +16,9 @@ black==24.4.2
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.34.116
+boto3==1.34.118
     # via -r requirements.txt
-botocore==1.34.116
+botocore==1.34.118
     # via
     #   -r requirements.txt
     #   boto3
@@ -27,7 +27,7 @@ brotlipy==0.7.0
     # via -r requirements.txt
 build==1.2.1
     # via pip-tools
-certifi==2024.2.2
+certifi==2024.6.2
     # via
     #   -r requirements.txt
     #   requests
@@ -36,6 +36,7 @@ cffi==1.16.0
     # via
     #   -r requirements.txt
     #   brotlipy
+    #   cryptography
 charset-normalizer==3.3.2
     # via
     #   -r requirements.txt
@@ -48,12 +49,15 @@ coverage==7.5.3
     # via pytest-cov
 croniter==2.0.5
     # via -r requirements.txt
+cryptography==42.0.7
+    # via -r requirements.txt
 decorator==5.1.1
     # via ipython
 django==4.2.13
     # via
     #   -r requirements.txt
     #   django-admin-autocomplete-filter
+    #   django-allauth
     #   django-appconf
     #   django-ckeditor
     #   django-crispy-forms
@@ -69,6 +73,8 @@ django==4.2.13
 django-admin-autocomplete-filter==0.7.1
     # via -r requirements.txt
 django-admin-rangefilter==0.13.0
+    # via -r requirements.txt
+django-allauth==0.63.3
     # via -r requirements.txt
 django-appconf==1.0.6
     # via
@@ -151,6 +157,10 @@ matplotlib-inline==0.1.7
     # via ipython
 mypy-extensions==1.0.0
     # via black
+oauthlib==3.2.2
+    # via
+    #   -r requirements.txt
+    #   requests-oauthlib
 packaging==24.0
     # via
     #   -r requirements.txt
@@ -194,6 +204,8 @@ pygments==2.18.0
     # via
     #   ipython
     #   pdbpp
+pyjwt==2.8.0
+    # via -r requirements.txt
 pyproject-hooks==1.1.0
     # via
     #   build
@@ -223,6 +235,10 @@ pytz==2024.1
     #   -r requirements.txt
     #   croniter
 requests==2.32.3
+    # via
+    #   -r requirements.txt
+    #   requests-oauthlib
+requests-oauthlib==2.0.0
     # via -r requirements.txt
 ruff==0.4.5
     # via -r requirements-dev.in
@@ -250,7 +266,7 @@ traitlets==5.14.3
     # via
     #   ipython
     #   matplotlib-inline
-typing-extensions==4.12.0
+typing-extensions==4.12.1
     # via ipython
 urllib3==2.2.1
     # via

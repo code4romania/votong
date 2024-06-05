@@ -81,7 +81,7 @@
                             {{ user.email|truncatechars:24 }}
                         </a>
 
-                        <a href="{% url 'logout' %}" class="navbar-item">{% trans "Logout" %}</a>
+                        <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>
 
                         {% if user.is_impersonate %}
                         <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
@@ -91,7 +91,7 @@
 
                         {% else %}
 
-                        <a  href="{% url 'login'%}" class="navbar-item">
+                        <a  href="{% url 'account_login'%}" class="navbar-item">
                             {% trans "Login" %}
                         </a>
                         {% endif %}
