@@ -3,6 +3,7 @@ django~=4.2.13
 django-avatar~=8.0.0
 django-environ~=0.11.2
 django-crispy-forms~=2.1.0
+django-allauth[socialaccount]~=0.63.3 
 
 # job scheduler
 django-q2~=1.6.2

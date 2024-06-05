@@ -51,6 +51,9 @@ env = environ.Env(
     AWS_SES_REGION_NAME=(str, ""),
     AWS_SES_INCLUDE_REPORTS=(bool, False),
     AWS_SES_CONFIGURATION_SET_NAME=(str, None),
+    AWS_COGNITO_DOMAIN=(str, ""),
+    AWS_COGNITO_CLIENT_ID=(str, ""),
+    AWS_COGNITO_CLIENT_SECRET=(str, ""),
     # azure settings
     USE_AZURE=(bool, False),
     AZURE_ACCOUNT_NAME=(str, ""),
@@ -148,7 +151,12 @@ INSTALLED_APPS = [
     "hub",
     "accounts",
     "utils",
-    # third-party
+    # authentication
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.amazon_cognito",
+    # other third-party
     "avatar",
     "admin_auto_filters",
     "spurl",
@@ -183,6 +191,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "impersonate.middleware.ImpersonateMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
@@ -200,6 +209,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # this is the default
     "guardian.backends.ObjectPermissionBackend",
     "civil_society_vote.middleware.CaseInsensitiveUserModel",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 ROOT_URLCONF = "civil_society_vote.urls"
@@ -365,7 +375,7 @@ elif USE_AZURE:
 
     default_storage_options["azure_container"] = env("AZURE_CONTAINER")
 
-    azure_custom_domain = f'{env("AZURE_ACCOUNT_NAME")}.blob.core.windows.net'
+    azure_custom_domain = f"{env('AZURE_ACCOUNT_NAME')}.blob.core.windows.net"
     default_storage_options["custom_domain"] = azure_custom_domain
 
     # azure public media settings
@@ -554,3 +564,23 @@ if env.str("SENTRY_DSN"):
 
 
 GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")
+
+
+# Django Allauth settings
+SOCIALACCOUNT_PROVIDERS = {
+    "amazon_cognito": {
+        "DOMAIN": "https://" + env.str("AWS_COGNITO_DOMAIN"),
+        "EMAIL_AUTHENTICATION": True, # TODO
+        "VERIFIED_EMAIL": True,  # TODO
+        "APPS": [
+            {
+                "client_id": env.str("AWS_COGNITO_CLIENT_ID"),
+                "secret": env.str("AWS_COGNITO_CLIENT_SECRET"),
+            },
+        ],
+    }
+}
+
+# Django Allauth allow only social logins
+SOCIALACCOUNT_ONLY = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
