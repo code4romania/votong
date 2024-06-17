@@ -135,7 +135,7 @@ six==1.16.0
     #   python-dateutil
 sqlparse==0.5.0
     # via django
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   botocore
     #   requests

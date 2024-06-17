@@ -268,7 +268,7 @@ traitlets==5.14.3
     #   matplotlib-inline
 typing-extensions==4.12.1
     # via ipython
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   -r requirements.txt
     #   botocore
