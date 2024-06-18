@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - 'main'
+      - '1.x'
+    tags:
+      - 'v*'
+
+name: Build Docker image
+
+jobs:
+  build:
+    name: Build Docker image
+    uses: code4romania/.github/.github/workflows/build-push-image.yml@main
+    with:
+      images: code4romania/votong
+      dockerfile: ./docker/web/Dockerfile
+    secrets:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
