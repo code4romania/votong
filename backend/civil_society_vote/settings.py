@@ -581,6 +581,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIALACCOUNT_ADAPTER = "hub.social_adapters.UserOrgAdapter"
+
 # Django Allauth allow only social logins
 SOCIALACCOUNT_ONLY = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
