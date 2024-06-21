@@ -1,0 +1,12 @@
+{% extends 'account-base.html' %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+{% block title %}{% block head_title %}{% endblock head_title %}{% endblock %}
+
+{% block content_container %}
+<div class="container section tight-container">
+    {% block content %}{% endblock content %}
+</div>
+{% endblock content_container %}

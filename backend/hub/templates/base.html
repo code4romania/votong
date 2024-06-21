@@ -43,15 +43,19 @@
 
     {% endif %}
 
+    {% block extra_head %}{% endblock extra_head %}
+
 </head>
 
 <body>
     {% include "header.html" %}
 
-    <div id="main">
+    {% block content_container %}
+      <div id="main">
         {% block content %}
         {% endblock %}
-    </div>
+      </div>
+    {% endblock content_container %}
 
     {% include "footer.html" %}
 
