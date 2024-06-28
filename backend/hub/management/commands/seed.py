@@ -123,6 +123,9 @@ class Command(BaseCommand):
                 )
 
                 org.logo.name = "logo-demo.png"
+                org.report_2023.name = "test.pdf"
+                org.report_2022.name = "test.pdf"
+                org.report_2021.name = "test.pdf"
                 org.report_2020.name = "test.pdf"
                 org.report_2019.name = "test.pdf"
                 org.report_2018.name = "test.pdf"

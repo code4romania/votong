@@ -140,6 +140,33 @@
 
     {% endif %}
 
+    {% if ngo.report_2023 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2023.url }}" title="{% trans 'Yearly report 2023' %}">{% trans 'Yearly report 2023' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.report_2022 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2022.url }}" title="{% trans 'Yearly report 2022' %}">{% trans 'Yearly report 2022' %}</a>
+    </p>
+    {% endif %}
+
+    {% if ngo.report_2021 %}
+    <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ ngo.report_2021.url }}" title="{% trans 'Yearly report 2021' %}">{% trans 'Yearly report 2021' %}</a>
+    </p>
+    {% endif %}
+
     {% if ngo.report_2020 %}
     <p>
         <span class="icon">
