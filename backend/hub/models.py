@@ -348,7 +348,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def is_readonly(self):
         """

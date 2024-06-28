@@ -120,7 +120,14 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message", "ngohub_org_id"]
+        exclude = [
+            "user",
+            "status",
+            "status_changed",
+            "accept_terms_and_conditions",
+            "rejection_message",
+            "ngohub_org_id",
+        ]
         widgets = {
             # "email": EmailInput(),
             # "legal_representative_email": EmailInput(),
@@ -137,6 +144,10 @@ class OrganizationUpdateForm(forms.ModelForm):
                 self.fields["city"].queryset = City.objects.filter(county__iexact=self.data["county"])
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
+
+        if self.instance and self.instance.is_readonly:
+            for field_name in self.fields:
+                self.fields[field_name].disabled = True
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
