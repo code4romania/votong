@@ -71,7 +71,11 @@
             {{ form|crispy }}
 
             <div class="has-text-right">
+            {% if organization.is_readonly %}
+              <p><strong>Puteți actualiza datele acestei organizații doar prin NGO Hub.</strong></p>
+            {% else %}
               <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+            {% endif %}
             </div>
         </form>
     {% endif %}
