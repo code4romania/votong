@@ -418,9 +418,6 @@ if USE_S3:
     AWS_DEFAULT_ACL = "public-read"
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    PUBLIC_MEDIA_LOCATION = "media"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = "media"
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
@@ -433,7 +430,7 @@ if USE_S3:
 else:
     PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "mediafiles"))
+    MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "media"))
 
 STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static_extras")),)
 STATIC_URL = "/static/"
