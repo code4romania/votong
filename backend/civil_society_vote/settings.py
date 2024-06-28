@@ -409,31 +409,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = env.int("DATA_UPLOAD_MAX_MEMORY_SIZE")
 # Maximum single file size for uploaded files
 MAX_DOCUMENT_SIZE = env.int("MAX_DOCUMENT_SIZE")
 
-
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-    AWS_DEFAULT_ACL = "public-read"
-    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    # s3 public media settings
-    PUBLIC_MEDIA_LOCATION = "media"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "hub.storage_backends.PublicMediaStorage"
-    # s3 private media settings
-    PRIVATE_MEDIA_LOCATION = "private"
-    PRIVATE_FILE_STORAGE = "hub.storage_backends.PrivateMediaStorage"
-    AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME")
-    AWS_S3_SIGNATURE_VERSION = "s3v4"
-else:
-    PRIVATE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "media"))
-
 STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static_extras")),)
-STATIC_URL = "/static/"
 
 
 # Email settings
