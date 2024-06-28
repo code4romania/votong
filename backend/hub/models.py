@@ -206,6 +206,8 @@ class Organization(StatusModel, TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
     )
 
+    ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organisation ID"), default=0, db_index=True)
+
     name = models.CharField(_("NGO Name"), max_length=254)
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
     city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
@@ -236,6 +238,31 @@ class Organization(StatusModel, TimeStampedModel):
         max_length=300,
         # storage=PrivateMediaStorageClass(),
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
+    )
+
+    report_2023 = models.FileField(
+        _("Yearly report 2023"),
+        null=True,
+        blank=True,
+        max_length=300,
+        # storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
+    )
+    report_2022 = models.FileField(
+        _("Yearly report 2022"),
+        null=True,
+        blank=True,
+        max_length=300,
+        # storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
+    )
+    report_2021 = models.FileField(
+        _("Yearly report 2021"),
+        null=True,
+        blank=True,
+        max_length=300,
+        # storage=PrivateMediaStorageClass(),
+        help_text=REPORTS_HELP_TEXT,
     )
 
     report_2020 = models.FileField(
@@ -321,6 +348,15 @@ class Organization(StatusModel, TimeStampedModel):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def is_readonly(self):
+        """
+        Organizations managed elsewhere (ie: on NGO Hub) should not be editable here
+        """
+        if self.ngohub_org_id:
+            return True
+        return False
 
     @property
     def is_complete(self):
@@ -331,10 +367,13 @@ class Organization(StatusModel, TimeStampedModel):
             [
                 self.statute,
                 self.last_balance_sheet,
-                self.report_2020,
-                self.report_2019,
-                self.report_2018,
-                self.report_2017,
+                self.report_2023,
+                self.report_2022,
+                self.report_2021,
+                # self.report_2020,
+                # self.report_2019,
+                # self.report_2018,
+                # self.report_2017,
                 self.statement_discrimination,
                 self.statement_political,
                 self.fiscal_certificate_anaf,

@@ -28,6 +28,9 @@ ORG_FIELD_ORDER = [
     "logo",
     "last_balance_sheet",
     "statute",
+    "report_2023",
+    "report_2022",
+    "report_2021",
     "report_2020",
     "report_2019",
     "report_2018",
@@ -53,6 +56,9 @@ class OrganizationCreateForm(forms.ModelForm):
             "user",
             "status",
             "status_changed",
+            "report_2023",
+            "report_2022",
+            "report_2021",
             "report_2020",
             "report_2019",
             "report_2018",
@@ -114,7 +120,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message"]
+        exclude = ["user", "status", "status_changed", "accept_terms_and_conditions", "rejection_message", "ngohub_org_id"]
         widgets = {
             # "email": EmailInput(),
             # "legal_representative_email": EmailInput(),
