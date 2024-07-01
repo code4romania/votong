@@ -1097,8 +1097,3 @@ msgstr ""
 #: hub/views.py:312
 msgid "You must write a rejection message."
 msgstr ""
-
-#, fuzzy
-#~| msgid "Pending candidates"
-#~ msgid "Organizații candidate"
-#~ msgstr "Candidați propusi"
