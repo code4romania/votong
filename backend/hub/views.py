@@ -278,6 +278,13 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
     def get_success_url(self):
         return reverse("ngo-update", args=(self.object.id,))
 
+    def post(self, request, *args, **kwargs):
+        org = self.get_object()
+        if org and org.id and org.is_readonly:
+            raise PermissionDenied
+        else:
+            return super().post(request, *args, **kwargs)
+
 
 @permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
 def organization_vote(request, pk, action):
