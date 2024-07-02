@@ -48,18 +48,20 @@ def update_user_org(sender, **kwargs):
     # org.county = ""
     # org.city = ""
     org.address = ngohub_org["organizationGeneral"]["address"]
-    org.registration_number = ngohub_org["organizationGeneral"]["cui"]
+    org.registration_number = ngohub_org["organizationGeneral"]["rafNumber"]
 
-    org.email = ngohub_org["organizationGeneral"]["contact"]["email"]
-    org.phone = ngohub_org["organizationGeneral"]["contact"]["phone"]
+    org.email = ngohub_org["organizationGeneral"]["email"]
+    org.phone = ngohub_org["organizationGeneral"]["phone"]
     org.description = ngohub_org["organizationGeneral"]["description"]
 
     org.legal_representative_name = ngohub_org["organizationLegal"]["legalReprezentative"]["fullName"]
     org.legal_representative_email = ngohub_org["organizationLegal"]["legalReprezentative"]["email"]
     org.legal_representative_phone = ngohub_org["organizationLegal"]["legalReprezentative"]["phone"]
 
-    # org.organisation_head_name = ""
-    # org.board_council = ""
+    org.board_council = ", ".join([director["fullName"] for director in ngohub_org["organizationLegal"]["directors"]])
+
+    # TODO:
+    org.organisation_head_name = ""
 
     org.save()
 
