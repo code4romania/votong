@@ -2,6 +2,7 @@ import requests
 
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
+
 # from allauth.socialaccount.models import SocialToken, SocialAccount
 from django.contrib.auth.models import Group
 from django.conf import settings
@@ -40,7 +41,7 @@ def update_user_org(sender, **kwargs):
 
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
     print(ngohub_org)
-    
+
     org = Organization.objects.filter(user=social.user)[0]
     org.ngohub_org_id = ngohub_org["id"]
     org.name = ngohub_org["organizationGeneral"]["name"]
@@ -61,7 +62,6 @@ def update_user_org(sender, **kwargs):
     # org.board_council = ""
 
     org.save()
-    
 
 
 social_account_updated.connect(update_user_org)
