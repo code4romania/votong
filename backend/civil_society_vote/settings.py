@@ -102,6 +102,7 @@ env = environ.Env(
     EMAIL_FAIL_SILENTLY=(bool, False),
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
+    NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
 )
 
 # reading .env file
@@ -558,3 +559,6 @@ SOCIALACCOUNT_ADAPTER = "hub.social_adapters.UserOrgAdapter"
 # Django Allauth allow only social logins
 SOCIALACCOUNT_ONLY = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_STORE_TOKENS = False
+
+NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
