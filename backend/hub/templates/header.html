@@ -44,7 +44,7 @@
                         </a>
 
                         <a href="{% url 'candidates' %}" class="navbar-item">
-                            Alegeri VotONG
+                            {% trans "VotONG Elections" %}
                         </a>
 
                         <a href="{% url 'history' %}" class="navbar-item">
@@ -85,7 +85,7 @@
 
                         {% if user.is_impersonate %}
                         <a  href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
-                            STOP IMPERSONATING<br>{{ request.user.email }}
+                            {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
                         </a>
                         {% endif %}
 
