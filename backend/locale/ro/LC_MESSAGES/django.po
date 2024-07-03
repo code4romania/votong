@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 08:59+0300\n"
+"POT-Creation-Date: 2024-07-03 21:41+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,16 +31,16 @@ msgstr "nume utilizator"
 msgid "We do not use this field"
 msgstr "Nu utilizăm acest câmp"
 
-#: backend/accounts/models.py:18
+#: backend/accounts/models.py:17
 #: backend/hub/templates/registration/reset_password.html:41
 msgid "email address"
 msgstr "adresă email"
 
-#: backend/accounts/models.py:25
+#: backend/accounts/models.py:24
 msgid "User"
 msgstr "Utilizator"
 
-#: backend/accounts/models.py:26
+#: backend/accounts/models.py:25
 msgid "Users"
 msgstr "Utilizatori"
 
@@ -54,7 +54,7 @@ msgstr "Avatarul tău curent"
 
 #: backend/accounts/templates/avatar/change.html:95
 msgid "Upload file..."
-msgstr "Încarcă fișier"
+msgstr "Încarcă fișier..."
 
 #: backend/accounts/templates/avatar/change.html:99
 msgid "No uploaded file"
@@ -99,7 +99,7 @@ msgstr "Înapoi"
 #: backend/hub/templates/registration/reset_password.html:15
 #: backend/hub/templates/registration/reset_password.html:49
 msgid "Reset password"
-msgstr "Resetează parola"
+msgstr "Resetează parolă"
 
 #: backend/accounts/templates/partials/sections.html:23
 msgid "Change email"
@@ -148,7 +148,7 @@ msgstr "schimba-email/"
 
 #: backend/accounts/views.py:17
 msgid "You cannot change the password for an NGO Hub account"
-msgstr ""
+msgstr "Nu puteți schimba parola pentru un cont NGO Hub"
 
 #: backend/accounts/views.py:21
 msgid "Password was updated successfully"
@@ -156,11 +156,11 @@ msgstr "Parola a fost schimbată cu succes"
 
 #: backend/accounts/views.py:34
 msgid "You cannot change the email for an NGO Hub account"
-msgstr ""
+msgstr "Nu puteți schimba adresa de email pentru un cont NGO Hub"
 
 #: backend/accounts/views.py:41
 msgid "Email was updated successfully"
-msgstr "Adresa de E-mail a fost modificată cu succes!"
+msgstr "Adresa de email a fost modificată cu succes"
 
 #: backend/civil_society_vote/urls.py:11 backend/civil_society_vote/urls.py:12
 #: backend/civil_society_vote/urls.py:13
@@ -253,11 +253,11 @@ msgstr "confirmări"
 
 #: backend/hub/admin.py:207
 msgid "5 or more"
-msgstr "5 sau mai multe"
+msgstr "5 sau mai mult"
 
 #: backend/hub/admin.py:208
 msgid "less than 5"
-msgstr "mai puține de 5"
+msgstr "mai puțin de 5"
 
 #: backend/hub/admin.py:252
 msgid "Set selected candidates status to REJECTED"
@@ -321,7 +321,7 @@ msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
 #: backend/hub/forms.py:114
 msgid "You need to accept terms and conditions."
-msgstr "Trebuie să accepți termenii și condiții de utilizare"
+msgstr "Trebuie să acceptați termenii și condițile de utilizare"
 
 #: backend/hub/forms.py:182
 msgid "Authenticated user does not have an organization."
@@ -329,7 +329,7 @@ msgstr "Utilizatorul autentificat nu are o organizație."
 
 #: backend/hub/forms.py:185
 msgid "Organization already has a candidate."
-msgstr "Organizatia are deja o candidatură"
+msgstr "Organizația are deja o candidatură"
 
 #: backend/hub/forms.py:206
 msgid ""
@@ -393,7 +393,7 @@ msgstr "Rundă de vot cu un singur domeniu (vor fi aplicate unele restricții)"
 
 #: backend/hub/models.py:100
 msgid "Pending organizations digest email"
-msgstr "Model e-mail pentru organizații în așteptare"
+msgstr "Șablon email pentru organizații în așteptare"
 
 #: backend/hub/models.py:101
 msgid "Your organization was approved"
@@ -405,7 +405,7 @@ msgstr "Organizația ta a fost respinsă"
 
 #: backend/hub/models.py:103
 msgid "Vote audit log"
-msgstr "Audit vot"
+msgstr "Jurnal audit vot"
 
 #: backend/hub/models.py:104
 msgid "Confirmation email"
@@ -441,11 +441,11 @@ msgstr "Conținut"
 
 #: backend/hub/models.py:128
 msgid "Is visible?"
-msgstr "E vizibil?"
+msgstr "Este vizibil?"
 
 #: backend/hub/models.py:129
 msgid "Date published"
-msgstr "Data publicare"
+msgstr "Dată publicare"
 
 #: backend/hub/models.py:132
 msgid "Blog post"
@@ -527,7 +527,7 @@ msgstr "Respins"
 
 #: backend/hub/models.py:209
 msgid "NGO Hub linked organization ID"
-msgstr "ID organizație in NGO Hub"
+msgstr "ID organizație în NGO Hub"
 
 #: backend/hub/models.py:211
 msgid "NGO Name"
@@ -545,7 +545,7 @@ msgstr ""
 
 #: backend/hub/models.py:217
 msgid "Organization Email"
-msgstr "Adresă de e-mail organizație"
+msgstr "Adresă de email organizație"
 
 #: backend/hub/models.py:218
 msgid "Organization Phone"
@@ -561,7 +561,7 @@ msgstr "Nume reprezentant legal"
 
 #: backend/hub/models.py:222
 msgid "Legal Representative Email"
-msgstr "Adresă de e-mail reprezentant legal"
+msgstr "Adresă de email reprezentant legal"
 
 #: backend/hub/models.py:223
 msgid "Legal Representative Phone"
@@ -739,10 +739,14 @@ msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
 msgstr ""
-"Te rog corectează următoarea eroare. Parola nouă trebuie să fie diferită. Te "
-"rog încearcă din nou."
+"Corectați următoarea eroare. Parola nouă trebuie să fie diferită. "
+"Încercați din nou."
 
 #: backend/hub/social_adapters.py:58
+msgid "There is no NGO Hub organization for this VotONG user"
+msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG"
+
+#: backend/hub/social_adapters.py:60
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 
@@ -902,9 +906,9 @@ msgstr "Politica de confidențialitate"
 msgid "Terms and conditions"
 msgstr "Termeni și condiții de utilizare"
 
-#: backend/hub/templates/footer.html:36
-msgid "Council Login"
-msgstr "Autentificare consiliu"
+#: backend/hub/templates/footer.html:36 backend/templates/account/login.html:49
+msgid "Commission Sign In"
+msgstr "Autentificare comisie"
 
 #: backend/hub/templates/footer.html:42
 msgid "CONTACT US"
@@ -993,19 +997,19 @@ msgstr "Alegeri CES"
 #: backend/hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Numele de utilizator si parola nu se potrivesc. Te rugam sa incerci din nou."
+"Numele de utilizator și parola nu se potrivesc. Încercați din nou."
 
 #: backend/hub/templates/registration/login.html:30
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr ""
-"Contul tau nu are acces la aceasta pagina. Pentru a continua, va rugam sa va "
-"autentificati cu un cont care are acces."
+"Contul tău nu are acces la această pagină. Pentru a continua, "
+"autentificați-vă cu un cont care are acces."
 
 #: backend/hub/templates/registration/login.html:32
 msgid "Please login to see this page."
-msgstr "Va rugam sa va autentificati pentru a vizualiza aceasta pagina."
+msgstr "Autentificați-vă pentru a vizualiza această pagină."
 
 #: backend/hub/templates/registration/login.html:41
 msgid "Email"
@@ -1041,13 +1045,13 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Pentru a vă reseta parola, introduceți adresa de E-mail a organizației. "
-"Aceasta este adresa de E-mail completată în câmpul <b>Adresa de E-mail a "
+"Pentru a vă reseta parola, introduceți adresa de email a organizației. "
+"Aceasta este adresa de email completată în câmpul <b>Adresa de email a "
 "organizației</b>, în procesul de înscreire."
 
 #: backend/hub/templates/registration/reset_password_complete.html:15
 msgid "The password was reset"
-msgstr "Parola a fost resetata"
+msgstr "Parola a fost resetată"
 
 #: backend/hub/templates/registration/reset_password_complete.html:20
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -1055,7 +1059,7 @@ msgstr "Parola a fost setata. Te poti autentifica acum."
 
 #: backend/hub/templates/registration/reset_password_confirm.html:15
 msgid "Confirm password reset"
-msgstr "Confirmă resetare parola"
+msgstr "Confirmă resetare parolă"
 
 #: backend/hub/templates/registration/reset_password_confirm.html:32
 msgid ""
@@ -1073,7 +1077,7 @@ msgstr ""
 
 #: backend/hub/templates/registration/reset_password_done.html:15
 msgid "Initiated password reset"
-msgstr "S-a initializat resetarea parolei"
+msgstr "S-a inițializat resetarea parolei"
 
 #: backend/hub/templates/shared/pagination.html:17
 msgid "first"
@@ -1105,7 +1109,7 @@ msgstr "ultima"
 
 #: backend/hub/templatetags/hub_tags.py:101
 msgid "published on"
-msgstr "publicat în"
+msgstr "publicat la"
 
 #: backend/hub/templatetags/hub_tags.py:103
 msgid "published"
@@ -1181,7 +1185,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 
 #: backend/hub/views.py:66
 msgid "Thank you! We'll get in touch soon!"
-msgstr "Mulțumim! Vă vom contacta curând!"
+msgstr "Mulțumim! Vă vom contacta în curând!"
 
 #: backend/hub/views.py:253
 msgid ""
@@ -1190,18 +1194,20 @@ msgid ""
 "validated. If you have any further questions, send us a message at "
 "contact@votong.ro"
 msgstr ""
-"Îți mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
-"noastră te va contacta imediat ce organizația trece de procesul de validare. "
-"Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
+"Vă mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
+"noastră vă va contacta imediat ce organizația trece de procesul de validare. "
+"Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
 #: backend/hub/views.py:318
 msgid "You must write a rejection message."
-msgstr "Trebuie să completezi un motiv de respingere."
+msgstr "Trebuie să completați un motiv de respingere."
 
 #: backend/templates/account/login.html:5
 #: backend/templates/account/login.html:9
 #: backend/templates/account/login.html:31
+#: backend/templates/socialaccount/login.html:5
+#: backend/templates/socialaccount/login.html:32
 msgid "Sign In"
 msgstr "Autentificare"
 
@@ -1214,8 +1220,9 @@ msgstr ""
 
 #: backend/templates/account/login.html:41
 msgid "Mail me a sign-in code"
-msgstr "Trimite un cod de autentificare prin email"
+msgstr "Trimite-mi prin email un cod de autentificare"
 
-#: backend/templates/account/login.html:50
-msgid "Classic Login"
-msgstr "Autentificare clasica"
+#: backend/templates/account/logout.html:4
+#: backend/templates/account/logout.html:26
+msgid "Sign Out"
+msgstr "Ieșire cont"
