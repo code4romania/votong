@@ -15,7 +15,7 @@ class PasswordResetView(auth_views.PasswordChangeView):
     def form_valid(self, form):
         if self.request.user.is_ngohub_user:
             raise PermissionDenied(_("You cannot change the password for an NGO Hub account"))
-        
+
         result = super().form_valid(form)
 
         messages.success(self.request, _("Password was updated successfully"))
@@ -32,7 +32,7 @@ class ChangeEmailView(FormView):
     def form_valid(self, form):
         if self.request.user.is_ngohub_user:
             raise PermissionDenied(_("You cannot change the email for an NGO Hub account"))
-        
+
         form.instance = self.request.user
 
         valid = super().form_valid(form)
