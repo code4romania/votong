@@ -16,6 +16,7 @@ class User(AbstractUser):
         editable=False,
     )
     email = models.EmailField(verbose_name=_("email address"), blank=False, null=False, unique=True)
+    is_ngohub_user = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -26,3 +27,10 @@ class User(AbstractUser):
         constraints = [
             models.UniqueConstraint(Lower("email"), name="email_unique"),
         ]
+
+    def get_cognito_id(self):
+        social = self.socialaccount_set.filter(provider="amazon_cognito").last()
+        if social:
+            social.uid
+        else:
+            return None
