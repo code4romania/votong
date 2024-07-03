@@ -343,7 +343,7 @@ class Organization(StatusModel, TimeStampedModel):
             return self.logo.url
         else:
             return self.logo_url
-        
+
     @property
     def is_readonly(self):
         """
