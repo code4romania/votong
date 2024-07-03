@@ -6,7 +6,9 @@ from allauth.socialaccount.signals import pre_social_login, social_account_updat
 # from allauth.socialaccount.models import SocialToken, SocialAccount
 from django.contrib.auth.models import Group
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.dispatch import receiver
+from django.utils.translation import gettext as _
 
 from .models import Organization, NGO_GROUP
 
@@ -50,7 +52,12 @@ def update_user_org(org: Organization, token: str):
 
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
 
-    org.ngohub_org_id = ngohub_org["id"]
+    # Check that an NGO Hub organization appears only once in VotONG
+    ngohub_id = ngohub_org["id"]
+    if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
+        raise PermissionDenied(_("This NGO Hub organization already exists for another VotONG user"))
+
+    org.ngohub_org_id = ngohub_id
     org.name = ngohub_org["organizationGeneral"]["name"]
     # org.county = ""
     # org.city = ""
