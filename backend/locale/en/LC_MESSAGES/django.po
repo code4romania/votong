@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 08:59+0300\n"
+"POT-Creation-Date: 2024-07-03 21:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,16 +30,16 @@ msgstr ""
 msgid "We do not use this field"
 msgstr ""
 
-#: backend/accounts/models.py:18
+#: backend/accounts/models.py:17
 #: backend/hub/templates/registration/reset_password.html:41
 msgid "email address"
 msgstr ""
 
-#: backend/accounts/models.py:25
+#: backend/accounts/models.py:24
 msgid "User"
 msgstr ""
 
-#: backend/accounts/models.py:26
+#: backend/accounts/models.py:25
 msgid "Users"
 msgstr ""
 
@@ -743,6 +743,10 @@ msgid ""
 msgstr ""
 
 #: backend/hub/social_adapters.py:58
+msgid "There is no NGO Hub organization for this VotONG user"
+msgstr ""
+
+#: backend/hub/social_adapters.py:60
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr ""
 
@@ -912,8 +916,8 @@ msgstr ""
 msgid "Terms and conditions"
 msgstr ""
 
-#: backend/hub/templates/footer.html:36
-msgid "Council Login"
+#: backend/hub/templates/footer.html:36 backend/templates/account/login.html:49
+msgid "Commission Sign In"
 msgstr ""
 
 #: backend/hub/templates/footer.html:42
@@ -1197,6 +1201,8 @@ msgstr ""
 #: backend/templates/account/login.html:5
 #: backend/templates/account/login.html:9
 #: backend/templates/account/login.html:31
+#: backend/templates/socialaccount/login.html:5
+#: backend/templates/socialaccount/login.html:32
 msgid "Sign In"
 msgstr ""
 
@@ -1211,6 +1217,7 @@ msgstr ""
 msgid "Mail me a sign-in code"
 msgstr ""
 
-#: backend/templates/account/login.html:50
-msgid "Classic Login"
+#: backend/templates/account/logout.html:4
+#: backend/templates/account/logout.html:26
+msgid "Sign Out"
 msgstr ""
