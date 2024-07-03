@@ -35,7 +35,7 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
 def create_blank_org(user, commit=True):
     print("CREATE USER ORG")
 
-    org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.accepted)
+    org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.pending)
     if commit:
         org.save()
     return org

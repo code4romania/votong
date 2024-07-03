@@ -127,6 +127,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "accept_terms_and_conditions",
             "rejection_message",
             "ngohub_org_id",
+            "logo_url",
         ]
         widgets = {
             # "email": EmailInput(),
@@ -145,7 +146,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
-        if self.instance and self.instance.is_readonly:
+        if self.instance and self.instance.edit_only_on_nghohub:
             for field_name in self.fields:
                 self.fields[field_name].disabled = True
 

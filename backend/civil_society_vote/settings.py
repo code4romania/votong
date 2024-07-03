@@ -91,6 +91,7 @@ env = environ.Env(
     # TODO Settings Cleanup:
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
+    NGOHUB_ORG_OVERWRITE=(bool, False),
     # email settings
     EMAIL_SEND_METHOD=(str, "async"),
     EMAIL_BACKEND=(str, "django.core.mail.backends.console.EmailBackend"),
@@ -562,3 +563,4 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_STORE_TOKENS = False
 
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
+NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
