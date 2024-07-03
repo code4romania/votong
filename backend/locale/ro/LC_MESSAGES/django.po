@@ -99,7 +99,7 @@ msgstr "Înapoi"
 #: backend/hub/templates/registration/reset_password.html:15
 #: backend/hub/templates/registration/reset_password.html:49
 msgid "Reset password"
-msgstr "Resetează parola"
+msgstr "Resetează parolă"
 
 #: backend/accounts/templates/partials/sections.html:23
 msgid "Change email"
@@ -997,19 +997,19 @@ msgstr "Alegeri CES"
 #: backend/hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Numele de utilizator si parola nu se potrivesc. Te rugam sa incerci din nou."
+"Numele de utilizator și parola nu se potrivesc. Încercați din nou."
 
 #: backend/hub/templates/registration/login.html:30
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr ""
-"Contul tau nu are acces la aceasta pagina. Pentru a continua, va rugam sa va "
-"autentificati cu un cont care are acces."
+"Contul tău nu are acces la această pagină. Pentru a continua, "
+"autentificați-vă cu un cont care are acces."
 
 #: backend/hub/templates/registration/login.html:32
 msgid "Please login to see this page."
-msgstr "Va rugam sa va autentificati pentru a vizualiza aceasta pagina."
+msgstr "Autentificați-vă pentru a vizualiza această pagină."
 
 #: backend/hub/templates/registration/login.html:41
 msgid "Email"
@@ -1051,7 +1051,7 @@ msgstr ""
 
 #: backend/hub/templates/registration/reset_password_complete.html:15
 msgid "The password was reset"
-msgstr "Parola a fost resetata"
+msgstr "Parola a fost resetată"
 
 #: backend/hub/templates/registration/reset_password_complete.html:20
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -1059,7 +1059,7 @@ msgstr "Parola a fost setata. Te poti autentifica acum."
 
 #: backend/hub/templates/registration/reset_password_confirm.html:15
 msgid "Confirm password reset"
-msgstr "Confirmă resetare parola"
+msgstr "Confirmă resetare parolă"
 
 #: backend/hub/templates/registration/reset_password_confirm.html:32
 msgid ""
@@ -1077,7 +1077,7 @@ msgstr ""
 
 #: backend/hub/templates/registration/reset_password_done.html:15
 msgid "Initiated password reset"
-msgstr "S-a initializat resetarea parolei"
+msgstr "S-a inițializat resetarea parolei"
 
 #: backend/hub/templates/shared/pagination.html:17
 msgid "first"
@@ -1109,7 +1109,7 @@ msgstr "ultima"
 
 #: backend/hub/templatetags/hub_tags.py:101
 msgid "published on"
-msgstr "publicat în"
+msgstr "publicat la"
 
 #: backend/hub/templatetags/hub_tags.py:103
 msgid "published"
@@ -1185,7 +1185,7 @@ msgstr "organizatii/<int:pk>/actualizare"
 
 #: backend/hub/views.py:66
 msgid "Thank you! We'll get in touch soon!"
-msgstr "Mulțumim! Vă vom contacta curând!"
+msgstr "Mulțumim! Vă vom contacta în curând!"
 
 #: backend/hub/views.py:253
 msgid ""
@@ -1194,14 +1194,14 @@ msgid ""
 "validated. If you have any further questions, send us a message at "
 "contact@votong.ro"
 msgstr ""
-"Îți mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
-"noastră te va contacta imediat ce organizația trece de procesul de validare. "
-"Dacă ai întrebări suplimentare, ne poți trimite un mesaj la adresa "
+"Vă mulțumim pentru înscriere, formularul a ajuns la noi. Cineva din echipa "
+"noastră vă va contacta imediat ce organizația trece de procesul de validare. "
+"Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
 #: backend/hub/views.py:318
 msgid "You must write a rejection message."
-msgstr "Trebuie să completezi un motiv de respingere."
+msgstr "Trebuie să completați un motiv de respingere."
 
 #: backend/templates/account/login.html:5
 #: backend/templates/account/login.html:9
@@ -1220,7 +1220,7 @@ msgstr ""
 
 #: backend/templates/account/login.html:41
 msgid "Mail me a sign-in code"
-msgstr "Trimite un cod de autentificare prin email"
+msgstr "Trimite-mi prin email un cod de autentificare"
 
 #: backend/templates/account/logout.html:4
 #: backend/templates/account/logout.html:26
