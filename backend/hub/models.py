@@ -444,7 +444,9 @@ class Candidate(StatusModel, TimeStampedModel):
             "If this is set, the `org` field will be unset and the candidate is removed as the official proposal of the organization."
         ),
     )
-    domain = models.ForeignKey("Domain", verbose_name=_("Domain"), on_delete=models.PROTECT, related_name="candidates", null=True, blank=True)
+    domain = models.ForeignKey(
+        "Domain", verbose_name=_("Domain"), on_delete=models.PROTECT, related_name="candidates", null=True, blank=True
+    )
 
     name = models.CharField(
         _("Representative name"),

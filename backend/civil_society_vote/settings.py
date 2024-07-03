@@ -104,6 +104,8 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
+    NGOHUB_API_ACCOUNT=(str, ""),
+    NGOHUB_API_KEY=(str, ""),
 )
 
 # reading .env file
@@ -563,4 +565,6 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_STORE_TOKENS = False
 
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
+NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
+NGOHUB_API_KEY = env("NGOHUB_API_KEY")
 NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
