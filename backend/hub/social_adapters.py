@@ -115,9 +115,9 @@ def handle_pre_login(sender, **kwargs):
 
     print("HANDLE PRE LOGIN")
 
-    social = kwargs.get("sociallogin")
+    # social = kwargs.get("sociallogin")
     # request = kwargs.get("request")
     # print("code =", request.GET.get("code"))
     # print("user =", social.user)
 
-    print("token =", social.token)
+    # print("token =", social.token)
