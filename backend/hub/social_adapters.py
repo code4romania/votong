@@ -73,6 +73,7 @@ def update_user_org(org: Organization, token: str):
     else:
         org.city = city
 
+    org.name = ngohub_general.get("name", "")
     org.address = ngohub_general.get("address", "")
     org.registration_number = ngohub_general.get("rafNumber", "")
 
