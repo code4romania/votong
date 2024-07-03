@@ -206,7 +206,7 @@ class Organization(StatusModel, TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
     )
 
-    ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organisation ID"), default=0, db_index=True)
+    ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organization ID"), default=0, db_index=True)
 
     name = models.CharField(_("NGO Name"), max_length=254)
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
@@ -214,15 +214,15 @@ class Organization(StatusModel, TimeStampedModel):
     address = models.CharField(_("Address"), max_length=254)
     registration_number = models.CharField(_("Registration number"), max_length=20)
 
-    email = models.EmailField(_("Organisation Email"))
-    phone = models.CharField(_("Organisation Phone"), max_length=30, null=True, blank=True)
+    email = models.EmailField(_("Organization Email"))
+    phone = models.CharField(_("Organization Phone"), max_length=30, null=True, blank=True)
     description = models.TextField(_("Short Description"), null=True, blank=True)
 
     legal_representative_name = models.CharField(_("Legal Representative Name"), max_length=254)
     legal_representative_email = models.EmailField(_("Legal Representative Email"))
     legal_representative_phone = models.CharField(_("Legal Representative Phone"), max_length=30, null=True, blank=True)
 
-    organisation_head_name = models.CharField(_("Organisation Head Name"), max_length=254)
+    organization_head_name = models.CharField(_("Organization Head Name"), default="", max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
     logo = models.ImageField(_("Logo"), max_length=300, storage=select_public_storage)
     logo_url = models.URLField(_("Logo URL"), max_length=300, blank=True)

@@ -116,7 +116,7 @@ class Command(BaseCommand):
                     legal_representative_name=fake.name(),
                     legal_representative_email=fake.safe_email(),
                     legal_representative_phone=fake.phone_number(),
-                    organisation_head_name=fake.name(),
+                    organization_head_name=fake.name(),
                     board_council=fake.name(),
                     status=status,
                     accept_terms_and_conditions=True,

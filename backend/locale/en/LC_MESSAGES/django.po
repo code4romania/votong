@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 07:18+0300\n"
+"POT-Creation-Date: 2024-07-03 08:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,7 +310,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: backend/hub/forms.py:109 backend/hub/forms.py:161 backend/hub/views.py:325
+#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:325
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -318,33 +318,33 @@ msgstr ""
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: backend/hub/forms.py:181
+#: backend/hub/forms.py:182
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: backend/hub/forms.py:184
+#: backend/hub/forms.py:185
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: backend/hub/forms.py:205
+#: backend/hub/forms.py:206
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: backend/hub/forms.py:209
+#: backend/hub/forms.py:210
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: backend/hub/forms.py:250
+#: backend/hub/forms.py:251
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: backend/hub/forms.py:256
+#: backend/hub/forms.py:257
 msgid "CSV file"
 msgstr ""
 
-#: backend/hub/forms.py:261
+#: backend/hub/forms.py:262
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -403,9 +403,9 @@ msgstr ""
 
 #: backend/hub/models.py:104
 #, fuzzy
-#| msgid "Organisation Email"
+#| msgid "Organization Email"
 msgid "Confirmation email"
-msgstr "Organisation E-mail address"
+msgstr "Organization E-mail address"
 
 #: backend/hub/models.py:109
 msgid "Flag"
@@ -483,7 +483,7 @@ msgstr ""
 msgid "Number of seats"
 msgstr ""
 
-#: backend/hub/models.py:167
+#: backend/hub/models.py:167 backend/hub/models.py:448
 msgid "Domain"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgid "Rejected"
 msgstr ""
 
 #: backend/hub/models.py:209
-msgid "NGO Hub linked organisation ID"
+msgid "NGO Hub linked organization ID"
 msgstr ""
 
 #: backend/hub/models.py:211
@@ -538,12 +538,12 @@ msgid "Registration number"
 msgstr ""
 
 #: backend/hub/models.py:217
-msgid "Organisation Email"
-msgstr "Organisation E-mail address"
+msgid "Organization Email"
+msgstr "Organization E-mail address"
 
 #: backend/hub/models.py:218
-msgid "Organisation Phone"
-msgstr "Organisation phone (optional)"
+msgid "Organization Phone"
+msgstr "Organization phone (optional)"
 
 #: backend/hub/models.py:219
 msgid "Short Description"
@@ -567,9 +567,9 @@ msgstr "The name of the legal representative"
 
 #: backend/hub/models.py:225
 #, fuzzy
-#| msgid "Organisation Email"
-msgid "Organisation Head Name"
-msgstr "Organisation E-mail address"
+#| msgid "Organization Email"
+msgid "Organization Head Name"
+msgstr "Organization E-mail address"
 
 #: backend/hub/models.py:226
 msgid "Board council"
@@ -674,61 +674,61 @@ msgid ""
 "as the official proposal of the organization."
 msgstr ""
 
-#: backend/hub/models.py:450 backend/hub/templates/candidate/detail.html:111
+#: backend/hub/models.py:452 backend/hub/templates/candidate/detail.html:111
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative name"
 msgstr "The name of the legal representative"
 
-#: backend/hub/models.py:456
+#: backend/hub/models.py:458
 #, fuzzy
-#| msgid "Pending Organisations"
+#| msgid "Pending Organizations"
 msgid "Representative role in organization"
 msgstr "Organizații nevalidate"
 
-#: backend/hub/models.py:462 backend/hub/templates/candidate/detail.html:119
+#: backend/hub/models.py:464 backend/hub/templates/candidate/detail.html:119
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative statement"
 msgstr "The name of the legal representative"
 
-#: backend/hub/models.py:469
+#: backend/hub/models.py:471
 msgid "Is proposed?"
 msgstr ""
 
-#: backend/hub/models.py:475 backend/hub/templates/header.html:61
+#: backend/hub/models.py:477 backend/hub/templates/header.html:61
 msgid "Candidates"
 msgstr ""
 
-#: backend/hub/models.py:476
+#: backend/hub/models.py:478
 msgid "Candidate"
 msgstr ""
 
-#: backend/hub/models.py:510
+#: backend/hub/models.py:512
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: backend/hub/models.py:547
+#: backend/hub/models.py:549
 msgid "Canditate votes"
 msgstr ""
 
-#: backend/hub/models.py:548
+#: backend/hub/models.py:550
 msgid "Candidate vote"
 msgstr ""
 
-#: backend/hub/models.py:571
+#: backend/hub/models.py:573
 msgid "Canditate supporters"
 msgstr ""
 
-#: backend/hub/models.py:572
+#: backend/hub/models.py:574
 msgid "Candidate supporter"
 msgstr ""
 
-#: backend/hub/models.py:586
+#: backend/hub/models.py:588
 msgid "Canditate confirmations"
 msgstr ""
 
-#: backend/hub/models.py:587
+#: backend/hub/models.py:589
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -740,6 +740,10 @@ msgstr ""
 msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
+msgstr ""
+
+#: backend/hub/social_adapters.py:58
+msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr ""
 
 #: backend/hub/templates/admin/dropdown_filter.html:3
@@ -853,21 +857,21 @@ msgstr ""
 
 #: backend/hub/templates/committee/list.html:21
 #: backend/hub/templates/committee/partials/nav.html:6
-msgid "Pending Organisations"
+msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
 #: backend/hub/templates/committee/list.html:23
 #: backend/hub/templates/committee/partials/nav.html:9
 #, fuzzy
-#| msgid "Pending Organisations"
-msgid "Accepted Organisations"
+#| msgid "Pending Organizations"
+msgid "Accepted Organizations"
 msgstr "Organizații nevalidate"
 
 #: backend/hub/templates/committee/list.html:25
 #: backend/hub/templates/committee/partials/nav.html:12
 #, fuzzy
-#| msgid "Pending Organisations"
-msgid "Rejected Organisations"
+#| msgid "Pending Organizations"
+msgid "Rejected Organizations"
 msgstr "Organizații nevalidate"
 
 #: backend/hub/templates/committee/partials/nav.html:21
@@ -933,7 +937,7 @@ msgid "History"
 msgstr ""
 
 #: backend/hub/templates/header.html:56
-msgid "Register your organisation"
+msgid "Register your organization"
 msgstr ""
 
 #: backend/hub/templates/header.html:65
@@ -960,8 +964,8 @@ msgstr ""
 
 #: backend/hub/templates/ngo/list.html:27
 #, fuzzy
-#| msgid "Pending Organisations"
-msgid "Registered organisations"
+#| msgid "Pending Organizations"
+msgid "Registered organizations"
 msgstr "Organizații nevalidate"
 
 #: backend/hub/templates/ngo/list.html:54
@@ -1039,10 +1043,10 @@ msgstr ""
 #: backend/hub/templates/registration/reset_password.html:27
 msgid ""
 "\n"
-"        In order to reset your password, please enter the organisation e-"
+"        In order to reset your password, please enter the organization e-"
 "mail address. This is the e-mail address that\n"
-"        you filled in, under <b>Organisation E-mail</b>, when you signed "
-"your organisation up.\n"
+"        you filled in, under <b>Organization E-mail</b>, when you signed "
+"your organization up.\n"
 "        "
 msgstr ""
 
