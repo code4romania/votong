@@ -23,7 +23,7 @@ ORG_FIELD_ORDER = [
     "legal_representative_name",
     "legal_representative_email",
     "legal_representative_phone",
-    "organisation_head_name",
+    "organization_head_name",
     "board_council",
     "logo",
     "last_balance_sheet",

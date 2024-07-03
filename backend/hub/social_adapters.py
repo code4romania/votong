@@ -79,7 +79,7 @@ def update_user_org(org: Organization, token: str):
     org.board_council = ", ".join([director["fullName"] for director in ngohub_org["organizationLegal"]["directors"]])
 
     # TODO:
-    org.organisation_head_name = ""
+    org.organization_head_name = ""
 
     org.save()
 

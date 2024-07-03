@@ -3,13 +3,13 @@
 <div class="tabs is-medium">
     <ul>
         <li {% if active == "ngos-pending" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}?status=pending">{% trans 'Pending Organisations' %} ({{ counters.ngos_pending }})</a>
+            <a href="{% url 'committee-ngos' %}?status=pending">{% trans 'Pending Organizations' %} ({{ counters.ngos_pending }})</a>
         </li>
         <li {% if active == "ngos-accepted" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}?status=accepted">{% trans 'Accepted Organisations' %} ({{ counters.ngos_accepted }})</a>
+            <a href="{% url 'committee-ngos' %}?status=accepted">{% trans 'Accepted Organizations' %} ({{ counters.ngos_accepted }})</a>
         </li>
         <li {% if active == "ngos-rejected" %}class="is-active"{% endif %}>
-            <a href="{% url 'committee-ngos' %}?status=rejected">{% trans 'Rejected Organisations' %} ({{ counters.ngos_rejected }})</a>
+            <a href="{% url 'committee-ngos' %}?status=rejected">{% trans 'Rejected Organizations' %} ({{ counters.ngos_rejected }})</a>
         </li>
         <li {% if active == "pending" %}class="is-active"{% endif %}>
             <a href="{% url 'committee-candidates' %}?status=pending">{% trans 'Pending candidates' %} ({{ counters.candidates_pending }})</a>

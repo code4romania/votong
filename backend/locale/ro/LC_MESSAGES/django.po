@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 07:18+0300\n"
+"POT-Creation-Date: 2024-07-03 08:59+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -315,7 +315,7 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: backend/hub/forms.py:109 backend/hub/forms.py:161 backend/hub/views.py:325
+#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:325
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -323,15 +323,15 @@ msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 msgid "You need to accept terms and conditions."
 msgstr "Trebuie să accepți termenii și condiții de utilizare"
 
-#: backend/hub/forms.py:181
+#: backend/hub/forms.py:182
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: backend/hub/forms.py:184
+#: backend/hub/forms.py:185
 msgid "Organization already has a candidate."
 msgstr "Organizatia are deja o candidatură"
 
-#: backend/hub/forms.py:205
+#: backend/hub/forms.py:206
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -339,19 +339,19 @@ msgstr ""
 "Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare "
 "în 'Profilul Organizației'"
 
-#: backend/hub/forms.py:209
+#: backend/hub/forms.py:210
 msgid "Please add all candidate fields"
 msgstr "Vă rugăm completați toate câmpurile candidaturii"
 
-#: backend/hub/forms.py:250
+#: backend/hub/forms.py:251
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: backend/hub/forms.py:256
+#: backend/hub/forms.py:257
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: backend/hub/forms.py:261
+#: backend/hub/forms.py:262
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -487,7 +487,7 @@ msgstr "Descriere"
 msgid "Number of seats"
 msgstr "Numărul de fotolii"
 
-#: backend/hub/models.py:167
+#: backend/hub/models.py:167 backend/hub/models.py:448
 msgid "Domain"
 msgstr "Domeniu"
 
@@ -526,7 +526,7 @@ msgid "Rejected"
 msgstr "Respins"
 
 #: backend/hub/models.py:209
-msgid "NGO Hub linked organisation ID"
+msgid "NGO Hub linked organization ID"
 msgstr "ID organizație in NGO Hub"
 
 #: backend/hub/models.py:211
@@ -544,11 +544,11 @@ msgstr ""
 "A/2016)"
 
 #: backend/hub/models.py:217
-msgid "Organisation Email"
+msgid "Organization Email"
 msgstr "Adresă de e-mail organizație"
 
 #: backend/hub/models.py:218
-msgid "Organisation Phone"
+msgid "Organization Phone"
 msgstr "Telefon organizație (opțional)"
 
 #: backend/hub/models.py:219
@@ -568,7 +568,7 @@ msgid "Legal Representative Phone"
 msgstr "Telefon reprezentant legal (opțional)"
 
 #: backend/hub/models.py:225
-msgid "Organisation Head Name"
+msgid "Organization Head Name"
 msgstr ""
 "Numele complet al președintelui organizației (sau director executiv dacă "
 "este cazul)"
@@ -678,55 +678,55 @@ msgid ""
 "as the official proposal of the organization."
 msgstr ""
 
-#: backend/hub/models.py:450 backend/hub/templates/candidate/detail.html:111
+#: backend/hub/models.py:452 backend/hub/templates/candidate/detail.html:111
 msgid "Representative name"
 msgstr "Nume reprezentant"
 
-#: backend/hub/models.py:456
+#: backend/hub/models.py:458
 msgid "Representative role in organization"
 msgstr "Funcția reprezentantului în organizație"
 
-#: backend/hub/models.py:462 backend/hub/templates/candidate/detail.html:119
+#: backend/hub/models.py:464 backend/hub/templates/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Declarație reprezentant"
 
-#: backend/hub/models.py:469
+#: backend/hub/models.py:471
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:475 backend/hub/templates/header.html:61
+#: backend/hub/models.py:477 backend/hub/templates/header.html:61
 msgid "Candidates"
 msgstr "Candidaturi"
 
-#: backend/hub/models.py:476
+#: backend/hub/models.py:478
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: backend/hub/models.py:510
+#: backend/hub/models.py:512
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: backend/hub/models.py:547
+#: backend/hub/models.py:549
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: backend/hub/models.py:548
+#: backend/hub/models.py:550
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: backend/hub/models.py:571
+#: backend/hub/models.py:573
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: backend/hub/models.py:572
+#: backend/hub/models.py:574
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: backend/hub/models.py:586
+#: backend/hub/models.py:588
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: backend/hub/models.py:587
+#: backend/hub/models.py:589
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -741,6 +741,10 @@ msgid ""
 msgstr ""
 "Te rog corectează următoarea eroare. Parola nouă trebuie să fie diferită. Te "
 "rog încearcă din nou."
+
+#: backend/hub/social_adapters.py:58
+msgid "This NGO Hub organization already exists for another VotONG user"
+msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 
 #: backend/hub/templates/admin/dropdown_filter.html:3
 #, python-format
@@ -849,17 +853,17 @@ msgstr "Nu există nici un rezultat"
 
 #: backend/hub/templates/committee/list.html:21
 #: backend/hub/templates/committee/partials/nav.html:6
-msgid "Pending Organisations"
+msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
 #: backend/hub/templates/committee/list.html:23
 #: backend/hub/templates/committee/partials/nav.html:9
-msgid "Accepted Organisations"
+msgid "Accepted Organizations"
 msgstr "Organizații validate"
 
 #: backend/hub/templates/committee/list.html:25
 #: backend/hub/templates/committee/partials/nav.html:12
-msgid "Rejected Organisations"
+msgid "Rejected Organizations"
 msgstr "Organizații respinse"
 
 #: backend/hub/templates/committee/partials/nav.html:21
@@ -923,7 +927,7 @@ msgid "History"
 msgstr "Istoric"
 
 #: backend/hub/templates/header.html:56
-msgid "Register your organisation"
+msgid "Register your organization"
 msgstr "Înscriere organizație"
 
 #: backend/hub/templates/header.html:65
@@ -949,7 +953,7 @@ msgid "Project developed in the program"
 msgstr "Proiect dezvoltat în programul"
 
 #: backend/hub/templates/ngo/list.html:27
-msgid "Registered organisations"
+msgid "Registered organizations"
 msgstr "Organizații înscrise"
 
 #: backend/hub/templates/ngo/list.html:54
@@ -1030,10 +1034,10 @@ msgstr "Adresa de email pe care ai introdus-o nu este valida. Inceaca din nou."
 #: backend/hub/templates/registration/reset_password.html:27
 msgid ""
 "\n"
-"        In order to reset your password, please enter the organisation e-"
+"        In order to reset your password, please enter the organization e-"
 "mail address. This is the e-mail address that\n"
-"        you filled in, under <b>Organisation E-mail</b>, when you signed "
-"your organisation up.\n"
+"        you filled in, under <b>Organization E-mail</b>, when you signed "
+"your organization up.\n"
 "        "
 msgstr ""
 "\n"
