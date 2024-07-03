@@ -539,6 +539,7 @@ if env.str("SENTRY_DSN"):
     )
 
 
+# Flag necessary if the elections require support from other members
 GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")
 
 

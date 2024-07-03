@@ -43,6 +43,19 @@ def can_vote_candidate(user, candidate):
 
 
 @register.filter
+def can_support_candidate(user):
+    orgs = Organization.objects.filter(user=user)
+
+    if not orgs:
+        return False
+
+    if any(org.status == "accepted" for org in orgs):
+        return True
+    else:
+        return False
+
+
+@register.filter
 def already_voted_candidate(user, candidate):
     if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
         return True
