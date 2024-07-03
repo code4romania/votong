@@ -10,7 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 
-from .models import Organization, NGO_GROUP
+from .models import Organization, NGO_GROUP, City
 
 
 class UserOrgAdapter(DefaultSocialAccountAdapter):
@@ -53,30 +53,42 @@ def update_user_org(org: Organization, token: str):
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
 
     # Check that an NGO Hub organization appears only once in VotONG
-    ngohub_id = ngohub_org["id"]
+    ngohub_id = ngohub_org.get("id", 0)
+    if not ngohub_id:
+        raise PermissionDenied(_("There is no NGO Hub organization for this VotONG user"))
     if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
         raise PermissionDenied(_("This NGO Hub organization already exists for another VotONG user"))
 
     org.ngohub_org_id = ngohub_id
-    org.name = ngohub_org["organizationGeneral"]["name"]
-    # org.county = ""
-    # org.city = ""
-    org.address = ngohub_org["organizationGeneral"]["address"]
-    org.registration_number = ngohub_org["organizationGeneral"]["rafNumber"]
+    ngohub_general = ngohub_org.get("organizationGeneral", {})
+    ngohub_legal = ngohub_org.get("organizationLegal", {})
 
-    org.logo_url = ngohub_org["organizationGeneral"]["logo"]
+    org.county = ngohub_general.get("county", {}).get("name", "")
+    city_name = ngohub_general.get("city", {}).get("name", "")
+    try:
+        city = City.objects.get(county=org.county, city=city_name)
+    except City.DoesNotExist:
+        print("ERROR Cannot find city:", city)
+        pass
+    else:
+        org.city = city
+
+    org.address = ngohub_general.get("address", "")
+    org.registration_number = ngohub_general.get("rafNumber", "")
+
+    org.logo_url = ngohub_general.get("logo", "")
     if org.logo:
         org.logo.delete()
 
-    org.email = ngohub_org["organizationGeneral"]["email"]
-    org.phone = ngohub_org["organizationGeneral"]["phone"]
-    org.description = ngohub_org["organizationGeneral"]["description"]
+    org.email = ngohub_general.get("email", "")
+    org.phone = ngohub_general.get("phone", "")
+    org.description = ngohub_general.get("description", "")
 
-    org.legal_representative_name = ngohub_org["organizationLegal"]["legalReprezentative"]["fullName"]
-    org.legal_representative_email = ngohub_org["organizationLegal"]["legalReprezentative"]["email"]
-    org.legal_representative_phone = ngohub_org["organizationLegal"]["legalReprezentative"]["phone"]
+    org.legal_representative_name = ngohub_legal.get("legalReprezentative", {}).get("fullName", "")
+    org.legal_representative_email = ngohub_legal.get("legalReprezentative", {}).get("email", "")
+    org.legal_representative_phone = ngohub_legal.get("legalReprezentative", {}).get("phone", "")
 
-    org.board_council = ", ".join([director["fullName"] for director in ngohub_org["organizationLegal"]["directors"]])
+    org.board_council = ", ".join([director.get("fullName", "") for director in ngohub_legal.get("directors", [])])
 
     # TODO:
     org.organization_head_name = ""
