@@ -29,9 +29,11 @@
     <li class="is-active">
       <a href="{% url 'votes' %}">Voturile mele</a>
     </li>
+    {% if not user.is_ngohub_user %}
     <li {% if active == "settings" %}class="is-active"{% endif %}>
       <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
     </li>
+    {% endif %}
   </ul>
 </div>
 
