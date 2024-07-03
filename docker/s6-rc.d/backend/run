@@ -1,18 +1,25 @@
 #!/command/with-contenv sh
+
+set -e
+
 cd /var/www/votong/backend/ || exit 1
 
-# if ENVIRONMENT="production", then run with gunicorn
 if [ "${ENVIRONMENT}" = "production" ]; then
+  echo "Running in production mode"
+
   # https://docs.gunicorn.org/en/latest/design.html#how-many-workers
   WORKERS=${GUNICORN_WORKERS_COUNT:-$(((2 * $(nproc)) + 1))}
+
+  echo "Starting Gunicorn with ${WORKERS} workers"
 
   python3 -m gunicorn civil_society_vote.wsgi \
     --bind "unix:///run/gunicorn.sock" \
     --log-level info \
     --worker-class gevent \
     --workers "${WORKERS}" \
-    --bind 0.0.0.0:8000 \
     --timeout 60
 else
+  echo "Running in development mode"
+
   python3 manage.py runserver 0.0.0.0:8000
 fi
