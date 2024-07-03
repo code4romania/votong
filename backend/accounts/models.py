@@ -13,7 +13,6 @@ class User(AbstractUser):
         help_text=_("We do not use this field"),
         validators=[],
         null=True,
-        editable=False,
     )
     email = models.EmailField(verbose_name=_("email address"), blank=False, null=False, unique=True)
     is_ngohub_user = models.BooleanField(default=False)
