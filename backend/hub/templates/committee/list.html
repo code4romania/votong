@@ -33,8 +33,8 @@
             <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
-                        {% if ngo.logo %}
-                            <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+                        {% if ngo.get_logo_url %}
+                            <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
                         {% else %}
                             <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
                         {% endif %}

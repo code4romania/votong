@@ -4,8 +4,8 @@
 {% load social_share meta_tags hub_tags %}
 
 {% block meta_tags %}
-  {% if ngo.logo %}
-    {% with title=ngo.name image=ngo.logo.url %}
+  {% if ngo.get_logo_url %}
+    {% with title=ngo.name image=ngo.get_logo_url %}
       {% meta_tags %}
     {% endwith %}
   {% endif %}
@@ -32,8 +32,8 @@
 
 <div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
-        {% if ngo.logo %}
-        <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+        {% if ngo.get_logo_url %}
+        <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
         {% else %}
         <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
         {% endif %}
@@ -42,8 +42,8 @@
     <div class="card-info">
         <div class="flex-align-center">
             <div class="card-image need-logo is-hidden-tablet">
-                {% if ngo.logo %}
-                <img src="{{ ngo.logo.url }}" alt="{{ ngo.name }}">
+                {% if ngo.get_logo_url %}
+                <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
                 {% else %}
                 <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
                 {% endif %}

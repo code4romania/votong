@@ -225,6 +225,7 @@ class Organization(StatusModel, TimeStampedModel):
     organisation_head_name = models.CharField(_("Organisation Head Name"), max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
     logo = models.ImageField(_("Logo"), max_length=300, storage=select_public_storage)
+    logo_url = models.URLField(_("Logo URL"), max_length=300, blank=True)
 
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet"),
@@ -336,6 +337,13 @@ class Organization(StatusModel, TimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    def get_logo_url(self):
+        if self.logo:
+            return self.logo.url
+        else:
+            return self.logo_url
+        
     @property
     def is_readonly(self):
         """
