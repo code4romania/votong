@@ -30,17 +30,16 @@ def update_user_org(sender, **kwargs):
 
     social = kwargs.get("sociallogin")
     # request = kwargs.get("request")
-
     # print("code =", request.GET.get("code"))
+
     # print("user =", social.user)
-    print("token =", social.token)
+    # print("token =", social.token)
 
     auth_headers = {"Authorization": f"Bearer {social.token}"}
     # response = requests.get(settings.NGOHUB_API_BASE + "api/ong-user/", headers=auth_headers)
     # print(response.json())
 
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
-    print(ngohub_org)
 
     org = Organization.objects.filter(user=social.user)[0]
     org.ngohub_org_id = ngohub_org["id"]
@@ -49,6 +48,10 @@ def update_user_org(sender, **kwargs):
     # org.city = ""
     org.address = ngohub_org["organizationGeneral"]["address"]
     org.registration_number = ngohub_org["organizationGeneral"]["rafNumber"]
+    
+    org.logo_url = ngohub_org["organizationGeneral"]["logo"]
+    if org.logo:
+        org.logo.delete()
 
     org.email = ngohub_org["organizationGeneral"]["email"]
     org.phone = ngohub_org["organizationGeneral"]["phone"]

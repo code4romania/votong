@@ -26,8 +26,8 @@
 
 <div class="container need is-flex">
   <div class="card-image need-logo is-hidden-mobile">
-    {% if candidate.org.logo %}
-    <img src="{{ candidate.org.logo.url }}" alt="{{ candidate.org.name }}">
+    {% if candidate.org.get_logo_url %}
+    <img src="{{ candidate.org.get_logo_url }}" alt="{{ candidate.org.name }}">
     {% else %}
     <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
     {% endif %}
@@ -36,8 +36,8 @@
   <div class="card-info">
     <div class="flex-align-center">
       <div class="card-image need-logo is-hidden-tablet">
-        {% if candidate.org.logo %}
-        <img src="{{ candidate.org.logo.url }}" alt="{{ candidate.org.name }}">
+        {% if candidate.org.get_logo_url %}
+        <img src="{{ candidate.org.get_logo_url }}" alt="{{ candidate.org.name }}">
         {% else %}
         <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
         {% endif %}
