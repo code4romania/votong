@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-02 22:41+0300\n"
+"POT-Creation-Date: 2024-07-03 07:18+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,11 +36,11 @@ msgstr "Nu utilizăm acest câmp"
 msgid "email address"
 msgstr "adresă email"
 
-#: backend/accounts/models.py:24
+#: backend/accounts/models.py:25
 msgid "User"
 msgstr "Utilizator"
 
-#: backend/accounts/models.py:25
+#: backend/accounts/models.py:26
 msgid "Users"
 msgstr "Utilizatori"
 
@@ -147,10 +147,18 @@ msgid "change-email/"
 msgstr "schimba-email/"
 
 #: backend/accounts/views.py:17
+msgid "You cannot change the password for an NGO Hub account"
+msgstr ""
+
+#: backend/accounts/views.py:21
 msgid "Password was updated successfully"
 msgstr "Parola a fost schimbată cu succes"
 
 #: backend/accounts/views.py:34
+msgid "You cannot change the email for an NGO Hub account"
+msgstr ""
+
+#: backend/accounts/views.py:41
 msgid "Email was updated successfully"
 msgstr "Adresa de E-mail a fost modificată cu succes!"
 
@@ -509,11 +517,11 @@ msgstr "Orașe"
 msgid "Pending approval"
 msgstr "Așteaptă aprobare"
 
-#: backend/hub/models.py:198 backend/hub/models.py:422
+#: backend/hub/models.py:198 backend/hub/models.py:430
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: backend/hub/models.py:199 backend/hub/models.py:423
+#: backend/hub/models.py:199 backend/hub/models.py:431
 msgid "Rejected"
 msgstr "Respins"
 
@@ -575,146 +583,150 @@ msgstr ""
 msgid "Logo"
 msgstr "Siglă"
 
-#: backend/hub/models.py:230 backend/hub/templates/ngo/detail.html:110
+#: backend/hub/models.py:228
+msgid "Logo URL"
+msgstr "URL siglă"
+
+#: backend/hub/models.py:231 backend/hub/templates/ngo/detail.html:110
 msgid "First page of last balance sheet"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul 2020 depus la Ministerul "
 "Finanțelor"
 
-#: backend/hub/models.py:235 backend/hub/templates/ngo/detail.html:119
+#: backend/hub/models.py:236 backend/hub/templates/ngo/detail.html:119
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: backend/hub/models.py:242 backend/hub/templates/candidate/detail.html:137
+#: backend/hub/models.py:243 backend/hub/templates/candidate/detail.html:137
 #: backend/hub/templates/ngo/detail.html:148
 msgid "Yearly report 2023"
 msgstr "Raport anual 2023"
 
-#: backend/hub/models.py:249 backend/hub/templates/candidate/detail.html:146
+#: backend/hub/models.py:250 backend/hub/templates/candidate/detail.html:146
 #: backend/hub/templates/ngo/detail.html:157
 msgid "Yearly report 2022"
 msgstr "Raport anual 2022"
 
-#: backend/hub/models.py:256 backend/hub/templates/candidate/detail.html:155
+#: backend/hub/models.py:257 backend/hub/templates/candidate/detail.html:155
 #: backend/hub/templates/ngo/detail.html:166
 msgid "Yearly report 2021"
 msgstr "Raport anual 2021"
 
-#: backend/hub/models.py:264 backend/hub/templates/candidate/detail.html:164
+#: backend/hub/models.py:265 backend/hub/templates/candidate/detail.html:164
 #: backend/hub/templates/ngo/detail.html:175
 msgid "Yearly report 2020"
 msgstr "Raport anual 2020"
 
-#: backend/hub/models.py:271 backend/hub/templates/candidate/detail.html:173
+#: backend/hub/models.py:272 backend/hub/templates/candidate/detail.html:173
 #: backend/hub/templates/ngo/detail.html:184
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: backend/hub/models.py:278 backend/hub/templates/candidate/detail.html:182
+#: backend/hub/models.py:279 backend/hub/templates/candidate/detail.html:182
 #: backend/hub/templates/ngo/detail.html:193
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: backend/hub/models.py:285 backend/hub/templates/candidate/detail.html:191
+#: backend/hub/models.py:286 backend/hub/templates/candidate/detail.html:191
 #: backend/hub/templates/ngo/detail.html:202
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: backend/hub/models.py:293 backend/hub/templates/candidate/detail.html:218
+#: backend/hub/models.py:294 backend/hub/templates/candidate/detail.html:218
 #: backend/hub/templates/ngo/detail.html:211
 msgid "Non-discrimination statement"
 msgstr "Declarație nediscriminare"
 
-#: backend/hub/models.py:300 backend/hub/templates/candidate/detail.html:227
+#: backend/hub/models.py:301 backend/hub/templates/candidate/detail.html:227
 #: backend/hub/templates/ngo/detail.html:220
 msgid "Non-political statement"
 msgstr "Declarație neapartenență politică"
 
-#: backend/hub/models.py:308 backend/hub/templates/candidate/detail.html:200
+#: backend/hub/models.py:309 backend/hub/templates/candidate/detail.html:200
 #: backend/hub/templates/ngo/detail.html:128
 msgid "Fiscal certificate ANAF"
 msgstr "Certificat fiscal emis de ANAF"
 
-#: backend/hub/models.py:315 backend/hub/templates/candidate/detail.html:209
+#: backend/hub/models.py:316 backend/hub/templates/candidate/detail.html:209
 #: backend/hub/templates/ngo/detail.html:137
 msgid "Fiscal certificate local"
 msgstr "Certificat fiscal emis de Direcția de Impozite și Taxe Locale"
 
-#: backend/hub/models.py:322
+#: backend/hub/models.py:323
 msgid "Accepted Terms and Conditions"
 msgstr "A acceptat termenii și condițiile"
 
-#: backend/hub/models.py:324
+#: backend/hub/models.py:325
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: backend/hub/models.py:327 backend/hub/templates/header.html:43
+#: backend/hub/models.py:328 backend/hub/templates/header.html:43
 msgid "Organizations"
 msgstr "Organizații"
 
-#: backend/hub/models.py:328
+#: backend/hub/models.py:329
 msgid "Organization"
 msgstr "Organizație"
 
-#: backend/hub/models.py:421
+#: backend/hub/models.py:429
 msgid "Pending"
 msgstr "În așteptare"
 
-#: backend/hub/models.py:436
+#: backend/hub/models.py:444
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: backend/hub/models.py:442 backend/hub/templates/candidate/detail.html:111
+#: backend/hub/models.py:450 backend/hub/templates/candidate/detail.html:111
 msgid "Representative name"
 msgstr "Nume reprezentant"
 
-#: backend/hub/models.py:448
+#: backend/hub/models.py:456
 msgid "Representative role in organization"
 msgstr "Funcția reprezentantului în organizație"
 
-#: backend/hub/models.py:454 backend/hub/templates/candidate/detail.html:119
+#: backend/hub/models.py:462 backend/hub/templates/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Declarație reprezentant"
 
-#: backend/hub/models.py:461
+#: backend/hub/models.py:469
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:467 backend/hub/templates/header.html:61
+#: backend/hub/models.py:475 backend/hub/templates/header.html:61
 msgid "Candidates"
 msgstr "Candidaturi"
 
-#: backend/hub/models.py:468
+#: backend/hub/models.py:476
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: backend/hub/models.py:502
+#: backend/hub/models.py:510
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: backend/hub/models.py:539
+#: backend/hub/models.py:547
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: backend/hub/models.py:540
+#: backend/hub/models.py:548
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: backend/hub/models.py:563
+#: backend/hub/models.py:571
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: backend/hub/models.py:564
+#: backend/hub/models.py:572
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: backend/hub/models.py:578
+#: backend/hub/models.py:586
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: backend/hub/models.py:579
+#: backend/hub/models.py:587
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -790,31 +802,31 @@ msgstr "Caută..."
 #: backend/hub/templates/candidate/list.html:79
 #: backend/hub/templates/candidate/results.html:63
 #: backend/hub/templates/committee/candidates.html:51
-#: backend/hub/templates/ngo/votes.html:82
+#: backend/hub/templates/ngo/votes.html:84
 msgid "View details"
 msgstr "Vizualizează detalii"
 
-#: backend/hub/templates/candidate/register_request.html:33
-#: backend/hub/templates/candidate/update.html:27
+#: backend/hub/templates/candidate/register_request.html:34
+#: backend/hub/templates/candidate/update.html:28
 #: backend/hub/templates/committee/partials/nav.html:24
-#: backend/hub/templates/ngo/update.html:32
-#: backend/hub/templates/ngo/votes.html:33
+#: backend/hub/templates/ngo/update.html:33
+#: backend/hub/templates/ngo/votes.html:34
 msgid "Settings"
 msgstr "Setări"
 
-#: backend/hub/templates/candidate/register_request.html:72
+#: backend/hub/templates/candidate/register_request.html:74
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: backend/hub/templates/candidate/register_request.html:81
+#: backend/hub/templates/candidate/register_request.html:83
 msgid "Propose candidate"
 msgstr "Propune candidatură"
 
-#: backend/hub/templates/candidate/update.html:106
+#: backend/hub/templates/candidate/update.html:108
 msgid "Publish changes"
 msgstr "Publică modificările"
 
-#: backend/hub/templates/candidate/update.html:106
+#: backend/hub/templates/candidate/update.html:108
 msgid "Update profile"
 msgstr "Modifică profil"
 
@@ -831,7 +843,7 @@ msgstr "Candidaturi validate"
 #: backend/hub/templates/committee/candidates.html:67
 #: backend/hub/templates/committee/list.html:69
 #: backend/hub/templates/ngo/list.html:177
-#: backend/hub/templates/ngo/votes.html:98
+#: backend/hub/templates/ngo/votes.html:100
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
@@ -958,11 +970,11 @@ msgstr "Înscriere organizație"
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
-#: backend/hub/templates/ngo/update.html:84
+#: backend/hub/templates/ngo/update.html:86
 msgid "Update organization"
 msgstr "Modifică organizație"
 
-#: backend/hub/templates/ngo/votes.html:42
+#: backend/hub/templates/ngo/votes.html:44
 msgid "My votes"
 msgstr "Voturile mele"
 
