@@ -54,7 +54,7 @@
         </article>
     {% else %}
 
-      {% if organization.is_readonly %}
+      {% if organization.edit_only_on_nghohub %}
         <div class="message is-warning">
           <div class="message-body">
             Puteți actualiza profilul acestei organizații doar prin NGO Hub.
@@ -81,7 +81,7 @@
 
             {{ form|crispy }}
 
-            {% if not organization.is_readonly %}
+            {% if not organization.edit_only_on_nghohub %}
               <div class="has-text-right">
                 <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
               </div>

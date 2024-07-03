@@ -280,7 +280,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
 
     def post(self, request, *args, **kwargs):
         org = self.get_object()
-        if org and org.id and org.is_readonly:
+        if org and org.id and org.edit_only_on_nghohub:
             raise PermissionDenied
         else:
             return super().post(request, *args, **kwargs)

@@ -345,11 +345,11 @@ class Organization(StatusModel, TimeStampedModel):
             return self.logo_url
 
     @property
-    def is_readonly(self):
+    def edit_only_on_nghohub(self):
         """
         Organizations managed elsewhere (ie: on NGO Hub) should not be editable here
         """
-        if self.ngohub_org_id:
+        if self.ngohub_org_id and not settings.NGOHUB_ORG_OVERWRITE:
             return True
         return False
 
