@@ -950,7 +950,7 @@ msgid "Register your organization"
 msgstr ""
 
 #: backend/hub/templates/header.html:86
-msgid "Metodology"
+msgid "Methodology"
 msgstr ""
 
 #: backend/hub/templates/header.html:105

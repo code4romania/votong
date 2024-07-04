@@ -2,54 +2,57 @@
 {% load i18n %}
 
 <footer>
-    <div class="container">
-        <div class="columns mr-0">
-            <div class="column is-auto">
-                <div class="branding">
-                    <div class="mb-3">
-                        O soluție 
-                    </div>
+  <div class="container">
+    <div class="columns mr-0">
+      <div class="column is-auto">
+        <div class="branding">
+          <div class="mb-3">
+            O soluție
+          </div>
 
-                    <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer" class="mb-3">
-                        <img class="code4Ro-logo" src="{% static "images/code4romania-black.svg" %}" alt="Code for Romania" />
-                    </a>
+          <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer" class="mb-3">
+            <img
+              class="code_commit-logo"
+              src="{% static "images/commit_code-bw.svg" %}"
+              alt="Code for Romania | Commit Global"/>
+          </a>
 
-                    <div class="mb-5 has-text-left">
-                        Organizație independentă, non-partizană, apolitică, neguvernamentală.
-                    </div>
+          <div class="mb-5 has-text-left">
+            Organizație independentă, non-partizană, apolitică, neguvernamentală.
+          </div>
 
-                    <div>
-                        &copy; 2022 Code for Romania.
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-3 mobile-spacing">
-                <h4 class="pb-3">
-                    <strong>{% trans "USEFUL LINKS" %}</strong>
-                </h4>
-                <ul id="footer-links">
-                    <li><a href="{% url 'about' %}">{% trans "About VotONG" %}</a></li>
-                    <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a></li>
-                    <li><a href="{% url 'cookies'%}">{% trans "Privacy Policy" %}</a></li>
-                    <li><a href="{% url 'terms'%}">{% trans "Terms and conditions" %}</a></li>
-                    <li><a href="{% url 'login'%}">{% trans "Commission Sign In" %}</a></li>
-                </ul>
-            </div>
-
-            <div class="column is-3 mobile-spacing">
-                <h4 class="pb-3">
-                    <strong>{% trans "CONTACT US" %}</strong>
-                </h4>
-                <ul id="footer-links">
-                    <li><a href="https://www.facebook.com/code4romania/">Facebook</a>
-                    <li><a href="https://twitter.com/Code4Romania">Twitter</a>
-                    <li><a href="https://github.com/code4romania/votong/">GitHub</a>
-                    <li><a href="https://www.linkedin.com/company/code4romania/">LinkedIn</a>
-                </ul>
-            </div>
+          <div>
+            &copy; 2024 Commit Global.
+          </div>
         </div>
+      </div>
+
+      <div class="column is-3 mobile-spacing">
+        <h4 class="pb-3">
+          <strong>{% trans "USEFUL LINKS" %}</strong>
+        </h4>
+        <ul id="footer-links">
+          <li><a href="{% url 'about' %}">{% trans "About VotONG" %}</a></li>
+          <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a></li>
+          <li><a href="{% url 'cookies' %}">{% trans "Privacy Policy" %}</a></li>
+          <li><a href="{% url 'terms' %}">{% trans "Terms and conditions" %}</a></li>
+          <li><a href="{% url 'login' %}">{% trans "Commission Sign In" %}</a></li>
+        </ul>
+      </div>
+
+      <div class="column is-3 mobile-spacing">
+        <h4 class="pb-3">
+          <strong>{% trans "CONTACT US" %}</strong>
+        </h4>
+        <ul id="footer-links">
+          <li><a href="https://www.facebook.com/code4romania/">Facebook</a>
+          <li><a href="https://twitter.com/Code4Romania">Twitter</a>
+          <li><a href="https://github.com/code4romania/votong/">GitHub</a>
+          <li><a href="https://www.linkedin.com/company/code4romania/">LinkedIn</a>
+        </ul>
+      </div>
     </div>
+  </div>
 </footer>
 
 {% block extra-footer %}

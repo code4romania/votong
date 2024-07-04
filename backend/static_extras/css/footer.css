@@ -25,7 +25,7 @@ footer .branding {
     margin-right: auto;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     footer .mobile-spacing {
         margin-top: 32px;
     }
@@ -36,13 +36,13 @@ footer .branding a {
     margin-top: 5px;
 }
 
-footer .branding .code4Ro-logo {
+footer .branding .code_commit-logo {
     height: 45px;
 }
 
 #footer-links {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #footer-links li a:not(.button) {
@@ -55,14 +55,14 @@ footer .branding .code4Ro-logo {
     padding-bottom: 5px;
 }
 
-@media (max-width: 768px){
-  #footer-links {
-    flex-direction: column;
-  }
+@media (max-width: 768px) {
+    #footer-links {
+        flex-direction: column;
+    }
 
-  #footer-links li {
-    padding: 10px;
-  }
+    #footer-links li {
+        padding: 10px;
+    }
 }
 
 
