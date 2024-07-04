@@ -196,6 +196,7 @@ class City(models.Model):
 
 class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(
+        ("draft", _("Draft")),
         ("pending", _("Pending approval")),
         ("accepted", _("Accepted")),
         ("rejected", _("Rejected")),
