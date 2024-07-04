@@ -219,7 +219,7 @@ def send_confirm_email_to_committee(request, candidate, to_email):
     current_site = get_current_site(request)
     protocol = "https" if request.is_secure() else "http"
 
-    confirmation_link_path = reverse("candidate-detail", args=(candidate.pk,))
+    confirmation_link_path = reverse("candidate-status-confirm", args=(candidate.pk,))
     confirmation_link = f"{protocol}://{current_site.domain}{confirmation_link_path}"
 
     utils.send_email(
