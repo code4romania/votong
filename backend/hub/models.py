@@ -230,7 +230,7 @@ class Organization(StatusModel, TimeStampedModel):
     logo_url = models.URLField(_("Logo URL"), max_length=300, blank=True)
 
     last_balance_sheet = models.FileField(
-        _("First page of last balance sheet"),
+        _("First page of last balance sheet for %(CURRENT_EDITION_YEAR)s") % {"CURRENT_EDITION_YEAR": str(settings.CURRENT_EDITION_YEAR)},
         null=True,
         max_length=300,
     )
