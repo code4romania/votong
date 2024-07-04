@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 14:28+0300\n"
+"POT-Creation-Date: 2024-07-04 15:34+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -487,7 +487,7 @@ msgstr "Descriere"
 msgid "Number of seats"
 msgstr "Numărul de fotolii"
 
-#: backend/hub/models.py:169 backend/hub/models.py:450
+#: backend/hub/models.py:169 backend/hub/models.py:452
 msgid "Domain"
 msgstr "Domeniu"
 
@@ -496,11 +496,11 @@ msgid "Domains"
 msgstr "Domenii"
 
 #: backend/hub/models.py:177 backend/hub/models.py:182
-#: backend/hub/models.py:215 backend/hub/templates/ngo/list.html:76
+#: backend/hub/models.py:216 backend/hub/templates/ngo/list.html:76
 msgid "City"
 msgstr "Oraș"
 
-#: backend/hub/models.py:178 backend/hub/models.py:214
+#: backend/hub/models.py:178 backend/hub/models.py:215
 #: backend/hub/templates/ngo/list.html:41
 msgid "County"
 msgstr "Județ"
@@ -514,220 +514,224 @@ msgid "Cities"
 msgstr "Orașe"
 
 #: backend/hub/models.py:199
+msgid "Draft"
+msgstr "Schiță"
+
+#: backend/hub/models.py:200
 msgid "Pending approval"
 msgstr "Așteaptă aprobare"
 
-#: backend/hub/models.py:200 backend/hub/models.py:432
+#: backend/hub/models.py:201 backend/hub/models.py:434
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: backend/hub/models.py:201 backend/hub/models.py:433
+#: backend/hub/models.py:202 backend/hub/models.py:435
 msgid "Rejected"
 msgstr "Respins"
 
-#: backend/hub/models.py:211
+#: backend/hub/models.py:212
 msgid "NGO Hub linked organization ID"
 msgstr "ID organizație în NGO Hub"
 
-#: backend/hub/models.py:213
+#: backend/hub/models.py:214
 msgid "NGO Name"
 msgstr "Nume organizație"
 
-#: backend/hub/models.py:216
+#: backend/hub/models.py:217
 msgid "Address"
 msgstr "Adresă"
 
-#: backend/hub/models.py:217
+#: backend/hub/models.py:218
 msgid "Registration number"
 msgstr ""
 "Număr de înregistrare în Registrul Național al ONG-urilor (de forma 11111/"
 "A/2016)"
 
-#: backend/hub/models.py:219
+#: backend/hub/models.py:220
 msgid "Organization Email"
 msgstr "Adresă de email organizație"
 
-#: backend/hub/models.py:220
+#: backend/hub/models.py:221
 msgid "Organization Phone"
 msgstr "Telefon organizație (opțional)"
 
-#: backend/hub/models.py:221
+#: backend/hub/models.py:222
 msgid "Short Description"
 msgstr "Scurtă descriere (opțional)"
 
-#: backend/hub/models.py:223
+#: backend/hub/models.py:224
 msgid "Legal Representative Name"
 msgstr "Nume reprezentant legal"
 
-#: backend/hub/models.py:224
+#: backend/hub/models.py:225
 msgid "Legal Representative Email"
 msgstr "Adresă de email reprezentant legal"
 
-#: backend/hub/models.py:225
+#: backend/hub/models.py:226
 msgid "Legal Representative Phone"
 msgstr "Telefon reprezentant legal (opțional)"
 
-#: backend/hub/models.py:227
+#: backend/hub/models.py:228
 msgid "Organization Head Name"
 msgstr ""
 "Numele complet al președintelui organizației (sau director executiv dacă "
 "este cazul)"
 
-#: backend/hub/models.py:228
+#: backend/hub/models.py:229
 msgid "Board council"
 msgstr ""
 "Consiliu Director (adaugă numele complet al fiecărui membru, separate prin "
 "virgulă)"
 
-#: backend/hub/models.py:229
+#: backend/hub/models.py:230
 msgid "Logo"
 msgstr "Siglă"
 
-#: backend/hub/models.py:230
+#: backend/hub/models.py:231
 msgid "Logo URL"
 msgstr "URL siglă"
 
-#: backend/hub/models.py:233 backend/hub/templates/ngo/detail.html:110
+#: backend/hub/models.py:234 backend/hub/templates/ngo/detail.html:110
 #, python-format
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul %(CURRENT_EDITION_YEAR)s depus la "
 "Ministerul Finanțelor"
 
-#: backend/hub/models.py:238 backend/hub/templates/ngo/detail.html:119
+#: backend/hub/models.py:240 backend/hub/templates/ngo/detail.html:119
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: backend/hub/models.py:245 backend/hub/templates/candidate/detail.html:137
+#: backend/hub/models.py:247 backend/hub/templates/candidate/detail.html:137
 #: backend/hub/templates/ngo/detail.html:148
 msgid "Yearly report 2023"
 msgstr "Raport anual 2023"
 
-#: backend/hub/models.py:252 backend/hub/templates/candidate/detail.html:146
+#: backend/hub/models.py:254 backend/hub/templates/candidate/detail.html:146
 #: backend/hub/templates/ngo/detail.html:157
 msgid "Yearly report 2022"
 msgstr "Raport anual 2022"
 
-#: backend/hub/models.py:259 backend/hub/templates/candidate/detail.html:155
+#: backend/hub/models.py:261 backend/hub/templates/candidate/detail.html:155
 #: backend/hub/templates/ngo/detail.html:166
 msgid "Yearly report 2021"
 msgstr "Raport anual 2021"
 
-#: backend/hub/models.py:267 backend/hub/templates/candidate/detail.html:164
+#: backend/hub/models.py:269 backend/hub/templates/candidate/detail.html:164
 #: backend/hub/templates/ngo/detail.html:175
 msgid "Yearly report 2020"
 msgstr "Raport anual 2020"
 
-#: backend/hub/models.py:274 backend/hub/templates/candidate/detail.html:173
+#: backend/hub/models.py:276 backend/hub/templates/candidate/detail.html:173
 #: backend/hub/templates/ngo/detail.html:184
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: backend/hub/models.py:281 backend/hub/templates/candidate/detail.html:182
+#: backend/hub/models.py:283 backend/hub/templates/candidate/detail.html:182
 #: backend/hub/templates/ngo/detail.html:193
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: backend/hub/models.py:288 backend/hub/templates/candidate/detail.html:191
+#: backend/hub/models.py:290 backend/hub/templates/candidate/detail.html:191
 #: backend/hub/templates/ngo/detail.html:202
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: backend/hub/models.py:296 backend/hub/templates/candidate/detail.html:218
+#: backend/hub/models.py:298 backend/hub/templates/candidate/detail.html:218
 #: backend/hub/templates/ngo/detail.html:211
 msgid "Non-discrimination statement"
 msgstr "Declarație nediscriminare"
 
-#: backend/hub/models.py:303 backend/hub/templates/candidate/detail.html:227
+#: backend/hub/models.py:305 backend/hub/templates/candidate/detail.html:227
 #: backend/hub/templates/ngo/detail.html:220
 msgid "Non-political statement"
 msgstr "Declarație neapartenență politică"
 
-#: backend/hub/models.py:311 backend/hub/templates/candidate/detail.html:200
+#: backend/hub/models.py:313 backend/hub/templates/candidate/detail.html:200
 #: backend/hub/templates/ngo/detail.html:128
 msgid "Fiscal certificate ANAF"
 msgstr "Certificat fiscal emis de ANAF"
 
-#: backend/hub/models.py:318 backend/hub/templates/candidate/detail.html:209
+#: backend/hub/models.py:320 backend/hub/templates/candidate/detail.html:209
 #: backend/hub/templates/ngo/detail.html:137
 msgid "Fiscal certificate local"
 msgstr "Certificat fiscal emis de Direcția de Impozite și Taxe Locale"
 
-#: backend/hub/models.py:325
+#: backend/hub/models.py:327
 msgid "Accepted Terms and Conditions"
 msgstr "A acceptat termenii și condițiile"
 
-#: backend/hub/models.py:327
+#: backend/hub/models.py:329
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: backend/hub/models.py:330 backend/hub/templates/header.html:64
+#: backend/hub/models.py:332 backend/hub/templates/header.html:64
 msgid "Organizations"
 msgstr "Organizații"
 
-#: backend/hub/models.py:331
+#: backend/hub/models.py:333
 msgid "Organization"
 msgstr "Organizație"
 
-#: backend/hub/models.py:431
+#: backend/hub/models.py:433
 msgid "Pending"
 msgstr "În așteptare"
 
-#: backend/hub/models.py:446
+#: backend/hub/models.py:448
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: backend/hub/models.py:454 backend/hub/templates/candidate/detail.html:111
+#: backend/hub/models.py:456 backend/hub/templates/candidate/detail.html:111
 msgid "Representative name"
 msgstr "Nume reprezentant"
 
-#: backend/hub/models.py:460
+#: backend/hub/models.py:462
 msgid "Representative role in organization"
 msgstr "Funcția reprezentantului în organizație"
 
-#: backend/hub/models.py:466 backend/hub/templates/candidate/detail.html:119
+#: backend/hub/models.py:468 backend/hub/templates/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Declarație reprezentant"
 
-#: backend/hub/models.py:473
+#: backend/hub/models.py:475
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:479 backend/hub/templates/header.html:82
+#: backend/hub/models.py:481 backend/hub/templates/header.html:82
 msgid "Candidates"
 msgstr "Candidaturi"
 
-#: backend/hub/models.py:480
+#: backend/hub/models.py:482
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: backend/hub/models.py:514
+#: backend/hub/models.py:516
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: backend/hub/models.py:551
+#: backend/hub/models.py:553
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: backend/hub/models.py:552
+#: backend/hub/models.py:554
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: backend/hub/models.py:575
+#: backend/hub/models.py:577
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: backend/hub/models.py:576
+#: backend/hub/models.py:578
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: backend/hub/models.py:590
+#: backend/hub/models.py:592
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: backend/hub/models.py:591
+#: backend/hub/models.py:593
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -743,11 +747,11 @@ msgstr ""
 "Corectați următoarea eroare. Parola nouă trebuie să fie diferită. Încercați "
 "din nou."
 
-#: backend/hub/social_adapters.py:58
+#: backend/hub/social_adapters.py:59
 msgid "There is no NGO Hub organization for this VotONG user"
 msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG"
 
-#: backend/hub/social_adapters.py:60
+#: backend/hub/social_adapters.py:61
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 
