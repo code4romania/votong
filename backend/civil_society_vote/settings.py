@@ -78,7 +78,7 @@ env = environ.Env(
     DATABASE_USER=(str, "root"),
     DATABASE_PASSWORD=(str, ""),
     DATABASE_HOST=(str, "localhost"),
-    DATABASE_PORT=(str, "3306"),
+    DATABASE_PORT=(str, "5432"),
     # Sentry
     SENTRY_DSN=(str, ""),
     SENTRY_TRACES_SAMPLE_RATE=(float, 0),
@@ -351,8 +351,10 @@ if env.bool("USE_S3"):
     if default_prefix := env.str("AWS_S3_DEFAULT_PREFIX", default=None):
         default_storage_options["location"] = default_prefix
 
-    if custom_domain := env.str("AWS_S3_DEFAULT_CUSTOM_DOMAIN", default=None):
-        public_storage_options["custom_domain"] = custom_domain
+    if custom_domain := (
+        env.str("AWS_S3_CUSTOM_DOMAIN", default=None) or env.str("AWS_S3_DEFAULT_CUSTOM_DOMAIN", default=None)
+    ):
+        default_storage_options["custom_domain"] = custom_domain
 
     public_storage_options = deepcopy(default_storage_options)
     if public_acl := env.str("AWS_S3_PUBLIC_ACL"):
