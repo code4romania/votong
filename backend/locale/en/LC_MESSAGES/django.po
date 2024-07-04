@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 21:41+0300\n"
+"POT-Creation-Date: 2024-07-04 13:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -583,7 +583,7 @@ msgstr ""
 msgid "Logo URL"
 msgstr ""
 
-#: backend/hub/models.py:231 backend/hub/templates/ngo/detail.html:110
+#: backend/hub/models.py:231
 msgid "First page of last balance sheet"
 msgstr ""
 
@@ -656,7 +656,7 @@ msgstr "Candidați selectați"
 msgid "Rejection message"
 msgstr ""
 
-#: backend/hub/models.py:328 backend/hub/templates/header.html:43
+#: backend/hub/models.py:328 backend/hub/templates/header.html:64
 msgid "Organizations"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr "The name of the legal representative"
 msgid "Is proposed?"
 msgstr ""
 
-#: backend/hub/models.py:477 backend/hub/templates/header.html:61
+#: backend/hub/models.py:477 backend/hub/templates/header.html:82
 msgid "Candidates"
 msgstr ""
 
@@ -924,39 +924,39 @@ msgstr ""
 msgid "CONTACT US"
 msgstr ""
 
-#: backend/hub/templates/header.html:33
+#: backend/hub/templates/header.html:54
 msgid "Home"
 msgstr ""
 
-#: backend/hub/templates/header.html:37
+#: backend/hub/templates/header.html:58
 msgid "About the platform"
 msgstr ""
 
-#: backend/hub/templates/header.html:47
+#: backend/hub/templates/header.html:68
 msgid "VotONG Elections"
 msgstr ""
 
-#: backend/hub/templates/header.html:51
+#: backend/hub/templates/header.html:72
 msgid "History"
 msgstr ""
 
-#: backend/hub/templates/header.html:56
+#: backend/hub/templates/header.html:77
 msgid "Register your organization"
 msgstr ""
 
-#: backend/hub/templates/header.html:65
+#: backend/hub/templates/header.html:86
 msgid "Metodology"
 msgstr ""
 
-#: backend/hub/templates/header.html:84
+#: backend/hub/templates/header.html:105
 msgid "Logout"
 msgstr ""
 
-#: backend/hub/templates/header.html:88
+#: backend/hub/templates/header.html:109
 msgid "STOP IMPERSONATING"
 msgstr ""
 
-#: backend/hub/templates/header.html:96
+#: backend/hub/templates/header.html:117
 #: backend/hub/templates/registration/login.html:16
 #: backend/hub/templates/registration/login.html:60
 msgid "Login"
@@ -964,6 +964,16 @@ msgstr ""
 
 #: backend/hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
+msgstr ""
+
+#: backend/hub/templates/ngo/detail.html:110
+#, python-format
+msgid " First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
+msgstr ""
+
+#: backend/hub/templates/ngo/detail.html:110
+#, python-format
+msgid " First page of last balance sheet for %(CURRENT_EDITION_YEAR)s "
 msgstr ""
 
 #: backend/hub/templates/ngo/list.html:27
@@ -1106,11 +1116,11 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: backend/hub/templatetags/hub_tags.py:101
+#: backend/hub/templatetags/hub_tags.py:114
 msgid "published on"
 msgstr ""
 
-#: backend/hub/templatetags/hub_tags.py:103
+#: backend/hub/templatetags/hub_tags.py:116
 msgid "published"
 msgstr ""
 

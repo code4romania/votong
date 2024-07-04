@@ -92,6 +92,7 @@ env = environ.Env(
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
     NGOHUB_ORG_OVERWRITE=(bool, False),
+    CURRENT_EDITION_YEAR=(int, 2024),
     # email settings
     EMAIL_SEND_METHOD=(str, "async"),
     EMAIL_BACKEND=(str, "django.core.mail.backends.console.EmailBackend"),
@@ -571,3 +572,5 @@ NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
 NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
+
+CURRENT_EDITION_YEAR = env("CURRENT_EDITION_YEAR")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 21:41+0300\n"
+"POT-Creation-Date: 2024-07-04 13:24+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -587,7 +587,7 @@ msgstr "Siglă"
 msgid "Logo URL"
 msgstr "URL siglă"
 
-#: backend/hub/models.py:231 backend/hub/templates/ngo/detail.html:110
+#: backend/hub/models.py:231
 msgid "First page of last balance sheet"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul 2020 depus la Ministerul "
@@ -660,7 +660,7 @@ msgstr "A acceptat termenii și condițiile"
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: backend/hub/models.py:328 backend/hub/templates/header.html:43
+#: backend/hub/models.py:328 backend/hub/templates/header.html:64
 msgid "Organizations"
 msgstr "Organizații"
 
@@ -694,7 +694,7 @@ msgstr "Declarație reprezentant"
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:477 backend/hub/templates/header.html:61
+#: backend/hub/models.py:477 backend/hub/templates/header.html:82
 msgid "Candidates"
 msgstr "Candidaturi"
 
@@ -739,8 +739,8 @@ msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
 msgstr ""
-"Corectați următoarea eroare. Parola nouă trebuie să fie diferită. "
-"Încercați din nou."
+"Corectați următoarea eroare. Parola nouă trebuie să fie diferită. Încercați "
+"din nou."
 
 #: backend/hub/social_adapters.py:58
 msgid "There is no NGO Hub organization for this VotONG user"
@@ -914,39 +914,39 @@ msgstr "Autentificare comisie"
 msgid "CONTACT US"
 msgstr "CONTACTEAZĂ-NE"
 
-#: backend/hub/templates/header.html:33
+#: backend/hub/templates/header.html:54
 msgid "Home"
 msgstr "Acasă"
 
-#: backend/hub/templates/header.html:37
+#: backend/hub/templates/header.html:58
 msgid "About the platform"
 msgstr "Despre platformă"
 
-#: backend/hub/templates/header.html:47
+#: backend/hub/templates/header.html:68
 msgid "VotONG Elections"
 msgstr "Alegeri VotONG"
 
-#: backend/hub/templates/header.html:51
+#: backend/hub/templates/header.html:72
 msgid "History"
 msgstr "Istoric"
 
-#: backend/hub/templates/header.html:56
+#: backend/hub/templates/header.html:77
 msgid "Register your organization"
 msgstr "Înscriere organizație"
 
-#: backend/hub/templates/header.html:65
+#: backend/hub/templates/header.html:86
 msgid "Metodology"
 msgstr "Metodologie"
 
-#: backend/hub/templates/header.html:84
+#: backend/hub/templates/header.html:105
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: backend/hub/templates/header.html:88
+#: backend/hub/templates/header.html:109
 msgid "STOP IMPERSONATING"
 msgstr "OPREȘTE IMPERSONAREA"
 
-#: backend/hub/templates/header.html:96
+#: backend/hub/templates/header.html:117
 #: backend/hub/templates/registration/login.html:16
 #: backend/hub/templates/registration/login.html:60
 msgid "Login"
@@ -955,6 +955,12 @@ msgstr "Autentificare"
 #: backend/hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
 msgstr "Proiect dezvoltat în programul"
+
+#: backend/hub/templates/ngo/detail.html:110
+msgid " First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
+msgstr ""
+"Prima pagină a bilanțului contabil pe anul %(CURRENT_EDITION_YEAR)s depus la Ministerul "
+"Finanțelor"
 
 #: backend/hub/templates/ngo/list.html:27
 msgid "Registered organizations"
@@ -996,16 +1002,15 @@ msgstr "Alegeri CES"
 
 #: backend/hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
-msgstr ""
-"Numele de utilizator și parola nu se potrivesc. Încercați din nou."
+msgstr "Numele de utilizator și parola nu se potrivesc. Încercați din nou."
 
 #: backend/hub/templates/registration/login.html:30
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr ""
-"Contul tău nu are acces la această pagină. Pentru a continua, "
-"autentificați-vă cu un cont care are acces."
+"Contul tău nu are acces la această pagină. Pentru a continua, autentificați-"
+"vă cu un cont care are acces."
 
 #: backend/hub/templates/registration/login.html:32
 msgid "Please login to see this page."
@@ -1107,11 +1112,11 @@ msgstr "următoarea"
 msgid "last"
 msgstr "ultima"
 
-#: backend/hub/templatetags/hub_tags.py:101
+#: backend/hub/templatetags/hub_tags.py:114
 msgid "published on"
 msgstr "publicat la"
 
-#: backend/hub/templatetags/hub_tags.py:103
+#: backend/hub/templatetags/hub_tags.py:116
 msgid "published"
 msgstr "publicat"
 
