@@ -3,31 +3,31 @@
   margin-bottom: 70px;
 }
 
-  #contact > div {
-    flex: 1;
-    padding: 20px;
-  }
+#contact > div {
+  flex: 1;
+  padding: 20px;
+}
 
-  #contact h3 {
-    padding: 0;
-    margin-bottom: 20px;
-  }
+#contact h3 {
+  padding: 0;
+  margin-bottom: 20px;
+}
 
-  #contact p {
-    margin-bottom: 20px;
-  }
+#contact p {
+  margin-bottom: 20px;
+}
 
-  #contact-form .control.has-icons-left .icon,
-  #contact-form .control.has-icons-right .icon {
-    color: #dbdbdb;
-    font-size: 1rem;
-  }
+#contact-form .control.has-icons-left .icon,
+#contact-form .control.has-icons-right .icon {
+  color: #dbdbdb;
+  font-size: 1rem;
+}
 
-  #contact-form textarea {
-    min-height: 8em;
-  }
+#contact-form textarea {
+  min-height: 8em;
+}
 
-  #contact-form #contact-form-buttons {
-    margin-top: 10px;
-    text-align: right;
-  }
+#contact-form #contact-form-buttons {
+  margin-top: 10px;
+  text-align: right;
+}

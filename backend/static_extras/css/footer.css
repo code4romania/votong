@@ -1,79 +1,79 @@
 footer {
-    background-color: var(--lightest-gray);
-    padding-top: 40px;
-    padding-bottom: 60px;
-    color: black;
-    text-align: center;
+  background-color: var(--lightest-gray);
+  padding-top: 40px;
+  padding-bottom: 60px;
+  color: black;
+  text-align: center;
 }
 
 footer a {
-    color: black;
+  color: black;
 }
 
 footer a:not(.button):hover {
-    color: black;
-    text-decoration: underline;
+  color: black;
+  text-decoration: underline;
 }
 
 footer .branding {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    max-width: 280px;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media screen and (max-width: 768px) {
-    footer .mobile-spacing {
-        margin-top: 32px;
-    }
+  footer .mobile-spacing {
+    margin-top: 32px;
+  }
 }
 
 footer .branding a {
-    display: inline-block;
-    margin-top: 5px;
+  display: inline-block;
+  margin-top: 5px;
 }
 
 footer .branding .code_commit-logo {
-    height: 45px;
+  height: 45px;
 }
 
 #footer-links {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #footer-links li a:not(.button) {
-    color: black;
-    text-decoration: underline;
+  color: black;
+  text-decoration: underline;
 }
 
 #footer-links li {
-    padding-top: 5px;
-    padding-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 @media (max-width: 768px) {
-    #footer-links {
-        flex-direction: column;
-    }
+  #footer-links {
+    flex-direction: column;
+  }
 
-    #footer-links li {
-        padding: 10px;
-    }
+  #footer-links li {
+    padding: 10px;
+  }
 }
 
 
 #footer-social {
-    display: inline-block;
-    list-style: none;
-    margin-top: 30px;
+  display: inline-block;
+  list-style: none;
+  margin-top: 30px;
 }
 
 #footer-social li {
-    display: inline-block;
-    margin: 0 25px;
+  display: inline-block;
+  margin: 0 25px;
 }
 
