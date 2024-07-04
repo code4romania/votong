@@ -1,8 +1,7 @@
 import logging
 
-from accounts.models import User
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -14,6 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from guardian.shortcuts import assign_perm
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
+
+from accounts.models import User
+
 
 # NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
 STAFF_GROUP = "Code4Romania Staff"
@@ -356,24 +358,24 @@ class Organization(StatusModel, TimeStampedModel):
     @property
     def is_complete(self):
         """
-        Validate if the Org uploaded all the requested info to proppose a Candidate
+        Validate that the Org uploaded all the requested info to propose a Candidate
         """
+        required_reports = []
+        for year in range(
+            settings.CURRENT_EDITION_YEAR - settings.PREV_REPORTS_REQUIRED_FOR_PROPOSAL, settings.CURRENT_EDITION_YEAR
+        ):
+            required_reports.append(getattr(self, f"report_{year}", None))
+
         return all(
             [
                 self.statute,
                 self.last_balance_sheet,
-                self.report_2023,
-                self.report_2022,
-                self.report_2021,
-                # self.report_2020,
-                # self.report_2019,
-                # self.report_2018,
-                # self.report_2017,
                 self.statement_discrimination,
                 self.statement_political,
                 self.fiscal_certificate_anaf,
                 self.fiscal_certificate_local,
             ]
+            + required_reports
         )
 
     def get_absolute_url(self):
