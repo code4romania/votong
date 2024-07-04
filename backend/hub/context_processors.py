@@ -8,6 +8,7 @@ def hub_settings(context):
 
     return {
         "DEBUG": settings.DEBUG,
+        "CURRENT_EDITION_YEAR": settings.CURRENT_EDITION_YEAR,
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
         "GLOBAL_SUPPORT_ENABLED": settings.GLOBAL_SUPPORT_ENABLED,
         "ORG_REGISTRATION_ENABLED": flags.get("enable_org_registration", False),
