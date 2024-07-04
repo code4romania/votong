@@ -534,15 +534,6 @@ class Candidate(StatusModel, TimeStampedModel):
             assign_perm("delete_candidate", self.org.user, self)
             assign_perm("view_data_candidate", self.org.user, self)
 
-            assign_perm("approve_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
-            assign_perm("view_data_candidate", Group.objects.get(name=COMMITTEE_GROUP), self)
-
-            assign_perm("view_data_candidate", Group.objects.get(name=STAFF_GROUP), self)
-            assign_perm("view_data_candidate", Group.objects.get(name=SUPPORT_GROUP), self)
-
-            assign_perm("support_candidate", Group.objects.get(name=NGO_GROUP), self)
-            assign_perm("vote_candidate", Group.objects.get(name=NGO_GROUP), self)
-
 
 class CandidateVote(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
