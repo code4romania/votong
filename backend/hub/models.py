@@ -96,6 +96,7 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
+    ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
 )
 
 EMAIL_TEMPLATE_CHOICES = Choices(
@@ -105,6 +106,18 @@ EMAIL_TEMPLATE_CHOICES = Choices(
     ("vote_audit", _("Vote audit log")),
     ("confirmation", _("Confirmation email")),
 )
+
+
+def get_feature_flag(flag_choice: str) -> bool:
+    if not flag_choice or flag_choice not in FLAG_CHOICES:
+        raise ValueError(f"Invalid flag choice: {flag_choice}. Valid choices are: {FLAG_CHOICES}")
+
+    try:
+        feature_flag_status: bool = FeatureFlag.objects.get(flag=flag_choice).is_enabled
+    except FeatureFlag.DoesNotExist:
+        return False
+
+    return feature_flag_status
 
 
 class FeatureFlag(TimeStampedModel):

@@ -30,8 +30,10 @@ from hub.models import (
     City,
     Domain,
     EmailTemplate,
+    FLAG_CHOICES,
     FeatureFlag,
     Organization,
+    get_feature_flag,
 )
 
 
@@ -184,7 +186,7 @@ class CandidateSupportersListFilter(admin.SimpleListFilter):
     parameter_name = "supporters"
 
     def lookups(self, request, model_admin):
-        if settings.GLOBAL_SUPPORT_ENABLED:
+        if get_feature_flag(FLAG_CHOICES.global_support_round):
             return (
                 ("gte10", _("10 or more")),
                 ("lt10", _("less than 10")),
@@ -301,7 +303,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     # def get_queryset(self, request):
     #     queryset = super().get_queryset(request)
-    #     if settings.GLOBAL_SUPPORT_ENABLED:
+    #     if get_feature_flag(FLAG_CHOICES.global_support_round):
     #         queryset = queryset.annotate(
     #             votes_count=Count("votes", distinct=True),
     #             supporters_count=Count("supporters", distinct=True),
@@ -315,7 +317,7 @@ class CandidateAdmin(admin.ModelAdmin):
     #     return queryset
 
     def get_inline_instances(self, request, obj=None):
-        if settings.GLOBAL_SUPPORT_ENABLED:
+        if get_feature_flag(FLAG_CHOICES.global_support_round):
             inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
         else:
             inlines = [CandidateConfirmationInline, CandidateVoteInline]
@@ -328,7 +330,7 @@ class CandidateAdmin(admin.ModelAdmin):
     # votes_count.admin_order_field = "votes_count"
 
     def supporters_count(self, obj):
-        if settings.GLOBAL_SUPPORT_ENABLED:
+        if get_feature_flag(FLAG_CHOICES.global_support_round):
             return obj.supporters.count()
         else:
             return "N/A"
@@ -460,7 +462,9 @@ def flags_phase_1(modeladmin, request, queryset):
     FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
     FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
     FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=settings.GLOBAL_SUPPORT_ENABLED)
+    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(
+        is_enabled=get_feature_flag(FLAG_CHOICES.global_support_round)
+    )
     FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
 
 
@@ -516,6 +520,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 for ff in FeatureFlag.objects.all():
                     post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
                 request._set_post(post)
+
         return super(FeatureFlagAdmin, self).changelist_view(request, extra_context)
 
     def has_add_permission(self, request):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 15:34+0300\n"
+"POT-Creation-Date: 2024-07-04 16:57+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,56 +19,55 @@ msgstr ""
 "2:1));\n"
 "X-Generator: Poedit 2.3\n"
 
-#: backend/accounts/forms.py:14
+#: accounts/forms.py:14
 msgid "This email can't be set."
 msgstr "Acest email nu poate fi ales."
 
-#: backend/accounts/models.py:10
+#: accounts/models.py:10
 msgid "username"
 msgstr "nume utilizator"
 
-#: backend/accounts/models.py:13
+#: accounts/models.py:13
 msgid "We do not use this field"
 msgstr "Nu utilizăm acest câmp"
 
-#: backend/accounts/models.py:17
-#: backend/hub/templates/registration/reset_password.html:41
+#: accounts/models.py:17 hub/templates/registration/reset_password.html:41
 msgid "email address"
 msgstr "adresă email"
 
-#: backend/accounts/models.py:24
+#: accounts/models.py:24
 msgid "User"
 msgstr "Utilizator"
 
-#: backend/accounts/models.py:25
+#: accounts/models.py:25
 msgid "Users"
 msgstr "Utilizatori"
 
-#: backend/accounts/templates/avatar/change.html:47
+#: accounts/templates/avatar/change.html:47
 msgid "You haven't uploaded an avatar yet. Please upload one now."
 msgstr "Nu ai ales niciun avatar. Te rugăm să îți alegi unul."
 
-#: backend/accounts/templates/avatar/change.html:50
+#: accounts/templates/avatar/change.html:50
 msgid "Your current avatar"
 msgstr "Avatarul tău curent"
 
-#: backend/accounts/templates/avatar/change.html:95
+#: accounts/templates/avatar/change.html:95
 msgid "Upload file..."
 msgstr "Încarcă fișier..."
 
-#: backend/accounts/templates/avatar/change.html:99
+#: accounts/templates/avatar/change.html:99
 msgid "No uploaded file"
 msgstr "Niciun fișier încărcat"
 
-#: backend/accounts/templates/avatar/change.html:106
+#: accounts/templates/avatar/change.html:106
 msgid "Upload New Image"
 msgstr "Încarcă o imagine nouă"
 
-#: backend/accounts/templates/avatar/confirm_delete.html:14
+#: accounts/templates/avatar/confirm_delete.html:14
 msgid "Please select the avatars that you would like to delete."
 msgstr "Te rugăm să alegi un avatar pentru a fi șters."
 
-#: backend/accounts/templates/avatar/confirm_delete.html:17
+#: accounts/templates/avatar/confirm_delete.html:17
 #, python-format
 msgid ""
 "You have no avatars to delete. Please <a "
@@ -77,237 +76,237 @@ msgstr ""
 "Nu ai niciun avatar în ștergere. Te rugăm <a "
 "href=\"%(avatar_change_url)s\">adaugă unul</a> acum."
 
-#: backend/accounts/templates/avatar/confirm_delete.html:23
+#: accounts/templates/avatar/confirm_delete.html:23
 msgid "Delete These"
 msgstr "Șterge"
 
-#: backend/accounts/templates/change-email.html:39
+#: accounts/templates/change-email.html:39
 msgid "New email:"
 msgstr "Email nou:"
 
-#: backend/accounts/templates/change-email.html:51
+#: accounts/templates/change-email.html:51
 msgid "Change Email"
 msgstr "Schimbă email"
 
-#: backend/accounts/templates/partials/sections.html:8
-#: backend/accounts/templates/partials/sections.html:14
-#: backend/hub/templates/candidate/list.html:34
+#: accounts/templates/partials/sections.html:8
+#: accounts/templates/partials/sections.html:14
+#: hub/templates/candidate/list.html:34
 msgid "Back"
 msgstr "Înapoi"
 
-#: backend/accounts/templates/partials/sections.html:19
-#: backend/hub/templates/registration/reset_password.html:15
-#: backend/hub/templates/registration/reset_password.html:49
+#: accounts/templates/partials/sections.html:19
+#: hub/templates/registration/reset_password.html:15
+#: hub/templates/registration/reset_password.html:49
 msgid "Reset password"
 msgstr "Resetează parolă"
 
-#: backend/accounts/templates/partials/sections.html:23
+#: accounts/templates/partials/sections.html:23
 msgid "Change email"
 msgstr "Schimbă email"
 
-#: backend/accounts/templates/partials/sections.html:27
+#: accounts/templates/partials/sections.html:27
 msgid "Change avatar"
 msgstr "Schimbă avatar"
 
-#: backend/accounts/templates/password-reset.html:36
+#: accounts/templates/password-reset.html:36
 msgid ""
 "Please enter your old password, for security’s sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
 msgstr "Introduceți parola de două ori pentru a verifica că e scrisă corect"
 
-#: backend/accounts/templates/password-reset.html:42
+#: accounts/templates/password-reset.html:42
 msgid "Old password:"
 msgstr "Parolă veche:"
 
-#: backend/accounts/templates/password-reset.html:52
-#: backend/hub/templates/registration/reset_password_confirm.html:40
+#: accounts/templates/password-reset.html:52
+#: hub/templates/registration/reset_password_confirm.html:40
 msgid "New password:"
 msgstr "Parolă noua:"
 
-#: backend/accounts/templates/password-reset.html:61
-#: backend/hub/templates/registration/reset_password_confirm.html:49
+#: accounts/templates/password-reset.html:61
+#: hub/templates/registration/reset_password_confirm.html:49
 msgid "Confirm password:"
 msgstr "Confirmă parolă:"
 
-#: backend/accounts/templates/password-reset.html:72
-#: backend/hub/templates/registration/reset_password_confirm.html:59
+#: accounts/templates/password-reset.html:72
+#: hub/templates/registration/reset_password_confirm.html:59
 msgid "Change my password"
 msgstr "Schimbă-mi parola"
 
-#: backend/accounts/urls.py:6
+#: accounts/urls.py:6
 msgid "password-reset/"
 msgstr "reseteaza-parola/"
 
-#: backend/accounts/urls.py:7
+#: accounts/urls.py:7
 msgid "change-avatar/"
 msgstr "schimba-avatar/"
 
-#: backend/accounts/urls.py:8
+#: accounts/urls.py:8
 msgid "change-email/"
 msgstr "schimba-email/"
 
-#: backend/accounts/views.py:17
+#: accounts/views.py:17
 msgid "You cannot change the password for an NGO Hub account"
 msgstr "Nu puteți schimba parola pentru un cont NGO Hub"
 
-#: backend/accounts/views.py:21
+#: accounts/views.py:21
 msgid "Password was updated successfully"
 msgstr "Parola a fost schimbată cu succes"
 
-#: backend/accounts/views.py:34
+#: accounts/views.py:34
 msgid "You cannot change the email for an NGO Hub account"
 msgstr "Nu puteți schimba adresa de email pentru un cont NGO Hub"
 
-#: backend/accounts/views.py:41
+#: accounts/views.py:41
 msgid "Email was updated successfully"
 msgstr "Adresa de email a fost modificată cu succes"
 
-#: backend/civil_society_vote/urls.py:11 backend/civil_society_vote/urls.py:12
-#: backend/civil_society_vote/urls.py:13
+#: civil_society_vote/urls.py:11 civil_society_vote/urls.py:12
+#: civil_society_vote/urls.py:13
 msgid "Admin Civil Society Vote"
 msgstr "Administrare Votare Societatea Civilă"
 
-#: backend/civil_society_vote/urls.py:17
+#: civil_society_vote/urls.py:17
 msgid "about/"
 msgstr "despre/"
 
-#: backend/civil_society_vote/urls.py:18
+#: civil_society_vote/urls.py:18
 msgid "rules/"
 msgstr "regulament/"
 
-#: backend/civil_society_vote/urls.py:20
+#: civil_society_vote/urls.py:20
 msgid "terms/"
 msgstr "termeni/"
 
-#: backend/civil_society_vote/urls.py:25
+#: civil_society_vote/urls.py:25
 msgid "comittee_public_statement/"
-msgstr ""
+msgstr "declaratie_publica_comitet/"
 
-#: backend/civil_society_vote/urls.py:30
+#: civil_society_vote/urls.py:30
 msgid "platform_rules/"
 msgstr "regulamentul_platformei/"
 
-#: backend/civil_society_vote/urls.py:31
+#: civil_society_vote/urls.py:31
 msgid "history/"
 msgstr "istoric/"
 
-#: backend/civil_society_vote/urls.py:35
+#: civil_society_vote/urls.py:35
 msgid "accounts/"
 msgstr "cont/"
 
-#: backend/civil_society_vote/urls.py:37
+#: civil_society_vote/urls.py:37
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: backend/civil_society_vote/urls.py:45
+#: civil_society_vote/urls.py:45
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: backend/civil_society_vote/urls.py:50
+#: civil_society_vote/urls.py:50
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: backend/civil_society_vote/urls.py:55
+#: civil_society_vote/urls.py:55
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
-#: backend/hub/admin.py:45
+#: hub/admin.py:47
 msgid "Personal info"
 msgstr "Informații personale"
 
-#: backend/hub/admin.py:47
+#: hub/admin.py:49
 msgid "Permissions"
 msgstr "Permisiuni"
 
-#: backend/hub/admin.py:58
+#: hub/admin.py:60
 msgid "Important dates"
 msgstr "Date importante"
 
-#: backend/hub/admin.py:77
+#: hub/admin.py:79
 msgid "groups"
 msgstr "grupuri"
 
-#: backend/hub/admin.py:124
+#: hub/admin.py:126
 msgid "user"
 msgstr "utilizator"
 
-#: backend/hub/admin.py:131
+#: hub/admin.py:133
 msgid "candidate"
 msgstr "candidatură"
 
-#: backend/hub/admin.py:183
+#: hub/admin.py:185
 msgid "supporters"
 msgstr "susținători"
 
-#: backend/hub/admin.py:189
+#: hub/admin.py:191
 msgid "10 or more"
 msgstr "10 sau mai mulți"
 
-#: backend/hub/admin.py:190
+#: hub/admin.py:192
 msgid "less than 10"
 msgstr "mai puțin de 10"
 
-#: backend/hub/admin.py:202
+#: hub/admin.py:204
 msgid "confirmations"
 msgstr "confirmări"
 
-#: backend/hub/admin.py:207
+#: hub/admin.py:209
 msgid "5 or more"
 msgstr "5 sau mai mult"
 
-#: backend/hub/admin.py:208
+#: hub/admin.py:210
 msgid "less than 5"
 msgstr "mai puțin de 5"
 
-#: backend/hub/admin.py:252
+#: hub/admin.py:254
 msgid "Set selected candidates status to REJECTED"
 msgstr "Modifică starea candidaților selectați în RESPINS"
 
-#: backend/hub/admin.py:268
+#: hub/admin.py:270
 msgid "Set selected candidates status to ACCEPTED"
 msgstr "Modifică starea candidaților selectați în APROBAT"
 
-#: backend/hub/admin.py:280
+#: hub/admin.py:282
 msgid "Set selected candidates status to PENDING"
 msgstr "Modifică starea candidaților selectați în ÎN AȘTEPTARE"
 
-#: backend/hub/admin.py:327
+#: hub/admin.py:329
 msgid "Votes"
 msgstr "Voturi"
 
-#: backend/hub/admin.py:336
+#: hub/admin.py:338
 msgid "Supporters"
 msgstr "Susținători"
 
-#: backend/hub/admin.py:342
+#: hub/admin.py:344
 msgid "Confirmations"
 msgstr "Confirmări"
 
-#: backend/hub/admin.py:444
+#: hub/admin.py:446
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: backend/hub/admin.py:452
+#: hub/admin.py:454
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: backend/hub/admin.py:467
+#: hub/admin.py:471
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr "Activează FAZA 1 - înregistrare candidați si organizații"
 
-#: backend/hub/admin.py:479
+#: hub/admin.py:483
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr "Activează FAZA 2 - validare candidați"
 
-#: backend/hub/admin.py:491
+#: hub/admin.py:495
 msgid "Set flags for PHASE 3 - voting"
 msgstr "Activează FAZA 3 - votare"
 
-#: backend/hub/admin.py:503
+#: hub/admin.py:507
 msgid "Set flags for FINAL PHASE - results"
 msgstr "Activează FAZA FINALĂ - rezultate"
 
-#: backend/hub/forms.py:99
+#: hub/forms.py:99
 msgid ""
 "I agree to the <a href=\"https://votong.ro/ro/termeni/\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
@@ -315,23 +314,23 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:325
+#: hub/forms.py:109 hub/forms.py:162 hub/views.py:325
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
-#: backend/hub/forms.py:114
+#: hub/forms.py:114
 msgid "You need to accept terms and conditions."
 msgstr "Trebuie să acceptați termenii și condițile de utilizare"
 
-#: backend/hub/forms.py:182
+#: hub/forms.py:182
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: backend/hub/forms.py:185
+#: hub/forms.py:185
 msgid "Organization already has a candidate."
 msgstr "Organizația are deja o candidatură"
 
-#: backend/hub/forms.py:206
+#: hub/forms.py:206
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -339,407 +338,415 @@ msgstr ""
 "Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare "
 "în 'Profilul Organizației'"
 
-#: backend/hub/forms.py:210
+#: hub/forms.py:210
 msgid "Please add all candidate fields"
 msgstr "Vă rugăm completați toate câmpurile candidaturii"
 
-#: backend/hub/forms.py:251
+#: hub/forms.py:251
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: backend/hub/forms.py:257
+#: hub/forms.py:257
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: backend/hub/forms.py:262
+#: hub/forms.py:262
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
-#: backend/hub/models.py:87
+#: hub/models.py:87
 msgid "Active"
 msgstr "Activ"
 
-#: backend/hub/models.py:88
+#: hub/models.py:88
 msgid "Inactive"
 msgstr "Inactiv"
 
-#: backend/hub/models.py:92
+#: hub/models.py:92
 msgid "Enable organization registration"
 msgstr "Activează înregistrare organizație"
 
-#: backend/hub/models.py:93
+#: hub/models.py:93
 msgid "Enable organization approvals"
 msgstr "Activează aprobare organizație"
 
-#: backend/hub/models.py:94
+#: hub/models.py:94
 msgid "Enable organization voting"
 msgstr "Activează votare organizație"
 
-#: backend/hub/models.py:95
+#: hub/models.py:95
 msgid "Enable candidate registration"
 msgstr "Activează înregistrare candidatură"
 
-#: backend/hub/models.py:96
+#: hub/models.py:96
 msgid "Enable candidate supporting"
 msgstr "Activează susținere candidatură"
 
-#: backend/hub/models.py:97
+#: hub/models.py:97
 msgid "Enable candidate voting"
 msgstr "Activează votare candidatură"
 
-#: backend/hub/models.py:98
+#: hub/models.py:98
 msgid "Voting round with just one domain (some restrictions will apply)"
 msgstr "Rundă de vot cu un singur domeniu (vor fi aplicate unele restricții)"
 
-#: backend/hub/models.py:102
+#: hub/models.py:99
+msgid ""
+"Enable global support (the support of at least 10 organizations is required)"
+msgstr ""
+"Activează susținere globală (este necesară susținerea a cel puțin 10 "
+"organizații)"
+
+#: hub/models.py:103
 msgid "Pending organizations digest email"
 msgstr "Șablon email pentru organizații în așteptare"
 
-#: backend/hub/models.py:103
+#: hub/models.py:104
 msgid "Your organization was approved"
 msgstr "Organizația ta a fost aprobată"
 
-#: backend/hub/models.py:104
+#: hub/models.py:105
 msgid "Your organization was rejected"
 msgstr "Organizația ta a fost respinsă"
 
-#: backend/hub/models.py:105
+#: hub/models.py:106
 msgid "Vote audit log"
 msgstr "Jurnal audit vot"
 
-#: backend/hub/models.py:106
+#: hub/models.py:107
 msgid "Confirmation email"
 msgstr "Email de confirmare"
 
-#: backend/hub/models.py:111
+#: hub/models.py:124
 msgid "Flag"
 msgstr "Comutator"
 
-#: backend/hub/models.py:115
+#: hub/models.py:128
 msgid "Feature flag"
 msgstr "Comutator caracteristici"
 
-#: backend/hub/models.py:116
+#: hub/models.py:129
 msgid "Feature flags"
 msgstr "Comutatoare caracteristici"
 
-#: backend/hub/models.py:123
+#: hub/models.py:136
 msgid "Title"
 msgstr "Titlu"
 
-#: backend/hub/models.py:125
+#: hub/models.py:138
 msgid "Author"
 msgstr "Autor"
 
-#: backend/hub/models.py:126
+#: hub/models.py:139
 msgid "Content preview"
 msgstr "Sumar conținut"
 
-#: backend/hub/models.py:128
+#: hub/models.py:141
 msgid "Content"
 msgstr "Conținut"
 
-#: backend/hub/models.py:130
+#: hub/models.py:143
 msgid "Is visible?"
 msgstr "Este vizibil?"
 
-#: backend/hub/models.py:131
+#: hub/models.py:144
 msgid "Date published"
 msgstr "Dată publicare"
 
-#: backend/hub/models.py:134
+#: hub/models.py:147
 msgid "Blog post"
 msgstr "Articol blog"
 
-#: backend/hub/models.py:135
+#: hub/models.py:148
 msgid "Blog posts"
 msgstr "Articole blog"
 
-#: backend/hub/models.py:147
+#: hub/models.py:160
 msgid "Template"
 msgstr "Șablon"
 
-#: backend/hub/models.py:148
+#: hub/models.py:161
 msgid "Text content"
 msgstr "Conținut text"
 
-#: backend/hub/models.py:149
+#: hub/models.py:162
 msgid "HTML content"
 msgstr "Conținut HTML"
 
-#: backend/hub/models.py:152
+#: hub/models.py:165
 msgid "Email template"
 msgstr "Șablon email"
 
-#: backend/hub/models.py:153
+#: hub/models.py:166
 msgid "Email templates"
 msgstr "Șabloane email"
 
-#: backend/hub/models.py:160
+#: hub/models.py:173
 msgid "Name"
 msgstr "Nume"
 
-#: backend/hub/models.py:161
+#: hub/models.py:174
 msgid "Description"
 msgstr "Descriere"
 
-#: backend/hub/models.py:163
+#: hub/models.py:176
 msgid "Number of seats"
 msgstr "Numărul de fotolii"
 
-#: backend/hub/models.py:169 backend/hub/models.py:452
+#: hub/models.py:182 hub/models.py:465
 msgid "Domain"
 msgstr "Domeniu"
 
-#: backend/hub/models.py:170
+#: hub/models.py:183
 msgid "Domains"
 msgstr "Domenii"
 
-#: backend/hub/models.py:177 backend/hub/models.py:182
-#: backend/hub/models.py:216 backend/hub/templates/ngo/list.html:76
+#: hub/models.py:190 hub/models.py:195 hub/models.py:229
+#: hub/templates/ngo/list.html:76
 msgid "City"
 msgstr "Oraș"
 
-#: backend/hub/models.py:178 backend/hub/models.py:215
-#: backend/hub/templates/ngo/list.html:41
+#: hub/models.py:191 hub/models.py:228 hub/templates/ngo/list.html:41
 msgid "County"
 msgstr "Județ"
 
-#: backend/hub/models.py:179
+#: hub/models.py:192
 msgid "Is county residence"
 msgstr "E reședință de județ"
 
-#: backend/hub/models.py:183
+#: hub/models.py:196
 msgid "Cities"
 msgstr "Orașe"
 
-#: backend/hub/models.py:199
+#: hub/models.py:212
 msgid "Draft"
 msgstr "Schiță"
 
-#: backend/hub/models.py:200
+#: hub/models.py:213
 msgid "Pending approval"
 msgstr "Așteaptă aprobare"
 
-#: backend/hub/models.py:201 backend/hub/models.py:434
+#: hub/models.py:214 hub/models.py:447
 msgid "Accepted"
 msgstr "Acceptat"
 
-#: backend/hub/models.py:202 backend/hub/models.py:435
+#: hub/models.py:215 hub/models.py:448
 msgid "Rejected"
 msgstr "Respins"
 
-#: backend/hub/models.py:212
+#: hub/models.py:225
 msgid "NGO Hub linked organization ID"
 msgstr "ID organizație în NGO Hub"
 
-#: backend/hub/models.py:214
+#: hub/models.py:227
 msgid "NGO Name"
 msgstr "Nume organizație"
 
-#: backend/hub/models.py:217
+#: hub/models.py:230
 msgid "Address"
 msgstr "Adresă"
 
-#: backend/hub/models.py:218
+#: hub/models.py:231
 msgid "Registration number"
 msgstr ""
 "Număr de înregistrare în Registrul Național al ONG-urilor (de forma 11111/"
 "A/2016)"
 
-#: backend/hub/models.py:220
+#: hub/models.py:233
 msgid "Organization Email"
 msgstr "Adresă de email organizație"
 
-#: backend/hub/models.py:221
+#: hub/models.py:234
 msgid "Organization Phone"
 msgstr "Telefon organizație (opțional)"
 
-#: backend/hub/models.py:222
+#: hub/models.py:235
 msgid "Short Description"
 msgstr "Scurtă descriere (opțional)"
 
-#: backend/hub/models.py:224
+#: hub/models.py:237
 msgid "Legal Representative Name"
 msgstr "Nume reprezentant legal"
 
-#: backend/hub/models.py:225
+#: hub/models.py:238
 msgid "Legal Representative Email"
 msgstr "Adresă de email reprezentant legal"
 
-#: backend/hub/models.py:226
+#: hub/models.py:239
 msgid "Legal Representative Phone"
 msgstr "Telefon reprezentant legal (opțional)"
 
-#: backend/hub/models.py:228
+#: hub/models.py:241
 msgid "Organization Head Name"
 msgstr ""
 "Numele complet al președintelui organizației (sau director executiv dacă "
 "este cazul)"
 
-#: backend/hub/models.py:229
+#: hub/models.py:242
 msgid "Board council"
 msgstr ""
 "Consiliu Director (adaugă numele complet al fiecărui membru, separate prin "
 "virgulă)"
 
-#: backend/hub/models.py:230
+#: hub/models.py:243
 msgid "Logo"
 msgstr "Siglă"
 
-#: backend/hub/models.py:231
+#: hub/models.py:244
 msgid "Logo URL"
 msgstr "URL siglă"
 
-#: backend/hub/models.py:234 backend/hub/templates/ngo/detail.html:110
+#: hub/models.py:247 hub/templates/ngo/detail.html:110
 #, python-format
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
 msgstr ""
 "Prima pagină a bilanțului contabil pe anul %(CURRENT_EDITION_YEAR)s depus la "
 "Ministerul Finanțelor"
 
-#: backend/hub/models.py:240 backend/hub/templates/ngo/detail.html:119
+#: hub/models.py:253 hub/templates/ngo/detail.html:119
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
-#: backend/hub/models.py:247 backend/hub/templates/candidate/detail.html:137
-#: backend/hub/templates/ngo/detail.html:148
+#: hub/models.py:260 hub/templates/candidate/detail.html:137
+#: hub/templates/ngo/detail.html:148
 msgid "Yearly report 2023"
 msgstr "Raport anual 2023"
 
-#: backend/hub/models.py:254 backend/hub/templates/candidate/detail.html:146
-#: backend/hub/templates/ngo/detail.html:157
+#: hub/models.py:267 hub/templates/candidate/detail.html:146
+#: hub/templates/ngo/detail.html:157
 msgid "Yearly report 2022"
 msgstr "Raport anual 2022"
 
-#: backend/hub/models.py:261 backend/hub/templates/candidate/detail.html:155
-#: backend/hub/templates/ngo/detail.html:166
+#: hub/models.py:274 hub/templates/candidate/detail.html:155
+#: hub/templates/ngo/detail.html:166
 msgid "Yearly report 2021"
 msgstr "Raport anual 2021"
 
-#: backend/hub/models.py:269 backend/hub/templates/candidate/detail.html:164
-#: backend/hub/templates/ngo/detail.html:175
+#: hub/models.py:282 hub/templates/candidate/detail.html:164
+#: hub/templates/ngo/detail.html:175
 msgid "Yearly report 2020"
 msgstr "Raport anual 2020"
 
-#: backend/hub/models.py:276 backend/hub/templates/candidate/detail.html:173
-#: backend/hub/templates/ngo/detail.html:184
+#: hub/models.py:289 hub/templates/candidate/detail.html:173
+#: hub/templates/ngo/detail.html:184
 msgid "Yearly report 2019"
 msgstr "Raport anual 2019"
 
-#: backend/hub/models.py:283 backend/hub/templates/candidate/detail.html:182
-#: backend/hub/templates/ngo/detail.html:193
+#: hub/models.py:296 hub/templates/candidate/detail.html:182
+#: hub/templates/ngo/detail.html:193
 msgid "Yearly report 2018"
 msgstr "Raport anual 2018"
 
-#: backend/hub/models.py:290 backend/hub/templates/candidate/detail.html:191
-#: backend/hub/templates/ngo/detail.html:202
+#: hub/models.py:303 hub/templates/candidate/detail.html:191
+#: hub/templates/ngo/detail.html:202
 msgid "Yearly report 2017"
 msgstr "Raport anual 2017"
 
-#: backend/hub/models.py:298 backend/hub/templates/candidate/detail.html:218
-#: backend/hub/templates/ngo/detail.html:211
+#: hub/models.py:311 hub/templates/candidate/detail.html:218
+#: hub/templates/ngo/detail.html:211
 msgid "Non-discrimination statement"
 msgstr "Declarație nediscriminare"
 
-#: backend/hub/models.py:305 backend/hub/templates/candidate/detail.html:227
-#: backend/hub/templates/ngo/detail.html:220
+#: hub/models.py:318 hub/templates/candidate/detail.html:227
+#: hub/templates/ngo/detail.html:220
 msgid "Non-political statement"
 msgstr "Declarație neapartenență politică"
 
-#: backend/hub/models.py:313 backend/hub/templates/candidate/detail.html:200
-#: backend/hub/templates/ngo/detail.html:128
+#: hub/models.py:326 hub/templates/candidate/detail.html:200
+#: hub/templates/ngo/detail.html:128
 msgid "Fiscal certificate ANAF"
 msgstr "Certificat fiscal emis de ANAF"
 
-#: backend/hub/models.py:320 backend/hub/templates/candidate/detail.html:209
-#: backend/hub/templates/ngo/detail.html:137
+#: hub/models.py:333 hub/templates/candidate/detail.html:209
+#: hub/templates/ngo/detail.html:137
 msgid "Fiscal certificate local"
 msgstr "Certificat fiscal emis de Direcția de Impozite și Taxe Locale"
 
-#: backend/hub/models.py:327
+#: hub/models.py:340
 msgid "Accepted Terms and Conditions"
 msgstr "A acceptat termenii și condițiile"
 
-#: backend/hub/models.py:329
+#: hub/models.py:342
 msgid "Rejection message"
 msgstr "Motiv respingere"
 
-#: backend/hub/models.py:332 backend/hub/templates/header.html:64
+#: hub/models.py:345 hub/templates/header.html:64
 msgid "Organizations"
 msgstr "Organizații"
 
-#: backend/hub/models.py:333
+#: hub/models.py:346
 msgid "Organization"
 msgstr "Organizație"
 
-#: backend/hub/models.py:433
+#: hub/models.py:446
 msgid "Pending"
 msgstr "În așteptare"
 
-#: backend/hub/models.py:448
+#: hub/models.py:461
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
+"Dacă este setat, câmpul `org` va fi șters și candidatul va fi eliminat ca "
+"propunere oficială a organizației."
 
-#: backend/hub/models.py:456 backend/hub/templates/candidate/detail.html:111
+#: hub/models.py:469 hub/templates/candidate/detail.html:111
 msgid "Representative name"
 msgstr "Nume reprezentant"
 
-#: backend/hub/models.py:462
+#: hub/models.py:475
 msgid "Representative role in organization"
 msgstr "Funcția reprezentantului în organizație"
 
-#: backend/hub/models.py:468 backend/hub/templates/candidate/detail.html:119
+#: hub/models.py:481 hub/templates/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Declarație reprezentant"
 
-#: backend/hub/models.py:475
+#: hub/models.py:488
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:481 backend/hub/templates/header.html:82
+#: hub/models.py:494 hub/templates/header.html:82
 msgid "Candidates"
 msgstr "Candidaturi"
 
-#: backend/hub/models.py:482
+#: hub/models.py:495
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: backend/hub/models.py:516
+#: hub/models.py:529
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: backend/hub/models.py:553
+#: hub/models.py:557
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: backend/hub/models.py:554
+#: hub/models.py:558
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: backend/hub/models.py:577
+#: hub/models.py:581
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: backend/hub/models.py:578
+#: hub/models.py:582
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: backend/hub/models.py:592
+#: hub/models.py:596
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: backend/hub/models.py:593
+#: hub/models.py:597
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
-#: backend/hub/password_validation.py:15
+#: hub/password_validation.py:15
 msgid "Your new password must be different."
 msgstr "Parola nouă trebuie să fie diferită de cea veche."
 
-#: backend/hub/password_validation.py:19
+#: hub/password_validation.py:19
 msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
@@ -747,263 +754,252 @@ msgstr ""
 "Corectați următoarea eroare. Parola nouă trebuie să fie diferită. Încercați "
 "din nou."
 
-#: backend/hub/social_adapters.py:59
+#: hub/social_adapters.py:59
 msgid "There is no NGO Hub organization for this VotONG user"
 msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG"
 
-#: backend/hub/social_adapters.py:61
+#: hub/social_adapters.py:61
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 
-#: backend/hub/templates/admin/dropdown_filter.html:3
+#: hub/templates/admin/dropdown_filter.html:3
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " După %(filter_title)s "
 
-#: backend/hub/templates/admin/hub/city/change_list.html:10
+#: hub/templates/admin/hub/city/change_list.html:10
 msgid "Import"
 msgstr "Încărcare"
 
-#: backend/hub/templates/admin/hub/city/import_cities.html:10
+#: hub/templates/admin/hub/city/import_cities.html:10
 msgid "Upload CSV file and add new cities"
 msgstr "Încarcă fișier CSV și adaugă orașe"
 
-#: backend/hub/templates/blog/list.html:41
+#: hub/templates/blog/list.html:41
 msgid "Read more"
 msgstr "Citește mai mult"
 
-#: backend/hub/templates/blog/post.html:17
+#: hub/templates/blog/post.html:17
 msgid "by"
 msgstr "de"
 
-#: backend/hub/templates/blog/post.html:24
+#: hub/templates/blog/post.html:24
 msgid "back to article list"
 msgstr "înapoi la lista de articole"
 
-#: backend/hub/templates/bulma/file.html:12
+#: hub/templates/bulma/file.html:12
 msgid "Upload file"
 msgstr "Încarcă fișier"
 
-#: backend/hub/templates/candidate/detail.html:107
+#: hub/templates/candidate/detail.html:107
 msgid "Candidate information"
 msgstr "Informații candidatură"
 
-#: backend/hub/templates/candidate/detail.html:112
+#: hub/templates/candidate/detail.html:112
 msgid "Representative role"
 msgstr "Funcție reprezentant"
 
-#: backend/hub/templates/candidate/detail.html:129
-#: backend/hub/templates/ngo/detail.html:100
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:100
 msgid "Documents"
 msgstr "Documente"
 
-#: backend/hub/templates/candidate/detail.html:218
-#: backend/hub/templates/ngo/detail.html:211
+#: hub/templates/candidate/detail.html:218 hub/templates/ngo/detail.html:211
 msgid "Non-discrimination statement "
 msgstr "Declarație nediscriminare"
 
-#: backend/hub/templates/candidate/detail.html:227
-#: backend/hub/templates/ngo/detail.html:220
+#: hub/templates/candidate/detail.html:227 hub/templates/ngo/detail.html:220
 msgid "Non-political statement "
 msgstr "Declarație neapartenență politică"
 
-#: backend/hub/templates/candidate/list.html:20
-#: backend/hub/templates/ngo/list.html:14
+#: hub/templates/candidate/list.html:20 hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr "Caută..."
 
-#: backend/hub/templates/candidate/list.html:79
-#: backend/hub/templates/candidate/results.html:63
-#: backend/hub/templates/committee/candidates.html:51
-#: backend/hub/templates/ngo/votes.html:84
+#: hub/templates/candidate/list.html:79 hub/templates/candidate/results.html:63
+#: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:84
 msgid "View details"
 msgstr "Vizualizează detalii"
 
-#: backend/hub/templates/candidate/register_request.html:34
-#: backend/hub/templates/candidate/update.html:28
-#: backend/hub/templates/committee/partials/nav.html:24
-#: backend/hub/templates/ngo/update.html:33
-#: backend/hub/templates/ngo/votes.html:34
+#: hub/templates/candidate/register_request.html:34
+#: hub/templates/candidate/update.html:28
+#: hub/templates/committee/partials/nav.html:24
+#: hub/templates/ngo/update.html:33 hub/templates/ngo/votes.html:34
 msgid "Settings"
 msgstr "Setări"
 
-#: backend/hub/templates/candidate/register_request.html:74
+#: hub/templates/candidate/register_request.html:74
 msgid "Save profile"
 msgstr "Salvează profil"
 
-#: backend/hub/templates/candidate/register_request.html:83
+#: hub/templates/candidate/register_request.html:83
 msgid "Propose candidate"
 msgstr "Propune candidatură"
 
-#: backend/hub/templates/candidate/update.html:108
+#: hub/templates/candidate/update.html:108
 msgid "Publish changes"
 msgstr "Publică modificările"
 
-#: backend/hub/templates/candidate/update.html:108
+#: hub/templates/candidate/update.html:108
 msgid "Update profile"
 msgstr "Modifică profil"
 
-#: backend/hub/templates/committee/candidates.html:20
-#: backend/hub/templates/committee/partials/nav.html:15
+#: hub/templates/committee/candidates.html:20
+#: hub/templates/committee/partials/nav.html:15
 msgid "Pending candidates"
 msgstr "Candidaturi propuse"
 
-#: backend/hub/templates/committee/candidates.html:22
-#: backend/hub/templates/committee/partials/nav.html:18
+#: hub/templates/committee/candidates.html:22
+#: hub/templates/committee/partials/nav.html:18
 msgid "Accepted candidates"
 msgstr "Candidaturi validate"
 
-#: backend/hub/templates/committee/candidates.html:67
-#: backend/hub/templates/committee/list.html:69
-#: backend/hub/templates/ngo/list.html:177
-#: backend/hub/templates/ngo/votes.html:100
+#: hub/templates/committee/candidates.html:67
+#: hub/templates/committee/list.html:69 hub/templates/ngo/list.html:177
+#: hub/templates/ngo/votes.html:100
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
-#: backend/hub/templates/committee/list.html:21
-#: backend/hub/templates/committee/partials/nav.html:6
+#: hub/templates/committee/list.html:21
+#: hub/templates/committee/partials/nav.html:6
 msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
-#: backend/hub/templates/committee/list.html:23
-#: backend/hub/templates/committee/partials/nav.html:9
+#: hub/templates/committee/list.html:23
+#: hub/templates/committee/partials/nav.html:9
 msgid "Accepted Organizations"
 msgstr "Organizații validate"
 
-#: backend/hub/templates/committee/list.html:25
-#: backend/hub/templates/committee/partials/nav.html:12
+#: hub/templates/committee/list.html:25
+#: hub/templates/committee/partials/nav.html:12
 msgid "Rejected Organizations"
 msgstr "Organizații respinse"
 
-#: backend/hub/templates/committee/partials/nav.html:21
+#: hub/templates/committee/partials/nav.html:21
 msgid "Rejected candidates"
 msgstr "Candidaturi respinse"
 
-#: backend/hub/templates/developed-by.html:7
+#: hub/templates/developed-by.html:7
 msgid "A project developed by"
 msgstr "Un proiect dezvoltat de"
 
-#: backend/hub/templates/developed-by.html:15
+#: hub/templates/developed-by.html:15
 msgid "in partnership with"
 msgstr "în parteneriat cu"
 
-#: backend/hub/templates/django/forms/widgets/clearable_file_input.html:5
+#: hub/templates/django/forms/widgets/clearable_file_input.html:5
 msgid "Upload document"
 msgstr "Încarcă document"
 
-#: backend/hub/templates/footer.html:29
+#: hub/templates/footer.html:32
 msgid "USEFUL LINKS"
 msgstr "LINKURI UTILE"
 
-#: backend/hub/templates/footer.html:32
+#: hub/templates/footer.html:35
 msgid "About VotONG"
 msgstr "Despre VotONG"
 
-#: backend/hub/templates/footer.html:33
+#: hub/templates/footer.html:36
 msgid "Platform rules"
 msgstr "Regulamentul platformei"
 
-#: backend/hub/templates/footer.html:34
+#: hub/templates/footer.html:37
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
 
-#: backend/hub/templates/footer.html:35
+#: hub/templates/footer.html:38
 msgid "Terms and conditions"
 msgstr "Termeni și condiții de utilizare"
 
-#: backend/hub/templates/footer.html:36 backend/templates/account/login.html:49
+#: hub/templates/footer.html:39 templates/account/login.html:49
 msgid "Commission Sign In"
 msgstr "Autentificare comisie"
 
-#: backend/hub/templates/footer.html:42
+#: hub/templates/footer.html:45
 msgid "CONTACT US"
 msgstr "CONTACTEAZĂ-NE"
 
-#: backend/hub/templates/header.html:54
+#: hub/templates/header.html:54
 msgid "Home"
 msgstr "Acasă"
 
-#: backend/hub/templates/header.html:58
+#: hub/templates/header.html:58
 msgid "About the platform"
 msgstr "Despre platformă"
 
-#: backend/hub/templates/header.html:68
+#: hub/templates/header.html:68
 msgid "VotONG Elections"
 msgstr "Alegeri VotONG"
 
-#: backend/hub/templates/header.html:72
+#: hub/templates/header.html:72
 msgid "History"
 msgstr "Istoric"
 
-#: backend/hub/templates/header.html:77
+#: hub/templates/header.html:77
 msgid "Register your organization"
 msgstr "Înscriere organizație"
 
-#: backend/hub/templates/header.html:86
+#: hub/templates/header.html:86
 msgid "Methodology"
 msgstr "Metodologie"
 
-#: backend/hub/templates/header.html:105
+#: hub/templates/header.html:105
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: backend/hub/templates/header.html:109
+#: hub/templates/header.html:109
 msgid "STOP IMPERSONATING"
 msgstr "OPREȘTE IMPERSONAREA"
 
-#: backend/hub/templates/header.html:117
-#: backend/hub/templates/registration/login.html:16
-#: backend/hub/templates/registration/login.html:60
+#: hub/templates/header.html:117 hub/templates/registration/login.html:16
+#: hub/templates/registration/login.html:60
 msgid "Login"
 msgstr "Autentificare"
 
-#: backend/hub/templates/incubated-by.html:7
+#: hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
 msgstr "Proiect dezvoltat în programul"
 
-#: backend/hub/templates/ngo/list.html:27
+#: hub/templates/ngo/list.html:27
 msgid "Registered organizations"
 msgstr "Organizații înscrise"
 
-#: backend/hub/templates/ngo/list.html:54
-#: backend/hub/templates/ngo/list.html:89
+#: hub/templates/ngo/list.html:54 hub/templates/ngo/list.html:89
 msgid "All"
 msgstr "Toate"
 
-#: backend/hub/templates/ngo/list.html:110
-#: backend/hub/templates/ngo/list.html:117
+#: hub/templates/ngo/list.html:110 hub/templates/ngo/list.html:117
 msgid "Reset filters"
 msgstr "Resetează filtrele"
 
-#: backend/hub/templates/ngo/register_request.html:14
+#: hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: backend/hub/templates/ngo/register_request.html:46
+#: hub/templates/ngo/register_request.html:46
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
-#: backend/hub/templates/ngo/update.html:86
+#: hub/templates/ngo/update.html:86
 msgid "Update organization"
 msgstr "Modifică organizație"
 
-#: backend/hub/templates/ngo/votes.html:44
+#: hub/templates/ngo/votes.html:44
 msgid "My votes"
 msgstr "Voturile mele"
 
-#: backend/hub/templates/partials/ces_results_header.html:5
+#: hub/templates/partials/ces_results_header.html:5
 msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
-msgstr ""
+msgstr "Rezultate Finale Alegeri Consiliul Economic și Social"
 
-#: backend/hub/templates/partials/ces_results_header.html:24
+#: hub/templates/partials/ces_results_header.html:24
 msgid "CES elections"
 msgstr "Alegeri CES"
 
-#: backend/hub/templates/registration/login.html:21
+#: hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
 msgstr "Numele de utilizator și parola nu se potrivesc. Încercați din nou."
 
-#: backend/hub/templates/registration/login.html:30
+#: hub/templates/registration/login.html:30
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
@@ -1011,35 +1007,35 @@ msgstr ""
 "Contul tău nu are acces la această pagină. Pentru a continua, autentificați-"
 "vă cu un cont care are acces."
 
-#: backend/hub/templates/registration/login.html:32
+#: hub/templates/registration/login.html:32
 msgid "Please login to see this page."
 msgstr "Autentificați-vă pentru a vizualiza această pagină."
 
-#: backend/hub/templates/registration/login.html:41
+#: hub/templates/registration/login.html:41
 msgid "Email"
 msgstr "Email"
 
-#: backend/hub/templates/registration/login.html:43
+#: hub/templates/registration/login.html:43
 msgid "email"
 msgstr "email"
 
-#: backend/hub/templates/registration/login.html:50
+#: hub/templates/registration/login.html:50
 msgid "Password"
 msgstr "Parolă"
 
-#: backend/hub/templates/registration/login.html:52
+#: hub/templates/registration/login.html:52
 msgid "password"
 msgstr "parolă"
 
-#: backend/hub/templates/registration/login.html:62
+#: hub/templates/registration/login.html:62
 msgid "Forgot password?"
 msgstr "Ai uitat parola?"
 
-#: backend/hub/templates/registration/reset_password.html:20
+#: hub/templates/registration/reset_password.html:20
 msgid "The email address you entered is not valid. Please try again."
 msgstr "Adresa de email pe care ai introdus-o nu este valida. Inceaca din nou."
 
-#: backend/hub/templates/registration/reset_password.html:27
+#: hub/templates/registration/reset_password.html:27
 msgid ""
 "\n"
 "        In order to reset your password, please enter the organization e-"
@@ -1053,25 +1049,25 @@ msgstr ""
 "Aceasta este adresa de email completată în câmpul <b>Adresa de email a "
 "organizației</b>, în procesul de înscreire."
 
-#: backend/hub/templates/registration/reset_password_complete.html:15
+#: hub/templates/registration/reset_password_complete.html:15
 msgid "The password was reset"
 msgstr "Parola a fost resetată"
 
-#: backend/hub/templates/registration/reset_password_complete.html:20
+#: hub/templates/registration/reset_password_complete.html:20
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "Parola a fost setata. Te poti autentifica acum."
 
-#: backend/hub/templates/registration/reset_password_confirm.html:15
+#: hub/templates/registration/reset_password_confirm.html:15
 msgid "Confirm password reset"
 msgstr "Confirmă resetare parolă"
 
-#: backend/hub/templates/registration/reset_password_confirm.html:32
+#: hub/templates/registration/reset_password_confirm.html:32
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr "Introduceti parola de doua ori pentru a verifica ca e scrisa corect"
 
-#: backend/hub/templates/registration/reset_password_confirm.html:68
+#: hub/templates/registration/reset_password_confirm.html:68
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -1079,19 +1075,19 @@ msgstr ""
 "Linkul este invalid. Probabil este din cauză ca a fost deja folosit. Te "
 "rugăm fă o cerere nouă de resetare a parolei."
 
-#: backend/hub/templates/registration/reset_password_done.html:15
+#: hub/templates/registration/reset_password_done.html:15
 msgid "Initiated password reset"
 msgstr "S-a inițializat resetarea parolei"
 
-#: backend/hub/templates/shared/pagination.html:17
+#: hub/templates/shared/pagination.html:17
 msgid "first"
 msgstr "prima"
 
-#: backend/hub/templates/shared/pagination.html:19
+#: hub/templates/shared/pagination.html:19
 msgid "previous"
 msgstr "precedenta"
 
-#: backend/hub/templates/shared/pagination.html:27
+#: hub/templates/shared/pagination.html:27
 #, python-format
 msgid ""
 "\n"
@@ -1103,95 +1099,95 @@ msgstr ""
 "            \n"
 "        "
 
-#: backend/hub/templates/shared/pagination.html:35
+#: hub/templates/shared/pagination.html:35
 msgid "next"
 msgstr "următoarea"
 
-#: backend/hub/templates/shared/pagination.html:37
+#: hub/templates/shared/pagination.html:37
 msgid "last"
 msgstr "ultima"
 
-#: backend/hub/templatetags/hub_tags.py:114
+#: hub/templatetags/hub_tags.py:114
 msgid "published on"
 msgstr "publicat la"
 
-#: backend/hub/templatetags/hub_tags.py:116
+#: hub/templatetags/hub_tags.py:116
 msgid "published"
 msgstr "publicat"
 
-#: backend/hub/urls.py:30
+#: hub/urls.py:30
 msgid "candidates/"
 msgstr "candidatura/"
 
-#: backend/hub/urls.py:32
+#: hub/urls.py:32
 msgid "candidates/register"
 msgstr "candidatura/inregistrare"
 
-#: backend/hub/urls.py:36
+#: hub/urls.py:36
 msgid "candidates/<int:pk>"
 msgstr "candidatura/<int:pk>"
 
-#: backend/hub/urls.py:37
+#: hub/urls.py:37
 msgid "candidates/<int:pk>/vote"
 msgstr "candidatura/<int:pk>/vot"
 
-#: backend/hub/urls.py:38
+#: hub/urls.py:38
 msgid "candidates/<int:pk>/support"
 msgstr "candidatura/<int:pk>/sustinere"
 
-#: backend/hub/urls.py:39
+#: hub/urls.py:39
 msgid "candidates/<int:pk>/revoke"
 msgstr "candidatura/<int:pk>/revocare"
 
-#: backend/hub/urls.py:40
+#: hub/urls.py:40
 msgid "candidates/<int:pk>/status-confirm"
 msgstr "candidatura/<int:pk>/confirma-starea"
 
-#: backend/hub/urls.py:41
+#: hub/urls.py:41
 msgid "candidates/<int:pk>/update"
 msgstr "candidatura/<int:pk>/actualizare"
 
-#: backend/hub/urls.py:42
+#: hub/urls.py:42
 msgid "candidates/votes"
 msgstr "candidatura/voturi"
 
-#: backend/hub/urls.py:43
+#: hub/urls.py:43
 msgid "candidates/ces-results"
 msgstr "candidatura/ces-rezultate"
 
-#: backend/hub/urls.py:44
+#: hub/urls.py:44
 msgid "committee/ngos/"
 msgstr "comisie/organizatii/"
 
-#: backend/hub/urls.py:45
+#: hub/urls.py:45
 msgid "committee/candidates/"
 msgstr "comisie/candidatura/"
 
-#: backend/hub/urls.py:46
+#: hub/urls.py:46
 msgid "ngos/"
 msgstr "organizatii/"
 
-#: backend/hub/urls.py:48
+#: hub/urls.py:48
 msgid "ngos/register"
 msgstr "organizatii/inregistrare"
 
-#: backend/hub/urls.py:52
+#: hub/urls.py:52
 msgid "ngos/<int:pk>"
 msgstr "organizatii/<int:pk>"
 
-#: backend/hub/urls.py:53
+#: hub/urls.py:53
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr "organizatii/<int:pk>/vot/<str:action>"
 
-#: backend/hub/urls.py:54
+#: hub/urls.py:54
 msgid "ngos/<int:pk>/update"
 msgstr "organizatii/<int:pk>/actualizare"
 
-#: backend/hub/views.py:66
+#: hub/views.py:66
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta în curând!"
 
-#: backend/hub/views.py:253
+#: hub/views.py:253
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1203,30 +1199,28 @@ msgstr ""
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: backend/hub/views.py:318
+#: hub/views.py:318
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: backend/templates/account/login.html:5
-#: backend/templates/account/login.html:9
-#: backend/templates/account/login.html:31
-#: backend/templates/socialaccount/login.html:5
-#: backend/templates/socialaccount/login.html:32
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:31 templates/socialaccount/login.html:5
+#: templates/socialaccount/login.html:32
 msgid "Sign In"
 msgstr "Autentificare"
 
-#: backend/templates/account/login.html:19
+#: templates/account/login.html:19
 #, python-format
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr ""
+"Dacă nu ai un cont, te rugăm să te %(link)sinregistrezi%(end_link) înainte."
 
-#: backend/templates/account/login.html:41
+#: templates/account/login.html:41
 msgid "Mail me a sign-in code"
 msgstr "Trimite-mi prin email un cod de autentificare"
 
-#: backend/templates/account/logout.html:4
-#: backend/templates/account/logout.html:26
+#: templates/account/logout.html:4 templates/account/logout.html:26
 msgid "Sign Out"
 msgstr "Ieșire cont"
