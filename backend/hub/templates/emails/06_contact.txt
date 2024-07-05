@@ -1,0 +1,7 @@
+Un nou mesaj de contact:
+
+Nume: {{ name }}
+Email: {{ email }}
+
+Mesaj:
+{{ message }}

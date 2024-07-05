@@ -168,6 +168,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "django_crispy_bulma",
     "storages",
+    "django_q",
     "django_recaptcha",
     "file_resubmit",
     "rangefilter",

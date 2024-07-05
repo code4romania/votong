@@ -1,0 +1,24 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+  <h3>
+    Un nou mesaj de contact în Vot ONG
+  </h3>
+
+  <p>
+    <strong>Nume:</strong> {{ name }}
+  </p>
+
+  <p>
+    <strong>Email:</strong> {{ email }}
+  </p>
+
+  <div>
+    <p>
+      <strong>Mesaj:</strong>
+    </p>
+    <p>
+      {{ message }}
+    </p>
+  </div>
+{% endblock %}
