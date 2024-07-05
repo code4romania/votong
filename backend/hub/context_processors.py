@@ -10,6 +10,7 @@ def hub_settings(context):
         "DEBUG": settings.DEBUG,
         "CURRENT_EDITION_YEAR": settings.CURRENT_EDITION_YEAR,
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
+        "ENABLE_ORG_REGISTRATION_FORM": settings.ENABLE_ORG_REGISTRATION_FORM,
         "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
         "ORG_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_org_registration, False),
         "ORG_APPROVAL_ENABLED": flags.get(FLAG_CHOICES.enable_org_approval, False),
