@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 00:56+0300\n"
+"POT-Creation-Date: 2024-07-05 12:06+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -88,6 +88,27 @@ msgstr "Email nou:"
 #: backend/accounts/templates/change-email.html:51
 msgid "Change Email"
 msgstr "Schimbă email"
+
+#: backend/accounts/templates/error_org_base.html:8
+#: backend/accounts/templates/error_org_base.html:13
+msgid "Sign In Error"
+msgstr "Eroare autentificare"
+
+#: backend/accounts/templates/error_org_duplicate.html:6
+#: backend/hub/social_adapters.py:94
+msgid "This NGO Hub organization already exists for another VotONG user."
+msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG."
+
+#: backend/accounts/templates/error_org_missing.html:6
+#: backend/hub/social_adapters.py:87
+msgid "There is no NGO Hub organization for this VotONG user."
+msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG."
+
+#: backend/accounts/templates/error_org_registration_closed.html:6
+#: backend/hub/social_adapters.py:72
+msgid "The registration process for new organizations is currently disabled."
+msgstr ""
+"Procesul de înregistrare pentru noi organizații nu este momentan deschis."
 
 #: backend/accounts/templates/partials/sections.html:8
 #: backend/accounts/templates/partials/sections.html:14
@@ -192,30 +213,36 @@ msgid "history/"
 msgstr "istoric/"
 
 #: backend/civil_society_vote/urls.py:36
+#, fuzzy
+#| msgid "accounts/error/missing-organization/"
+msgid "accounts/error/registration-closed/"
+msgstr "cont/eroare/organizatie-lipsa/"
+
+#: backend/civil_society_vote/urls.py:41
 msgid "accounts/error/duplicate-organization/"
 msgstr "cont/eroare/organizatie-duplicat/"
 
-#: backend/civil_society_vote/urls.py:41
+#: backend/civil_society_vote/urls.py:46
 msgid "accounts/error/missing-organization/"
 msgstr "cont/eroare/organizatie-lipsa/"
 
-#: backend/civil_society_vote/urls.py:45
+#: backend/civil_society_vote/urls.py:50
 msgid "accounts/"
 msgstr "cont/"
 
-#: backend/civil_society_vote/urls.py:47
+#: backend/civil_society_vote/urls.py:52
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: backend/civil_society_vote/urls.py:55
+#: backend/civil_society_vote/urls.py:60
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: backend/civil_society_vote/urls.py:60
+#: backend/civil_society_vote/urls.py:65
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: backend/civil_society_vote/urls.py:65
+#: backend/civil_society_vote/urls.py:70
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
@@ -323,7 +350,7 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:325
+#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:331
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -719,27 +746,27 @@ msgstr "Candidatură"
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
-#: backend/hub/models.py:553
+#: backend/hub/models.py:544
 msgid "Canditate votes"
 msgstr "Voturi candidatură"
 
-#: backend/hub/models.py:554
+#: backend/hub/models.py:545
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: backend/hub/models.py:577
+#: backend/hub/models.py:568
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: backend/hub/models.py:578
+#: backend/hub/models.py:569
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: backend/hub/models.py:592
+#: backend/hub/models.py:583
 msgid "Canditate confirmations"
 msgstr "Confirmări candidatură"
 
-#: backend/hub/models.py:593
+#: backend/hub/models.py:584
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -754,14 +781,6 @@ msgid ""
 msgstr ""
 "Corectați următoarea eroare. Parola nouă trebuie să fie diferită. Încercați "
 "din nou."
-
-#: backend/hub/social_adapters.py:81
-msgid "There is no NGO Hub organization for this VotONG user"
-msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG"
-
-#: backend/hub/social_adapters.py:88
-msgid "This NGO Hub organization already exists for another VotONG user"
-msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 
 #: backend/hub/templates/admin/dropdown_filter.html:3
 #, python-format
@@ -899,31 +918,31 @@ msgstr "în parteneriat cu"
 msgid "Upload document"
 msgstr "Încarcă document"
 
-#: backend/hub/templates/footer.html:29
+#: backend/hub/templates/footer.html:32
 msgid "USEFUL LINKS"
 msgstr "LINKURI UTILE"
 
-#: backend/hub/templates/footer.html:32
+#: backend/hub/templates/footer.html:35
 msgid "About VotONG"
 msgstr "Despre VotONG"
 
-#: backend/hub/templates/footer.html:33
+#: backend/hub/templates/footer.html:36
 msgid "Platform rules"
 msgstr "Regulamentul platformei"
 
-#: backend/hub/templates/footer.html:34
+#: backend/hub/templates/footer.html:37
 msgid "Privacy Policy"
 msgstr "Politica de confidențialitate"
 
-#: backend/hub/templates/footer.html:35
+#: backend/hub/templates/footer.html:38
 msgid "Terms and conditions"
 msgstr "Termeni și condiții de utilizare"
 
-#: backend/hub/templates/footer.html:36 backend/templates/account/login.html:49
+#: backend/hub/templates/footer.html:39 backend/templates/account/login.html:49
 msgid "Commission Sign In"
 msgstr "Autentificare comisie"
 
-#: backend/hub/templates/footer.html:42
+#: backend/hub/templates/footer.html:45
 msgid "CONTACT US"
 msgstr "CONTACTEAZĂ-NE"
 
@@ -1211,7 +1230,7 @@ msgstr ""
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: backend/hub/views.py:318
+#: backend/hub/views.py:324
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
@@ -1228,7 +1247,7 @@ msgstr "Autentificare"
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr ""
+msgstr "Dacă încă nu aveți un cont, %(link)sînregistrați-vă%(end_link)s întâi."
 
 #: backend/templates/account/login.html:41
 msgid "Mail me a sign-in code"

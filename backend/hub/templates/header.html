@@ -73,7 +73,7 @@
             </a>
 
             {% if ORG_REGISTRATION_ENABLED %}
-              <a href="{% url 'ngos-register-request' %}" class="navbar-item">
+              <a href="{% if ENABLE_ORG_REGISTRATION_FORM %}{% url 'ngos-register-request' %}{% else %}https://www.ngohub.ro/{% endif %}" class="navbar-item">
                 {% trans "Register your organization" %}
               </a>
             {% endif %}
