@@ -131,6 +131,16 @@ class FeatureFlag(TimeStampedModel):
     def __str__(self):
         return f"{FLAG_CHOICES[self.flag]}"
 
+    @staticmethod
+    def is_enabled(flag: str) -> bool:
+        """
+        Check if the requested feature flag is enabled
+        """
+        if not flag:
+            return False
+
+        return FeatureFlag.objects.filter(flag=flag, is_enabled=True).exists()
+
 
 class BlogPost(TimeStampedModel):
     title = models.CharField(_("Title"), max_length=254)
@@ -528,7 +538,7 @@ class Candidate(StatusModel, TimeStampedModel):
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
 
-        if FeatureFlag.objects.filter(flag="single_domain_round", is_enabled=True).exists():
+        if FeatureFlag.is_enabled("single_domain_round"):
             self.domain = Domain.objects.first()
 
         # This covers the flow when a candidate is withdrawn as the official proposal or the organization, while
