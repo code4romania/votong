@@ -65,7 +65,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     redirect the user to a relevant error page.
     """
 
-    if not FeatureFlag.is_enabled("enable_org_registration"):
+    if not FeatureFlag.flag_enabled("enable_org_registration"):
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-registration-closed")))
         else:

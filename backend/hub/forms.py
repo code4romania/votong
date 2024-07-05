@@ -186,7 +186,7 @@ class CandidateRegisterForm(forms.ModelForm):
 
         self.initial["org"] = self.user.orgs.first().id
 
-        if FeatureFlag.is_enabled("single_domain_round"):
+        if FeatureFlag.flag_enabled("single_domain_round"):
             self.fields["domain"].widget.attrs["disabled"] = True
             self.initial["domain"] = Domain.objects.first().id
 
@@ -194,7 +194,7 @@ class CandidateRegisterForm(forms.ModelForm):
         return self.user.orgs.first().id
 
     def clean_domain(self):
-        if FeatureFlag.is_enabled("single_domain_round"):
+        if FeatureFlag.flag_enabled("single_domain_round"):
             return Domain.objects.first()
         return self.cleaned_data.get("domain")
 
@@ -227,7 +227,7 @@ class CandidateUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not FeatureFlag.is_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
             for key in self.fields.keys():
                 self.fields[key].widget.attrs["disabled"] = True
 
@@ -239,7 +239,7 @@ class CandidateUpdateForm(forms.ModelForm):
                 self.fields[key].widget.attrs["required"] = True
 
     def save(self, commit=True):
-        if not FeatureFlag.is_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
             # This should not happen unless someone messes with the form code
             raise PermissionDenied
 
