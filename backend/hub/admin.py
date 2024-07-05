@@ -457,50 +457,79 @@ class CityAdmin(admin.ModelAdmin):
 
 
 def flags_phase_1(modeladmin, request, queryset):
-    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=True)
+    enabled = [
+        "enable_org_registration",
+        "enable_org_approval",
+        "enable_org_voting",
+        "enable_candidate_registration",
+    ]
+    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
+
+    disabled = [
+        "enable_candidate_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
+
     FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(
         is_enabled=get_feature_flag(FLAG_CHOICES.global_support_round)
     )
-    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
 
 
 flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate registrations")
 
 
 def flags_phase_2(modeladmin, request, queryset):
-    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
+    enabled = [
+        "enable_org_registration",
+        "enable_org_approval",
+        "enable_org_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
+
+    disabled = [
+        "enable_candidate_registration",
+        "enable_candidate_supporting",
+        "enable_candidate_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
 
 
 flags_phase_2.short_description = _("Set flags for PHASE 2 - candidate validation")
 
 
 def flags_phase_3(modeladmin, request, queryset):
-    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=True)
+    enabled = [
+        "enable_org_registration",
+        "enable_org_approval",
+        "enable_org_voting",
+        "enable_candidate_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
+
+    disabled = [
+        "enable_candidate_registration",
+        "enable_candidate_supporting",
+    ]
+    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
 
 
 flags_phase_3.short_description = _("Set flags for PHASE 3 - voting")
 
 
 def flags_final_phase(modeladmin, request, queryset):
-    FeatureFlag.objects.filter(flag="enable_org_registration").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_approval").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_org_voting").update(is_enabled=True)
-    FeatureFlag.objects.filter(flag="enable_candidate_registration").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(is_enabled=False)
-    FeatureFlag.objects.filter(flag="enable_candidate_voting").update(is_enabled=False)
+    enabled = [
+        "enable_org_registration",
+        "enable_org_approval",
+        "enable_org_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
+
+    disabled = [
+        "enable_candidate_registration",
+        "enable_candidate_supporting",
+        "enable_candidate_voting",
+    ]
+    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
 
 
 flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")

@@ -255,18 +255,12 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     )
 
     def get(self, request, *args, **kwargs):
-        if (
-            not settings.ENABLE_ORG_REGISTRATION_FORM
-            or not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists()
-        ):
+        if not settings.ENABLE_ORG_REGISTRATION_FORM or not FeatureFlag.is_enabled("enable_org_registration"):
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if (
-            not settings.ENABLE_ORG_REGISTRATION_FORM
-            or not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists()
-        ):
+        if not settings.ENABLE_ORG_REGISTRATION_FORM or not FeatureFlag.is_enabled("enable_org_registration"):
             raise PermissionDenied
         return super().post(request, *args, **kwargs)
 
@@ -294,7 +288,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
 
 @permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
 def organization_vote(request, pk, action):
-    if not FeatureFlag.objects.filter(flag="enable_org_approval", is_enabled=True).exists():
+    if not FeatureFlag.is_enabled("enable_org_approval"):
         raise PermissionDenied
 
     try:
@@ -354,7 +348,7 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        if FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+        if FeatureFlag.is_enabled("enable_candidate_voting"):
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
             )
@@ -432,12 +426,12 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     form_class = CandidateRegisterForm
 
     def get(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        if not FeatureFlag.is_enabled("enable_candidate_registration"):
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists():
+        if not FeatureFlag.is_enabled("enable_candidate_registration"):
             raise PermissionDenied
         return super().post(request, *args, **kwargs)
 
@@ -461,9 +455,8 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return reverse("candidate-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        if (
-            FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists()
-            or FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists()
+        if FeatureFlag.is_enabled("enable_candidate_registration") or FeatureFlag.is_enabled(
+            "enable_candidate_supporting"
         ):
             return super().post(request, *args, **kwargs)
         raise PermissionDenied
@@ -471,7 +464,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 @permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
 def candidate_vote(request, pk):
-    if not FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists():
+    if not FeatureFlag.is_enabled("enable_candidate_voting"):
         raise PermissionDenied
 
     try:
@@ -505,7 +498,7 @@ def candidate_vote(request, pk):
 
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
 def candidate_revoke(request, pk):
-    if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
+    if not FeatureFlag.is_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
     candidate = get_object_or_404(Candidate, pk=pk)
@@ -523,7 +516,7 @@ def candidate_revoke(request, pk):
 
 @permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
 def candidate_support(request, pk):
-    if not FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists():
+    if not FeatureFlag.is_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
     candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
@@ -544,9 +537,9 @@ def candidate_support(request, pk):
 @permission_required_or_403("hub.approve_candidate", (Candidate, "pk", "pk"))
 def candidate_status_confirm(request, pk):
     if (
-        FeatureFlag.objects.filter(flag="enable_candidate_registration", is_enabled=True).exists()
-        or FeatureFlag.objects.filter(flag="enable_candidate_supporting", is_enabled=True).exists()
-        or FeatureFlag.objects.filter(flag="enable_candidate_voting", is_enabled=True).exists()
+        FeatureFlag.is_enabled("enable_candidate_registration")
+        or FeatureFlag.is_enabled("enable_candidate_supporting")
+        or FeatureFlag.is_enabled("enable_candidate_voting")
     ):
         raise PermissionDenied
 
