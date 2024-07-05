@@ -90,7 +90,6 @@ env = environ.Env(
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     # TODO Settings Cleanup:
     ANALYTICS_ENABLED=(bool, False),
-    GLOBAL_SUPPORT_ENABLED=(bool, False),
     NGOHUB_ORG_OVERWRITE=(bool, False),
     ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
@@ -541,10 +540,6 @@ if env.str("SENTRY_DSN"):
         environment=ENVIRONMENT,
         release=f"votong@{VERSION}+{REVISION}",
     )
-
-
-# Flag necessary if the elections require support from other members
-GLOBAL_SUPPORT_ENABLED = env("GLOBAL_SUPPORT_ENABLED")
 
 
 # Django Allauth settings
