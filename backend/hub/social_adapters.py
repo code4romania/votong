@@ -69,7 +69,9 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-registration-closed")))
         else:
-            raise ClosedRegistrationException(_("The registration process for new organizations is currently disabled."))
+            raise ClosedRegistrationException(
+                _("The registration process for new organizations is currently disabled.")
+            )
 
     auth_headers = {"Authorization": f"Bearer {token}"}
 
