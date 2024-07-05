@@ -33,6 +33,11 @@ urlpatterns = i18n_patterns(
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path(
+        _("accounts/error/registration-closed/"),
+        StaticPageView.as_view(template_name="error_org_registration_closed.html"),
+        name="error-org-registration-closed",
+    ),
+    path(
         _("accounts/error/duplicate-organization/"),
         StaticPageView.as_view(template_name="error_org_duplicate.html"),
         name="error-org-duplicate",

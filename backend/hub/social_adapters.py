@@ -13,8 +13,8 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from accounts.models import User
-from hub.exceptions import DuplicateOrganizationException, MissingOrganizationException
-from hub.models import Organization, NGO_GROUP, City
+from hub.exceptions import DuplicateOrganizationException, MissingOrganizationException, ClosedRegistrationException
+from hub.models import Organization, NGO_GROUP, City, FeatureFlag
 
 
 class UserOrgAdapter(DefaultSocialAccountAdapter):
@@ -65,6 +65,14 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     redirect the user to a relevant error page.
     """
 
+    if not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists():
+        if in_auth_flow:
+            raise ImmediateHttpResponse(redirect(reverse("error-org-registration-closed")))
+        else:
+            raise ClosedRegistrationException(
+                _("The registration process for new organizations is currently disabled.")
+            )
+
     auth_headers = {"Authorization": f"Bearer {token}"}
 
     # ngohub_user = requests.get(settings.NGOHUB_API_BASE + "api/ong-user/", headers=auth_headers).json()
@@ -78,14 +86,14 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-missing")))
         else:
-            raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user"))
+            raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user."))
 
     # Check that the current user has an NGO Hub organization
     if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-duplicate")))
         else:
-            raise DuplicateOrganizationException(_("This NGO Hub organization already exists for another VotONG user"))
+            raise DuplicateOrganizationException(_("This NGO Hub organization already exists for another VotONG user."))
 
     org.ngohub_org_id = ngohub_id
     ngohub_general = ngohub_org.get("organizationGeneral", {})

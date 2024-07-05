@@ -92,6 +92,7 @@ env = environ.Env(
     ANALYTICS_ENABLED=(bool, False),
     GLOBAL_SUPPORT_ENABLED=(bool, False),
     NGOHUB_ORG_OVERWRITE=(bool, False),
+    ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
     # email settings
     EMAIL_SEND_METHOD=(str, "async"),
@@ -571,7 +572,14 @@ SOCIALACCOUNT_STORE_TOKENS = False
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
+
+# Allow Organization data overwrite from VotONG forms (should be False)
 NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
 
+# Enable the organization registration form in order to sidestep NGO Hub (should be False)
+ENABLE_ORG_REGISTRATION_FORM = env("ENABLE_ORG_REGISTRATION_FORM")
+
 CURRENT_EDITION_YEAR = env("CURRENT_EDITION_YEAR")
+
+# How many previous year reports to require for candidate proposal
 PREV_REPORTS_REQUIRED_FOR_PROPOSAL = 3

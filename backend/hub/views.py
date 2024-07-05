@@ -255,12 +255,18 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     )
 
     def get(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists():
+        if (
+            not settings.ENABLE_ORG_REGISTRATION_FORM
+            or not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists()
+        ):
             raise PermissionDenied
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists():
+        if (
+            not settings.ENABLE_ORG_REGISTRATION_FORM
+            or not FeatureFlag.objects.filter(flag="enable_org_registration", is_enabled=True).exists()
+        ):
             raise PermissionDenied
         return super().post(request, *args, **kwargs)
 

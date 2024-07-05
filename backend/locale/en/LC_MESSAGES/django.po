@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 00:56+0300\n"
+"POT-Creation-Date: 2024-07-05 12:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,6 +84,26 @@ msgstr ""
 
 #: backend/accounts/templates/change-email.html:51
 msgid "Change Email"
+msgstr ""
+
+#: backend/accounts/templates/error_org_base.html:8
+#: backend/accounts/templates/error_org_base.html:13
+msgid "Sign In Error"
+msgstr ""
+
+#: backend/accounts/templates/error_org_duplicate.html:6
+#: backend/hub/social_adapters.py:94
+msgid "This NGO Hub organization already exists for another VotONG user."
+msgstr ""
+
+#: backend/accounts/templates/error_org_missing.html:6
+#: backend/hub/social_adapters.py:87
+msgid "There is no NGO Hub organization for this VotONG user."
+msgstr ""
+
+#: backend/accounts/templates/error_org_registration_closed.html:6
+#: backend/hub/social_adapters.py:72
+msgid "The registration process for new organizations is currently disabled."
 msgstr ""
 
 #: backend/accounts/templates/partials/sections.html:8
@@ -189,30 +209,34 @@ msgid "history/"
 msgstr "history/"
 
 #: backend/civil_society_vote/urls.py:36
-msgid "accounts/error/duplicate-organization/"
+msgid "accounts/error/registration-closed/"
 msgstr ""
 
 #: backend/civil_society_vote/urls.py:41
+msgid "accounts/error/duplicate-organization/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:46
 msgid "accounts/error/missing-organization/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:45
+#: backend/civil_society_vote/urls.py:50
 msgid "accounts/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:47
+#: backend/civil_society_vote/urls.py:52
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:55
+#: backend/civil_society_vote/urls.py:60
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:60
+#: backend/civil_society_vote/urls.py:65
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:65
+#: backend/civil_society_vote/urls.py:70
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
@@ -318,7 +342,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:325
+#: backend/hub/forms.py:109 backend/hub/forms.py:162 backend/hub/views.py:331
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -721,27 +745,27 @@ msgstr ""
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: backend/hub/models.py:553
+#: backend/hub/models.py:544
 msgid "Canditate votes"
 msgstr ""
 
-#: backend/hub/models.py:554
+#: backend/hub/models.py:545
 msgid "Candidate vote"
 msgstr ""
 
-#: backend/hub/models.py:577
+#: backend/hub/models.py:568
 msgid "Canditate supporters"
 msgstr ""
 
-#: backend/hub/models.py:578
+#: backend/hub/models.py:569
 msgid "Candidate supporter"
 msgstr ""
 
-#: backend/hub/models.py:592
+#: backend/hub/models.py:583
 msgid "Canditate confirmations"
 msgstr ""
 
-#: backend/hub/models.py:593
+#: backend/hub/models.py:584
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -753,14 +777,6 @@ msgstr ""
 msgid ""
 "Please correct the error below. Your new password must be different. Please "
 "try again."
-msgstr ""
-
-#: backend/hub/social_adapters.py:81
-msgid "There is no NGO Hub organization for this VotONG user"
-msgstr ""
-
-#: backend/hub/social_adapters.py:88
-msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr ""
 
 #: backend/hub/templates/admin/dropdown_filter.html:3
@@ -909,31 +925,31 @@ msgstr ""
 msgid "Upload document"
 msgstr ""
 
-#: backend/hub/templates/footer.html:29
+#: backend/hub/templates/footer.html:32
 msgid "USEFUL LINKS"
 msgstr ""
 
-#: backend/hub/templates/footer.html:32
+#: backend/hub/templates/footer.html:35
 msgid "About VotONG"
 msgstr ""
 
-#: backend/hub/templates/footer.html:33
+#: backend/hub/templates/footer.html:36
 msgid "Platform rules"
 msgstr ""
 
-#: backend/hub/templates/footer.html:34
+#: backend/hub/templates/footer.html:37
 msgid "Privacy Policy"
 msgstr ""
 
-#: backend/hub/templates/footer.html:35
+#: backend/hub/templates/footer.html:38
 msgid "Terms and conditions"
 msgstr ""
 
-#: backend/hub/templates/footer.html:36 backend/templates/account/login.html:49
+#: backend/hub/templates/footer.html:39 backend/templates/account/login.html:49
 msgid "Commission Sign In"
 msgstr ""
 
-#: backend/hub/templates/footer.html:42
+#: backend/hub/templates/footer.html:45
 msgid "CONTACT US"
 msgstr ""
 
@@ -1207,7 +1223,7 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: backend/hub/views.py:318
+#: backend/hub/views.py:324
 msgid "You must write a rejection message."
 msgstr ""
 
