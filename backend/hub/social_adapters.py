@@ -112,9 +112,10 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     org.address = ngohub_general.get("address", "")
     org.registration_number = ngohub_general.get("rafNumber", "")
 
-    org.logo_url = ngohub_general.get("logo", "")
-    if org.logo:
-        org.logo.delete()
+    # TODO:
+    # org.logo_url = ngohub_general.get("logo", "")
+    # if org.logo:
+    #     org.logo.delete()
 
     org.email = ngohub_general.get("email", "")
     org.phone = ngohub_general.get("phone", "")
