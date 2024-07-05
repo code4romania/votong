@@ -32,6 +32,16 @@ urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+    path(
+        _("accounts/error/duplicate-organization/"),
+        StaticPageView.as_view(template_name="error_org_duplicate.html"),
+        name="error-org-duplicate",
+    ),
+    path(
+        _("accounts/error/missing-organization/"),
+        StaticPageView.as_view(template_name="error_org_missing.html"),
+        name="error-org-missing",
+    ),
     path(_("accounts/"), include("django.contrib.auth.urls")),
     path(
         _("accounts/reset-password/"),

@@ -187,23 +187,31 @@ msgstr ""
 msgid "history/"
 msgstr "history/"
 
-#: civil_society_vote/urls.py:35
+#: backend/civil_society_vote/urls.py:36
+msgid "accounts/error/duplicate-organization/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:41
+msgid "accounts/error/missing-organization/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:45
 msgid "accounts/"
 msgstr ""
 
-#: civil_society_vote/urls.py:37
+#: backend/civil_society_vote/urls.py:47
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: civil_society_vote/urls.py:45
+#: backend/civil_society_vote/urls.py:55
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: civil_society_vote/urls.py:50
+#: backend/civil_society_vote/urls.py:60
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: civil_society_vote/urls.py:55
+#: backend/civil_society_vote/urls.py:65
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
@@ -750,11 +758,11 @@ msgid ""
 "try again."
 msgstr ""
 
-#: hub/social_adapters.py:59
+#: backend/hub/social_adapters.py:81
 msgid "There is no NGO Hub organization for this VotONG user"
 msgstr ""
 
-#: hub/social_adapters.py:61
+#: backend/hub/social_adapters.py:88
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr ""
 

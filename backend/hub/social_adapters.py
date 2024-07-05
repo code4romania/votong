@@ -1,41 +1,54 @@
 import requests
 
+from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
-
-# from allauth.socialaccount.models import SocialToken, SocialAccount
-from django.contrib.auth.models import Group
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.models import Group
 from django.dispatch import receiver
+from django.http import HttpRequest
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from .models import Organization, NGO_GROUP, City
+from accounts.models import User
+from hub.exceptions import DuplicateOrganizationException, MissingOrganizationException
+from hub.models import Organization, NGO_GROUP, City
 
 
 class UserOrgAdapter(DefaultSocialAccountAdapter):
-    def save_user(self, request, sociallogin, form=None):
-        print("CREATE USER")
+    """
+    Authentication adapter which makes sure that each new User also has an Organization
+    """
 
-        user = super().save_user(request, sociallogin, form)
+    def save_user(self, request: HttpRequest, sociallogin: SocialLogin, form=None) -> User:
+        """
+        Besides the default user creation, also mark this user as coming from NGO Hub,
+        create a blank Organization for them, and schedule a data update from NGO Hub.
+        """
+
+        user: User = super().save_user(request, sociallogin, form)
         user.is_ngohub_user = True
         user.save()
 
         # Add the user to the NGO group
-        ngo_group = Group.objects.get(name=NGO_GROUP)
+        ngo_group: Group = Group.objects.get(name=NGO_GROUP)
         user.groups.add(ngo_group)
 
         # Create a blank Organization for the newly registered user
         org = create_blank_org(user)
 
         # Start the import of initial data from NGO Hub
-        update_user_org(org, sociallogin.token)
+        update_user_org(org, sociallogin.token, in_auth_flow=True)
 
         return user
 
 
-def create_blank_org(user, commit=True):
-    print("CREATE USER ORG")
+def create_blank_org(user, commit=True) -> Organization:
+    """
+    Create a blank Organization (with a draft status) for an User
+    """
 
     org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.draft)
     if commit:
@@ -44,21 +57,35 @@ def create_blank_org(user, commit=True):
     return org
 
 
-def update_user_org(org: Organization, token: str):
-    print("UPDATE USER ORG")
+def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
+    """
+    Update an Organization by pulling data from NGO Hub.
+
+    If this happens in an auth flow, raise an ImmediateHttpResponse in case of errors in order to
+    redirect the user to a relevant error page.
+    """
 
     auth_headers = {"Authorization": f"Bearer {token}"}
-    # response = requests.get(settings.NGOHUB_API_BASE + "api/ong-user/", headers=auth_headers)
-    # print(response.json())
+
+    # ngohub_user = requests.get(settings.NGOHUB_API_BASE + "api/ong-user/", headers=auth_headers).json()
+    # print(ngohub_user)
 
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
 
     # Check that an NGO Hub organization appears only once in VotONG
     ngohub_id = ngohub_org.get("id", 0)
     if not ngohub_id:
-        raise PermissionDenied(_("There is no NGO Hub organization for this VotONG user"))
+        if in_auth_flow:
+            raise ImmediateHttpResponse(redirect(reverse("error-org-missing")))
+        else:
+            raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user"))
+
+    # Check that the current user has an NGO Hub organization
     if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
-        raise PermissionDenied(_("This NGO Hub organization already exists for another VotONG user"))
+        if in_auth_flow:
+            raise ImmediateHttpResponse(redirect(reverse("error-org-duplicate")))
+        else:
+            raise DuplicateOrganizationException(_("This NGO Hub organization already exists for another VotONG user"))
 
     org.ngohub_org_id = ngohub_id
     ngohub_general = ngohub_org.get("organizationGeneral", {})
@@ -69,8 +96,7 @@ def update_user_org(org: Organization, token: str):
     try:
         city = City.objects.get(county=org.county, city=city_name)
     except City.DoesNotExist:
-        print("ERROR Cannot find city:", city)
-        pass
+        print("ERROR: Cannot find city '", city, "' in VotONG.")
     else:
         org.city = city
 
@@ -102,26 +128,35 @@ def update_user_org(org: Organization, token: str):
 
 
 @receiver(social_account_updated)
-def handle_existing_login(sender, **kwargs):
-    print("HANDLE EXISTING LOGIN")
+def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
+    """
+    Handler for the social-account-update signal, which is sent for all logins
+    after the initial login.
+
+    We already have an User, but we must be sure that the User also has
+    an Organization and schedule its data update from NGO Hub.
+    """
 
     social = kwargs.get("sociallogin")
     org = Organization.objects.filter(user=social.user).last()
     if not org:
         org = create_blank_org(social.user)
 
-    return update_user_org(org, social.token)
+    update_user_org(org, social.token, in_auth_flow=True)
 
 
 @receiver(pre_social_login)
-def handle_pre_login(sender, **kwargs):
-    # IMPORTANT: The User object might not be fully available here!
-
-    print("HANDLE PRE LOGIN")
+def handle_pre_login(sender: SocialLogin, **kwargs) -> None:
+    """
+    Handler for the pre-login signal
+    IMPORTANT: The User object might not be fully available here.
+    """
 
     # social = kwargs.get("sociallogin")
     # request = kwargs.get("request")
+    #
     # print("code =", request.GET.get("code"))
     # print("user =", social.user)
-
     # print("token =", social.token)
+
+    pass

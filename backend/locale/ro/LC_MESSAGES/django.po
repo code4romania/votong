@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 16:57+0300\n"
+"POT-Creation-Date: 2024-07-05 00:56+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -190,23 +190,31 @@ msgstr "regulamentul_platformei/"
 msgid "history/"
 msgstr "istoric/"
 
-#: civil_society_vote/urls.py:35
+#: backend/civil_society_vote/urls.py:36
+msgid "accounts/error/duplicate-organization/"
+msgstr "cont/eroare/organizatie-duplicat/"
+
+#: backend/civil_society_vote/urls.py:41
+msgid "accounts/error/missing-organization/"
+msgstr "cont/eroare/organizatie-lipsa/"
+
+#: backend/civil_society_vote/urls.py:45
 msgid "accounts/"
 msgstr "cont/"
 
-#: civil_society_vote/urls.py:37
+#: backend/civil_society_vote/urls.py:47
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: civil_society_vote/urls.py:45
+#: backend/civil_society_vote/urls.py:55
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: civil_society_vote/urls.py:50
+#: backend/civil_society_vote/urls.py:60
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: civil_society_vote/urls.py:55
+#: backend/civil_society_vote/urls.py:65
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
@@ -754,11 +762,11 @@ msgstr ""
 "Corectați următoarea eroare. Parola nouă trebuie să fie diferită. Încercați "
 "din nou."
 
-#: hub/social_adapters.py:59
+#: backend/hub/social_adapters.py:81
 msgid "There is no NGO Hub organization for this VotONG user"
 msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG"
 
-#: hub/social_adapters.py:61
+#: backend/hub/social_adapters.py:88
 msgid "This NGO Hub organization already exists for another VotONG user"
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG"
 

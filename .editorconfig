@@ -1,0 +1,6 @@
+[*]
+tab_width = 4
+indent_style = space
+
+[{*.html,*.css,*.sh,*.yml}]
+indent_size = 2
