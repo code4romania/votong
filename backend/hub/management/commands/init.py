@@ -2,47 +2,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from guardian.shortcuts import assign_perm
 
-from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, EmailTemplate, FeatureFlag
-
-PENDING_ORGS_DIGEST_TEXT = """
-Buna ziua,
-
-Un numar de {{ nr_pending_orgs }} organizatii asteapta aprobarea voastra pe platforma VotONG.
-
-Accesati adresa {{ committee_org_list_url }} pentru a vizualiza ultimele aplicatii.
-
-Va multumim!
-Echipa VotONG
-"""
-
-ORG_APPROVED_TEXT = """
-Buna {{ representative }},
-
-Cererea de inscriere a organizatiei "{{ name }}" in platforma VotONG a fost aprobata.
-
-Pentru a va activa contul mergeti la adresa {{ reset_url }}, introduceti adresa de email folosita la inscriere si resetati parola contului.
-
-Va multumim!
-Echipa VotONG
-"""
-
-ORG_REJECTED_TEXT = """
-{{ rejection_message }}
-"""
-
-VOTE_AUDIT_TEXT = """
-{{ org }} a votat cu {{ candidate }} la {{ timestamp }}
-
-Organizatie: {{ org_link }}
-
-Candidat: {{ candidate_link }}
-"""
-
-CONFIRM_TEXT = """
-Administratorul site-ului votong.ro a schimbatul statusul candidatului "{{ candidate }}" în "{{ status }}".
-
-Urmează acest link pentru a confirma acțiunea: {{ confirmation_link }}
-"""
+from hub.models import COMMITTEE_GROUP, FLAG_CHOICES, FeatureFlag, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
 
 
 class Command(BaseCommand):
@@ -67,30 +27,5 @@ class Command(BaseCommand):
 
         for flag in [x[0] for x in FLAG_CHOICES]:
             FeatureFlag.objects.get_or_create(flag=flag)
-
-        template, created = EmailTemplate.objects.get_or_create(template="pending_orgs_digest")
-        if created:
-            template.text_content = PENDING_ORGS_DIGEST_TEXT
-            template.save()
-
-        template, created = EmailTemplate.objects.get_or_create(template="org_approved")
-        if created:
-            template.text_content = ORG_APPROVED_TEXT
-            template.save()
-
-        template, created = EmailTemplate.objects.get_or_create(template="org_rejected")
-        if created:
-            template.text_content = ORG_REJECTED_TEXT
-            template.save()
-
-        template, created = EmailTemplate.objects.get_or_create(template="vote_audit")
-        if created:
-            template.text_content = VOTE_AUDIT_TEXT
-            template.save()
-
-        template, created = EmailTemplate.objects.get_or_create(template="confirmation")
-        if created:
-            template.text_content = CONFIRM_TEXT
-            template.save()
 
         self.stdout.write(self.style.SUCCESS("Initialization done!"))

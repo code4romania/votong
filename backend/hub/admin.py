@@ -1,7 +1,6 @@
 import csv
 import io
 
-from accounts.models import User
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
@@ -9,26 +8,25 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect, render
-from django.template import Context
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
-from hub import utils
+from accounts.models import User
+from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm
 from hub.models import (
+    BlogPost,
     COMMITTEE_GROUP,
     COUNTIES,
     COUNTY_RESIDENCE,
-    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
     Domain,
-    EmailTemplate,
     FLAG_CHOICES,
     FeatureFlag,
     Organization,
@@ -78,7 +76,7 @@ class ImpersonableUserAdmin(UserAdminImpersonateMixin, NoUsernameUserAdmin):
     get_groups.short_description = _("groups")
 
 
-# NOTE: This is needed in order for impersonate to work
+# NOTE: This is needed in order for impersonation to work
 # admin.site.unregister(User)
 admin.site.register(User, ImpersonableUserAdmin)
 
@@ -223,17 +221,16 @@ def send_confirm_email_to_committee(request, candidate, to_email):
     confirmation_link_path = reverse("candidate-status-confirm", args=(candidate.pk,))
     confirmation_link = f"{protocol}://{current_site.domain}{confirmation_link_path}"
 
-    utils.send_email(
-        template="confirmation",
-        context=Context(
-            {
-                "candidate": candidate.name,
-                "status": Candidate.STATUS[candidate.status],
-                "confirmation_link": confirmation_link,
-            }
-        ),
+    send_email(
         subject=f"[VOTONG] Confirmare candidatura: {candidate.name}",
-        to=to_email,
+        context={
+            "candidate": candidate.name,
+            "status": Candidate.STATUS[candidate.status],
+            "confirmation_link": confirmation_link,
+        },
+        to_emails=[to_email],
+        text_template="emails/05_confirmation.txt",
+        html_template="emails/05_confirmation.html",
     )
 
 
@@ -550,23 +547,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 request._set_post(post)
 
         return super(FeatureFlagAdmin, self).changelist_view(request, extra_context)
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
-
-
-@admin.register(EmailTemplate)
-class EmailTemplateAdmin(admin.ModelAdmin):
-    list_display = ["template"]
-    readonly_fields = ["template"]
 
     def has_add_permission(self, request):
         return False

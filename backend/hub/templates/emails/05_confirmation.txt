@@ -1,0 +1,3 @@
+Administratorul site-ului votong.ro a schimbatul statusul candidatului "{{ candidate }}" în "{{ status }}".
+
+Urmează acest link pentru a le confirma acțiunea: {{ confirmation_link }}

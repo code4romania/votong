@@ -1,0 +1,8 @@
+Bună {{ representative }},
+
+Cererea de înscriere a organizației "{{ name }}" în platforma VotONG a fost aprobată.
+
+Pentru a vă loga mergeți la adresa {{ site_url }}.
+
+Va mulțumim!
+Echipa VotONG

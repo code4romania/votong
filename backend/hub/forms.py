@@ -1,15 +1,15 @@
-from django_recaptcha.fields import ReCaptchaField
 from django import forms
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from django_recaptcha.fields import ReCaptchaField
+
+from civil_society_vote.common.messaging import send_email
+from hub.models import Candidate, City, Domain, FeatureFlag, Organization
 
 # from django_crispy_bulma.widgets import EmailInput
-
-from hub.models import Candidate, City, Domain, FeatureFlag, Organization
 
 ORG_FIELD_ORDER = [
     "name",
@@ -276,10 +276,16 @@ class ContactForm(forms.Form):
         if not settings.RECAPTCHA_PUBLIC_KEY:
             del self.fields["captcha"]
 
-    def send_email(self):
-        send_mail(
-            f"Contact {self.cleaned_data.get('name')}",
-            f"{self.cleaned_data.get('email')}: {self.cleaned_data.get('message')}",
-            settings.NO_REPLY_EMAIL,
-            (settings.DEFAULT_FROM_EMAIL,),
+    def send_form_email(self):
+        send_email(
+            subject=f"[VotONG] Contact {self.cleaned_data.get('name')}",
+            to_emails=[settings.DEFAULT_FROM_EMAIL],
+            text_template="emails/06_contact.txt",
+            html_template="emails/06_contact.html",
+            context={
+                "name": self.cleaned_data.get("name"),
+                "email": self.cleaned_data.get("email"),
+                "message": self.cleaned_data.get("message"),
+            },
+            from_email=settings.NO_REPLY_EMAIL,
         )

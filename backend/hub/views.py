@@ -11,7 +11,6 @@ from django.db.models import Count, Q
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.template import Context
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -20,7 +19,7 @@ from django.views.generic import CreateView, DetailView, FormView, ListView, Upd
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from hub import utils
+from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
     CandidateUpdateForm,
@@ -29,11 +28,8 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
-    COMMITTEE_GROUP,
-    NGO_GROUP,
-    STAFF_GROUP,
-    SUPPORT_GROUP,
     BlogPost,
+    COMMITTEE_GROUP,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
@@ -41,7 +37,10 @@ from hub.models import (
     City,
     Domain,
     FeatureFlag,
+    NGO_GROUP,
     Organization,
+    STAFF_GROUP,
+    SUPPORT_GROUP,
 )
 
 
@@ -66,7 +65,7 @@ class HomeView(MenuMixin, SuccessMessageMixin, FormView):
     success_message = _("Thank you! We'll get in touch soon!")
 
     def form_valid(self, form):
-        form.send_email()
+        form.send_form_email()
         return super().form_valid(form)
 
 
@@ -302,17 +301,16 @@ def organization_vote(request, pk, action):
 
             if org.rejection_message:
                 org.save()
-                utils.send_email(
-                    template="org_rejected",
-                    context=Context(
-                        {
-                            "representative": org.legal_representative_name,
-                            "name": org.name,
-                            "rejection_message": org.rejection_message,
-                        }
-                    ),
-                    subject="Cerere de inscriere respinsa",
-                    to=org.email,
+                send_email(
+                    subject="Cerere de înscriere respinsă",
+                    to_emails=[org.email],
+                    text_template="emails/03_org_rejected.txt",
+                    html_template="emails/03_org_rejected.html",
+                    context={
+                        "representative": org.legal_representative_name,
+                        "name": org.name,
+                        "rejection_message": org.rejection_message,
+                    },
                 )
             else:
                 messages.error(request, _("You must write a rejection message."))
@@ -326,17 +324,16 @@ def organization_vote(request, pk, action):
 
             current_site = get_current_site(request)
             protocol = "https" if request.is_secure() else "http"
-            utils.send_email(
-                template="org_approved",
-                context=Context(
-                    {
-                        "representative": org.legal_representative_name,
-                        "name": org.name,
-                        "reset_url": f"{protocol}://{current_site.domain}{reverse('password_reset')}",
-                    }
-                ),
-                subject="Cerere de inscriere aprobata",
-                to=org.email,
+            send_email(
+                subject="Cerere de înscriere aprobată",
+                to_emails=[org.email],
+                text_template="emails/02_org_approved.txt",
+                html_template="emails/02_org_approved.html",
+                context={
+                    "representative": org.legal_representative_name,
+                    "name": org.name,
+                    "site_url": f"{protocol}://{current_site.domain}",
+                },
             )
     finally:
         return redirect("ngo-detail", pk=pk)
@@ -478,19 +475,18 @@ def candidate_vote(request, pk):
     if settings.VOTE_AUDIT_EMAIL:
         current_site = get_current_site(request)
         protocol = "https" if request.is_secure() else "http"
-        utils.send_email(
-            template="vote_audit",
-            context=Context(
-                {
-                    "org": vote.user.orgs.first().name,
-                    "candidate": vote.candidate.name,
-                    "timestamp": timezone.localtime(vote.created).strftime("%H:%M:%S (%d/%m/%Y)"),
-                    "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
-                    "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
-                }
-            ),
-            subject=f"[VOTONG] Vot candidatura: {vote.candidate.name}",
-            to=settings.VOTE_AUDIT_EMAIL,
+        send_email(
+            subject=f"[VOTONG] Vot candidatură: {vote.candidate.name}",
+            to_emails=[settings.VOTE_AUDIT_EMAIL],
+            text_template="emails/04_vote_audit.txt",
+            html_template="emails/04_vote_audit.html",
+            context={
+                "org": vote.user.orgs.first().name,
+                "candidate": vote.candidate.name,
+                "timestamp": timezone.localtime(vote.created).strftime("%H:%M:%S (%d/%m/%Y)"),
+                "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
+                "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
+            },
         )
 
     return redirect("candidate-detail", pk=pk)
