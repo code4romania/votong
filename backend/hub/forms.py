@@ -279,7 +279,7 @@ class ContactForm(forms.Form):
     def send_form_email(self):
         send_email(
             subject=f"[VotONG] Contact {self.cleaned_data.get('name')}",
-            to_emails=[settings.DEFAULT_FROM_EMAIL],
+            to_emails=[settings.CONTACT_EMAIL],
             text_template="emails/06_contact.txt",
             html_template="emails/06_contact.html",
             context={
