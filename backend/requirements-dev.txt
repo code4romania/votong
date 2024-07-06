@@ -29,7 +29,7 @@ brotlipy==0.7.0
     # via -r requirements.txt
 build==1.2.1
     # via pip-tools
-certifi==2024.6.2
+certifi==2024.7.4
     # via
     #   -r requirements.txt
     #   requests
