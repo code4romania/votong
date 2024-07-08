@@ -228,7 +228,6 @@ class Organization(StatusModel, TimeStampedModel):
     organization_head_name = models.CharField(_("Organization Head Name"), default="", max_length=254)
     board_council = models.CharField(_("Board council"), max_length=512)
     logo = models.ImageField(_("Logo"), max_length=300, storage=select_public_storage)
-    logo_url = models.URLField(_("Logo URL"), max_length=300, blank=True)
 
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet for %(CURRENT_EDITION_YEAR)s")
@@ -328,6 +327,8 @@ class Organization(StatusModel, TimeStampedModel):
 
     rejection_message = models.TextField(_("Rejection message"), blank=True)
 
+    filename_cache = models.JSONField(_("Filename cache"), editable=False, default=dict, blank=False, null=False)
+
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
@@ -346,7 +347,7 @@ class Organization(StatusModel, TimeStampedModel):
         if self.logo:
             return self.logo.url
         else:
-            return self.logo_url
+            return ""
 
     @property
     def edit_only_on_nghohub(self):

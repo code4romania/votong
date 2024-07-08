@@ -1,4 +1,6 @@
+import mimetypes
 import requests
+import tempfile
 
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
@@ -6,6 +8,7 @@ from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
 from django.conf import settings
 from django.contrib.auth.models import Group
+from django.core.files import File
 from django.dispatch import receiver
 from django.http import HttpRequest
 from django.shortcuts import redirect
@@ -57,6 +60,16 @@ def create_blank_org(user, commit=True) -> Organization:
     return org
 
 
+def remove_signature(s3_url: str) -> str:
+    """
+    Extract the S3 file name without the URL signature and the directory path
+    """
+    if s3_url:
+        return s3_url.split("?")[0].split("/")[-1]
+    else:
+        return ""
+
+
 def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
     """
     Update an Organization by pulling data from NGO Hub.
@@ -72,6 +85,9 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
             raise ClosedRegistrationException(
                 _("The registration process for new organizations is currently disabled.")
             )
+
+    if not org.filename_cache:
+        org.filename_cache = {}
 
     auth_headers = {"Authorization": f"Bearer {token}"}
 
@@ -112,9 +128,39 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     org.address = ngohub_general.get("address", "")
     org.registration_number = ngohub_general.get("rafNumber", "")
 
-    org.logo_url = ngohub_general.get("logo", "")
-    if org.logo:
+    # Import the organization logo
+    logo_url = ngohub_general.get("logo", "")
+    logo_filename = remove_signature(logo_url)
+    if not logo_filename and org.logo:
         org.logo.delete()
+    elif logo_filename != org.filename_cache.get("logo", ""):
+        r = requests.get(logo_url)
+        if r.status_code != 200:
+            print("Logo file request status = %s", r.status_code)
+        else:
+            ext = mimetypes.guess_extension(r.headers["content-type"])
+            with tempfile.TemporaryFile() as fp:
+                fp.write(r.content)
+                fp.seek(0)
+                org.logo.save(f"logo{ext}", File(fp))
+            org.filename_cache["logo"] = logo_filename
+
+    # Import the organization statute
+    statute_url = ngohub_legal.get("organizationStatute", "")
+    statute_filename = remove_signature(statute_url)
+    if not statute_filename and org.statute:
+        org.statute.delete()
+    elif statute_filename != org.filename_cache.get("statute", ""):
+        r = requests.get(statute_url)
+        if r.status_code != 200:
+            print("Statute file request status = %s", r.status_code)
+        else:
+            ext = mimetypes.guess_extension(r.headers["content-type"])
+            with tempfile.TemporaryFile() as fp:
+                fp.write(r.content)
+                fp.seek(0)
+                org.statute.save(f"statute{ext}", File(fp))
+            org.filename_cache["statute"] = statute_filename
 
     org.email = ngohub_general.get("email", "")
     org.phone = ngohub_general.get("phone", "")
