@@ -25,6 +25,27 @@ def remove_signature(s3_url: str) -> str:
         return ""
 
 
+def copy_file_from_to_organization(organization: Organization, signed_file_url: str, file_type: str):
+    if not hasattr(organization, file_type):
+        raise AttributeError(f"Organization has no attribute '{file_type}'")
+
+    filename: str = remove_signature(signed_file_url)
+    if not filename and getattr(organization, file_type):
+        getattr(organization, file_type).delete()
+    elif filename != organization.filename_cache.get(file_type, ""):
+        r: Response = requests.get(signed_file_url)
+        if r.status_code != 200:
+            logger.info(f"{file_type.upper()} file request status = {r.status_code}")
+        else:
+            extension: str = mimetypes.guess_extension(r.headers["content-type"])
+            with tempfile.TemporaryFile() as fp:
+                fp.write(r.content)
+                fp.seek(0)
+                getattr(organization, file_type).save(f"{file_type}{extension}", File(fp))
+
+            organization.filename_cache[file_type] = filename
+
+
 def authenticate_with_ngohub():
     u = Cognito(
         user_pool_id=settings.AWS_COGNITO_USER_POOL_ID,
@@ -71,37 +92,11 @@ def update_organization_process(organization_id: int):
 
     # Import the organization logo
     logo_url: str = ngohub_general_data.get("logo", "")
-    logo_filename: str = remove_signature(logo_url)
-    if not logo_filename and organization.logo:
-        organization.logo.delete()
-    elif logo_filename != organization.filename_cache.get("logo", ""):
-        r: Response = requests.get(logo_url)
-        if r.status_code != 200:
-            logger.info("Logo file request status = %s", r.status_code)
-        else:
-            ext = mimetypes.guess_extension(r.headers["content-type"])
-            with tempfile.TemporaryFile() as fp:
-                fp.write(r.content)
-                fp.seek(0)
-                organization.logo.save(f"logo{ext}", File(fp))
-            organization.filename_cache["logo"] = logo_filename
+    copy_file_from_to_organization(organization, logo_url, "logo")
 
     # Import the organization statute
     statute_url: str = ngohub_legal_data.get("organizationStatute", "")
-    statute_filename: str = remove_signature(statute_url)
-    if not statute_filename and organization.statute:
-        organization.statute.delete()
-    elif statute_filename != organization.filename_cache.get("statute", ""):
-        r: Response = requests.get(statute_url)
-        if r.status_code != 200:
-            logger.info("Statute file request status = %s", r.status_code)
-        else:
-            ext = mimetypes.guess_extension(r.headers["content-type"])
-            with tempfile.TemporaryFile() as fp:
-                fp.write(r.content)
-                fp.seek(0)
-                organization.statute.save(f"statute{ext}", File(fp))
-            organization.filename_cache["statute"] = statute_filename
+    copy_file_from_to_organization(organization, statute_url, "statute")
 
     organization.email = ngohub_general_data.get("email", "")
     organization.phone = ngohub_general_data.get("phone", "")
