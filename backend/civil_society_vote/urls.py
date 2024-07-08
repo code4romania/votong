@@ -72,10 +72,9 @@ urlpatterns = i18n_patterns(
         name="password_reset_complete",
     ),
     path("me/", include("accounts.urls")),
-    path("", include("hub.urls")),
-) + [
     path("allauth/", include("allauth.urls")),
-]
+    path("", include("hub.urls")),
+)
 
 if settings.DEBUG:
     import debug_toolbar

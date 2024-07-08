@@ -112,8 +112,7 @@
 
             {% else %}
 
-              {# <a  href="{% url 'account_login'%}" class="navbar-item"> #}
-              <a href="/allauth/amazon-cognito/login/?process=login" class="navbar-item">
+              <a href="{% url 'amazon_cognito_login' %}" class="navbar-item">
                 {% trans "Login" %}
               </a>
             {% endif %}
