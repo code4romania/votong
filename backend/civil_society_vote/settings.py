@@ -51,6 +51,7 @@ env = environ.Env(
     AWS_SES_REGION_NAME=(str, ""),
     AWS_SES_INCLUDE_REPORTS=(bool, False),
     AWS_SES_CONFIGURATION_SET_NAME=(str, None),
+    AWS_COGNITO_REGION=(str, ""),
     AWS_COGNITO_DOMAIN=(str, ""),
     AWS_COGNITO_USER_POOL_ID=(str, ""),
     AWS_COGNITO_CLIENT_ID=(str, ""),
@@ -92,6 +93,7 @@ env = environ.Env(
     # TODO Settings Cleanup:
     ANALYTICS_ENABLED=(bool, False),
     NGOHUB_ORG_OVERWRITE=(bool, False),
+    ORGANIZATION_UPDATE_THRESHOLD=(int, 10),
     ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
     # email settings
@@ -143,7 +145,7 @@ SITE_ID = 1
 USE_S3 = env.bool("USE_S3")
 USE_AZURE = env.bool("USE_AZURE") and env("AZURE_ACCOUNT_NAME") and env("AZURE_ACCOUNT_KEY")
 AWS_SES_INCLUDE_REPORTS = env.bool("AWS_SES_INCLUDE_REPORTS")
-
+AWS_REGION_NAME = env("AWS_REGION_NAME")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -341,7 +343,7 @@ if env.bool("USE_S3"):
     default_storage_options = {
         "bucket_name": (env.str("AWS_S3_STORAGE_DEFAULT_BUCKET_NAME")),
         "default_acl": (env.str("AWS_S3_DEFAULT_ACL")),
-        "region_name": env.str("AWS_S3_REGION_NAME") or env.str("AWS_REGION_NAME"),
+        "region_name": env.str("AWS_S3_REGION_NAME") or AWS_REGION_NAME,
         "object_parameters": {"CacheControl": "max-age=86400"},
         "file_overwrite": False,
     }
@@ -434,7 +436,7 @@ if EMAIL_BACKEND == "django_ses.SESBackend":
     AWS_SES_CONFIGURATION_SET_NAME = env.str("AWS_SES_CONFIGURATION_SET_NAME")
 
     AWS_SES_AUTO_THROTTLE = env.float("AWS_SES_AUTO_THROTTLE", default=0.5)
-    AWS_SES_REGION_NAME = env.str("AWS_SES_REGION_NAME") if env("AWS_SES_REGION_NAME") else env("AWS_REGION_NAME")
+    AWS_SES_REGION_NAME = env.str("AWS_SES_REGION_NAME") if env("AWS_SES_REGION_NAME") else AWS_REGION_NAME
     AWS_SES_REGION_ENDPOINT = env.str("AWS_SES_REGION_ENDPOINT", default=f"email.{AWS_SES_REGION_NAME}.amazonaws.com")
 
     AWS_SES_FROM_EMAIL = DEFAULT_FROM_EMAIL
@@ -572,17 +574,19 @@ NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
 
+AWS_COGNITO_REGION = env("AWS_COGNITO_REGION") or AWS_REGION_NAME
 AWS_COGNITO_USER_POOL_ID = env("AWS_COGNITO_USER_POOL_ID")
 AWS_COGNITO_CLIENT_ID = env("AWS_COGNITO_CLIENT_ID")
 AWS_COGNITO_CLIENT_SECRET = env("AWS_COGNITO_CLIENT_SECRET")
 
-# Allow Organization data overwrite from VotONG forms (should be False)
+# Allow Organization data to overwrite from VotONG forms (should be False)
 NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
+ORGANIZATION_UPDATE_THRESHOLD = env.int("ORGANIZATION_UPDATE_THRESHOLD", 10)
 
 # Enable the organization registration form in order to sidestep NGO Hub (should be False)
 ENABLE_ORG_REGISTRATION_FORM = env("ENABLE_ORG_REGISTRATION_FORM")
 
 CURRENT_EDITION_YEAR = env("CURRENT_EDITION_YEAR")
 
-# How many previous year reports to require for candidate proposal
+# How many previous year reports to require for a candidate proposal
 PREV_REPORTS_REQUIRED_FOR_PROPOSAL = 3
