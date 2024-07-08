@@ -5,7 +5,6 @@ from typing import Dict
 
 import requests
 from django.conf import settings
-from django.core.cache import cache
 from django.core.files import File
 from django_q.tasks import async_task
 from pycognito import Cognito
