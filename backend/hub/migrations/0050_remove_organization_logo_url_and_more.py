@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("hub", "0048_alter_featureflag_flag"),
+        ("hub", "0049_delete_emailtemplate_and_more"),
     ]
 
     operations = [
