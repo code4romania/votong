@@ -1,12 +1,14 @@
 import logging
 import mimetypes
 import tempfile
+from typing import Dict
 
 import requests
 from django.conf import settings
 from django.core.files import File
 from django_q.tasks import async_task
 from pycognito import Cognito
+from requests import Response
 
 from hub.models import City, Organization
 
@@ -35,88 +37,92 @@ def authenticate_with_ngohub():
     return u.id_token
 
 
-def get_ngo_hub_data(ngohub_org_id: int):
+def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
     token = authenticate_with_ngohub()
     auth_headers = {"Authorization": f"Bearer {token}"}
 
     request_url: str = settings.NGOHUB_API_BASE + f"/organization/{ngohub_org_id}"
-    response = requests.get(request_url, headers=auth_headers)
+    response: Response = requests.get(request_url, headers=auth_headers)
 
     return response.json()
 
 
 def update_organization_process(organization_id: int):
-    org: Organization = Organization.objects.get(id=organization_id)
+    organization: Organization = Organization.objects.get(id=organization_id)
 
-    ngohub_id: int = org.ngohub_org_id
-    ngohub_org = get_ngo_hub_data(ngohub_id)
+    ngohub_id: int = organization.ngohub_org_id
+    ngohub_org_data: Dict = get_ngo_hub_data(ngohub_id)
 
-    ngohub_general = ngohub_org.get("organizationGeneral", {})
-    ngohub_legal = ngohub_org.get("organizationLegal", {})
+    ngohub_general_data: Dict = ngohub_org_data.get("organizationGeneral", {})
+    ngohub_legal_data: Dict = ngohub_org_data.get("organizationLegal", {})
 
-    org.county = ngohub_general.get("county", {}).get("name", "")
-    city_name = ngohub_general.get("city", {}).get("name", "")
+    organization.county = ngohub_general_data.get("county", {}).get("name", "")
+    city_name = ngohub_general_data.get("city", {}).get("name", "")
     try:
-        city = City.objects.get(county=org.county, city=city_name)
+        city = City.objects.get(county=organization.county, city=city_name)
     except City.DoesNotExist:
         logger.error(f"ERROR: Cannot find city '{city_name}' in VotONG.")
     else:
-        org.city = city
+        organization.city = city
 
-    org.name = ngohub_general.get("name", "")
-    org.address = ngohub_general.get("address", "")
-    org.registration_number = ngohub_general.get("rafNumber", "")
+    organization.name = ngohub_general_data.get("name", "")
+    organization.address = ngohub_general_data.get("address", "")
+    organization.registration_number = ngohub_general_data.get("rafNumber", "")
 
     # Import the organization logo
-    logo_url = ngohub_general.get("logo", "")
-    logo_filename = remove_signature(logo_url)
-    if not logo_filename and org.logo:
-        org.logo.delete()
-    elif logo_filename != org.filename_cache.get("logo", ""):
-        r = requests.get(logo_url)
+    logo_url: str = ngohub_general_data.get("logo", "")
+    logo_filename: str = remove_signature(logo_url)
+    if not logo_filename and organization.logo:
+        organization.logo.delete()
+    elif logo_filename != organization.filename_cache.get("logo", ""):
+        r: Response = requests.get(logo_url)
         if r.status_code != 200:
-            print("Logo file request status = %s", r.status_code)
+            logger.info("Logo file request status = %s", r.status_code)
         else:
             ext = mimetypes.guess_extension(r.headers["content-type"])
             with tempfile.TemporaryFile() as fp:
                 fp.write(r.content)
                 fp.seek(0)
-                org.logo.save(f"logo{ext}", File(fp))
-            org.filename_cache["logo"] = logo_filename
+                organization.logo.save(f"logo{ext}", File(fp))
+            organization.filename_cache["logo"] = logo_filename
 
     # Import the organization statute
-    statute_url = ngohub_legal.get("organizationStatute", "")
-    statute_filename = remove_signature(statute_url)
-    if not statute_filename and org.statute:
-        org.statute.delete()
-    elif statute_filename != org.filename_cache.get("statute", ""):
-        r = requests.get(statute_url)
+    statute_url: str = ngohub_legal_data.get("organizationStatute", "")
+    statute_filename: str = remove_signature(statute_url)
+    if not statute_filename and organization.statute:
+        organization.statute.delete()
+    elif statute_filename != organization.filename_cache.get("statute", ""):
+        r: Response = requests.get(statute_url)
         if r.status_code != 200:
-            print("Statute file request status = %s", r.status_code)
+            logger.info("Statute file request status = %s", r.status_code)
         else:
             ext = mimetypes.guess_extension(r.headers["content-type"])
             with tempfile.TemporaryFile() as fp:
                 fp.write(r.content)
                 fp.seek(0)
-                org.statute.save(f"statute{ext}", File(fp))
-            org.filename_cache["statute"] = statute_filename
+                organization.statute.save(f"statute{ext}", File(fp))
+            organization.filename_cache["statute"] = statute_filename
 
-    org.email = ngohub_general.get("email", "")
-    org.phone = ngohub_general.get("phone", "")
-    org.description = ngohub_general.get("description", "")
+    organization.email = ngohub_general_data.get("email", "")
+    organization.phone = ngohub_general_data.get("phone", "")
+    organization.description = ngohub_general_data.get("description", "")
 
-    org.legal_representative_name = ngohub_legal.get("legalReprezentative", {}).get("fullName", "")
-    org.legal_representative_email = ngohub_legal.get("legalReprezentative", {}).get("email", "")
-    org.legal_representative_phone = ngohub_legal.get("legalReprezentative", {}).get("phone", "")
+    organization.legal_representative_name = ngohub_legal_data.get("legalReprezentative", {}).get("fullName", "")
+    organization.legal_representative_email = ngohub_legal_data.get("legalReprezentative", {}).get("email", "")
+    organization.legal_representative_phone = ngohub_legal_data.get("legalReprezentative", {}).get("phone", "")
 
-    org.board_council = ", ".join([director.get("fullName", "") for director in ngohub_legal.get("directors", [])])
+    organization.board_council = ", ".join(
+        [director.get("fullName", "") for director in ngohub_legal_data.get("directors", [])]
+    )
 
-    org.organization_head_name = "" if not org.organization_head_name else org.organization_head_name
+    organization.organization_head_name = (
+        "" if not organization.organization_head_name else organization.organization_head_name
+    )
 
-    if org.status == Organization.STATUS.draft:
-        org.status = Organization.STATUS.pending
+    if organization.status == Organization.STATUS.draft:
+        organization.status = Organization.STATUS.pending
 
-    org.save()
+    organization.save()
 
 
 def update_organization(organization_id: int):
