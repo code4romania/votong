@@ -460,7 +460,7 @@ Q_CLUSTER = {
     "workers": env.int("BACKGROUND_WORKERS_COUNT"),
     "recycle": 100,
     "timeout": 900,  # A task must finish in less than 15 minutes
-    "retry": 1200,  # Retry an unfinished tasks after 20 minutes
+    "retry": 1200,  # Retry an unfinished task after 20 minutes
     "ack_failures": True,
     "max_attempts": 2,
     "compress": True,

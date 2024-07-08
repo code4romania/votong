@@ -5,11 +5,13 @@ from typing import Dict
 
 import requests
 from django.conf import settings
+from django.core.cache import cache
 from django.core.files import File
 from django_q.tasks import async_task
 from pycognito import Cognito
 from requests import Response
 
+from civil_society_vote.common.cache import cache_decorator
 from hub.models import City, Organization
 
 logger = logging.getLogger(__name__)
@@ -46,7 +48,8 @@ def copy_file_from_to_organization(organization: Organization, signed_file_url: 
             organization.filename_cache[file_type] = filename
 
 
-def authenticate_with_ngohub():
+@cache_decorator(timeout=60 * 15, cache_key="authenticate_with_ngohub")
+def authenticate_with_ngohub() -> str:
     u = Cognito(
         user_pool_id=settings.AWS_COGNITO_USER_POOL_ID,
         client_id=settings.AWS_COGNITO_CLIENT_ID,
@@ -59,7 +62,7 @@ def authenticate_with_ngohub():
 
 
 def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
-    token = authenticate_with_ngohub()
+    token: str = authenticate_with_ngohub()
     auth_headers = {"Authorization": f"Bearer {token}"}
 
     request_url: str = settings.NGOHUB_API_BASE + f"/organization/{ngohub_org_id}"
