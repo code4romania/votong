@@ -1,0 +1,8 @@
+Bună ziua,
+
+Un număr de {{ nr_pending_orgs }} organizații așteaptă aprobarea voastră pe platforma VotONG.
+
+Accesați adresa {{ committee_org_list_url }} pentru a vizualiza ultimele aplicații.
+
+Vă mulțumim!
+Echipa VotONG

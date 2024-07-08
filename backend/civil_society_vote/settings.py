@@ -104,6 +104,7 @@ env = environ.Env(
     EMAIL_FAIL_SILENTLY=(bool, False),
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
+    # ngo hub api settings
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
     NGOHUB_API_KEY=(str, ""),
@@ -168,6 +169,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "django_crispy_bulma",
     "storages",
+    "django_q",
     "django_recaptcha",
     "file_resubmit",
     "rangefilter",
@@ -424,6 +426,7 @@ EMAIL_SEND_METHOD = env.str("EMAIL_SEND_METHOD")
 EMAIL_FAIL_SILENTLY = env.bool("EMAIL_FAIL_SILENTLY")
 
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
+CONTACT_EMAIL = env.str("CONTACT_EMAIL", default=DEFAULT_FROM_EMAIL)
 NO_REPLY_EMAIL = env.str("NO_REPLY_EMAIL")
 
 if EMAIL_BACKEND == "django_ses.SESBackend":

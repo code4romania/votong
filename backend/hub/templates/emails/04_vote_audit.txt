@@ -1,0 +1,5 @@
+{{ org }} a votat cu {{ candidate }} la {{ timestamp }}
+
+Organizație: {{ org_link }}
+
+Candidat: {{ candidate_link }}

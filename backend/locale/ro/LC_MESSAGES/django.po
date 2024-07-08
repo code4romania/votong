@@ -756,7 +756,7 @@ msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura dupa ce s-au inregistrat voturi."
 
 #: backend/hub/models.py:557
-msgid "Canditate votes"
+msgid "Candidate votes"
 msgstr "Voturi candidatură"
 
 #: backend/hub/models.py:558
@@ -764,7 +764,7 @@ msgid "Candidate vote"
 msgstr "Vot candidatură"
 
 #: backend/hub/models.py:581
-msgid "Canditate supporters"
+msgid "Candidate supporters"
 msgstr "Susținători candidatură"
 
 #: backend/hub/models.py:582
@@ -772,7 +772,7 @@ msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
 #: backend/hub/models.py:596
-msgid "Canditate confirmations"
+msgid "Candidate confirmations"
 msgstr "Confirmări candidatură"
 
 #: backend/hub/models.py:597

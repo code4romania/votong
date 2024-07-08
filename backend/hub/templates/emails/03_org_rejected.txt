@@ -1,0 +1,10 @@
+Bună {{ representative }},
+
+Organizația "{{ name }}" a fost respinsă din platforma VotONG.
+
+{% if rejection_message %}
+Motivul respingerii: "{{ rejection_message }}"
+{% endif %}
+
+Va mulțumim!
+Echipa VotONG

@@ -1,7 +1,6 @@
 import logging
 
 from ckeditor_uploader.fields import RichTextUploadingField
-from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -15,7 +14,6 @@ from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
 from accounts.models import User
-
 
 # NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
 STAFF_GROUP = "Code4Romania Staff"
@@ -99,14 +97,6 @@ FLAG_CHOICES = Choices(
     ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
 )
 
-EMAIL_TEMPLATE_CHOICES = Choices(
-    ("pending_orgs_digest", _("Pending organizations digest email")),
-    ("org_approved", _("Your organization was approved")),
-    ("org_rejected", _("Your organization was rejected")),
-    ("vote_audit", _("Vote audit log")),
-    ("confirmation", _("Confirmation email")),
-)
-
 
 def get_feature_flag(flag_choice: str) -> bool:
     if not flag_choice or flag_choice not in FLAG_CHOICES:
@@ -164,19 +154,6 @@ class BlogPost(TimeStampedModel):
 
     def __str__(self):
         return self.title
-
-
-class EmailTemplate(TimeStampedModel):
-    template = models.CharField(_("Template"), choices=EMAIL_TEMPLATE_CHOICES, max_length=254, unique=True)
-    text_content = models.TextField(_("Text content"))
-    html_content = RichTextField(_("HTML content"), blank=True)
-
-    class Meta:
-        verbose_name = _("Email template")
-        verbose_name_plural = _("Email templates")
-
-    def __str__(self):
-        return f"{EMAIL_TEMPLATE_CHOICES[self.template]}"
 
 
 class Domain(TimeStampedModel):
@@ -459,9 +436,7 @@ class Candidate(StatusModel, TimeStampedModel):
         ("rejected", _("Rejected")),
     )
 
-    org = models.OneToOneField(
-        "Organization", on_delete=models.CASCADE, related_name="candidate", null=True, blank=True
-    )
+    org = models.OneToOneField(Organization, on_delete=models.CASCADE, related_name="candidate", null=True, blank=True)
     initial_org = models.ForeignKey(
         "Organization",
         on_delete=models.CASCADE,
@@ -546,6 +521,7 @@ class Candidate(StatusModel, TimeStampedModel):
         # in the same time keeping the old candidate record and backwards compatibility with the one-to-one relations
         # that are used in the rest of the codebase.
         # TODO: Refactor this flow to make it less hacky and have a single relationship back to organization.
+        self.org: Organization
         if self.id and self.initial_org:
             self.org = None
             self.is_proposed = False
@@ -565,7 +541,7 @@ class CandidateVote(TimeStampedModel):
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
     class Meta:
-        verbose_name_plural = _("Canditate votes")
+        verbose_name_plural = _("Candidate votes")
         verbose_name = _("Candidate vote")
         constraints = [
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
@@ -604,7 +580,7 @@ class CandidateConfirmation(TimeStampedModel):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="confirmations")
 
     class Meta:
-        verbose_name_plural = _("Canditate confirmations")
+        verbose_name_plural = _("Candidate confirmations")
         verbose_name = _("Candidate confirmation")
         constraints = [
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),

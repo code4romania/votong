@@ -751,7 +751,7 @@ msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
 #: backend/hub/models.py:557
-msgid "Canditate votes"
+msgid "Candidate votes"
 msgstr ""
 
 #: backend/hub/models.py:558
@@ -759,7 +759,7 @@ msgid "Candidate vote"
 msgstr ""
 
 #: backend/hub/models.py:581
-msgid "Canditate supporters"
+msgid "Candidate supporters"
 msgstr ""
 
 #: backend/hub/models.py:582
@@ -767,7 +767,7 @@ msgid "Candidate supporter"
 msgstr ""
 
 #: backend/hub/models.py:596
-msgid "Canditate confirmations"
+msgid "Candidate confirmations"
 msgstr ""
 
 #: backend/hub/models.py:597
