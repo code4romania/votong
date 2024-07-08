@@ -32,6 +32,7 @@ from hub.models import (
     Organization,
     get_feature_flag,
 )
+from hub.workers.update_organization import update_organization
 
 
 class NoUsernameUserAdmin(UserAdmin):
@@ -85,6 +86,11 @@ class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
 
 
+def update_organizations(modeladmin, request, queryset):
+    for org in queryset:
+        update_organization(org.id)
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = (
@@ -101,6 +107,8 @@ class OrganizationAdmin(admin.ModelAdmin):
     readonly_fields = ["status_changed"]
     autocomplete_fields = ["city"]
     list_per_page = 20
+
+    actions = (update_organizations,)
 
     def has_add_permission(self, request):
         return False

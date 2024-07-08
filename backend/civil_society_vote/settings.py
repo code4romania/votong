@@ -52,6 +52,7 @@ env = environ.Env(
     AWS_SES_INCLUDE_REPORTS=(bool, False),
     AWS_SES_CONFIGURATION_SET_NAME=(str, None),
     AWS_COGNITO_DOMAIN=(str, ""),
+    AWS_COGNITO_USER_POOL_ID=(str, ""),
     AWS_COGNITO_CLIENT_ID=(str, ""),
     AWS_COGNITO_CLIENT_SECRET=(str, ""),
     # azure settings
@@ -459,7 +460,7 @@ Q_CLUSTER = {
     "workers": env.int("BACKGROUND_WORKERS_COUNT"),
     "recycle": 100,
     "timeout": 900,  # A task must finish in less than 15 minutes
-    "retry": 1200,  # Retry an unfinished tasks after 20 minutes
+    "retry": 1200,  # Retry an unfinished task after 20 minutes
     "ack_failures": True,
     "max_attempts": 2,
     "compress": True,
@@ -570,6 +571,10 @@ SOCIALACCOUNT_STORE_TOKENS = False
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
+
+AWS_COGNITO_USER_POOL_ID = env("AWS_COGNITO_USER_POOL_ID")
+AWS_COGNITO_CLIENT_ID = env("AWS_COGNITO_CLIENT_ID")
+AWS_COGNITO_CLIENT_SECRET = env("AWS_COGNITO_CLIENT_SECRET")
 
 # Allow Organization data overwrite from VotONG forms (should be False)
 NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
