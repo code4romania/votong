@@ -81,10 +81,6 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
         org.filename_cache = {}
 
     auth_headers = {"Authorization": f"Bearer {token}"}
-
-    # ngohub_user = requests.get(settings.NGOHUB_API_BASE + "api/ong-user/", headers=auth_headers).json()
-    # print(ngohub_user)
-
     ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
 
     # Check that an NGO Hub organization appears only once in VotONG
@@ -119,7 +115,7 @@ def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
     """
 
     social = kwargs.get("sociallogin")
-    org = Organization.objects.filter(user=social.user).last()
+    org = Organization.objects.filter(user=social.user).first()
     if not org:
         org = create_blank_org(social.user)
 
