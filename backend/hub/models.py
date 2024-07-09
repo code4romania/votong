@@ -211,114 +211,120 @@ class Organization(StatusModel, TimeStampedModel):
 
     ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organization ID"), default=0, db_index=True)
 
-    name = models.CharField(_("NGO Name"), max_length=254)
-    county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50)
-    city = models.ForeignKey("City", on_delete=models.PROTECT, null=True, verbose_name=_("City"))
-    address = models.CharField(_("Address"), max_length=254)
-    registration_number = models.CharField(_("Registration number"), max_length=20)
+    name = models.CharField(_("NGO Name"), max_length=254, blank=True, default="")
+    county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50, blank=True, default="")
+    city = models.ForeignKey(
+        "City", on_delete=models.PROTECT, null=True, verbose_name=_("City"), blank=True, default=""
+    )
+    address = models.CharField(_("Address"), max_length=254, blank=True, default="")
+    registration_number = models.CharField(_("Registration number"), max_length=20, blank=True, default="")
 
-    email = models.EmailField(_("Organization Email"))
-    phone = models.CharField(_("Organization Phone"), max_length=30, null=True, blank=True)
-    description = models.TextField(_("Short Description"), null=True, blank=True)
+    email = models.EmailField(_("Organization Email"), blank=True, default="")
+    phone = models.CharField(_("Organization Phone"), max_length=30, blank=True, default="")
+    description = models.TextField(_("Short Description"), blank=True, default="")
 
-    legal_representative_name = models.CharField(_("Legal Representative Name"), max_length=254)
-    legal_representative_email = models.EmailField(_("Legal Representative Email"))
-    legal_representative_phone = models.CharField(_("Legal Representative Phone"), max_length=30, null=True, blank=True)
+    legal_representative_name = models.CharField(_("Legal Representative Name"), max_length=254, blank=True, default="")
+    legal_representative_email = models.EmailField(_("Legal Representative Email"), blank=True, default="")
+    legal_representative_phone = models.CharField(
+        _("Legal Representative Phone"), max_length=30, blank=True, default=""
+    )
 
-    organization_head_name = models.CharField(_("Organization Head Name"), default="", max_length=254)
-    board_council = models.CharField(_("Board council"), max_length=512)
-    logo = models.ImageField(_("Logo"), max_length=300, storage=select_public_storage)
+    organization_head_name = models.CharField(_("Organization Head Name"), max_length=254, blank=True, default="")
+    board_council = models.CharField(_("Board council"), max_length=512, blank=True, default="")
+    logo = models.FileField(_("Logo"), max_length=300, storage=select_public_storage, blank=True, default="")
 
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet for %(CURRENT_EDITION_YEAR)s")
         % {"CURRENT_EDITION_YEAR": str(settings.CURRENT_EDITION_YEAR)},
-        null=True,
+        blank=True,
+        default="",
         max_length=300,
     )
     statute = models.FileField(
         _("NGO Statute"),
-        null=True,
+        blank=True,
+        default="",
         max_length=300,
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
 
     report_2023 = models.FileField(
         _("Yearly report 2023"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
     report_2022 = models.FileField(
         _("Yearly report 2022"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
     report_2021 = models.FileField(
         _("Yearly report 2021"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
 
     report_2020 = models.FileField(
         _("Yearly report 2020"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
     report_2019 = models.FileField(
         _("Yearly report 2019"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
     report_2018 = models.FileField(
         _("Yearly report 2018"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
     report_2017 = models.FileField(
         _("Yearly report 2017"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
     )
 
     statement_discrimination = models.FileField(
         _("Non-discrimination statement"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
     )
     statement_political = models.FileField(
         _("Non-political statement"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text="Declarație pe propria răspundere prin care declar că ONG-ul nu are între membrii conducerii organizației (Președinte sau Consiliul Director) membri ai conducerii unui partid politic sau persoane care au fost alese într-o funcție publică.",
     )
 
     fiscal_certificate_anaf = models.FileField(
         _("Fiscal certificate ANAF"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text="Certificat fiscal emis de ANAF",
     )
     fiscal_certificate_local = models.FileField(
         _("Fiscal certificate local"),
-        null=True,
         blank=True,
+        default="",
         max_length=300,
         help_text="Certificat fiscal emis de Direcția de Impozite și Taxe Locale",
     )
@@ -359,6 +365,26 @@ class Organization(StatusModel, TimeStampedModel):
         return True
 
     @property
+    def required_fields(self):
+        return (
+            "name",
+            "county",
+            "city",
+            "organization_head_name",
+            "address",
+            "registration_number",
+            "email",
+            "phone",
+            "description",
+            "legal_representative_name",
+            "legal_representative_email",
+            "board_council",
+            "logo",
+            "last_balance_sheet",
+            "statute",
+        )
+
+    @property
     def is_complete(self):
         """
         Validate that the Org uploaded all the requested info to propose a Candidate
@@ -379,6 +405,7 @@ class Organization(StatusModel, TimeStampedModel):
                 self.fiscal_certificate_local,
             ]
             + required_reports
+            + list(self.required_fields)
         )
 
     def get_absolute_url(self):
