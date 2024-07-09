@@ -92,7 +92,6 @@ env = environ.Env(
     RECAPTCHA_PRIVATE_KEY=(str, ""),
     # TODO Settings Cleanup:
     ANALYTICS_ENABLED=(bool, False),
-    NGOHUB_ORG_OVERWRITE=(bool, False),
     ORGANIZATION_UPDATE_THRESHOLD=(int, 10),
     ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
@@ -579,8 +578,7 @@ AWS_COGNITO_USER_POOL_ID = env("AWS_COGNITO_USER_POOL_ID")
 AWS_COGNITO_CLIENT_ID = env("AWS_COGNITO_CLIENT_ID")
 AWS_COGNITO_CLIENT_SECRET = env("AWS_COGNITO_CLIENT_SECRET")
 
-# Allow Organization data to overwrite from VotONG forms (should be False)
-NGOHUB_ORG_OVERWRITE = env("NGOHUB_ORG_OVERWRITE")
+# How often to check for updated organizations
 ORGANIZATION_UPDATE_THRESHOLD = env.int("ORGANIZATION_UPDATE_THRESHOLD", 10)
 
 # Enable the organization registration form in order to sidestep NGO Hub (should be False)

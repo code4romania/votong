@@ -361,7 +361,7 @@ class Organization(StatusModel, TimeStampedModel):
         """
         Organizations managed elsewhere (ie: on NGO Hub) should not be fully editable here
         """
-        if self.ngohub_org_id and not settings.NGOHUB_ORG_OVERWRITE:
+        if self.ngohub_org_id:
             return False
         return True
 
