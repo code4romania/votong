@@ -204,6 +204,7 @@ class Organization(StatusModel, TimeStampedModel):
         # ("ineligible", _("Ineligible to vote")),
         # ("disabled", _("Disabled")),
     )
+    status = models.CharField(_("Status"), choices=STATUS, default=STATUS.draft, max_length=30, db_index=True)
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
@@ -483,6 +484,7 @@ class Candidate(StatusModel, TimeStampedModel):
         ("accepted", _("Accepted")),
         ("rejected", _("Rejected")),
     )
+    status = models.CharField(_("Status"), choices=STATUS, default=STATUS.pending, max_length=30, db_index=True)
 
     org = models.OneToOneField(Organization, on_delete=models.CASCADE, related_name="candidate", null=True, blank=True)
     initial_org = models.ForeignKey(
