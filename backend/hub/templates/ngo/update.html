@@ -40,8 +40,10 @@
 
 <h2 class="title border-b uppercase">Profilul organizației</h2>
 
+{% if organization.status == 'accepted' %}
 <a href="{% url 'ngo-detail' organization.id %}">Vezi profilul public al organizației</a>
 <br><br>
+{% endif %}
 
 <div class="container">
     {% if messages %}
