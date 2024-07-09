@@ -80,7 +80,7 @@ urlpatterns_simple = [
     path(
         "allauth/login/", RedirectView.as_view(url="/allauth/amazon-cognito/login/", permanent=True)
     ),  # Skip the provider selector page and redirect to Cognito
-    path("allauth/", include("allauth.urls"))
+    path("allauth/", include("allauth.urls")),
 ]
 
 urlpatterns = urlpatterns_i18n + urlpatterns_simple
