@@ -23,9 +23,9 @@ urlpatterns_i18n = i18n_patterns(
         name="terms",
     ),
     path(
-        _("comittee_public_statement/"),
+        _("committee_public_statement/"),
         StaticPageView.as_view(template_name="comittee_statement.html"),
-        name="comittee_public_statement",
+        name="committee_public_statement",
     ),
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
