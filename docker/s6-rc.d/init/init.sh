@@ -63,3 +63,7 @@ if is_enabled "${RUN_LOAD_DUMMY_DATA:-False}"; then
   echo "Load dummy data in the database"
   ./manage.py seed
 fi
+
+# Start the schedules
+echo "Starting the organizations update schedule"
+./manage.py start_organization_update_schedule

@@ -1,11 +1,13 @@
 import logging
 import mimetypes
 import tempfile
-from typing import Dict
+from typing import Dict, List
 
 import requests
 from django.conf import settings
 from django.core.files import File
+from django.utils import timezone
+from django_q.models import Schedule
 from django_q.tasks import async_task
 from pycognito import Cognito
 from requests import Response
@@ -15,6 +17,9 @@ from hub.exceptions import OrganizationRetrievalHTTPException
 from hub.models import City, Organization
 
 logger = logging.getLogger(__name__)
+
+
+ORGANIZATION_UPDATE_SCHEDULE_ID = "ORGANIZATION-UPDATE-SCHEDULE"
 
 
 def remove_signature(s3_url: str) -> str:
@@ -55,6 +60,7 @@ def authenticate_with_ngohub() -> str:
         client_id=settings.AWS_COGNITO_CLIENT_ID,
         client_secret=settings.AWS_COGNITO_CLIENT_SECRET,
         username=settings.NGOHUB_API_ACCOUNT,
+        user_pool_region=settings.AWS_COGNITO_REGION,
     )
     u.authenticate(password=settings.NGOHUB_API_KEY)
 
@@ -75,6 +81,8 @@ def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
 
 
 def update_organization_process(organization_id: int):
+    errors: List[str] = []
+
     organization: Organization = Organization.objects.get(id=organization_id)
 
     ngohub_id: int = organization.ngohub_org_id
@@ -88,7 +96,9 @@ def update_organization_process(organization_id: int):
     try:
         city = City.objects.get(county=organization.county, city=city_name)
     except City.DoesNotExist:
-        logger.error(f"ERROR: Cannot find city '{city_name}' in VotONG.")
+        error_message: str = f"ERROR: Cannot find city '{city_name}' received from NGO Hub in Vot ONG."
+        errors.append(error_message)
+        logger.error(error_message)
     else:
         organization.city = city
 
@@ -125,10 +135,73 @@ def update_organization_process(organization_id: int):
 
     organization.save()
 
+    task_result: Dict[str, any] = {"organization_id": organization_id}
+    if errors:
+        task_result["errors"] = errors
+
+    return task_result
+
 
 def update_organization(organization_id: int):
     """
     Update the organization with the given ID asynchronously.
     """
-
     async_task(update_organization_process, organization_id)
+
+
+def update_outdated_organizations():
+    """
+    Update a threshold of organizations that have not been updated in the last 7 days.
+    """
+    limit: int = settings.ORGANIZATION_UPDATE_THRESHOLD or 10
+    organizations_per_week: int = limit * 24 * 7
+    if (organizations_count := Organization.objects.count()) >= organizations_per_week:
+        logger.error(
+            f"There are {organizations_count} organizations to update "
+            f"but only {organizations_per_week} can be processed weekly. "
+            f"Please increase the threshold from {limit} to allow all organizations to be updated."
+        )
+
+    last_7_days = timezone.now() - timezone.timedelta(days=7)
+    accepted_statuses = (Organization.STATUS.accepted, Organization.STATUS.pending)
+    organizations = Organization.objects.filter(
+        modified__lte=last_7_days,
+        status__in=accepted_statuses,
+    ).order_by(
+        "modified"
+    )[:limit]
+
+    organizations_ids: List[int] = []
+    if not organizations:
+        logger.info("No outdated organizations found.")
+        return organizations_ids
+
+    for organization in organizations:
+        logger.info(f"Starting update for organization {organization.id}")
+        update_organization(organization.id)
+
+        organizations_ids.append(organization.id)
+
+    logger.info(f"Updated {len(organizations)} organizations.")
+
+    return organizations_ids
+
+
+def start_organization_update_schedule():
+    """
+    Schedule a task to update organizations to run at 10 minutes past every hour.
+
+    Delete any existing such tasks before adding the new schedule.
+    """
+    Schedule.objects.filter(name=ORGANIZATION_UPDATE_SCHEDULE_ID).delete()
+
+    cron_every_hour_at_past_10 = "45 */1 * * *"
+
+    Schedule.objects.get_or_create(
+        name=ORGANIZATION_UPDATE_SCHEDULE_ID,
+        func="hub.workers.update_organization.update_outdated_organizations",
+        schedule_type=Schedule.CRON,
+        cron=cron_every_hour_at_past_10,
+        repeats=-1,
+        next_run=timezone.now() + timezone.timedelta(seconds=30),
+    )
