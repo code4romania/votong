@@ -278,11 +278,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         return reverse("ngo-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        org = self.get_object()
-        if org and org.id and org.edit_only_on_nghohub:
-            raise PermissionDenied
-        else:
-            return super().post(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
 
 
 @permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))

@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
+from django.views.generic.base import RedirectView
 
 from civil_society_vote.views import StaticPageView
 
@@ -75,7 +76,12 @@ urlpatterns_i18n = i18n_patterns(
     path("", include("hub.urls")),
 )
 
-urlpatterns_simple = [path("allauth/", include("allauth.urls"))]
+urlpatterns_simple = [
+    path(
+        "allauth/login/", RedirectView.as_view(url="/allauth/amazon-cognito/login/", permanent=True)
+    ),  # Skip the provider selector page and redirect to Cognito
+    path("allauth/", include("allauth.urls")),
+]
 
 urlpatterns = urlpatterns_i18n + urlpatterns_simple
 

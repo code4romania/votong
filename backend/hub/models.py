@@ -350,13 +350,13 @@ class Organization(StatusModel, TimeStampedModel):
             return ""
 
     @property
-    def edit_only_on_nghohub(self):
+    def is_fully_editable(self):
         """
-        Organizations managed elsewhere (ie: on NGO Hub) should not be editable here
+        Organizations managed elsewhere (ie: on NGO Hub) should not be fully editable here
         """
         if self.ngohub_org_id and not settings.NGOHUB_ORG_OVERWRITE:
-            return True
-        return False
+            return False
+        return True
 
     @property
     def is_complete(self):
