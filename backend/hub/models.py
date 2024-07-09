@@ -426,7 +426,7 @@ class Organization(StatusModel, TimeStampedModel):
 
 class CandidatesWithOrgManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().exclude(org=None)
+        return super().get_queryset().exclude(org=None).exclude(org__status=Organization.STATUS.draft)
 
 
 class Candidate(StatusModel, TimeStampedModel):
