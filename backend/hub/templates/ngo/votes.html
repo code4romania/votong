@@ -22,7 +22,7 @@
     <li>
     {% if user.orgs.first.candidate %}
       <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatura mea</a>
-    {% else %}
+    {% elif CANDIDATE_REGISTRATION_ENABLED %}
       <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
     {% endif %}
     </li>
