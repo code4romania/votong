@@ -9,11 +9,11 @@ from django.utils.translation import gettext_lazy as _
 from civil_society_vote.views import StaticPageView
 
 admin.site.site_title = _("Admin Civil Society Vote")
-admin.site.site_header = _("Admin Civil Society Vote")
+admin.site.site_header = _("Admin Civil Society Vote") + f" | {settings.VERSION}@{settings.REVISION}"
 admin.site.index_title = _("Admin Civil Society Vote")
 
 
-urlpatterns = i18n_patterns(
+urlpatterns_i18n = i18n_patterns(
     path(_("about/"), StaticPageView.as_view(template_name="about.html"), name="about"),
     path(_("rules/"), StaticPageView.as_view(template_name="rules.html"), name="rules"),
     path(
@@ -72,9 +72,12 @@ urlpatterns = i18n_patterns(
         name="password_reset_complete",
     ),
     path("me/", include("accounts.urls")),
-    path("allauth/", include("allauth.urls")),
     path("", include("hub.urls")),
 )
+
+urlpatterns_simple = [path("allauth/", include("allauth.urls"))]
+
+urlpatterns = urlpatterns_i18n + urlpatterns_simple
 
 if settings.DEBUG:
     import debug_toolbar
