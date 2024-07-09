@@ -118,25 +118,6 @@ class OrganizationCreateForm(forms.ModelForm):
 class OrganizationUpdateForm(forms.ModelForm):
     field_order = ORG_FIELD_ORDER
 
-    # If the organization is managed through NGO Hub, then these fields should not be editable here
-    ngohub_fields = (
-        "address",
-        "board_council",
-        "city",
-        "county",
-        "description",
-        "email",
-        "legal_representative_email",
-        "legal_representative_name",
-        "legal_representative_phone",
-        "logo",
-        "name",
-        "organization_head_name",
-        "phone",
-        "registration_number",
-        "statute",
-    )
-
     class Meta:
         model = Organization
         exclude = [
@@ -152,6 +133,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             "email": forms.widgets.TextInput(),  # EmailInput(),
             "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
             "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
+            "logo": forms.widgets.TextInput(),  # EmailInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -165,10 +147,15 @@ class OrganizationUpdateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
-        if self.instance and not self.instance.is_fully_editable:
-            for field_name in self.fields:
-                if field_name in self.ngohub_fields:
-                    self.fields[field_name].disabled = True
+        if self.instance:
+            if self.instance.is_fully_editable:
+                for field_name in self.fields:
+                    if field_name in Organization.required_fields():
+                        self.fields[field_name].required = True
+            else:
+                for field_name in self.fields:
+                    if field_name in Organization.ngohub_fields():
+                        self.fields[field_name].disabled = True
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
