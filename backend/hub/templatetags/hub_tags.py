@@ -19,12 +19,7 @@ register = template.Library()
 
 @register.filter
 def cant_vote(user, candidate):
-    orgs = Organization.objects.filter(user=user)
-
-    if not orgs:
-        return True
-
-    if any(org.status == "accepted" for org in orgs):
+    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
         return False
     else:
         return True
@@ -44,12 +39,7 @@ def can_vote_candidate(user, candidate):
 
 @register.filter
 def can_support_candidate(user):
-    orgs = Organization.objects.filter(user=user)
-
-    if not orgs:
-        return False
-
-    if any(org.status == "accepted" for org in orgs):
+    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
         return True
     else:
         return False
