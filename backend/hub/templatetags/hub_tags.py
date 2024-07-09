@@ -89,7 +89,7 @@ def votes_per_candidate(candidate):
 @register.filter
 def candidates_in_domain(domain):
     return (
-        Candidate.objects.filter(domain=domain, status="accepted", is_proposed=True)
+        Candidate.objects.filter(domain=domain, status=Candidate.STATUS.accepted, is_proposed=True)
         .annotate(votes_count=Count("votes", distinct=True))
         .order_by("-votes_count")
     )
