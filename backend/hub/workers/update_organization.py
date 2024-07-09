@@ -11,6 +11,7 @@ from pycognito import Cognito
 from requests import Response
 
 from civil_society_vote.common.cache import cache_decorator
+from hub.exceptions import OrganizationRetrievalHTTPException
 from hub.models import City, Organization
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ def copy_file_from_to_organization(organization: Organization, signed_file_url: 
         getattr(organization, file_type).delete()
     elif filename != organization.filename_cache.get(file_type, ""):
         r: Response = requests.get(signed_file_url)
-        if r.status_code != 200:
+        if r.status_code != requests.codes.ok:
             logger.info(f"{file_type.upper()} file request status = {r.status_code}")
         else:
             extension: str = mimetypes.guess_extension(r.headers["content-type"])
@@ -66,6 +67,9 @@ def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
 
     request_url: str = settings.NGOHUB_API_BASE + f"/organization/{ngohub_org_id}"
     response: Response = requests.get(request_url, headers=auth_headers)
+
+    if response.status_code != requests.codes.ok:
+        raise OrganizationRetrievalHTTPException
 
     return response.json()
 
