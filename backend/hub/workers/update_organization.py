@@ -45,6 +45,9 @@ def copy_file_from_to_organization(organization: Organization, signed_file_url: 
             logger.info(f"{file_type.upper()} file request status = {r.status_code}")
         else:
             extension: str = mimetypes.guess_extension(r.headers["content-type"])
+            # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
+            if extension == ".bin":
+                extension = ""
             with tempfile.TemporaryFile() as fp:
                 fp.write(r.content)
                 fp.seek(0)
