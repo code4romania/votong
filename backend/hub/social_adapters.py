@@ -14,9 +14,15 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from accounts.models import User
-from hub.exceptions import ClosedRegistrationException, DuplicateOrganizationException, MissingOrganizationException
+from hub.exceptions import (
+    ClosedRegistrationException,
+    DuplicateOrganizationException,
+    MissingOrganizationException,
+    OrganizationRetrievalHTTPException,
+)
 from hub.models import FeatureFlag, NGO_GROUP, Organization
 from hub.workers.update_organization import update_organization
+
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +87,12 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
         org.filename_cache = {}
 
     auth_headers = {"Authorization": f"Bearer {token}"}
-    ngohub_org = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers).json()
+    response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
+
+    if response.status_code != requests.codes.ok:
+        raise OrganizationRetrievalHTTPException
+
+    ngohub_org = response.json()
 
     # Check that an NGO Hub organization appears only once in VotONG
     ngohub_id = ngohub_org.get("id", 0)

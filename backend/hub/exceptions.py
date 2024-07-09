@@ -26,3 +26,9 @@ class MissingOrganizationException(OrganizationException):
     """The requested organization does not exist"""
 
     pass
+
+
+class OrganizationRetrievalHTTPException(OrganizationException):
+    """The requested organization could not be retrieved from NGO Hub"""
+
+    pass
