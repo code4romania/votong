@@ -42,6 +42,7 @@ from hub.models import (
     STAFF_GROUP,
     SUPPORT_GROUP,
 )
+from hub.workers.update_organization import update_organization
 
 
 class MenuMixin:
@@ -543,6 +544,20 @@ def candidate_status_confirm(request, pk):
     confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
 
     return redirect("candidate-detail", pk=pk)
+
+
+@permission_required_or_403("hub.change_organization", (Organization, "pk", "pk"))
+def update_organization_information(request, pk):
+    organization_last_update = Organization.objects.get(pk=pk).modified
+    update_threshold = timezone.now() - timezone.timedelta(minutes=5)
+    if organization_last_update > update_threshold:
+        messages.error(request, _("Please wait a few minutes before updating the organization again."))
+        return redirect("ngo-detail", pk=pk)
+
+    update_organization(pk)
+
+    return_url = request.GET.get("return_url", "")
+    return redirect(return_url or reverse("ngo-detail", args=(pk,)))
 
 
 class CityAutocomplete(View):
