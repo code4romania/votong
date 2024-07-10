@@ -269,35 +269,6 @@ class Organization(StatusModel, TimeStampedModel):
         help_text=REPORTS_HELP_TEXT,
     )
 
-    report_2020 = models.FileField(
-        _("Yearly report 2020"),
-        blank=True,
-        default="",
-        max_length=300,
-        help_text=REPORTS_HELP_TEXT,
-    )
-    report_2019 = models.FileField(
-        _("Yearly report 2019"),
-        blank=True,
-        default="",
-        max_length=300,
-        help_text=REPORTS_HELP_TEXT,
-    )
-    report_2018 = models.FileField(
-        _("Yearly report 2018"),
-        blank=True,
-        default="",
-        max_length=300,
-        help_text=REPORTS_HELP_TEXT,
-    )
-    report_2017 = models.FileField(
-        _("Yearly report 2017"),
-        blank=True,
-        default="",
-        max_length=300,
-        help_text=REPORTS_HELP_TEXT,
-    )
-
     statement_discrimination = models.FileField(
         _("Non-discrimination statement"),
         blank=True,
