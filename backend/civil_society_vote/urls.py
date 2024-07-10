@@ -3,7 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import RedirectView
 
@@ -77,9 +77,11 @@ urlpatterns_i18n = i18n_patterns(
 )
 
 urlpatterns_simple = [
+    # Skip the login provider selector page and redirect to Cognito
     path(
-        "allauth/login/", RedirectView.as_view(url="/allauth/amazon-cognito/login/", permanent=True)
-    ),  # Skip the provider selector page and redirect to Cognito
+        "allauth/login/",
+        RedirectView.as_view(url=reverse("amazon_cognito_login", urlconf="allauth.urls"), permanent=True),
+    ),
     path("allauth/", include("allauth.urls")),
 ]
 
