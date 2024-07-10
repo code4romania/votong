@@ -95,6 +95,9 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     organization: Organization = Organization.objects.get(id=organization_id)
 
+    organization.ngohub_last_update_started = timezone.now()
+    organization.save()
+
     if not organization.filename_cache:
         organization.filename_cache = {}
 
@@ -146,7 +149,7 @@ def update_organization_process(organization_id: int, token: str = ""):
     if organization.status == Organization.STATUS.draft:
         organization.status = Organization.STATUS.pending
 
-    organization.ngohub_last_update = timezone.now()
+    organization.ngohub_last_update_ended = timezone.now()
 
     organization.save()
 

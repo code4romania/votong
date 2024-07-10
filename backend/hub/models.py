@@ -334,7 +334,8 @@ class Organization(StatusModel, TimeStampedModel):
 
     filename_cache = models.JSONField(_("Filename cache"), editable=False, default=dict, blank=False, null=False)
 
-    ngohub_last_update = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
+    ngohub_last_update_started = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
+    ngohub_last_update_ended = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
 
     class Meta:
         verbose_name_plural = _("Organizations")

@@ -1,3 +1,4 @@
+from datetime import datetime
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -548,16 +549,22 @@ def candidate_status_confirm(request, pk):
 
 @permission_required_or_403("hub.change_organization", (Organization, "pk", "pk"))
 def update_organization_information(request, pk):
-    organization_last_update = Organization.objects.get(pk=pk).ngohub_last_update
-    update_threshold = timezone.now() - timezone.timedelta(minutes=5)
+    return_url = request.GET.get("return_url", "")
+    redirect_path = return_url or reverse("ngo-update", args=(pk,))
+
+    organization: Organization = Organization.objects.get(pk=pk)
+    organization_last_update: datetime = organization.ngohub_last_update_started
+    update_threshold: datetime = timezone.now() - timezone.timedelta(minutes=5)
     if organization_last_update and organization_last_update > update_threshold:
         messages.error(request, _("Please wait a few minutes before updating the organization again."))
-        return redirect("ngo-detail", pk=pk)
+        return redirect(redirect_path)
+
+    organization.ngohub_last_update_started = timezone.now()
+    organization.save()
 
     update_organization(pk)
 
-    return_url = request.GET.get("return_url", "")
-    return redirect(return_url or reverse("ngo-detail", args=(pk,)))
+    return redirect(redirect_path)
 
 
 class CityAutocomplete(View):

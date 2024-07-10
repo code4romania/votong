@@ -54,19 +54,27 @@
           {% endfor %}
         </div>
       </article>
-    {% else %}
+    {% endif %}
 
-      {% if not organization.is_fully_editable %}
-        <div class="message is-warning message-body flex-align-center">
-          <form id="update-ngo-form" method="post"
+    {% if not organization.is_fully_editable %}
+      <div class="message is-warning">
+        <div class="message-body flex-align-center">
+          <form id="update-ngo-form"
+                method="post"
                 action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
             {% csrf_token %}
-            <button class="button is-warning is-small" type="submit" title="{% trans 'Refresh NGO Information' %}"><i class="fas fa-sync"></i></button>
+            <button class="button is-warning is-small update-ngo-button"
+                    type="submit"
+                    title="{% trans 'Refresh NGO Information' %}">
+              <i class="fas fa-sync"></i>
+            </button>
           </form>
-          &nbsp; 
-          Unele date din profilul acestei organizații pot fi actualizate doar prin NGO Hub.
+
+          <p class="has-text-grey-dark">
+            Unele date din profilul acestei organizații pot fi actualizate doar prin NGO Hub.
+          </p>
         </div>
-      {% endif %}
+      </div>
 
       <form class="ces-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
