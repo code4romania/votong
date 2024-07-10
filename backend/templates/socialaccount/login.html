@@ -24,17 +24,22 @@
     {% endif %}
     {% endcomment %}
 
+    <h1 id="allauth-login-title" class="">{% trans "Redirecting to authentication..." %}</h1>
+
     <div id="allauth-login-form-container">
     {% element form method="post" no_visible_fields=True %}
         {% slot actions %}
             {% csrf_token %}
-            <input class="button is-success" type="submit" value="{% trans "Sign In" %}">
+            <input class="button is-success is-hidden" id="allauth-login-button" type="submit" value="{% trans "or click here to sign in" %}">
         {% endslot %}
     {% endelement %}
     </div>
     <script>
         jQuery(document).ready(function() {
             jQuery("#allauth-login-form-container > form").trigger("submit");
+            setTimeout(function() { 
+                $("#allauth-login-button").removeClass("is-hidden");
+            }, 10000);
         });
     </script>
 {% endblock content %}

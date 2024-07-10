@@ -14,6 +14,8 @@
     {% endelement %}
     {% endcomment %}
     
+    <h1 id="allauth-logout-title" class="">{% trans "Redirecting to sign out..." %}</h1>
+
     {% url 'account_logout' as action_url %}
     <div id="allauth-logout-form-container">
     {% element form method="post" action=action_url no_visible_fields=True %}
@@ -22,13 +24,16 @@
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
-            <input class="button is-success" type="submit" value="{% trans "Sign Out" %}">
+            <input class="button is-success is-hidden" id="allauth-logout-button" type="submit" value="{% trans "or click here to sign out" %}">
         {% endslot %}
     {% endelement %}
     </div>
     <script>
         jQuery(document).ready(function() {
             jQuery("#allauth-logout-form-container > form").trigger("submit");
+            setTimeout(function() { 
+                $("#allauth-logout-button").removeClass("is-hidden");
+            }, 10000);
         });
     </script>
 {% endblock content %}
