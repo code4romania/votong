@@ -1,4 +1,5 @@
 import logging
+from typing import Dict
 
 import requests
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -20,9 +21,8 @@ from hub.exceptions import (
     MissingOrganizationException,
     OrganizationRetrievalHTTPException,
 )
-from hub.models import FeatureFlag, NGO_GROUP, Organization
+from hub.models import FeatureFlag, NGO_GROUP, Organization, STAFF_GROUP
 from hub.workers.update_organization import update_organization
-
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +67,18 @@ def create_blank_org(user, commit=True) -> Organization:
     return org
 
 
+def _get_ngo_hub_user_profile(auth_headers: dict) -> Dict:
+    """
+    Get the user profile from the NGO Hub API
+    """
+
+    response = requests.get(settings.NGOHUB_API_BASE + "profile/", headers=auth_headers)
+    if response.status_code != requests.codes.ok:
+        return {}
+
+    return response.json()
+
+
 def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
     """
     Update an Organization by pulling data from NGO Hub.
@@ -88,6 +100,23 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     if not org.ngohub_org_id:
         auth_headers = {"Authorization": f"Bearer {token}"}
         response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
+
+        user_profile: Dict = _get_ngo_hub_user_profile(auth_headers)
+        user_role: str = user_profile.get("role", "")
+
+        if user_role == "super-admin":
+            user = org.user
+            org.delete()
+
+            user.first_name = user_profile.get("name", "")
+            user.is_superuser = True
+            user.is_staff = True
+            user.save()
+
+            user.groups.add(Group.objects.get(name=STAFF_GROUP))
+            user.groups.remove(Group.objects.get(name=NGO_GROUP))
+
+            return
 
         if response.status_code != requests.codes.ok:
             raise OrganizationRetrievalHTTPException
