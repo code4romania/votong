@@ -195,7 +195,6 @@ class City(models.Model):
 
 
 class Organization(StatusModel, TimeStampedModel):
-    # TODO: add last ngo hub update
     STATUS = Choices(
         ("draft", _("Draft")),
         ("pending", _("Pending approval")),
@@ -334,6 +333,8 @@ class Organization(StatusModel, TimeStampedModel):
     rejection_message = models.TextField(_("Rejection message"), blank=True)
 
     filename_cache = models.JSONField(_("Filename cache"), editable=False, default=dict, blank=False, null=False)
+
+    ngohub_last_update = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
 
     class Meta:
         verbose_name_plural = _("Organizations")

@@ -146,6 +146,8 @@ def update_organization_process(organization_id: int, token: str = ""):
     if organization.status == Organization.STATUS.draft:
         organization.status = Organization.STATUS.pending
 
+    organization.ngohub_last_update = timezone.now()
+
     organization.save()
 
     task_result: Dict[str, any] = {"organization_id": organization_id}
