@@ -1,34 +1,63 @@
 {% load i18n %}
+{% load crispy_forms_bulma_field %}
 
 <div class="field">
   <div class="file is-info has-name">
     <label class="file-label">
-      <input class="file-input" type="file" id="file-input-{{field.name}}" name="{{field.name}}">
-      <span class="file-cta">
-        <span class="file-icon">
-          <i class="fas fa-upload"></i>
-        </span>
-        <span class="file-label">
-          {% trans "Upload file" %}
-        </span>
-      </span>
-      <span class="file-name" id="file-name-{{field.name}}">
-          {% if field.value %}
-            {{field.value}}
+      {% if field.field.disabled %}
+        <input class="file-input" type="file" id="file-input-{{ field.name }}" name="{{ field.name }}" disabled>
+
+        <a href="{% if field.initial %}{{ field.initial.url }}{% else %}#{% endif %}">
+          <span class="file-cta has-background-grey">
+            <span class="file-icon ">
+                <i class="fas fa-lock"></i>
+            </span>
+          </span>
+        </a>
+
+        <span class="file-name" id="file-name-{{ field.name }}">
+          {% if field.initial %}
+            <a href="{{ field.initial.url }}">
+              {{ field.label }}
+            </a>
+          {% else %}
+            <p>
+              {% trans "Upload the file in NGO Hub and refresh the data" %}
+            </p>
           {% endif %}
-      </span>
+        </span>
+
+
+      {% else %}
+        <input class="file-input" type="file" id="file-input-{{ field.name }}" name="{{ field.name }}">
+
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            {% trans "Upload file" %}
+          </span>
+        </span>
+
+        <span class="file-name" id="file-name-{{ field.name }}">
+          {% if field.value %}
+            {{ field.value }}
+          {% endif %}
+        </span>
+      {% endif %}
     </label>
   </div>
 </div>
 
 <script>
-$( document ).ready(function() {
-  const fileInput_{{ field.name }} = document.querySelector('#file-input-{{ field.name }}');
-  fileInput_{{ field.name }}.onchange = () => {
-    if (fileInput_{{field.name}}.files.length > 0) {
-      const fileName = document.querySelector('#file-name-{{ field.name }}');
-      fileName.textContent = fileInput_{{ field.name }}.files[0].name;
+  $(document).ready(function () {
+    const fileInput_{{ field.name }} = document.querySelector('#file-input-{{ field.name }}');
+    fileInput_{{ field.name }}.onchange = () => {
+      if (fileInput_{{field.name}}.files.length > 0) {
+        const fileName = document.querySelector('#file-name-{{ field.name }}');
+        fileName.textContent = fileInput_{{ field.name }}.files[0].name;
+      }
     }
-  }
-});
+  });
 </script>

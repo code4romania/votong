@@ -372,7 +372,6 @@ class Organization(StatusModel, TimeStampedModel):
             "legal_representative_phone",
             "logo",
             "name",
-            "organization_head_name",
             "phone",
             "registration_number",
             "statute",

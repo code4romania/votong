@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 17:36+0300\n"
+"POT-Creation-Date: 2024-07-10 18:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -343,7 +343,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:101 hub/forms.py:162 hub/views.py:328
+#: hub/forms.py:101 hub/forms.py:159 hub/views.py:328
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -351,33 +351,33 @@ msgstr ""
 msgid "You need to accept terms and conditions."
 msgstr ""
 
-#: hub/forms.py:182
+#: hub/forms.py:179
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/forms.py:185
+#: hub/forms.py:182
 msgid "Organization already has a candidate."
 msgstr ""
 
-#: hub/forms.py:206
+#: hub/forms.py:203
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:210
+#: hub/forms.py:207
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: hub/forms.py:251
+#: hub/forms.py:248
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:257
+#: hub/forms.py:254
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:262
+#: hub/forms.py:259
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Number of seats"
 msgstr ""
 
-#: hub/models.py:169 hub/models.py:473
+#: hub/models.py:169 hub/models.py:472
 msgid "Domain"
 msgstr ""
 
@@ -511,15 +511,15 @@ msgstr ""
 msgid "Pending approval"
 msgstr ""
 
-#: hub/models.py:201 hub/models.py:456
+#: hub/models.py:201 hub/models.py:455
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:202 hub/models.py:457
+#: hub/models.py:202 hub/models.py:456
 msgid "Rejected"
 msgstr ""
 
-#: hub/models.py:207 hub/models.py:459
+#: hub/models.py:207 hub/models.py:458
 msgid "Status"
 msgstr ""
 
@@ -651,71 +651,71 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:455
+#: hub/models.py:454
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:469
+#: hub/models.py:468
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:477 hub/templates/candidate/detail.html:111
+#: hub/models.py:476 hub/templates/candidate/detail.html:111
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:483
+#: hub/models.py:482
 #, fuzzy
 #| msgid "Pending Organizations"
 msgid "Representative role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:489 hub/templates/candidate/detail.html:119
+#: hub/models.py:488 hub/templates/candidate/detail.html:119
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative statement"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:496
+#: hub/models.py:495
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:502 hub/templates/header.html:82
+#: hub/models.py:501 hub/templates/header.html:82
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:503
+#: hub/models.py:502
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:537
+#: hub/models.py:536
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:566
+#: hub/models.py:565
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:567
+#: hub/models.py:566
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:590
+#: hub/models.py:589
 msgid "Canditate supporters"
 msgstr "Candidate supporters"
 
-#: hub/models.py:591
+#: hub/models.py:590
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:605
+#: hub/models.py:604
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:606
+#: hub/models.py:605
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -754,7 +754,11 @@ msgstr ""
 msgid "back to article list"
 msgstr ""
 
-#: hub/templates/bulma/file.html:12
+#: hub/templates/bulma/file.html:25
+msgid "Upload the file in NGO Hub and refresh the data"
+msgstr ""
+
+#: hub/templates/bulma/file.html:39
 msgid "Upload file"
 msgstr ""
 

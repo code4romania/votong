@@ -146,9 +146,6 @@ class OrganizationUpdateForm(forms.ModelForm):
                 for field_name in self.fields:
                     if field_name in Organization.ngohub_fields():
                         self.fields[field_name].disabled = True
-                        # TODO Find a better way to disable the file input widget
-                        if type(self.fields[field_name].widget) is forms.widgets.ClearableFileInput:
-                            self.fields[field_name].widget = forms.widgets.TextInput()
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
