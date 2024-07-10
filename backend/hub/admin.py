@@ -467,6 +467,7 @@ def flags_phase_1(modeladmin, request, queryset):
         "enable_org_approval",
         "enable_org_voting",
         "enable_candidate_registration",
+        "enable_candidate_supporting",
     ]
     FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
 
