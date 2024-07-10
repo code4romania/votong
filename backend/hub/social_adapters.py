@@ -75,7 +75,8 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     redirect the user to a relevant error page.
     """
 
-    if not FeatureFlag.flag_enabled("enable_org_registration"):
+    # Check if the new organization registration is still open
+    if org.status == Organization.STATUS.draft and not FeatureFlag.flag_enabled("enable_org_registration"):
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-registration-closed")))
         else:
@@ -83,36 +84,37 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
                 _("The registration process for new organizations is currently disabled.")
             )
 
-    if not org.filename_cache:
-        org.filename_cache = {}
+    # If the current organization is not already linked to NGO Hub, check the NGO Hub API for the data
+    if not org.ngohub_org_id:
+        auth_headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
 
-    auth_headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
+        if response.status_code != requests.codes.ok:
+            raise OrganizationRetrievalHTTPException
 
-    if response.status_code != requests.codes.ok:
-        raise OrganizationRetrievalHTTPException
+        ngohub_org = response.json()
 
-    ngohub_org = response.json()
+        # Check that an NGO Hub organization appears only once in VotONG
+        ngohub_id = ngohub_org.get("id", 0)
+        if not ngohub_id:
+            if in_auth_flow:
+                raise ImmediateHttpResponse(redirect(reverse("error-org-missing")))
+            else:
+                raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user."))
 
-    # Check that an NGO Hub organization appears only once in VotONG
-    ngohub_id = ngohub_org.get("id", 0)
-    if not ngohub_id:
-        if in_auth_flow:
-            raise ImmediateHttpResponse(redirect(reverse("error-org-missing")))
-        else:
-            raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user."))
+        # Check that the current user has an NGO Hub organization
+        if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
+            if in_auth_flow:
+                raise ImmediateHttpResponse(redirect(reverse("error-org-duplicate")))
+            else:
+                raise DuplicateOrganizationException(
+                    _("This NGO Hub organization already exists for another VotONG user.")
+                )
 
-    # Check that the current user has an NGO Hub organization
-    if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
-        if in_auth_flow:
-            raise ImmediateHttpResponse(redirect(reverse("error-org-duplicate")))
-        else:
-            raise DuplicateOrganizationException(_("This NGO Hub organization already exists for another VotONG user."))
+        org.ngohub_org_id = ngohub_id
+        org.save()
 
-    org.ngohub_org_id = ngohub_id
-    org.save()
-
-    update_organization(org.id)
+    update_organization(org.id, token)
 
 
 @receiver(social_account_updated)

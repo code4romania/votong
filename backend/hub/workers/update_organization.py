@@ -70,11 +70,18 @@ def authenticate_with_ngohub() -> str:
     return u.id_token
 
 
-def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
-    token: str = authenticate_with_ngohub()
-    auth_headers = {"Authorization": f"Bearer {token}"}
+def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> Dict:
 
-    request_url: str = settings.NGOHUB_API_BASE + f"/organization/{ngohub_org_id}"
+    # if a token is already provided, use it for the profile endpoint
+    if token:
+        request_url: str = settings.NGOHUB_API_BASE + "organization-profile/"
+
+    # if no token is provided, attempt to authenticate as an admin for the organization endpoint
+    else:
+        token: str = authenticate_with_ngohub()
+        request_url: str = settings.NGOHUB_API_BASE + f"/organization/{ngohub_org_id}"
+
+    auth_headers = {"Authorization": f"Bearer {token}"}
     response: Response = requests.get(request_url, headers=auth_headers)
 
     if response.status_code != requests.codes.ok:
@@ -83,13 +90,16 @@ def get_ngo_hub_data(ngohub_org_id: int) -> Dict:
     return response.json()
 
 
-def update_organization_process(organization_id: int):
+def update_organization_process(organization_id: int, token: str = ""):
     errors: List[str] = []
 
     organization: Organization = Organization.objects.get(id=organization_id)
 
+    if not organization.filename_cache:
+        organization.filename_cache = {}
+
     ngohub_id: int = organization.ngohub_org_id
-    ngohub_org_data: Dict = get_ngo_hub_data(ngohub_id)
+    ngohub_org_data: Dict = get_ngo_hub_data(ngohub_id, token)
 
     ngohub_general_data: Dict = ngohub_org_data.get("organizationGeneral", {})
     ngohub_legal_data: Dict = ngohub_org_data.get("organizationLegal", {})
@@ -145,11 +155,11 @@ def update_organization_process(organization_id: int):
     return task_result
 
 
-def update_organization(organization_id: int):
+def update_organization(organization_id: int, token: str = ""):
     """
     Update the organization with the given ID asynchronously.
     """
-    async_task(update_organization_process, organization_id)
+    async_task(update_organization_process, organization_id, token)
 
 
 def update_outdated_organizations():
