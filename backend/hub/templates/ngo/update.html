@@ -59,11 +59,11 @@
       {% if not organization.is_fully_editable %}
         <div class="message is-warning message-body flex-align-center">
           <form id="update-ngo-form" method="post"
-                action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}"
-                class="button is-warning is-small update-ngo-button">
+                action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
             {% csrf_token %}
-            <input type="submit" class="fas fa-sync" value="{% trans 'Refresh NGO Information' %}">
+            <button class="button is-warning is-small" type="submit" title="{% trans 'Refresh NGO Information' %}"><i class="fas fa-sync"></i></button>
           </form>
+          &nbsp; 
           Unele date din profilul acestei organizații pot fi actualizate doar prin NGO Hub.
         </div>
       {% endif %}
