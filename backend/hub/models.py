@@ -195,6 +195,7 @@ class City(models.Model):
 
 
 class Organization(StatusModel, TimeStampedModel):
+    # TODO: add last ngo hub update
     STATUS = Choices(
         ("draft", _("Draft")),
         ("pending", _("Pending approval")),
@@ -214,9 +215,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     name = models.CharField(_("NGO Name"), max_length=254, blank=True, default="")
     county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50, blank=True, default="")
-    city = models.ForeignKey(
-        "City", on_delete=models.PROTECT, null=True, verbose_name=_("City"), blank=True, default=""
-    )
+    city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.PROTECT, null=True, blank=True)
     address = models.CharField(_("Address"), max_length=254, blank=True, default="")
     registration_number = models.CharField(_("Registration number"), max_length=20, blank=True, default="")
 
