@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 16:48+0300\n"
+"POT-Creation-Date: 2024-07-10 17:36+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -351,7 +351,7 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: hub/forms.py:101 hub/forms.py:162 hub/views.py:321
+#: hub/forms.py:101 hub/forms.py:162 hub/views.py:328
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -593,49 +593,47 @@ msgstr ""
 msgid "Logo"
 msgstr "Siglă"
 
-#: hub/models.py:236 hub/templates/ngo/detail.html:110
+#: hub/models.py:236
 #, python-format
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
-msgstr ""
-"Prima pagină a bilanțului contabil pe anul %(CURRENT_EDITION_YEAR)s depus la "
-"Ministerul Finanțelor"
+msgstr "Prima pagină a bilanțului contabil pe anul %(CURRENT_EDITION_YEAR)s"
 
-#: hub/models.py:243 hub/templates/ngo/detail.html:119
+#: hub/models.py:243 hub/templates/ngo/detail.html:128
 msgid "NGO Statute"
 msgstr "Statutul organizației"
 
 #: hub/models.py:251 hub/templates/candidate/detail.html:137
-#: hub/templates/ngo/detail.html:148
+#: hub/templates/ngo/detail.html:160 hub/templates/ngo/detail.html:161
 msgid "Yearly report 2023"
 msgstr "Raport anual 2023"
 
 #: hub/models.py:258 hub/templates/candidate/detail.html:146
-#: hub/templates/ngo/detail.html:157
+#: hub/templates/ngo/detail.html:171 hub/templates/ngo/detail.html:172
 msgid "Yearly report 2022"
 msgstr "Raport anual 2022"
 
 #: hub/models.py:265 hub/templates/candidate/detail.html:155
-#: hub/templates/ngo/detail.html:166
+#: hub/templates/ngo/detail.html:182 hub/templates/ngo/detail.html:183
 msgid "Yearly report 2021"
 msgstr "Raport anual 2021"
 
 #: hub/models.py:273 hub/templates/candidate/detail.html:182
-#: hub/templates/ngo/detail.html:175
+#: hub/templates/ngo/detail.html:194
 msgid "Non-discrimination statement"
 msgstr "Declarație nediscriminare"
 
 #: hub/models.py:280 hub/templates/candidate/detail.html:191
-#: hub/templates/ngo/detail.html:184
+#: hub/templates/ngo/detail.html:205
 msgid "Non-political statement"
 msgstr "Declarație neapartenență politică"
 
 #: hub/models.py:288 hub/templates/candidate/detail.html:164
-#: hub/templates/ngo/detail.html:128
+#: hub/templates/ngo/detail.html:138
 msgid "Fiscal certificate ANAF"
 msgstr "Certificat fiscal emis de ANAF"
 
 #: hub/models.py:295 hub/templates/candidate/detail.html:173
-#: hub/templates/ngo/detail.html:137
+#: hub/templates/ngo/detail.html:147 hub/templates/ngo/detail.html:148
 msgid "Fiscal certificate local"
 msgstr "Certificat fiscal emis de Direcția de Impozite și Taxe Locale"
 
@@ -776,15 +774,15 @@ msgstr "Informații candidatură"
 msgid "Representative role"
 msgstr "Funcție reprezentant"
 
-#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:100
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:103
 msgid "Documents"
 msgstr "Documente"
 
-#: hub/templates/candidate/detail.html:182 hub/templates/ngo/detail.html:175
+#: hub/templates/candidate/detail.html:182 hub/templates/ngo/detail.html:193
 msgid "Non-discrimination statement "
 msgstr "Declarație nediscriminare"
 
-#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:184
+#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:204
 msgid "Non-political statement "
 msgstr "Declarație neapartenență politică"
 
@@ -935,6 +933,13 @@ msgstr "Autentificare"
 #: hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
 msgstr "Proiect dezvoltat în programul"
+
+#: hub/templates/ngo/detail.html:115 hub/templates/ngo/detail.html:117
+#, python-format
+msgid "First page of last balance sheet for %(previous_year)s"
+msgstr ""
+"Prima pagină a bilanțului contabil pe anul %(previous_year)s depus la "
+"Ministerul Finanțelor"
 
 #: hub/templates/ngo/list.html:27
 msgid "Registered organizations"
@@ -1172,7 +1177,7 @@ msgstr "org-actualizare/<int:pk>"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta în curând!"
 
-#: hub/views.py:254
+#: hub/views.py:261
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1184,18 +1189,17 @@ msgstr ""
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:314
+#: hub/views.py:321
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:559
+#: hub/views.py:566
 msgid "Please wait a few minutes before updating the organization again."
 msgstr ""
 "Vă rugăm așteptați câteva minute înainte de a actualiza din nou organizația."
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:31 templates/socialaccount/login.html:5
-#: templates/socialaccount/login.html:32
 msgid "Sign In"
 msgstr "Autentificare"
 
@@ -1210,9 +1214,25 @@ msgstr "Dacă încă nu aveți un cont, %(link)sînregistrați-vă%(end_link)s �
 msgid "Mail me a sign-in code"
 msgstr "Trimite-mi prin email un cod de autentificare"
 
-#: templates/account/logout.html:4 templates/account/logout.html:26
+#: templates/account/logout.html:4
 msgid "Sign Out"
 msgstr "Ieșire cont"
+
+#: templates/account/logout.html:18
+msgid "Redirecting to sign out..."
+msgstr "Redirecționare la ieșire..."
+
+#: templates/account/logout.html:28
+msgid "or click here to sign out"
+msgstr "sau apasă aici pentru a ieși"
+
+#: templates/socialaccount/login.html:28
+msgid "Redirecting to authentication..."
+msgstr "Redirecționare la autentificare..."
+
+#: templates/socialaccount/login.html:34
+msgid "or click here to sign in"
+msgstr "sau apasă aici pentru a te autentifica"
 
 #~ msgid "Yearly report 2020"
 #~ msgstr "Raport anual 2020"

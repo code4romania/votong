@@ -234,7 +234,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet for %(CURRENT_EDITION_YEAR)s")
-        % {"CURRENT_EDITION_YEAR": str(settings.CURRENT_EDITION_YEAR)},
+        % {"CURRENT_EDITION_YEAR": str(settings.CURRENT_EDITION_YEAR - 1)},
         blank=True,
         default="",
         max_length=300,

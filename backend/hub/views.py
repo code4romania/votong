@@ -241,7 +241,14 @@ class OrganizationDetailView(HubDetailView):
 
     def get_queryset(self):
         if self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
-            return Organization.objects.all()
+            return Organization.objects.exclude(status=Organization.STATUS.draft)
+
+        if "pk" in self.kwargs:
+            organization = Organization.objects.get(pk=self.kwargs["pk"])
+            if self.request.user and self.request.user.orgs.first() == organization:
+                return Organization.objects.filter(pk=self.kwargs["pk"])
+
+            return Organization.objects.filter(status=Organization.STATUS.accepted)
 
         return Organization.objects.filter(status=Organization.STATUS.accepted)
 

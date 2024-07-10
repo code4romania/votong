@@ -13,245 +13,273 @@
 
 
 {% block left-side-view %}
-{% block extra-header %}
-{% endblock %}
-{% block domain-filters %}
-{% endblock%}
+  {% block extra-header %}
+  {% endblock %}
+  {% block domain-filters %}
+  {% endblock %}
 
-{% get_obj_perms user for ngo as "user_permissions" %}
+  {% get_obj_perms user for ngo as "user_permissions" %}
 
-{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and messages %}
+  {% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions and messages %}
     <article class="message is-danger">
-    <div class="message-body">
+      <div class="message-body">
         {% for message in messages %}
-            {{ message }}
+          {{ message }}
         {% endfor %}
-    </div>
+      </div>
     </article>
-{% endif %}
+  {% endif %}
 
-<div class="container need is-flex">
+  <div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
-        {% if ngo.get_logo_url %}
+      {% if ngo.get_logo_url %}
         <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
-        {% else %}
+      {% else %}
         <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-        {% endif %}
+      {% endif %}
     </div>
 
     <div class="card-info">
-        <div class="flex-align-center">
-            <div class="card-image need-logo is-hidden-tablet">
-                {% if ngo.get_logo_url %}
-                <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
-                {% else %}
-                <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-                {% endif %}
-            </div>
-            <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
+      <div class="flex-align-center">
+        <div class="card-image need-logo is-hidden-tablet">
+          {% if ngo.get_logo_url %}
+            <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
+          {% else %}
+            <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
+          {% endif %}
         </div>
-        <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
+        <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
+      </div>
+      <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
 
-        {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-        <div class="need-description"><b>Stare aplicație: <span class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div>
-        {% endif %}
+      {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
+        <div class="need-description"><b>Stare aplicație: <span
+          class="status-{{ ngo.status }}">{% trans ngo.status.capitalize %}</span></b></div>
+      {% endif %}
     </div>
-</div>
+  </div>
 
 
-<hr/>
+  <hr/>
 
-<div class="container detail-desc">
+  <div class="container detail-desc">
 
     {% if ngo.description %}
-    <p class="label">Scurta descriere:</p>
-    {{ ngo.description|linebreaks }}
-    <hr>
+      <p class="label">Scurta descriere:</p>
+      {{ ngo.description|linebreaks }}
+      <hr>
     {% endif %}
 
     <div class="detail-desc-title">
-        <span class="ngo-colorblock"></span>
-        Informații generale
+      <span class="ngo-colorblock"></span>
+      Informații generale
     </div>
 
     <p><span class="label">Numele organizației:</span> {{ ngo.name }}</p>
     {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-    <p><span class="label">Email:</span> {{ ngo.email }}</p>
+      <p><span class="label">Email:</span> {{ ngo.email }}</p>
     {% endif %}
     <p><span class="label">Județ:</span> {{ ngo.city.county }}</p>
     <p><span class="label">Localitate:</span> {{ ngo.city.city }}</p>
     <p><span class="label">Adresa fizică:</span> {{ ngo.address }}</p>
-    <p><span class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ ngo.registration_number }}</p>
+    <p><span
+      class="label">Număr înregistrare în Registrul Asociațiilor și Fundațiilor:</span> {{ ngo.registration_number }}
+    </p>
 
     <div class="detail-desc-title">
-        <span class="ngo-colorblock"></span>
-        Reprezentant legal
+      <span class="ngo-colorblock"></span>
+      Reprezentant legal
     </div>
 
     <p><span class="label">Reprezentant legal:</span> {{ ngo.legal_representative_name }}</p>
     <p><span class="label">Președintele organizației:</span> {{ ngo.organization_head_name }}</p>
     <p><span class="label">Membrii Consiliului Director:</span> {{ ngo.board_council }}</p>
     {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
-    <p><span class="label">Email reprezentant legal:</span> {{ ngo.legal_representative_email }}</p>
+      <p><span class="label">Email reprezentant legal:</span> {{ ngo.legal_representative_email }}</p>
     {% endif %}
 
     <div class="detail-desc-title">
-        <span class="ngo-colorblock"></span>
-        {% trans "Documents" %}
+      <span class="ngo-colorblock"></span>
+      {% trans "Documents" %}
     </div>
 
     {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
 
       {% if ngo.last_balance_sheet %}
-      <p>
+        <p>
           <span class="icon">
             <i class="fas fa-lock"></i>
           </span>
-          <a href="{{ ngo.last_balance_sheet.url }}" title="{% blocktranslate %}First page of last balance sheet for {{ CURRENT_EDITION_YEAR }}{% endblocktranslate %}">{% blocktranslate %}First page of last balance sheet for {{ CURRENT_EDITION_YEAR }}{% endblocktranslate %}</a>
-      </p>
+          {% with previous_year=CURRENT_EDITION_YEAR|add:"-1" %}
+            <a href="{{ ngo.last_balance_sheet.url }}" title="
+                {% blocktranslate %}First page of last balance sheet for {{ previous_year }}{% endblocktranslate %}
+              ">
+              {% blocktranslate %}First page of last balance sheet for {{ previous_year }}{% endblocktranslate %}
+            </a>
+          {% endwith %}
+        </p>
       {% endif %}
 
       {% if ngo.statute %}
-      <p>
+        <p>
           <span class="icon">
             <i class="fas fa-lock"></i>
           </span>
           <a href="{{ ngo.statute.url }}" title="{% trans 'NGO Statute' %}">{% trans 'NGO Statute' %}</a>
-      </p>
+        </p>
       {% endif %}
 
       {% if ngo.fiscal_certificate_anaf %}
-      <p>
+        <p>
           <span class="icon">
             <i class="fas fa-lock"></i>
           </span>
-          <a href="{{ ngo.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">{% trans 'Fiscal certificate ANAF' %}</a>
-      </p>
+          <a href="{{ ngo.fiscal_certificate_anaf.url }}"
+             title="{% trans 'Fiscal certificate ANAF' %}">{% trans 'Fiscal certificate ANAF' %}</a>
+        </p>
       {% endif %}
 
       {% if ngo.fiscal_certificate_local %}
-      <p>
+        <p>
           <span class="icon">
             <i class="fas fa-lock"></i>
           </span>
-          <a href="{{ ngo.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">{% trans 'Fiscal certificate local' %}</a>
-      </p>
+          <a href="{{ ngo.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">
+            {% trans 'Fiscal certificate local' %}
+          </a>
+        </p>
       {% endif %}
 
     {% endif %}
 
     {% if ngo.report_2023 %}
-    <p>
+      <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.report_2023.url }}" title="{% trans 'Yearly report 2023' %}">{% trans 'Yearly report 2023' %}</a>
-    </p>
+        <a href="{{ ngo.report_2023.url }}" title="{% trans 'Yearly report 2023' %}">
+          {% trans 'Yearly report 2023' %}
+        </a>
+      </p>
     {% endif %}
 
     {% if ngo.report_2022 %}
-    <p>
+      <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.report_2022.url }}" title="{% trans 'Yearly report 2022' %}">{% trans 'Yearly report 2022' %}</a>
-    </p>
+        <a href="{{ ngo.report_2022.url }}" title="{% trans 'Yearly report 2022' %}">
+          {% trans 'Yearly report 2022' %}
+        </a>
+      </p>
     {% endif %}
 
     {% if ngo.report_2021 %}
-    <p>
+      <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.report_2021.url }}" title="{% trans 'Yearly report 2021' %}">{% trans 'Yearly report 2021' %}</a>
-    </p>
+        <a href="{{ ngo.report_2021.url }}" title="{% trans 'Yearly report 2021' %}">
+          {% trans 'Yearly report 2021' %}
+        </a>
+      </p>
     {% endif %}
 
     {% if ngo.statement_discrimination %}
-    <p>
+      <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">{% trans 'Non-discrimination statement' %}</a>
-    </p>
+        <a href="{{ ngo.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">
+          {% trans 'Non-discrimination statement' %}
+        </a>
+      </p>
     {% endif %}
 
     {% if ngo.statement_political %}
-    <p>
+      <p>
         <span class="icon">
           <i class="fas fa-lock"></i>
         </span>
-        <a href="{{ ngo.statement_political.url }}" title="{% trans 'Non-political statement ' %}">{% trans 'Non-political statement' %}</a>
-    </p>
+        <a href="{{ ngo.statement_political.url }}" title="{% trans 'Non-political statement ' %}">
+          {% trans 'Non-political statement' %}
+        </a>
+      </p>
     {% endif %}
 
     {% if ngo.candidate and ngo.candidate.is_proposed %}
-    <div class="detail-desc-title">
+      <div class="detail-desc-title">
         <span class="ngo-colorblock"></span>
         Candidatură
-    </div>
+      </div>
 
-    <p><span class="label">Reprezentant:</span> <a href="{% url 'candidate-detail' ngo.candidate.id %}">{{ ngo.candidate.name }}</a></p>
+      <p><span class="label">Reprezentant:</span> <a
+        href="{% url 'candidate-detail' ngo.candidate.id %}">{{ ngo.candidate.name }}</a></p>
     {% endif %}
-</div>
-
-{% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions %}
-
-<hr>
-
-<div class="container detail-desc">
-
-{% if ngo.status == 'rejected' %}
-  <p class="label">Motivul respingerii:</p>
-  {{ ngo.rejection_message|linebreaks }}
-{% elif ngo.status == 'pending' %}
-  <div class="buttons vote-org-buttons">
-    <a href="{% url 'ngo-vote' ngo.id 'a' %}" id="action-approve" class="button is-success vote-org-button">Aprobă</a>
-    <a href="{% url 'ngo-vote' ngo.id 'r' %}" id="action-reject" class="button is-danger vote-org-button">Respinge</a>
   </div>
 
-  <article id="reject-org-error" class="message is-danger" style="display: none;">
-    <div class="message-body">Trebuie să completezi un motiv de respingere. Acesta va fi trimis prin email organizației.</div>
-  </article>
-  <textarea id="rejection-message" name="rejection_message" class="textarea" placeholder="Scrie aici motivul respingerii. Acesta va fi trimis prin email organizației."></textarea>
+  {% if ORG_APPROVAL_ENABLED and "approve_organization" in user_permissions %}
 
-  <script>
-  $( document ).ready(function() {
-    $( ".vote-org-button" ).on( "click", function( event ) {
-      var action = $( this ).attr("id");
-      var message = $( "#rejection-message" ).val();
+    <hr>
 
-      if ( action === "action-approve" ) {
-        return window.confirm("Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!");
-      } else if ( action === "action-reject" ) {
-        if ( message.length > 0 ) {
-          $( this ).attr( "href" , "{% url 'ngo-vote' ngo.id 'r' %}?rejection-message=" + encodeURIComponent(message));
-          return window.confirm("Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!");
-        } else {
-          $( "#reject-org-error" ).show();
-          return false;
-        }
-      }
+    <div class="container detail-desc">
 
-      return false;
-    });
-  });
-  </script>
-{% endif %}
+      {% if ngo.status == 'rejected' %}
+        <p class="label">Motivul respingerii:</p>
+        {{ ngo.rejection_message|linebreaks }}
+      {% elif ngo.status == 'pending' %}
+        <div class="buttons vote-org-buttons">
+          <a href="{% url 'ngo-vote' ngo.id 'a' %}" id="action-approve"
+             class="button is-success vote-org-button">Aprobă</a>
+          <a href="{% url 'ngo-vote' ngo.id 'r' %}" id="action-reject"
+             class="button is-danger vote-org-button">Respinge</a>
+        </div>
 
-</div>
+        <article id="reject-org-error" class="message is-danger" style="display: none;">
+          <div class="message-body">Trebuie să completezi un motiv de respingere. Acesta va fi trimis prin email
+            organizației.
+          </div>
+        </article>
+        <textarea id="rejection-message" name="rejection_message" class="textarea"
+                  placeholder="Scrie aici motivul respingerii. Acesta va fi trimis prin email organizației."></textarea>
 
-{% endif %}
+        <script>
+          $(document).ready(function () {
+            $(".vote-org-button").on("click", function (event) {
+              var action = $(this).attr("id");
+              var message = $("#rejection-message").val();
 
-{% comment %}
-{% social_buttons obj=ngo %}
-{% endcomment %}
+              if (action === "action-approve") {
+                return window.confirm("Esti sigur ca vrei sa APROBI aceasta organizatie? Actiunea este ireversibila!");
+              } else if (action === "action-reject") {
+                if (message.length > 0) {
+                  $(this).attr("href", "{% url 'ngo-vote' ngo.id 'r' %}?rejection-message=" + encodeURIComponent(message));
+                  return window.confirm("Esti sigur ca vrei sa RESPINGI aceasta organizatie? Actiunea este ireversibila!");
+                } else {
+                  $("#reject-org-error").show();
+                  return false;
+                }
+              }
+
+              return false;
+            });
+          });
+        </script>
+      {% endif %}
+
+    </div>
+
+  {% endif %}
+
+  {% comment %}
+    {% social_buttons obj=ngo %}
+  {% endcomment %}
 
 {% endblock %}
 
 {% block content %}
-{% url "ngos" as ngos %}
-{% with current_url=ngos %}
-{{ block.super }}
-{% endwith %}
+  {% url "ngos" as ngos %}
+  {% with current_url=ngos %}
+    {{ block.super }}
+  {% endwith %}
 {% endblock %}

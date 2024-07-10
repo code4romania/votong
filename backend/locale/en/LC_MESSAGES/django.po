@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 16:48+0300\n"
+"POT-Creation-Date: 2024-07-10 17:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -343,7 +343,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:101 hub/forms.py:162 hub/views.py:321
+#: hub/forms.py:101 hub/forms.py:162 hub/views.py:328
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -581,47 +581,47 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:236 hub/templates/ngo/detail.html:110
+#: hub/models.py:236
 #, python-format
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
 msgstr ""
 
-#: hub/models.py:243 hub/templates/ngo/detail.html:119
+#: hub/models.py:243 hub/templates/ngo/detail.html:128
 msgid "NGO Statute"
 msgstr ""
 
 #: hub/models.py:251 hub/templates/candidate/detail.html:137
-#: hub/templates/ngo/detail.html:148
+#: hub/templates/ngo/detail.html:160 hub/templates/ngo/detail.html:161
 msgid "Yearly report 2023"
 msgstr ""
 
 #: hub/models.py:258 hub/templates/candidate/detail.html:146
-#: hub/templates/ngo/detail.html:157
+#: hub/templates/ngo/detail.html:171 hub/templates/ngo/detail.html:172
 msgid "Yearly report 2022"
 msgstr ""
 
 #: hub/models.py:265 hub/templates/candidate/detail.html:155
-#: hub/templates/ngo/detail.html:166
+#: hub/templates/ngo/detail.html:182 hub/templates/ngo/detail.html:183
 msgid "Yearly report 2021"
 msgstr ""
 
 #: hub/models.py:273 hub/templates/candidate/detail.html:182
-#: hub/templates/ngo/detail.html:175
+#: hub/templates/ngo/detail.html:194
 msgid "Non-discrimination statement"
 msgstr ""
 
 #: hub/models.py:280 hub/templates/candidate/detail.html:191
-#: hub/templates/ngo/detail.html:184
+#: hub/templates/ngo/detail.html:205
 msgid "Non-political statement"
 msgstr ""
 
 #: hub/models.py:288 hub/templates/candidate/detail.html:164
-#: hub/templates/ngo/detail.html:128
+#: hub/templates/ngo/detail.html:138
 msgid "Fiscal certificate ANAF"
 msgstr ""
 
 #: hub/models.py:295 hub/templates/candidate/detail.html:173
-#: hub/templates/ngo/detail.html:137
+#: hub/templates/ngo/detail.html:147 hub/templates/ngo/detail.html:148
 msgid "Fiscal certificate local"
 msgstr ""
 
@@ -768,15 +768,15 @@ msgstr ""
 msgid "Representative role"
 msgstr "The name of the legal representative"
 
-#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:100
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:103
 msgid "Documents"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:182 hub/templates/ngo/detail.html:175
+#: hub/templates/candidate/detail.html:182 hub/templates/ngo/detail.html:193
 msgid "Non-discrimination statement "
 msgstr ""
 
-#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:184
+#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:204
 msgid "Non-political statement "
 msgstr ""
 
@@ -934,6 +934,11 @@ msgstr ""
 
 #: hub/templates/incubated-by.html:7
 msgid "Project developed in the program"
+msgstr ""
+
+#: hub/templates/ngo/detail.html:115 hub/templates/ngo/detail.html:117
+#, python-format
+msgid "First page of last balance sheet for %(previous_year)s"
 msgstr ""
 
 #: hub/templates/ngo/list.html:27
@@ -1162,7 +1167,7 @@ msgstr ""
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:254
+#: hub/views.py:261
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1170,17 +1175,16 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:314
+#: hub/views.py:321
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:559
+#: hub/views.py:566
 msgid "Please wait a few minutes before updating the organization again."
 msgstr ""
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:31 templates/socialaccount/login.html:5
-#: templates/socialaccount/login.html:32
 msgid "Sign In"
 msgstr ""
 
@@ -1195,8 +1199,24 @@ msgstr ""
 msgid "Mail me a sign-in code"
 msgstr ""
 
-#: templates/account/logout.html:4 templates/account/logout.html:26
+#: templates/account/logout.html:4
 msgid "Sign Out"
+msgstr ""
+
+#: templates/account/logout.html:18
+msgid "Redirecting to sign out..."
+msgstr ""
+
+#: templates/account/logout.html:28
+msgid "or click here to sign out"
+msgstr ""
+
+#: templates/socialaccount/login.html:28
+msgid "Redirecting to authentication..."
+msgstr ""
+
+#: templates/socialaccount/login.html:34
+msgid "or click here to sign in"
 msgstr ""
 
 #, fuzzy
