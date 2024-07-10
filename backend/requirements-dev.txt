@@ -16,12 +16,12 @@ black==24.4.2
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.34.140
+boto3==1.34.142
     # via
     #   -r requirements.txt
     #   django-ses
     #   pycognito
-botocore==1.34.140
+botocore==1.34.142
     # via
     #   -r requirements.txt
     #   boto3
@@ -58,7 +58,7 @@ cryptography==42.0.8
     #   pyjwt
 decorator==5.1.1
     # via ipython
-django==4.2.13
+django==4.2.14
     # via
     #   -r requirements.txt
     #   django-admin-autocomplete-filter
@@ -122,7 +122,7 @@ django-ses==4.1.0
     # via -r requirements.txt
 django-spurl==0.6.8
     # via -r requirements.txt
-django-storages==1.14.3
+django-storages==1.14.4
     # via -r requirements.txt
 dnspython==2.6.1
     # via

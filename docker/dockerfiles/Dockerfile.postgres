@@ -1,4 +1,4 @@
-FROM postgres:16.2-bookworm
+FROM postgres:16.3-bookworm
 
 RUN apt update -y && apt install -y postgresql-contrib
 COPY ./docker/postgres/docker-entrypoint-initdb.d /
