@@ -11,83 +11,99 @@
 
 {% block left-side-view %}
 
-{% if organization %}
+  {% if organization %}
 
-<div class="tabs is-medium">
-  <ul>
-    <li class="is-active">
-      <a href="{% url 'ngo-update' organization.id %}">Profilul organizației</a>
-    </li>
-    <li>
-    {% if organization.candidate %}
-      <a href="{% url 'candidate-update' organization.candidate.id %}">Candidatura mea</a>
-    {% elif CANDIDATE_REGISTRATION_ENABLED %}
-      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
-    {% endif %}
-    </li>
-    <li>
-      <a href="{% url 'votes' %}">Voturile mele</a>
-    </li>
-    {% if not user.is_ngohub_user %}
-    <li {% if active == "settings" %}class="is-active"{% endif %}>
-      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
-    </li>
-    {% endif %}
-  </ul>
-</div>
+    <div class="tabs is-medium">
+      <ul>
+        <li class="is-active">
+          <a href="{% url 'ngo-update' organization.id %}">Profilul organizației</a>
+        </li>
+        <li>
+          {% if organization.candidate %}
+            <a href="{% url 'candidate-update' organization.candidate.id %}">Candidatura mea</a>
+          {% elif CANDIDATE_REGISTRATION_ENABLED %}
+            <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
+          {% endif %}
+        </li>
+        <li>
+          <a href="{% url 'votes' %}">Voturile mele</a>
+        </li>
+        {% if not user.is_ngohub_user %}
+          <li {% if active == "settings" %}class="is-active"{% endif %}>
+            <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
 
-{% endif %}
+  {% endif %}
 
-<h2 class="title border-b uppercase">Profilul organizației</h2>
+  <h2 class="title border-b uppercase">Profilul organizației</h2>
 
-{% if organization.status == 'accepted' %}
-<a href="{% url 'ngo-detail' organization.id %}">Vezi profilul public al organizației</a>
-<br><br>
-{% endif %}
+  {% if organization.status == 'accepted' %}
+    <a href="{% url 'ngo-detail' organization.id %}">Vezi profilul public al organizației</a>
+    <br><br>
+  {% endif %}
 
-<div class="container">
+  <div class="container">
     {% if messages %}
-        <article class="message is-success">
+      <article class="message is-success">
         <div class="message-body">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
         </div>
-        </article>
-    {% else %}
-
-      {% if not organization.is_fully_editable %}
-        <div class="message is-warning">
-          <div class="message-body">
-            Unele date din profilul acestei organizații pot fi actualizate doar prin NGO Hub.
-          </div>
-        </div>
-      {% endif %}
-
-        <form class="ces-form" method="post" enctype="multipart/form-data" >
-            {% csrf_token %}
-
-            {{ form.non_field_errors }}
-
-            {% for hidden_field in form.hidden_fields %}
-            {% if hidden_field.errors %}
-            <article class="message is-danger"><div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div></article>
-            {% endif %}
-            {% endfor %}
-
-            {% for field in form %}
-            {% if field.errors %}
-            <article class="message is-danger"><div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div></article>
-            {% endif %}
-            {% endfor %}
-
-            {{ form|crispy }}
-
-            <div class="has-text-right">
-              <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
-            </div>
-         
-        </form>
+      </article>
     {% endif %}
-</div>
+
+    {% if not organization.is_fully_editable %}
+      <div class="message is-warning">
+        <div class="message-body flex-align-center">
+          <form id="update-ngo-form"
+                method="post"
+                action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
+            {% csrf_token %}
+            <button class="button is-warning is-small update-ngo-button"
+                    type="submit"
+                    title="{% trans 'Refresh NGO Information' %}">
+              <i class="fas fa-sync"></i>
+            </button>
+          </form>
+
+          <p class="has-text-grey-dark">
+            Unele date din profilul acestei organizații pot fi actualizate doar prin NGO Hub.
+          </p>
+        </div>
+      </div>
+
+      <form class="ces-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for hidden_field in form.hidden_fields %}
+          {% if hidden_field.errors %}
+            <article class="message is-danger">
+              <div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div>
+            </article>
+          {% endif %}
+        {% endfor %}
+
+        {% for field in form %}
+          {% if field.errors %}
+            <article class="message is-danger">
+              <div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div>
+            </article>
+          {% endif %}
+        {% endfor %}
+
+        {{ form|crispy }}
+
+        <div class="has-text-right">
+          <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+        </div>
+
+      </form>
+    {% endif %}
+  </div>
 {% endblock %}

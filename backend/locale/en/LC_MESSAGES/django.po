@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-09 14:51+0300\n"
+"POT-Creation-Date: 2024-07-10 14:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "Sign In Error"
 msgstr ""
 
-#: accounts/templates/error_org_duplicate.html:6 hub/social_adapters.py:110
+#: accounts/templates/error_org_duplicate.html:6 hub/social_adapters.py:111
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr ""
 
@@ -99,7 +99,7 @@ msgid "There is no NGO Hub organization for this VotONG user."
 msgstr ""
 
 #: accounts/templates/error_org_registration_closed.html:6
-#: hub/social_adapters.py:83
+#: hub/social_adapters.py:84
 msgid "The registration process for new organizations is currently disabled."
 msgstr ""
 
@@ -343,7 +343,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:109 hub/forms.py:170 hub/views.py:319
+#: hub/forms.py:109 hub/forms.py:170 hub/views.py:320
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Number of seats"
 msgstr ""
 
-#: hub/models.py:169 hub/models.py:501
+#: hub/models.py:169 hub/models.py:502
 msgid "Domain"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 msgid "Domains"
 msgstr ""
 
-#: hub/models.py:177 hub/models.py:182 hub/models.py:218
+#: hub/models.py:177 hub/models.py:182 hub/models.py:217
 #: hub/templates/ngo/list.html:76
 msgid "City"
 msgstr ""
@@ -511,15 +511,15 @@ msgstr ""
 msgid "Pending approval"
 msgstr ""
 
-#: hub/models.py:201 hub/models.py:484
+#: hub/models.py:201 hub/models.py:485
 msgid "Accepted"
 msgstr ""
 
-#: hub/models.py:202 hub/models.py:485
+#: hub/models.py:202 hub/models.py:486
 msgid "Rejected"
 msgstr ""
 
-#: hub/models.py:207 hub/models.py:487
+#: hub/models.py:207 hub/models.py:488
 msgid "Status"
 msgstr ""
 
@@ -531,207 +531,211 @@ msgstr ""
 msgid "NGO Name"
 msgstr ""
 
-#: hub/models.py:220
+#: hub/models.py:218
 msgid "Address"
 msgstr ""
 
-#: hub/models.py:221
+#: hub/models.py:219
 msgid "Registration number"
 msgstr ""
 
-#: hub/models.py:223
+#: hub/models.py:221
 msgid "Organization Email"
 msgstr "Organization E-mail address"
 
-#: hub/models.py:224
+#: hub/models.py:222
 msgid "Organization Phone"
 msgstr "Organization phone (optional)"
 
-#: hub/models.py:225
+#: hub/models.py:223
 msgid "Short Description"
 msgstr "A brief description (optional)"
 
-#: hub/models.py:227
+#: hub/models.py:225
 msgid "Legal Representative Name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:228
+#: hub/models.py:226
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Email"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:230
+#: hub/models.py:228
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Legal Representative Phone"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:233
+#: hub/models.py:231
 #, fuzzy
 #| msgid "Organization Email"
 msgid "Organization Head Name"
 msgstr "Organization E-mail address"
 
-#: hub/models.py:234
+#: hub/models.py:232
 msgid "Board council"
 msgstr ""
 
-#: hub/models.py:235
+#: hub/models.py:233
 msgid "Logo"
 msgstr ""
 
-#: hub/models.py:238 hub/templates/ngo/detail.html:110
+#: hub/models.py:236 hub/templates/ngo/detail.html:110
 #, python-format
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
 msgstr ""
 
-#: hub/models.py:245 hub/templates/ngo/detail.html:119
+#: hub/models.py:243 hub/templates/ngo/detail.html:119
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:253 hub/templates/candidate/detail.html:137
+#: hub/models.py:251 hub/templates/candidate/detail.html:137
 #: hub/templates/ngo/detail.html:148
 msgid "Yearly report 2023"
 msgstr ""
 
-#: hub/models.py:260 hub/templates/candidate/detail.html:146
+#: hub/models.py:258 hub/templates/candidate/detail.html:146
 #: hub/templates/ngo/detail.html:157
 msgid "Yearly report 2022"
 msgstr ""
 
-#: hub/models.py:267 hub/templates/candidate/detail.html:155
+#: hub/models.py:265 hub/templates/candidate/detail.html:155
 #: hub/templates/ngo/detail.html:166
 msgid "Yearly report 2021"
 msgstr ""
 
-#: hub/models.py:275 hub/templates/candidate/detail.html:164
+#: hub/models.py:273 hub/templates/candidate/detail.html:164
 #: hub/templates/ngo/detail.html:175
 msgid "Yearly report 2020"
 msgstr ""
 
-#: hub/models.py:282 hub/templates/candidate/detail.html:173
+#: hub/models.py:280 hub/templates/candidate/detail.html:173
 #: hub/templates/ngo/detail.html:184
 msgid "Yearly report 2019"
 msgstr ""
 
-#: hub/models.py:289 hub/templates/candidate/detail.html:182
+#: hub/models.py:287 hub/templates/candidate/detail.html:182
 #: hub/templates/ngo/detail.html:193
 msgid "Yearly report 2018"
 msgstr ""
 
-#: hub/models.py:296 hub/templates/candidate/detail.html:191
+#: hub/models.py:294 hub/templates/candidate/detail.html:191
 #: hub/templates/ngo/detail.html:202
 msgid "Yearly report 2017"
 msgstr ""
 
-#: hub/models.py:304 hub/templates/candidate/detail.html:218
+#: hub/models.py:302 hub/templates/candidate/detail.html:218
 #: hub/templates/ngo/detail.html:211
 msgid "Non-discrimination statement"
 msgstr ""
 
-#: hub/models.py:311 hub/templates/candidate/detail.html:227
+#: hub/models.py:309 hub/templates/candidate/detail.html:227
 #: hub/templates/ngo/detail.html:220
 msgid "Non-political statement"
 msgstr ""
 
-#: hub/models.py:319 hub/templates/candidate/detail.html:200
+#: hub/models.py:317 hub/templates/candidate/detail.html:200
 #: hub/templates/ngo/detail.html:128
 msgid "Fiscal certificate ANAF"
 msgstr ""
 
-#: hub/models.py:326 hub/templates/candidate/detail.html:209
+#: hub/models.py:324 hub/templates/candidate/detail.html:209
 #: hub/templates/ngo/detail.html:137
 msgid "Fiscal certificate local"
 msgstr ""
 
-#: hub/models.py:333
+#: hub/models.py:331
 #, fuzzy
 #| msgid "Accepted candidates"
 msgid "Accepted Terms and Conditions"
 msgstr "Candidați selectați"
 
-#: hub/models.py:335
+#: hub/models.py:333
 msgid "Rejection message"
 msgstr ""
 
-#: hub/models.py:337
+#: hub/models.py:335
 msgid "Filename cache"
 msgstr ""
 
-#: hub/models.py:340 hub/templates/header.html:64
+#: hub/models.py:337 hub/models.py:338
+msgid "Last NGO Hub update"
+msgstr ""
+
+#: hub/models.py:341 hub/templates/header.html:64
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:341
+#: hub/models.py:342
 msgid "Organization"
 msgstr ""
 
-#: hub/models.py:483
+#: hub/models.py:484
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:497
+#: hub/models.py:498
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:505 hub/templates/candidate/detail.html:111
+#: hub/models.py:506 hub/templates/candidate/detail.html:111
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative name"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:511
+#: hub/models.py:512
 #, fuzzy
 #| msgid "Pending Organizations"
 msgid "Representative role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:517 hub/templates/candidate/detail.html:119
+#: hub/models.py:518 hub/templates/candidate/detail.html:119
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative statement"
 msgstr "The name of the legal representative"
 
-#: hub/models.py:524
+#: hub/models.py:525
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:530 hub/templates/header.html:82
+#: hub/models.py:531 hub/templates/header.html:82
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:531
+#: hub/models.py:532
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:565
+#: hub/models.py:566
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:594
+#: hub/models.py:595
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:595
+#: hub/models.py:596
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:618
-msgid "Canditate supporters"
-msgstr ""
-
 #: hub/models.py:619
+msgid "Canditate supporters"
+msgstr "Candidate supporters"
+
+#: hub/models.py:620
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:633
+#: hub/models.py:634
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:634
+#: hub/models.py:635
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -974,7 +978,11 @@ msgstr ""
 msgid "Send registration request"
 msgstr ""
 
-#: hub/templates/ngo/update.html:87
+#: hub/templates/ngo/update.html:68
+msgid "Refresh NGO Information"
+msgstr ""
+
+#: hub/templates/ngo/update.html:104
 msgid "Update organization"
 msgstr ""
 
@@ -1098,79 +1106,83 @@ msgstr ""
 msgid "published"
 msgstr ""
 
-#: hub/urls.py:30
+#: hub/urls.py:31
 msgid "candidates/"
 msgstr ""
 
-#: hub/urls.py:32
+#: hub/urls.py:33
 msgid "candidates/register"
 msgstr ""
 
-#: hub/urls.py:36
+#: hub/urls.py:37
 msgid "candidates/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:37
+#: hub/urls.py:38
 msgid "candidates/<int:pk>/vote"
 msgstr ""
 
-#: hub/urls.py:38
+#: hub/urls.py:39
 msgid "candidates/<int:pk>/support"
 msgstr ""
 
-#: hub/urls.py:39
+#: hub/urls.py:40
 msgid "candidates/<int:pk>/revoke"
 msgstr ""
 
-#: hub/urls.py:40
+#: hub/urls.py:41
 msgid "candidates/<int:pk>/status-confirm"
 msgstr ""
 
-#: hub/urls.py:41
+#: hub/urls.py:42
 msgid "candidates/<int:pk>/update"
 msgstr ""
 
-#: hub/urls.py:42
+#: hub/urls.py:43
 msgid "candidates/votes"
 msgstr ""
 
-#: hub/urls.py:43
+#: hub/urls.py:44
 msgid "candidates/ces-results"
 msgstr ""
 
-#: hub/urls.py:44
+#: hub/urls.py:45
 msgid "committee/ngos/"
 msgstr ""
 
-#: hub/urls.py:45
+#: hub/urls.py:46
 msgid "committee/candidates/"
 msgstr ""
 
-#: hub/urls.py:46
+#: hub/urls.py:47
 msgid "ngos/"
 msgstr ""
 
-#: hub/urls.py:48
+#: hub/urls.py:49
 msgid "ngos/register"
 msgstr ""
 
-#: hub/urls.py:52
+#: hub/urls.py:53
 msgid "ngos/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:53
+#: hub/urls.py:54
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr ""
 
-#: hub/urls.py:54
+#: hub/urls.py:55
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/views.py:65
+#: hub/urls.py:56
+msgid "ngo-update/<int:pk>"
+msgstr ""
+
+#: hub/views.py:66
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:252
+#: hub/views.py:253
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1178,8 +1190,12 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:312
+#: hub/views.py:313
 msgid "You must write a rejection message."
+msgstr ""
+
+#: hub/views.py:558
+msgid "Please wait a few minutes before updating the organization again."
 msgstr ""
 
 #: templates/account/login.html:5 templates/account/login.html:9

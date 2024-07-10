@@ -23,6 +23,7 @@ from hub.views import (
     candidate_support,
     candidate_vote,
     organization_vote,
+    update_organization_information,
 )
 
 urlpatterns = [
@@ -52,6 +53,7 @@ urlpatterns = [
     path(_("ngos/<int:pk>"), OrganizationDetailView.as_view(), name="ngo-detail"),
     path(_("ngos/<int:pk>/vote/<str:action>"), organization_vote, name="ngo-vote"),
     path(_("ngos/<int:pk>/update"), OrganizationUpdateView.as_view(), name="ngo-update"),
+    path(_("ngo-update/<int:pk>"), update_organization_information, name="ngo-update-post"),
     path("ngos/city-autocomplete/", CityAutocomplete.as_view(), name="city-autocomplete"),
     path("blog/", BlogListView.as_view(), name="blog-list"),
     path("blog/<slug:slug>", BlogPostView.as_view(), name="blog-post"),

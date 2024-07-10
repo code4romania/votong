@@ -465,6 +465,10 @@ body {
   width: 100%;
 }
 
+.update-ngo-button {
+  margin: 0.1em 1em 0.1em 0.1em;
+}
+
 .control {
   font-size: 14px;
   font-family: Titillium Web, sans-serif;
