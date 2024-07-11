@@ -101,23 +101,6 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
         auth_headers = {"Authorization": f"Bearer {token}"}
         response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
 
-        user_profile: Dict = _get_ngo_hub_user_profile(auth_headers)
-        user_role: str = user_profile.get("role", "")
-
-        if user_role == "super-admin":
-            user = org.user
-            org.delete()
-
-            user.first_name = user_profile.get("name", "")
-            user.is_superuser = True
-            user.is_staff = True
-            user.save()
-
-            user.groups.add(Group.objects.get(name=STAFF_GROUP))
-            user.groups.remove(Group.objects.get(name=NGO_GROUP))
-
-            return
-
         if response.status_code != requests.codes.ok:
             raise OrganizationRetrievalHTTPException
 
@@ -146,6 +129,31 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     update_organization(org.id, token)
 
 
+def update_user_information(user, token):
+    auth_headers = {"Authorization": f"Bearer {token}"}
+
+    user_profile: Dict = _get_ngo_hub_user_profile(auth_headers)
+    user_role: str = user_profile.get("role", "")
+
+    if user_role == "super-admin":
+        if user.org:
+            user.org.delete()
+
+        user.first_name = user_profile.get("name", "")
+        user.is_superuser = True
+        user.is_staff = True
+        user.save()
+
+        user.groups.add(Group.objects.get(name=STAFF_GROUP))
+        user.groups.remove(Group.objects.get(name=NGO_GROUP))
+
+        return None
+    elif user_role == "admin":
+        org = Organization.objects.filter(user=user).first()
+        if not org:
+            return create_blank_org(user)
+
+
 @receiver(social_account_updated)
 def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
     """
@@ -157,11 +165,15 @@ def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
     """
 
     social = kwargs.get("sociallogin")
-    org = Organization.objects.filter(user=social.user).first()
-    if not org:
-        org = create_blank_org(social.user)
 
-    update_user_org(org, social.token, in_auth_flow=True)
+    user = social.user
+    if user.is_superuser:
+        return
+
+    org = update_user_information(user, social.token)
+
+    if org:
+        update_user_org(org, social.token, in_auth_flow=True)
 
 
 @receiver(pre_social_login)
