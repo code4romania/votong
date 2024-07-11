@@ -88,7 +88,7 @@ urlpatterns_simple = [
     path(
         "allauth/login/",
         RedirectView.as_view(
-            pattern_name=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
             permanent=True,
         ),
     ),
