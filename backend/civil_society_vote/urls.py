@@ -30,6 +30,13 @@ urlpatterns_i18n = i18n_patterns(
     path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
     path(_("history/"), StaticPageView.as_view(template_name="history.html"), name="history"),
+    path(
+        "admin/login/",
+        RedirectView.as_view(
+            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            permanent=True,
+        ),
+    ),
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
@@ -80,7 +87,10 @@ urlpatterns_simple = [
     # Skip the login provider selector page and redirect to Cognito
     path(
         "allauth/login/",
-        RedirectView.as_view(url=reverse("amazon_cognito_login", urlconf="allauth.urls"), permanent=True),
+        RedirectView.as_view(
+            pattern_name=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            permanent=True,
+        ),
     ),
     path("allauth/", include("allauth.urls")),
 ]
