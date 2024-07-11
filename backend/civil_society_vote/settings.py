@@ -95,6 +95,7 @@ env = environ.Env(
     ORGANIZATION_UPDATE_THRESHOLD=(int, 10),
     ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
+    CURRENT_EDITION_TYPE=(str, "ces"),
     # email settings
     EMAIL_SEND_METHOD=(str, "async"),
     EMAIL_BACKEND=(str, "django.core.mail.backends.console.EmailBackend"),
@@ -585,6 +586,10 @@ ORGANIZATION_UPDATE_THRESHOLD = env.int("ORGANIZATION_UPDATE_THRESHOLD", 10)
 ENABLE_ORG_REGISTRATION_FORM = env("ENABLE_ORG_REGISTRATION_FORM")
 
 CURRENT_EDITION_YEAR = env("CURRENT_EDITION_YEAR")
+CURRENT_EDITION_TYPE = env("CURRENT_EDITION_TYPE").lower().strip()
+if CURRENT_EDITION_TYPE not in ("ces", "ce"):
+    print(f"WARNING: The CURRENT_EDITION_TYPE '{CURRENT_EDITION_TYPE}' has been reset to 'ces'")
+    CURRENT_EDITION_TYPE = "ces"
 
 # How many previous year reports to require for a candidate proposal
 PREV_REPORTS_REQUIRED_FOR_PROPOSAL = 3
