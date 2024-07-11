@@ -42,15 +42,15 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
         user.is_ngohub_user = True
         user.save()
 
-        # Add the user to the NGO group
-        ngo_group: Group = Group.objects.get(name=NGO_GROUP)
-        user.groups.add(ngo_group)
+        if user.is_superuser:
+            return user
 
         # Create a blank Organization for the newly registered user
-        org = create_blank_org(user)
+        org = update_user_information(user, sociallogin.token)
 
         # Start the import of initial data from NGO Hub
-        update_user_org(org, sociallogin.token, in_auth_flow=True)
+        if org:
+            update_user_org(org, sociallogin.token, in_auth_flow=True)
 
         return user
 
@@ -136,8 +136,8 @@ def update_user_information(user, token):
     user_role: str = user_profile.get("role", "")
 
     if user_role == "super-admin":
-        if user.org:
-            user.org.delete()
+        if user.orgs.exists():
+            user.orgs.all().delete()
 
         user.first_name = user_profile.get("name", "")
         user.is_superuser = True
@@ -149,6 +149,10 @@ def update_user_information(user, token):
 
         return None
     elif user_role == "admin":
+        # Add the user to the NGO group
+        ngo_group: Group = Group.objects.get(name=NGO_GROUP)
+        user.groups.add(ngo_group)
+
         org = Organization.objects.filter(user=user).first()
         if not org:
             return create_blank_org(user)
