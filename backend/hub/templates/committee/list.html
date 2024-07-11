@@ -8,7 +8,9 @@
 {% endblock domain-filters %}
 
 {% block extra-header %}
-{% include "partials/ces_header.html" %}
+    {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
+        {% include header_template %}
+    {% endwith %}
 {% endblock %}
 
 {% block left-side-view %}
