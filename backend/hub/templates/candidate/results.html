@@ -5,7 +5,9 @@
 {% load hub_tags %}
 
 {% block extra-header %}
-{% include "partials/ces_results_header.html" %}
+    {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_results_header.html" %}
+        {% include header_template %}
+    {% endwith %}
 {% endblock %}
 
 
