@@ -18,6 +18,8 @@ services:
       - ./backend:/var/www/votong/backend
     depends_on:
       - db
+    ports:
+      - "5678:5678"
 
 volumes:
   votong_psql:

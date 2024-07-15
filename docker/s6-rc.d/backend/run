@@ -19,7 +19,13 @@ if [ "${ENVIRONMENT}" = "production" ]; then
     --workers "${WORKERS}" \
     --timeout 60
 else
-  echo "Running in development mode"
-
-  python3 manage.py runserver 0.0.0.0:8000
+  if [ "${ENVIRONMENT}" = "development" ]; then
+    echo "Running in development mode"
+    python3 manage.py runserver 0.0.0.0:8000
+  else
+    echo "*********************************************"
+    echo "****  Running in development DEBUG mode  ****"
+    echo "*********************************************"
+    python -Xfrozen_modules=off -m debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000
+  fi
 fi

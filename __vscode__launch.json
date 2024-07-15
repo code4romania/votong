@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Attach (remote debug)",
+            "type": "debugpy",
+            "request": "attach",
+            "pathMappings": [
+              {
+                "localRoot": "${workspaceFolder}",
+                "remoteRoot": "/var/www/votong/"
+              }
+            ],
+            "connect": {
+              "port": 5678,
+              "host": "127.0.0.1"
+            }
+        }
+    ]
+}

@@ -7,7 +7,7 @@ werkzeug~=3.0.3
 faker~=25.2.0
 
 ## make sure to sync these with the ../.pre-commit-config.yaml file
-ruff==0.4.5
+ruff==0.5.2
 black==24.4.2
 
 # utils
@@ -19,9 +19,11 @@ pip-tools~=7.4.1
 
 # testing
 pytest~=8.2.0
-
 pytest-django~=4.8.0
 pytest-xdist~=3.6.1
 pytest-cov~=5.0.0
+
+# debugging
+debugpy~=1.8.2
 
 -r requirements.txt
