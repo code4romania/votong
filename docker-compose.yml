@@ -20,6 +20,7 @@ services:
       - db
     ports:
       - "5678:5678"
+      - "5677:5677"
 
 volumes:
   votong_psql:

@@ -22,7 +22,6 @@ services:
     env_file:
       - .env
     environment:
-      ENVIRONMENT: "debug"
       DATABASE_ENGINE: "postgresql"
       DATABASE_HOST: "votong_db_dev"
       DATABASE_PORT: "5432"
