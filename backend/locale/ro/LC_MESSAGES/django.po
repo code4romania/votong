@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 14:04+0300\n"
+"POT-Creation-Date: 2024-07-17 14:44+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -95,12 +95,12 @@ msgid "Sign In Error"
 msgstr "Eroare autentificare"
 
 #: backend/accounts/templates/error_org_duplicate.html:6
-#: backend/hub/social_adapters.py:140
+#: backend/hub/social_adapters.py:123
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG."
 
 #: backend/accounts/templates/error_org_missing.html:6
-#: backend/hub/social_adapters.py:132
+#: backend/hub/social_adapters.py:115
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG."
 
@@ -112,7 +112,7 @@ msgstr ""
 
 #: backend/accounts/templates/partials/sections.html:8
 #: backend/accounts/templates/partials/sections.html:14
-#: backend/hub/templates/candidate/list.html:34
+#: backend/hub/templates/candidate/list.html:36
 msgid "Back"
 msgstr "Înapoi"
 
@@ -802,13 +802,13 @@ msgstr "Declarație nediscriminare"
 msgid "Non-political statement "
 msgstr "Declarație neapartenență politică"
 
-#: backend/hub/templates/candidate/list.html:20
+#: backend/hub/templates/candidate/list.html:22
 #: backend/hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr "Caută..."
 
-#: backend/hub/templates/candidate/list.html:79
-#: backend/hub/templates/candidate/results.html:63
+#: backend/hub/templates/candidate/list.html:81
+#: backend/hub/templates/candidate/results.html:65
 #: backend/hub/templates/committee/candidates.html:51
 #: backend/hub/templates/ngo/votes.html:84
 msgid "View details"
@@ -838,6 +838,14 @@ msgstr "Publică modificările"
 msgid "Update profile"
 msgstr "Modifică profil"
 
+#: backend/hub/templates/ces/edition_results_header.html:5
+msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
+msgstr "Rezultate Finale Alegeri Consiliul Economic și Social"
+
+#: backend/hub/templates/ces/edition_results_header.html:24
+msgid "CES elections"
+msgstr "Alegeri CES"
+
 #: backend/hub/templates/committee/candidates.html:20
 #: backend/hub/templates/committee/partials/nav.html:15
 msgid "Pending candidates"
@@ -849,23 +857,23 @@ msgid "Accepted candidates"
 msgstr "Candidaturi validate"
 
 #: backend/hub/templates/committee/candidates.html:67
-#: backend/hub/templates/committee/list.html:69
+#: backend/hub/templates/committee/list.html:71
 #: backend/hub/templates/ngo/list.html:177
 #: backend/hub/templates/ngo/votes.html:100
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
-#: backend/hub/templates/committee/list.html:21
+#: backend/hub/templates/committee/list.html:23
 #: backend/hub/templates/committee/partials/nav.html:6
 msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
-#: backend/hub/templates/committee/list.html:23
+#: backend/hub/templates/committee/list.html:25
 #: backend/hub/templates/committee/partials/nav.html:9
 msgid "Accepted Organizations"
 msgstr "Organizații validate"
 
-#: backend/hub/templates/committee/list.html:25
+#: backend/hub/templates/committee/list.html:27
 #: backend/hub/templates/committee/partials/nav.html:12
 msgid "Rejected Organizations"
 msgstr "Organizații respinse"
@@ -931,7 +939,8 @@ msgid "History"
 msgstr "Istoric"
 
 #: backend/hub/templates/header.html:77
-msgid "Register your organization"
+#: backend/hub/templates/ngo/register_request.html:14
+msgid "Register organization"
 msgstr "Înscriere organizație"
 
 #: backend/hub/templates/header.html:86
@@ -978,10 +987,6 @@ msgstr "Toate"
 msgid "Reset filters"
 msgstr "Resetează filtrele"
 
-#: backend/hub/templates/ngo/register_request.html:14
-msgid "Register organization"
-msgstr "Înscriere organizație"
-
 #: backend/hub/templates/ngo/register_request.html:46
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
@@ -997,14 +1002,6 @@ msgstr "Modifică organizație"
 #: backend/hub/templates/ngo/votes.html:44
 msgid "My votes"
 msgstr "Voturile mele"
-
-#: backend/hub/templates/partials/ces_results_header.html:5
-msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
-msgstr "Rezultate Finale Alegeri Consiliul Economic și Social"
-
-#: backend/hub/templates/partials/ces_results_header.html:24
-msgid "CES elections"
-msgstr "Alegeri CES"
 
 #: backend/hub/templates/registration/login.html:21
 msgid "Your username and password didn't match. Please try again."
@@ -1227,6 +1224,7 @@ msgstr ""
 #: backend/templates/account/login.html:9
 #: backend/templates/account/login.html:31
 #: backend/templates/socialaccount/login.html:5
+#: backend/templates/socialaccount/login.html:36
 msgid "Sign In"
 msgstr "Autentificare"
 
@@ -1253,10 +1251,12 @@ msgstr "Redirecționare la ieșire..."
 msgid "or click here to sign out"
 msgstr "sau apasă aici pentru a ieși"
 
-#: backend/templates/socialaccount/login.html:28
+#: backend/templates/socialaccount/login.html:29
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
 
-#: backend/templates/socialaccount/login.html:34
-msgid "or click here to sign in"
-msgstr "sau apasă aici pentru a te autentifica"
+#~ msgid "Register your organization"
+#~ msgstr "Înscriere organizație"
+
+#~ msgid "or click here to sign in"
+#~ msgstr "sau apasă aici pentru a te autentifica"
