@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 14:04+0300\n"
+"POT-Creation-Date: 2024-07-17 14:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,12 +92,12 @@ msgid "Sign In Error"
 msgstr ""
 
 #: backend/accounts/templates/error_org_duplicate.html:6
-#: backend/hub/social_adapters.py:140
+#: backend/hub/social_adapters.py:123
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr ""
 
 #: backend/accounts/templates/error_org_missing.html:6
-#: backend/hub/social_adapters.py:132
+#: backend/hub/social_adapters.py:115
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 
 #: backend/accounts/templates/partials/sections.html:8
 #: backend/accounts/templates/partials/sections.html:14
-#: backend/hub/templates/candidate/list.html:34
+#: backend/hub/templates/candidate/list.html:36
 msgid "Back"
 msgstr ""
 
@@ -796,13 +796,13 @@ msgstr ""
 msgid "Non-political statement "
 msgstr ""
 
-#: backend/hub/templates/candidate/list.html:20
+#: backend/hub/templates/candidate/list.html:22
 #: backend/hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr ""
 
-#: backend/hub/templates/candidate/list.html:79
-#: backend/hub/templates/candidate/results.html:63
+#: backend/hub/templates/candidate/list.html:81
+#: backend/hub/templates/candidate/results.html:65
 #: backend/hub/templates/committee/candidates.html:51
 #: backend/hub/templates/ngo/votes.html:84
 msgid "View details"
@@ -834,6 +834,14 @@ msgstr ""
 msgid "Update profile"
 msgstr ""
 
+#: backend/hub/templates/ces/edition_results_header.html:5
+msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
+msgstr ""
+
+#: backend/hub/templates/ces/edition_results_header.html:24
+msgid "CES elections"
+msgstr ""
+
 #: backend/hub/templates/committee/candidates.html:20
 #: backend/hub/templates/committee/partials/nav.html:15
 msgid "Pending candidates"
@@ -845,25 +853,25 @@ msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
 #: backend/hub/templates/committee/candidates.html:67
-#: backend/hub/templates/committee/list.html:69
+#: backend/hub/templates/committee/list.html:71
 #: backend/hub/templates/ngo/list.html:177
 #: backend/hub/templates/ngo/votes.html:100
 msgid "No results matching query"
 msgstr ""
 
-#: backend/hub/templates/committee/list.html:21
+#: backend/hub/templates/committee/list.html:23
 #: backend/hub/templates/committee/partials/nav.html:6
 msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
-#: backend/hub/templates/committee/list.html:23
+#: backend/hub/templates/committee/list.html:25
 #: backend/hub/templates/committee/partials/nav.html:9
 #, fuzzy
 #| msgid "Pending Organizations"
 msgid "Accepted Organizations"
 msgstr "Organizații nevalidate"
 
-#: backend/hub/templates/committee/list.html:25
+#: backend/hub/templates/committee/list.html:27
 #: backend/hub/templates/committee/partials/nav.html:12
 #, fuzzy
 #| msgid "Pending Organizations"
@@ -933,7 +941,8 @@ msgid "History"
 msgstr ""
 
 #: backend/hub/templates/header.html:77
-msgid "Register your organization"
+#: backend/hub/templates/ngo/register_request.html:14
+msgid "Register organization"
 msgstr ""
 
 #: backend/hub/templates/header.html:86
@@ -980,10 +989,6 @@ msgstr ""
 msgid "Reset filters"
 msgstr ""
 
-#: backend/hub/templates/ngo/register_request.html:14
-msgid "Register organization"
-msgstr ""
-
 #: backend/hub/templates/ngo/register_request.html:46
 msgid "Send registration request"
 msgstr ""
@@ -998,14 +1003,6 @@ msgstr ""
 
 #: backend/hub/templates/ngo/votes.html:44
 msgid "My votes"
-msgstr ""
-
-#: backend/hub/templates/partials/ces_results_header.html:5
-msgid "Rezultate Finale Alegeri Consiliul Economic și Social"
-msgstr ""
-
-#: backend/hub/templates/partials/ces_results_header.html:24
-msgid "CES elections"
 msgstr ""
 
 #: backend/hub/templates/registration/login.html:21
@@ -1212,6 +1209,7 @@ msgstr ""
 #: backend/templates/account/login.html:9
 #: backend/templates/account/login.html:31
 #: backend/templates/socialaccount/login.html:5
+#: backend/templates/socialaccount/login.html:36
 msgid "Sign In"
 msgstr ""
 
@@ -1238,12 +1236,8 @@ msgstr ""
 msgid "or click here to sign out"
 msgstr ""
 
-#: backend/templates/socialaccount/login.html:28
+#: backend/templates/socialaccount/login.html:29
 msgid "Redirecting to authentication..."
-msgstr ""
-
-#: backend/templates/socialaccount/login.html:34
-msgid "or click here to sign in"
 msgstr ""
 
 #, fuzzy
