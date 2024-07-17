@@ -13,6 +13,7 @@ def hub_settings(context):
         "CURRENT_EDITION_YEAR": settings.CURRENT_EDITION_YEAR,
         "DEBUG": settings.DEBUG,
         "ENABLE_ORG_REGISTRATION_FORM": settings.ENABLE_ORG_REGISTRATION_FORM,
+        "NGOHUB_APP_BASE_URL": settings.NGOHUB_APP_BASE,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_registration, False),
         "CANDIDATE_SUPPORTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_supporting, False),
