@@ -46,7 +46,7 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
         if user.is_superuser:
             return user
 
-        if not check_app_enabled_in_ngohub(sociallogin.token):
+        if not check_app_enabled_in_ngohub(sociallogin.token.token):
             user.orgs.all().delete()
             user.delete()
             raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
