@@ -42,8 +42,13 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
         user.is_ngohub_user = True
         user.save()
 
+        # Superusers do not need an organization nor VotONG enabled in their NGOHub profile
         if user.is_superuser:
             return user
+
+        if not check_app_enabled_in_ngohub(sociallogin.token):
+            user.delete()
+            raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
 
         # Create a blank Organization for the newly registered user
         org = update_user_information(user, sociallogin.token)
@@ -53,6 +58,22 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
             update_user_org(org, sociallogin.token, in_auth_flow=True)
 
         return user
+
+
+def check_app_enabled_in_ngohub(token: str) -> bool:
+
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    api_url = settings.NGOHUB_API_BASE + "organizations/application/"
+    response = requests.get(api_url, headers=auth_headers)
+    if response.status_code != requests.codes.ok:
+        logger.error("%s while retrieving %s", response.status_code, api_url)
+        return {}
+
+    for app in response.json():
+        if app["id"] == 0 and app["status"] == "active" and app["ongStatus"] == "active":
+            return True
+
+    return False
 
 
 def create_blank_org(user, commit=True) -> Organization:
@@ -72,8 +93,10 @@ def _get_ngo_hub_user_profile(auth_headers: dict) -> Dict:
     Get the user profile from the NGO Hub API
     """
 
-    response = requests.get(settings.NGOHUB_API_BASE + "profile/", headers=auth_headers)
+    api_url = settings.NGOHUB_API_BASE + "profile/"
+    response = requests.get(api_url, headers=auth_headers)
     if response.status_code != requests.codes.ok:
+        logger.error("%s while retrieving %s", response.status_code, api_url)
         return {}
 
     return response.json()
