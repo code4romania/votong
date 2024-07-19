@@ -19,7 +19,7 @@ from hub.exceptions import (
     ClosedRegistrationException,
     DuplicateOrganizationException,
     MissingOrganizationException,
-    OrganizationRetrievalHTTPException,
+    NGOHubHTTPException,
 )
 from hub.models import FeatureFlag, NGO_GROUP, Organization, STAFF_GROUP
 from hub.workers.update_organization import update_organization
@@ -61,16 +61,25 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
         return user
 
 
-def check_app_enabled_in_ngohub(token: str) -> bool:
-
+def ngohub_api_get(path: str, token: str):
+    """
+    Perform a GET request to the NGO Hub API and return a JSON response, or raise NGOHubHTTPException
+    """
     auth_headers = {"Authorization": f"Bearer {token}"}
-    api_url = settings.NGOHUB_API_BASE + "organizations/application/"
+    api_url = settings.NGOHUB_API_BASE + path
+
     response = requests.get(api_url, headers=auth_headers)
     if response.status_code != requests.codes.ok:
+        print(api_url)
         logger.error("%s while retrieving %s", response.status_code, api_url)
-        return {}
+        raise NGOHubHTTPException
 
-    for app in response.json():
+    return response.json()
+
+
+def check_app_enabled_in_ngohub(token: str) -> bool:
+    response = ngohub_api_get("organizations/application/", token)
+    for app in response:
         if (
             app["website"] == settings.NGOHUB_VOTONG_WEBSITE
             and app["status"] == "active"
@@ -93,20 +102,6 @@ def create_blank_org(user, commit=True) -> Organization:
     return org
 
 
-def _get_ngo_hub_user_profile(auth_headers: dict) -> Dict:
-    """
-    Get the user profile from the NGO Hub API
-    """
-
-    api_url = settings.NGOHUB_API_BASE + "profile/"
-    response = requests.get(api_url, headers=auth_headers)
-    if response.status_code != requests.codes.ok:
-        logger.error("%s while retrieving %s", response.status_code, api_url)
-        return {}
-
-    return response.json()
-
-
 def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
     """
     Update an Organization by pulling data from NGO Hub.
@@ -126,13 +121,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
 
     # If the current organization is not already linked to NGO Hub, check the NGO Hub API for the data
     if not org.ngohub_org_id:
-        auth_headers = {"Authorization": f"Bearer {token}"}
-        response = requests.get(settings.NGOHUB_API_BASE + "organization-profile/", headers=auth_headers)
-
-        if response.status_code != requests.codes.ok:
-            raise OrganizationRetrievalHTTPException
-
-        ngohub_org = response.json()
+        ngohub_org = ngohub_api_get("organization-profile/", token)
 
         # Check that an NGO Hub organization appears only once in VotONG
         ngohub_id = ngohub_org.get("id", 0)
@@ -158,9 +147,11 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
 
 
 def update_user_information(user: User, token: str):
-    auth_headers = {"Authorization": f"Bearer {token}"}
+    try:
+        user_profile: Dict = ngohub_api_get("profile/", token)
+    except NGOHubHTTPException:
+        user_profile = {}
 
-    user_profile: Dict = _get_ngo_hub_user_profile(auth_headers)
     user_role: str = user_profile.get("role", "")
 
     if user_role == "super-admin":
