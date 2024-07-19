@@ -8,12 +8,12 @@ asgiref==3.8.1
     # via django
 blessed==1.20.0
     # via -r requirements.in
-boto3==1.34.144
+boto3==1.34.145
     # via
     #   -r requirements.in
     #   django-ses
     #   pycognito
-botocore==1.34.144
+botocore==1.34.145
     # via
     #   boto3
     #   s3transfer
@@ -29,7 +29,7 @@ cffi==1.16.0
     #   cryptography
 charset-normalizer==3.3.2
     # via requests
-croniter==2.0.5
+croniter==2.0.7
     # via -r requirements.in
 cryptography==42.0.8
     # via pyjwt
@@ -62,7 +62,7 @@ django-avatar==8.0.0
     # via -r requirements.in
 django-ckeditor==6.7.1
     # via -r requirements.in
-django-crispy-forms==2.1
+django-crispy-forms==2.2
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
@@ -108,11 +108,11 @@ oauthlib==3.2.2
     # via requests-oauthlib
 packaging==24.1
     # via gunicorn
-pillow==10.3.0
+pillow==10.4.0
     # via
     #   -r requirements.in
     #   django-avatar
-psutil==5.9.8
+psutil==6.0.0
     # via -r requirements.in
 psycopg2-binary==2.9.9
     # via -r requirements.in
@@ -142,14 +142,14 @@ requests-oauthlib==2.0.0
     # via django-allauth
 s3transfer==0.10.2
     # via boto3
-sentry-sdk==2.6.0
+sentry-sdk==2.10.0
     # via -r requirements.in
 six==1.16.0
     # via
     #   blessed
     #   django-spurl
     #   python-dateutil
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via django
 urllib3==2.2.2
     # via
@@ -160,7 +160,7 @@ urlobject==2.4.3
     # via django-spurl
 wcwidth==0.2.13
     # via blessed
-whitenoise==6.6.0
+whitenoise==6.7.0
     # via -r requirements.in
 zope-event==5.0
     # via gevent
