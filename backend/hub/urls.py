@@ -1,5 +1,6 @@
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import RedirectView
 
 from hub.views import (
     BlogListView,
@@ -41,7 +42,8 @@ urlpatterns = [
     path(_("candidates/<int:pk>/status-confirm"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update"), CandidateUpdateView.as_view(), name="candidate-update"),
     path(_("candidates/votes"), ElectorCandidatesListView.as_view(), name="votes"),
-    path(_("candidates/ces-results"), CandidateResultsView.as_view(), name="ces-results"),
+    path(_("candidates/results"), CandidateResultsView.as_view(), name="results"),
+    path(_("candidates/ces-results"), RedirectView.as_view(pattern_name="results", permanent=True), name="ces-results"),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),
     path(_("ngos/"), OrganizationListView.as_view(), name="ngos"),

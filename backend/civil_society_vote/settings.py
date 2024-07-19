@@ -528,9 +528,11 @@ LOGGING = {
     },
 }
 
-SENTRY_ENVIRONMENT = env.str("SENTRY_ENVIRONMENT", default=ENVIRONMENT)
 # Sentry
-if env.str("SENTRY_DSN"):
+# https://docs.sentry.io/platforms/python/integrations/django/
+
+ENABLE_SENTRY = bool(env.str("SENTRY_DSN"))
+if ENABLE_SENTRY:
     sentry_sdk.init(
         dsn=env.str("SENTRY_DSN"),
         # Set traces_sample_rate to 1.0 to capture 100%
@@ -540,7 +542,7 @@ if env.str("SENTRY_DSN"):
         # of sampled transactions.
         # We recommend adjusting this value in production.
         profiles_sample_rate=env.float("SENTRY_PROFILES_SAMPLE_RATE"),
-        environment=SENTRY_ENVIRONMENT,
+        environment=ENVIRONMENT,
         release=f"votong@{VERSION}+{REVISION}",
     )
 

@@ -37,42 +37,67 @@
   </div>
 
   {% if CURRENT_EDITION_TYPE == "ces" %}
-  <div id="alegeri-jumbotron">
-    <div id="alegeri-icon">
-      <i class="fas fa-user-tie"></i>
-    </div>
-    <div class="container">
-      <h2 class="tile-title has-text-weight-bold">
-        Alegeri reprezentanții societății civile în Consiliul Economic și Social
-      </h2>
-      <p class="subtitle">
-        Proces de selecție și alegere a reprezentanților societății civile în Consiliul Economic și Social
-      </p>
-      <div id="alegeri-buttons">
-        <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
-        <!-- <a href="{% url 'ces-results' %}" class="  button is-warning">Vezi rezultate finale</a> -->
+
+    <div id="alegeri-jumbotron">
+      <div id="alegeri-icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <div class="container">
+        <h2 class="tile-title has-text-weight-bold">
+          Alegeri reprezentanții societății civile în Consiliul Economic și Social
+        </h2>
+        <p class="subtitle">
+          Proces de selecție și alegere a reprezentanților societății civile în Consiliul Economic și Social
+        </p>
+        <div id="alegeri-buttons">
+          <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
+          {% if RESULTS_ENABLED %}
+            <a href="{% url 'results' %}" class="button is-warning">Vezi rezultate finale</a>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-  
+
+  {% elif CURRENT_EDITION_TYPE == "ce" %}
+
+    <div id="alegeri-jumbotron">
+      <div id="alegeri-icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <div class="container">
+        <h2 class="tile-title has-text-weight-bold">
+          Alegeri Comisia Electorală a platformei VotONG
+        </h2>
+        <p class="subtitle">
+          Proces de selecție și alegere a Comisiei Electorale a platformei VotONG
+        </p>
+        <div id="alegeri-buttons">
+          <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
+          {% if RESULTS_ENABLED %}
+            <a href="{% url 'results' %}" class="button is-warning">Vezi rezultate finale</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
   {% elif CURRENT_EDITION_TYPE == "pnrr" %}
-  
-  <div id="alegeri-jumbotron">
-    <div id="alegeri-icon">
-      <i class="fas fa-user-tie"></i>
-    </div>
-    <div class="container">
-      <h2 class="tile-title has-text-weight-bold">
-        Alegeri reprezentanții societății civile în Comitetul de Monitorizare a PNRR
-      </h2>
-      <p class="subtitle">
-        Proces de selecție și alegere a reprezentanților societății civile în Comitetul de Monitorizare a PNRR
-      </p>
-      <div id="alegeri-buttons">
-        <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
+
+    <div id="alegeri-jumbotron">
+      <div id="alegeri-icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <div class="container">
+        <h2 class="tile-title has-text-weight-bold">
+          Alegeri reprezentanții societății civile în Comitetul de Monitorizare a PNRR
+        </h2>
+        <p class="subtitle">
+          Proces de selecție și alegere a reprezentanților societății civile în Comitetul de Monitorizare a PNRR
+        </p>
+        <div id="alegeri-buttons">
+          <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
+        </div>
       </div>
     </div>
-  </div>
   {% endif %}
 
   <div class="section">
@@ -98,10 +123,10 @@
             </div>
             <p class="tile-title">Pasul 2: Înscriere</p>
             <p>
-              Organizațiile se pot înscrie în VotONG prin platforma 
-              <a href="https://ngohub.ro">NGO Hub</a>. 
+              Organizațiile se pot înscrie în VotONG prin platforma
+              <a href="https://ngohub.ro">NGO Hub</a>.
               Pentru a intra în VotONG există o serie de condiții prestabilite care trebuiesc îndeplinite și
-              care pot fi consultate în 
+              care pot fi consultate în
               <a href="{% url 'platform_rules' %}">Regulamentul platformei</a>.
             </p>
           </div>
@@ -144,6 +169,10 @@
               Rezultatele fiecărei runde de alegeri vor fi publicate pe platformă și anunțate prin e-mail către toate
               organizațiile care au participat la runda de vot.
             </p>
+
+            {% if RESULTS_ENABLED %}
+              <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
+            {% endif %}
           </div>
           <div class="tile is-child box rules-box">
             <p class="tile-title">Regulament</p>
