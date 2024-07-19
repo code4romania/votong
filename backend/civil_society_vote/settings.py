@@ -108,11 +108,8 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
     # ngo hub api settings
-<<<<<<< HEAD
     NGOHUB_VOTONG_WEBSITE=(str, ""),
-=======
     NGOHUB_APP_HOST=(str, "app-staging.ngohub.ro"),
->>>>>>> main
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
     NGOHUB_API_KEY=(str, ""),
