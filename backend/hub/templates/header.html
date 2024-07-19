@@ -64,14 +64,27 @@
               {% trans "Organizations" %}
             </a>
 
+
             <a href="{% url 'candidates' %}" class="navbar-item">
-              {% trans "VotONG Elections" %}
+
+              {% if CURRENT_EDITION_TYPE == "ces" %}
+                {% trans "CES Elections" %}
+                {% elif CURRENT_EDITION_TYPE == "ce" %}
+                {% trans "VotONG Elections" %}
+                {% elif CURRENT_EDITION_TYPE == "pnrr" %}
+                {% trans "PNRR Elections" %}
+              {% else %}
+                {% trans "Elections" %}
+              {% endif %}
+
             </a>
 
             <a href="{% url 'history' %}" class="navbar-item">
               {% trans "History" %}
             </a>
 
+            <div class="navbar-item">|</div>
+          
             {% if ORG_REGISTRATION_ENABLED and not request.user.is_authenticated %}
               <a href="
                 {% if ENABLE_ORG_REGISTRATION_FORM %}
@@ -83,16 +96,6 @@
                 {% trans "Register organization" %}
               </a>
             {% endif %}
-
-            <!-- <a href="{% url 'candidates' %}" class="navbar-item">
-                            {% trans "Candidates" %}
-                        </a> -->
-
-            <!-- <a href="{% url 'rules' %}" class="navbar-item">
-                            {% trans "Methodology" %}
-                        </a> -->
-
-            <div class="navbar-item">|</div>
 
             {% if request.user.is_authenticated %}
 

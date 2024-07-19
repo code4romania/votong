@@ -1,6 +1,8 @@
 import csv
 import io
+from typing import List, Set
 
+from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
@@ -12,6 +14,7 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
+from sentry_sdk import capture_message
 
 from accounts.models import User
 from civil_society_vote.common.messaging import send_email
@@ -461,91 +464,11 @@ class CityAdmin(admin.ModelAdmin):
         return render(request, "admin/hub/city/import_cities.html", context)
 
 
-def flags_phase_1(modeladmin, request, queryset):
-    enabled = [
-        "enable_org_registration",
-        "enable_org_approval",
-        "enable_org_voting",
-        "enable_candidate_registration",
-        "enable_candidate_supporting",
-    ]
-    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
-
-    disabled = [
-        "enable_candidate_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
-
-    FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(
-        is_enabled=get_feature_flag(FLAG_CHOICES.global_support_round)
-    )
-
-
-flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate registrations")
-
-
-def flags_phase_2(modeladmin, request, queryset):
-    enabled = [
-        "enable_org_registration",
-        "enable_org_approval",
-        "enable_org_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
-
-    disabled = [
-        "enable_candidate_registration",
-        "enable_candidate_supporting",
-        "enable_candidate_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
-
-
-flags_phase_2.short_description = _("Set flags for PHASE 2 - candidate validation")
-
-
-def flags_phase_3(modeladmin, request, queryset):
-    enabled = [
-        "enable_org_registration",
-        "enable_org_approval",
-        "enable_org_voting",
-        "enable_candidate_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
-
-    disabled = [
-        "enable_candidate_registration",
-        "enable_candidate_supporting",
-    ]
-    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
-
-
-flags_phase_3.short_description = _("Set flags for PHASE 3 - voting")
-
-
-def flags_final_phase(modeladmin, request, queryset):
-    enabled = [
-        "enable_org_registration",
-        "enable_org_approval",
-        "enable_org_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
-
-    disabled = [
-        "enable_candidate_registration",
-        "enable_candidate_supporting",
-        "enable_candidate_voting",
-    ]
-    FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
-
-
-flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")
-
-
 @admin.register(FeatureFlag)
 class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
-    actions = [flags_phase_1, flags_phase_2, flags_phase_3, flags_final_phase]
+    actions = ["flags_phase_1", "flags_phase_2", "flags_phase_3", "flags_final_phase"]
 
     def changelist_view(self, request, extra_context=None):
         if "action" in request.POST:
@@ -567,6 +490,128 @@ class FeatureFlagAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return True
         return False
+
+    def _flags_switch_phase(self, request, phase_name: str, enabled: List[str], disabled: List[str]):
+        all_flag_choices: Set[str] = {
+            "enable_org_registration",
+            "enable_org_approval",
+            "enable_org_voting",
+            "enable_candidate_registration",
+            "enable_candidate_supporting",
+            "enable_candidate_voting",
+            "enable_results_display",
+            "kek",
+        }
+
+        global_flag_choices: Set[str] = {flag[0] for flag in FLAG_CHOICES}
+        if len(invalid_flags := global_flag_choices.symmetric_difference(all_flag_choices)) != 2:
+            missing_flags = ", ".join(invalid_flags.difference(global_flag_choices))
+            error_message: str = _(f"Invalid flag choices: {missing_flags} not found in {global_flag_choices}.")
+
+            self.message_user(request, message=error_message, level=messages.ERROR)
+
+            if settings.ENABLE_SENTRY:
+                capture_message(error_message, level="error")
+
+            return
+
+        full_list: Set[str] = set(enabled + disabled)
+        if invalid_flags := all_flag_choices.difference(full_list):
+            missing_flags: str = ", ".join(invalid_flags)
+            error_message: str = _(f"'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}.")
+
+            self.message_user(request, message=error_message, level=messages.ERROR)
+
+            if settings.ENABLE_SENTRY:
+                capture_message(error_message, level="error")
+
+            return
+
+        FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
+        FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
+
+        if "enable_candidate_supporting" in enabled:
+            FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(
+                is_enabled=get_feature_flag(FLAG_CHOICES.global_support_round)
+            )
+
+        self.message_user(request, message=_(f"Flags set successfully for '{phase_name}'."), level=messages.SUCCESS)
+
+    def flags_phase_1(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("PHASE 1 - organization & candidate registrations"),
+            enabled=[
+                "enable_org_registration",
+                "enable_org_approval",
+                "enable_org_voting",
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+            ],
+            disabled=[
+                "enable_candidate_voting",
+                "enable_results_display",
+            ],
+        )
+
+    flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate registrations")
+
+    def flags_phase_2(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("PHASE 2 - candidate validation"),
+            enabled=[
+                "enable_org_registration",
+                "enable_org_approval",
+                "enable_org_voting",
+            ],
+            disabled=[
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+                "enable_candidate_voting",
+                "enable_results_display",
+            ],
+        )
+
+    flags_phase_2.short_description = _("Set flags for PHASE 2 - candidate validation")
+
+    def flags_phase_3(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("PHASE 3 - voting"),
+            enabled=[
+                "enable_org_registration",
+                "enable_org_approval",
+                "enable_org_voting",
+                "enable_candidate_voting",
+            ],
+            disabled=[
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+                "enable_results_display",
+            ],
+        )
+
+    flags_phase_3.short_description = _("Set flags for PHASE 3 - voting")
+
+    def flags_final_phase(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("FINAL PHASE - results"),
+            enabled=[
+                "enable_results_display",
+                "enable_org_registration",
+                "enable_org_approval",
+                "enable_org_voting",
+            ],
+            disabled=[
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+                "enable_candidate_voting",
+            ],
+        )
+
+    flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")
 
 
 @admin.register(BlogPost)
