@@ -47,6 +47,7 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
             return user
 
         if not check_app_enabled_in_ngohub(sociallogin.token):
+            user.orgs.all().delete()
             user.delete()
             raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
 
@@ -70,7 +71,11 @@ def check_app_enabled_in_ngohub(token: str) -> bool:
         return {}
 
     for app in response.json():
-        if app["id"] == 0 and app["status"] == "active" and app["ongStatus"] == "active":
+        if (
+            app["website"] == settings.NGOHUB_VOTONG_WEBSITE
+            and app["status"] == "active"
+            and app["ongStatus"] == "active"
+        ):
             return True
 
     return False

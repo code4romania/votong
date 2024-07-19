@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 14:44+0300\n"
+"POT-Creation-Date: 2024-07-19 14:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,23 +86,27 @@ msgstr ""
 msgid "Change Email"
 msgstr ""
 
+#: backend/accounts/templates/error_app_missing.html:6
+msgid "There is no VotONG application for this NGO Hub user."
+msgstr ""
+
 #: backend/accounts/templates/error_org_base.html:8
 #: backend/accounts/templates/error_org_base.html:13
 msgid "Sign In Error"
 msgstr ""
 
 #: backend/accounts/templates/error_org_duplicate.html:6
-#: backend/hub/social_adapters.py:123
+#: backend/hub/social_adapters.py:151
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr ""
 
 #: backend/accounts/templates/error_org_missing.html:6
-#: backend/hub/social_adapters.py:115
+#: backend/hub/social_adapters.py:143
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr ""
 
 #: backend/accounts/templates/error_org_registration_closed.html:6
-#: backend/hub/social_adapters.py:96
+#: backend/hub/social_adapters.py:124
 msgid "The registration process for new organizations is currently disabled."
 msgstr ""
 
@@ -225,23 +229,27 @@ msgstr ""
 msgid "accounts/error/missing-organization/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:62
+#: backend/civil_society_vote/urls.py:63
+msgid "accounts/error/missing-application/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:67
 msgid "accounts/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:64
+#: backend/civil_society_vote/urls.py:69
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:72
+#: backend/civil_society_vote/urls.py:77
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:77
+#: backend/civil_society_vote/urls.py:82
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:82
+#: backend/civil_society_vote/urls.py:87
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
