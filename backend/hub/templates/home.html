@@ -36,6 +36,7 @@
     </div>
   </div>
 
+  {% if CURRENT_EDITION_TYPE == "ces" %}
   <div id="alegeri-jumbotron">
     <div id="alegeri-icon">
       <i class="fas fa-user-tie"></i>
@@ -45,13 +46,34 @@
         Alegeri reprezentanții societății civile în Consiliul Economic și Social
       </h2>
       <p class="subtitle">
-        Proces de selecție și alegere a reprezentanților societății civile în Consiliul Economic și Social</p>
+        Proces de selecție și alegere a reprezentanților societății civile în Consiliul Economic și Social
+      </p>
       <div id="alegeri-buttons">
         <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
         <!-- <a href="{% url 'ces-results' %}" class="  button is-warning">Vezi rezultate finale</a> -->
       </div>
     </div>
   </div>
+  
+  {% elif CURRENT_EDITION_TYPE == "pnrr" %}
+  
+  <div id="alegeri-jumbotron">
+    <div id="alegeri-icon">
+      <i class="fas fa-user-tie"></i>
+    </div>
+    <div class="container">
+      <h2 class="tile-title has-text-weight-bold">
+        Alegeri reprezentanții societății civile în Comitetul de Monitorizare a PNRR
+      </h2>
+      <p class="subtitle">
+        Proces de selecție și alegere a reprezentanților societății civile în Comitetul de Monitorizare a PNRR
+      </p>
+      <div id="alegeri-buttons">
+        <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
   <div class="section">
     <div class="container tight-container">
