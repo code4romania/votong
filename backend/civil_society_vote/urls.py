@@ -64,6 +64,11 @@ urlpatterns_i18n = i18n_patterns(
         StaticPageView.as_view(template_name="error_app_missing.html"),
         name="error-app-missing",
     ),
+    path(
+        _("accounts/error/unkown-user-role/"),
+        StaticPageView.as_view(template_name="error_user_role.html"),
+        name="error-user-role",
+    ),
     path(_("accounts/"), include("django.contrib.auth.urls")),
     path(
         _("accounts/reset-password/"),

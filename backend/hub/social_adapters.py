@@ -157,7 +157,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     update_organization(org.id, token)
 
 
-def update_user_information(user, token):
+def update_user_information(user: User, token: str):
     auth_headers = {"Authorization": f"Bearer {token}"}
 
     user_profile: Dict = _get_ngo_hub_user_profile(auth_headers)
@@ -184,6 +184,8 @@ def update_user_information(user, token):
         org = Organization.objects.filter(user=user).first()
         if not org:
             return create_blank_org(user)
+    else:
+        raise ImmediateHttpResponse(redirect(reverse("error-user-role")))
 
 
 @receiver(social_account_updated)
