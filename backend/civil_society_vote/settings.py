@@ -496,7 +496,7 @@ RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="")
 RECAPTCHA_REQUIRED_SCORE = 0.70
 
 if not RECAPTCHA_PUBLIC_KEY:
-    SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+    SILENCED_SYSTEM_CHECKS.append("captcha.recaptcha_test_key_error")
 
 # Toggles the loading of Google/Facebook tracking scripts in base.html
 ANALYTICS_ENABLED = env("ANALYTICS_ENABLED")

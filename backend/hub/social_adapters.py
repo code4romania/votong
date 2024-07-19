@@ -52,11 +52,11 @@ class UserOrgAdapter(DefaultSocialAccountAdapter):
             raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
 
         # Create a blank Organization for the newly registered user
-        org = update_user_information(user, sociallogin.token)
+        org = update_user_information(user, sociallogin.token.token)
 
         # Start the import of initial data from NGO Hub
         if org:
-            update_user_org(org, sociallogin.token, in_auth_flow=True)
+            update_user_org(org, sociallogin.token.token, in_auth_flow=True)
 
         return user
 
@@ -195,10 +195,10 @@ def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
     if user.is_superuser:
         return
 
-    org = update_user_information(user, social.token)
+    org = update_user_information(user, social.token.token)
 
     if org:
-        update_user_org(org, social.token, in_auth_flow=True)
+        update_user_org(org, social.token.token, in_auth_flow=True)
 
 
 @receiver(pre_social_login)
@@ -207,12 +207,5 @@ def handle_pre_login(sender: SocialLogin, **kwargs) -> None:
     Handler for the pre-login signal
     IMPORTANT: The User object might not be fully available here.
     """
-
-    # social = kwargs.get("sociallogin")
-    # request = kwargs.get("request")
-    #
-    # print("code =", request.GET.get("code"))
-    # print("user =", social.user)
-    # print("token =", social.token)
 
     pass
