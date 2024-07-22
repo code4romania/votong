@@ -16,12 +16,12 @@ black==24.4.2
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.34.145
+boto3==1.34.146
     # via
     #   -r requirements.txt
     #   django-ses
     #   pycognito
-botocore==1.34.145
+botocore==1.34.146
     # via
     #   -r requirements.txt
     #   boto3
@@ -52,7 +52,7 @@ coverage==7.6.0
     # via pytest-cov
 croniter==2.0.7
     # via -r requirements.txt
-cryptography==42.0.8
+cryptography==43.0.0
     # via
     #   -r requirements.txt
     #   pyjwt
@@ -78,6 +78,7 @@ django==4.2.14
     #   django-recaptcha
     #   django-ses
     #   django-storages
+    #   django-tinymce
 django-admin-autocomplete-filter==0.7.1
     # via -r requirements.txt
 django-admin-rangefilter==0.13.0
@@ -125,6 +126,8 @@ django-ses==4.1.0
 django-spurl==0.6.8
     # via -r requirements.txt
 django-storages==1.14.4
+    # via -r requirements.txt
+django-tinymce==4.1.0
     # via -r requirements.txt
 dnspython==2.6.1
     # via
@@ -208,7 +211,7 @@ psycopg2-binary==2.9.9
     # via -r requirements.txt
 ptyprocess==0.7.0
     # via pexpect
-pure-eval==0.2.2
+pure-eval==0.2.3
     # via stack-data
 pycognito==2024.5.1
     # via -r requirements.txt
