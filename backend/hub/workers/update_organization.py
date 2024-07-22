@@ -13,7 +13,7 @@ from pycognito import Cognito
 from requests import Response
 
 from civil_society_vote.common.cache import cache_decorator
-from hub.exceptions import OrganizationRetrievalHTTPException
+from hub.exceptions import NGOHubHTTPException
 from hub.models import City, Organization
 
 logger = logging.getLogger(__name__)
@@ -85,7 +85,7 @@ def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> Dict:
     response: Response = requests.get(request_url, headers=auth_headers)
 
     if response.status_code != requests.codes.ok:
-        raise OrganizationRetrievalHTTPException
+        raise NGOHubHTTPException
 
     return response.json()
 

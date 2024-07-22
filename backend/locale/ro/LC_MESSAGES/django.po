@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 14:44+0300\n"
+"POT-Creation-Date: 2024-07-22 16:54+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -89,26 +89,38 @@ msgstr "Email nou:"
 msgid "Change Email"
 msgstr "Schimbă email"
 
+#: backend/accounts/templates/error_app_missing.html:6
+msgid "There is no VotONG application for this NGO Hub user."
+msgstr "Aplicația VotONG nu este activă pentru acest utilizator de NGO Hub."
+
 #: backend/accounts/templates/error_org_base.html:8
 #: backend/accounts/templates/error_org_base.html:13
 msgid "Sign In Error"
 msgstr "Eroare autentificare"
 
 #: backend/accounts/templates/error_org_duplicate.html:6
-#: backend/hub/social_adapters.py:123
+#: backend/hub/social_adapters.py:140
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr "Organizația din NGO Hub există deja pentru un alt utilizator VotONG."
 
 #: backend/accounts/templates/error_org_missing.html:6
-#: backend/hub/social_adapters.py:115
+#: backend/hub/social_adapters.py:132
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr "Nu există o Organizație în NGO Hub pentru acest utilizator VotONG."
 
 #: backend/accounts/templates/error_org_registration_closed.html:6
-#: backend/hub/social_adapters.py:96
+#: backend/hub/social_adapters.py:119
 msgid "The registration process for new organizations is currently disabled."
 msgstr ""
 "Procesul de înregistrare pentru noi organizații nu este momentan deschis."
+
+#: backend/accounts/templates/error_unknown_user_role.html:6
+msgid "Unknown user role from NGO Hub."
+msgstr ""
+
+#: backend/accounts/templates/error_user_role.html:6
+msgid "You must be an NGO Admin in NGO Hub in order to join VotONG."
+msgstr ""
 
 #: backend/accounts/templates/partials/sections.html:8
 #: backend/accounts/templates/partials/sections.html:14
@@ -199,9 +211,8 @@ msgid "about/"
 msgstr "despre/"
 
 #: backend/civil_society_vote/urls.py:20
-#, python-format
-msgid "%(CURRENT_EDITION_TYPE)s/rules/"
-msgstr "%(CURRENT_EDITION_TYPE)s/regulament/"
+msgid "rules/"
+msgstr ""
 
 #: backend/civil_society_vote/urls.py:25
 msgid "terms/"
@@ -231,23 +242,35 @@ msgstr "cont/eroare/organizatie-duplicat/"
 msgid "accounts/error/missing-organization/"
 msgstr "cont/eroare/organizatie-lipsa/"
 
-#: backend/civil_society_vote/urls.py:62
+#: backend/civil_society_vote/urls.py:63
+msgid "accounts/error/missing-application/"
+msgstr "cont/eroare/aplicatie-lipsa/"
+
+#: backend/civil_society_vote/urls.py:68
+msgid "accounts/error/unkown-user-role/"
+msgstr "cont/eroare/utilizator-rol-necunoscut/"
+
+#: backend/civil_society_vote/urls.py:73
+msgid "accounts/error/user-role/"
+msgstr "cont/eroare/rol-utilizator/"
+
+#: backend/civil_society_vote/urls.py:77
 msgid "accounts/"
 msgstr "cont/"
 
-#: backend/civil_society_vote/urls.py:64
+#: backend/civil_society_vote/urls.py:79
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: backend/civil_society_vote/urls.py:72
+#: backend/civil_society_vote/urls.py:87
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: backend/civil_society_vote/urls.py:77
+#: backend/civil_society_vote/urls.py:92
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: backend/civil_society_vote/urls.py:82
+#: backend/civil_society_vote/urls.py:97
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
@@ -698,7 +721,7 @@ msgstr "Declarație reprezentant"
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: backend/hub/models.py:501 backend/hub/templates/header.html:82
+#: backend/hub/models.py:501 backend/hub/templates/header.html:88
 msgid "Candidates"
 msgstr "Candidaturi"
 
@@ -938,24 +961,24 @@ msgstr "Alegeri VotONG"
 msgid "History"
 msgstr "Istoric"
 
-#: backend/hub/templates/header.html:77
+#: backend/hub/templates/header.html:83
 #: backend/hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: backend/hub/templates/header.html:86
+#: backend/hub/templates/header.html:92
 msgid "Methodology"
 msgstr "Metodologie"
 
-#: backend/hub/templates/header.html:105
+#: backend/hub/templates/header.html:111
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: backend/hub/templates/header.html:109
+#: backend/hub/templates/header.html:115
 msgid "STOP IMPERSONATING"
 msgstr "OPREȘTE IMPERSONAREA"
 
-#: backend/hub/templates/header.html:116
+#: backend/hub/templates/header.html:122
 #: backend/hub/templates/registration/login.html:16
 #: backend/hub/templates/registration/login.html:60
 msgid "Login"
@@ -1254,9 +1277,3 @@ msgstr "sau apasă aici pentru a ieși"
 #: backend/templates/socialaccount/login.html:29
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
-
-#~ msgid "Register your organization"
-#~ msgstr "Înscriere organizație"
-
-#~ msgid "or click here to sign in"
-#~ msgstr "sau apasă aici pentru a te autentifica"

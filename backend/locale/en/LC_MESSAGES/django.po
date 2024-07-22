@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 14:44+0300\n"
+"POT-Creation-Date: 2024-07-22 16:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,24 +86,36 @@ msgstr ""
 msgid "Change Email"
 msgstr ""
 
+#: backend/accounts/templates/error_app_missing.html:6
+msgid "There is no VotONG application for this NGO Hub user."
+msgstr ""
+
 #: backend/accounts/templates/error_org_base.html:8
 #: backend/accounts/templates/error_org_base.html:13
 msgid "Sign In Error"
 msgstr ""
 
 #: backend/accounts/templates/error_org_duplicate.html:6
-#: backend/hub/social_adapters.py:123
+#: backend/hub/social_adapters.py:140
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr ""
 
 #: backend/accounts/templates/error_org_missing.html:6
-#: backend/hub/social_adapters.py:115
+#: backend/hub/social_adapters.py:132
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr ""
 
 #: backend/accounts/templates/error_org_registration_closed.html:6
-#: backend/hub/social_adapters.py:96
+#: backend/hub/social_adapters.py:119
 msgid "The registration process for new organizations is currently disabled."
+msgstr ""
+
+#: backend/accounts/templates/error_unknown_user_role.html:6
+msgid "Unknown user role from NGO Hub."
+msgstr ""
+
+#: backend/accounts/templates/error_user_role.html:6
+msgid "You must be an NGO Admin in NGO Hub in order to join VotONG."
 msgstr ""
 
 #: backend/accounts/templates/partials/sections.html:8
@@ -193,8 +205,7 @@ msgid "about/"
 msgstr ""
 
 #: backend/civil_society_vote/urls.py:20
-#, python-format
-msgid "%(CURRENT_EDITION_TYPE)s/rules/"
+msgid "rules/"
 msgstr ""
 
 #: backend/civil_society_vote/urls.py:25
@@ -225,23 +236,35 @@ msgstr ""
 msgid "accounts/error/missing-organization/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:62
-msgid "accounts/"
+#: backend/civil_society_vote/urls.py:63
+msgid "accounts/error/missing-application/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:64
-msgid "accounts/reset-password/"
+#: backend/civil_society_vote/urls.py:68
+msgid "accounts/error/unkown-user-role/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:72
-msgid "accounts/reset-password/done/"
+#: backend/civil_society_vote/urls.py:73
+msgid "accounts/error/user-role/"
 msgstr ""
 
 #: backend/civil_society_vote/urls.py:77
+msgid "accounts/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:79
+msgid "accounts/reset-password/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:87
+msgid "accounts/reset-password/done/"
+msgstr ""
+
+#: backend/civil_society_vote/urls.py:92
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: backend/civil_society_vote/urls.py:82
+#: backend/civil_society_vote/urls.py:97
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
@@ -692,7 +715,7 @@ msgstr "The name of the legal representative"
 msgid "Is proposed?"
 msgstr ""
 
-#: backend/hub/models.py:501 backend/hub/templates/header.html:82
+#: backend/hub/models.py:501 backend/hub/templates/header.html:88
 msgid "Candidates"
 msgstr ""
 
@@ -940,24 +963,24 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: backend/hub/templates/header.html:77
+#: backend/hub/templates/header.html:83
 #: backend/hub/templates/ngo/register_request.html:14
 msgid "Register organization"
 msgstr ""
 
-#: backend/hub/templates/header.html:86
+#: backend/hub/templates/header.html:92
 msgid "Methodology"
 msgstr ""
 
-#: backend/hub/templates/header.html:105
+#: backend/hub/templates/header.html:111
 msgid "Logout"
 msgstr ""
 
-#: backend/hub/templates/header.html:109
+#: backend/hub/templates/header.html:115
 msgid "STOP IMPERSONATING"
 msgstr ""
 
-#: backend/hub/templates/header.html:116
+#: backend/hub/templates/header.html:122
 #: backend/hub/templates/registration/login.html:16
 #: backend/hub/templates/registration/login.html:60
 msgid "Login"

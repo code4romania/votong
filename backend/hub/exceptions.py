@@ -28,7 +28,7 @@ class MissingOrganizationException(OrganizationException):
     pass
 
 
-class OrganizationRetrievalHTTPException(OrganizationException):
-    """The requested organization could not be retrieved from NGO Hub"""
+class NGOHubHTTPException(OrganizationException):
+    """NGO Hub API error"""
 
     pass

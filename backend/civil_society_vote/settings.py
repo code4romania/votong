@@ -108,6 +108,7 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
     # ngo hub api settings
+    NGOHUB_VOTONG_WEBSITE=(str, ""),
     NGOHUB_APP_HOST=(str, "app-staging.ngohub.ro"),
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
@@ -571,10 +572,18 @@ SOCIALACCOUNT_ONLY = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_STORE_TOKENS = False
 
+# NGO Hub settings
+NGOHUB_VOTONG_WEBSITE = env("NGOHUB_VOTONG_WEBSITE")  # used for checking that the user has the VotONG app in NGO Hub
 NGOHUB_APP_BASE = f"https://{env('NGOHUB_APP_HOST')}/"
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
+
+# NGO Hub user roles
+NGOHUB_ROLE_SUPER_ADMIN = "super-admin"
+NGOHUB_ROLE_NGO_ADMIN = "admin"
+NGOHUB_ROLE_NGO_EMPLOYEE = "employee"
+
 
 AWS_COGNITO_REGION = env("AWS_COGNITO_REGION") or AWS_REGION_NAME
 AWS_COGNITO_USER_POOL_ID = env("AWS_COGNITO_USER_POOL_ID")
