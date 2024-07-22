@@ -154,7 +154,7 @@ def update_user_information(user: User, token: str):
 
     user_role: str = user_profile.get("role", "")
 
-    if user_role == "super-admin":
+    if user_role == settings.NGOHUB_ROLE_SUPER_ADMIN:
         if user.orgs.exists():
             user.orgs.all().delete()
 
@@ -167,7 +167,7 @@ def update_user_information(user: User, token: str):
         user.groups.remove(Group.objects.get(name=NGO_GROUP))
 
         return None
-    elif user_role == "admin":
+    elif user_role == settings.NGOHUB_ROLE_NGO_ADMIN:
         # Add the user to the NGO group
         ngo_group: Group = Group.objects.get(name=NGO_GROUP)
         user.groups.add(ngo_group)
