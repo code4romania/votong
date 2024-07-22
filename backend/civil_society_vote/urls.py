@@ -44,6 +44,7 @@ urlpatterns_i18n = i18n_patterns(
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("tinymce/", include("tinymce.urls")),
     path(
         _("accounts/error/registration-closed/"),
         StaticPageView.as_view(template_name="error_org_registration_closed.html"),

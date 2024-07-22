@@ -1,6 +1,6 @@
 import logging
 
-from ckeditor_uploader.fields import RichTextUploadingField
+from tinymce.models import HTMLField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -137,7 +137,7 @@ class BlogPost(TimeStampedModel):
     slug = models.SlugField(unique=True)
     author = models.CharField(_("Author"), max_length=100)
     content_preview = models.TextField(_("Content preview"))
-    content = RichTextUploadingField(
+    content = HTMLField(
         _("Content"),
     )
     is_visible = models.BooleanField(_("Is visible?"), default=False)
