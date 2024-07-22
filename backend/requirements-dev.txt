@@ -66,12 +66,10 @@ django==4.2.14
     #   django-admin-autocomplete-filter
     #   django-allauth
     #   django-appconf
-    #   django-ckeditor
     #   django-crispy-forms
     #   django-debug-toolbar
     #   django-extensions
     #   django-guardian
-    #   django-js-asset
     #   django-model-utils
     #   django-picklefield
     #   django-q2
@@ -91,8 +89,6 @@ django-appconf==1.0.6
     #   django-avatar
 django-avatar==8.0.0
     # via -r requirements.txt
-django-ckeditor==6.7.1
-    # via -r requirements.txt
 django-crispy-forms==2.2
     # via -r requirements.txt
 django-debug-toolbar==4.4.6
@@ -107,10 +103,6 @@ django-guardian==2.4.0
     # via -r requirements.txt
 django-impersonate==1.9.4
     # via -r requirements.txt
-django-js-asset==2.2.0
-    # via
-    #   -r requirements.txt
-    #   django-ckeditor
 django-model-utils==4.5.1
     # via -r requirements.txt
 django-picklefield==3.2
