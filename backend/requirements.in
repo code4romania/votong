@@ -21,7 +21,6 @@ django-admin-rangefilter~=0.13.0
 django-model-utils~=4.5.1
 django-impersonate~=1.9.2
 django-guardian~=2.4.0
-django-ckeditor~=6.7.1  # TODO: scrap this because CKEditor changed the license
 django-tinymce~=4.1.0
 
 # file handling

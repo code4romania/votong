@@ -31,7 +31,7 @@ root = Path(__file__).resolve().parent.parent.parent
 BASE_DIR = os.path.abspath(os.path.join(root, "backend"))
 
 
-SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
+SILENCED_SYSTEM_CHECKS = []
 
 
 env = environ.Env(
@@ -180,8 +180,6 @@ INSTALLED_APPS = [
     "rangefilter",
     "impersonate",
     "guardian",
-    "ckeditor",
-    "ckeditor_uploader",
     "tinymce",
 ]
 
@@ -514,11 +512,6 @@ AVATAR_PROVIDERS = (
 )
 AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
 
-CKEDITOR_BASEPATH = f"{STATIC_URL}ckeditor/ckeditor/"
-CKEDITOR_CONFIGS = {
-    "default": {"toolbar": "full", "height": 600, "width": 950},
-}
-CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Django logging
 LOGGING = {
