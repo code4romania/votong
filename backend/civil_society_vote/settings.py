@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "guardian",
     "ckeditor",
     "ckeditor_uploader",
+    "tinymce",
 ]
 
 if not (USE_S3 or USE_AZURE):
