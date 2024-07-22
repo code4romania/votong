@@ -154,7 +154,9 @@ def update_user_information(user: User, token: str):
 
     user_role: str = user_profile.get("role", "")
 
+    # Check the user role from NGO Hub
     if user_role == settings.NGOHUB_ROLE_SUPER_ADMIN:
+        # A super admin from NGO Hub will become a Django admin on VotONG
         if user.orgs.exists():
             user.orgs.all().delete()
 
@@ -165,8 +167,8 @@ def update_user_information(user: User, token: str):
 
         user.groups.add(Group.objects.get(name=STAFF_GROUP))
         user.groups.remove(Group.objects.get(name=NGO_GROUP))
-
         return None
+
     elif user_role == settings.NGOHUB_ROLE_NGO_ADMIN:
         # Add the user to the NGO group
         ngo_group: Group = Group.objects.get(name=NGO_GROUP)
@@ -175,8 +177,14 @@ def update_user_information(user: User, token: str):
         org = Organization.objects.filter(user=user).first()
         if not org:
             return create_blank_org(user)
-    else:
+
+    elif user_role == settings.NGOHUB_ROLE_NGO_EMPLOYEE:
+        # Employees cannot have organizations
         raise ImmediateHttpResponse(redirect(reverse("error-user-role")))
+
+    else:
+        # Unknown user role
+        raise ImmediateHttpResponse(redirect(reverse("error-unknown-user-role")))
 
 
 @receiver(social_account_updated)

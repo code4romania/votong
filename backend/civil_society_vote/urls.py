@@ -66,6 +66,11 @@ urlpatterns_i18n = i18n_patterns(
     ),
     path(
         _("accounts/error/unkown-user-role/"),
+        StaticPageView.as_view(template_name="error_unkown_user_role.html"),
+        name="error-unknown-user-role",
+    ),
+    path(
+        _("accounts/error/user-role/"),
         StaticPageView.as_view(template_name="error_user_role.html"),
         name="error-user-role",
     ),
