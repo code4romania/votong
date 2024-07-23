@@ -29,16 +29,16 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.SUCCESS("Starting the seeding process"))
 
-        if not User.objects.filter(email="admin@example.test").exists():
-            User.objects.create_user("admin", "admin@example.test", "secret", is_staff=True, is_superuser=True)
+        if not User.objects.filter(email="admin@example.com").exists():
+            User.objects.create_user("admin", "admin@example.com", "secret", is_staff=True, is_superuser=True)
             self.stdout.write("Created ADMIN user")
 
-        if not User.objects.filter(email="staff@example.test").exists():
-            User.objects.create_user("staff", "staff@example.test", "secret")
+        if not User.objects.filter(email="staff@example.com").exists():
+            User.objects.create_user("staff", "staff@example.com", "secret")
             self.stdout.write("Created STAFF user")
 
-        if not User.objects.filter(email="ces@example.test").exists():
-            User.objects.create_user("ces", "ces@example.test", "secret")
+        if not User.objects.filter(email="ces@example.com").exists():
+            User.objects.create_user("ces", "ces@example.com", "secret")
             self.stdout.write("Created CES user")
 
         committee_group = Group.objects.get(name=COMMITTEE_GROUP)
