@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="cmdArguments" value="--line-length 120 --target-version py311" />
+    <option name="enabledOnReformat" value="true" />
+    <option name="enabledOnSave" value="true" />
+    <option name="pathToExecutable" value="/opt/homebrew/bin/black" />
+    <option name="sdkName" value="Python 3.11 (votong)" />
+  </component>
+  <component name="MaterialThemeProjectNewConfig">
+    <option name="metadata">
+      <MTProjectMetadataState>
+        <option name="userId" value="-70709235:18ead25ae95:-7ffe" />
+      </MTProjectMetadataState>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (votong)" project-jdk-type="Python SDK" />
+</project>
