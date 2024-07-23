@@ -500,7 +500,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
             "enable_candidate_supporting",
             "enable_candidate_voting",
             "enable_results_display",
-            "kek",
         }
 
         global_flag_choices: Set[str] = {flag[0] for flag in FLAG_CHOICES}
