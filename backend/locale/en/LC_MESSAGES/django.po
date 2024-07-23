@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-22 16:54+0300\n"
+"POT-Creation-Date: 2024-07-23 16:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -972,15 +972,19 @@ msgstr ""
 msgid "Methodology"
 msgstr ""
 
-#: backend/hub/templates/header.html:111
-msgid "Logout"
+#: backend/hub/templates/header.html:112
+msgid "Admin"
 msgstr ""
 
-#: backend/hub/templates/header.html:115
+#: backend/hub/templates/header.html:117
 msgid "STOP IMPERSONATING"
 msgstr ""
 
-#: backend/hub/templates/header.html:122
+#: backend/hub/templates/header.html:121
+msgid "Logout"
+msgstr ""
+
+#: backend/hub/templates/header.html:126
 #: backend/hub/templates/registration/login.html:16
 #: backend/hub/templates/registration/login.html:60
 msgid "Login"

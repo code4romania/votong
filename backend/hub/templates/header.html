@@ -108,13 +108,17 @@
             {{ user.email|truncatechars:24 }}
             </a>
 
-              <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>
-
-              {% if user.is_impersonate %}
-                <a href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
-                  {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
-                </a>
+              {% if request.user.is_superuser %}
+              <a href="{% url 'admin:index' %}" class="navbar-item">{% trans "Admin" %}</a>
               {% endif %}
+              
+              {% if user.is_impersonate %}
+              <a href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
+                {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
+              </a>
+              {% endif %}
+              
+              <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>
 
             {% else %}
 
