@@ -545,6 +545,11 @@ if env.str("SENTRY_DSN"):
     )
 
 
+# Our custom User model uses the email field as user name, and the email is normalized to lowercase on save.
+# This is why we must set a lowercase name for Django Guardian's anonymous user object.
+ANONYMOUS_USER_NAME = "anonymoususer"
+
+
 # Django Allauth settings
 SOCIALACCOUNT_PROVIDERS = {
     "amazon_cognito": {
