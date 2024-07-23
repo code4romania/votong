@@ -528,6 +528,7 @@ LOGGING = {
     },
 }
 
+SENTRY_ENVIRONMENT = env.str("SENTRY_ENVIRONMENT", default=ENVIRONMENT)
 # Sentry
 if env.str("SENTRY_DSN"):
     sentry_sdk.init(
@@ -539,7 +540,7 @@ if env.str("SENTRY_DSN"):
         # of sampled transactions.
         # We recommend adjusting this value in production.
         profiles_sample_rate=env.float("SENTRY_PROFILES_SAMPLE_RATE"),
-        environment=ENVIRONMENT,
+        environment=SENTRY_ENVIRONMENT,
         release=f"votong@{VERSION}+{REVISION}",
     )
 
