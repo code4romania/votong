@@ -36,7 +36,9 @@
           <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a></li>
           <li><a href="{% url 'cookies' %}">{% trans "Privacy Policy" %}</a></li>
           <li><a href="{% url 'terms' %}">{% trans "Terms and conditions" %}</a></li>
-          <li><a href="{% url 'login' %}">{% trans "Commission Sign In" %}</a></li>
+          {% if not request.user.is_authenticated %}
+            <li><a href="{% url 'login' %}">{% trans "Commission Sign In" %}</a></li>
+          {% endif %}
         </ul>
       </div>
 
