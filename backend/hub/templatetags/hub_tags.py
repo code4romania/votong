@@ -64,6 +64,19 @@ def in_committee_or_staff_groups(user):
     return user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
 
 
+@register.filter
+def in_commission_group(user):
+    return (
+        user.groups.filter(name=COMMITTEE_GROUP).exists()
+        and not user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+    )
+
+
+@register.filter
+def in_staff_groups(user):
+    return user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+
+
 @register.simple_tag
 def supporters(candidate_id):
     return CandidateSupporter.objects.filter(candidate=candidate_id).count()

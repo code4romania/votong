@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-23 18:53+0300\n"
+"POT-Creation-Date: 2024-07-24 17:40+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "2:1));\n"
 "X-Generator: Poedit 2.3\n"
 
-#: accounts/forms.py:14
+#: accounts/forms.py:19 accounts/forms.py:36
 msgid "This email can't be set."
 msgstr "Acest email nu poate fi ales."
 
@@ -88,6 +88,49 @@ msgstr "Email nou:"
 msgid "Change Email"
 msgstr "Schimbă email"
 
+#: accounts/templates/emails/01_invite_commission_member.html:5
+msgid ""
+"\n"
+"      You're receiving this email because you were invited as a commission "
+"member on VotONG.\n"
+"    "
+msgstr ""
+"\n"
+"      Ați primit acest email deoarece ați fost invitat ca membru al comisiei "
+"pe VotONG.\n"
+"    "
+
+#: accounts/templates/emails/01_invite_commission_member.html:9
+#: accounts/templates/emails/01_invite_commission_member.txt:5
+msgid "Please go to the following page and choose a new password:"
+msgstr "Vă rugăm să mergeți la pagina următoare și să alegeți o nouă parolă:"
+
+#: accounts/templates/emails/01_invite_commission_member.html:13
+#: accounts/templates/emails/01_invite_commission_member.txt:9
+msgid "You will be able to sign in with your email address:"
+msgstr "Veți putea să vă autentificați cu adresa de email:"
+
+#: accounts/templates/emails/01_invite_commission_member.html:15
+#: accounts/templates/emails/01_invite_commission_member.txt:11
+msgid "If you think this is a mistake, you can ignore this email."
+msgstr "Dacă credeți că este o greșeală, puteți ignora acest email."
+
+#: accounts/templates/emails/01_invite_commission_member.txt:2
+msgid ""
+"\n"
+"    You're receiving this email because you were invited as a commission "
+"member on VotONG.\n"
+"  "
+msgstr ""
+"\n"
+"    Ați primit acest email deoarece ați fost invitat ca membru al comisiei "
+"pe VotONG.\n"
+"  "
+
+#: accounts/templates/emails/01_invite_commission_member_subject.txt:2
+msgid "[VotONG] Commission member invite"
+msgstr "[VotONG] Invitație membru comisie"
+
 #: accounts/templates/error_app_missing.html:6
 msgid "There is no VotONG application for this NGO Hub user."
 msgstr "Aplicația VotONG nu este activă pentru acest utilizator de NGO Hub."
@@ -121,23 +164,35 @@ msgstr ""
 "Trebuie sa fiți Administrator de ONG în NGO Hub pentru a vă înscrie în "
 "VotONG."
 
+#: accounts/templates/invite-commission-member.html:39
+msgid "Commission member email:"
+msgstr "Email membru comisie:"
+
+#: accounts/templates/invite-commission-member.html:51
+msgid "Invite commission member"
+msgstr "Invită membru comisie"
+
 #: accounts/templates/partials/sections.html:8
 #: accounts/templates/partials/sections.html:14
 #: hub/templates/candidate/list.html:36
 msgid "Back"
 msgstr "Înapoi"
 
-#: accounts/templates/partials/sections.html:19
+#: accounts/templates/partials/sections.html:20
 #: hub/templates/registration/reset_password.html:15
 #: hub/templates/registration/reset_password.html:49
 msgid "Reset password"
 msgstr "Resetează parolă"
 
-#: accounts/templates/partials/sections.html:23
+#: accounts/templates/partials/sections.html:26
+msgid "Commission invite"
+msgstr "Invitare comisie"
+
+#: accounts/templates/partials/sections.html:30
 msgid "Change email"
 msgstr "Schimbă email"
 
-#: accounts/templates/partials/sections.html:27
+#: accounts/templates/partials/sections.html:35
 msgid "Change avatar"
 msgstr "Schimbă avatar"
 
@@ -152,47 +207,66 @@ msgid "Old password:"
 msgstr "Parolă veche:"
 
 #: accounts/templates/password-reset.html:52
+#: hub/templates/registration/new_commission_password_confirm.html:40
 #: hub/templates/registration/reset_password_confirm.html:40
 msgid "New password:"
 msgstr "Parolă noua:"
 
 #: accounts/templates/password-reset.html:61
+#: hub/templates/registration/new_commission_password_confirm.html:49
 #: hub/templates/registration/reset_password_confirm.html:49
 msgid "Confirm password:"
 msgstr "Confirmă parolă:"
 
 #: accounts/templates/password-reset.html:72
+#: hub/templates/registration/new_commission_password_confirm.html:59
 #: hub/templates/registration/reset_password_confirm.html:59
 msgid "Change my password"
 msgstr "Schimbă-mi parola"
 
-#: accounts/urls.py:6
+#: accounts/urls.py:11
 msgid "password-reset/"
 msgstr "reseteaza-parola/"
 
-#: accounts/urls.py:7
+#: accounts/urls.py:12
 msgid "change-avatar/"
 msgstr "schimba-avatar/"
 
-#: accounts/urls.py:8
+#: accounts/urls.py:13
 msgid "change-email/"
 msgstr "schimba-email/"
 
-#: accounts/views.py:17
+#: accounts/urls.py:14
+msgid "invite-commission/"
+msgstr "invita-comisie/"
+
+#: accounts/views.py:19
 msgid "You cannot change the password for an NGO Hub account"
 msgstr "Nu puteți schimba parola pentru un cont NGO Hub"
 
-#: accounts/views.py:21
+#: accounts/views.py:23
 msgid "Password was updated successfully"
 msgstr "Parola a fost schimbată cu succes"
 
-#: accounts/views.py:34
+#: accounts/views.py:36
 msgid "You cannot change the email for an NGO Hub account"
 msgstr "Nu puteți schimba adresa de email pentru un cont NGO Hub"
 
-#: accounts/views.py:41
+#: accounts/views.py:43
 msgid "Email was updated successfully"
 msgstr "Adresa de email a fost modificată cu succes"
+
+#: accounts/views.py:75
+msgid "You are not allowed to invite a commission member"
+msgstr "Nu aveți permisiunea de a invita un membru al comisiei"
+
+#: accounts/views.py:80
+msgid "Commission member was invited successfully"
+msgstr "Membrul comisiei a fost invitat cu succes"
+
+#: accounts/views.py:82
+msgid "Commission member could not be invited"
+msgstr "Membrul comisiei nu a putut fi invitat"
 
 #: civil_society_vote/common/messaging.py:26
 msgid "Invalid email send method. Must be 'async' or 'sync'."
@@ -270,6 +344,10 @@ msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
 #: civil_society_vote/urls.py:97
+msgid "accounts/set-password/<uidb64>/<token>/"
+msgstr "cont/seteaza-parola/<uidb64>/<token>/"
+
+#: civil_society_vote/urls.py:102
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
@@ -353,53 +431,55 @@ msgstr "Fișier CSV încărcat"
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/admin.py:509
+#: hub/admin.py:508
 #, python-brace-format
 msgid ""
 "Invalid flag choices: {missing_flags} not found in {global_flag_choices}."
 msgstr ""
-"Opțiuni de comutator nevalide: {missing_flags} nu a fost găsit în {"
-"global_flag_choices}."
+"Opțiuni de comutator nevalide: {missing_flags} nu a fost găsit în "
+"{global_flag_choices}."
 
-#: hub/admin.py:521
+#: hub/admin.py:520
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
-msgstr "'{phase_name}' configurare invalidă. Lipsesc comutatorul/comutatoarele: {missing_flags}."
+msgstr ""
+"'{phase_name}' configurare invalidă. Lipsesc comutatorul/comutatoarele: "
+"{missing_flags}."
 
-#: hub/admin.py:538
+#: hub/admin.py:537
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr "Comutatoarele au fost setate cu succes pentru '{phase_name}'."
 
-#: hub/admin.py:543
+#: hub/admin.py:542
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr "FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:557
+#: hub/admin.py:556
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr "FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:562
+#: hub/admin.py:561
 msgid "PHASE 2 - candidate validation"
 msgstr "FAZA 2 - validare candidați"
 
-#: hub/admin.py:576
+#: hub/admin.py:575
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr "Activează FAZA 2 - validare candidați"
 
-#: hub/admin.py:581
+#: hub/admin.py:580
 msgid "PHASE 3 - voting"
 msgstr "FAZA 3 - votare"
 
-#: hub/admin.py:595
+#: hub/admin.py:594
 msgid "Set flags for PHASE 3 - voting"
 msgstr "Activează FAZA 3 - votare"
 
-#: hub/admin.py:600
+#: hub/admin.py:599
 msgid "FINAL PHASE - results"
 msgstr "FAZA FINALĂ - rezultate"
 
-#: hub/admin.py:614
+#: hub/admin.py:613
 msgid "Set flags for FINAL PHASE - results"
 msgstr "Activează FAZA FINALĂ - rezultate"
 
@@ -865,7 +945,9 @@ msgstr "Vizualizează detalii"
 
 #: hub/templates/candidate/register_request.html:34
 #: hub/templates/candidate/update.html:28
-#: hub/templates/committee/partials/nav.html:24
+#: hub/templates/committee/partials/nav.html:38
+#: hub/templates/committee/partials/nav.html:40
+#: hub/templates/committee/partials/nav.html:42
 #: hub/templates/ngo/update.html:33 hub/templates/ngo/votes.html:34
 msgid "Settings"
 msgstr "Setări"
@@ -897,12 +979,12 @@ msgid "CES elections"
 msgstr "Alegeri CES"
 
 #: hub/templates/committee/candidates.html:20
-#: hub/templates/committee/partials/nav.html:15
+#: hub/templates/committee/partials/nav.html:22
 msgid "Pending candidates"
 msgstr "Candidaturi propuse"
 
 #: hub/templates/committee/candidates.html:22
-#: hub/templates/committee/partials/nav.html:18
+#: hub/templates/committee/partials/nav.html:27
 msgid "Accepted candidates"
 msgstr "Candidaturi validate"
 
@@ -913,21 +995,21 @@ msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
 #: hub/templates/committee/list.html:23
-#: hub/templates/committee/partials/nav.html:6
+#: hub/templates/committee/partials/nav.html:7
 msgid "Pending Organizations"
 msgstr "Organizații nevalidate"
 
 #: hub/templates/committee/list.html:25
-#: hub/templates/committee/partials/nav.html:9
+#: hub/templates/committee/partials/nav.html:12
 msgid "Accepted Organizations"
 msgstr "Organizații validate"
 
 #: hub/templates/committee/list.html:27
-#: hub/templates/committee/partials/nav.html:12
+#: hub/templates/committee/partials/nav.html:17
 msgid "Rejected Organizations"
 msgstr "Organizații respinse"
 
-#: hub/templates/committee/partials/nav.html:21
+#: hub/templates/committee/partials/nav.html:32
 msgid "Rejected candidates"
 msgstr "Candidaturi respinse"
 
@@ -1095,6 +1177,25 @@ msgstr "parolă"
 msgid "Forgot password?"
 msgstr "Ai uitat parola?"
 
+#: hub/templates/registration/new_commission_password_confirm.html:15
+msgid "Set a password"
+msgstr "Setează o parolă"
+
+#: hub/templates/registration/new_commission_password_confirm.html:32
+#: hub/templates/registration/reset_password_confirm.html:32
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Introduceti parola de doua ori pentru a verifica ca e scrisa corect"
+
+#: hub/templates/registration/new_commission_password_confirm.html:68
+msgid ""
+"The new password link was invalid, possibly because it has already been "
+"used. Please contact the administrators."
+msgstr ""
+"Linkul pentru parola nouă este invalid, probabil pentru că a fost deja "
+"folosit. Te rugăm să contactezi administratorii."
+
 #: hub/templates/registration/reset_password.html:20
 msgid "The email address you entered is not valid. Please try again."
 msgstr "Adresa de email pe care ai introdus-o nu este valida. Inceaca din nou."
@@ -1117,19 +1218,22 @@ msgstr ""
 msgid "The password was reset"
 msgstr "Parola a fost resetată"
 
-#: hub/templates/registration/reset_password_complete.html:20
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Parola a fost setata. Te poti autentifica acum."
+#: hub/templates/registration/reset_password_complete.html:21
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "Parola a fost setată. Te poți autentifica acum."
+
+#: hub/templates/registration/reset_password_complete.html:24
+msgid "If you're part of the electoral commission, make sure to use"
+msgstr ""
+"Dacă faci parte din comisia electorală, asigură-te că folosești"
+
+#: hub/templates/registration/reset_password_complete.html:26
+msgid "the link from the footer."
+msgstr "linkul din footer."
 
 #: hub/templates/registration/reset_password_confirm.html:15
 msgid "Confirm password reset"
 msgstr "Confirmă resetare parolă"
-
-#: hub/templates/registration/reset_password_confirm.html:32
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr "Introduceti parola de doua ori pentru a verifica ca e scrisa corect"
 
 #: hub/templates/registration/reset_password_confirm.html:68
 msgid ""
@@ -1171,11 +1275,11 @@ msgstr "următoarea"
 msgid "last"
 msgstr "ultima"
 
-#: hub/templatetags/hub_tags.py:104
+#: hub/templatetags/hub_tags.py:117
 msgid "published on"
 msgstr "publicat la"
 
-#: hub/templatetags/hub_tags.py:106
+#: hub/templatetags/hub_tags.py:119
 msgid "published"
 msgstr "publicat"
 
@@ -1312,8 +1416,3 @@ msgstr "sau apasă aici pentru a ieși"
 #: templates/socialaccount/login.html:29
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
-
-#, python-brace-format
-#~ msgid ""
-#~ "Some flags are missing from the phase configuration: {missing_flags}."
-#~ msgstr "Unele comutatoare lipsesc din configurarea fazei: {missing_flags}."
