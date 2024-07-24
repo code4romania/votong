@@ -1,15 +1,41 @@
-from accounts.models import User
+from django import forms
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
+from accounts.models import User
+from hub.models import COMMITTEE_GROUP
 
-class UpdateEmailForm(ModelForm):
+
+class CommonEmailConfirmationForm(forms.Form):
+    email = forms.EmailField()
+    email2 = forms.EmailField()
+
+    def _check_emails_match(self):
+        email = self.cleaned_data.get("email")
+        email2 = self.cleaned_data.get("email2")
+
+        if email != email2:
+            raise ValidationError(_("Emails don't match."))
+
+    def clean_email(self):
+        self._check_emails_match()
+        return self.cleaned_data.get("email")
+
+    def clean_email2(self):
+        self._check_emails_match()
+        return self.cleaned_data.get("email2")
+
+
+class UpdateEmailForm(CommonEmailConfirmationForm, ModelForm):
     class Meta:
         model = User
         fields = ("email",)
 
     def clean_email(self):
+        super().clean_email()
         if User.objects.filter(email=self.cleaned_data.get("email")).exists():
             raise ValidationError(_("This email can't be set."))
 
@@ -19,3 +45,31 @@ class UpdateEmailForm(ModelForm):
         self.instance.email = self.cleaned_data.get("email")
 
         return super().save(commit)
+
+
+class InviteCommissionForm(CommonEmailConfirmationForm, PasswordResetForm):
+    def clean_email(self):
+        super().clean_email()
+
+        if User.objects.filter(email=self.cleaned_data.get("email")).exists():
+            raise ValidationError(_("This email can't be set."))
+
+        return self.cleaned_data.get("email")
+
+    def save(self, commit=True, *args, **kwargs):
+        email = self.cleaned_data.get("email")
+
+        new_user = User()
+        new_user.username = email
+        new_user.email = email
+        new_user.is_active = True
+        new_user.save()
+
+        new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP))
+
+        kwargs["subject_template_name"] = "emails/01_invite_commission_member_subject.txt"
+        kwargs["email_template_name"] = "emails/01_invite_commission_member.html"
+
+        super().save(**kwargs)
+
+        return new_user

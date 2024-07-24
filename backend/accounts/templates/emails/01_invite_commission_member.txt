@@ -1,0 +1,13 @@
+{% load i18n %}{% autoescape off %}
+  {% blocktranslate %}
+    You're receiving this email because you were invited as a commission member on VotONG.
+  {% endblocktranslate %}
+    {% translate "Please go to the following page and choose a new password:" %}
+  {% block reset_link %}
+    {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+  {% endblock %}
+  {% translate 'You will be able to sign in with your email address:' %} {{ user.get_username }}
+
+  {% translate "If you think this is a mistake, you can ignore this email." %}
+
+{% endautoescape %}

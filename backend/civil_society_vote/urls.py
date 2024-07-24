@@ -94,6 +94,11 @@ urlpatterns_i18n = i18n_patterns(
         name="password_reset_confirm",
     ),
     path(
+        _("accounts/set-password/<uidb64>/<token>/"),
+        auth_views.PasswordResetConfirmView.as_view(template_name="registration/new_commission_password_confirm.html"),
+        name="password_set_commission",
+    ),
+    path(
         _("accounts/reset-password/complete/"),
         auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
         name="password_reset_complete",

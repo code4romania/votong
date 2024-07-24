@@ -2,29 +2,37 @@
 {% load hub_tags %}
 
 <div class="tabs is-medium">
-    <ul>
-        {% if user|in_committee_or_staff_groups %}
-        <li>
-          <a href="{% url 'committee-ngos' %}">{% trans 'Back' %}</a>
-        </li>
-        {% endif %}
+  <ul>
+    {% if user|in_committee_or_staff_groups %}
+      <li>
+        <a href="{% url 'committee-ngos' %}">{% trans 'Back' %}</a>
+      </li>
+    {% endif %}
 
-        {% if user.orgs.exists %}
-        <li>
-          <a href="{% url 'ngo-update' user.orgs.first.id %}">{% trans 'Back' %}</a>
-        </li>
-        {% endif %}
+    {% if user.orgs.exists %}
+      <li>
+        <a href="{% url 'ngo-update' user.orgs.first.id %}">{% trans 'Back' %}</a>
+      </li>
+    {% endif %}
 
-        <li {% if active == 'password-reset' %}class="is-active"{% endif %}>
-            <a href="{% url 'account-password-reset' %}">{% trans 'Reset password' %}</a>
-        </li>
+    {% if user|in_commission_group %}
+      <li {% if active == 'password-reset' %}class="is-active"{% endif %}>
+        <a href="{% url 'account-password-reset' %}">{% trans 'Reset password' %}</a>
+      </li>
+    {% endif %}
 
-        <li {% if active == 'change-email' %}class="is-active"{% endif %}>
-            <a href="{% url 'account-change-email' %}">{% trans 'Change email' %}</a>
-        </li>
+    {% if user|in_staff_groups %}
+      <li {% if active == 'admin-invite-commission' %}class="is-active"{% endif %}>
+        <a href="{% url 'admin-invite-commission' %}">{% trans 'Commission invite' %}</a>
+      </li>
+    {% else %}
+      <li {% if active == 'change-email' %}class="is-active"{% endif %}>
+        <a href="{% url 'account-change-email' %}">{% trans 'Change email' %}</a>
+      </li>
+    {% endif %}
 
-        <li {% if active == 'change-avatar' %}class="is-active"{% endif %}>
-            <a href="{% url 'avatar:change' %}">{% trans 'Change avatar' %}</a>
-        </li>
-    </ul>
+    <li {% if active == 'change-avatar' %}class="is-active"{% endif %}>
+      <a href="{% url 'avatar:change' %}">{% trans 'Change avatar' %}</a>
+    </li>
+  </ul>
 </div>
