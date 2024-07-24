@@ -1,7 +1,10 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import FormView
 
@@ -13,6 +16,10 @@ from hub.models import STAFF_GROUP, SUPPORT_GROUP
 class PasswordResetView(auth_views.PasswordChangeView):
     template_name = "password-reset.html"
     success_url = reverse_lazy("account-password-reset")
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         if self.request.user.is_ngohub_user:
@@ -30,6 +37,10 @@ class ChangeEmailView(FormView):
     form_class = UpdateEmailForm
     success_url = reverse_lazy("account-change-email")
     model = User
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         if self.request.user.is_ngohub_user:
@@ -50,6 +61,11 @@ class CommissionMemberInviteView(auth_views.PasswordResetView):
     form_class = InviteCommissionForm
     success_url = reverse_lazy("admin-invite-commission")
     model = User
+
+    @method_decorator(login_required)
+    @method_decorator(staff_member_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         user = self.request.user

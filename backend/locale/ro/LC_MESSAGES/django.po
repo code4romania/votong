@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 17:40+0300\n"
+"POT-Creation-Date: 2024-07-24 18:32+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,7 +19,11 @@ msgstr ""
 "2:1));\n"
 "X-Generator: Poedit 2.3\n"
 
-#: accounts/forms.py:19 accounts/forms.py:36
+#: accounts/forms.py:21
+msgid "Emails don't match."
+msgstr "Emailurile nu se potrivesc."
+
+#: accounts/forms.py:40 accounts/forms.py:55
 msgid "This email can't be set."
 msgstr "Acest email nu poate fi ales."
 
@@ -84,7 +88,11 @@ msgstr "Șterge"
 msgid "New email:"
 msgstr "Email nou:"
 
-#: accounts/templates/change-email.html:51
+#: accounts/templates/change-email.html:50
+msgid "Confirm new email:"
+msgstr "Confirmă emailul:"
+
+#: accounts/templates/change-email.html:62
 msgid "Change Email"
 msgstr "Schimbă email"
 
@@ -168,7 +176,11 @@ msgstr ""
 msgid "Commission member email:"
 msgstr "Email membru comisie:"
 
-#: accounts/templates/invite-commission-member.html:51
+#: accounts/templates/invite-commission-member.html:49
+msgid "Confirm commission member email:"
+msgstr "Confirmă emailul membrului din comisie:"
+
+#: accounts/templates/invite-commission-member.html:61
 msgid "Invite commission member"
 msgstr "Invită membru comisie"
 
@@ -219,52 +231,51 @@ msgid "Confirm password:"
 msgstr "Confirmă parolă:"
 
 #: accounts/templates/password-reset.html:72
-#: hub/templates/registration/new_commission_password_confirm.html:59
 #: hub/templates/registration/reset_password_confirm.html:59
 msgid "Change my password"
 msgstr "Schimbă-mi parola"
 
-#: accounts/urls.py:11
+#: accounts/urls.py:6
 msgid "password-reset/"
 msgstr "reseteaza-parola/"
 
-#: accounts/urls.py:12
+#: accounts/urls.py:7
 msgid "change-avatar/"
 msgstr "schimba-avatar/"
 
-#: accounts/urls.py:13
+#: accounts/urls.py:8
 msgid "change-email/"
 msgstr "schimba-email/"
 
-#: accounts/urls.py:14
+#: accounts/urls.py:9
 msgid "invite-commission/"
 msgstr "invita-comisie/"
 
-#: accounts/views.py:19
+#: accounts/views.py:26
 msgid "You cannot change the password for an NGO Hub account"
 msgstr "Nu puteți schimba parola pentru un cont NGO Hub"
 
-#: accounts/views.py:23
+#: accounts/views.py:30
 msgid "Password was updated successfully"
 msgstr "Parola a fost schimbată cu succes"
 
-#: accounts/views.py:36
+#: accounts/views.py:47
 msgid "You cannot change the email for an NGO Hub account"
 msgstr "Nu puteți schimba adresa de email pentru un cont NGO Hub"
 
-#: accounts/views.py:43
+#: accounts/views.py:54
 msgid "Email was updated successfully"
 msgstr "Adresa de email a fost modificată cu succes"
 
-#: accounts/views.py:75
+#: accounts/views.py:74
 msgid "You are not allowed to invite a commission member"
 msgstr "Nu aveți permisiunea de a invita un membru al comisiei"
 
-#: accounts/views.py:80
+#: accounts/views.py:79
 msgid "Commission member was invited successfully"
 msgstr "Membrul comisiei a fost invitat cu succes"
 
-#: accounts/views.py:82
+#: accounts/views.py:81
 msgid "Commission member could not be invited"
 msgstr "Membrul comisiei nu a putut fi invitat"
 
@@ -1186,7 +1197,11 @@ msgstr "Setează o parolă"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr "Introduceti parola de doua ori pentru a verifica ca e scrisa corect"
+msgstr "Introduceți parola de două ori pentru a verifica că e scrisă corect"
+
+#: hub/templates/registration/new_commission_password_confirm.html:59
+msgid "Set my password"
+msgstr "Setează-mi parolă"
 
 #: hub/templates/registration/new_commission_password_confirm.html:68
 msgid ""
@@ -1224,8 +1239,7 @@ msgstr "Parola a fost setată. Te poți autentifica acum."
 
 #: hub/templates/registration/reset_password_complete.html:24
 msgid "If you're part of the electoral commission, make sure to use"
-msgstr ""
-"Dacă faci parte din comisia electorală, asigură-te că folosești"
+msgstr "Dacă faci parte din comisia electorală, asigură-te că folosești"
 
 #: hub/templates/registration/reset_password_complete.html:26
 msgid "the link from the footer."

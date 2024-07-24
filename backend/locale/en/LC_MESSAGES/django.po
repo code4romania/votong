@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 17:40+0300\n"
+"POT-Creation-Date: 2024-07-24 18:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/forms.py:19 accounts/forms.py:36
+#: accounts/forms.py:21
+msgid "Emails don't match."
+msgstr ""
+
+#: accounts/forms.py:40 accounts/forms.py:55
 msgid "This email can't be set."
 msgstr ""
 
@@ -81,7 +85,11 @@ msgstr ""
 msgid "New email:"
 msgstr ""
 
-#: accounts/templates/change-email.html:51
+#: accounts/templates/change-email.html:50
+msgid "Confirm new email:"
+msgstr ""
+
+#: accounts/templates/change-email.html:62
 msgid "Change Email"
 msgstr ""
 
@@ -154,7 +162,11 @@ msgstr ""
 msgid "Commission member email:"
 msgstr ""
 
-#: accounts/templates/invite-commission-member.html:51
+#: accounts/templates/invite-commission-member.html:49
+msgid "Confirm commission member email:"
+msgstr ""
+
+#: accounts/templates/invite-commission-member.html:61
 msgid "Invite commission member"
 msgstr ""
 
@@ -205,52 +217,51 @@ msgid "Confirm password:"
 msgstr ""
 
 #: accounts/templates/password-reset.html:72
-#: hub/templates/registration/new_commission_password_confirm.html:59
 #: hub/templates/registration/reset_password_confirm.html:59
 msgid "Change my password"
 msgstr ""
 
-#: accounts/urls.py:11
+#: accounts/urls.py:6
 msgid "password-reset/"
 msgstr ""
 
-#: accounts/urls.py:12
+#: accounts/urls.py:7
 msgid "change-avatar/"
 msgstr ""
 
-#: accounts/urls.py:13
+#: accounts/urls.py:8
 msgid "change-email/"
 msgstr ""
 
-#: accounts/urls.py:14
+#: accounts/urls.py:9
 msgid "invite-commission/"
 msgstr ""
 
-#: accounts/views.py:19
+#: accounts/views.py:26
 msgid "You cannot change the password for an NGO Hub account"
 msgstr ""
 
-#: accounts/views.py:23
+#: accounts/views.py:30
 msgid "Password was updated successfully"
 msgstr ""
 
-#: accounts/views.py:36
+#: accounts/views.py:47
 msgid "You cannot change the email for an NGO Hub account"
 msgstr ""
 
-#: accounts/views.py:43
+#: accounts/views.py:54
 msgid "Email was updated successfully"
 msgstr ""
 
-#: accounts/views.py:75
+#: accounts/views.py:74
 msgid "You are not allowed to invite a commission member"
 msgstr ""
 
-#: accounts/views.py:80
+#: accounts/views.py:79
 msgid "Commission member was invited successfully"
 msgstr ""
 
-#: accounts/views.py:82
+#: accounts/views.py:81
 msgid "Commission member could not be invited"
 msgstr ""
 
@@ -1172,6 +1183,10 @@ msgstr ""
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
+msgstr ""
+
+#: hub/templates/registration/new_commission_password_confirm.html:59
+msgid "Set my password"
 msgstr ""
 
 #: hub/templates/registration/new_commission_password_confirm.html:68
