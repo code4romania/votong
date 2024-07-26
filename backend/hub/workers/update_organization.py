@@ -107,8 +107,8 @@ def update_organization_process(organization_id: int, token: str = ""):
     ngohub_general_data: Dict = ngohub_org_data.get("organizationGeneral", {})
     ngohub_legal_data: Dict = ngohub_org_data.get("organizationLegal", {})
 
-    organization.county = ngohub_general_data.get("county", {}).get("name", "")
-    city_name = ngohub_general_data.get("city", {}).get("name", "")
+    organization.county = ngohub_general_data.get("county", {}).get("name") or ""
+    city_name = ngohub_general_data.get("city", {}).get("name") or ""
     try:
         city = City.objects.get(county=organization.county, city=city_name)
     except City.DoesNotExist:
@@ -118,28 +118,28 @@ def update_organization_process(organization_id: int, token: str = ""):
     else:
         organization.city = city
 
-    organization.name = ngohub_general_data.get("name", "")
-    organization.address = ngohub_general_data.get("address", "")
-    organization.registration_number = ngohub_general_data.get("rafNumber", "")
+    organization.name = ngohub_general_data.get("name") or ""
+    organization.address = ngohub_general_data.get("address") or ""
+    organization.registration_number = ngohub_general_data.get("rafNumber") or ""
 
     # Import the organization logo
-    logo_url: str = ngohub_general_data.get("logo", "")
+    logo_url: str = ngohub_general_data.get("logo") or ""
     copy_file_from_to_organization(organization, logo_url, "logo")
 
     # Import the organization statute
-    statute_url: str = ngohub_legal_data.get("organizationStatute", "")
+    statute_url: str = ngohub_legal_data.get("organizationStatute") or ""
     copy_file_from_to_organization(organization, statute_url, "statute")
 
-    organization.email = ngohub_general_data.get("email", "")
-    organization.phone = ngohub_general_data.get("phone", "")
-    organization.description = ngohub_general_data.get("description", "")
+    organization.email = ngohub_general_data.get("email") or ""
+    organization.phone = ngohub_general_data.get("phone") or ""
+    organization.description = ngohub_general_data.get("description") or ""
 
-    organization.legal_representative_name = ngohub_legal_data.get("legalReprezentative", {}).get("fullName", "")
-    organization.legal_representative_email = ngohub_legal_data.get("legalReprezentative", {}).get("email", "")
-    organization.legal_representative_phone = ngohub_legal_data.get("legalReprezentative", {}).get("phone", "")
+    organization.legal_representative_name = ngohub_legal_data.get("legalReprezentative", {}).get("fullName") or ""
+    organization.legal_representative_email = ngohub_legal_data.get("legalReprezentative", {}).get("email") or ""
+    organization.legal_representative_phone = ngohub_legal_data.get("legalReprezentative", {}).get("phone") or ""
 
     organization.board_council = ", ".join(
-        [director.get("fullName", "") for director in ngohub_legal_data.get("directors", [])]
+        [director.get("fullName") or "" for director in ngohub_legal_data.get("directors", [])]
     )
 
     organization.organization_head_name = (
