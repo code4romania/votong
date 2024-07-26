@@ -21,12 +21,15 @@ class CommonEmailConfirmationForm(forms.Form):
             raise ValidationError(_("Emails don't match."))
 
     def clean_email(self):
-        self._check_emails_match()
         return self.cleaned_data.get("email")
 
     def clean_email2(self):
-        self._check_emails_match()
         return self.cleaned_data.get("email2")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        self._check_emails_match()
+        return cleaned_data
 
 
 class UpdateEmailForm(CommonEmailConfirmationForm, ModelForm):
