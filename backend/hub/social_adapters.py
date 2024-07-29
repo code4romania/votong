@@ -176,7 +176,9 @@ def update_user_information(user: User, token: str):
 
         org = Organization.objects.filter(user=user).first()
         if not org:
-            return create_blank_org(user)
+            org = create_blank_org(user)
+
+        return org
 
     elif user_role == settings.NGOHUB_ROLE_NGO_EMPLOYEE:
         # Employees cannot have organizations
