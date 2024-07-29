@@ -291,7 +291,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         return super().post(request, *args, **kwargs)
 
 
-@permission_required_or_403("hub.approve_organization", (Organization, "pk", "pk"))
+@permission_required_or_403("hub.approve_organization")
 def organization_vote(request, pk, action):
     if not FeatureFlag.flag_enabled("enable_org_approval"):
         raise PermissionDenied
@@ -466,7 +466,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 
 @login_required
-@permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
+@permission_required_or_403("hub.vote_candidate")
 def candidate_vote(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_voting"):
         raise PermissionDenied
@@ -500,7 +500,7 @@ def candidate_vote(request, pk):
 
 
 @login_required
-@permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
+@permission_required_or_403("hub.delete_candidate")
 def candidate_revoke(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
@@ -519,7 +519,7 @@ def candidate_revoke(request, pk):
 
 
 @login_required
-@permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
+@permission_required_or_403("hub.support_candidate")
 def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
@@ -540,7 +540,7 @@ def candidate_support(request, pk):
 
 
 @login_required
-@permission_required_or_403("hub.approve_candidate", (Candidate, "pk", "pk"))
+@permission_required_or_403("hub.approve_candidate")
 def candidate_status_confirm(request, pk):
     if (
         FeatureFlag.flag_enabled("enable_candidate_registration")
@@ -560,7 +560,7 @@ def candidate_status_confirm(request, pk):
 
 
 @login_required
-@permission_required_or_403("hub.change_organization", (Organization, "pk", "pk"))
+@permission_required_or_403("hub.change_organization")
 def update_organization_information(request, pk):
     return_url = request.GET.get("return_url", "")
     redirect_path = return_url or reverse("ngo-update", args=(pk,))
