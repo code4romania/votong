@@ -19,7 +19,7 @@ register = template.Library()
 
 @register.filter
 def can_vote(user):
-    if not Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
+    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
         return True
     return False
 
@@ -115,3 +115,13 @@ def show_blog_post_date_prefix(published_date):
         return _("published on")
 
     return _("published")
+
+
+@register.filter
+def has_permission(user, permission: str):
+    user_groups = user.groups.all()
+    user_group_has_perm = any([group.permissions.filter(codename=permission).exists() for group in user_groups])
+
+    user_has_perm = user.has_perm(permission)
+
+    return user_group_has_perm or user_has_perm

@@ -61,14 +61,14 @@
 
       <div class="need-description">
         <b>Stare candidatură: <span class="status-{{ candidate.status }}">{% trans candidate.status.capitalize %}</span></b>
-        {% if not user.is_superuser and "approve_candidate" in user_permissions and candidate.status != 'pending' %}
+        {% if not user.is_superuser and user|has_permission:"approve_candidate" and candidate.status != 'pending' %}
           {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
         {% endif %}
       </div>
 
     </div>
 
-    {% if not user.is_superuser and candidate.org.STATUS and GLOBAL_SUPPORT_ENABLED and CANDIDATE_SUPPORTING_ENABLED and "support_candidate" in user_permissions and candidate.is_proposed %}
+    {% if not user.is_superuser and candidate.org.STATUS and GLOBAL_SUPPORT_ENABLED and CANDIDATE_SUPPORTING_ENABLED and user|has_permission:"support_candidate" and candidate.is_proposed %}
       <div class="buttons">
         {% if candidate.org != request.user.orgs.first %}
           {% if user|already_supported:candidate %}
@@ -81,13 +81,13 @@
       </div>
     {% endif %}
 
-    {% if not user.is_superuser and not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and "approve_candidate" in user_permissions and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
+    {% if not user.is_superuser and not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and user|has_permission:"approve_candidate" and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
       <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">
         Confirmă starea aplicației
       </a>
     {% endif %}
 
-    {% if not user.is_superuser and CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and "vote_candidate" in user_permissions and candidate.status == 'accepted' %}
+    {% if not user.is_superuser and CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and user|has_permission:"vote_candidate" and candidate.status == 'accepted' %}
 
       {% if not user|can_vote %}
         <span class="tag is-danger">Nu poți vota la această rundă de alegeri.</span>
