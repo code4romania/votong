@@ -9,6 +9,7 @@ from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
@@ -203,9 +204,9 @@ class CandidateSupportersListFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == "lt10":
-            return queryset.filter(supporters_count__lt=10)
+            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__lt=10)
         if self.value() == "gte10":
-            return queryset.filter(supporters_count__gte=10)
+            return queryset.annotate(supporters_count=Count("supporters")).filter(supporters_count__gte=10)
 
 
 class CandidateConfirmationsListFilter(admin.SimpleListFilter):
