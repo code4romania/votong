@@ -399,7 +399,7 @@ class Organization(StatusModel, TimeStampedModel):
                 self.fiscal_certificate_local,
             ]
             + required_reports
-            + list(self.required_fields)
+            + list(map(lambda x: getattr(self, x), self.required_fields()))
         )
 
     def get_absolute_url(self):

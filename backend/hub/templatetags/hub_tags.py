@@ -18,11 +18,10 @@ register = template.Library()
 
 
 @register.filter
-def cant_vote(user, candidate):
-    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
-        return False
-    else:
+def can_vote(user):
+    if not Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
         return True
+    return False
 
 
 @register.filter
@@ -41,8 +40,7 @@ def can_vote_candidate(user, candidate):
 def can_support_candidate(user):
     if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
         return True
-    else:
-        return False
+    return False
 
 
 @register.filter

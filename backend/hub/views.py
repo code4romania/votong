@@ -3,6 +3,7 @@ from urllib.parse import unquote
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.contrib.sites.shortcuts import get_current_site
@@ -464,6 +465,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         raise PermissionDenied
 
 
+@login_required
 @permission_required_or_403("hub.vote_candidate", (Candidate, "pk", "pk"))
 def candidate_vote(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_voting"):
@@ -497,6 +499,7 @@ def candidate_vote(request, pk):
     return redirect("candidate-detail", pk=pk)
 
 
+@login_required
 @permission_required_or_403("hub.delete_candidate", (Candidate, "pk", "pk"))
 def candidate_revoke(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
@@ -515,6 +518,7 @@ def candidate_revoke(request, pk):
     return redirect("candidate-register-request")
 
 
+@login_required
 @permission_required_or_403("hub.support_candidate", (Candidate, "pk", "pk"))
 def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
@@ -535,6 +539,7 @@ def candidate_support(request, pk):
     return redirect("candidate-detail", pk=pk)
 
 
+@login_required
 @permission_required_or_403("hub.approve_candidate", (Candidate, "pk", "pk"))
 def candidate_status_confirm(request, pk):
     if (
@@ -554,6 +559,7 @@ def candidate_status_confirm(request, pk):
     return redirect("candidate-detail", pk=pk)
 
 
+@login_required
 @permission_required_or_403("hub.change_organization", (Organization, "pk", "pk"))
 def update_organization_information(request, pk):
     return_url = request.GET.get("return_url", "")
