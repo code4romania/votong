@@ -112,7 +112,7 @@ def update_organization_process(organization_id: int, token: str = ""):
     try:
         city = City.objects.get(county=organization.county, city=city_name)
     except City.DoesNotExist:
-        error_message: str = f"ERROR: Cannot find city '{city_name}' received from NGO Hub in Vot ONG."
+        error_message: str = f"ERROR: Cannot find city '{city_name}' received from NGO Hub in VotONG."
         errors.append(error_message)
         logger.error(error_message)
     else:
