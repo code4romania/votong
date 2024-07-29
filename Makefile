@@ -119,29 +119,29 @@ logs-prod:                        ## show the logs of the containers
 
 ## [Django operations]
 makemigrations:                   ## generate migrations in a clean container
-	docker exec votong_backend_dev sh -c "python3 -Wd ./backend/manage.py makemigrations $(apps)"
+	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py makemigrations $(apps)"
 
 migrate:                          ## apply migrations in a clean container
-	docker exec votong_backend_dev sh -c "python3 -Wd ./backend/manage.py migrate $(apps)"
+	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py migrate $(apps)"
 
 migrations: makemigrations migrate ## generate and apply migrations
 
 makemessages:                     ## generate the strings marked for translation
-	docker exec votong_backend_dev sh -c "python3 -Wd ./backend/manage.py makemessages -a"
+	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py makemessages -a"
 
 compilemessages:                  ## compile the translations
-	docker exec votong_backend_dev sh -c "python3 -Wd ./backend/manage.py compilemessages"
+	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py compilemessages"
 
 messages: makemessages compilemessages ## generate and compile the translations
 
 collectstatic:                    ## collect the static files
-	docker exec votong_backend_dev sh -c "python3 -Wd ./backend/manage.py collectstatic --no-input"
+	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py collectstatic --no-input"
 
 format:                           ## format the code with black & ruff
 	docker exec votong_backend_dev sh -c "black ./backend && ruff check --fix ./backend"
 
 pyshell:                          ## start a django shell
-	docker exec -it votong_backend_dev sh -c "python3 -Wd ./backend/manage.py shell"
+	docker exec -it votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py shell"
 
 sh:                               ## start a sh shell
 	docker exec -it votong_backend_dev sh -c "sh"
