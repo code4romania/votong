@@ -81,7 +81,7 @@ def check_app_enabled_in_ngohub(token: str) -> bool:
     response = ngohub_api_get("organizations/application/", token)
     for app in response:
         if (
-            app["website"] == settings.NGOHUB_VOTONG_WEBSITE
+            app["loginLink"].startswith(settings.NGOHUB_VOTONG_WEBSITE)
             and app["status"] == "active"
             and app["ongStatus"] == "active"
         ):
@@ -197,16 +197,26 @@ def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
     an Organization and schedule its data update from NGO Hub.
     """
 
-    social = kwargs.get("sociallogin")
+    sociallogin = kwargs.get("sociallogin")
 
-    user = social.user
+    user = sociallogin.user
     if user.is_superuser:
         return
 
-    org = update_user_information(user, social.token.token)
+    if not check_app_enabled_in_ngohub(sociallogin.token.token):
+        if user.is_active:
+            user.is_active = False
+            user.save()
+
+        raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
+    elif not user.is_active:
+        user.is_active = True
+        user.save()
+
+    org = update_user_information(user, sociallogin.token.token)
 
     if org:
-        update_user_org(org, social.token.token, in_auth_flow=True)
+        update_user_org(org, sociallogin.token.token, in_auth_flow=True)
 
 
 @receiver(pre_social_login)
