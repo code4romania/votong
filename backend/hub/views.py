@@ -351,9 +351,16 @@ class CandidateListView(HubListView):
     template_name = "candidate/list.html"
 
     def get_qs(self):
-        if FeatureFlag.flag_enabled("enable_candidate_voting"):
+        if FeatureFlag.flag_enabled("enable_candidate_voting") or FeatureFlag.flag_enabled("enable_results_display"):
             return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+                org__status=Organization.STATUS.accepted,
+                status=Candidate.STATUS.accepted,
+                is_proposed=True,
+            )
+        elif FeatureFlag.flag_enabled("enable_candidate_supporting"):
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted,
+                is_proposed=True,
             )
 
         return Candidate.objects_with_org.none()
@@ -384,9 +391,11 @@ class CandidateResultsView(HubListView):
     template_name = "candidate/results.html"
 
     def get_qs(self):
-        return Candidate.objects_with_org.filter(
-            org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
-        )
+        if FeatureFlag.flag_enabled("enable_results_display"):
+            return Candidate.objects_with_org.filter(
+                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            )
+        return Candidate.objects_with_org.none()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
