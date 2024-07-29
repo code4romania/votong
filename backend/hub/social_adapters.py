@@ -140,7 +140,12 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
                     _("This NGO Hub organization already exists for another VotONG user.")
                 )
 
+        org.status = Organization.STATUS.accepted
+
         org.ngohub_org_id = ngohub_id
+        org.save()
+    elif org.status == Organization.STATUS.pending:
+        org.status = Organization.STATUS.accepted
         org.save()
 
     update_organization(org.id, token)
