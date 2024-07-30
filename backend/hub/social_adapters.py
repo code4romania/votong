@@ -27,40 +27,6 @@ from hub.workers.update_organization import update_organization
 logger = logging.getLogger(__name__)
 
 
-class UserOrgAdapter(DefaultSocialAccountAdapter):
-    """
-    Authentication adapter which makes sure that each new User also has an Organization
-    """
-
-    def save_user(self, request: HttpRequest, sociallogin: SocialLogin, form=None) -> User:
-        """
-        Besides the default user creation, also mark this user as coming from NGO Hub,
-        create a blank Organization for them, and schedule a data update from NGO Hub.
-        """
-
-        user: User = super().save_user(request, sociallogin, form)
-        user.is_ngohub_user = True
-        user.save()
-
-        # Superusers do not need an organization nor VotONG enabled in their NGOHub profile
-        if user.is_superuser:
-            return user
-
-        if not check_app_enabled_in_ngohub(sociallogin.token.token):
-            user.orgs.all().delete()
-            user.delete()
-            raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
-
-        # Create a blank Organization for the newly registered user
-        org = update_user_information(user, sociallogin.token.token)
-
-        # Start the import of initial data from NGO Hub
-        if org:
-            update_user_org(org, sociallogin.token.token, in_auth_flow=True)
-
-        return user
-
-
 def ngohub_api_get(path: str, token: str):
     """
     Perform a GET request to the NGO Hub API and return a JSON response, or raise NGOHubHTTPException
@@ -77,36 +43,11 @@ def ngohub_api_get(path: str, token: str):
     return response.json()
 
 
-def check_app_enabled_in_ngohub(token: str) -> bool:
-    response = ngohub_api_get("organizations/application/", token)
-    for app in response:
-        if (
-            app["loginLink"].startswith(settings.NGOHUB_VOTONG_WEBSITE)
-            and app["status"] == "active"
-            and app["ongStatus"] == "active"
-        ):
-            return True
-
-    return False
-
-
-def create_blank_org(user, commit=True) -> Organization:
-    """
-    Create a blank Organization (with a draft status) for a User
-    """
-
-    org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.draft)
-    if commit:
-        org.save()
-
-    return org
-
-
 def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
     """
     Update an Organization by pulling data from NGO Hub.
 
-    If this happens in an auth flow, raise an ImmediateHttpResponse in case of errors in order to
+    If this happens in an auth flow, raise an ImmediateHttpResponse in case of errors to
     redirect the user to a relevant error page.
     """
 
@@ -151,6 +92,31 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     update_organization(org.id, token)
 
 
+def check_app_enabled_in_ngohub(token: str) -> bool:
+    response = ngohub_api_get("organizations/application/", token)
+    for app in response:
+        if (
+            app["loginLink"].startswith(settings.NGOHUB_VOTONG_WEBSITE)
+            and app["status"] == "active"
+            and app["ongStatus"] == "active"
+        ):
+            return True
+
+    return False
+
+
+def create_blank_org(user, commit=True) -> Organization:
+    """
+    Create a blank Organization (with a draft status) for a User
+    """
+
+    org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.draft)
+    if commit:
+        org.save()
+
+    return org
+
+
 def update_user_information(user: User, token: str):
     try:
         user_profile: Dict = ngohub_api_get("profile/", token)
@@ -175,6 +141,19 @@ def update_user_information(user: User, token: str):
         return None
 
     elif user_role == settings.NGOHUB_ROLE_NGO_ADMIN:
+        if not check_app_enabled_in_ngohub(token):
+            user.orgs.all().delete()
+            user.delete()
+
+            if user.is_active:
+                user.is_active = False
+                user.save()
+
+            raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
+        elif not user.is_active:
+            user.is_active = True
+            user.save()
+
         # Add the user to the NGO group
         ngo_group: Group = Group.objects.get(name=NGO_GROUP)
         user.groups.add(ngo_group)
@@ -194,40 +173,53 @@ def update_user_information(user: User, token: str):
         raise ImmediateHttpResponse(redirect(reverse("error-unknown-user-role")))
 
 
-@receiver(social_account_updated)
-def handle_existing_login(sender: SocialLogin, **kwargs) -> None:
+def common_user_init(sociallogin: SocialLogin) -> User:
+    user = sociallogin.user
+    if user.is_superuser:
+        return user
+
+    # Create a blank Organization for the newly registered user
+    org = update_user_information(user, sociallogin.token.token)
+
+    # Start the import of initial data from NGO Hub
+    if org:
+        update_user_org(org, sociallogin.token.token, in_auth_flow=True)
+
+    return user
+
+
+class UserOrgAdapter(DefaultSocialAccountAdapter):
     """
-    Handler for the social-account-update signal, which is sent for all logins
-    after the initial login.
+    Authentication adapter which makes sure that each new `User` also has an `Organization`
+    """
+
+    def save_user(self, request: HttpRequest, sociallogin: SocialLogin, form=None) -> User:
+        """
+        Besides the default user creation, also mark this user as coming from NGO Hub,
+        create a blank Organization for them, and schedule a data update from NGO Hub.
+        """
+
+        user: User = super().save_user(request, sociallogin, form)
+        user.is_ngohub_user = True
+        user.save()
+
+        return common_user_init(sociallogin=sociallogin)
+
+
+@receiver(social_account_updated)
+def handle_existing_login(sociallogin: SocialLogin, **kwargs) -> None:
+    """
+    Handler for the social-account-update signal, which is sent for all logins after the initial login.
 
     We already have a User, but we must be sure that the User also has
     an Organization and schedule its data update from NGO Hub.
     """
 
-    sociallogin = kwargs.get("sociallogin")
-
-    user = sociallogin.user
-    if user.is_superuser:
-        return
-
-    if not check_app_enabled_in_ngohub(sociallogin.token.token):
-        if user.is_active:
-            user.is_active = False
-            user.save()
-
-        raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
-    elif not user.is_active:
-        user.is_active = True
-        user.save()
-
-    org = update_user_information(user, sociallogin.token.token)
-
-    if org:
-        update_user_org(org, sociallogin.token.token, in_auth_flow=True)
+    common_user_init(sociallogin=sociallogin)
 
 
 @receiver(pre_social_login)
-def handle_pre_login(sender: SocialLogin, **kwargs) -> None:
+def handle_pre_login(**kwargs) -> None:
     """
     Handler for the pre-login signal
     IMPORTANT: The User object might not be fully available here.
