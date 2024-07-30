@@ -30,6 +30,5 @@ class User(AbstractUser):
     def get_cognito_id(self):
         social = self.socialaccount_set.filter(provider="amazon_cognito").last()
         if social:
-            social.uid
-        else:
-            return None
+            return social.uid
+        return None
