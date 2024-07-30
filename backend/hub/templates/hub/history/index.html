@@ -1,0 +1,38 @@
+{% extends "hub/base.html" %}
+{% load static %}
+{% load spurl %}
+{% load static i18n %}
+
+{% block content %}
+
+  <div class="container section">
+    <h1 class="title  has-text-centered">
+      Istoric alegeri
+    </h1>
+
+    <p class="subtitle has-text-centered" style="margin: 0 10%">
+      Platforma VotONG a găzduit următoarele runde de alegeri
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="is-multiline infinite-container">
+      <div class="container infinite-item">
+
+        <hr class="tight">
+
+        <div class="container tight-container content">
+          {% include "hub/history/ce-2021.html" %}
+        </div>
+
+        <hr class="tight">
+
+        <div class="container tight-container content" style="padding-bottom: 30px;">
+          {% include "hub/history/ces-2020.html" %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

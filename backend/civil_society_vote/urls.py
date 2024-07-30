@@ -33,7 +33,7 @@ urlpatterns_i18n = i18n_patterns(
     ),
     path("cookies/", StaticPageView.as_view(template_name="hub/cookies.html"), name="cookies"),
     path(_("platform_rules/"), StaticPageView.as_view(template_name="hub/platform_rules.html"), name="platform_rules"),
-    path(_("history/"), StaticPageView.as_view(template_name="hub/history.html"), name="history"),
+    path(_("history/"), StaticPageView.as_view(template_name="hub/history/index.html"), name="history"),
     path(
         "admin/login/",
         RedirectView.as_view(
