@@ -29,7 +29,7 @@
 
     {% block styles %}{% endblock %}
 
-    {% include "favicons.html" %}
+    {% include "hub/favicons.html" %}
 
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="{% static 'js/bulma-collapsible.min.js' %}"></script>
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-    {% include "header.html" %}
+    {% include "hub/header.html" %}
 
     {% block content_container %}
       <div id="main">
@@ -58,7 +58,7 @@
       </div>
     {% endblock content_container %}
 
-    {% include "footer.html" %}
+    {% include "hub/footer.html" %}
 
 <script>
   $(function() {

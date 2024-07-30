@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 register = template.Library()
 
 
-@register.inclusion_tag("meta.html", takes_context=True)
+@register.inclusion_tag("hub/meta.html", takes_context=True)
 def meta_tags(context):
     request = context["request"]
     image_path = urllib.parse.urljoin(settings.STATIC_URL, context.get("image", "images/logo-meta.png"))

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "hub/base.html" %}
 {% load static %}
 {% load spurl %}
 {% load i18n %}
@@ -7,7 +7,7 @@
 
 {% block extra-header %}
     {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
-        {% include header_template %}
+        {% include "hub/"|add:header_template %}
     {% endwith %}
 {% endblock %}
 

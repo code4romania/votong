@@ -1,11 +1,11 @@
-{% extends 'candidate/base.html' %}
+{% extends 'hub/candidate/base.html' %}
 {% load static %}
 {% load spurl %}
 {% load i18n %}
 
 {% block extra-header %}
   {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
-    {% include header_template %}
+    {% include "hub/"|add:header_template %}
   {% endwith %}
 {% endblock %}
 
@@ -96,7 +96,7 @@
           {% endfor %}
         </div>
 
-        {% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+        {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
       {% endif %}
     </div>

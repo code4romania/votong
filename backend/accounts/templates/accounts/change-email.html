@@ -1,4 +1,4 @@
-{% extends 'account-base.html' %}
+{% extends 'accounts/base.html' %}
 {% load static %}
 {% load spurl %}
 {% load i18n %}
@@ -6,7 +6,7 @@
 {% block content %}
 
 <div id="content-main" class="container section tight-container">
-  {% include 'partials/sections.html' with active='change-email' %}
+  {% include 'accounts/partials/sections.html' with active='change-email' %}
 
     <div class="columns is-centered">
         <div class="column is-half">

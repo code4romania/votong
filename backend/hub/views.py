@@ -62,7 +62,7 @@ class MenuMixin:
 
 
 class HomeView(MenuMixin, SuccessMessageMixin, FormView):
-    template_name = "home.html"
+    template_name = "hub/home.html"
     form_class = ContactForm
     success_url = "/#contact"
     success_message = _("Thank you! We'll get in touch soon!")
@@ -118,7 +118,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
 class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
     allow_filters = ["status"]
     paginate_by = 9
-    template_name = "committee/list.html"
+    template_name = "hub/committee/list.html"
 
     def get_queryset(self):
         if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
@@ -148,7 +148,7 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
 class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
     allow_filters = ["status"]
     paginate_by = 9
-    template_name = "committee/candidates.html"
+    template_name = "hub/committee/candidates.html"
 
     def get_queryset(self):
         if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
@@ -178,7 +178,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
 class ElectorCandidatesListView(LoginRequiredMixin, HubListView):
     allow_filters = ["status"]
     paginate_by = 9
-    template_name = "ngo/votes.html"
+    template_name = "hub/ngo/votes.html"
 
     def get_queryset(self):
         if not self.request.user.groups.filter(name__in=[NGO_GROUP]).exists():
@@ -191,7 +191,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, HubListView):
 class OrganizationListView(HubListView):
     allow_filters = ["county", "city"]
     paginate_by = 9
-    template_name = "ngo/list.html"
+    template_name = "hub/ngo/list.html"
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
@@ -236,7 +236,7 @@ class OrganizationListView(HubListView):
 
 
 class OrganizationDetailView(HubDetailView):
-    template_name = "ngo/detail.html"
+    template_name = "hub/ngo/detail.html"
     context_object_name = "ngo"
     model = Organization
 
@@ -255,7 +255,7 @@ class OrganizationDetailView(HubDetailView):
 
 
 class OrganizationRegisterRequestCreateView(HubCreateView):
-    template_name = "ngo/register_request.html"
+    template_name = "hub/ngo/register_request.html"
     model = Organization
     form_class = OrganizationCreateForm
     success_message = _(
@@ -280,7 +280,7 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
 class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdateView):
     permission_required = "hub.change_organization"
     raise_exception = True
-    template_name = "ngo/update.html"
+    template_name = "hub/ngo/update.html"
     model = Organization
     form_class = OrganizationUpdateForm
 
@@ -310,8 +310,8 @@ def organization_vote(request, pk, action):
                 send_email(
                     subject="Cerere de înscriere respinsă",
                     to_emails=[org.email],
-                    text_template="emails/03_org_rejected.txt",
-                    html_template="emails/03_org_rejected.html",
+                    text_template="hub/emails/03_org_rejected.txt",
+                    html_template="hub/emails/03_org_rejected.html",
                     context={
                         "representative": org.legal_representative_name,
                         "name": org.name,
@@ -333,8 +333,8 @@ def organization_vote(request, pk, action):
             send_email(
                 subject="Cerere de înscriere aprobată",
                 to_emails=[org.email],
-                text_template="emails/02_org_approved.txt",
-                html_template="emails/02_org_approved.html",
+                text_template="hub/emails/02_org_approved.txt",
+                html_template="hub/emails/02_org_approved.html",
                 context={
                     "representative": org.legal_representative_name,
                     "name": org.name,
@@ -348,7 +348,7 @@ def organization_vote(request, pk, action):
 class CandidateListView(HubListView):
     allow_filters = ["domain"]
     paginate_by = 9
-    template_name = "candidate/list.html"
+    template_name = "hub/candidate/list.html"
 
     def get_qs(self):
         if FeatureFlag.flag_enabled("enable_candidate_voting") or FeatureFlag.flag_enabled("enable_results_display"):
@@ -388,7 +388,7 @@ class CandidateListView(HubListView):
 class CandidateResultsView(HubListView):
     allow_filters = ["domain"]
     paginate_by = 23
-    template_name = "candidate/results.html"
+    template_name = "hub/candidate/results.html"
 
     def get_qs(self):
         if FeatureFlag.flag_enabled("enable_results_display"):
@@ -418,7 +418,7 @@ class CandidateResultsView(HubListView):
 
 
 class CandidateDetailView(HubDetailView):
-    template_name = "candidate/detail.html"
+    template_name = "hub/candidate/detail.html"
     context_object_name = "candidate"
     model = Candidate
 
@@ -433,7 +433,7 @@ class CandidateDetailView(HubDetailView):
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
-    template_name = "candidate/register_request.html"
+    template_name = "hub/candidate/register_request.html"
     model = Candidate
     form_class = CandidateRegisterForm
 
@@ -459,7 +459,7 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
 class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdateView):
     permission_required = "hub.change_candidate"
     raise_exception = True
-    template_name = "candidate/update.html"
+    template_name = "hub/candidate/update.html"
     model = Candidate
     form_class = CandidateUpdateForm
 
@@ -494,8 +494,8 @@ def candidate_vote(request, pk):
         send_email(
             subject=f"[VOTONG] Vot candidatură: {vote.candidate.name}",
             to_emails=[settings.VOTE_AUDIT_EMAIL],
-            text_template="emails/04_vote_audit.txt",
-            html_template="emails/04_vote_audit.html",
+            text_template="hub/emails/04_vote_audit.txt",
+            html_template="hub/emails/04_vote_audit.html",
             context={
                 "org": vote.user.orgs.first().name,
                 "candidate": vote.candidate.name,
@@ -601,7 +601,7 @@ class CityAutocomplete(View):
 
 class BlogListView(MenuMixin, ListView):
     model = BlogPost
-    template_name = "blog/list.html"
+    template_name = "hub/blog/list.html"
     paginate_by = 9
 
     def get_queryset(self):
@@ -612,7 +612,7 @@ class BlogListView(MenuMixin, ListView):
 
 class BlogPostView(MenuMixin, DetailView):
     model = BlogPost
-    template_name = "blog/post.html"
+    template_name = "hub/blog/post.html"
 
     def get_queryset(self):
         return BlogPost.objects.filter(is_visible=True, published_date__lte=timezone.now().date())

@@ -1,4 +1,4 @@
-{% extends 'ngo/base.html' %}
+{% extends 'hub/ngo/base.html' %}
 {% load static i18n %}
 {% load spurl %}
 {% load hub_tags %}
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-{% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+{% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
 {% else %}
 <div class="content is-medium">

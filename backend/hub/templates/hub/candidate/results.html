@@ -1,4 +1,4 @@
-{% extends 'candidate/base.html' %}
+{% extends 'hub/candidate/base.html' %}
 {% load static %}
 {% load spurl %}
 {% load i18n %}
@@ -76,7 +76,7 @@
     </div>
 </div>
 
-{% include "shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+{% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
 {% endif %}
 </div>

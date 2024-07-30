@@ -70,8 +70,8 @@ class InviteCommissionForm(CommonEmailConfirmationForm, PasswordResetForm):
 
         new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP))
 
-        kwargs["subject_template_name"] = "emails/01_invite_commission_member_subject.txt"
-        kwargs["email_template_name"] = "emails/01_invite_commission_member.html"
+        kwargs["subject_template_name"] = "accounts/emails/01_invite_commission_member_subject.txt"
+        kwargs["email_template_name"] = "accounts/emails/01_invite_commission_member.html"
 
         super().save(**kwargs)
 
