@@ -33,6 +33,8 @@
       <list>
         <option value="$MODULE_DIR$/backend/hub/templates" />
         <option value="$MODULE_DIR$/backend/templates" />
+        <option value="$MODULE_DIR$/backend/django_crispy_bulma/templates" />
+        <option value="$MODULE_DIR$/backend/accounts/templates" />
       </list>
     </option>
   </component>
