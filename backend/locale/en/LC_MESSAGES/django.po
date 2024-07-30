@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-29 12:55+0300\n"
+"POT-Creation-Date: 2024-07-30 12:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,16 +137,16 @@ msgstr ""
 msgid "Sign In Error"
 msgstr ""
 
-#: accounts/templates/error_org_duplicate.html:6 hub/social_adapters.py:140
+#: accounts/templates/error_org_duplicate.html:6 hub/social_adapters.py:81
 msgid "This NGO Hub organization already exists for another VotONG user."
 msgstr ""
 
-#: accounts/templates/error_org_missing.html:6 hub/social_adapters.py:132
+#: accounts/templates/error_org_missing.html:6 hub/social_adapters.py:73
 msgid "There is no NGO Hub organization for this VotONG user."
 msgstr ""
 
 #: accounts/templates/error_org_registration_closed.html:6
-#: hub/social_adapters.py:119
+#: hub/social_adapters.py:60
 msgid "The registration process for new organizations is currently disabled."
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 
 #: accounts/templates/partials/sections.html:8
 #: accounts/templates/partials/sections.html:14
-#: hub/templates/candidate/list.html:36
+#: hub/templates/candidate/list.html:39
 msgid "Back"
 msgstr ""
 
@@ -346,131 +346,131 @@ msgstr ""
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
-#: hub/admin.py:48
+#: hub/admin.py:49
 msgid "Personal info"
 msgstr ""
 
-#: hub/admin.py:50
+#: hub/admin.py:51
 msgid "Permissions"
 msgstr ""
 
-#: hub/admin.py:61
+#: hub/admin.py:62
 msgid "Important dates"
 msgstr ""
 
-#: hub/admin.py:80
+#: hub/admin.py:81
 msgid "groups"
 msgstr ""
 
-#: hub/admin.py:134
+#: hub/admin.py:135
 msgid "user"
 msgstr ""
 
-#: hub/admin.py:141
+#: hub/admin.py:142
 msgid "candidate"
 msgstr ""
 
-#: hub/admin.py:193
+#: hub/admin.py:194
 msgid "supporters"
 msgstr ""
 
-#: hub/admin.py:199
+#: hub/admin.py:200
 msgid "10 or more"
 msgstr ""
 
-#: hub/admin.py:200
+#: hub/admin.py:201
 msgid "less than 10"
 msgstr ""
 
-#: hub/admin.py:212
+#: hub/admin.py:213
 msgid "confirmations"
 msgstr ""
 
-#: hub/admin.py:217
+#: hub/admin.py:218
 msgid "5 or more"
 msgstr ""
 
-#: hub/admin.py:218
+#: hub/admin.py:219
 msgid "less than 5"
 msgstr ""
 
-#: hub/admin.py:261
+#: hub/admin.py:262
 msgid "Set selected candidates status to REJECTED"
 msgstr ""
 
-#: hub/admin.py:277
+#: hub/admin.py:278
 msgid "Set selected candidates status to ACCEPTED"
 msgstr ""
 
-#: hub/admin.py:289
+#: hub/admin.py:290
 msgid "Set selected candidates status to PENDING"
 msgstr ""
 
-#: hub/admin.py:336
+#: hub/admin.py:337
 msgid "Votes"
 msgstr ""
 
-#: hub/admin.py:345
+#: hub/admin.py:346
 msgid "Supporters"
 msgstr ""
 
-#: hub/admin.py:351
+#: hub/admin.py:352
 msgid "Confirmations"
 msgstr ""
 
-#: hub/admin.py:453
+#: hub/admin.py:454
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:461
+#: hub/admin.py:462
 msgid "Import Cities"
 msgstr ""
 
-#: hub/admin.py:508
+#: hub/admin.py:509
 #, python-brace-format
 msgid ""
 "Invalid flag choices: {missing_flags} not found in {global_flag_choices}."
 msgstr ""
 
-#: hub/admin.py:520
+#: hub/admin.py:521
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
 msgstr ""
 
-#: hub/admin.py:537
+#: hub/admin.py:538
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr ""
 
-#: hub/admin.py:542
+#: hub/admin.py:543
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:556
+#: hub/admin.py:557
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:561
+#: hub/admin.py:562
 msgid "PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:575
+#: hub/admin.py:576
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:580
+#: hub/admin.py:581
 msgid "PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:594
+#: hub/admin.py:595
 msgid "Set flags for PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:599
+#: hub/admin.py:600
 msgid "FINAL PHASE - results"
 msgstr ""
 
-#: hub/admin.py:613
+#: hub/admin.py:614
 msgid "Set flags for FINAL PHASE - results"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:101 hub/forms.py:159 hub/views.py:328
+#: hub/forms.py:101 hub/forms.py:159 hub/views.py:329
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -506,15 +506,15 @@ msgstr ""
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: hub/forms.py:248
+#: hub/forms.py:251
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:254
+#: hub/forms.py:260
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:259
+#: hub/forms.py:265
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -628,11 +628,10 @@ msgid "Domains"
 msgstr ""
 
 #: hub/models.py:178 hub/models.py:183 hub/models.py:218
-#: hub/templates/ngo/list.html:76
 msgid "City"
 msgstr ""
 
-#: hub/models.py:179 hub/models.py:217 hub/templates/ngo/list.html:41
+#: hub/models.py:179 hub/models.py:217
 msgid "County"
 msgstr ""
 
@@ -727,42 +726,46 @@ msgstr ""
 msgid "First page of last balance sheet for %(CURRENT_EDITION_YEAR)s"
 msgstr ""
 
-#: hub/models.py:244 hub/templates/ngo/detail.html:128
+#: hub/models.py:244 hub/templates/ngo/detail.html:120
 msgid "NGO Statute"
 msgstr ""
 
-#: hub/models.py:252 hub/templates/candidate/detail.html:137
-#: hub/templates/ngo/detail.html:160 hub/templates/ngo/detail.html:161
+#: hub/models.py:252 hub/templates/candidate/detail.html:128
+#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:152
+#: hub/templates/ngo/detail.html:153
 msgid "Yearly report 2023"
 msgstr ""
 
-#: hub/models.py:259 hub/templates/candidate/detail.html:146
-#: hub/templates/ngo/detail.html:171 hub/templates/ngo/detail.html:172
+#: hub/models.py:259 hub/templates/candidate/detail.html:139
+#: hub/templates/candidate/detail.html:140 hub/templates/ngo/detail.html:163
+#: hub/templates/ngo/detail.html:164
 msgid "Yearly report 2022"
 msgstr ""
 
-#: hub/models.py:266 hub/templates/candidate/detail.html:155
-#: hub/templates/ngo/detail.html:182 hub/templates/ngo/detail.html:183
+#: hub/models.py:266 hub/templates/candidate/detail.html:150
+#: hub/templates/candidate/detail.html:151 hub/templates/ngo/detail.html:174
+#: hub/templates/ngo/detail.html:175
 msgid "Yearly report 2021"
 msgstr ""
 
-#: hub/models.py:274 hub/templates/candidate/detail.html:182
-#: hub/templates/ngo/detail.html:194
+#: hub/models.py:274 hub/templates/candidate/detail.html:184
+#: hub/templates/ngo/detail.html:186
 msgid "Non-discrimination statement"
 msgstr ""
 
-#: hub/models.py:281 hub/templates/candidate/detail.html:191
-#: hub/templates/ngo/detail.html:205
+#: hub/models.py:281 hub/templates/candidate/detail.html:195
+#: hub/templates/ngo/detail.html:197
 msgid "Non-political statement"
 msgstr ""
 
-#: hub/models.py:289 hub/templates/candidate/detail.html:164
-#: hub/templates/ngo/detail.html:138
+#: hub/models.py:289 hub/templates/candidate/detail.html:161
+#: hub/templates/candidate/detail.html:162 hub/templates/ngo/detail.html:130
 msgid "Fiscal certificate ANAF"
 msgstr ""
 
-#: hub/models.py:296 hub/templates/candidate/detail.html:173
-#: hub/templates/ngo/detail.html:147 hub/templates/ngo/detail.html:148
+#: hub/models.py:296 hub/templates/candidate/detail.html:172
+#: hub/templates/candidate/detail.html:173 hub/templates/ngo/detail.html:139
+#: hub/templates/ngo/detail.html:140
 msgid "Fiscal certificate local"
 msgstr ""
 
@@ -802,7 +805,7 @@ msgid ""
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:477 hub/templates/candidate/detail.html:111
+#: hub/models.py:477 hub/templates/candidate/detail.html:102
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative name"
@@ -814,7 +817,7 @@ msgstr "The name of the legal representative"
 msgid "Representative role in organization"
 msgstr "Organizații nevalidate"
 
-#: hub/models.py:489 hub/templates/candidate/detail.html:119
+#: hub/models.py:489 hub/templates/candidate/detail.html:110
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative statement"
@@ -903,33 +906,33 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:107
+#: hub/templates/candidate/detail.html:98
 msgid "Candidate information"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:112
+#: hub/templates/candidate/detail.html:103
 #, fuzzy
 #| msgid "Legal Representative Name"
 msgid "Representative role"
 msgstr "The name of the legal representative"
 
-#: hub/templates/candidate/detail.html:129 hub/templates/ngo/detail.html:103
+#: hub/templates/candidate/detail.html:120 hub/templates/ngo/detail.html:95
 msgid "Documents"
 msgstr ""
 
-#: hub/templates/candidate/detail.html:182 hub/templates/ngo/detail.html:193
+#: hub/templates/candidate/detail.html:183 hub/templates/ngo/detail.html:185
 msgid "Non-discrimination statement "
 msgstr ""
 
-#: hub/templates/candidate/detail.html:191 hub/templates/ngo/detail.html:204
+#: hub/templates/candidate/detail.html:194 hub/templates/ngo/detail.html:196
 msgid "Non-political statement "
 msgstr ""
 
-#: hub/templates/candidate/list.html:22 hub/templates/ngo/list.html:14
+#: hub/templates/candidate/list.html:25 hub/templates/ngo/list.html:14
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/candidate/list.html:81 hub/templates/candidate/results.html:65
+#: hub/templates/candidate/list.html:86 hub/templates/candidate/results.html:65
 #: hub/templates/committee/candidates.html:51 hub/templates/ngo/votes.html:84
 msgid "View details"
 msgstr ""
@@ -982,7 +985,7 @@ msgid "Accepted candidates"
 msgstr "Candidați selectați"
 
 #: hub/templates/committee/candidates.html:67
-#: hub/templates/committee/list.html:71 hub/templates/ngo/list.html:177
+#: hub/templates/committee/list.html:67 hub/templates/ngo/list.html:172
 #: hub/templates/ngo/votes.html:100
 msgid "No results matching query"
 msgstr ""
@@ -1053,7 +1056,7 @@ msgid "Commission sign in"
 msgstr ""
 
 #: hub/templates/footer.html:48
-msgid "CONTACT US"
+msgid "SOCIAL MEDIA"
 msgstr ""
 
 #: hub/templates/header.html:54
@@ -1109,7 +1112,7 @@ msgstr ""
 msgid "Project developed in the program"
 msgstr ""
 
-#: hub/templates/ngo/detail.html:115 hub/templates/ngo/detail.html:117
+#: hub/templates/ngo/detail.html:107 hub/templates/ngo/detail.html:109
 #, python-format
 msgid "First page of last balance sheet for %(previous_year)s"
 msgstr ""
@@ -1119,14 +1122,6 @@ msgstr ""
 #| msgid "Pending Organizations"
 msgid "Registered organizations"
 msgstr "Organizații nevalidate"
-
-#: hub/templates/ngo/list.html:54 hub/templates/ngo/list.html:89
-msgid "All"
-msgstr ""
-
-#: hub/templates/ngo/list.html:110 hub/templates/ngo/list.html:117
-msgid "Reset filters"
-msgstr ""
 
 #: hub/templates/ngo/register_request.html:46
 msgid "Send registration request"
@@ -1267,11 +1262,11 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: hub/templatetags/hub_tags.py:117
+#: hub/templatetags/hub_tags.py:116
 msgid "published on"
 msgstr ""
 
-#: hub/templatetags/hub_tags.py:119
+#: hub/templatetags/hub_tags.py:118
 msgid "published"
 msgstr ""
 
@@ -1351,11 +1346,11 @@ msgstr ""
 msgid "ngo-update/<int:pk>"
 msgstr ""
 
-#: hub/views.py:67
+#: hub/views.py:68
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:261
+#: hub/views.py:262
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1363,17 +1358,17 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:321
+#: hub/views.py:322
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:566
+#: hub/views.py:581
 msgid "Please wait a few minutes before updating the organization again."
 msgstr ""
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:31 templates/socialaccount/login.html:5
-#: templates/socialaccount/login.html:36
+#: templates/socialaccount/login.html:39
 msgid "Sign In"
 msgstr ""
 
@@ -1402,8 +1397,4 @@ msgstr ""
 
 #: templates/account/logout.html:28
 msgid "or click here to sign out"
-msgstr ""
-
-#: templates/socialaccount/login.html:29
-msgid "Redirecting to authentication..."
 msgstr ""
