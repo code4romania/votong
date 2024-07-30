@@ -14,31 +14,33 @@
 
   {% if not user.is_anonymous %}
 
-  {% block domain-filters %}
-  {% endblock %}
+    {% block domain-filters %}
+    {% endblock %}
 
-  <div class="search-wrapper container is-flex">
-    <form action="{% url 'candidates' %}" method="GET">
-      <div class="field border-b">
-        <p class="control has-icons-right ">
-          <input class="input search-input" type="text" name="q" value="{{ current_search }}"
-                 placeholder="{% trans 'Search...' %}">
-          <label class="search-icon">
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-search"></i>
-                    </span>
-            <input type="submit" style="display: none;"/>
-          </label>
-        </p>
-      </div>
-    </form>
-  </div>
+    <div class="search-wrapper container is-flex">
+      <form action="{% url 'candidates' %}" method="GET">
+        <div class="field border-b">
+          <p class="control has-icons-right ">
+            <label class="search-icon">
+              <input
+                class="input search-input"
+                type="text"
+                name="q"
+                value="{{ current_search }}"
+                placeholder="{% trans 'Search...' %}">
+              <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
+              <input type="submit" style="display: none;"/>
+            </label>
+          </p>
+        </div>
+      </form>
+    </div>
 
-  {% if current_domain %}
-    <h2 class="section-title uppercase">
-      <span class="is-4"><<</span> <a href="{% url 'candidates' %}">{% trans "Back" %}</a>
-    </h2>
-  {% endif %}
+    {% if current_domain %}
+      <h2 class="section-title uppercase">
+        <span class="is-4"><<</span> <a href="{% url 'candidates' %}">{% trans "Back" %}</a>
+      </h2>
+    {% endif %}
 
     <h2 class="section-title uppercase">
       Candidați propuși
@@ -75,7 +77,8 @@
                 <div class="need-title is-hidden-mobile">
                   <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{ candidate.name }}</a>
                 </div>
-                {% comment %} <div class="need-description is-hidden-mobile">{{candidate.experience}}</div> {% endcomment %}
+                {% comment %}
+                  <div class="need-description is-hidden-mobile">{{ candidate.experience }}</div> {% endcomment %}
                 <div class="need-subtitle">Sectiune: {{ candidate.domain.name }}</div>
               </div>
 
