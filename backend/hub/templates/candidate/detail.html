@@ -16,31 +16,20 @@
   {% block domain-filters %}
   {% endblock %}
 
-  {% get_obj_perms user for candidate as "user_permissions" %}
-
-  <div class="container">
-    <!-- <h1 class="section-title">{{ candidate.domain.name }}</h1> -->
+    <div class="container">
     <div class="section-title">Sectiune: {{ candidate.domain.name }}</div>
     <p class="section-text">{{ candidate.domain.description }}</p>
   </div>
 
   <div class="container need is-flex">
     <div class="card-image need-logo is-hidden-mobile">
-      {% if candidate.org.get_logo_url %}
-        <img src="{{ candidate.org.get_logo_url }}" alt="{{ candidate.org.name }}">
-      {% else %}
-        <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
-      {% endif %}
+      <img src="{% if candidate.org.logo %}{{ candidate.org.logo.url }}{% else %}{% static 'images/images/logo-demo.png' %}{% endif %}" alt="{{ candidate.org.name }}">
     </div>
 
     <div class="card-info">
       <div class="flex-align-center">
         <div class="card-image need-logo is-hidden-tablet">
-          {% if candidate.org.get_logo_url %}
-            <img src="{{ candidate.org.get_logo_url }}" alt="{{ candidate.org.name }}">
-          {% else %}
-            <img src="{% static 'images/images/logo-demo.png' %}" alt="{{ candidate.org.name }}">
-          {% endif %}
+          <img src="{% if candidate.org.logo %}{{ candidate.org.logo.url }}{% else %}{% static 'images/images/logo-demo.png' %}{% endif %}" alt="{{ candidate.org.name }}">
         </div>
         <div>
           <div class="need-title is-hidden-tablet">

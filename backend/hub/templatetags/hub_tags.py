@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from accounts.models import User
 from hub.models import (
     COMMITTEE_GROUP,
     STAFF_GROUP,
@@ -118,7 +119,7 @@ def show_blog_post_date_prefix(published_date):
 
 
 @register.filter
-def has_permission(user, permission: str):
+def has_permission(user: User, permission: str) -> bool:
     user_groups = user.groups.all()
     user_group_has_perm = any([group.permissions.filter(codename=permission).exists() for group in user_groups])
 

@@ -27,6 +27,7 @@
     {% trans "Registered organizations" %} ({{ counters.ngos_accepted }})
 </h2>
 
+{% comment %}
 <!-- <div class="container filter-container">
     <div class="columns is-mobile">
         <div class="column">
@@ -118,6 +119,7 @@
     </a>
 
 </div> -->
+{% endcomment %}
 
 <div class="container">
     {% if page_obj %}
@@ -127,27 +129,20 @@
 
         <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
-                {% if ngo.get_logo_url %}
-                <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
-                {% else %}
-                <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-                {% endif %}
+                <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
             </div>
 
             <div class="card-info">
                 <div class="flex-align-center">
                     <div class="card-image need-logo is-hidden-tablet">
-                        {% if ngo.get_logo_url %}
-                        <img src="{{ ngo.get_logo_url }}" alt="{{ ngo.name }}">
-                        {% else %}
-                        <img src="{% static 'images/logo-demo.png' %}" alt="{{ ngo.name }}">
-                        {% endif %}
+                        <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
                     </div>
                     <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
                 </div>
                 <div class="need-title is-hidden-mobile">
                     <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
                 </div>
+
                 {% comment %}
                 <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
                 <!-- <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div> -->

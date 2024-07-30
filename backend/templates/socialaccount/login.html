@@ -24,9 +24,11 @@
     {% endif %}
     {% endcomment %}
 
+    {% comment %}
     <!--
     <h1 id="allauth-login-title" class="">{% trans "Redirecting to authentication..." %}</h1>
     -->
+    {% endcomment %}
 
     <div id="allauth-login-form-container">
     {% element form method="post" no_visible_fields=True %}
@@ -37,6 +39,7 @@
     {% endelement %}
     </div>
 
+    {% comment %}
     <!-- 
     <script>
         jQuery(document).ready(function() {
@@ -47,5 +50,6 @@
         });
     </script>
     -->
+    {% endcomment %}
 
 {% endblock content %}
