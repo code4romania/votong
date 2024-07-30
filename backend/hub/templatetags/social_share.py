@@ -9,7 +9,7 @@ LINKEDIN_ENDPOINT = "https://www.linkedin.com/sharing/share-offsite/?url=%s"
 register = template.Library()
 
 
-@register.inclusion_tag("partials/social_sharing.html", takes_context=True)
+@register.inclusion_tag("hub/partials/social_sharing.html", takes_context=True)
 def social_buttons(context, obj):
     request = context["request"]
     full_path_url = build_full_url(request, obj)

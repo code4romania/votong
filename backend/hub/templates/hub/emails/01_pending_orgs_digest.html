@@ -1,0 +1,23 @@
+{% extends "hub/emails/base_email.html" %}
+
+{% block content %}
+
+  <h3>Bună ziua,</h3>
+
+  <p style="padding: 3rem 0;">
+    Un număr de {{ nr_pending_orgs }} organizații așteaptă aprobarea voastră pe platforma VotONG.
+  </p>
+
+  <p>
+    Accesați adresa
+    <a href="{{ committee_org_list_url }}">{{ committee_org_list_url }}</a>
+    pentru a vizualiza ultimele aplicații.
+  </p>
+
+  <p>
+    Vă mulțumim!
+    <br>
+    Echipa VotONG
+  </p>
+
+{% endblock %}

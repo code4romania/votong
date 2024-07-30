@@ -1,0 +1,214 @@
+{% extends 'hub/candidate/base.html' %}
+{% load static i18n %}
+{% load spurl guardian_tags %}
+{% load social_share meta_tags hub_tags %}
+
+{% block meta_tags %}
+  {% if candidate.photo %}
+    {% with title=candidate.name image=candidate.photo.url %}
+      {% meta_tags %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}
+
+{% block left-side-view %}
+
+  {% block domain-filters %}
+  {% endblock %}
+
+    <div class="container">
+    <div class="section-title">Sectiune: {{ candidate.domain.name }}</div>
+    <p class="section-text">{{ candidate.domain.description }}</p>
+  </div>
+
+  <div class="container need is-flex">
+    <div class="card-image need-logo is-hidden-mobile">
+      <img src="{% if candidate.org.logo %}{{ candidate.org.logo.url }}{% else %}{% static 'images/images/logo-demo.png' %}{% endif %}" alt="{{ candidate.org.name }}">
+    </div>
+
+    <div class="card-info">
+      <div class="flex-align-center">
+        <div class="card-image need-logo is-hidden-tablet">
+          <img src="{% if candidate.org.logo %}{{ candidate.org.logo.url }}{% else %}{% static 'images/images/logo-demo.png' %}{% endif %}" alt="{{ candidate.org.name }}">
+        </div>
+        <div>
+          <div class="need-title is-hidden-tablet">
+            <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{ candidate.org }}</a>
+          </div>
+          <div class="need-subtitle is-hidden-tablet">
+            Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
+          </div>
+        </div>
+      </div>
+
+      <div class="need-title is-hidden-mobile">
+        <a class="has-text-black" href="{% url 'ngo-detail' candidate.org.pk %}">{{ candidate.org }}</a>
+      </div>
+      <div class="need-subtitle is-hidden-mobile">
+        Județ: {{ candidate.org.city.county }}, Localitate: {{ candidate.org.city.city }}
+      </div>
+
+      <div class="need-description">
+        <b>Stare candidatură: <span class="status-{{ candidate.status }}">{% trans candidate.status.capitalize %}</span></b>
+        {% if not user.is_superuser and user|has_permission:"approve_candidate" and candidate.status != 'pending' %}
+          {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% if not user.is_superuser and candidate.org.STATUS and GLOBAL_SUPPORT_ENABLED and CANDIDATE_SUPPORTING_ENABLED and user|has_permission:"support_candidate" and candidate.is_proposed %}
+      <div class="buttons">
+        {% if candidate.org != request.user.orgs.first %}
+          {% if user|already_supported:candidate %}
+            <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">Retrage susținerea</a>
+          {% else %}
+            <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">Susține</a>
+          {% endif %}
+        {% endif %}
+        <span style="width: 100%; padding: 10px;">Susținători: {% supporters candidate.id %}</span>
+      </div>
+    {% endif %}
+
+    {% if not user.is_superuser and not CANDIDATE_REGISTRATION_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_VOTING_ENABLED and user|has_permission:"approve_candidate" and not user|already_confirmed_candidate_status:candidate and candidate.status != 'pending' %}
+      <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">
+        Confirmă starea aplicației
+      </a>
+    {% endif %}
+
+    {% if not user.is_superuser and CANDIDATE_VOTING_ENABLED and not CANDIDATE_SUPPORTING_ENABLED and not CANDIDATE_REGISTRATION_ENABLED and user|has_permission:"vote_candidate" and candidate.status == 'accepted' %}
+
+      {% if not user|can_vote %}
+        <span class="tag is-danger">Nu poți vota la această rundă de alegeri.</span>
+      {% elif user|can_vote_candidate:candidate %}
+        <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">Votează</a>
+      {% elif user|already_voted_candidate:candidate %}
+        <span class="tag is-success">✔ VOTAT</span>
+      {% else %}
+        <span class="tag is-warning">Ai utilizat toate voturile alocate pentru acest domeniu.</span>
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+
+  <div class="container detail-desc">
+    <div class="detail-desc-title">
+      <span class="candidate-colorblock"></span>
+      {% trans "Candidate information" %}
+    </div>
+    <div>
+
+      <p><span class="label">{% trans 'Representative name' %}:</span> {{ candidate.name }}</p>
+      <p><span class="label">{% trans 'Representative role' %}:</span> {{ candidate.role }}</p>
+
+      {% if candidate.statement %}
+        <p>
+      <span class="icon">
+        <i class="fas fa-lock"></i>
+      </span>
+          <a href="{{ candidate.statement.url }}">{% trans 'Representative statement' %}</a>
+        </p>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <div class="container detail-desc">
+    <div class="detail-desc-title">
+      <span class="ngo-colorblock"></span>
+      {% trans "Documents" %}
+    </div>
+
+    {% if candidate.org.report_2023 %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2023.url }}" title="{% trans 'Yearly report 2023' %}">
+          {% trans 'Yearly report 2023' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.report_2022 %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2022.url }}" title="{% trans 'Yearly report 2022' %}">
+          {% trans 'Yearly report 2022' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.report_2021 %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.report_2021.url }}" title="{% trans 'Yearly report 2021' %}">
+          {% trans 'Yearly report 2021' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_anaf %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">
+          {% trans 'Fiscal certificate ANAF' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.fiscal_certificate_local %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">
+          {% trans 'Fiscal certificate local' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.statement_discrimination %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">
+          {% trans 'Non-discrimination statement' %}
+        </a>
+      </p>
+    {% endif %}
+
+    {% if candidate.org.statement_political %}
+      <p>
+        <span class="icon">
+          <i class="fas fa-lock"></i>
+        </span>
+        <a href="{{ candidate.org.statement_political.url }}" title="{% trans 'Non-political statement ' %}">
+          {% trans 'Non-political statement' %}
+        </a>
+      </p>
+    {% endif %}
+
+  </div>
+
+
+  {% comment %}
+    {% social_buttons obj=candidate %}
+  {% endcomment %}
+
+{% endblock %}
+
+{% block content %}
+  {% url "ngos" as ngos %}
+  {% with current_url=ngos %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}

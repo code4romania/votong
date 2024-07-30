@@ -1,0 +1,92 @@
+{% extends 'hub/candidate/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block domain-filters %}
+{% endblock domain-filters %}
+
+{% block extra-header %}
+{% endblock extra-header %}
+
+{% block left-side-view %}
+
+
+{% if user.orgs.exists %}
+
+<div class="tabs is-medium">
+  <ul>
+    <li>
+      <a href="{% url 'ngo-update' user.orgs.first.id %}">Profilul organizației</a>
+    </li>
+    <li class="is-active">
+    {% if user.orgs.first.candidate %}
+      <a href="{% url 'candidate-update' user.orgs.first.candidate.id %}">Candidatura mea</a>
+    {% elif CANDIDATE_REGISTRATION_ENABLED %}
+      <a href="{% url 'candidate-register-request' %}">Adaugă candidatură</a>
+    {% endif %}
+    </li>
+    <li>
+      <a href="{% url 'votes' %}">Voturile mele</a>
+    </li>
+    {% if not user.is_ngohub_user %}
+    <li {% if active == "settings" %}class="is-active"{% endif %}>
+      <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+
+{% endif %}
+
+<h2 class="title border-b uppercase">Adaugă candidatură</h2>
+
+<div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <article class="message is-{{ message.tags }}">
+          <div class="message-body">{{ message }}</div>
+        </article>
+      {% endfor %}
+    {% else %}
+        <form method="post" enctype="multipart/form-data" id="add-candidate-form">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+            <article class="message is-danger"><div class="message-body">{{ hidden_field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {% for field in form %}
+            {% if field.errors %}
+            <article class="message is-danger"><div class="message-body">{{ field.errors }}</div></article>
+            {% endif %}
+            {% endfor %}
+
+            {{ form|crispy }}
+
+            <div class="container has-text-left">
+                <a href="#" class="button is-success is-medium" style="width: 100%;"
+                   onclick="$('#id_is_proposed').val('False'); $('#add-candidate-form').submit(); return false;">
+                    {% trans "Save profile" %}
+                </a>
+            </div>
+
+            {% if user.orgs.first.is_complete and user.orgs.first.candidate.is_complete %}
+            <br>
+            <div class="container has-text-left">
+                <a href="#" class="button is-danger is-medium" style="width: 100%;"
+                   onclick="$('#id_is_proposed').val('True'); $('#add-candidate-form').submit(); return false;">
+                    {% trans "Propose candidate" %}
+                </a>
+            </div>
+            {% endif %}
+
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}

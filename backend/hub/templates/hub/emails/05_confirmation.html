@@ -1,0 +1,10 @@
+{% extends "hub/emails/base_email.html" %}
+
+{% block content %}
+  <h3>Administratorul site-ului votong.ro a schimbatul statusul candidatului "{{ candidate }}" în "{{ status }}".</h3>
+
+  <p>
+    Urmează acest link pentru a le confirma acțiunea:
+    <a href="{{ confirmation_link }}">{{ confirmation_link }}</a>
+  </p>
+{% endblock %}

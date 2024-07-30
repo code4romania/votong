@@ -1,0 +1,29 @@
+{% extends 'hub/ngo/base.html' %}
+{% load i18n static humanize %}
+{% load social_share %}
+{% load spurl %}
+{% load hub_tags %}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="container section has-text-centered">
+        <h1 class="title">
+            {{ blogpost.title }}
+        </h1>
+
+        <p class="subtitle border-b" style="margin: 0 10%">
+            {% show_blog_post_date_prefix blogpost.published_date %} {{ blogpost.published_date|naturalday }} {% trans "by" %} {{ blogpost.author }}
+        </p>
+    </div>
+
+    {% block left-side-view %}
+    <div class="container tight-container content mb-50">
+      {{ blogpost.content|safe }}
+      <a href="{% url 'blog-list' %}" class="">&laquo; {% trans "back to article list" %}</a>
+    </div>
+
+    {% endblock %}
+</div>
+{% endblock %}

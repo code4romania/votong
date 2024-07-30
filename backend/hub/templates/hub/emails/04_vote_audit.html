@@ -1,0 +1,11 @@
+{% extends "hub/emails/base_email.html" %}
+
+{% block content %}
+  <h3>{{ org }} a votat cu {{ candidate }} la {{ timestamp }}</h3>
+
+  <p>
+    Organizație: <a href="{{ org_link }}">{{ org_link }}</a>
+    <br>
+    Candidat: <a href="{{ candidate_link }}">{{ candidate_link }}</a>
+  </p>
+{% endblock %}

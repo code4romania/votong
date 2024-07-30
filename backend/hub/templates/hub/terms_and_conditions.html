@@ -1,0 +1,335 @@
+{% extends 'hub/ngo/base.html' %}
+{% load social_share %}
+{% load static %}
+{% load spurl %}
+{% load i18n %}
+
+
+{% block content %}
+  <div class="container">
+    {% block left-side-view %}
+      <div class="container tight-container content mb-50">
+        <h1>
+          Termeni și condiții generale de utilizare
+        </h1>
+
+        <p>
+          Termenii și Condițiile generale de utilizare stabilesc termenii și condițiile generale de utilizare a
+          site-ului „votong.ro” de către potențialii vizitatori sau beneficiari.
+        </p>
+
+        <p>
+          VotONG (în continuare denumit „Site”, „Platformă”, „votong.ro”) este o platformă în care societatea civilă își
+          poate alege reprezentanții transparent, printr-un proces bazat pe o participare deschisă a cât mai multor
+          ONG-uri.
+          Platforma este dezvoltată de Code for Romania în parteneriat cu Fundația pentru Dezvoltarea
+          Societății Civile și Academia de Advocacy.
+        </p>
+
+        <p>
+          NGO Hub (în continuare denumit „ecosistemul Code for Romania pentru creșterea capacității organizațiilor neguvernamentale
+          din România”, „NGO Hub”, „ngohub.ro”) este un punct unic de autentificare prin care orice organizație poate accesa ecosistemul de 16
+          soluții digitale interconectate, printre care și VotONG.
+        </p>
+
+        <h3>
+          1. Obiectivul Platformei
+        </h3>
+
+        <p>
+          Obiectivul votong.ro este de a facilita alegerea reprezentanților transparent,
+          printr-un proces bazat pe o participare deschisă a cât mai multor ONG-uri.
+        </p>
+        <ul>
+          <li>
+            Site-ul permite înregistrarea organizațiilor care respectă condițiile de eligibilitate din regulamentul
+            platformei, prin intermediul NGO Hub, ecosistemul Code for Romania pentru creșterea capacității
+            organizațiilor neguvernamentale din România.
+          </li>
+          <li>
+            De asemenea, votong.ro pune la dispoziția organizațiilor un formular de propunere de candidați pentru varii
+            runde electorale.
+          </li>
+          <li>
+            Platforma permite și transmiterea unui mesaj către administratorii platformei prin intermediul unui formular
+            simplu.
+          </li>
+        </ul>
+
+        <h3>
+          2. Datele personale prelucrate
+        </h3>
+
+        <p>
+          Completând formularele ecosistemului pentru creșterea capacității organizațiilor neguvernamentale din România,
+          puse la dispoziție în platforma VotONG și prin intermediul NGO Hub,
+          putem colecta următoarele date cu caracter personal
+          (denumite în continuare „Date personale”):
+        </p>
+        <ul>
+          <li>
+            Numele și prenumele reprezentantului legal al organizației
+          </li>
+          <li>
+            E-mailul reprezentantului legal al organizației
+          </li>
+          <li>
+            Numărul de telefon al reprezentantului legal al organizației
+          </li>
+          <li>
+            Numele și prenumele președintelui organizației sau al directorului executiv
+          </li>
+          <li>
+            Numele și prenumele membrilor Consiliului Director
+          </li>
+          <li>
+            Cazierul fiscal și cazierul judiciar al candidaților propuși într-o rundă electorală,
+            documente disponibile exclusiv intern pentru verificarea eligibilității de către Comisia Electorală.
+          </li>
+        </ul>
+
+        <p>
+          VotONG nu este responsabil pentru documentele încărcate de organizații în profilurile lor,
+          respectiv profilurile candidaților lor.
+        </p>
+
+        <h3>
+          3. Scop și temei
+        </h3>
+
+        <p>
+          Code for Romania prelucrează date cu caracter personal, prin intermediul votong.ro sau ngohub.ro,
+          doar în interesul utilizatorilor site-ului votong.ro.
+          Code for Romania prelucrează datele personale menționate mai sus doar cu scopul de a construi
+          profilul organizației neguvernamentale electoare și a candidaților săi, sau
+          în cazul utilizatorilor persoane fizice care doresc să ia legătura cu administratorii platformei,
+          în scopul transmiterii de mesaje de răspuns la solicitările acestora.
+        </p>
+
+        <h3>
+          4. Durata stocării
+        </h3>
+
+        <p>
+          Datele personale furnizate sunt stocate temporar pe durata funcționării platformelor votong.ro și ngohub.ro.
+        </p>
+
+        <h3>
+          5. Transmiterea datelor personale către terți
+        </h3>
+
+        <p>
+          Code for Romania nu va furniza datele personale unor terți.
+          Transmiterea unui mesaj către Code for Romania constituie consimțământul exprimat de tine
+          ca organizația să te contacteze.
+        </p>
+
+        <p>
+          Datele pot fi furnizate și către instituții sau autorități publice, precum și altor organe abilitate ale
+          statului, în baza și în limitele prevederilor legale, ca urmare a unor cereri expres formulate de acestea.
+        </p>
+
+        <h3>
+          6. Drepturile tale
+        </h3>
+
+        <p>
+          În calitate de utilizator al platformelor votong.ro și ngohub.ro, potrivit Legii nr. 679/2016, precum și,
+          începând cu 25 mai 2018, potrivit Regulamentului General privind protecția datelor, ai următoarele drepturi:
+        </p>
+
+        <ul>
+          <li>
+            Dreptul la informare cu privire la prelucrarea datelor personale de către Code for Romania;
+          </li>
+          <li>
+            Dreptul de acces la datele personale, la cerere și în mod gratuit pentru o solicitare pe an;
+          </li>
+          <li>
+            Dreptul de intervenție, rectificarea, ștergerea sau portabilitatea datelor personale, la cerere și în mod
+            gratuit;
+          </li>
+          <li>
+            Dreptul de a te adresa Autorității Naționale de Supraveghere privind
+            Prelucrarea Datelor cu Caracter Personal
+            (cu sediul în București, sector 1, Bulevardul General Gheorghe Magheru,
+            <a href="https://www.dataprotection.ro">www.dataprotection.ro</a>)
+            sau justiției, pentru apărarea oricăror drepturi garantate de lege;
+          </li>
+          <li>
+            Dreptul la opoziție şi procesul decizional individual automatizat;
+          </li>
+          <li>
+            Dreptul la restricționarea prelucrării, începând cu 25 mai 2018, potrivit
+            Regulamentului general privind protecția datelor.
+          </li>
+        </ul>
+
+        <h3>
+          7. Securitate și confidențialitate
+        </h3>
+
+        <p>
+          Protecția informațiilor în cursul prelucrării datelor tale personale este o preocupare majoră a
+          Code for Romania, de aceea toate datele personale colectate în cursul vizitelor pe votong.ro și pe ngohub.ro
+          sunt prelucrate conform prevederilor legale în vigoare în România.
+          Code for Romania folosește tehnologii de ultimă generație și ia toate măsurile tehnice rezonabile
+          pentru transmiterea și păstrarea datelor personale în condiții de deplină securitate și confidențialitate.
+        </p>
+
+        <p>
+          Toate datele personale de pe platformă și din ecosistemul Code for Romania pentru
+          creșterea capacității organizațiilor neguvernamentale sunt stocate și procesate pe servere situate
+          în Uniunea Europeană, ce cad sub incidența legislației europene de protecție a datelor personale.
+          Nicio informație oferită pe votong.ro și pe ngohub.ro nu părăsește teritoriul Uniunii Europene.
+        </p>
+
+        <p>
+          Code for Romania se angajează să nu dezvăluie datele personale cu privire la vizitele tale pe votong.ro
+          și/sau pe ngohub.ro, exceptând situațiile legale sau situațiile prezentate
+          în acest document de Termeni și Condiții.
+        </p>
+
+        <p>
+          Dacă descoperim un incident cu privire la securitatea datelor personale,
+          care prezintă un risc pentru drepturile și libertățile utilizatorilor noștri,
+          vom notifica Autoritatea Națională de Supraveghere privind Prelucrarea Datelor cu Caracter Personal
+          în termen de 72 de ore.
+          Dacă incidentul de securitate este de natură să prezinte un risc ridicat pentru
+          drepturile și libertățile tale, vei fi, de asemenea, notificat.
+        </p>
+
+        <h3>
+          8. Marca și dreptul de autor
+        </h3>
+
+        <p>
+          Dreptul de autor pentru toate informațiile existente pe votong.ro și ngohub.ro este deținut
+          de Code for Romania.
+          Nici un material de pe acest site nu poate fi reprodus parțial, integral sau modificat fără
+          acordul expres exprimat de către Code for Romania, titularul acestui drept.
+        </p>
+
+        <p>
+          Toate drepturile sunt rezervate.
+          <br>
+          Este strict interzisă folosirea acestui Site sau a ecosistemului NGO Hub în scopul distrugerii
+          sau alterării lor, a conținutului lor, a securității acestora ori pentru discreditarea
+          sau hărțuirea votong.ro, ngohub.ro sau a organizației Code for Romania.
+        </p>
+
+        <p>
+          Code for Romania va aplica toate măsurile de securitate tehnică și organizatorică pentru protejarea datelor
+          asupra cărora deține controlul împotriva oricărei situații de manipulare accidentală sau intenționată,
+          pierdere, distrugere sau împotriva accesului unei persoane neautorizate.
+        </p>
+
+        <h3>
+          9. Drepturile și obligațiile organizațiilor / utilizatorilor
+        </h3>
+
+        <ul>
+          <li>
+            Prin înființarea și activitatea lor respectă OUG nr. 31/2002 privind interzicerea organizațiilor și
+            simbolurilor cu caracter fascist, rasist sau xenofob și a promovării cultului persoanelor vinovate de
+            săvârșirea unor infracțiuni contra păcii și omenirii.
+          </li>
+          <li>
+            Prin activitatea lor nu susțin cauze de natură politică sau care discriminează pe considerente legate de
+            etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenență la una sau
+            mai multe categorii sociale sau economice.
+          </li>
+          <li>
+            Prin activitatea lor respectă valorile UE, așa cum sunt definite prin intermediul Tratatului de la Lisabona
+            și prin Carta drepturilor fundamentale UE: demnitate umană, libertate, democrație, egalitate, stat de drept
+            și drepturile omului.
+          </li>
+          <li>
+            Au luat la cunoștință și respectă codul de conduită al Code for Romania și Politica PEAS.
+          </li>
+          <li>
+            Au luat la cunoștință de informațiile privind prelucrarea datelor cu caracter personal menționate în
+            prezenta pagină de „Termeni și condiții generale de utilizare”.
+          </li>
+          <li>
+            Au luat la cunoștință și respectă termenii și condițiile prevăzute în prezenta pagină de „Termeni și
+            condiții generale de utilizare”.
+          </li>
+        </ul>
+
+        <h3>
+          10. Drepturile Code for Romania
+        </h3>
+
+        <ul>
+          <li>
+            Code for Romania își rezervă dreptul de a restricționa accesul la serviciile platformelor votong.ro și/sau
+            ngohub.ro organizațiilor care nu respectă termenii și condițiile menționate în prezenta pagină de „Termeni
+            și condiții generale de utilizare”.
+          </li>
+          <li>
+            Code for Romania are dreptul să trimită comunicări despre activitatea sa organizațiilor înregistrate pe
+            votong.ro, respectiv pe ngohub.ro, prin intermediul sistemului de newsletter sau prin direct mailing.
+          </li>
+          <li>
+            Code for Romania are dreptul să promoveze pe canalele proprii de comunicare înscrierea organizației pe
+            platforma votong.ro și/sau în ecosistemul ngohub.ro și facilitățile/rezultatele obținute de organizație în
+            urma folosirii acestora.
+          </li>
+
+        </ul>
+
+        <h3>
+          11. Modificări Termeni și condiții de utilizare
+        </h3>
+
+        <p>
+          „Termeni și condiții de utilizare" constituie, în întregime, un acord încheiat între dumneavoastră și Code for
+          Romania în privința utilizării votong.ro și ngohub.ro.
+        </p>
+
+        <p>
+          Code for Romania își rezervă dreptul de a revizui și aduce la zi "Termeni și condiții de utilizare" în orice
+          moment, fără o anunțare sau o acceptare prealabilă a utilizatorilor.
+        </p>
+
+        <p>
+          Dacă aveți întrebări cu privire la informațiile cuprinse în această pagină vă rugăm să ne scrieți la adresa
+          contact@votong.ro.
+        </p>
+
+        <h3>
+          12. Despre Code for Romania
+        </h3>
+
+        <p>
+          Asociația Code for Romania - Codează pentru România este o organizație neguvernamentală independentă,
+          neafiliată politic și apolitică, înființată în 2016, al cărei scop este să creeze instrumente digitale
+          care ajută în soluționarea problemelor sociale.
+          Code for Romania este înființată și funcționează în conformitate cu legea română,
+          actul constitutiv și statutul său și Codul de conduită.
+        </p>
+
+        <h3>
+          13. Contactează Code for Romania
+        </h3>
+
+        <p>
+          Pentru orice întrebări sau preocupări, precum și pentru exercitarea drepturilor tale legate de prelucrarea
+          datelor personale de către Code for Romania, ne poți contacta astfel:
+        </p>
+
+        <p>
+          Adresa: Piața Alba Iulia nr. 7, bloc I6, etaj 1, ap. 6, București, România
+        </p>
+
+        <p>
+          E-mail:
+          <a href="mailto:contact@votong.ro">contact@votong.ro.</a>
+        </p>
+
+
+      </div>
+    {% endblock %}
+  </div>
+{% endblock %}

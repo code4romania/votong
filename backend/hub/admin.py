@@ -241,8 +241,8 @@ def send_confirm_email_to_committee(request, candidate, to_email):
             "confirmation_link": confirmation_link,
         },
         to_emails=[to_email],
-        text_template="emails/05_confirmation.txt",
-        html_template="emails/05_confirmation.html",
+        text_template="hub/emails/05_confirmation.txt",
+        html_template="hub/emails/05_confirmation.html",
     )
 
 

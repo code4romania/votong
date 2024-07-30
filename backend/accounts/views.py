@@ -14,7 +14,7 @@ from hub.models import STAFF_GROUP, SUPPORT_GROUP
 
 
 class PasswordResetView(auth_views.PasswordChangeView):
-    template_name = "password-reset.html"
+    template_name = "accounts/password-reset.html"
     success_url = reverse_lazy("account-password-reset")
 
     @method_decorator(login_required)
@@ -33,7 +33,7 @@ class PasswordResetView(auth_views.PasswordChangeView):
 
 
 class ChangeEmailView(FormView):
-    template_name = "change-email.html"
+    template_name = "accounts/change-email.html"
     form_class = UpdateEmailForm
     success_url = reverse_lazy("account-change-email")
     model = User
@@ -57,7 +57,7 @@ class ChangeEmailView(FormView):
 
 
 class CommissionMemberInviteView(auth_views.PasswordResetView):
-    template_name = "invite-commission-member.html"
+    template_name = "accounts/invite-commission-member.html"
     form_class = InviteCommissionForm
     success_url = reverse_lazy("admin-invite-commission")
     model = User

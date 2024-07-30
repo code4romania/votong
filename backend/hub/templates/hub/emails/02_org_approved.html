@@ -1,0 +1,20 @@
+{% extends "hub/emails/base_email.html" %}
+
+{% block content %}
+  <h3>Bună {{ representative }},</h3>
+
+  <p style="padding: 3rem 0;">
+    Cererea de înscriere a organizației "{{ name }}" în platforma VotONG a fost aprobată.
+  </p>
+
+  <p>
+    Pentru a vă loga mergeți la adresa
+    <a href="{{ site_url }}">{{ site_url }}</a>.
+  </p>
+
+  <p>
+    Va mulțumim!
+    <br>
+    Echipa VotONG
+  </p>
+{% endblock %}

@@ -15,25 +15,25 @@ admin.site.index_title = _("Admin Civil Society Vote")
 
 
 urlpatterns_i18n = i18n_patterns(
-    path(_("about/"), StaticPageView.as_view(template_name="about.html"), name="about"),
+    path(_("about/"), StaticPageView.as_view(template_name="hub/about.html"), name="about"),
     path(
         _("rules/"),
-        StaticPageView.as_view(template_name=f"{settings.CURRENT_EDITION_TYPE}/rules.html"),
+        StaticPageView.as_view(template_name=f"hub/{settings.CURRENT_EDITION_TYPE}/rules.html"),
         name="rules",
     ),
     path(
         _("terms/"),
-        StaticPageView.as_view(template_name="terms_and_conditions.html"),
+        StaticPageView.as_view(template_name="hub/terms_and_conditions.html"),
         name="terms",
     ),
     path(
         _("committee_public_statement/"),
-        StaticPageView.as_view(template_name="comittee_statement.html"),
+        StaticPageView.as_view(template_name="hub/comittee_statement.html"),
         name="committee_public_statement",
     ),
-    path("cookies/", StaticPageView.as_view(template_name="cookies.html"), name="cookies"),
-    path(_("platform_rules/"), StaticPageView.as_view(template_name="platform_rules.html"), name="platform_rules"),
-    path(_("history/"), StaticPageView.as_view(template_name="history.html"), name="history"),
+    path("cookies/", StaticPageView.as_view(template_name="hub/cookies.html"), name="cookies"),
+    path(_("platform_rules/"), StaticPageView.as_view(template_name="hub/platform_rules.html"), name="platform_rules"),
+    path(_("history/"), StaticPageView.as_view(template_name="hub/history.html"), name="history"),
     path(
         "admin/login/",
         RedirectView.as_view(
@@ -46,32 +46,32 @@ urlpatterns_i18n = i18n_patterns(
     path("tinymce/", include("tinymce.urls")),
     path(
         _("accounts/error/registration-closed/"),
-        StaticPageView.as_view(template_name="error_org_registration_closed.html"),
+        StaticPageView.as_view(template_name="accounts/error_org_registration_closed.html"),
         name="error-org-registration-closed",
     ),
     path(
         _("accounts/error/duplicate-organization/"),
-        StaticPageView.as_view(template_name="error_org_duplicate.html"),
+        StaticPageView.as_view(template_name="accounts/error_org_duplicate.html"),
         name="error-org-duplicate",
     ),
     path(
         _("accounts/error/missing-organization/"),
-        StaticPageView.as_view(template_name="error_org_missing.html"),
+        StaticPageView.as_view(template_name="accounts/error_org_missing.html"),
         name="error-org-missing",
     ),
     path(
         _("accounts/error/missing-application/"),
-        StaticPageView.as_view(template_name="error_app_missing.html"),
+        StaticPageView.as_view(template_name="accounts/error_app_missing.html"),
         name="error-app-missing",
     ),
     path(
         _("accounts/error/unkown-user-role/"),
-        StaticPageView.as_view(template_name="error_unkown_user_role.html"),
+        StaticPageView.as_view(template_name="accounts/error_unkown_user_role.html"),
         name="error-unknown-user-role",
     ),
     path(
         _("accounts/error/user-role/"),
-        StaticPageView.as_view(template_name="error_user_role.html"),
+        StaticPageView.as_view(template_name="accounts/error_user_role.html"),
         name="error-user-role",
     ),
     path(_("accounts/"), include("django.contrib.auth.urls")),

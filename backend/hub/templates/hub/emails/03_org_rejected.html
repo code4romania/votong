@@ -1,0 +1,21 @@
+{% extends "hub/emails/base_email.html" %}
+
+{% block content %}
+  <h3>Bună {{ representative }},</h3>
+
+  <p style="padding: 3rem 0;">
+    Organizația "{{ name }}" a fost respinsă din platforma VotONG.
+  </p>
+
+  {% if rejection_message %}
+    <p>
+      <strong>Motivul respingerii:</strong> "{{ rejection_message }}"
+    </p>
+  {% endif %}
+
+  <p>
+    Va mulțumim!
+    <br>
+    Echipa VotONG
+  </p>
+{% endblock %}

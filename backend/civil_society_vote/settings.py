@@ -505,7 +505,7 @@ IMPERSONATE = {
 }
 
 AVATAR_THUMB_FORMAT = "PNG"
-AVATAR_ADD_TEMPLATE = "avatar/change.html"
+AVATAR_ADD_TEMPLATE = "accounts/avatar/change.html"
 AVATAR_PROVIDERS = (
     "avatar.providers.PrimaryAvatarProvider",
     "avatar.providers.DefaultAvatarProvider",
