@@ -2,7 +2,7 @@
 {% load l10n %}
 
 <div class="{% if inline_class %}form-check{% endif %}{% if field_class %} {{ field_class }}{% endif %}"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
-    {% include 'bootstrap4/layout/field_errors_block.html' %}
+    {% include 'bulma/layout/field_errors_block.html' %}
 
     {% for choice in field.field.choices %}
         {% if not inline_class %}<div class="form-check">{% endif %}
@@ -13,5 +13,5 @@
       {% if not inline_class %}</div>{% endif %}
     {% endfor %}
 
-    {% include 'bootstrap4/layout/help_text.html' %}
+    {% include "bulma/layout/help_text.html" %}
 </div>
