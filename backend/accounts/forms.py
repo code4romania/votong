@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -71,7 +72,9 @@ class InviteCommissionForm(CommonEmailConfirmationForm, PasswordResetForm):
         new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP))
 
         kwargs["subject_template_name"] = "accounts/emails/01_invite_commission_member_subject.txt"
-        kwargs["email_template_name"] = "accounts/emails/01_invite_commission_member.html"
+        kwargs["html_email_template_name"] = "accounts/emails/01_invite_commission_member.html"
+        kwargs["email_template_name"] = "accounts/emails/01_invite_commission_member.txt"
+        kwargs["from_email"] = settings.DEFAULT_FROM_EMAIL
 
         super().save(**kwargs)
 
