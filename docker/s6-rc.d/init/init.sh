@@ -55,7 +55,6 @@ fi
 if is_enabled "${RUN_LOAD_INITIAL_DATA:-False}"; then
   echo "Add functional data to the system"
   ./manage.py init
-  ./manage.py loaddata cities.json
 fi
 
 # Load the dummy data
