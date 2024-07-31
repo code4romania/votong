@@ -15,7 +15,7 @@
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <option name="launchJavascriptDebuger" value="false" />
-    <option name="host" value="localhost" />
+    <option name="host" value="" />
     <option name="additionalOptions" value="-a" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />
