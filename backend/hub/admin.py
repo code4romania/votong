@@ -499,6 +499,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
             "enable_org_voting",
             "enable_candidate_registration",
             "enable_candidate_supporting",
+            "enable_candidate_confirmation",
             "enable_candidate_voting",
             "enable_results_display",
         }
@@ -549,6 +550,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 "enable_candidate_supporting",
             ],
             disabled=[
+                "enable_candidate_confirmation",
                 "enable_candidate_voting",
                 "enable_results_display",
             ],
@@ -564,6 +566,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 "enable_org_registration",
                 "enable_org_approval",
                 "enable_org_voting",
+                "enable_candidate_confirmation",
             ],
             disabled=[
                 "enable_candidate_registration",
@@ -589,6 +592,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 "enable_candidate_registration",
                 "enable_candidate_supporting",
                 "enable_results_display",
+                "enable_candidate_confirmation",
             ],
         )
 

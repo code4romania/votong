@@ -93,6 +93,7 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_registration", _("Enable candidate registration")),
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
+    ("enable_candidate_confirmation", _("Enable candidate confirmation")),
     ("enable_results_display", _("Enable the display of results")),
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
     ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
