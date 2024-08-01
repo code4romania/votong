@@ -68,7 +68,7 @@
               <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">Susține</a>
             {% endif %}
           {% endif %}
-          <span style="width: 100%; padding: 10px;">{% trans "Supporters:" %} {% supporters candidate.id %}</span>
+          <span style="width: 100%; padding: 10px;">{% trans "Supporters:" %} {{ candidate.count_supporters }}</span>
         </div>
       {% endif %}
 

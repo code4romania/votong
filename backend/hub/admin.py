@@ -339,7 +339,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     def supporters_count(self, obj):
         if get_feature_flag(FLAG_CHOICES.global_support_round):
-            return obj.supporters.count()
+            return obj.count_supporters()
         else:
             return "N/A"
 

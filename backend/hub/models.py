@@ -531,6 +531,9 @@ class Candidate(StatusModel, TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
+    
+    def count_supporters(self):
+        return self.supporters.count()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True

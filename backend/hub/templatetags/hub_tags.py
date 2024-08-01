@@ -76,11 +76,6 @@ def in_staff_groups(user):
     return user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
 
 
-@register.simple_tag
-def supporters(candidate_id):
-    return CandidateSupporter.objects.filter(candidate=candidate_id).count()
-
-
 @register.filter
 def already_supported(user, candidate):
     if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
