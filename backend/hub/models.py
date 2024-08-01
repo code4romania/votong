@@ -174,6 +174,13 @@ class Domain(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def accepted_candidates(self):
+        return (
+            self.candidated.filter(status=Candidate.STATUS.accepted, is_proposed=True)
+            .annotate(votes_count=models.Count("votes", distinct=True))
+            .order_by("-votes_count")
+        )
+
 
 class City(models.Model):
     city = models.CharField(_("City"), max_length=100)

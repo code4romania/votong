@@ -1,5 +1,4 @@
 from django import template
-from django.db.models import Count
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -8,7 +7,6 @@ from hub.models import (
     COMMITTEE_GROUP,
     STAFF_GROUP,
     SUPPORT_GROUP,
-    Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
@@ -86,15 +84,6 @@ def already_supported(user, candidate):
 @register.filter
 def has_all_org_documents(user):
     return user.orgs.first().is_complete()
-
-
-@register.filter
-def candidates_in_domain(domain):
-    return (
-        Candidate.objects.filter(domain=domain, status=Candidate.STATUS.accepted, is_proposed=True)
-        .annotate(votes_count=Count("votes", distinct=True))
-        .order_by("-votes_count")
-    )
 
 
 @register.simple_tag
