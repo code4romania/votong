@@ -9,7 +9,6 @@ from hub.models import (
     SUPPORT_GROUP,
     CandidateConfirmation,
     CandidateSupporter,
-    CandidateVote,
     Organization,
 )
 
@@ -19,32 +18,6 @@ register = template.Library()
 @register.filter
 def can_vote(user):
     if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
-        return True
-    return False
-
-
-@register.filter
-def can_vote_candidate(user, candidate):
-    if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
-        return False
-
-    votes_for_domain = CandidateVote.objects.filter(user=user, domain=candidate.domain).count()
-    if votes_for_domain >= candidate.domain.seats:
-        return False
-
-    return True
-
-
-@register.filter
-def can_support_candidate(user):
-    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
-        return True
-    return False
-
-
-@register.filter
-def already_voted_candidate(user, candidate):
-    if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
         return True
     return False
 
