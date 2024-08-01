@@ -21,6 +21,7 @@ from django.views.generic import CreateView, DetailView, FormView, ListView, Upd
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
+from accounts.models import User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -424,9 +425,67 @@ class CandidateDetailView(HubDetailView):
             self.request.user
             and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
         ):
-            return Candidate.objects_with_org.all()
+            return Candidate.objects_with_org.select_related("org").prefetch_related("domain").all()
 
-        return Candidate.objects_with_org.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
+        return Candidate.objects_with_org.select_related("org").prefetch_related("domain").filter(
+            org__status=Organization.STATUS.accepted, is_proposed=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user: User = self.request.user
+        candidate: Candidate = self.object
+
+        context["can_support_candidate"] = False
+        context["supported_candidate"] = False
+        context["own_candidate"] = False
+        context["can_approve_candidate"] = False
+        context["approved_candidate"] = False
+        context["can_vote_candidate"] = False
+        context["voted_candidate"] = False
+        context["used_all_domain_votes"] = False
+
+        if user.is_anonymous:
+            return context
+        
+        if candidate.org in user.orgs.all():
+            context["own_candidate"] = True
+
+        # Candidate Support checks
+        if (
+            context.get("GLOBAL_SUPPORT_ENABLED") and 
+            context.get("CANDIDATE_SUPPORTING_ENABLED") and 
+            candidate.is_proposed and 
+            candidate.org.status == Organization.STATUS.accepted and 
+            user.has_perm("hub.support_candidate")            
+        ):
+            context["can_support_candidate"] = True
+            if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
+                context["supported_candidate"] = True
+
+        # Candidate Approve checks
+        if (
+            context.get("CANDIDATE_CONFIRMATION_ENABLED") and 
+            candidate.status != Candidate.STATUS.pending and 
+            user.has_perm("hub.approve_candidate")
+        ):
+            context["can_approve_candidate"] = True
+            if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
+                context["approved_candidate"] = True
+
+        # Candidate Vote checks
+        if (
+            context.get("CANDIDATE_VOTING_ENABLED") and 
+            candidate.status == Candidate.STATUS.accepted and 
+            user.has_perm("hub.vote_candidate")
+        ):
+            context["can_vote_candidate"] = True
+            if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
+                context["voted_candidate"] = True
+            if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
+                context["used_all_domain_votes"] = True
+
+
+        return context
 
 
 class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
