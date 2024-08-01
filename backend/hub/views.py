@@ -21,7 +21,7 @@ from django.views.generic import CreateView, DetailView, FormView, ListView, Upd
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from accounts.models import User
+from accounts.models import User, STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP, NGO_GROUP
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -32,7 +32,6 @@ from hub.forms import (
 )
 from hub.models import (
     BlogPost,
-    COMMITTEE_GROUP,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
@@ -40,10 +39,7 @@ from hub.models import (
     City,
     Domain,
     FeatureFlag,
-    NGO_GROUP,
     Organization,
-    STAFF_GROUP,
-    SUPPORT_GROUP,
 )
 from hub.workers.update_organization import update_organization
 

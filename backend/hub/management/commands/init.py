@@ -6,7 +6,8 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from guardian.shortcuts import assign_perm
 
-from hub.models import COMMITTEE_GROUP, City, FLAG_CHOICES, FeatureFlag, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
+from hub.models import City, FLAG_CHOICES, FeatureFlag
 
 
 class Command(BaseCommand):

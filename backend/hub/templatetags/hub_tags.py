@@ -4,11 +4,7 @@ from django.utils.translation import gettext as _
 
 from accounts.models import User
 from hub.models import (
-    COMMITTEE_GROUP,
-    STAFF_GROUP,
-    SUPPORT_GROUP,
     CandidateConfirmation,
-    CandidateSupporter,
     Organization,
 )
 
@@ -25,31 +21,6 @@ def can_vote(user):
 @register.filter
 def already_confirmed_candidate_status(user, candidate):
     if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
-        return True
-    return False
-
-
-@register.filter
-def in_committee_or_staff_groups(user):
-    return user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
-
-
-@register.filter
-def in_commission_group(user):
-    return (
-        user.groups.filter(name=COMMITTEE_GROUP).exists()
-        and not user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
-    )
-
-
-@register.filter
-def in_staff_groups(user):
-    return user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
-
-
-@register.filter
-def already_supported(user, candidate):
-    if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
         return True
     return False
 

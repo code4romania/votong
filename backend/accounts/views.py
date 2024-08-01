@@ -9,8 +9,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import FormView
 
 from accounts.forms import InviteCommissionForm, UpdateEmailForm
-from accounts.models import User
-from hub.models import STAFF_GROUP, SUPPORT_GROUP
+from accounts.models import User, STAFF_GROUP, SUPPORT_GROUP
 
 
 class PasswordResetView(auth_views.PasswordChangeView):

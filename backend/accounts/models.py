@@ -4,6 +4,13 @@ from django.db.models.functions import Lower
 from django.utils.translation import gettext as _
 
 
+# NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
+STAFF_GROUP = "Code4Romania Staff"
+COMMITTEE_GROUP = "Comisie Electorala"
+SUPPORT_GROUP = "Support Staff"
+NGO_GROUP = "ONG"
+
+
 class User(AbstractUser):
     # We ignore the "username" field because we will use the email for the authentication
     username = models.CharField(
@@ -32,3 +39,15 @@ class User(AbstractUser):
         if social:
             return social.uid
         return None
+
+    def in_committee_or_staff_groups(self):
+        return self.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
+
+    def in_commission_groups(self):
+        return (
+            self.groups.filter(name=COMMITTEE_GROUP).exists()
+            and not self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+        )
+
+    def in_staff_groups(self):
+        return self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()

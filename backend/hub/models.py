@@ -13,13 +13,8 @@ from guardian.shortcuts import assign_perm
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
-from accounts.models import User
+from accounts.models import User, STAFF_GROUP, COMMITTEE_GROUP, SUPPORT_GROUP, NGO_GROUP
 
-# NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
-STAFF_GROUP = "Code4Romania Staff"
-COMMITTEE_GROUP = "Comisie Electorala"
-SUPPORT_GROUP = "Support Staff"
-NGO_GROUP = "ONG"
 
 REPORTS_HELP_TEXT = (
     "Rapoartele anuale trebuie să includă sursele de finanțare din care să rezulte că organizația dispune de resurse "
