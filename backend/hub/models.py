@@ -535,6 +535,9 @@ class Candidate(StatusModel, TimeStampedModel):
     def count_supporters(self):
         return self.supporters.count()
 
+    def count_votes(self):
+        return self.votes.count()
+
     def save(self, *args, **kwargs):
         create = False if self.id else True
 

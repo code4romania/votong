@@ -88,11 +88,6 @@ def has_all_org_documents(user):
     return user.orgs.first().is_complete()
 
 
-@register.simple_tag
-def votes_per_candidate(candidate):
-    return CandidateVote.objects.filter(candidate=candidate).count()
-
-
 @register.filter
 def candidates_in_domain(domain):
     return (
