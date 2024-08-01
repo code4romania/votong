@@ -427,8 +427,11 @@ class CandidateDetailView(HubDetailView):
         ):
             return Candidate.objects_with_org.select_related("org").prefetch_related("domain").all()
 
-        return Candidate.objects_with_org.select_related("org").prefetch_related("domain").filter(
-            org__status=Organization.STATUS.accepted, is_proposed=True)
+        return (
+            Candidate.objects_with_org.select_related("org")
+            .prefetch_related("domain")
+            .filter(org__status=Organization.STATUS.accepted, is_proposed=True)
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -446,17 +449,17 @@ class CandidateDetailView(HubDetailView):
 
         if user.is_anonymous:
             return context
-        
+
         if candidate.org in user.orgs.all():
             context["own_candidate"] = True
 
         # Candidate Support checks
         if (
-            context.get("GLOBAL_SUPPORT_ENABLED") and 
-            context.get("CANDIDATE_SUPPORTING_ENABLED") and 
-            candidate.is_proposed and 
-            candidate.org.status == Organization.STATUS.accepted and 
-            user.has_perm("hub.support_candidate")            
+            context.get("GLOBAL_SUPPORT_ENABLED")
+            and context.get("CANDIDATE_SUPPORTING_ENABLED")
+            and candidate.is_proposed
+            and candidate.org.status == Organization.STATUS.accepted
+            and user.has_perm("hub.support_candidate")
         ):
             context["can_support_candidate"] = True
             if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
@@ -464,9 +467,9 @@ class CandidateDetailView(HubDetailView):
 
         # Candidate Approve checks
         if (
-            context.get("CANDIDATE_CONFIRMATION_ENABLED") and 
-            candidate.status != Candidate.STATUS.pending and 
-            user.has_perm("hub.approve_candidate")
+            context.get("CANDIDATE_CONFIRMATION_ENABLED")
+            and candidate.status != Candidate.STATUS.pending
+            and user.has_perm("hub.approve_candidate")
         ):
             context["can_approve_candidate"] = True
             if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
@@ -474,16 +477,15 @@ class CandidateDetailView(HubDetailView):
 
         # Candidate Vote checks
         if (
-            context.get("CANDIDATE_VOTING_ENABLED") and 
-            candidate.status == Candidate.STATUS.accepted and 
-            user.has_perm("hub.vote_candidate")
+            context.get("CANDIDATE_VOTING_ENABLED")
+            and candidate.status == Candidate.STATUS.accepted
+            and user.has_perm("hub.vote_candidate")
         ):
             context["can_vote_candidate"] = True
             if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
                 context["voted_candidate"] = True
             if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
                 context["used_all_domain_votes"] = True
-
 
         return context
 
