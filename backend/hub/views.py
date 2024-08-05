@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from urllib.parse import unquote
 
@@ -20,6 +21,7 @@ from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from sentry_sdk import capture_message
 
 from accounts.models import User, STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP, NGO_GROUP
 from civil_society_vote.common.messaging import send_email
@@ -42,6 +44,8 @@ from hub.models import (
     Organization,
 )
 from hub.workers.update_organization import update_organization
+
+logger = logging.getLogger(__name__)
 
 
 class MenuMixin:
@@ -618,6 +622,12 @@ def candidate_status_confirm(request, pk):
         return redirect("candidate-detail", pk=pk)
 
     confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
+
+    if not created:
+        message = f"User {request.user} tried to confirm candidate {candidate} status again."
+        logger.warning(message)
+        if settings.ENABLE_SENTRY:
+            capture_message(message, level="warning")
 
     return redirect("candidate-detail", pk=pk)
 
