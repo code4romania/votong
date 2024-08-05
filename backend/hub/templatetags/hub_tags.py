@@ -3,10 +3,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from accounts.models import User
-from hub.models import (
-    CandidateConfirmation,
-    Organization,
-)
+from hub.models import CandidateConfirmation, Organization
 
 register = template.Library()
 

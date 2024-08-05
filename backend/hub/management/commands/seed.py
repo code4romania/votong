@@ -7,15 +7,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
 
-from hub.models import (
-    FLAG_CHOICES,
-    BlogPost,
-    Candidate,
-    City,
-    Domain,
-    FeatureFlag,
-    Organization,
-)
+from hub.models import FLAG_CHOICES, BlogPost, Candidate, City, Domain, FeatureFlag, Organization
 
 fake = Faker()
 
