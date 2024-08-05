@@ -637,9 +637,9 @@ def update_organization_information(request, pk):
     organization: Organization = Organization.objects.get(pk=pk)
     organization_last_update: datetime = organization.ngohub_last_update_started
     update_threshold: datetime = timezone.now() - timezone.timedelta(minutes=5)
-    # if organization_last_update and organization_last_update > update_threshold:
-    #     messages.error(request, _("Please wait a few minutes before updating the organization again."))
-    #     return redirect(redirect_path)
+    if organization_last_update and organization_last_update > update_threshold:
+        messages.error(request, _("Please wait a few minutes before updating the organization again."))
+        return redirect(redirect_path)
 
     organization.ngohub_last_update_started = timezone.now()
     organization.save()
