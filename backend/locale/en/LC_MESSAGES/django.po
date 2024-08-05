@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-31 12:33+0300\n"
+"POT-Creation-Date: 2024-08-05 14:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,6 +338,10 @@ msgstr ""
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
+#: civil_society_vote/urls.py:107
+msgid "authentication/"
+msgstr ""
+
 #: hub/admin.py:49
 msgid "Personal info"
 msgstr ""
@@ -472,7 +476,7 @@ msgid ""
 "rel=\"noopener noreferrer\">Terms and Conditions</a> of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:101 hub/forms.py:159 hub/views.py:329
+#: hub/forms.py:101 hub/forms.py:159 hub/views.py:326
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -1107,8 +1111,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: hub/templates/hub/header.html:129 hub/templates/registration/login.html:16
-#: hub/templates/registration/login.html:60
+#: hub/templates/hub/header.html:129 hub/templates/registration/login.html:72
 msgid "Login"
 msgstr ""
 
@@ -1165,38 +1168,87 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: hub/templates/registration/login.html:21
+#: hub/templates/registration/login.html:18
+#: hub/templates/registration/login_landing.html:11
+msgid "Welcome to VotONG!"
+msgstr ""
+
+#: hub/templates/registration/login.html:22
+msgid "Login as a member of the Electoral Commission."
+msgstr ""
+
+#: hub/templates/registration/login.html:28
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
-#: hub/templates/registration/login.html:30
+#: hub/templates/registration/login.html:37
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
 msgstr ""
 
-#: hub/templates/registration/login.html:32
+#: hub/templates/registration/login.html:39
 msgid "Please login to see this page."
 msgstr ""
 
-#: hub/templates/registration/login.html:41
+#: hub/templates/registration/login.html:49
 msgid "Email"
 msgstr ""
 
-#: hub/templates/registration/login.html:43
-msgid "email"
-msgstr ""
-
-#: hub/templates/registration/login.html:50
+#: hub/templates/registration/login.html:51
+#: hub/templates/registration/login.html:60
+#: hub/templates/registration/login.html:62
 msgid "Password"
 msgstr ""
 
 #: hub/templates/registration/login.html:52
+msgid "email"
+msgstr ""
+
+#: hub/templates/registration/login.html:63
 msgid "password"
 msgstr ""
 
-#: hub/templates/registration/login.html:62
+#: hub/templates/registration/login.html:75
 msgid "Forgot password?"
+msgstr ""
+
+#: hub/templates/registration/login.html:83
+msgid "If you're not a member of the commission, please login using"
+msgstr ""
+
+#: hub/templates/registration/login.html:84
+msgid "this link"
+msgstr ""
+
+#: hub/templates/registration/login_landing.html:6
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:31 templates/socialaccount/login.html:5
+#: templates/socialaccount/login.html:34
+msgid "Sign In"
+msgstr ""
+
+#: hub/templates/registration/login_landing.html:15
+msgid "To access your account, you need to authenticate through NGO Hub."
+msgstr ""
+
+#: hub/templates/registration/login_landing.html:20
+msgid ""
+"Click the \"Log in\" button and you will be redirected to the page where you "
+"need to authenticate using your NGO Hub credentials. After authentication, "
+"you will be redirected to your votONG account."
+msgstr ""
+
+#: hub/templates/registration/login_landing.html:26
+msgid "Go to account"
+msgstr "Sign in"
+
+#: hub/templates/registration/login_landing.html:31
+msgid "Do you not have an NGO Hub account?"
+msgstr ""
+
+#: hub/templates/registration/login_landing.html:32
+msgid "Start registration"
 msgstr ""
 
 #: hub/templates/registration/new_commission_password_confirm.html:15
@@ -1352,7 +1404,7 @@ msgstr ""
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:262
+#: hub/views.py:259
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1360,18 +1412,12 @@ msgid ""
 "contact@votong.ro"
 msgstr ""
 
-#: hub/views.py:322
+#: hub/views.py:319
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:581
+#: hub/views.py:578
 msgid "Please wait a few minutes before updating the organization again."
-msgstr ""
-
-#: templates/account/login.html:5 templates/account/login.html:9
-#: templates/account/login.html:31 templates/socialaccount/login.html:5
-#: templates/socialaccount/login.html:39
-msgid "Sign In"
 msgstr ""
 
 #: templates/account/login.html:19
@@ -1399,4 +1445,8 @@ msgstr ""
 
 #: templates/account/logout.html:28
 msgid "or click here to sign out"
+msgstr ""
+
+#: templates/socialaccount/login.html:28
+msgid "Redirecting to authentication..."
 msgstr ""

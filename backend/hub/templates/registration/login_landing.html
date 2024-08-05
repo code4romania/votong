@@ -1,0 +1,35 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+
+{% block head_title %}
+  {% trans "Sign In" %}
+{% endblock head_title %}
+
+{% block content %}
+  <h1 id="login-title" class="title is-2">
+    {% trans "Welcome to VotONG!" %}
+  </h1>
+
+  <h2 id="login-subtitle" class="title is-4">
+    {% trans "To access your account, you need to authenticate through NGO Hub." %}
+  </h2>
+
+  <div class="container">
+    <p class="login-text">
+      {% trans 'Click the "Log in" button and you will be redirected to the page where you need to authenticate using your NGO Hub credentials. After authentication, you will be redirected to your votONG account.' %}
+    </p>
+  </div>
+
+  <div id="allauth-login-form-container" class="container login-text-extra">
+    <form action="{% url 'amazon_cognito_login' %}" method="GET">
+      <input class="button is-warning has-text-weight-bold" id="go-to-login" type="submit" value="{% trans "Go to account" %}">
+    </form>
+  </div>
+
+  <p class="has-text-weight-normal login-text">
+    {% trans "Do you not have an NGO Hub account?" %}
+    <strong><a href="{{ NGOHUB_APP_BASE_URL }}" class="login-text-extra" target="_blank">{% trans "Start registration" %}</a></strong>
+  </p>
+
+{% endblock content %}

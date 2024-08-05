@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-31 12:33+0300\n"
+"POT-Creation-Date: 2024-08-05 14:34+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -349,6 +349,10 @@ msgstr "cont/seteaza-parola/<uidb64>/<token>/"
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
+#: civil_society_vote/urls.py:107
+msgid "authentication/"
+msgstr "autentificare/"
+
 #: hub/admin.py:49
 msgid "Personal info"
 msgstr "Informații personale"
@@ -489,7 +493,7 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: hub/forms.py:101 hub/forms.py:159 hub/views.py:329
+#: hub/forms.py:101 hub/forms.py:159 hub/views.py:326
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -1138,8 +1142,7 @@ msgstr "OPREȘTE IMPERSONAREA"
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/hub/header.html:129 hub/templates/registration/login.html:16
-#: hub/templates/registration/login.html:60
+#: hub/templates/hub/header.html:129 hub/templates/registration/login.html:72
 msgid "Login"
 msgstr "Autentificare"
 
@@ -1202,11 +1205,20 @@ msgstr "următoarea"
 msgid "last"
 msgstr "ultima"
 
-#: hub/templates/registration/login.html:21
+#: hub/templates/registration/login.html:18
+#: hub/templates/registration/login_landing.html:11
+msgid "Welcome to VotONG!"
+msgstr "Bine ai venit pe VotONG!"
+
+#: hub/templates/registration/login.html:22
+msgid "Login as a member of the Electoral Commission."
+msgstr "Autentifică-te ca membru al Comisiei Electorale."
+
+#: hub/templates/registration/login.html:28
 msgid "Your username and password didn't match. Please try again."
 msgstr "Numele de utilizator și parola nu se potrivesc. Încercați din nou."
 
-#: hub/templates/registration/login.html:30
+#: hub/templates/registration/login.html:37
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
@@ -1214,29 +1226,72 @@ msgstr ""
 "Contul tău nu are acces la această pagină. Pentru a continua, autentificați-"
 "vă cu un cont care are acces."
 
-#: hub/templates/registration/login.html:32
+#: hub/templates/registration/login.html:39
 msgid "Please login to see this page."
 msgstr "Autentificați-vă pentru a vizualiza această pagină."
 
-#: hub/templates/registration/login.html:41
+#: hub/templates/registration/login.html:49
 msgid "Email"
 msgstr "Email"
 
-#: hub/templates/registration/login.html:43
-msgid "email"
-msgstr "email"
-
-#: hub/templates/registration/login.html:50
+#: hub/templates/registration/login.html:51
+#: hub/templates/registration/login.html:60
+#: hub/templates/registration/login.html:62
 msgid "Password"
 msgstr "Parolă"
 
 #: hub/templates/registration/login.html:52
+msgid "email"
+msgstr "email"
+
+#: hub/templates/registration/login.html:63
 msgid "password"
 msgstr "parolă"
 
-#: hub/templates/registration/login.html:62
+#: hub/templates/registration/login.html:75
 msgid "Forgot password?"
 msgstr "Ai uitat parola?"
+
+#: hub/templates/registration/login.html:83
+msgid "If you're not a member of the commission, please login using"
+msgstr "Dacă nu ești membru al comisiei, te rugăm să te autentifici folosind"
+
+#: hub/templates/registration/login.html:84
+msgid "this link"
+msgstr "acest link"
+
+#: hub/templates/registration/login_landing.html:6
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:31 templates/socialaccount/login.html:5
+#: templates/socialaccount/login.html:34
+msgid "Sign In"
+msgstr "Autentificare"
+
+#: hub/templates/registration/login_landing.html:15
+msgid "To access your account, you need to authenticate through NGO Hub."
+msgstr "Pentru a-ți accesa contul, este nevoie să te autentifici prin NGO Hub."
+
+#: hub/templates/registration/login_landing.html:20
+msgid ""
+"Click the \"Log in\" button and you will be redirected to the page where you "
+"need to authenticate using your NGO Hub credentials. After authentication, "
+"you will be redirected to your votONG account."
+msgstr ""
+"Dă click pe butonul “Intră în cont” și vei fi redirecționat către pagina în "
+"care va trebui să te autentifici folosind credențialele tale NGO Hub. După "
+"autentificare, vei fi redirecționat către contul tău votONG."
+
+#: hub/templates/registration/login_landing.html:26
+msgid "Go to account"
+msgstr "Intră în cont"
+
+#: hub/templates/registration/login_landing.html:31
+msgid "Do you not have an NGO Hub account?"
+msgstr "Nu ai cont NGO Hub?"
+
+#: hub/templates/registration/login_landing.html:32
+msgid "Start registration"
+msgstr "Începe înregistrarea"
 
 #: hub/templates/registration/new_commission_password_confirm.html:15
 msgid "Set a password"
@@ -1399,7 +1454,7 @@ msgstr "org-actualizare/<int:pk>"
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta în curând!"
 
-#: hub/views.py:262
+#: hub/views.py:259
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
 "from our team will reach out to you as soon as your organization is "
@@ -1411,20 +1466,14 @@ msgstr ""
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:322
+#: hub/views.py:319
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:581
+#: hub/views.py:578
 msgid "Please wait a few minutes before updating the organization again."
 msgstr ""
 "Vă rugăm așteptați câteva minute înainte de a actualiza din nou organizația."
-
-#: templates/account/login.html:5 templates/account/login.html:9
-#: templates/account/login.html:31 templates/socialaccount/login.html:5
-#: templates/socialaccount/login.html:39
-msgid "Sign In"
-msgstr "Autentificare"
 
 #: templates/account/login.html:19
 #, python-format
@@ -1452,3 +1501,7 @@ msgstr "Redirecționare la ieșire..."
 #: templates/account/logout.html:28
 msgid "or click here to sign out"
 msgstr "sau apasă aici pentru a ieși"
+
+#: templates/socialaccount/login.html:28
+msgid "Redirecting to authentication..."
+msgstr "Redirecționare la autentificare..."

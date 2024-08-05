@@ -41,6 +41,18 @@ body {
   padding: 1em;
 }
 
+.login-text {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--black);
+  padding: 1em 0;
+}
+
+.login-text-extra {
+  font-size: 1.2rem;
+  padding: 1em 0;
+}
+
 .status-accepted {
   color: green;
 }

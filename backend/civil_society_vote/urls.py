@@ -103,6 +103,11 @@ urlpatterns_i18n = i18n_patterns(
         auth_views.PasswordResetCompleteView.as_view(template_name="registration/reset_password_complete.html"),
         name="password_reset_complete",
     ),
+    path(
+        _("authentication/"),
+        StaticPageView.as_view(template_name="registration/login_landing.html"),
+        name="login_landing",
+    ),
     path("me/", include("accounts.urls")),
     path("", include("hub.urls")),
 )
