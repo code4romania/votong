@@ -12,11 +12,11 @@ from django_q.tasks import async_task
 from pycognito import Cognito
 from requests import Response
 
-from accounts.models import User
+from accounts.models import STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.cache import cache_decorator
 from civil_society_vote.common.messaging import send_email
 from hub.exceptions import NGOHubHTTPException
-from hub.models import City, Organization, STAFF_GROUP, SUPPORT_GROUP
+from hub.models import City, Organization
 from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     organization.filename_cache[file_type] = filename
 
 
-@cache_decorator(timeout=60 * 15, cache_key="authenticate_with_ngohub")
+@cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key="authenticate_with_ngohub")
 def authenticate_with_ngohub() -> str:
     u = Cognito(
         user_pool_id=settings.AWS_COGNITO_USER_POOL_ID,

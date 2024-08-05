@@ -1,7 +1,17 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.functions import Lower
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+
+from civil_society_vote.common.cache import cache_decorator
+
+# NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
+STAFF_GROUP = "Code4Romania Staff"
+COMMITTEE_GROUP = "Comisie Electorala"
+SUPPORT_GROUP = "Support Staff"
+NGO_GROUP = "ONG"
 
 
 class User(AbstractUser):
@@ -32,3 +42,20 @@ class User(AbstractUser):
         if social:
             return social.uid
         return None
+
+    @method_decorator(
+        cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="committee_or_staff_groups")
+    )
+    def in_committee_or_staff_groups(self):
+        return self.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
+
+    @method_decorator(cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="commission_groups"))
+    def in_commission_groups(self):
+        return (
+            self.groups.filter(name=COMMITTEE_GROUP).exists()
+            and not self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+        )
+
+    @method_decorator(cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="staff_groups"))
+    def in_staff_groups(self):
+        return self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()

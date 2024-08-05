@@ -278,6 +278,9 @@ CACHES["file_resubmit"] = {
     "LOCATION": "/tmp/file_resubmit/",
 }
 
+TIMEOUT_CACHE_SHORT = 60  # 1 minute
+TIMEOUT_CACHE_NORMAL = 60 * 15  # 15 minutes
+TIMEOUT_CACHE_LONG = 60 * 60 * 2  # 2 hours
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

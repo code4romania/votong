@@ -41,7 +41,7 @@
 
             {% if GLOBAL_SUPPORT_ENABLED %}
             <div>
-              <p>{% trans "Supporters:" %} {% supporters candidate.id %}</p>
+              <p>{% trans "Supporters:" %} {{ candidate.count_supporters }}</p>
             </div>
             {% endif %}
 

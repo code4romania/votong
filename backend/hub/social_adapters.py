@@ -14,14 +14,14 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from accounts.models import User
+from accounts.models import User, STAFF_GROUP, NGO_GROUP
 from hub.exceptions import (
     ClosedRegistrationException,
     DuplicateOrganizationException,
     MissingOrganizationException,
     NGOHubHTTPException,
 )
-from hub.models import FeatureFlag, NGO_GROUP, Organization, STAFF_GROUP
+from hub.models import FeatureFlag, Organization
 from hub.workers.update_organization import update_organization
 
 logger = logging.getLogger(__name__)

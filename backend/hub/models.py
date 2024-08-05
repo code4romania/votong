@@ -13,13 +13,8 @@ from guardian.shortcuts import assign_perm
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
-from accounts.models import User
+from accounts.models import User, STAFF_GROUP, COMMITTEE_GROUP, SUPPORT_GROUP, NGO_GROUP
 
-# NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
-STAFF_GROUP = "Code4Romania Staff"
-COMMITTEE_GROUP = "Comisie Electorala"
-SUPPORT_GROUP = "Support Staff"
-NGO_GROUP = "ONG"
 
 REPORTS_HELP_TEXT = (
     "Rapoartele anuale trebuie să includă sursele de finanțare din care să rezulte că organizația dispune de resurse "
@@ -173,6 +168,13 @@ class Domain(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def accepted_candidates(self):
+        return (
+            self.candidated.filter(status=Candidate.STATUS.accepted, is_proposed=True)
+            .annotate(votes_count=models.Count("votes", distinct=True))
+            .order_by("-votes_count")
+        )
 
 
 class City(models.Model):
@@ -531,6 +533,12 @@ class Candidate(StatusModel, TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
+
+    def count_supporters(self):
+        return self.supporters.count()
+
+    def count_votes(self):
+        return self.votes.count()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True

@@ -1,23 +1,13 @@
 import os
 from shutil import copyfile
 
-from accounts.models import User
+from accounts.models import User, COMMITTEE_GROUP, STAFF_GROUP
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
 
-from hub.models import (
-    COMMITTEE_GROUP,
-    FLAG_CHOICES,
-    STAFF_GROUP,
-    BlogPost,
-    Candidate,
-    City,
-    Domain,
-    FeatureFlag,
-    Organization,
-)
+from hub.models import FLAG_CHOICES, BlogPost, Candidate, City, Domain, FeatureFlag, Organization
 
 fake = Faker()
 

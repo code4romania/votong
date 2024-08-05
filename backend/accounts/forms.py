@@ -6,8 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
-from accounts.models import User
-from hub.models import COMMITTEE_GROUP
+from accounts.models import COMMITTEE_GROUP, User
 
 
 class CommonEmailConfirmationForm(forms.Form):

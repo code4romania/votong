@@ -17,12 +17,11 @@ from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 from sentry_sdk import capture_message
 
-from accounts.models import User
+from accounts.models import COMMITTEE_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm
 from hub.models import (
     BlogPost,
-    COMMITTEE_GROUP,
     COUNTIES,
     COUNTY_RESIDENCE,
     Candidate,
@@ -339,7 +338,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     def supporters_count(self, obj):
         if get_feature_flag(FLAG_CHOICES.global_support_round):
-            return obj.supporters.count()
+            return obj.count_supporters()
         else:
             return "N/A"
 
