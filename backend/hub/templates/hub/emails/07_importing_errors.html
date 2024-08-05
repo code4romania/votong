@@ -1,0 +1,20 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+  <h3>
+    Au apărut erori în timpul ce era actualizat ONG-ul "{{ ngo_name }}" ({{ ngo_url }}).
+  </h3>
+
+  <p style="padding: 3rem 0;">
+    Vă rugăm să verificați și să remediați aceste erori cât mai curând posibil.
+  </p>
+
+  <p>
+    Erorile sunt:
+  </p>
+  <ul>
+    {% for error in errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

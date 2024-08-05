@@ -108,7 +108,7 @@ env = environ.Env(
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
     # ngo hub api settings
-    NGOHUB_VOTONG_WEBSITE=(str, ""),
+    VOTONG_WEBSITE=(str, ""),
     NGOHUB_APP_HOST=(str, "app-staging.ngohub.ro"),
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
@@ -574,8 +574,10 @@ SOCIALACCOUNT_ONLY = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_STORE_TOKENS = False
 
+# used for checking that the user has the VotONG app in NGO Hub
+VOTONG_WEBSITE = env("VOTONG_WEBSITE")
+
 # NGO Hub settings
-NGOHUB_VOTONG_WEBSITE = env("NGOHUB_VOTONG_WEBSITE")  # used for checking that the user has the VotONG app in NGO Hub
 NGOHUB_APP_BASE = f"https://{env('NGOHUB_APP_HOST')}/"
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")

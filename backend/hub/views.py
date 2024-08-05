@@ -568,15 +568,21 @@ def candidate_status_confirm(request, pk):
 @login_required
 @permission_required_or_403("hub.change_organization")
 def update_organization_information(request, pk):
+    user = request.user
+    user_is_admin = user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+    user_is_org_owner = user.orgs.first().pk == pk
+    if user.is_anonymous or (not user_is_admin and not user_is_org_owner):
+        raise PermissionDenied
+
     return_url = request.GET.get("return_url", "")
     redirect_path = return_url or reverse("ngo-update", args=(pk,))
 
     organization: Organization = Organization.objects.get(pk=pk)
     organization_last_update: datetime = organization.ngohub_last_update_started
     update_threshold: datetime = timezone.now() - timezone.timedelta(minutes=5)
-    if organization_last_update and organization_last_update > update_threshold:
-        messages.error(request, _("Please wait a few minutes before updating the organization again."))
-        return redirect(redirect_path)
+    # if organization_last_update and organization_last_update > update_threshold:
+    #     messages.error(request, _("Please wait a few minutes before updating the organization again."))
+    #     return redirect(redirect_path)
 
     organization.ngohub_last_update_started = timezone.now()
     organization.save()

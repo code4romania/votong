@@ -1,7 +1,7 @@
 import logging
 import mimetypes
 import tempfile
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import requests
 from django.conf import settings
@@ -12,9 +12,12 @@ from django_q.tasks import async_task
 from pycognito import Cognito
 from requests import Response
 
+from accounts.models import User
 from civil_society_vote.common.cache import cache_decorator
+from civil_society_vote.common.messaging import send_email
 from hub.exceptions import NGOHubHTTPException
-from hub.models import City, Organization
+from hub.models import City, Organization, STAFF_GROUP, SUPPORT_GROUP
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -32,28 +35,37 @@ def remove_signature(s3_url: str) -> str:
         return ""
 
 
-def copy_file_from_to_organization(organization: Organization, signed_file_url: str, file_type: str):
+def copy_file_to_organization(organization: Organization, signed_file_url: str, file_type: str):
     if not hasattr(organization, file_type):
         raise AttributeError(f"Organization has no attribute '{file_type}'")
 
     filename: str = remove_signature(signed_file_url)
     if not filename and getattr(organization, file_type):
         getattr(organization, file_type).delete()
-    elif filename != organization.filename_cache.get(file_type, ""):
-        r: Response = requests.get(signed_file_url)
-        if r.status_code != requests.codes.ok:
-            logger.info(f"{file_type.upper()} file request status = {r.status_code}")
-        else:
-            extension: str = mimetypes.guess_extension(r.headers["content-type"])
-            # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
-            if extension == ".bin":
-                extension = ""
-            with tempfile.TemporaryFile() as fp:
-                fp.write(r.content)
-                fp.seek(0)
-                getattr(organization, file_type).save(f"{file_type}{extension}", File(fp))
+        return f"ERROR: {file_type.upper()} file URL is empty, deleting the existing file."
 
-            organization.filename_cache[file_type] = filename
+    if not filename:
+        return f"ERROR: {file_type.upper()} file URL is empty, but is a required field."
+
+    if filename == organization.filename_cache.get(file_type, ""):
+        logger.info(f"{file_type.upper()} file is already up to date.")
+        return None
+
+    r: Response = requests.get(signed_file_url)
+    if r.status_code != requests.codes.ok:
+        logger.info(f"{file_type.upper()} file request status = {r.status_code}")
+        return f"ERROR: Could not download {file_type} file from NGO Hub, error status {r.status_code}."
+
+    extension: str = mimetypes.guess_extension(r.headers["content-type"])
+    # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
+    if extension == ".bin":
+        extension = ""
+    with tempfile.TemporaryFile() as fp:
+        fp.write(r.content)
+        fp.seek(0)
+        getattr(organization, file_type).save(f"{file_type}{extension}", File(fp))
+
+    organization.filename_cache[file_type] = filename
 
 
 @cache_decorator(timeout=60 * 15, cache_key="authenticate_with_ngohub")
@@ -124,11 +136,31 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     # Import the organization logo
     logo_url: str = ngohub_general_data.get("logo") or ""
-    copy_file_from_to_organization(organization, logo_url, "logo")
+    logo_url_error: Optional[str] = copy_file_to_organization(organization, logo_url, "logo")
+    if logo_url_error:
+        errors.append(logo_url_error)
 
     # Import the organization statute
     statute_url: str = ngohub_legal_data.get("organizationStatute") or ""
-    copy_file_from_to_organization(organization, statute_url, "statute")
+    statute_url_error: Optional[str] = copy_file_to_organization(organization, statute_url, "statute")
+    if statute_url_error:
+        errors.append(statute_url_error)
+
+    # Import the organization nonPoliticalAffiliationFile
+    non_political_affiliation_url: str = ngohub_legal_data.get("nonPoliticalAffiliationFile") or ""
+    non_political_affiliation_url_error: Optional[str] = copy_file_to_organization(
+        organization, non_political_affiliation_url, "statement_political"
+    )
+    if non_political_affiliation_url_error:
+        errors.append(non_political_affiliation_url_error)
+
+    # Import the organization balance sheet
+    balance_sheet_url: str = ngohub_legal_data.get("balanceSheet") or ""
+    balance_sheet_url_error: Optional[str] = copy_file_to_organization(
+        organization, balance_sheet_url, "last_balance_sheet"
+    )
+    if balance_sheet_url_error:
+        errors.append(balance_sheet_url_error)
 
     organization.email = ngohub_general_data.get("email") or ""
     organization.phone = ngohub_general_data.get("phone") or ""
@@ -138,16 +170,22 @@ def update_organization_process(organization_id: int, token: str = ""):
     organization.legal_representative_email = ngohub_legal_data.get("legalReprezentative", {}).get("email") or ""
     organization.legal_representative_phone = ngohub_legal_data.get("legalReprezentative", {}).get("phone") or ""
 
-    organization.board_council = ", ".join(
-        [director.get("fullName") or "" for director in ngohub_legal_data.get("directors", [])]
-    )
+    board_council: List[str] = []
+    for director in ngohub_legal_data.get("directors", []):
+        director_name: str = director.get("fullName")
+        director_role: str = director.get("role")
 
-    organization.organization_head_name = (
-        "" if not organization.organization_head_name else organization.organization_head_name
-    )
+        if director_name and director_role:
+            board_council.append(f"{director_name} ({director_role})")
+        elif director_name:
+            board_council.append(director_name)
+        else:
+            errors.append("ERROR: Director name is missing in the data received from NGO Hub.")
 
-    if organization.status == Organization.STATUS.draft:
-        organization.status = Organization.STATUS.pending
+    organization.board_council = ", ".join(board_council)
+
+    if organization.status in (Organization.STATUS.draft, Organization.STATUS.pending):
+        organization.status = Organization.STATUS.accepted if not errors else Organization.STATUS.pending
 
     organization.ngohub_last_update_ended = timezone.now()
 
@@ -157,6 +195,23 @@ def update_organization_process(organization_id: int, token: str = ""):
     if errors:
         task_result["errors"] = errors
 
+        subject: str = _("Error updating organization") + f" {organization.name}" if organization.name else ""
+        to_emails: List[str] = User.objects.filter(groups__name__in=(STAFF_GROUP, SUPPORT_GROUP)).values_list(
+            "email", flat=True
+        )
+
+        send_email(
+            subject=subject,
+            to_emails=to_emails,
+            text_template="hub/emails/07_importing_errors.txt",
+            html_template="hub/emails/07_importing_errors.html",
+            context={
+                "ngo_name": organization.name,
+                "ngo_url": f"{settings.VOTONG_WEBSITE}/{organization.get_absolute_url()}",
+                "errors": errors,
+            },
+        )
+
     return task_result
 
 
@@ -164,6 +219,7 @@ def update_organization(organization_id: int, token: str = ""):
     """
     Update the organization with the given ID asynchronously.
     """
+    update_organization_process(organization_id, token)
     async_task(update_organization_process, organization_id, token)
 
 

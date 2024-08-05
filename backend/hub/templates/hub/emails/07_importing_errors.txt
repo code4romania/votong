@@ -1,0 +1,5 @@
+Au apărut erori în timpul ce era actualizat ONG-ul {{ ngo_name }} ({{ ngo_url }}).
+
+Vă rugăm să verificați și să remediați aceste erori cât mai curând posibil.
+
+{{ errors }}

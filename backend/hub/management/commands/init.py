@@ -31,13 +31,14 @@ class Command(BaseCommand):
 
         staff_group: Group = Group.objects.get_or_create(name=STAFF_GROUP)[0]
         assign_perm("hub.view_data_candidate", staff_group)
+
         support_group: Group = Group.objects.get_or_create(name=SUPPORT_GROUP)[0]
-
         assign_perm("hub.view_data_candidate", support_group)
-        ngo_group: Group = Group.objects.get_or_create(name=NGO_GROUP)[0]
 
+        ngo_group: Group = Group.objects.get_or_create(name=NGO_GROUP)[0]
         assign_perm("hub.support_candidate", ngo_group)
         assign_perm("hub.vote_candidate", ngo_group)
+        assign_perm("hub.change_organization", ngo_group)
 
     def _initialize_feature_flags(self):
         self.stdout.write(self.style.NOTICE("Initializing feature flags..."))

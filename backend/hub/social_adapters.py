@@ -96,7 +96,7 @@ def check_app_enabled_in_ngohub(token: str) -> bool:
     response = ngohub_api_get("organizations/application/", token)
     for app in response:
         if (
-            app["loginLink"].startswith(settings.NGOHUB_VOTONG_WEBSITE)
+            app["loginLink"].startswith(settings.VOTONG_WEBSITE)
             and app["status"] == "active"
             and app["ongStatus"] == "active"
         ):

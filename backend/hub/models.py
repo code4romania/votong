@@ -230,8 +230,8 @@ class Organization(StatusModel, TimeStampedModel):
         _("Legal Representative Phone"), max_length=30, blank=True, default=""
     )
 
-    organization_head_name = models.CharField(_("Organization Head Name"), max_length=254, blank=True, default="")
-    board_council = models.CharField(_("Board council"), max_length=512, blank=True, default="")
+    # organization_head_name = models.CharField(_("Organization Head Name"), max_length=254, blank=True, default="")
+    board_council = models.CharField(_("Board council"), max_length=1000, blank=True, default="")
     logo = models.FileField(_("Logo"), max_length=300, storage=select_public_storage, blank=True, default="")
 
     last_balance_sheet = models.FileField(
@@ -345,7 +345,6 @@ class Organization(StatusModel, TimeStampedModel):
             "name",
             "county",
             "city",
-            "organization_head_name",
             "address",
             "registration_number",
             "email",
@@ -377,6 +376,8 @@ class Organization(StatusModel, TimeStampedModel):
             "phone",
             "registration_number",
             "statute",
+            "statement_political",
+            "last_balance_sheet",
         )
 
     @property
