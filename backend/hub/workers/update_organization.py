@@ -68,7 +68,7 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     organization.filename_cache[file_type] = filename
 
 
-@cache_decorator(timeout=60 * 15, cache_key="authenticate_with_ngohub")
+@cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key="authenticate_with_ngohub")
 def authenticate_with_ngohub() -> str:
     u = Cognito(
         user_pool_id=settings.AWS_COGNITO_USER_POOL_ID,
