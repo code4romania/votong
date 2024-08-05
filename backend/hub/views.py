@@ -244,7 +244,7 @@ class OrganizationDetailView(HubDetailView):
         user = self.request.user
 
         if org_pk := self.kwargs.get("pk"):
-            if user.is_authenticated and user.orgs.first().pk == org_pk:
+            if user.is_authenticated and user.orgs.exists() and user.orgs.first().pk == org_pk:
                 return Organization.objects.filter(pk=org_pk)
             return Organization.objects.filter(pk=org_pk, status=Organization.STATUS.accepted)
 
