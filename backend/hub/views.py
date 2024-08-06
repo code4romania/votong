@@ -40,6 +40,7 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
+    FLAG_CHOICES,
     FeatureFlag,
     Organization,
 )
@@ -135,15 +136,20 @@ class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filtering"] = "ngos-" + self.request.GET.get("status", Organization.STATUS.pending)
-        context["counters"] = {
-            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
-            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
-            "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
-        }
+        context["counters"] = _get_candidates_counters()
         return context
+
+
+def _get_candidates_counters():
+    return {
+        "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
+        "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+        "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
+        "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
+        "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
+        "candidates_confirmed": Candidate.objects_with_org.filter(status=Candidate.STATUS.confirmed).count(),
+        "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
+    }
 
 
 class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
@@ -165,14 +171,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filtering"] = self.request.GET.get("status", Candidate.STATUS.pending)
-        context["counters"] = {
-            "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
-            "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-            "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
-            "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
-            "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
-        }
+        context["counters"] = _get_candidates_counters()
         return context
 
 
@@ -455,8 +454,8 @@ class CandidateDetailView(HubDetailView):
 
         # Candidate Support checks
         if (
-            context.get("GLOBAL_SUPPORT_ENABLED")
-            and context.get("CANDIDATE_SUPPORTING_ENABLED")
+            FeatureFlag.flag_enabled(FLAG_CHOICES.global_support_round)
+            and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting)
             and candidate.is_proposed
             and candidate.org.status == Organization.STATUS.accepted
             and user.has_perm("hub.support_candidate")
@@ -467,7 +466,7 @@ class CandidateDetailView(HubDetailView):
 
         # Candidate Approve checks
         if (
-            context.get("CANDIDATE_CONFIRMATION_ENABLED")
+            FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_confirmation)
             and candidate.status != Candidate.STATUS.pending
             and user.has_perm("hub.approve_candidate")
         ):
@@ -477,7 +476,7 @@ class CandidateDetailView(HubDetailView):
 
         # Candidate Vote checks
         if (
-            context.get("CANDIDATE_VOTING_ENABLED")
+            FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting)
             and candidate.status == Candidate.STATUS.accepted
             and user.has_perm("hub.vote_candidate")
         ):
@@ -616,7 +615,7 @@ def candidate_status_confirm(request, pk):
     ):
         raise PermissionDenied
 
-    candidate = get_object_or_404(Candidate, pk=pk)
+    candidate: Candidate = get_object_or_404(Candidate, pk=pk)
 
     if candidate.org == request.user.orgs.first() or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)

@@ -458,6 +458,7 @@ class Candidate(StatusModel, TimeStampedModel):
     STATUS = Choices(
         ("pending", _("Pending")),
         ("accepted", _("Accepted")),
+        ("confirmed", _("Confirmed")),
         ("rejected", _("Rejected")),
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.pending, max_length=30, db_index=True)
@@ -520,7 +521,7 @@ class Candidate(StatusModel, TimeStampedModel):
     @property
     def is_complete(self):
         """
-        Validate if the Org uploaded all the requested info to proppose a Candidate
+        Validate if the Org uploaded all the requested info to propose a Candidate
         """
         return all(
             [
@@ -539,6 +540,11 @@ class Candidate(StatusModel, TimeStampedModel):
 
     def count_votes(self):
         return self.votes.count()
+
+    def count_confirmations(self):
+        confirmations = self.confirmations
+        unique_confirmations = confirmations.values("user").distinct()
+        return unique_confirmations.count()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
@@ -620,3 +626,16 @@ class CandidateConfirmation(TimeStampedModel):
 
     def __str__(self):
         return f"{self.user.get_full_name()} - {self. candidate}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        candidate: Candidate = self.candidate
+        candidate_is_accepted: bool = candidate.status == Candidate.STATUS.accepted
+        if candidate_is_accepted:
+            candidate_has_all_confirmations: bool = (
+                candidate.count_confirmations() >= User.objects.filter(groups__name=COMMITTEE_GROUP).count()
+            )
+            if candidate_has_all_confirmations:
+                candidate.status = Candidate.STATUS.confirmed
+                candidate.save()
