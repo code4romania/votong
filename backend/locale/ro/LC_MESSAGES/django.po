@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 13:36+0300\n"
+"POT-Creation-Date: 2024-08-06 13:42+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -433,7 +433,7 @@ msgstr "Fișier CSV încărcat"
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/admin.py:508
+#: hub/admin.py:515
 #, python-brace-format
 msgid ""
 "Invalid flag choices: {missing_flags} not found in {global_flag_choices}."
@@ -441,55 +441,63 @@ msgstr ""
 "Opțiuni de comutator nevalide: {missing_flags} nu a fost găsit în "
 "{global_flag_choices}."
 
-#: hub/admin.py:520
+#: hub/admin.py:527
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
 msgstr ""
 "'{phase_name}' configurare invalidă. Lipsesc comutatorul/comutatoarele: "
 "{missing_flags}."
 
-#: hub/admin.py:537
+#: hub/admin.py:544
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr "Comutatoarele au fost setate cu succes pentru '{phase_name}'."
 
-#: hub/admin.py:542
-msgid "PHASE 0 - platform pause"
-msgstr "FAZA 0 - pauză platformă"
+#: hub/admin.py:549
+msgid "PHASE PAUSE - platform pause"
+msgstr "FAZA PAUZĂ - pauză platformă"
 
-#: hub/admin.py:556
-msgid "Set flags for PHASE 0 - platform pause"
-msgstr "Activează FAZA 0 - pauză platformă"
+#: hub/admin.py:563
+msgid "Set flags for PHASE PAUSE - platform pause"
+msgstr "Activează FAZA PAUZĂ - pauză platformă"
 
-#: hub/admin.py:561
+#: hub/admin.py:568
+msgid "PHASE DEACTIVATE - platform deactivate"
+msgstr "FAZA DEZACTIVARE - dezactivează platformă"
+
+#: hub/admin.py:581
+msgid "Set flags for PHASE - platform deactivate"
+msgstr "Activează FAZA DEZACTIVARE - dezactivează platformă"
+
+#: hub/admin.py:586
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr "FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:575
+#: hub/admin.py:600
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr "Activează FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:580
+#: hub/admin.py:605
 msgid "PHASE 2 - candidate validation"
 msgstr "FAZA 2 - validare candidați"
 
-#: hub/admin.py:594
+#: hub/admin.py:619
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr "Activează FAZA 2 - validare candidați"
 
-#: hub/admin.py:599
+#: hub/admin.py:624
 msgid "PHASE 3 - voting"
 msgstr "FAZA 3 - votare"
 
-#: hub/admin.py:613
+#: hub/admin.py:638
 msgid "Set flags for PHASE 3 - voting"
 msgstr "Activează FAZA 3 - votare"
 
-#: hub/admin.py:618
+#: hub/admin.py:643
 msgid "FINAL PHASE - results"
 msgstr "FAZA FINALĂ - rezultate"
 
-#: hub/admin.py:631
+#: hub/admin.py:656
 msgid "Set flags for FINAL PHASE - results"
 msgstr "Activează FAZA FINALĂ - rezultate"
 
@@ -1573,7 +1581,8 @@ msgid ""
 "Please wait {minutes_threshold} minutes before updating the organization "
 "again."
 msgstr ""
-"Vă rugăm așteptați {minutes_threshold} minute înainte de a actualiza din nou organizația."
+"Vă rugăm așteptați {minutes_threshold} minute înainte de a actualiza din nou "
+"organizația."
 
 #: hub/workers/update_organization.py:209
 msgid "Error updating organization"
