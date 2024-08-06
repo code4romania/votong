@@ -471,7 +471,8 @@ class Candidate(StatusModel, TimeStampedModel):
         null=True,
         blank=True,
         help_text=_(
-            "If this is set, the `org` field will be unset and the candidate is removed as the official proposal of the organization."
+            "If this is set, the `org` field will be unset "
+            "and the candidate is removed as the official proposal of the organization."
         ),
     )
     domain = models.ForeignKey(
@@ -482,20 +483,76 @@ class Candidate(StatusModel, TimeStampedModel):
         _("Representative name"),
         max_length=254,
         blank=True,
-        help_text="Numele persoanei care va reprezenta organizatia in Comisia Electorală în cazul unui răspuns favorabil. Persoana desemnată trebuie să fie angajat în cadrul organizației și parte din structurile de conducere ale acesteia (membru în Consiliul Director, Director Executiv etc)",
+        help_text=_(
+            "The name of the designated person who will represent the organization "
+            "in the Electoral Commission in case of a favorable response."
+            "The designated person must be an employee of the organization and part of its management structures "
+            "(member of the Board of Directors, Executive Director, etc.)."
+        ),
     )
     role = models.CharField(
         _("Representative role in organization"),
         max_length=254,
         blank=True,
-        help_text="Funcția în organizației a persoanei desemnate.",
+        help_text=_("The role of the designated person in the organization."),
     )
+
+    # files expected in different cases
     statement = models.FileField(
         _("Representative statement"),
         null=True,
         blank=True,
         max_length=300,
-        help_text="Declarație pe propria răspundere a reprezentantului desemnat prin care declară că nu este membru al conducerii unui partid politic, nu a fost ales într-o funcție publică și nu este demnitar al statului român.",
+        help_text=_(
+            "Declaration of the designated representative stating that he/she is not a member "
+            "of the leadership of a political party, has not been elected to a public office "
+            "and is not a dignitary of the Romanian state."
+        ),
+    )
+    mandate = models.FileField(
+        _("Mandate"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_(
+            "Mandate from the organization (signed in original + electronic) "
+            "with the highlighting of the domain for which it is running"
+        ),
+    )
+    letter_of_intent = models.FileField(
+        _("Letter of intent"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_("Letter of intent (with the mention of the domain to be represented in the CES)"),
+    )
+    cv = models.FileField(
+        _("CV"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_("Europass format CV"),
+    )
+    declaration_of_interests = models.FileField(
+        _("Declaration of interests"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_("Official format Declaration of interests"),
+    )
+    fiscal_record = models.FileField(
+        _("Fiscal record"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_("Fiscal record, valid at the time of submitting the candidacy"),
+    )
+    criminal_record = models.FileField(
+        _("Criminal record"),
+        null=True,
+        blank=True,
+        max_length=300,
+        help_text=_("(Optional) Criminal record, valid at the time of submitting the candidacy"),
     )
 
     is_proposed = models.BooleanField(_("Is proposed?"), default=False)
@@ -529,6 +586,11 @@ class Candidate(StatusModel, TimeStampedModel):
                 self.name,
                 self.role,
                 self.statement,
+                self.mandate,
+                self.letter_of_intent,
+                self.cv,
+                self.declaration_of_interests,
+                self.fiscal_record,
             ]
         )
 

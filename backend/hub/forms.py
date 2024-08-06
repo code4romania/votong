@@ -167,7 +167,6 @@ class CandidateRegisterForm(forms.ModelForm):
         widgets = {
             "org": forms.HiddenInput(),
             "is_proposed": forms.HiddenInput(),
-            # "email": EmailInput(),
         }
 
     def __init__(self, *args, **kwargs):
