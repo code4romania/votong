@@ -172,9 +172,14 @@ def update_organization_process(organization_id: int, token: str = ""):
     organization.phone = ngohub_general_data.get("phone") or ""
     organization.description = ngohub_general_data.get("description") or ""
 
-    organization.legal_representative_name = ngohub_legal_data.get("legalReprezentative", {}).get("fullName") or ""
-    organization.legal_representative_email = ngohub_legal_data.get("legalReprezentative", {}).get("email") or ""
-    organization.legal_representative_phone = ngohub_legal_data.get("legalReprezentative", {}).get("phone") or ""
+    legal_reprezentative_data: Dict = ngohub_legal_data.get("legalReprezentative", {})
+    reprezentative_name = legal_reprezentative_data.get("fullName") or ""
+    reprezentative_role = legal_reprezentative_data.get("role") or ""
+    organization.legal_representative_name = (
+        f"{reprezentative_name} ({reprezentative_role})" if reprezentative_role else reprezentative_name
+    )
+    organization.legal_representative_email = legal_reprezentative_data.get("email") or ""
+    organization.legal_representative_phone = legal_reprezentative_data.get("phone") or ""
 
     board_council: List[str] = []
     for director in ngohub_legal_data.get("directors", []):
