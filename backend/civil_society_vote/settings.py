@@ -113,6 +113,7 @@ env = environ.Env(
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
     NGOHUB_API_KEY=(str, ""),
+    UPDATE_ORGANIZATION_METHOD=(str, "async"),
 )
 
 # reading .env file
@@ -591,6 +592,8 @@ NGOHUB_ROLE_SUPER_ADMIN = "super-admin"
 NGOHUB_ROLE_NGO_ADMIN = "admin"
 NGOHUB_ROLE_NGO_EMPLOYEE = "employee"
 
+# Configurations for the NGO Hub integration
+UPDATE_ORGANIZATION_METHOD = env("UPDATE_ORGANIZATION_METHOD")
 
 AWS_COGNITO_REGION = env("AWS_COGNITO_REGION") or AWS_REGION_NAME
 AWS_COGNITO_USER_POOL_ID = env("AWS_COGNITO_USER_POOL_ID")

@@ -42,10 +42,14 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     filename: str = remove_signature(signed_file_url)
     if not filename and getattr(organization, file_type):
         getattr(organization, file_type).delete()
-        return f"ERROR: {file_type.upper()} file URL is empty, deleting the existing file."
+        error_message = f"ERROR: {file_type.upper()} file URL is empty, deleting the existing file."
+        logger.error(error_message)
+        return error_message
 
     if not filename:
-        return f"ERROR: {file_type.upper()} file URL is empty, but is a required field."
+        error_message = f"ERROR: {file_type.upper()} file URL is empty, but is a required field."
+        logger.error(error_message)
+        return error_message
 
     if filename == organization.filename_cache.get(file_type, ""):
         logger.info(f"{file_type.upper()} file is already up to date.")
@@ -54,7 +58,9 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     r: Response = requests.get(signed_file_url)
     if r.status_code != requests.codes.ok:
         logger.info(f"{file_type.upper()} file request status = {r.status_code}")
-        return f"ERROR: Could not download {file_type} file from NGO Hub, error status {r.status_code}."
+        error_message = f"ERROR: Could not download {file_type} file from NGO Hub, error status {r.status_code}."
+        logger.error(error_message)
+        return error_message
 
     extension: str = mimetypes.guess_extension(r.headers["content-type"])
     # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
@@ -219,8 +225,10 @@ def update_organization(organization_id: int, token: str = ""):
     """
     Update the organization with the given ID asynchronously.
     """
-    update_organization_process(organization_id, token)
-    async_task(update_organization_process, organization_id, token)
+    if settings.UPDATE_ORGANIZATION_METHOD == "async":
+        async_task(update_organization_process, organization_id, token)
+    else:
+        update_organization_process(organization_id, token)
 
 
 def update_outdated_organizations():
