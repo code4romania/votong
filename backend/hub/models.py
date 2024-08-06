@@ -84,7 +84,6 @@ STATE_CHOICES = Choices(
 FLAG_CHOICES = Choices(
     ("enable_org_registration", _("Enable organization registration")),
     ("enable_org_approval", _("Enable organization approvals")),
-    ("enable_org_voting", _("Enable organization voting")),
     ("enable_candidate_registration", _("Enable candidate registration")),
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),

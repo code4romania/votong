@@ -468,7 +468,14 @@ class CityAdmin(admin.ModelAdmin):
 class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
-    actions = ["flags_phase_1", "flags_phase_2", "flags_phase_3", "flags_final_phase"]
+    actions = [
+        "flags_phase_pause",
+        "flags_phase_deactivate",
+        "flags_phase_1",
+        "flags_phase_2",
+        "flags_phase_3",
+        "flags_final_phase",
+    ]
 
     def changelist_view(self, request, extra_context=None):
         if "action" in request.POST:
@@ -495,7 +502,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
         all_flag_choices: Set[str] = {
             "enable_org_registration",
             "enable_org_approval",
-            "enable_org_voting",
             "enable_candidate_registration",
             "enable_candidate_supporting",
             "enable_candidate_confirmation",
@@ -537,6 +543,43 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
         self.message_user(request, message=_(f"Flags set successfully for '{phase_name}'."), level=messages.SUCCESS)
 
+    def flags_phase_pause(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("PHASE PAUSE - platform pause"),
+            enabled=[
+                "enable_org_registration",
+                "enable_org_approval",
+            ],
+            disabled=[
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+                "enable_candidate_confirmation",
+                "enable_candidate_voting",
+                "enable_results_display",
+            ],
+        )
+
+    flags_phase_pause.short_description = _("Set flags for PHASE PAUSE - platform pause")
+
+    def flags_phase_deactivate(self, request, queryset):
+        self._flags_switch_phase(
+            request=request,
+            phase_name=_("PHASE DEACTIVATE - platform deactivate"),
+            enabled=[],
+            disabled=[
+                "enable_org_approval",
+                "enable_org_registration",
+                "enable_candidate_registration",
+                "enable_candidate_supporting",
+                "enable_candidate_confirmation",
+                "enable_candidate_voting",
+                "enable_results_display",
+            ],
+        )
+
+    flags_phase_deactivate.short_description = _("Set flags for PHASE - platform deactivate")
+
     def flags_phase_1(self, request, queryset):
         self._flags_switch_phase(
             request=request,
@@ -544,7 +587,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
             enabled=[
                 "enable_org_registration",
                 "enable_org_approval",
-                "enable_org_voting",
                 "enable_candidate_registration",
                 "enable_candidate_supporting",
             ],
@@ -564,7 +606,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
             enabled=[
                 "enable_org_registration",
                 "enable_org_approval",
-                "enable_org_voting",
                 "enable_candidate_confirmation",
             ],
             disabled=[
@@ -584,7 +625,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
             enabled=[
                 "enable_org_registration",
                 "enable_org_approval",
-                "enable_org_voting",
                 "enable_candidate_voting",
             ],
             disabled=[
@@ -605,7 +645,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 "enable_results_display",
                 "enable_org_registration",
                 "enable_org_approval",
-                "enable_org_voting",
             ],
             disabled=[
                 "enable_candidate_registration",
