@@ -161,7 +161,7 @@ def update_organization_process(organization_id: int, token: str = ""):
         errors.append(non_political_affiliation_url_error)
 
     # Import the organization balance sheet
-    balance_sheet_url: str = ngohub_legal_data.get("balanceSheet") or ""
+    balance_sheet_url: str = ngohub_legal_data.get("balanceSheetFile") or ""
     balance_sheet_url_error: Optional[str] = copy_file_to_organization(
         organization, balance_sheet_url, "last_balance_sheet"
     )
