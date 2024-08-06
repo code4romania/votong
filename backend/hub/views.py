@@ -23,7 +23,7 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import User, STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP, NGO_GROUP
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -643,11 +643,13 @@ def update_organization_information(request, pk):
     return_url = request.GET.get("return_url", "")
     redirect_path = return_url or reverse("ngo-update", args=(pk,))
 
+    minutes_threshold = 5
+    update_threshold: datetime = timezone.now() - timezone.timedelta(minutes=minutes_threshold)
+
     organization: Organization = Organization.objects.get(pk=pk)
     organization_last_update: datetime = organization.ngohub_last_update_started
-    update_threshold: datetime = timezone.now() - timezone.timedelta(minutes=5)
     if organization_last_update and organization_last_update > update_threshold:
-        messages.error(request, _("Please wait a few minutes before updating the organization again."))
+        messages.error(request, _(f"Please wait {minutes_threshold} minutes before updating the organization again."))
         return redirect(redirect_path)
 
     organization.ngohub_last_update_started = timezone.now()

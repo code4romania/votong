@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from accounts.models import User, STAFF_GROUP, NGO_GROUP
+from accounts.models import NGO_GROUP, STAFF_GROUP, User
 from hub.exceptions import (
     ClosedRegistrationException,
     DuplicateOrganizationException,
@@ -81,12 +81,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
                     _("This NGO Hub organization already exists for another VotONG user.")
                 )
 
-        org.status = Organization.STATUS.accepted
-
         org.ngohub_org_id = ngohub_id
-        org.save()
-    elif org.status == Organization.STATUS.pending:
-        org.status = Organization.STATUS.accepted
         org.save()
 
     update_organization(org.id, token)
