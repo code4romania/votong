@@ -1,6 +1,7 @@
 {% extends 'hub/ngo/base.html' %}
 {% load static %}
 {% load i18n %}
+{% load allauth %}
 {% load crispy_forms_tags %}
 
 {% block domain-filters %}
@@ -57,13 +58,21 @@
     {% endif %}
 
     {% if not organization.is_fully_editable %}
-      <div class="message is-warning">
+      {% setvar update_status %} 
+        {% if organization.status == "accepted" %}
+          is-success
+        {% else %}
+          is-warning
+        {% endif %}
+      {% endsetvar %}
+
+      <div class="message {{ update_status }}">
         <div class="message-body flex-align-center">
           <form id="update-ngo-form"
                 method="post"
                 action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
             {% csrf_token %}
-            <button class="button is-warning is-small update-ngo-button"
+            <button class="button {{ update_status }} is-small update-ngo-button"
                     type="submit"
                     title="{% trans 'Refresh NGO Information' %}">
               <i class="fas fa-sync"></i>
