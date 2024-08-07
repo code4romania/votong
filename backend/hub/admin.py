@@ -15,6 +15,8 @@ from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 from sentry_sdk import capture_message
 
 from accounts.models import COMMITTEE_GROUP, User
@@ -363,9 +365,18 @@ class CandidateAdmin(admin.ModelAdmin):
         return False
 
 
+class DomainResource(resources.ModelResource):
+    class Meta:
+        model = Domain
+        fields = ["id", "name", "seats", "description"]
+        import_id_fields = ["id"]
+
+
 @admin.register(Domain)
-class DomainAdmin(admin.ModelAdmin):
-    list_display = ["name", "seats", "description"]
+class DomainAdmin(ImportExportModelAdmin):
+    list_display_links = list_display = ("id", "name", "seats", "description")
+    ordering = ("id",)
+    resource_class = DomainResource
 
     def has_add_permission(self, request):
         if request.user.is_superuser:

@@ -10,7 +10,7 @@ asgiref==3.8.1
     #   django
 asttokens==2.4.1
     # via stack-data
-attrs==23.2.0
+attrs==24.2.0
     # via wmctrl
 black==24.8.0
     # via -r requirements-dev.in
@@ -35,7 +35,7 @@ certifi==2024.7.4
     #   -r requirements.txt
     #   requests
     #   sentry-sdk
-cffi==1.16.0
+cffi==1.17.0
     # via
     #   -r requirements.txt
     #   brotlipy
@@ -48,7 +48,7 @@ click==8.1.7
     # via
     #   black
     #   pip-tools
-coverage==7.6.0
+coverage==7.6.1
     # via pytest-cov
 croniter==3.0.3
     # via -r requirements.txt
@@ -60,6 +60,10 @@ debugpy==1.8.5
     # via -r requirements-dev.in
 decorator==5.1.1
     # via ipython
+diff-match-patch==20230430
+    # via
+    #   -r requirements.txt
+    #   django-import-export
 django==4.2.15
     # via
     #   -r requirements.txt
@@ -70,6 +74,7 @@ django==4.2.15
     #   django-debug-toolbar
     #   django-extensions
     #   django-guardian
+    #   django-import-export
     #   django-model-utils
     #   django-picklefield
     #   django-q2
@@ -102,6 +107,8 @@ django-file-resubmit==0.5.2
 django-guardian==2.4.0
     # via -r requirements.txt
 django-impersonate==1.9.4
+    # via -r requirements.txt
+django-import-export==4.1.1
     # via -r requirements.txt
 django-model-utils==4.5.1
     # via -r requirements.txt
@@ -215,7 +222,7 @@ pygments==2.18.0
     # via
     #   ipython
     #   pdbpp
-pyjwt==2.8.0
+pyjwt==2.9.0
     # via
     #   -r requirements.txt
     #   pycognito
@@ -277,6 +284,10 @@ sqlparse==0.5.1
     #   django-debug-toolbar
 stack-data==0.6.3
     # via ipython
+tablib==3.5.0
+    # via
+    #   -r requirements.txt
+    #   django-import-export
 traitlets==5.14.3
     # via
     #   ipython
@@ -300,7 +311,7 @@ wcwidth==0.2.13
     #   prompt-toolkit
 werkzeug==3.0.3
     # via -r requirements-dev.in
-wheel==0.43.0
+wheel==0.44.0
     # via pip-tools
 whitenoise==6.7.0
     # via -r requirements.txt
@@ -310,7 +321,7 @@ zope-event==5.0
     # via
     #   -r requirements.txt
     #   gevent
-zope-interface==6.4.post2
+zope-interface==7.0.1
     # via
     #   -r requirements.txt
     #   gevent

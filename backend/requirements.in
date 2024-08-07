@@ -22,6 +22,7 @@ django-model-utils~=4.5.1
 django-impersonate~=1.9.2
 django-guardian~=2.4.0
 django-tinymce~=4.1.0
+django-import-export~=4.1.1
 
 # file handling
 boto3~=1.34.155

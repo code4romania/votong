@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "impersonate",
     "guardian",
     "tinymce",
+    "import_export",
 ]
 
 if not (USE_S3 or USE_AZURE):

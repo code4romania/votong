@@ -1,0 +1,9 @@
+id,seats,name,description
+1,3,"Domeniul social","Organizații din domeniul social"
+2,3,"Protecția drepturilor omului","Organizații pentru protecția drepturilor omului"
+3,2,"Protecția mediului","Organizații din domeniul protecției mediului înconjurător, ecologiei, dezvoltării durabile"
+4,2,"Academic","Organizații academice, profesionale, think-tank (corespund categoriei “comunități științifice și academice”)"
+5,2,"Agricol","Organizații cooperatiste, agricole, de dezvoltare rurală și comunitară"
+6,1,"Educație","Organizații din domeniul educație"
+7,1,"Sănătate","Organizații din domeniul sănătate"
+8,1,"Tineret","Organizații din domeniul tineri"

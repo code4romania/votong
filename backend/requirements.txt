@@ -23,7 +23,7 @@ certifi==2024.7.4
     # via
     #   requests
     #   sentry-sdk
-cffi==1.16.0
+cffi==1.17.0
     # via
     #   brotlipy
     #   cryptography
@@ -33,6 +33,8 @@ croniter==3.0.3
     # via -r requirements.in
 cryptography==43.0.0
     # via pyjwt
+diff-match-patch==20230430
+    # via django-import-export
 django==4.2.15
     # via
     #   -r requirements.in
@@ -41,6 +43,7 @@ django==4.2.15
     #   django-appconf
     #   django-crispy-forms
     #   django-guardian
+    #   django-import-export
     #   django-model-utils
     #   django-picklefield
     #   django-q2
@@ -68,6 +71,8 @@ django-file-resubmit==0.5.2
 django-guardian==2.4.0
     # via -r requirements.in
 django-impersonate==1.9.4
+    # via -r requirements.in
+django-import-export==4.1.1
     # via -r requirements.in
 django-model-utils==4.5.1
     # via -r requirements.in
@@ -117,7 +122,7 @@ pycognito==2024.5.1
     # via -r requirements.in
 pycparser==2.22
     # via cffi
-pyjwt==2.8.0
+pyjwt==2.9.0
     # via
     #   django-allauth
     #   pycognito
@@ -148,6 +153,8 @@ six==1.16.0
     #   python-dateutil
 sqlparse==0.5.1
     # via django
+tablib==3.5.0
+    # via django-import-export
 urllib3==2.2.2
     # via
     #   botocore
@@ -161,7 +168,7 @@ whitenoise==6.7.0
     # via -r requirements.in
 zope-event==5.0
     # via gevent
-zope-interface==6.4.post2
+zope-interface==7.0.1
     # via gevent
 
 # The following packages are considered to be unsafe in a requirements file:
