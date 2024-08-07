@@ -46,3 +46,26 @@ def has_permission(user: User, permission: str) -> bool:
     user_has_perm = user.has_perm(permission)
 
     return user_group_has_perm or user_has_perm
+
+
+# taken from templatetags/allauth.py
+@register.tag(name="set_var")
+def do_setvar(parser, token):
+    nodelist = parser.parse(("end_set_var",))
+    bits = token.split_contents()
+    if len(bits) != 2:
+        tag_name = bits[0]
+        usage = f'{{% {tag_name} "set_var" var %}} ... {{% end_{tag_name} %}}'
+        raise template.TemplateSyntaxError("Usage: %s" % usage)
+    parser.delete_first_token()
+    return SetVarNode(nodelist, bits[1])
+
+
+class SetVarNode(template.Node):
+    def __init__(self, nodelist, var):
+        self.nodelist = nodelist
+        self.var = var
+
+    def render(self, context):
+        context[self.var] = self.nodelist.render(context).strip()
+        return ""

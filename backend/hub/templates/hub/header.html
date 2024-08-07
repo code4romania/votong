@@ -86,13 +86,7 @@
             <div class="navbar-item">|</div>
 
             {% if ORG_REGISTRATION_ENABLED and not request.user.is_authenticated %}
-              <a href="
-                {% if ENABLE_ORG_REGISTRATION_FORM %}
-                  {% url 'ngos-register-request' %}
-                {% else %}
-                  {{ NGOHUB_APP_BASE_URL }}
-                {% endif %}
-              " class="navbar-item">
+              <a href="{{ REGISTER_URL }}" class="navbar-item">
                 {% trans "Register organization" %}
               </a>
             {% endif %}

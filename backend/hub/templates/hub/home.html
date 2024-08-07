@@ -127,7 +127,7 @@
             <p class="tile-title">Pasul 2: Înscriere</p>
             <p>
               Organizațiile se pot înscrie în VotONG prin platforma
-              <a href="https://ngohub.ro">NGO Hub</a>.
+              <a href="https://{{ NGOHUB_HOME }}">NGO Hub</a>.
               Pentru a intra în VotONG există o serie de condiții prestabilite care trebuie îndeplinite și
               care pot fi consultate în
               <a href="{% url 'platform_rules' %}">Regulamentul platformei</a>.
@@ -211,19 +211,14 @@
             <strong>
               De acum înainte, accesul în platformele pe care le știți deja (inclusiv VotONG și Redirecționează) se va
               realiza tot prin
-              <a href="https://ngohub.ro">NGO Hub</a>,
+              <a href="https://{{ NGOHUB_HOME }}">NGO Hub</a>,
             </strong>
             tocmai pentru a facilita gestionarea unui cont unic pentru fiecare organizație,
             actualizat și administrat central.
           </p>
         </div>
         <div class="column is-narrow">
-          <a href="
-            {% if ENABLE_ORG_REGISTRATION_FORM %}
-              {% url 'ngos-register-request' %}
-            {% else %}
-              {{ NGOHUB_APP_BASE_URL }}
-            {% endif %}" class="button is-warning">
+          <a href="{{ REGISTER_URL }}" class="button is-warning">
             Înregistrează-te
             <br>
             în NGO Hub
@@ -283,30 +278,34 @@
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Nume" name="name"/>
+            <label class="label" for="contact-name">{% trans "Nume" %}</label>
+            <input id="contact-name" class="input" type="text" placeholder={% trans "Nume" %} name="name"/>
 
             <span class="icon is-small is-left">
-                        <i class="fas fa-graduation-cap"></i>
-                    </span>
+              <i class="fas fa-graduation-cap"></i>
+            </span>
           </div>
         </div>
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Email" name="email"/>
+            <label class="label" for="contact-email">{% trans "Email" %}</label>
+            <input id="contact-email" class="input" type="text" placeholder={% trans "Email" %} name="email"/>
 
             <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
+              <i class="fas fa-envelope"></i>
+            </span>
           </div>
         </div>
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <textarea class="input" placeholder="Mesaj" name="message"></textarea>
+            <label class="label" for="contact-message">{% trans "Mesaj" %}</label>
+            <textarea id="contact-message" class="input" placeholder={% trans "Mesaj" %} name="message"></textarea>
+
             <span class="icon is-small is-left">
-                        <i class="fas fa-unlock-alt"></i>
-                    </span>
+              <i class="fas fa-unlock-alt"></i>
+            </span>
           </div>
         </div>
 

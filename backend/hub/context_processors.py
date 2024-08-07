@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.urls import reverse
 
 from hub.models import FLAG_CHOICES, FeatureFlag
 
@@ -6,14 +7,18 @@ from hub.models import FLAG_CHOICES, FeatureFlag
 def hub_settings(context):
     flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
+    register_url = reverse("ngos-register-request")
+    if settings.ENABLE_ORG_REGISTRATION_FORM:
+        register_url = settings.NGOHUB_APP_BASE
+
     return {
         # Flags from settings.py:
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
         "CURRENT_EDITION_TYPE": settings.CURRENT_EDITION_TYPE,
         "CURRENT_EDITION_YEAR": settings.CURRENT_EDITION_YEAR,
         "DEBUG": settings.DEBUG,
-        "ENABLE_ORG_REGISTRATION_FORM": settings.ENABLE_ORG_REGISTRATION_FORM,
-        "NGOHUB_APP_BASE_URL": settings.NGOHUB_APP_BASE,
+        "REGISTER_URL": register_url,
+        "NGOHUB_HOME": settings.NGOHUB_HOME_HOST,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_registration, False),
         "CANDIDATE_SUPPORTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_supporting, False),

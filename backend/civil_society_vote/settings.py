@@ -109,6 +109,7 @@ env = environ.Env(
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
     # ngo hub api settings
     VOTONG_WEBSITE=(str, ""),
+    NGOHUB_HOME_HOST=(str, "ngohub.ro"),
     NGOHUB_APP_HOST=(str, "app-staging.ngohub.ro"),
     NGOHUB_API_HOST=(str, "api-staging.ngohub.ro"),
     NGOHUB_API_ACCOUNT=(str, ""),
@@ -583,6 +584,8 @@ SOCIALACCOUNT_STORE_TOKENS = False
 VOTONG_WEBSITE = env("VOTONG_WEBSITE")
 
 # NGO Hub settings
+NGOHUB_HOME_HOST = env("NGOHUB_HOME_HOST")
+NGOHUB_HOME_BASE = f"https://{env('NGOHUB_HOME_HOST')}/"
 NGOHUB_APP_BASE = f"https://{env('NGOHUB_APP_HOST')}/"
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")

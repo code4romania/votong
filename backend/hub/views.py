@@ -281,6 +281,14 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
     model = Organization
     form_class = OrganizationUpdateForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        organization: Organization = self.object
+        context["update_status"] = "is-success" if organization.status == "accepted" else "is-pending"
+
+        return context
+
     def get_success_url(self):
         return reverse("ngo-update", args=(self.object.id,))
 
