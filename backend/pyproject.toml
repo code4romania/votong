@@ -40,7 +40,7 @@ target-version = "py311"
 [lint]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-ignore = []
+ignore = ["E203"]
 
 select = [
     "DJ", # Flake8-Django - https://docs.astral.sh/ruff/rules/#flake8-django-dj
