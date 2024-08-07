@@ -277,6 +277,7 @@ cython_debug/
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/csv-editor.xml
 
 # Gradle
 .idea/**/gradle.xml
