@@ -50,7 +50,7 @@ Please include some visual description of what you would like the UI to look lik
 
 ### Programming languages
 
-* Python (3.11+)
+* Python (3.12+)
 
 ### Platforms
 
@@ -122,7 +122,7 @@ docker compose exec web bash
 
 **IMPORTANT**: Remember to run `make format` before commiting your code to format the code properly. Thank you!
 
-**NOTE** After the first deployment go into admin 
+**NOTE** After the first deployment go into admin
 and edit the site data in `/admin/sites/site/` with the correct name and domain.
 This is used in the site and in email templates.
 
@@ -145,7 +145,7 @@ We have a community of over 500 volunteers
 who work pro bono for developing digital solutions to solve social problems.
 #techforsocialgood.
 If you want to learn more details about our projects
-[visit our site](https://www.code4.ro/) 
+[visit our site](https://www.code4.ro/)
 or if you want to talk to one of our staff members, please e-mail us at
 [contact@code4.ro](mailto:contact@code4.ro).
 

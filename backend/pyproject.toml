@@ -34,8 +34,8 @@ exclude = [
 # Same as Black.
 line-length = 120
 
-# Assume Python 3.11.
-target-version = "py311"
+# Assume Python 3.12.
+target-version = "py312"
 
 [lint]
 # Allow unused variables when underscore-prefixed.
@@ -80,7 +80,7 @@ filterwarnings = [
 
 [tool.black]
 line-length = 120
-target-version = ["py311"]
+target-version = ["py312"]
 extend-exclude = '''(
     (.+/)?migrations/.+
     | (.+/)?legacy_settings/.+
