@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 13:42+0300\n"
+"POT-Creation-Date: 2024-08-07 11:23+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1575,14 +1575,12 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:652
-#, python-brace-format
-msgid ""
-"Please wait {minutes_threshold} minutes before updating the organization "
-"again."
+#: hub/views.py:654
+#, python-format
+msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
-"Vă rugăm așteptați {minutes_threshold} minute înainte de a actualiza din nou "
-"organizația."
+"Vă rugăm așteptați %(minutes_threshold)s minute înainte de a actualiza din "
+"nou organizația."
 
 #: hub/workers/update_organization.py:209
 msgid "Error updating organization"
