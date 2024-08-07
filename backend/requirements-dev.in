@@ -4,11 +4,11 @@ django-extensions~=3.2.3
 werkzeug~=3.0.3
 
 # tests
-faker~=26.0.0
+faker~=26.2.0
 
 ## make sure to sync these with the ../.pre-commit-config.yaml file
-ruff==0.5.3
-black==24.4.2
+ruff~=0.5.6
+black~=24.8.0
 
 # utils
 ipython~=8.26.0
@@ -18,12 +18,12 @@ pdbpp~=0.10.3
 pip-tools~=7.4.1
 
 # testing
-pytest~=8.2.0
+pytest~=8.3.2
 pytest-django~=4.8.0
 pytest-xdist~=3.6.1
 pytest-cov~=5.0.0
 
 # debugging
-debugpy~=1.8.2
+debugpy~=1.8.5
 
 -r requirements.txt
