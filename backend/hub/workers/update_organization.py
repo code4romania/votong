@@ -211,6 +211,9 @@ def update_organization_process(organization_id: int, token: str = ""):
             "email", flat=True
         )
 
+        ngohub_url = f"{settings.NGOHUB_APP_BASE}organizations/{ngohub_id}/overview/"
+        votong_url = f"{settings.VOTONG_WEBSITE}{organization.get_absolute_url()}"
+
         send_email(
             subject=subject,
             to_emails=to_emails,
@@ -218,7 +221,8 @@ def update_organization_process(organization_id: int, token: str = ""):
             html_template="hub/emails/07_importing_errors.html",
             context={
                 "ngo_name": organization.name,
-                "ngo_url": f"{settings.VOTONG_WEBSITE}/{organization.get_absolute_url()}",
+                "ngohub_url": ngohub_url,
+                "votong_url": votong_url,
                 "errors": errors,
             },
         )

@@ -2,15 +2,28 @@
 
 {% block content %}
   <h3>
-    Au apărut erori în timpul ce era actualizat ONG-ul "{{ ngo_name }}" ({{ ngo_url }}).
+    Au apărut erori în timpul ce era actualizat ONG-ul "{{ ngo_name }}".
   </h3>
+
+  <ul>
+    <li>
+      <a href="{{ ngohub_url }}">
+        Link către <strong>NGO Hub</strong>
+      </a>
+    </li>
+    <li>
+      <a href="{{ votong_url }}">
+        Link către <strong>VotONG</strong>
+      </a>
+    </li>
+  </ul>
 
   <p style="padding: 3rem 0;">
     Vă rugăm să verificați și să remediați aceste erori cât mai curând posibil.
   </p>
 
   <p>
-    Erorile sunt:
+    Erorile apărute:
   </p>
   <ul>
     {% for error in errors %}

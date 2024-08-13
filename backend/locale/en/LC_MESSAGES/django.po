@@ -832,7 +832,7 @@ msgstr ""
 
 #: hub/models.py:501 hub/templates/hub/candidate/detail.html:111
 msgid "Representative statement"
-msgstr ""
+msgstr "Candidate statement"
 
 #: hub/models.py:506
 msgid ""

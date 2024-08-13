@@ -863,7 +863,7 @@ msgstr "Funcția în organizației a persoanei desemnate"
 
 #: hub/models.py:501 hub/templates/hub/candidate/detail.html:111
 msgid "Representative statement"
-msgstr "Declarație reprezentant"
+msgstr "Declarație candidat"
 
 #: hub/models.py:506
 msgid ""

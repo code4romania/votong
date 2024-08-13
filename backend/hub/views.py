@@ -285,7 +285,7 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         context = super().get_context_data(**kwargs)
 
         organization: Organization = self.object
-        context["update_status"] = "is-success" if organization.status == "accepted" else "is-pending"
+        context["update_status"] = "is-success" if organization.status == "accepted" else "is-warning"
 
         return context
 
