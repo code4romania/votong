@@ -72,6 +72,12 @@
             </button>
           </form>
 
+          {% if organization.status == "pending" %}
+            <h4 style="padding-right: 2rem" class="is-danger">
+              {% trans "Some data wasn't found on NGO Hub." %}
+            </h4>
+          {% endif %}
+
           <p class="has-text-grey-dark">
             <strong>
               {% trans "Update organization's profile" %}

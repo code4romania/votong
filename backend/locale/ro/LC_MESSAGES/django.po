@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 11:23+0300\n"
+"POT-Creation-Date: 2024-08-13 17:29+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -353,87 +353,87 @@ msgstr "cont/reseteaza-parola/complet/"
 msgid "authentication/"
 msgstr "autentificare/"
 
-#: hub/admin.py:48
+#: hub/admin.py:50
 msgid "Personal info"
 msgstr "Informații personale"
 
-#: hub/admin.py:50
+#: hub/admin.py:52
 msgid "Permissions"
 msgstr "Permisiuni"
 
-#: hub/admin.py:61
+#: hub/admin.py:63
 msgid "Important dates"
 msgstr "Date importante"
 
-#: hub/admin.py:80
+#: hub/admin.py:82
 msgid "groups"
 msgstr "grupuri"
 
-#: hub/admin.py:134
+#: hub/admin.py:136
 msgid "user"
 msgstr "utilizator"
 
-#: hub/admin.py:141
+#: hub/admin.py:143
 msgid "candidate"
 msgstr "candidatură"
 
-#: hub/admin.py:193
+#: hub/admin.py:195
 msgid "supporters"
 msgstr "susținători"
 
-#: hub/admin.py:199
+#: hub/admin.py:201
 msgid "10 or more"
 msgstr "10 sau mai mulți"
 
-#: hub/admin.py:200
+#: hub/admin.py:202
 msgid "less than 10"
 msgstr "mai puțin de 10"
 
-#: hub/admin.py:212
+#: hub/admin.py:214
 msgid "confirmations"
 msgstr "confirmări"
 
-#: hub/admin.py:217
+#: hub/admin.py:219
 msgid "5 or more"
 msgstr "5 sau mai mult"
 
-#: hub/admin.py:218
+#: hub/admin.py:220
 msgid "less than 5"
 msgstr "mai puțin de 5"
 
-#: hub/admin.py:261
+#: hub/admin.py:263
 msgid "Set selected candidates status to REJECTED"
 msgstr "Modifică starea candidaților selectați în RESPINS"
 
-#: hub/admin.py:277
+#: hub/admin.py:279
 msgid "Set selected candidates status to ACCEPTED"
 msgstr "Modifică starea candidaților selectați în APROBAT"
 
-#: hub/admin.py:289
+#: hub/admin.py:291
 msgid "Set selected candidates status to PENDING"
 msgstr "Modifică starea candidaților selectați în ÎN AȘTEPTARE"
 
-#: hub/admin.py:336
+#: hub/admin.py:338
 msgid "Votes"
 msgstr "Voturi"
 
-#: hub/admin.py:345
+#: hub/admin.py:347
 msgid "Supporters"
 msgstr "Susținători"
 
-#: hub/admin.py:351
+#: hub/admin.py:353
 msgid "Confirmations"
 msgstr "Confirmări"
 
-#: hub/admin.py:453
+#: hub/admin.py:464
 msgid "CSV file imported"
 msgstr "Fișier CSV încărcat"
 
-#: hub/admin.py:461
+#: hub/admin.py:472
 msgid "Import Cities"
 msgstr "Încarcă orașe"
 
-#: hub/admin.py:515
+#: hub/admin.py:526
 #, python-brace-format
 msgid ""
 "Invalid flag choices: {missing_flags} not found in {global_flag_choices}."
@@ -441,63 +441,63 @@ msgstr ""
 "Opțiuni de comutator nevalide: {missing_flags} nu a fost găsit în "
 "{global_flag_choices}."
 
-#: hub/admin.py:527
+#: hub/admin.py:538
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
 msgstr ""
 "'{phase_name}' configurare invalidă. Lipsesc comutatorul/comutatoarele: "
 "{missing_flags}."
 
-#: hub/admin.py:544
+#: hub/admin.py:555
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr "Comutatoarele au fost setate cu succes pentru '{phase_name}'."
 
-#: hub/admin.py:549
+#: hub/admin.py:560
 msgid "PHASE PAUSE - platform pause"
 msgstr "FAZA PAUZĂ - pauză platformă"
 
-#: hub/admin.py:563
+#: hub/admin.py:574
 msgid "Set flags for PHASE PAUSE - platform pause"
 msgstr "Activează FAZA PAUZĂ - pauză platformă"
 
-#: hub/admin.py:568
+#: hub/admin.py:579
 msgid "PHASE DEACTIVATE - platform deactivate"
 msgstr "FAZA DEZACTIVARE - dezactivează platformă"
 
-#: hub/admin.py:581
+#: hub/admin.py:592
 msgid "Set flags for PHASE - platform deactivate"
 msgstr "Activează FAZA DEZACTIVARE - dezactivează platformă"
 
-#: hub/admin.py:586
+#: hub/admin.py:597
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr "FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:600
+#: hub/admin.py:611
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr "Activează FAZA 1 - înregistrare candidați si organizații"
 
-#: hub/admin.py:605
+#: hub/admin.py:616
 msgid "PHASE 2 - candidate validation"
 msgstr "FAZA 2 - validare candidați"
 
-#: hub/admin.py:619
+#: hub/admin.py:630
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr "Activează FAZA 2 - validare candidați"
 
-#: hub/admin.py:624
+#: hub/admin.py:635
 msgid "PHASE 3 - voting"
 msgstr "FAZA 3 - votare"
 
-#: hub/admin.py:638
+#: hub/admin.py:649
 msgid "Set flags for PHASE 3 - voting"
 msgstr "Activează FAZA 3 - votare"
 
-#: hub/admin.py:643
+#: hub/admin.py:654
 msgid "FINAL PHASE - results"
 msgstr "FAZA FINALĂ - rezultate"
 
-#: hub/admin.py:656
+#: hub/admin.py:667
 msgid "Set flags for FINAL PHASE - results"
 msgstr "Activează FAZA FINALĂ - rezultate"
 
@@ -509,7 +509,7 @@ msgstr ""
 "Sunt de acord cu <a href=\"https://votong.ro/ro/termeni/\" "
 "target=\"_blank\">Termenii și condițiile</a> platformei VotONG"
 
-#: hub/forms.py:100 hub/forms.py:158 hub/views.py:326
+#: hub/forms.py:100 hub/forms.py:158 hub/views.py:334
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -640,7 +640,8 @@ msgstr "Articol blog"
 msgid "Blog posts"
 msgstr "Articole blog"
 
-#: hub/models.py:156
+#: hub/models.py:156 hub/templates/hub/home.html:281
+#: hub/templates/hub/home.html:282
 msgid "Name"
 msgstr "Nume"
 
@@ -1077,7 +1078,7 @@ msgstr "Vizualizează detalii"
 #: hub/templates/hub/committee/partials/nav.html:43
 #: hub/templates/hub/committee/partials/nav.html:45
 #: hub/templates/hub/committee/partials/nav.html:47
-#: hub/templates/hub/ngo/update.html:34 hub/templates/hub/ngo/votes.html:34
+#: hub/templates/hub/ngo/update.html:33 hub/templates/hub/ngo/votes.html:34
 msgid "Settings"
 msgstr "Setări"
 
@@ -1218,26 +1219,35 @@ msgstr "Alegeri Societatea Civilă"
 msgid "History"
 msgstr "Istoric"
 
-#: hub/templates/hub/header.html:96
+#: hub/templates/hub/header.html:90
 #: hub/templates/hub/ngo/register_request.html:14
 msgid "Register organization"
 msgstr "Înscriere organizație"
 
-#: hub/templates/hub/header.html:115
+#: hub/templates/hub/header.html:109
 msgid "Admin"
 msgstr "Admin"
 
-#: hub/templates/hub/header.html:120
+#: hub/templates/hub/header.html:114
 msgid "STOP IMPERSONATING"
 msgstr "OPREȘTE IMPERSONAREA"
 
-#: hub/templates/hub/header.html:124
+#: hub/templates/hub/header.html:118
 msgid "Logout"
 msgstr "Ieșire cont"
 
-#: hub/templates/hub/header.html:129 hub/templates/registration/login.html:72
+#: hub/templates/hub/header.html:123 hub/templates/registration/login.html:72
 msgid "Login"
 msgstr "Autentificare"
+
+#: hub/templates/hub/home.html:292 hub/templates/hub/home.html:293
+#: hub/templates/registration/login.html:49
+msgid "Email"
+msgstr "Email"
+
+#: hub/templates/hub/home.html:303 hub/templates/hub/home.html:304
+msgid "Message"
+msgstr "Mesaj"
 
 #: hub/templates/hub/incubated-by.html:7
 msgid "Project developed in the program"
@@ -1258,22 +1268,26 @@ msgstr "Organizații înscrise"
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
-#: hub/templates/hub/ngo/update.html:77
+#: hub/templates/hub/ngo/update.html:70
 msgid "Refresh NGO Information"
 msgstr "Actualizează informațiile organizației"
 
-#: hub/templates/hub/ngo/update.html:84
+#: hub/templates/hub/ngo/update.html:77
+msgid "Some data wasn't found on NGO Hub."
+msgstr "Unele date nu au fost găsite în NGO Hub."
+
+#: hub/templates/hub/ngo/update.html:83
 msgid "Update organization's profile"
 msgstr "Actualizează profilul organizației"
 
-#: hub/templates/hub/ngo/update.html:86
+#: hub/templates/hub/ngo/update.html:85
 msgid ""
 "Some data in this organization's profile can only be updated through NGO Hub."
 msgstr ""
 "Unele date din profilul acestei organizații pot fi actualizate doar prin NGO "
 "Hub."
 
-#: hub/templates/hub/ngo/update.html:115
+#: hub/templates/hub/ngo/update.html:114
 msgid "Update organization"
 msgstr "Modifică organizație"
 
@@ -1334,10 +1348,6 @@ msgstr ""
 msgid "Please login to see this page."
 msgstr "Autentificați-vă pentru a vizualiza această pagină."
 
-#: hub/templates/registration/login.html:49
-msgid "Email"
-msgstr "Email"
-
 #: hub/templates/registration/login.html:51
 #: hub/templates/registration/login.html:60
 #: hub/templates/registration/login.html:62
@@ -1365,8 +1375,8 @@ msgid "this link"
 msgstr "acest link"
 
 #: hub/templates/registration/login_landing.html:6
-#: templates/account/login.html:5 templates/account/login.html:9
-#: templates/account/login.html:31 templates/socialaccount/login.html:5
+#: templates/account/login.html:6 templates/account/login.html:11
+#: templates/account/login.html:36 templates/socialaccount/login.html:5
 #: templates/socialaccount/login.html:34
 msgid "Sign In"
 msgstr "Autentificare"
@@ -1571,11 +1581,11 @@ msgstr ""
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la adresa "
 "contact@votong.ro."
 
-#: hub/views.py:319
+#: hub/views.py:327
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:654
+#: hub/views.py:662
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
@@ -1586,18 +1596,18 @@ msgstr ""
 msgid "Error updating organization"
 msgstr "Eroare la actualizarea organizației"
 
-#: templates/account/login.html:19
+#: templates/account/login.html:23
 #, python-format
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr "Dacă încă nu aveți un cont, %(link)sînregistrați-vă%(end_link)s întâi."
 
-#: templates/account/login.html:41
+#: templates/account/login.html:47
 msgid "Mail me a sign-in code"
 msgstr "Trimite-mi prin email un cod de autentificare"
 
-#: templates/account/login.html:49
+#: templates/account/login.html:56
 msgid "Commission Sign In"
 msgstr "Autentificare comisie"
 
@@ -1616,6 +1626,3 @@ msgstr "sau apasă aici pentru a ieși"
 #: templates/socialaccount/login.html:28
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
-
-#~ msgid "Enable organization voting"
-#~ msgstr "Activează votare organizație"

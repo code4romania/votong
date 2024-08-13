@@ -472,20 +472,20 @@ class CandidateDetailView(HubDetailView):
             if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
                 context["supported_candidate"] = True
 
-        # Candidate Approve checks
+        # Candidate: Approve checks
         if (
             FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_confirmation)
-            and candidate.status != Candidate.STATUS.pending
+            and candidate.status == Candidate.STATUS.accepted
             and user.has_perm("hub.approve_candidate")
         ):
             context["can_approve_candidate"] = True
             if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
                 context["approved_candidate"] = True
 
-        # Candidate Vote checks
+        # Candidate: Vote checks
         if (
             FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting)
-            and candidate.status == Candidate.STATUS.accepted
+            and candidate.status == Candidate.STATUS.confirmed
             and user.has_perm("hub.vote_candidate")
         ):
             context["can_vote_candidate"] = True
