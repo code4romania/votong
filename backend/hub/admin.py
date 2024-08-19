@@ -661,6 +661,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
                 "enable_candidate_registration",
                 "enable_candidate_supporting",
                 "enable_candidate_voting",
+                "enable_candidate_confirmation",
             ],
         )
 
