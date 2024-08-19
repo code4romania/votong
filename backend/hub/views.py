@@ -355,11 +355,20 @@ class CandidateListView(HubListView):
     paginate_by = 9
     template_name = "hub/candidate/list.html"
 
+    def get_winners(self):
+        # TODO: Display the winners of the election
+        #   return the candidates in the order of votes with a limit per domain
+        return Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted,
+            status=Candidate.STATUS.accepted,
+            is_proposed=True,
+        )
+
     def get_qs(self):
-        if FeatureFlag.flag_enabled("enable_candidate_voting") or FeatureFlag.flag_enabled("enable_results_display"):
+        if FeatureFlag.flag_enabled("enable_candidate_voting"):
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
-                status=Candidate.STATUS.accepted,
+                status=Candidate.STATUS.confirmed,
                 is_proposed=True,
             )
         elif FeatureFlag.flag_enabled("enable_candidate_supporting"):
@@ -367,6 +376,8 @@ class CandidateListView(HubListView):
                 org__status=Organization.STATUS.accepted,
                 is_proposed=True,
             )
+        elif FeatureFlag.flag_enabled("enable_results_display"):
+            return self.get_winners()
 
         return Candidate.objects_with_org.none()
 
