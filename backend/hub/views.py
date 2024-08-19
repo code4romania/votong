@@ -552,17 +552,18 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 
 @login_required
-@permission_required_or_403("hub.vote_candidate")
 def candidate_vote(request, pk):
-    if not FeatureFlag.flag_enabled("enable_candidate_voting"):
+    if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
         raise PermissionDenied
 
     try:
         candidate = Candidate.objects.get(
-            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.confirmed, is_proposed=True
         )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
+        if settings.ENABLE_SENTRY:
+            capture_message(f"User {request.user} tried to vote for candidate {pk} again.", level="warning")
         raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
