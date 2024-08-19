@@ -466,6 +466,7 @@ class CandidateDetailView(HubDetailView):
             and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting)
             and candidate.is_proposed
             and candidate.org.status == Organization.STATUS.accepted
+            and user.orgs.first().status == Organization.STATUS.accepted
             and user.has_perm("hub.support_candidate")
         ):
             context["can_support_candidate"] = True
@@ -598,9 +599,14 @@ def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
+    user = request.user
+    user_org = user.orgs.first()
+    if user_org.status != Organization.STATUS.accepted:
+        raise PermissionDenied
+
     candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
 
-    if candidate.org == request.user.orgs.first():
+    if candidate.org == user_org:
         return redirect("candidate-detail", pk=pk)
 
     try:
