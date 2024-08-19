@@ -374,9 +374,9 @@ class CandidateListView(HubListView):
         if self.request.user.is_anonymous:
             return Candidate.objects_with_org.none()
 
-        if FeatureFlag.flag_enabled("enable_candidate_voting"):
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
-        elif FeatureFlag.flag_enabled("enable_candidate_supporting"):
+        elif FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting):
             return self.get_candidates_to_support()
 
         return Candidate.objects_with_org.none()
@@ -389,6 +389,12 @@ class CandidateListView(HubListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_search"] = self.request.GET.get("q", "")
+
+        context["should_display_candidates"] = False
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting) or FeatureFlag.flag_enabled(
+            FLAG_CHOICES.enable_candidate_supporting
+        ):
+            context["should_display_candidates"] = True
 
         current_domain = self.request.GET.get("domain")
         if current_domain:
