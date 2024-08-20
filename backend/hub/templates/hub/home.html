@@ -281,8 +281,13 @@
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <label class="label" for="contact-name">{% trans "Name" %}</label>
-            <input id="contact-name" class="input" type="text" placeholder={% trans "Name" %} name="name"/>
+            <input
+              id="contact-name"
+              class="input"
+              type="text"
+              aria-label="{% trans 'Name' %}"
+              placeholder="{% trans 'Name' %}"
+              name="name"/>
 
             <span class="icon is-small is-left">
               <i class="fas fa-graduation-cap"></i>
@@ -292,8 +297,13 @@
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <label class="label" for="contact-email">{% trans "Email" %}</label>
-            <input id="contact-email" class="input" type="text" placeholder={% trans "Email" %} name="email"/>
+            <input
+              id="contact-email"
+              class="input"
+              type="text"
+              aria-label="{% trans 'Email' %}"
+              placeholder="{% trans 'Email' %}"
+              name="email"/>
 
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
@@ -303,8 +313,12 @@
 
         <div class="field">
           <div class="control has-icons-left has-icons-right">
-            <label class="label" for="contact-message">{% trans "Message" %}</label>
-            <textarea id="contact-message" class="input" placeholder={% trans "Message" %} name="message"></textarea>
+            <textarea
+              id="contact-message"
+              class="input"
+              aria-label="{% trans 'Message' %}"
+              placeholder="{% trans 'Message' %}"
+              name="message"></textarea>
 
             <span class="icon is-small is-left">
               <i class="fas fa-unlock-alt"></i>
