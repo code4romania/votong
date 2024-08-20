@@ -63,6 +63,8 @@ def org_logo(user, width=settings.AVATAR_DEFAULT_SIZE, height=None, **kwargs):
     if org and org.logo:
         logo_url = org.logo.url
 
+    kwargs["aria-label"] = "Avatar"
+
     context = {
         "user": user,
         "url": logo_url,
