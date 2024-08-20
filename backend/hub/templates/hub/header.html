@@ -93,7 +93,7 @@
 
             {% if request.user.is_authenticated %}
 
-              {% avatar user 50 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
+              {% org_logo user 50 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
 
               {% if user.in_committee_or_staff_groups %}
                 <a href="{% url 'committee-ngos' %}" class="navbar-item">

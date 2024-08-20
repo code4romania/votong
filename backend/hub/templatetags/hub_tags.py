@@ -1,4 +1,6 @@
 from django import template
+from django.conf import settings
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -46,6 +48,32 @@ def has_permission(user: User, permission: str) -> bool:
     user_has_perm = user.has_perm(permission)
 
     return user_group_has_perm or user_has_perm
+
+
+@register.simple_tag
+def org_logo(user, width=settings.AVATAR_DEFAULT_SIZE, height=None, **kwargs):
+    if height is None:
+        height = width
+
+    if not user:
+        return ""
+
+    org = user.orgs.first()
+    logo_url = settings.AVATAR_DEFAULT_URL
+    if org and org.logo:
+        logo_url = org.logo.url
+
+    context = {
+        "user": user,
+        "url": logo_url,
+        "alt": str(org),
+        "width": width,
+        "height": height,
+        "kwargs": kwargs,
+    }
+    template_name = "avatar/avatar_tag.html"
+
+    return render_to_string(template_name, context)
 
 
 # taken from templatetags/allauth.py
