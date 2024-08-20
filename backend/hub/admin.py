@@ -304,6 +304,8 @@ class CandidateAdmin(admin.ModelAdmin):
         "votes_count",
         "created",
     ]
+    list_display_links = list_display
+
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
     search_fields = ["name", "email", "org__name"]
     readonly_fields = ["status", "status_changed"]
