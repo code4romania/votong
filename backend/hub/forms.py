@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 from django import forms
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -159,14 +161,37 @@ class OrganizationUpdateForm(forms.ModelForm):
         return self.cleaned_data.get("email")
 
 
-class CandidateRegisterForm(forms.ModelForm):
+class CandidateCommonForm(forms.ModelForm):
+    field_order = [
+        "domain",
+        "name",
+        "role",
+        "photo",
+        "statement",
+        "mandate",
+        "letter_of_intent",
+        "cv",
+        "declaration_of_interests",
+        "fiscal_record",
+        "criminal_record",
+    ]
+
     class Meta:
         model = Candidate
-        exclude = ["initial_org", "status", "status_changed"]
 
-        widgets = {
-            "org": forms.HiddenInput(),
+        exclude: List[str] = ["initial_org", "status", "status_changed"]
+
+        widgets: Dict = {
             "is_proposed": forms.HiddenInput(),
+        }
+
+
+class CandidateRegisterForm(CandidateCommonForm):
+
+    class Meta(CandidateCommonForm.Meta):
+        widgets = {
+            "is_proposed": forms.HiddenInput(),
+            "org": forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -207,17 +232,10 @@ class CandidateRegisterForm(forms.ModelForm):
         return cleaned_data
 
 
-class CandidateUpdateForm(forms.ModelForm):
-    field_order = ["name"]
+class CandidateUpdateForm(CandidateCommonForm):
 
-    class Meta:
-        model = Candidate
-        exclude = ["org", "initial_org", "status", "status_changed"]
-
-        widgets = {
-            "is_proposed": forms.HiddenInput(),
-            # "email": EmailInput(),
-        }
+    class Meta(CandidateCommonForm.Meta):
+        exclude: List[str] = ["org", "initial_org", "status", "status_changed"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -494,6 +494,9 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         help_text=_("The role of the designated person in the organization."),
     )
+    photo = models.ImageField(
+        _("Candidate photo"), max_length=300, storage=select_public_storage, blank=True, default=""
+    )
 
     # files expected in different cases
     statement = models.FileField(
@@ -580,6 +583,7 @@ class Candidate(StatusModel, TimeStampedModel):
         """
         return all(
             [
+                self.photo,
                 self.domain,
                 self.name,
                 self.role,
