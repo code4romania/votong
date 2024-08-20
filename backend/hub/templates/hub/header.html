@@ -69,9 +69,9 @@
 
               {% if CURRENT_EDITION_TYPE == "ces" %}
                 {% trans "CES Elections" %}
-              {% elif CURRENT_EDITION_TYPE == "ce" %}
+                {% elif CURRENT_EDITION_TYPE == "ce" %}
                 {% trans "VotONG Elections" %}
-              {% elif CURRENT_EDITION_TYPE == "pnrr" %}
+                {% elif CURRENT_EDITION_TYPE == "pnrr" %}
                 {% trans "PNRR Elections" %}
               {% else %}
                 {% trans "Elections" %}
@@ -106,13 +106,13 @@
             </a>
 
               {% if request.user.is_superuser %}
-              <a href="{% url 'admin:index' %}" class="navbar-item">{% trans "Admin" %}</a>
+                <a href="{% url 'admin:index' %}" class="navbar-item">{% trans "Admin" %}</a>
               {% endif %}
 
               {% if user.is_impersonate %}
-              <a href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
-                {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
-              </a>
+                <a href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
+                  {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
+                </a>
               {% endif %}
 
               <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>

@@ -3,46 +3,47 @@
 
 {% if page_obj.paginator.num_pages > 1 %}
 
-<nav class="loading columns is-centered">
-<div class="column is-two-thirds">
-  <br><br>
-  <progress class="progress is-large is-warning" max="100"></progress>
-<div>
-</nav>
+  <nav class="loading columns is-centered">
+    <div class="column is-two-thirds">
+      <br><br>
+      <progress class="progress is-large is-warning" max="100"></progress>
+    </div>
+  </nav>
 
-<nav class="pagination is-centered" role="navigation" aria-label="pagination" style="visibility:hidden;">
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination" style="visibility:hidden;">
     <span class="step-links">
         {% if page_obj.has_previous %}
-        <a class="pagination-previous" href="{% spurl base='{{ request.get_full_path }}' set_query='page=1' set_query='domain={{domain.id}}' %}">&laquo;
+          <a class="pagination-previous" href="{% spurl base='{{ request.get_full_path }}' set_query='page=1' set_query='domain={{domain.id}}' %}">&laquo;
             {% trans "first" %}</a>
-        <a class="pagination-previous"
+          <a
+            class="pagination-previous"
             href="{% spurl base='{{ request.get_full_path }}' set_query='page={{ page_obj.previous_page_number }}' set_query='domain={{domain.id}}' %}">{% trans "previous" %}</a>
-       {% else %}
-         <a class="pagination-next hidden"></a>
-         <a class="pagination-next hidden"></a>
+        {% else %}
+          <a class="pagination-next hidden"></a>
+          <a class="pagination-next hidden"></a>
         {% endif %}
     </span>
 
     <span class="current">
         {% blocktrans with page=page_obj.number no_pages=page_obj.paginator.num_pages %}
-            Page {{ page }} of {{ no_pages }}
+          Page {{ page }} of {{ no_pages }}
         {% endblocktrans %}
     </span>
 
     <span class="step-links">
         {% if page_obj.has_next %}
-        <a class="pagination-next infinite-more-link"
-            href="{% spurl base='{{ request.get_full_path }}' set_query='page={{ page_obj.next_page_number }}' set_query='domain={{domain.id}}' %}">{% trans "next" %}</a>
-        <a class="pagination-next"
-            href="{% spurl base='{{ request.get_full_path }}' set_query='page={{ page_obj.paginator.num_pages }}' set_query='domain={{domain.id}}' %}">{% trans "last" %}
+          <a class="pagination-next infinite-more-link"
+             href="{% spurl base='{{ request.get_full_path }}' set_query='page={{ page_obj.next_page_number }}' set_query='domain={{domain.id}}' %}">{% trans "next" %}</a>
+          <a class="pagination-next"
+             href="{% spurl base='{{ request.get_full_path }}' set_query='page={{ page_obj.paginator.num_pages }}' set_query='domain={{domain.id}}' %}">{% trans "last" %}
             &raquo;</a>
         {% else %}
-         <a class="pagination-next hidden"></a>
-         <a class="pagination-next hidden"></a>
+          <a class="pagination-next hidden"></a>
+          <a class="pagination-next hidden"></a>
         {% endif %}
 
     </span>
 
-</nav>
+  </nav>
 
 {% endif %}

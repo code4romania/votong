@@ -5,8 +5,8 @@
 
 {% block styles %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
-  <link rel="stylesheet" href="{% static "css/home/alegeri-jumbotron.css" %}">
-  <link rel="stylesheet" href="{% static "css/home/alegeri-inscriere.css" %}">
+  <link rel="stylesheet" href="{% static "css/home/elections-jumbotron.css" %}">
+  <link rel="stylesheet" href="{% static "css/home/elections-registration.css" %}">
   <link rel="stylesheet" href="{% static "css/home/contact.css" %}">
   <link rel="stylesheet" href="{% static "css/home/home.css" %}">
 {% endblock %}
@@ -44,8 +44,8 @@
 
   {% if CURRENT_EDITION_TYPE == "ces" %}
 
-    <div id="alegeri-jumbotron">
-      <div id="alegeri-icon">
+    <div id="elections-jumbotron">
+      <div id="elections-icon">
         <i class="fas fa-user-tie"></i>
       </div>
       <div class="container">
@@ -55,7 +55,7 @@
         <p class="subtitle">
           Proces de selecție și alegere a reprezentanților societății civile în Consiliul Economic și Social
         </p>
-        <div id="alegeri-buttons">
+        <div id="elections-buttons">
           <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
           {% if RESULTS_ENABLED %}
             <a href="{% url 'results' %}" class="button is-warning">Vezi rezultate finale</a>
@@ -66,8 +66,8 @@
 
   {% elif CURRENT_EDITION_TYPE == "ce" %}
 
-    <div id="alegeri-jumbotron">
-      <div id="alegeri-icon">
+    <div id="elections-jumbotron">
+      <div id="elections-icon">
         <i class="fas fa-user-tie"></i>
       </div>
       <div class="container">
@@ -77,7 +77,7 @@
         <p class="subtitle">
           Proces de selecție și alegere a Comisiei Electorale a platformei VotONG
         </p>
-        <div id="alegeri-buttons">
+        <div id="elections-buttons">
           <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
           {% if RESULTS_ENABLED %}
             <a href="{% url 'results' %}" class="button is-warning">Vezi rezultate finale</a>
@@ -88,8 +88,8 @@
 
   {% elif CURRENT_EDITION_TYPE == "pnrr" %}
 
-    <div id="alegeri-jumbotron">
-      <div id="alegeri-icon">
+    <div id="elections-jumbotron">
+      <div id="elections-icon">
         <i class="fas fa-user-tie"></i>
       </div>
       <div class="container">
@@ -99,7 +99,7 @@
         <p class="subtitle">
           Proces de selecție și alegere a reprezentanților societății civile în Comitetul de Monitorizare a PNRR
         </p>
-        <div id="alegeri-buttons">
+        <div id="elections-buttons">
           <a href="{% url 'rules' %}" class="button is-warning">Regulament</a>
         </div>
       </div>
@@ -194,7 +194,7 @@
   </div>
 
   {% if True %}
-    <div id="alegeri-inscriere" class="container">
+    <div id="elections-registration" class="container">
       <h2 class="has-text-weight-bold">Înscrie-te</h2>
       <div class="columns is-centered">
         <div class="column">

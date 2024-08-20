@@ -1,18 +1,18 @@
-#alegeri-inscriere {
+#elections-registration {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 60%;
   padding-bottom: 50px;
 }
 
-#alegeri-inscriere h2 {
+#elections-registration h2 {
   font-size: 35px;
   padding: 0.5em 0;
   color: var(--dark-gray);
 
 }
 
-#alegeri-inscriere .button {
+#elections-registration .button {
   margin-left: 20px;
   height: 5em;
 }

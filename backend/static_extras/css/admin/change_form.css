@@ -50,7 +50,7 @@ form .related-widget-wrapper .caret {
 }
 
 .selector .help-icon {
-  background: url(../img/icon-unknown-alt.svg) 0 0 no-repeat;
+  background: url(static/admin/img/icon-unknown-alt.svg) 0 0 no-repeat;
 }
 
 div.selector option {
@@ -169,7 +169,7 @@ form .aligned div.help {
 }
 
 .aligned label + div.readonly {
-  padding-top: 0px !important;
+  padding-top: 0 !important;
 }
 
 .checkbox-label label {

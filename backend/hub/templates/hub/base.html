@@ -5,74 +5,82 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}VotONG{% endblock %}</title>
-    <meta name="description" content="" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VotONG{% endblock %}</title>
+  <meta name="description" content=""/>
 
-    <meta property="og:title" content="VotONG" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://votong.ro" />
-    <meta property="og:image" content="{% static "images/og_image.png" %}" />
-    <meta property="og:description" content="Platforma prin care societatea civilă își va putea alege în mod transparent reprezentanții în diferite organisme și foruri consultative din instituții-cheie pentru democrația românească." />
+  <meta property="og:title" content="VotONG"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://votong.ro"/>
+  <meta property="og:image" content="{% static "images/og_image.png" %}"/>
+  <meta property="og:description" content="Platforma prin care societatea civilă își va putea alege în mod transparent reprezentanții în diferite organisme și foruri consultative din instituții-cheie pentru democrația românească."/>
 
-    {% block meta_tags %}{% with title="VotONG" %}{% meta_tags %}{% endwith %}{% endblock %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700&subset=latin-ext">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    <link rel="stylesheet" href="{% static "css/bulma-collapsible.min.css" %}">
-    <link rel="stylesheet" href="{% static "css/colors.css" %}">
-    <link rel="stylesheet" href="{% static "css/sizing.css" %}">
-    <link rel="stylesheet" href="{% static "css/footer.css" %}">
-    <link rel="stylesheet" href="{% static "css/header.css" %}">
-    <link rel="stylesheet" href="{% static "css/hub.css" %}">
+  {% block meta_tags %}{% with title="VotONG" %}{% meta_tags %}{% endwith %}{% endblock %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700&subset=latin-ext">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="{% static "css/bulma-collapsible.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/colors.css" %}">
+  <link rel="stylesheet" href="{% static "css/sizing.css" %}">
+  <link rel="stylesheet" href="{% static "css/footer.css" %}">
+  <link rel="stylesheet" href="{% static "css/header.css" %}">
+  <link rel="stylesheet" href="{% static "css/hub.css" %}">
 
-    {% block styles %}{% endblock %}
+  {% block styles %}{% endblock %}
 
-    {% include "hub/favicons.html" %}
+  {% include "hub/favicons.html" %}
 
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="{% static 'js/bulma-collapsible.min.js' %}"></script>
-    <script src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
-    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'js/infinite.min.js' %}"></script>
-    <script src="{% static "js/main.js" %}"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="{% static 'js/bulma-collapsible.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/infinite.min.js' %}"></script>
+  <script src="{% static "js/main.js" %}"></script>
 
-    {% if ANALYTICS_ENABLED %}
+  {% if ANALYTICS_ENABLED %}
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179396450-1"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-179396450-1'); </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179396450-1"></script>
+    <script> window.dataLayer = window.dataLayer || [];
 
-    {% endif %}
+    function gtag() {
+      dataLayer.push(arguments);
+    }
 
-    {% block extra_head %}{% endblock extra_head %}
+    gtag('js', new Date());
+    gtag('config', 'UA-179396450-1'); </script>
+
+  {% endif %}
+
+  {% block extra_head %}{% endblock extra_head %}
 
 </head>
 
 <body>
-    {% include "hub/header.html" %}
+{% include "hub/header.html" %}
 
-    {% block content_container %}
-      <div id="main">
-        {% block content %}
-        {% endblock %}
-      </div>
-    {% endblock content_container %}
+{% block content_container %}
+  <div id="main">
+    {% block content %}
+    {% endblock %}
+  </div>
+{% endblock content_container %}
 
-    {% include "hub/footer.html" %}
+{% include "hub/footer.html" %}
 
 <script>
-  $(function() {
-    if ( $('.infinite-container').length > 0 ) {
-      var infinite = new Waypoint.Infinite({
-          element: $('.infinite-container')[0],
-          onAfterPageLoad: function(items) {
-              if ($('.infinite-more-link')[0] === undefined) {
-                  // Waypoint.Infinite removes the anchor with the above class after performing the last request.
-                  // At this point, we know there are no more items that can be loaded, so we remove the pagination and loading nav.
-                  $('nav.loading').remove();
-                  $('nav.pagination').remove();
-              }
+  $(function () {
+    if ($('.infinite-container').length > 0) {
+      let infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        onAfterPageLoad: function (items) {
+          if ($('.infinite-more-link')[0] === undefined) {
+            // Waypoint.Infinite removes the anchor with the above class after performing the last request.
+            // At this point, we know there are no more items that can be loaded, so we remove the pagination and loading nav.
+            $('nav.loading').remove();
+            $('nav.pagination').remove();
           }
+        }
       })
     }
   });

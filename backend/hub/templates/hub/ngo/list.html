@@ -6,29 +6,34 @@
 
 {% block left-side-view %}
 
-<div class="search-wrapper container is-flex">
+  <div class="search-wrapper container is-flex">
     <form action="{% url 'ngos' %}" method="GET">
-        <div class="field border-b">
-            <p class="control has-icons-right ">
-                <input class="input search-input" type="text" name="q" value="{{ current_search }}"
-                    placeholder="{% trans 'Search...' %}">
-                <label class="search-icon">
+      <div class="field border-b">
+        <p class="control has-icons-right ">
+          <input
+            class="input search-input" 
+            type="text" 
+            name="q" 
+            value="{{ current_search }}"
+            aria-label="{% trans 'Search...' %}"
+            placeholder="{% trans 'Search...' %}">
+          <label class="search-icon">
                     <span class="icon is-small is-right">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="submit" style="display: none;" />
-                </label>
-            </p>
-        </div>
+            <input type="submit" style="display: none;"/>
+          </label>
+        </p>
+      </div>
     </form>
-</div>
+  </div>
 
-<h2 class="section-title uppercase">
+  <h2 class="section-title uppercase">
     {% trans "Registered organizations" %} ({{ counters.ngos_accepted }})
-</h2>
+  </h2>
 
-{% comment %}
-<!-- <div class="container filter-container">
+  {% comment %}
+    <!-- <div class="container filter-container">
     <div class="columns is-mobile">
         <div class="column">
             <div class="columns">
@@ -119,64 +124,64 @@
     </a>
 
 </div> -->
-{% endcomment %}
+  {% endcomment %}
 
-<div class="container">
+  <div class="container">
     {% if page_obj %}
 
-    <div class="is-multiline infinite-container">
+      <div class="is-multiline infinite-container">
         {% for ngo in page_obj %}
 
-        <div class="need is-flex container infinite-item">
+          <div class="need is-flex container infinite-item">
             <div class="card-image need-logo is-hidden-mobile">
-                <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
+              <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
             </div>
 
             <div class="card-info">
-                <div class="flex-align-center">
-                    <div class="card-image need-logo is-hidden-tablet">
-                        <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
-                    </div>
-                    <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
+              <div class="flex-align-center">
+                <div class="card-image need-logo is-hidden-tablet">
+                  <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
                 </div>
-                <div class="need-title is-hidden-mobile">
-                    <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
-                </div>
+                <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
+              </div>
+              <div class="need-title is-hidden-mobile">
+                <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ ngo.name }}</a>
+              </div>
 
-                {% comment %}
-                <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ngo.founders}}</div>
+              {% comment %}
+                <div class="need-description is-hidden-mobile">{% trans 'Founders' %}: {{ ngo.founders }}</div>
                 <!-- <div class="need-description is-hidden-mobile">{% trans 'Domain' %}: {{ngo.domain}}</div> -->
                 <!-- <div class="need-description is-hidden-mobile"><b>Stare aplicație: <span
                             class="status-{{ngo.status}}">{% trans ngo.status.capitalize %}</span></b></div> -->
-                {% endcomment %}
+              {% endcomment %}
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
-                    href="{% url 'ngo-detail' ngo.pk %}">
-                    Vizualizează
-                </a>
+              <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
+                 href="{% url 'ngo-detail' ngo.pk %}">
+                Vizualizează
+              </a>
             </div>
 
-        </div>
-        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
-        <hr class="is-hidden-mobile half-width" />
+          </div>
+          <hr class="is-hidden-tablet" style="margin: 0 10%;"/>
+          <hr class="is-hidden-mobile half-width"/>
         {% endfor %}
-    </div>
+      </div>
 
-    {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+      {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
     {% else %}
-    <div class="content is-medium">
+      <div class="content is-medium">
         <p style="text-align: center;">{% trans "No results matching query" %}</p>
-    </div>
+      </div>
     {% endif %}
-</div>
+  </div>
 
 {% endblock %}
 
 {% block content %}
-{% with current_url=request.get_full_path %}
-{{ block.super }}
-{% endwith %}
+  {% with current_url=request.get_full_path %}
+    {{ block.super }}
+  {% endwith %}
 {% endblock %}

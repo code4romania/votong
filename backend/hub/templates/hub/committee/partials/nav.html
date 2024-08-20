@@ -41,7 +41,7 @@
     <li {% if active == "settings" %}class="is-active"{% endif %}>
       {% if user.in_commission_groups %}
         <a href="{% url 'account-password-reset' %}">{% trans 'Settings' %}</a>
-      {% elif user.in_staff_groups %}
+        {% elif user.in_staff_groups %}
         <a href="{% url 'admin-invite-commission' %}">{% trans 'Settings' %}</a>
       {% else %}
         <a href="{% url 'avatar:change' %}">{% trans 'Settings' %}</a>

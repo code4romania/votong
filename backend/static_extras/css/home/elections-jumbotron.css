@@ -1,4 +1,4 @@
-#alegeri-jumbotron {
+#elections-jumbotron {
   --icon-size: 140px;
 
   background-color: #F4F5F7;
@@ -6,7 +6,7 @@
   margin-top: 3rem;
 }
 
-#alegeri-jumbotron #alegeri-icon {
+#elections-jumbotron #elections-icon {
   display: inline-block;
   margin-top: calc(var(--icon-size) / -2);
   border: 3px solid #000;
@@ -19,15 +19,15 @@
   background-color: #fff;
 }
 
-#alegeri-jumbotron h2 {
+#elections-jumbotron h2 {
   font-size: 35px;
 }
 
-#alegeri-jumbotron #alegeri-buttons {
+#elections-jumbotron #elections-buttons {
   padding: 20px 0 50px;
 }
 
-#alegeri-buttons .button {
+#elections-buttons .button {
   margin: 20px;
   width: 247px;
   font-weight: bold;

@@ -8,71 +8,71 @@
 {% endblock domain-filters %}
 
 {% block extra-header %}
-    {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
-        {% include "hub/"|add:header_template %}
-    {% endwith %}
+  {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
+    {% include "hub/"|add:header_template %}
+  {% endwith %}
 {% endblock %}
 
 {% block left-side-view %}
 
-{% include "hub/committee/partials/nav.html" with active=filtering counters=counters %}
+  {% include "hub/committee/partials/nav.html" with active=filtering counters=counters %}
 
-<div class="container">
+  <div class="container">
 
-  {% if filtering == "ngos-pending" %}
-    <h2 class="title border-b uppercase">{% trans 'Pending Organizations' %} ({{ counters.ngos_pending }})</h2>
-  {% elif filtering == "ngos-accepted" %}
-    <h2 class="title border-b uppercase">{% trans 'Accepted Organizations' %} ({{ counters.ngos_accepted }})</h2>
-  {% elif filtering == "ngos-rejected" %}
-    <h2 class="title border-b uppercase">{% trans 'Rejected Organizations' %} ({{ counters.ngos_rejected }})</h2>
-  {% endif %}
+    {% if filtering == "ngos-pending" %}
+      <h2 class="title border-b uppercase">{% trans 'Pending Organizations' %} ({{ counters.ngos_pending }})</h2>
+      {% elif filtering == "ngos-accepted" %}
+      <h2 class="title border-b uppercase">{% trans 'Accepted Organizations' %} ({{ counters.ngos_accepted }})</h2>
+      {% elif filtering == "ngos-rejected" %}
+      <h2 class="title border-b uppercase">{% trans 'Rejected Organizations' %} ({{ counters.ngos_rejected }})</h2>
+    {% endif %}
 
     {% if page_obj %}
 
-    <div class="columns is-multiline infinite-container">
+      <div class="columns is-multiline infinite-container">
         {% for ngo in page_obj %}
-        <div class="need is-flex container infinite-item">
+          <div class="need is-flex container infinite-item">
             <div class="card-info">
-                <div class="flex-align-center">
-                    <div class="card-image need-logo is-hidden-tablet">
-                        <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
-                    </div>
-                    <div class="need-title is-hidden-tablet">{{ngo.name}}</div>
+              <div class="flex-align-center">
+                <div class="card-image need-logo is-hidden-tablet">
+                  <img src="{% if ngo.logo %}{{ ngo.logo.url }}{% else %}{% static 'images/logo-demo.png' %}{% endif %}" alt="{{ ngo.name }}">
                 </div>
-                <div class="need-title is-hidden-mobile">
-                    <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ngo.name}}</a>
-                </div>
+                <div class="need-title is-hidden-tablet">{{ ngo.name }}</div>
+              </div>
+              <div class="need-title is-hidden-mobile">
+                <a class="has-text-black" href="{% url 'ngo-detail' ngo.pk %}">{{ ngo.name }}</a>
+              </div>
             </div>
 
             <div class="">
-                {{ ngo.created }}
+              {{ ngo.created }}
             </div>
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-warning has-text-weight-bold has-text-black" href="{% url 'ngo-detail' ngo.pk %}">
-                    Vizualizează
-                </a>
+              <a class="button is-flex has-background-warning has-text-weight-bold has-text-black" href="{% url 'ngo-detail' ngo.pk %}">
+                Vizualizează
+              </a>
             </div>
 
-        </div>
-        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
-        <hr class="is-hidden-mobile half-width" />
+          </div>
+          <hr class="is-hidden-tablet" style="margin: 0 10%;"/>
+          <hr class="is-hidden-mobile half-width"/>
         {% endfor %}
-    </div>
+      </div>
 
-    {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+      {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
     {% else %}
-    <div class="content is-medium">
+      <div class="content is-medium">
         <p style="text-align: center;">{% trans "No results matching query" %}</p>
-    </div>
+      </div>
     {% endif %}
-</div>
+  </div>
 
 {% endblock %}
 
 {% block content %}
-{% with current_url=request.get_full_path %}
-{{ block.super }}
-{% endwith %}
+  {% with current_url=request.get_full_path %}
+    {{ block.super }}
+  {% endwith %}
 {% endblock %}

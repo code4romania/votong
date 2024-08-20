@@ -12,67 +12,67 @@
 
 {% block left-side-view %}
 
-{% include "hub/committee/partials/nav.html" with active=filtering counters=counters %}
+  {% include "hub/committee/partials/nav.html" with active=filtering counters=counters %}
 
-<div class="container">
+  <div class="container">
     <h2 class="title border-b uppercase">
-        {% if filtering == "pending" %}
-          {% trans 'Pending candidates' %} ({{ counters.candidates_pending }})
-        {% else %}
-          {% trans 'Accepted candidates' %} ({{ counters.candidates_accepted }})
-        {%endif%}
+      {% if filtering == "pending" %}
+        {% trans 'Pending candidates' %} ({{ counters.candidates_pending }})
+      {% else %}
+        {% trans 'Accepted candidates' %} ({{ counters.candidates_accepted }})
+      {% endif %}
     </h2>
 
     {% if page_obj %}
 
-    <div class="is-multiline infinite-container">
+      <div class="is-multiline infinite-container">
         {% for candidate in page_obj %}
 
-        <div class="need is-flex container infinite-item">
+          <div class="need is-flex container infinite-item">
             <div class="card-info">
-                <div class="flex-align-center">
-                    <div class="need-title is-hidden-tablet">{{candidate.name}}</div>
-                </div>
-                <div class="need-subtitle is-hidden-mobile">{{candidate.org}}</div>
-                <div class="need-title is-hidden-mobile">
-                    <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{candidate.name}}</a>
-                </div>
+              <div class="flex-align-center">
+                <div class="need-title is-hidden-tablet">{{ candidate.name }}</div>
+              </div>
+              <div class="need-subtitle is-hidden-mobile">{{ candidate.org }}</div>
+              <div class="need-title is-hidden-mobile">
+                <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{ candidate.name }}</a>
+              </div>
             </div>
 
             {% if GLOBAL_SUPPORT_ENABLED %}
-            <div>
-              <p>{% trans "Supporters:" %} {{ candidate.count_supporters }}</p>
-            </div>
+              <div>
+                <p>{% trans "Supporters:" %} {{ candidate.count_supporters }}</p>
+              </div>
             {% endif %}
 
             <div class="need-call2action">
-                <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
-                    href="{% url 'candidate-detail' candidate.pk %}">
-                    {% trans "View details" %}
-                </a>
+              <a class="button is-flex has-background-success has-text-weight-bold has-text-white"
+                 href="{% url 'candidate-detail' candidate.pk %}">
+                {% trans "View details" %}
+              </a>
             </div>
-        </div>
+          </div>
 
 
-        <hr class="is-hidden-tablet" style="margin: 0 10%;" />
-        <hr class="is-hidden-mobile half-width" />
+          <hr class="is-hidden-tablet" style="margin: 0 10%;"/>
+          <hr class="is-hidden-mobile half-width"/>
         {% endfor %}
-    </div>
-</div>
+      </div>
+      </div>
 
-{% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
+      {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
 
-{% else %}
-<div class="content is-medium">
-    <p style="text-align: center;">{% trans "No results matching query" %}</p>
-</div>
-{% endif %}
-</div>
+    {% else %}
+      <div class="content is-medium">
+        <p style="text-align: center;">{% trans "No results matching query" %}</p>
+      </div>
+    {% endif %}
+  </div>
 
 {% endblock %}
 
 {% block content %}
-{% with current_url=request.get_full_path %}
-{{ block.super }}
-{% endwith %}
+  {% with current_url=request.get_full_path %}
+    {{ block.super }}
+  {% endwith %}
 {% endblock %}

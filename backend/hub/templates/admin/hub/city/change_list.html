@@ -3,16 +3,16 @@
 
 {% block object-tools-items %}
 
-{% if user.is_superuser %}
-<li>
-  <div class="fixed-action-btn">
-    <a href="{% url 'admin:import_cities' %}">
-        <span>  &plus; {% trans 'Import' %} {{opts.verbose_name_plural}}</span>
-    </a>
-  </div>
-</li>
-{% endif %}
+  {% if user.is_superuser %}
+    <li>
+      <div class="fixed-action-btn">
+        <a href="{% url 'admin:import_cities' %}">
+          <span>  &plus; {% trans 'Import' %} {{ opts.verbose_name_plural }}</span>
+        </a>
+      </div>
+    </li>
+  {% endif %}
 
-{{ block.super }}
+  {{ block.super }}
 
 {% endblock %}

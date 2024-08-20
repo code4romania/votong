@@ -1,25 +1,26 @@
 {% load static i18n %}
 
 <div class="container section border-b">
-    <h1 class="title  has-text-centered">
-        {% trans "Rezultate Finale Alegeri Consiliul Economic și Social" %}
-    </h1>
+  <h1 class="title  has-text-centered">
+    {% trans "Rezultate Finale Alegeri Consiliul Economic și Social" %}
+  </h1>
 
-    <p class="subtitle" style="margin: 0 10%">
-        Aici puteți consulta lista cu rezultatele finale ale alegerilor pentru desemnarea reprezentanților în Consiliul Economic și Social. Rezultatele finale vor fi publlicate pe data de 3 decembrie, conform cu calendarul anunțat în regulament.
-    </p>
+  <p class="subtitle" style="margin: 0 10%">
+    Aici puteți consulta lista cu rezultatele finale ale alegerilor pentru desemnarea reprezentanților în Consiliul Economic și Social. Rezultatele finale vor fi publlicate pe data de 3 decembrie, conform cu calendarul anunțat în
+    regulament.
+  </p>
 
-    <ul class="subtitle" style="margin: 0 10%">
-        <li><b>25 – 26 noiembrie 2020</b> – depunerea contestațiilor</li>
-        <li><b>27 noiembrie 2020 – 01 decembrie 2020</b> – soluționarea contestațiilor</li>
-        <li><b>03 decembrie 2020</b> – publicarea și comunicarea rezultatelor finale ale alegerilor</li>
-        <li><b>04 decembrie 2020</b> – depunerea rezultatelor și dosarelor candidaților la Secretariatul General al Guvernului</li>
-    </ul>
+  <ul class="subtitle" style="margin: 0 10%">
+    <li><b>25 – 26 noiembrie 2020</b> – depunerea contestațiilor</li>
+    <li><b>27 noiembrie 2020 – 01 decembrie 2020</b> – soluționarea contestațiilor</li>
+    <li><b>03 decembrie 2020</b> – publicarea și comunicarea rezultatelor finale ale alegerilor</li>
+    <li><b>04 decembrie 2020</b> – depunerea rezultatelor și dosarelor candidaților la Secretariatul General al Guvernului</li>
+  </ul>
 
-    <p class="subtitle" style="margin: 0 10%"><b><u><a href="{% url 'committee_public_statement' %}">Comisie Electorală VotONG - Adresă oficială (23.12.2020)</a></u></b></p>
+  <p class="subtitle" style="margin: 0 10%"><b><u><a href="{% url 'committee_public_statement' %}">Comisie Electorală VotONG - Adresă oficială (23.12.2020)</a></u></b></p>
 </div>
 
 <div class="section has-text-centered">
-    <a href="{% url 'rules' %}" class="button is-warning">Regulament CES</a>
-    <a href="{% url 'candidates' %}" class="button is-warning"> {% trans 'CES elections' %}</a>
+  <a href="{% url 'rules' %}" class="button is-warning">Regulament CES</a>
+  <a href="{% url 'candidates' %}" class="button is-warning"> {% trans 'CES elections' %}</a>
 </div>
