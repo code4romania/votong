@@ -354,7 +354,6 @@ class Organization(StatusModel, TimeStampedModel):
             "legal_representative_name",
             "legal_representative_email",
             "board_council",
-            "logo",
             "last_balance_sheet",
             "statute",
         )
