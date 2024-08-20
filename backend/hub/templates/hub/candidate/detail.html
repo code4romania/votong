@@ -17,7 +17,7 @@
   {% endblock %}
 
   <div class="container">
-    <div class="section-title">Sectiune: {{ candidate.domain.name }}</div>
+    <div class="section-title">{% trans "Section: " %}{{ candidate.domain.name }}</div>
     <p class="section-text">{{ candidate.domain.description }}</p>
   </div>
 
@@ -104,100 +104,45 @@
       <p><span class="label">{% trans 'Representative role' %}:</span> {{ candidate.role }}</p>
 
       {% if candidate.statement %}
-        <p>
-      <span class="icon">
-        <i class="fas fa-lock"></i>
-      </span>
-          <a href="{{ candidate.statement.url }}">{% trans 'Representative statement' %}</a>
-        </p>
+        {% trans "Representative statement" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.statement.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.mandate %}
+        {% trans "Mandate" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.mandate.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.letter_of_intent %}
+        {% trans "Letter of intent" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.letter_of_intent.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.cv %}
+        {% trans "CV" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.cv.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.declaration_of_interests %}
+        {% trans "Declaration of interests" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.declaration_of_interests.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.fiscal_record %}
+        {% trans "Fiscal record" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.fiscal_record.url document_name=doc_name %}
+      {% endif %}
+
+      {% if candidate.criminal_record %}
+        {% trans "Criminal record" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.criminal_record.url document_name=doc_name %}
       {% endif %}
 
     </div>
   </div>
 
   <div class="container detail-desc">
-    <div class="detail-desc-title">
-      <span class="ngo-colorblock"></span>
-      {% trans "Documents" %}
-    </div>
-
-    {% if candidate.org.report_2023 %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.report_2023.url }}" title="{% trans 'Yearly report 2023' %}">
-          {% trans 'Yearly report 2023' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.report_2022 %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.report_2022.url }}" title="{% trans 'Yearly report 2022' %}">
-          {% trans 'Yearly report 2022' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.report_2021 %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.report_2021.url }}" title="{% trans 'Yearly report 2021' %}">
-          {% trans 'Yearly report 2021' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.fiscal_certificate_anaf %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.fiscal_certificate_anaf.url }}" title="{% trans 'Fiscal certificate ANAF' %}">
-          {% trans 'Fiscal certificate ANAF' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.fiscal_certificate_local %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.fiscal_certificate_local.url }}" title="{% trans 'Fiscal certificate local' %}">
-          {% trans 'Fiscal certificate local' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.statement_discrimination %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.statement_discrimination.url }}" title="{% trans 'Non-discrimination statement ' %}">
-          {% trans 'Non-discrimination statement' %}
-        </a>
-      </p>
-    {% endif %}
-
-    {% if candidate.org.statement_political %}
-      <p>
-        <span class="icon">
-          <i class="fas fa-lock"></i>
-        </span>
-        <a href="{{ candidate.org.statement_political.url }}" title="{% trans 'Non-political statement ' %}">
-          {% trans 'Non-political statement' %}
-        </a>
-      </p>
-    {% endif %}
-
+    {% include "hub/partials/organization_documents.html" with ngo=candidate.org %}
   </div>
 
 

@@ -1,0 +1,10 @@
+<p>
+    <span class="icon">
+      {% if is_secret %}
+        <i class="fas fa-lock"></i>
+      {% else %}
+        <i class="fas fa-file"></i>
+      {% endif %}
+    </span>
+  <a href="{{ document_url }}" title={{ document_name }}>{{ document_name }}</a>
+</p>

@@ -250,6 +250,20 @@ class OrganizationDetailView(HubDetailView):
 
         return Organization.objects.filter(status=Organization.STATUS.accepted)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user: User = self.request.user
+
+        context["can_view_all_information"] = False
+
+        if user.is_anonymous:
+            return context
+
+        if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
+            context["can_view_all_information"] = True
+
+        return context
+
 
 class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "hub/ngo/register_request.html"
@@ -470,6 +484,7 @@ class CandidateDetailView(HubDetailView):
         context["can_vote_candidate"] = False
         context["voted_candidate"] = False
         context["used_all_domain_votes"] = False
+        context["can_view_all_information"] = False
 
         if user.is_anonymous:
             return context
@@ -483,6 +498,7 @@ class CandidateDetailView(HubDetailView):
             and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting)
             and candidate.is_proposed
             and candidate.org.status == Organization.STATUS.accepted
+            and user.orgs.first()
             and user.orgs.first().status == Organization.STATUS.accepted
             and user.has_perm("hub.support_candidate")
         ):
@@ -511,6 +527,9 @@ class CandidateDetailView(HubDetailView):
                 context["voted_candidate"] = True
             if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
                 context["used_all_domain_votes"] = True
+
+        if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
+            context["can_view_all_information"] = True
 
         return context
 
