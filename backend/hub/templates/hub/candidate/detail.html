@@ -79,10 +79,10 @@
       {% endif %}
 
       {% if can_vote_candidate %}
-        {% if used_all_domain_votes %}
-          <span class="tag is-warning">{% trans "You have used all the votes allotted for this domain." %}</span>
-        {% elif voted_candidate %}
+        {% if voted_candidate %}
           <span class="tag is-success">{% trans "✔ VOTED" %}</span>
+        {% elif used_all_domain_votes %}
+          <span class="tag is-warning">{% trans "You have used all the votes allotted for this domain." %}</span>
         {% else %}
           <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">{% trans "Vote" %}</a>
         {% endif %}
