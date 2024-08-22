@@ -43,12 +43,12 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     if not filename and getattr(organization, file_type):
         getattr(organization, file_type).delete()
         error_message = f"ERROR: {file_type.upper()} file URL is empty, deleting the existing file."
-        logger.error(error_message)
+        logger.warning(error_message)
         return error_message
 
     if not filename:
         error_message = f"ERROR: {file_type.upper()} file URL is empty, but is a required field."
-        logger.error(error_message)
+        logger.warning(error_message)
         return error_message
 
     if filename == organization.filename_cache.get(file_type, ""):
@@ -59,7 +59,7 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
     if r.status_code != requests.codes.ok:
         logger.info(f"{file_type.upper()} file request status = {r.status_code}")
         error_message = f"ERROR: Could not download {file_type} file from NGO Hub, error status {r.status_code}."
-        logger.error(error_message)
+        logger.warning(error_message)
         return error_message
 
     extension: str = mimetypes.guess_extension(r.headers["content-type"])
