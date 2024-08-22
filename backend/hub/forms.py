@@ -9,9 +9,8 @@ from django.utils.translation import gettext_lazy as _
 from django_recaptcha.fields import ReCaptchaField
 
 from civil_society_vote.common.messaging import send_email
-from hub.models import Candidate, City, Domain, FeatureFlag, Organization
+from hub.models import Candidate, City, Domain, FLAG_CHOICES, FeatureFlag, Organization
 
-# from django_crispy_bulma.widgets import EmailInput
 
 ORG_FIELD_ORDER = [
     "name",
@@ -138,15 +137,31 @@ class OrganizationUpdateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
-        if self.instance:
-            if self.instance.is_fully_editable:
-                for field_name in self.fields:
-                    if field_name in Organization.required_fields():
-                        self.fields[field_name].required = True
-            else:
-                for field_name in self.fields:
-                    if field_name in Organization.ngohub_fields():
-                        self.fields[field_name].disabled = True
+        if not self.instance:
+            return
+
+        self._set_fields_permissions()
+
+    def _set_fields_permissions(self):
+        # All the required fields for a fully editable organization should be required in votong
+        if self.instance.is_fully_editable:
+            for field_name in self.fields:
+                if field_name in Organization.required_fields():
+                    self.fields[field_name].required = True
+
+            return
+
+        # If registration is closed, updating the organization/candidate shouldn't be possible
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+            for field_name in self.fields:
+                self.fields[field_name].disabled = True
+
+            return
+
+        # Disable the fields that should be received from NGO Hub
+        for field_name in self.fields:
+            if field_name in Organization.ngohub_fields():
+                self.fields[field_name].disabled = True
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -159,6 +174,13 @@ class OrganizationUpdateForm(forms.ModelForm):
         ):
             raise ValidationError(_("An organization with the same email address is already registered."))
         return self.cleaned_data.get("email")
+
+    def save(self, commit=True):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+            # This should not happen unless someone messes with the form code
+            raise PermissionDenied
+
+        return super().save(commit)
 
 
 class CandidateCommonForm(forms.ModelForm):
@@ -206,7 +228,7 @@ class CandidateRegisterForm(CandidateCommonForm):
 
         self.initial["org"] = self.user.orgs.first().id
 
-        if FeatureFlag.flag_enabled("single_domain_round"):
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
             self.fields["domain"].widget.attrs["disabled"] = True
             self.initial["domain"] = Domain.objects.first().id
 
@@ -214,7 +236,7 @@ class CandidateRegisterForm(CandidateCommonForm):
         return self.user.orgs.first().id
 
     def clean_domain(self):
-        if FeatureFlag.flag_enabled("single_domain_round"):
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
             return Domain.objects.first()
         return self.cleaned_data.get("domain")
 
@@ -240,7 +262,7 @@ class CandidateUpdateForm(CandidateCommonForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
             for key in self.fields.keys():
                 self.fields[key].widget.attrs["disabled"] = True
 
@@ -251,8 +273,13 @@ class CandidateUpdateForm(CandidateCommonForm):
             for key in self.fields.keys():
                 self.fields[key].widget.attrs["required"] = True
 
+        # If registration is closed, updating the organization/candidate shouldn't be possible
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+            for field_name in self.fields:
+                self.fields[field_name].disabled = True
+
     def save(self, commit=True):
-        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
             # This should not happen unless someone messes with the form code
             raise PermissionDenied
 

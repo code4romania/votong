@@ -42,6 +42,13 @@
 
   {% if organization.status == 'accepted' %}
     <a href="{% url 'ngo-detail' organization.id %}">Vezi profilul public al organizației</a>
+    {% if not CANDIDATE_REGISTRATION_ENABLED %}
+      |
+      <strong>
+        Actualizarea datelor se poate face doar contactând
+        <a href="mailto:{{ contact_email }}">administratorii platformei</a>
+      </strong>
+    {% endif %}
     <br><br>
   {% endif %}
 

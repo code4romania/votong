@@ -36,7 +36,16 @@
     {% if not candidate.is_proposed %}Editează {% endif %}Candidatură
   </h2>
 
-  <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidaturii</a>
+  <p>
+    <a href="{% url 'candidate-detail' candidate.id %}">Vezi profilul public al candidaturii</a>
+    {% if not CANDIDATE_REGISTRATION_ENABLED and candidate.is_proposed %}
+      |
+      <strong>
+        Actualizarea datelor se poate face doar contactând
+        <a href="mailto:{{ contact_email }}">administratorii platformei</a>
+      </strong>
+    {% endif %}
+  </p>
   <br>
   <br>
 
