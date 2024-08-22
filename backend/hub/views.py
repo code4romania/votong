@@ -299,7 +299,8 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         context = super().get_context_data(**kwargs)
 
         organization: Organization = self.object
-        context["update_status"] = "is-success" if organization.status == "accepted" else "is-warning"
+        context["update_status"] = "is-success" if organization.status == Organization.STATUS.accepted else "is-warning"
+        context["contact_email"] = settings.CONTACT_EMAIL
 
         return context
 
@@ -564,6 +565,12 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
     template_name = "hub/candidate/update.html"
     model = Candidate
     form_class = CandidateUpdateForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["contact_email"] = settings.CONTACT_EMAIL
+
+        return context
 
     def get_success_url(self):
         return reverse("candidate-update", args=(self.object.id,))
