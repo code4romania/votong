@@ -170,7 +170,14 @@ class Domain(TimeStampedModel):
 
     def accepted_candidates(self):
         return (
-            self.candidated.filter(status=Candidate.STATUS.accepted, is_proposed=True)
+            self.candidates.filter(status=Candidate.STATUS.accepted, is_proposed=True)
+            .annotate(votes_count=models.Count("votes", distinct=True))
+            .order_by("-votes_count")
+        )
+
+    def confirmed_candidates(self):
+        return (
+            self.candidates.filter(status=Candidate.STATUS.confirmed, is_proposed=True)
             .annotate(votes_count=models.Count("votes", distinct=True))
             .order_by("-votes_count")
         )

@@ -430,7 +430,9 @@ class CandidateResultsView(HubListView):
     def get_qs(self):
         if FeatureFlag.flag_enabled("enable_results_display"):
             return Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted, status=Candidate.STATUS.accepted, is_proposed=True
+                org__status=Organization.STATUS.accepted,
+                status=Candidate.STATUS.confirmed,
+                is_proposed=True,
             )
         return Candidate.objects_with_org.none()
 
