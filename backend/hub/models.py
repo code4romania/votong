@@ -205,14 +205,15 @@ class City(models.Model):
 
 
 class Organization(StatusModel, TimeStampedModel):
+    # DRAFT: empty organization created by us, it might be invalid (e.g., created for another user of an org
+    # PENDING: the organization doesn't have all the necessary documents
+    # ACCEPTED: the organization has all required documentation and can vote
+    # REJECTED: the organization was rejected by the electoral commission
     STATUS = Choices(
         ("draft", _("Draft")),
         ("pending", _("Pending approval")),
         ("accepted", _("Accepted")),
         ("rejected", _("Rejected")),
-        # ("eligible", _("Eligible to vote")),
-        # ("ineligible", _("Ineligible to vote")),
-        # ("disabled", _("Disabled")),
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.draft, max_length=30, db_index=True)
 
@@ -460,6 +461,10 @@ class CandidatesWithOrgManager(models.Manager):
 
 
 class Candidate(StatusModel, TimeStampedModel):
+    # PENDING: has been created/proposed and is waiting for support from organizations
+    # ACCEPTED: has been accepted by the admins of the platform
+    # CONFIRMED: has received confirmation from the electoral commission
+    # REJECTED: has been rejected
     STATUS = Choices(
         ("pending", _("Pending")),
         ("accepted", _("Accepted")),

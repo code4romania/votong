@@ -1,6 +1,8 @@
 import os
 from shutil import copyfile
 
+from faker.generator import random
+
 from accounts.models import User, COMMITTEE_GROUP, STAFF_GROUP
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
@@ -89,7 +91,11 @@ class Command(BaseCommand):
             for i in range(ORG_NUMBER):
                 city = City.objects.order_by("?").first()
                 domain = Domain.objects.order_by("?").first()
-                status = ["pending", "accepted", "rejected"][i % 3]
+                organization_status = [
+                    Organization.STATUS.pending,
+                    Organization.STATUS.accepted,
+                    Organization.STATUS.rejected,
+                ][i % 3]
 
                 org = Organization.objects.create(
                     name=fake.company(),
@@ -108,7 +114,7 @@ class Command(BaseCommand):
                     legal_representative_phone=fake.phone_number(),
                     organization_head_name=fake.name(),
                     board_council=fake.name(),
-                    status=status,
+                    status=organization_status,
                     accept_terms_and_conditions=True,
                 )
 
@@ -125,9 +131,9 @@ class Command(BaseCommand):
                 org.last_balance_sheet.name = "test.pdf"
                 org.save()
 
-                if status == "rejected":
+                if organization_status == Organization.STATUS.rejected:
                     self.stdout.write(f"Created organization {org}")
-                elif status == "accepted":
+                elif organization_status == Organization.STATUS.accepted:
                     candidate = Candidate.objects.create(
                         org=org,
                         domain=domain,
@@ -141,7 +147,14 @@ class Command(BaseCommand):
                     self.stdout.write(f"Created organization {org} and candidate {candidate.name}")
 
             for candidate in Candidate.objects.order_by("?")[:10]:
-                candidate.status = "accepted"
+                candidate.status = random.choice(
+                    [
+                        Candidate.STATUS.pending,
+                        Candidate.STATUS.accepted,
+                        Candidate.STATUS.confirmed,
+                        Candidate.STATUS.rejected,
+                    ]
+                )
                 candidate.save()
 
         self.stdout.write("Loaded organizations data")
