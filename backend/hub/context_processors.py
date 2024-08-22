@@ -7,9 +7,9 @@ from hub.models import FLAG_CHOICES, FeatureFlag
 def hub_settings(context):
     flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
-    register_url = reverse("ngos-register-request")
+    register_url = settings.NGOHUB_APP_BASE
     if settings.ENABLE_ORG_REGISTRATION_FORM:
-        register_url = settings.NGOHUB_APP_BASE
+        register_url = reverse("ngos-register-request")
 
     return {
         # Flags from settings.py:
