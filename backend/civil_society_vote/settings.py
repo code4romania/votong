@@ -266,7 +266,7 @@ if ENABLE_CACHE:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-            "LOCATION": "factory_cache_default",
+            "LOCATION": "civil_vote_cache_default",
             "TIMEOUT": 600,  # default cache timeout in seconds
         }
     }
