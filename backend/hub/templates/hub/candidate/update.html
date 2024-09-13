@@ -132,7 +132,7 @@
 
   <hr/>
 
-  {% if CANDIDATE_REGISTRATION_ENABLED and user.orgs.first.is_complete and candidate.is_complete and not candidate.is_proposed %}
+  {% if can_propose_candidate %}
     <div class="container has-text-centered">
       <a href="#" class="button is-warning" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">
         Propune candidatură

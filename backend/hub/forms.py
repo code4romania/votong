@@ -21,6 +21,7 @@ ORG_FIELD_ORDER = [
     "email",
     "phone",
     "description",
+    "voting_domain",
     "legal_representative_name",
     "legal_representative_email",
     "legal_representative_phone",
@@ -143,6 +144,12 @@ class OrganizationUpdateForm(forms.ModelForm):
         self._set_fields_permissions()
 
     def _set_fields_permissions(self):
+        if self.instance:
+            if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+                self.fields["voting_domain"].disabled = self.instance.voting_domain is not None
+            else:
+                del self.fields["voting_domain"]
+
         # All the required fields for a fully editable organization should be required in votong
         if self.instance.is_fully_editable:
             for field_name in self.fields:
@@ -155,6 +162,9 @@ class OrganizationUpdateForm(forms.ModelForm):
         if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
             for field_name in self.fields:
                 self.fields[field_name].disabled = True
+
+            if "voting_domain" in self.fields:
+                self.fields["voting_domain"].disabled = self.instance.voting_domain is not None
 
             return
 
@@ -174,6 +184,20 @@ class OrganizationUpdateForm(forms.ModelForm):
         ):
             raise ValidationError(_("An organization with the same email address is already registered."))
         return self.cleaned_data.get("email")
+
+    def clean_voting_domain(self):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            return None
+
+        new_voting_domain = self.cleaned_data.get("voting_domain")
+        if (
+            self.instance
+            and self.instance.voting_domain is not None
+            and new_voting_domain != self.instance.voting_domain
+        ):
+            raise ValidationError(_("Voting domain cannot be changed. Please contact the site administrator."))
+
+        return new_voting_domain
 
     def save(self, commit=True):
         if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):

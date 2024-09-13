@@ -505,7 +505,7 @@ class CandidateDetailView(HubDetailView):
             and candidate.is_proposed
             and candidate.org.status == Organization.STATUS.accepted
             and user.orgs.first()
-            and user.orgs.first().status == Organization.STATUS.accepted
+            and user.orgs.first().is_elector(candidate.domain)
             and user.has_perm("hub.support_candidate")
         ):
             context["can_support_candidate"] = True
@@ -574,6 +574,19 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["contact_email"] = settings.CONTACT_EMAIL
+        context["can_propose_candidate"] = False
+
+        user = self.request.user
+        user_org: Organization = user.orgs.first()
+        candidate: Candidate = self.object
+
+        if (
+            FeatureFlag.flag_enabled("enable_candidate_registration")
+            and user_org.is_complete
+            and candidate
+            and candidate.is_complete
+        ):
+            context["can_propose_candidate"] = True
 
         return context
 
@@ -624,8 +637,10 @@ def candidate_vote(request, pk):
 
 
 @login_required
-@permission_required_or_403("hub.delete_candidate")
 def candidate_revoke(request, pk):
+    if not request.user.has_perm("hub.delete_candidate"):
+        raise PermissionDenied
+
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 

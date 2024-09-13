@@ -16,7 +16,7 @@ from accounts.models import STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.cache import cache_decorator
 from civil_society_vote.common.messaging import send_email
 from hub.exceptions import NGOHubHTTPException
-from hub.models import City, Organization
+from hub.models import City, FeatureFlag, Organization
 from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -196,7 +196,11 @@ def update_organization_process(organization_id: int, token: str = ""):
     organization.board_council = ", ".join(board_council)
 
     if organization.status in (Organization.STATUS.draft, Organization.STATUS.pending):
-        organization.status = Organization.STATUS.accepted if not errors else Organization.STATUS.pending
+        organization_accepted_status = Organization.STATUS.accepted
+        if FeatureFlag.flag_enabled("enable_voting_domain"):
+            organization_accepted_status = Organization.STATUS.ngohub_accepted
+
+        organization.status = organization_accepted_status if not errors else Organization.STATUS.pending
 
     organization.ngohub_last_update_ended = timezone.now()
 
