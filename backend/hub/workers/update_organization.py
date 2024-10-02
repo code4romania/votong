@@ -138,7 +138,7 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     organization.name = ngohub_general_data.get("name") or ""
     organization.address = ngohub_general_data.get("address") or ""
-    organization.registration_number = ngohub_general_data.get("rafNumber") or ""
+    organization.registration_number = ngohub_general_data.get("nationalRegistryNumber") or ""
 
     # Import the organization logo
     logo_url: str = ngohub_general_data.get("logo") or ""

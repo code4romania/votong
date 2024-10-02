@@ -28,7 +28,7 @@
         ({{ counters.candidates_accepted }})</a>
     </li>
 
-    <li {% if active == "accepted" %}class="is-active"{% endif %}>
+    <li {% if active == "confirmed" %}class="is-active"{% endif %}>
       <a href="{% url 'committee-candidates' %}?status=confirmed">{% trans 'Validated candidates' %}
         ({{ counters.candidates_confirmed }})</a>
     </li>
