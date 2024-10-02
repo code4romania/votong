@@ -428,7 +428,10 @@ class CandidateResultsView(HubListView):
     template_name = "hub/candidate/results.html"
 
     def get_qs(self):
-        if FeatureFlag.flag_enabled("enable_results_display"):
+        if (
+            FeatureFlag.flag_enabled("enable_results_display")
+            or self.request.user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+        ):
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
                 status=Candidate.STATUS.confirmed,
