@@ -91,6 +91,7 @@ FLAG_CHOICES = Choices(
     ("enable_results_display", _("Enable the display of results")),
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
     ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
+    ("enable_voting_domain", _("Enable the voting domain restriction for an organization")),
 )
 
 
@@ -212,6 +213,7 @@ class Organization(StatusModel, TimeStampedModel):
     STATUS = Choices(
         ("draft", _("Draft")),
         ("pending", _("Pending approval")),
+        ("ngohub_accepted", _("NGO Hub accepted")),
         ("accepted", _("Accepted")),
         ("rejected", _("Rejected")),
     )
@@ -228,6 +230,18 @@ class Organization(StatusModel, TimeStampedModel):
     city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.PROTECT, null=True, blank=True)
     address = models.CharField(_("Address"), max_length=254, blank=True, default="")
     registration_number = models.CharField(_("Registration number"), max_length=20, blank=True, default="")
+    voting_domain = models.ForeignKey(
+        Domain,
+        verbose_name=_("Voting domain"),
+        on_delete=models.PROTECT,
+        related_name="organizations",
+        null=True,
+        blank=True,
+        help_text=_(
+            "The domain in which the organization can vote, support, and propose candidates"
+            " – once set, the field can only be modified by the platform's administrators."
+        ),
+    )
 
     email = models.EmailField(_("Organization Email"), blank=True, default="")
     phone = models.CharField(_("Organization Phone"), max_length=30, blank=True, default="")
@@ -350,7 +364,7 @@ class Organization(StatusModel, TimeStampedModel):
 
     @staticmethod
     def required_fields():
-        return (
+        fields = [
             "name",
             "county",
             "city",
@@ -364,7 +378,12 @@ class Organization(StatusModel, TimeStampedModel):
             "board_council",
             "last_balance_sheet",
             "statute",
-        )
+        ]
+
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            fields.append("voting_domain")
+
+        return fields
 
     @staticmethod
     def ngohub_fields():
@@ -412,16 +431,48 @@ class Organization(StatusModel, TimeStampedModel):
             + list(map(lambda x: getattr(self, x), self.required_fields()))
         )
 
+    def is_elector(self, domain=None) -> bool:
+        if self.status != self.STATUS.accepted:
+            return False
+
+        if not FeatureFlag.flag_enabled("enable_voting_domain"):
+            return True
+
+        if not domain:
+            return False
+
+        return self.voting_domain == domain
+
     def get_absolute_url(self):
         return reverse("ngo-detail", args=[self.pk])
 
+    def _remove_votes_supports_candidates(self):
+        # Remove votes for candidates that are not in the voting domain
+        for candidate in self.candidates.all():
+            if candidate.is_proposed:
+                candidate.delete()
+
+        # Remove support that the organization has given
+        CandidateSupporter.objects.filter(user__org=self).delete()
+
+        # Remove votes that the organization has given
+        CandidateVote.objects.filter(user__org=self).delete()
+
     def save(self, *args, **kwargs):
         create = False if self.id else True
+
+        if self.pk and self.status == self.STATUS.accepted and FeatureFlag.flag_enabled("enable_voting_domain"):
+            old_voting_domain = Organization.objects.filter(pk=self.pk).values_list("voting_domain", flat=True).first()
+            if old_voting_domain and (not self.voting_domain or self.voting_domain.pk != old_voting_domain):
+                self._remove_votes_supports_candidates()
 
         if self.city:
             self.county = self.city.county
         else:
             self.county = ""
+
+        if self.status == self.STATUS.ngohub_accepted and self.voting_domain:
+            self.status = self.STATUS.accepted
 
         if self.status == self.STATUS.accepted and not self.user:
             owner = self.create_owner()
@@ -486,7 +537,13 @@ class Candidate(StatusModel, TimeStampedModel):
         ),
     )
     domain = models.ForeignKey(
-        "Domain", verbose_name=_("Domain"), on_delete=models.PROTECT, related_name="candidates", null=True, blank=True
+        "Domain",
+        verbose_name=_("Domain"),
+        on_delete=models.PROTECT,
+        related_name="candidates",
+        null=True,
+        blank=True,
+        help_text=_("The domain in which the candidate is running."),
     )
 
     name = models.CharField(
@@ -593,7 +650,7 @@ class Candidate(StatusModel, TimeStampedModel):
         """
         Validate if the Org uploaded all the requested info to propose a Candidate
         """
-        return all(
+        if not all(
             [
                 self.photo,
                 self.domain,
@@ -606,7 +663,16 @@ class Candidate(StatusModel, TimeStampedModel):
                 self.declaration_of_interests,
                 self.fiscal_record,
             ]
-        )
+        ):
+            return False
+
+        if not FeatureFlag.flag_enabled("enable_voting_domain"):
+            return True
+
+        if self.domain != self.org.voting_domain:
+            return False
+
+        return True
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
