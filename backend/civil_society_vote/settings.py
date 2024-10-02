@@ -66,7 +66,7 @@ env = environ.Env(
     ENABLE_DEBUG_TOOLBAR=(bool, False),
     ENVIRONMENT=(str, "production"),
     SECRET_KEY=(str, "replace-with-a-secret-key"),
-    LOGLEVEL=(str, "INFO"),
+    LOG_LEVEL=(str, "WARNING"),
     ALLOWED_HOSTS=(list, ["*"]),
     IS_CONTAINERIZED=(bool, False),
     LANGUAGE_CODE=(str, "ro"),
@@ -530,7 +530,7 @@ LOGGING = {
     },
     "root": {
         "handlers": ["console"],
-        "level": env.str("LOGLEVEL"),
+        "level": env.str("LOG_LEVEL"),
     },
 }
 

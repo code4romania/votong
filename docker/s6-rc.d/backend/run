@@ -30,7 +30,7 @@ else
 
   python3 -m gunicorn civil_society_vote.wsgi \
     --bind "unix:///run/gunicorn.sock" \
-    --log-level info \
+    --log-level "${LOG_LEVEL}" \
     --worker-class gevent \
     --workers "${WORKERS}" \
     --timeout 60
