@@ -261,6 +261,9 @@ cython_debug/
 .idea/**/dictionaries
 .idea/**/shelf
 
+# Rye (for now)
+.idea/**/ryecharm*
+
 # AWS User-specific
 .idea/**/aws.xml
 
