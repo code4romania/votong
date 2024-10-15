@@ -584,10 +584,18 @@ SOCIALACCOUNT_STORE_TOKENS = False
 VOTONG_WEBSITE = env("VOTONG_WEBSITE")
 
 # NGO Hub settings
+
+# links to the main page of NGO Hub (i.e., ngohub.ro)
 NGOHUB_HOME_HOST = env("NGOHUB_HOME_HOST")
 NGOHUB_HOME_BASE = f"https://{env('NGOHUB_HOME_HOST')}/"
+
+# links to the main page of the NGO Hub app (i.e., app.ngohub.ro or app-staging.ngohub.ro)
 NGOHUB_APP_BASE = f"https://{env('NGOHUB_APP_HOST')}/"
+
+# links to the main page of the NGO Hub API (i.e., api.ngohub.ro or api-staging.ngohub.ro)
 NGOHUB_API_BASE = f"https://{env('NGOHUB_API_HOST')}/"
+
+# credentials for the NGO Hub API
 NGOHUB_API_ACCOUNT = env("NGOHUB_API_ACCOUNT")
 NGOHUB_API_KEY = env("NGOHUB_API_KEY")
 

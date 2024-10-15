@@ -18,7 +18,7 @@ def hub_settings(context):
         "CURRENT_EDITION_YEAR": settings.CURRENT_EDITION_YEAR,
         "DEBUG": settings.DEBUG,
         "REGISTER_URL": register_url,
-        "NGOHUB_HOME": settings.NGOHUB_HOME,
+        "NGOHUB_HOME": settings.NGOHUB_HOME_HOST,
         "NGOHUB_HOME_FULL": settings.NGOHUB_HOME_BASE,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_registration, False),
