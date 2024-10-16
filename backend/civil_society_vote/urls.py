@@ -17,9 +17,9 @@ admin.site.index_title = _("Admin Civil Society Vote")
 urlpatterns_i18n = i18n_patterns(
     path(_("about/"), StaticPageView.as_view(template_name="hub/about.html"), name="about"),
     path(
-        _("rules/"),
-        StaticPageView.as_view(template_name=f"hub/{settings.CURRENT_EDITION_TYPE}/rules.html"),
-        name="rules",
+        _("methodology/"),
+        StaticPageView.as_view(template_name=f"hub/{settings.CURRENT_EDITION_TYPE}/methodology.html"),
+        name="methodology",
     ),
     path(
         _("terms/"),

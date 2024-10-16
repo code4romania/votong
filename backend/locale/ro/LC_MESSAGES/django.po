@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 11:05+0300\n"
+"POT-Creation-Date: 2024-10-16 10:22+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -282,8 +282,8 @@ msgid "about/"
 msgstr "despre/"
 
 #: civil_society_vote/urls.py:20
-msgid "rules/"
-msgstr "regulament/"
+msgid "methodology/"
+msgstr "metodologie/"
 
 #: civil_society_vote/urls.py:25
 msgid "terms/"
@@ -1154,8 +1154,8 @@ msgid "Platform rules"
 msgstr "Regulament platformă"
 
 #: hub/templates/hub/footer.html:37
-msgid "Election rules"
-msgstr "Regulament alegeri"
+msgid "Methodology"
+msgstr "Metodologie"
 
 #: hub/templates/hub/footer.html:38
 msgid "Privacy policy"
@@ -1243,26 +1243,26 @@ msgstr "Organizații înscrise"
 msgid "Send registration request"
 msgstr "Trimite cerere înregistrare"
 
-#: hub/templates/hub/ngo/update.html:77
+#: hub/templates/hub/ngo/update.html:78
 msgid "Refresh NGO Information"
 msgstr "Actualizează informațiile organizației"
 
-#: hub/templates/hub/ngo/update.html:84
+#: hub/templates/hub/ngo/update.html:85
 msgid "Some data wasn't found on NGO Hub."
 msgstr "Unele date nu au fost găsite în NGO Hub."
 
-#: hub/templates/hub/ngo/update.html:90
+#: hub/templates/hub/ngo/update.html:91
 msgid "Update organization's profile"
 msgstr "Actualizează profilul organizației"
 
-#: hub/templates/hub/ngo/update.html:92
+#: hub/templates/hub/ngo/update.html:93
 msgid ""
 "Some data in this organization's profile can only be updated through NGO Hub."
 msgstr ""
 "Unele date din profilul acestei organizații pot fi actualizate doar prin NGO "
 "Hub."
 
-#: hub/templates/hub/ngo/update.html:121
+#: hub/templates/hub/ngo/update.html:122
 msgid "Update organization"
 msgstr "Modifică organizație"
 
@@ -1572,7 +1572,7 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:714
+#: hub/views.py:717
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""

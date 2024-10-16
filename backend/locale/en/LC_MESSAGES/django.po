@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 11:05+0300\n"
+"POT-Creation-Date: 2024-10-16 10:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,7 +271,7 @@ msgid "about/"
 msgstr ""
 
 #: civil_society_vote/urls.py:20
-msgid "rules/"
+msgid "methodology/"
 msgstr ""
 
 #: civil_society_vote/urls.py:25
@@ -1114,7 +1114,7 @@ msgid "Platform rules"
 msgstr ""
 
 #: hub/templates/hub/footer.html:37
-msgid "Election rules"
+msgid "Methodology"
 msgstr ""
 
 #: hub/templates/hub/footer.html:38
@@ -1203,24 +1203,24 @@ msgstr ""
 msgid "Send registration request"
 msgstr ""
 
-#: hub/templates/hub/ngo/update.html:77
+#: hub/templates/hub/ngo/update.html:78
 msgid "Refresh NGO Information"
 msgstr ""
 
-#: hub/templates/hub/ngo/update.html:84
+#: hub/templates/hub/ngo/update.html:85
 msgid "Some data wasn't found on NGO Hub."
 msgstr ""
 
-#: hub/templates/hub/ngo/update.html:90
+#: hub/templates/hub/ngo/update.html:91
 msgid "Update organization's profile"
 msgstr ""
 
-#: hub/templates/hub/ngo/update.html:92
+#: hub/templates/hub/ngo/update.html:93
 msgid ""
 "Some data in this organization's profile can only be updated through NGO Hub."
 msgstr ""
 
-#: hub/templates/hub/ngo/update.html:121
+#: hub/templates/hub/ngo/update.html:122
 msgid "Update organization"
 msgstr ""
 
@@ -1510,7 +1510,7 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:714
+#: hub/views.py:717
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
