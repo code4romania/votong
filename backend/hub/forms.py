@@ -247,14 +247,19 @@ class CandidateRegisterForm(CandidateCommonForm):
         if not self.user.orgs.exists():
             raise ValidationError(_("Authenticated user does not have an organization."))
 
-        if Candidate.objects_with_org.filter(org=self.user.orgs.first()).exists():
+        user_org: Organization = self.user.orgs.first()
+        if Candidate.objects_with_org.filter(org=user_org).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
-        self.initial["org"] = self.user.orgs.first().id
+        self.initial["org"] = user_org.id
 
         if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
             self.fields["domain"].widget.attrs["disabled"] = True
             self.initial["domain"] = Domain.objects.first().id
+
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            self.fields["domain"].widget.attrs["disabled"] = True
+            self.initial["domain"] = user_org.voting_domain
 
     def clean_org(self):
         return self.user.orgs.first().id
