@@ -123,6 +123,7 @@ def update_user_information(user: User, token: str):
     # Check the user role from NGO Hub
     if user_role == settings.NGOHUB_ROLE_SUPER_ADMIN:
         # A super admin from NGO Hub will become a Django admin on VotONG
+        # Remove any existing organizations
         if user.orgs.exists():
             user.orgs.all().delete()
 
@@ -133,13 +134,11 @@ def update_user_information(user: User, token: str):
 
         user.groups.add(Group.objects.get(name=STAFF_GROUP))
         user.groups.remove(Group.objects.get(name=NGO_GROUP))
+
         return None
 
     elif user_role == settings.NGOHUB_ROLE_NGO_ADMIN:
         if not check_app_enabled_in_ngohub(token):
-            user.orgs.all().delete()
-            user.delete()
-
             if user.is_active:
                 user.is_active = False
                 user.save()
@@ -214,10 +213,15 @@ def handle_existing_login(sociallogin: SocialLogin, **kwargs) -> None:
 
 
 @receiver(pre_social_login)
-def handle_pre_login(**kwargs) -> None:
+def handle_pre_login(sociallogin: SocialLogin, **kwargs) -> None:
     """
     Handler for the pre-login signal
     IMPORTANT: The User object might not be fully available here.
     """
 
-    pass
+    # TEMP: the login checks would stop for inactive users, so re-enable them (they will be disabled again if needed)
+    user = sociallogin.user
+
+    if user and not user.is_active:
+        user.is_active = True
+        user.save()
