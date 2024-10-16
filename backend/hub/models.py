@@ -84,7 +84,7 @@ STATE_CHOICES = Choices(
     ("inactive", _("Inactive")),
 )
 
-FLAG_CHOICES = Choices(
+PHASE_CHOICES = Choices(
     ("enable_org_registration", _("Enable organization registration")),
     ("enable_org_approval", _("Enable organization approvals")),
     ("enable_candidate_registration", _("Enable candidate registration")),
@@ -92,11 +92,13 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("enable_candidate_confirmation", _("Enable candidate confirmation")),
     ("enable_results_display", _("Enable the display of results")),
-    # these aren't phase flags (relevant for activating phases in the admin)
+)
+SETTINGS_CHOICES = Choices(
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
     ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
     ("enable_voting_domain", _("Enable the voting domain restriction for an organization")),
 )
+FLAG_CHOICES = PHASE_CHOICES + SETTINGS_CHOICES
 
 
 def get_feature_flag(flag_choice: str) -> bool:

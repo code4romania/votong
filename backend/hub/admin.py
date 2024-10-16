@@ -23,16 +23,17 @@ from accounts.models import COMMITTEE_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm
 from hub.models import (
-    BlogPost,
     COUNTIES,
     COUNTY_RESIDENCE,
+    FLAG_CHOICES,
+    PHASE_CHOICES,
+    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
     Domain,
-    FLAG_CHOICES,
     FeatureFlag,
     Organization,
     get_feature_flag,
@@ -512,30 +513,23 @@ class FeatureFlagAdmin(admin.ModelAdmin):
         return False
 
     def _flags_switch_phase(self, request, phase_name: str, enabled: List[str], disabled: List[str]):
-        all_flag_choices: Set[str] = {
-            "enable_org_registration",
-            "enable_org_approval",
-            "enable_candidate_registration",
-            "enable_candidate_supporting",
-            "enable_candidate_confirmation",
-            "enable_candidate_voting",
-            "enable_results_display",
-        }
+        phase_choices: Set[str] = set([flag[0] for flag in PHASE_CHOICES])
 
-        global_flag_choices: Set[str] = {flag[0] for flag in FLAG_CHOICES}
-        if len(invalid_flags := global_flag_choices.symmetric_difference(all_flag_choices)) != 2:
-            missing_flags = ", ".join(invalid_flags.difference(global_flag_choices))
-            error_message: str = _(f"Invalid flag choices: {missing_flags} not found in {global_flag_choices}.")
+        all_flags_in_model: Set[str] = set([flag[0] for flag in FLAG_CHOICES])
+        all_flags_in_database: Set[str] = set(FeatureFlag.objects.values_list("flag", flat=True))
+        if invalid_flags := all_flags_in_model.difference(all_flags_in_database):
+            missing_flags: str = ", ".join(invalid_flags)
+            error_message: str = _(f"Configuration invalid. Missing flag(s) in database: {missing_flags}.")
 
-            self.message_user(request, message=error_message, level=messages.ERROR)
+            self.message_user(request, message=error_message, level=messages.WARNING)
 
             if settings.ENABLE_SENTRY:
-                capture_message(error_message, level="error")
+                capture_message(error_message, level="warning")
 
             return
 
         full_list: Set[str] = set(enabled + disabled)
-        if invalid_flags := all_flag_choices.difference(full_list):
+        if invalid_flags := phase_choices.difference(full_list):
             missing_flags: str = ", ".join(invalid_flags)
             error_message: str = _(f"'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}.")
 
