@@ -123,7 +123,7 @@
             <input
               class="button is-success"
               type="submit"
-              value={% if candidate.is_proposed %}'{% trans "Publish changes" %}'{% else %}'{% trans "Update profile" %}'{% endif %}>
+              value={% if candidate.is_proposed %}{% trans "Publish changes" %}{% else %}{% trans "Update profile" %}{% endif %}>
           </div>
         {% endif %}
       </form>

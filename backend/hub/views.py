@@ -274,6 +274,11 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
         "as soon as your organization is validated. If you have any further questions, send us a message at contact@votong.ro"
     )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
     def get(self, request, *args, **kwargs):
         if not settings.ENABLE_ORG_REGISTRATION_FORM or not FeatureFlag.flag_enabled("enable_org_registration"):
             raise PermissionDenied
@@ -582,6 +587,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
         if (
             FeatureFlag.flag_enabled("enable_candidate_registration")
+            and user_org
             and user_org.is_complete
             and candidate
             and candidate.is_complete
@@ -589,6 +595,11 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
             context["can_propose_candidate"] = True
 
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super(CandidateUpdateView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
     def get_success_url(self):
         return reverse("candidate-update", args=(self.object.id,))

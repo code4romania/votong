@@ -2,6 +2,7 @@ from typing import Dict, List
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
@@ -11,6 +12,7 @@ from django_recaptcha.fields import ReCaptchaField
 from civil_society_vote.common.messaging import send_email
 from hub.models import Candidate, City, Domain, FLAG_CHOICES, FeatureFlag, Organization
 
+UserModel = get_user_model()
 
 ORG_FIELD_ORDER = [
     "name",
@@ -221,6 +223,41 @@ class CandidateCommonForm(forms.ModelForm):
         "fiscal_record",
         "criminal_record",
     ]
+    user: UserModel = None
+    organization: Organization = None
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+
+        super().__init__(*args, **kwargs)
+
+        self.organization: Organization = self.user.orgs.first()
+
+        if self.user.in_committee_or_staff_groups():
+            return
+
+        overwrite_domain = None
+
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
+            self.fields["domain"].widget.attrs["disabled"] = True
+            overwrite_domain = Domain.objects.first().id
+
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            self.fields["domain"].widget.attrs["disabled"] = True
+            if self.initial["domain"] is None:
+                overwrite_domain = self.organization.voting_domain
+
+        if overwrite_domain:
+            self.initial["domain"] = overwrite_domain
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            if self.organization and self.organization.voting_domain:
+                cleaned_data["domain"] = self.organization.voting_domain
+
+        return cleaned_data
 
     class Meta:
         model = Candidate
@@ -241,25 +278,15 @@ class CandidateRegisterForm(CandidateCommonForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
-        if not self.user.orgs.exists():
+        if not self.user or not self.organization:
             raise ValidationError(_("Authenticated user does not have an organization."))
 
-        user_org: Organization = self.user.orgs.first()
-        if Candidate.objects_with_org.filter(org=user_org).exists():
+        if Candidate.objects_with_org.filter(org=self.organization).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
-        self.initial["org"] = user_org.id
-
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
-            self.fields["domain"].widget.attrs["disabled"] = True
-            self.initial["domain"] = Domain.objects.first().id
-
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
-            self.fields["domain"].widget.attrs["disabled"] = True
-            self.initial["domain"] = user_org.voting_domain
+        self.initial["org"] = self.organization.id
 
     def clean_org(self):
         return self.user.orgs.first().id
@@ -318,6 +345,9 @@ class CandidateUpdateForm(CandidateCommonForm):
             if commit:
                 # This should not happen unless someone messes with the form code
                 raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
+
+        if self.user.in_committee_or_staff_groups() and not candidate.is_proposed:
+            raise PermissionDenied
 
         return super().save(commit)
 
