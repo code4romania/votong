@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth import get_user_model
 from tinymce.models import HTMLField
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -27,6 +28,8 @@ logger = logging.getLogger(__name__)
 def select_public_storage():
     return storages["public"]
 
+
+UserModel = get_user_model()
 
 COUNTY_RESIDENCE = [
     ("Alba", "Alba Iulia"),
@@ -89,6 +92,7 @@ FLAG_CHOICES = Choices(
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("enable_candidate_confirmation", _("Enable candidate confirmation")),
     ("enable_results_display", _("Enable the display of results")),
+    # these aren't phase flags (relevant for activating phases in the admin)
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
     ("global_support_round", _("Enable global support (the support of at least 10 organizations is required)")),
     ("enable_voting_domain", _("Enable the voting domain restriction for an organization")),
@@ -219,9 +223,7 @@ class Organization(StatusModel, TimeStampedModel):
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.draft, max_length=30, db_index=True)
 
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs"
-    )
+    user = models.ForeignKey(UserModel, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
 
     ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organization ID"), default=0, db_index=True)
 
@@ -716,7 +718,7 @@ class Candidate(StatusModel, TimeStampedModel):
 
 
 class CandidateVote(TimeStampedModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user = models.ForeignKey(UserModel, on_delete=models.PROTECT)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
@@ -741,7 +743,7 @@ class CandidateVote(TimeStampedModel):
 
 
 class CandidateSupporter(TimeStampedModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="supporters")
 
     class Meta:
@@ -756,7 +758,7 @@ class CandidateSupporter(TimeStampedModel):
 
 
 class CandidateConfirmation(TimeStampedModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="confirmations")
 
     class Meta:
