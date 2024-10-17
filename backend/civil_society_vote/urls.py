@@ -22,6 +22,11 @@ urlpatterns_i18n = i18n_patterns(
         name="methodology",
     ),
     path(
+        _("old-methodology/"),
+        StaticPageView.as_view(template_name=f"hub/{settings.CURRENT_EDITION_TYPE}/old-methodology.html"),
+        name="old-methodology",
+    ),
+    path(
         _("terms/"),
         StaticPageView.as_view(template_name="hub/terms_and_conditions.html"),
         name="terms",

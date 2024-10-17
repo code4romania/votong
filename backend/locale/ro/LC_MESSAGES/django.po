@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 14:35+0300\n"
+"POT-Creation-Date: 2024-10-17 15:40+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -286,70 +286,74 @@ msgid "methodology/"
 msgstr "metodologie/"
 
 #: civil_society_vote/urls.py:25
+msgid "old-methodology/"
+msgstr "metodologie-arhiva/"
+
+#: civil_society_vote/urls.py:30
 msgid "terms/"
 msgstr "termeni/"
 
-#: civil_society_vote/urls.py:30
+#: civil_society_vote/urls.py:35
 msgid "committee_public_statement/"
 msgstr "declaratie_publica_comitet/"
 
-#: civil_society_vote/urls.py:35
+#: civil_society_vote/urls.py:40
 msgid "platform_rules/"
 msgstr "regulamentul_platformei/"
 
-#: civil_society_vote/urls.py:36
+#: civil_society_vote/urls.py:41
 msgid "history/"
 msgstr "istoric/"
 
-#: civil_society_vote/urls.py:48
+#: civil_society_vote/urls.py:53
 msgid "accounts/error/registration-closed/"
 msgstr "cont/eroare/inregistrare-inchisa/"
 
-#: civil_society_vote/urls.py:53
+#: civil_society_vote/urls.py:58
 msgid "accounts/error/duplicate-organization/"
 msgstr "cont/eroare/organizatie-duplicat/"
 
-#: civil_society_vote/urls.py:58
+#: civil_society_vote/urls.py:63
 msgid "accounts/error/missing-organization/"
 msgstr "cont/eroare/organizatie-lipsa/"
 
-#: civil_society_vote/urls.py:63
+#: civil_society_vote/urls.py:68
 msgid "accounts/error/missing-application/"
 msgstr "cont/eroare/aplicatie-lipsa/"
 
-#: civil_society_vote/urls.py:68
+#: civil_society_vote/urls.py:73
 msgid "accounts/error/unkown-user-role/"
 msgstr "cont/eroare/utilizator-rol-necunoscut/"
 
-#: civil_society_vote/urls.py:73
+#: civil_society_vote/urls.py:78
 msgid "accounts/error/user-role/"
 msgstr "cont/eroare/rol-utilizator/"
 
-#: civil_society_vote/urls.py:77
+#: civil_society_vote/urls.py:82
 msgid "accounts/"
 msgstr "cont/"
 
-#: civil_society_vote/urls.py:79
+#: civil_society_vote/urls.py:84
 msgid "accounts/reset-password/"
 msgstr "cont/reseteaza-parola/"
 
-#: civil_society_vote/urls.py:87
+#: civil_society_vote/urls.py:92
 msgid "accounts/reset-password/done/"
 msgstr "cont/reseteaza-parola/gata/"
 
-#: civil_society_vote/urls.py:92
+#: civil_society_vote/urls.py:97
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr "cont/reseteaza-parola/<uidb64>/<token>/"
 
-#: civil_society_vote/urls.py:97
+#: civil_society_vote/urls.py:102
 msgid "accounts/set-password/<uidb64>/<token>/"
 msgstr "cont/seteaza-parola/<uidb64>/<token>/"
 
-#: civil_society_vote/urls.py:102
+#: civil_society_vote/urls.py:107
 msgid "accounts/reset-password/complete/"
 msgstr "cont/reseteaza-parola/complet/"
 
-#: civil_society_vote/urls.py:107
+#: civil_society_vote/urls.py:112
 msgid "authentication/"
 msgstr "autentificare/"
 
@@ -660,8 +664,8 @@ msgstr "Articol blog"
 msgid "Blog posts"
 msgstr "Articole blog"
 
-#: hub/models.py:163 hub/templates/hub/home.html:288
-#: hub/templates/hub/home.html:289
+#: hub/models.py:163 hub/templates/hub/home.html:289
+#: hub/templates/hub/home.html:290
 msgid "Name"
 msgstr "Nume"
 
@@ -1202,6 +1206,10 @@ msgstr "Regulament platformă"
 msgid "Methodology"
 msgstr "Metodologie"
 
+#: hub/templates/hub/footer.html:37
+msgid "soon"
+msgstr "în curând"
+
 #: hub/templates/hub/footer.html:38
 msgid "Privacy policy"
 msgstr "Politică de confidențialitate"
@@ -1263,12 +1271,12 @@ msgstr "Ieșire cont"
 msgid "Login"
 msgstr "Autentificare"
 
-#: hub/templates/hub/home.html:304 hub/templates/hub/home.html:305
+#: hub/templates/hub/home.html:305 hub/templates/hub/home.html:306
 #: hub/templates/registration/login.html:49
 msgid "Email"
 msgstr "Email"
 
-#: hub/templates/hub/home.html:319 hub/templates/hub/home.html:320
+#: hub/templates/hub/home.html:320 hub/templates/hub/home.html:321
 msgid "Message"
 msgstr "Mesaj"
 

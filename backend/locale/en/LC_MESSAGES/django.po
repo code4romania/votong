@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 14:35+0300\n"
+"POT-Creation-Date: 2024-10-17 15:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,70 +275,74 @@ msgid "methodology/"
 msgstr ""
 
 #: civil_society_vote/urls.py:25
-msgid "terms/"
+msgid "old-methodology/"
 msgstr ""
 
 #: civil_society_vote/urls.py:30
-msgid "committee_public_statement/"
+msgid "terms/"
 msgstr ""
 
 #: civil_society_vote/urls.py:35
+msgid "committee_public_statement/"
+msgstr ""
+
+#: civil_society_vote/urls.py:40
 msgid "platform_rules/"
 msgstr ""
 
-#: civil_society_vote/urls.py:36
+#: civil_society_vote/urls.py:41
 msgid "history/"
 msgstr ""
 
-#: civil_society_vote/urls.py:48
+#: civil_society_vote/urls.py:53
 msgid "accounts/error/registration-closed/"
 msgstr ""
 
-#: civil_society_vote/urls.py:53
+#: civil_society_vote/urls.py:58
 msgid "accounts/error/duplicate-organization/"
 msgstr ""
 
-#: civil_society_vote/urls.py:58
+#: civil_society_vote/urls.py:63
 msgid "accounts/error/missing-organization/"
 msgstr ""
 
-#: civil_society_vote/urls.py:63
+#: civil_society_vote/urls.py:68
 msgid "accounts/error/missing-application/"
 msgstr ""
 
-#: civil_society_vote/urls.py:68
+#: civil_society_vote/urls.py:73
 msgid "accounts/error/unkown-user-role/"
 msgstr ""
 
-#: civil_society_vote/urls.py:73
+#: civil_society_vote/urls.py:78
 msgid "accounts/error/user-role/"
 msgstr ""
 
-#: civil_society_vote/urls.py:77
+#: civil_society_vote/urls.py:82
 msgid "accounts/"
 msgstr ""
 
-#: civil_society_vote/urls.py:79
+#: civil_society_vote/urls.py:84
 msgid "accounts/reset-password/"
 msgstr ""
 
-#: civil_society_vote/urls.py:87
+#: civil_society_vote/urls.py:92
 msgid "accounts/reset-password/done/"
 msgstr ""
 
-#: civil_society_vote/urls.py:92
+#: civil_society_vote/urls.py:97
 msgid "accounts/reset-password/<uidb64>/<token>/"
 msgstr ""
 
-#: civil_society_vote/urls.py:97
+#: civil_society_vote/urls.py:102
 msgid "accounts/set-password/<uidb64>/<token>/"
 msgstr ""
 
-#: civil_society_vote/urls.py:102
+#: civil_society_vote/urls.py:107
 msgid "accounts/reset-password/complete/"
 msgstr ""
 
-#: civil_society_vote/urls.py:107
+#: civil_society_vote/urls.py:112
 msgid "authentication/"
 msgstr ""
 
@@ -636,8 +640,8 @@ msgstr ""
 msgid "Blog posts"
 msgstr ""
 
-#: hub/models.py:163 hub/templates/hub/home.html:288
-#: hub/templates/hub/home.html:289
+#: hub/models.py:163 hub/templates/hub/home.html:289
+#: hub/templates/hub/home.html:290
 msgid "Name"
 msgstr ""
 
@@ -1157,6 +1161,10 @@ msgstr ""
 msgid "Methodology"
 msgstr ""
 
+#: hub/templates/hub/footer.html:37
+msgid "soon"
+msgstr ""
+
 #: hub/templates/hub/footer.html:38
 msgid "Privacy policy"
 msgstr ""
@@ -1218,12 +1226,12 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: hub/templates/hub/home.html:304 hub/templates/hub/home.html:305
+#: hub/templates/hub/home.html:305 hub/templates/hub/home.html:306
 #: hub/templates/registration/login.html:49
 msgid "Email"
 msgstr ""
 
-#: hub/templates/hub/home.html:319 hub/templates/hub/home.html:320
+#: hub/templates/hub/home.html:320 hub/templates/hub/home.html:321
 msgid "Message"
 msgstr ""
 
