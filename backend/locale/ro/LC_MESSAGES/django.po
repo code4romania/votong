@@ -1036,8 +1036,8 @@ msgid "Read more"
 msgstr "Citește mai mult"
 
 #: hub/templates/hub/blog/list.html:64
-msgid "No blog posts have been posted yet."
-msgstr "Nu au fost postate încă articole de blog."
+msgid "No blog posts have been published yet."
+msgstr "Nu au fost publicate încă articole pe blog."
 
 #: hub/templates/hub/blog/post.html:17
 msgid "by"

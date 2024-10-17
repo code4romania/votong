@@ -991,7 +991,7 @@ msgid "Read more"
 msgstr ""
 
 #: hub/templates/hub/blog/list.html:64
-msgid "No blog posts have been posted yet."
+msgid "No blog posts have been published yet."
 msgstr ""
 
 #: hub/templates/hub/blog/post.html:17
