@@ -10,7 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django_recaptcha.fields import ReCaptchaField
 
 from civil_society_vote.common.messaging import send_email
-from hub.models import Candidate, City, Domain, FLAG_CHOICES, FeatureFlag, Organization
+from hub.models import FLAG_CHOICES, PHASE_CHOICES, Candidate, City, Domain, FeatureFlag, Organization
+from sentry_sdk import capture_message
 
 UserModel = get_user_model()
 
@@ -335,19 +336,33 @@ class CandidateUpdateForm(CandidateCommonForm):
                 self.fields[field_name].disabled = True
 
     def save(self, commit=True):
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+        is_user_staff = self.user.in_committee_or_staff_groups()
+        is_registration_open = FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
+        if not is_user_staff and not is_registration_open:
             # This should not happen unless someone messes with the form code
-            raise PermissionDenied
+            raise PermissionDenied(_("Candidate registration is closed."))
 
         candidate = Candidate.objects_with_org.get(pk=self.instance.id)
+
+        is_candidate_confirmation = FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_confirmation)
+        if is_user_staff and not candidate.is_proposed and not is_candidate_confirmation:
+            raise PermissionDenied(
+                _("You cannot edit a candidate that is not proposed and outside of the candidate confirmation period.")
+            )
 
         if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
             if commit:
                 # This should not happen unless someone messes with the form code
-                raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
+                if settings.ENABLE_SENTRY:
+                    capture_message(
+                        message=(
+                            f"Field 'is_proposed' does not appear for candidate {candidate} "
+                            f"in form {self.__class__.__name__} in a request from user {self.user}."
+                        ),
+                        level="error",
+                    )
 
-        if self.user.in_committee_or_staff_groups() and not candidate.is_proposed:
-            raise PermissionDenied
+                raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
 
         return super().save(commit)
 
