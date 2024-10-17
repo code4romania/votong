@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 10:49+0300\n"
+"POT-Creation-Date: 2024-10-17 14:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -986,8 +986,12 @@ msgstr ""
 msgid "Upload CSV file and add new cities"
 msgstr ""
 
-#: hub/templates/hub/blog/list.html:41
+#: hub/templates/hub/blog/list.html:49
 msgid "Read more"
+msgstr ""
+
+#: hub/templates/hub/blog/list.html:64
+msgid "No blog posts have been posted yet."
 msgstr ""
 
 #: hub/templates/hub/blog/post.html:17

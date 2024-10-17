@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 10:49+0300\n"
+"POT-Creation-Date: 2024-10-17 14:35+0300\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -436,7 +436,8 @@ msgstr "Încarcă orașe"
 #: hub/admin.py:522
 #, python-brace-format
 msgid "Configuration invalid. Missing flag(s) in database: {missing_flags}."
-msgstr "Configurație invalidă. Lipsesc acțiunile din baza de date: {missing_flags}."
+msgstr ""
+"Configurație invalidă. Lipsesc acțiunile din baza de date: {missing_flags}."
 
 #: hub/admin.py:534
 #, python-brace-format
@@ -1030,9 +1031,13 @@ msgstr "Încărcare"
 msgid "Upload CSV file and add new cities"
 msgstr "Încarcă fișier CSV și adaugă orașe"
 
-#: hub/templates/hub/blog/list.html:41
+#: hub/templates/hub/blog/list.html:49
 msgid "Read more"
 msgstr "Citește mai mult"
+
+#: hub/templates/hub/blog/list.html:64
+msgid "No blog posts have been posted yet."
+msgstr "Nu au fost postate încă articole de blog."
 
 #: hub/templates/hub/blog/post.html:17
 msgid "by"
