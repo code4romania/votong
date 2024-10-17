@@ -14,7 +14,7 @@
 {% block content %}
 
   <div class="section light-bg">
-    <div class="container tight-container">
+    <div class="container">
       <div class="columns is-vcentered">
         <div class="column is-half">
           <h1 class="section-title">VotONG</h1>
@@ -107,7 +107,7 @@
   {% endif %}
 
   <div class="section">
-    <div class="container tight-container">
+    <div class="container">
       <h1 class="section-title">Cum funcționează</h1>
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-12 is-parent">
@@ -231,88 +231,89 @@
     </div>
   {% endif %}
 
-  <div id="contact" class="container tight-container columns is-centered">
-    <div class="column">
-      <h3 class="tile-title">Cum ne poți contacta</h3>
-      <p>
-        Dacă vrei să iei legătura cu noi, pentru sugestii, propuneri de îmbunătățire sau dacă ai întrebări,
-        atunci te rugăm să folosești formularul alăturat.
-      </p>
-      <p>
-        Platforma VotONG este dezvoltată pro-bono de Asociația Code for Romania și este parte dintr-un ecosistem larg
-        de soluții dedicat societății civile.
-        Dacă vrei să ne susții, o poți face folosind butonul
-        <strong>Implică-te</strong> de mai jos,
-        setând o donație recurentă pentru noi.
-      </p>
-      <a href="https://code4.ro/doneaza" class="button is-warning">Implică-te</a>
-    </div>
+  <div class="container is-centered">
+    <div id="contact" class="columns">
+      <div class="column">
+        <h3 class="tile-title">Cum ne poți contacta</h3>
+        <p>
+          Dacă vrei să iei legătura cu noi, pentru sugestii, propuneri de îmbunătățire sau dacă ai întrebări,
+          atunci te rugăm să folosești formularul alăturat.
+        </p>
+        <p>
+          Platforma VotONG este dezvoltată pro-bono de Asociația Code for Romania și este parte dintr-un ecosistem larg
+          de soluții dedicat societății civile.
+          Dacă vrei să ne susții, o poți face folosind butonul
+          <strong>Implică-te</strong> de mai jos,
+          setând o donație recurentă pentru noi.
+        </p>
+        <a href="https://code4.ro/doneaza" class="button is-warning">Implică-te</a>
+      </div>
 
-    <div id="contact-form" class="column">
+      <div id="contact-form" class="column">
 
-      {% if messages %}
-        <article class="message is-success">
-          <div class="message-body">
-            {% for message in messages %}
-              {{ message }}
-            {% endfor %}
-          </div>
-        </article>
-      {% endif %}
+        {% if messages %}
+          <article class="message is-success">
+            <div class="message-body">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+            </div>
+          </article>
+        {% endif %}
 
-      <form action="" method="post" class="box">
-        {{ form.non_field_errors }}
+        <form action="" method="post" class="box">
+          {{ form.non_field_errors }}
 
-        {% for hidden_field in form.hidden_fields %}
-          {% if hidden_field.errors %}
-            <article class="message is-danger">
-              <div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div>
-            </article>
-          {% endif %}
-        {% endfor %}
+          {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+              <article class="message is-danger">
+                <div class="message-body">Erori "{{ hidden_field.label }}": {{ hidden_field.errors }}</div>
+              </article>
+            {% endif %}
+          {% endfor %}
 
-        {% for field in form %}
-          {% if field.errors %}
-            <article class="message is-danger">
-              <div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div>
-            </article>
-          {% endif %}
-        {% endfor %}
+          {% for field in form %}
+            {% if field.errors %}
+              <article class="message is-danger">
+                <div class="message-body">Erori "{{ field.label }}": {{ field.errors }}</div>
+              </article>
+            {% endif %}
+          {% endfor %}
 
-        <div class="field">
-          <div class="control has-icons-left has-icons-right">
-            <input
-              id="contact-name"
-              class="input"
-              type="text"
-              aria-label="{% trans 'Name' %}"
-              placeholder="{% trans 'Name' %}"
-              name="name"/>
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input
+                id="contact-name"
+                class="input"
+                type="text"
+                aria-label="{% trans 'Name' %}"
+                placeholder="{% trans 'Name' %}"
+                name="name"/>
 
-            <span class="icon is-small is-left">
+              <span class="icon is-small is-left">
               <i class="fas fa-graduation-cap"></i>
             </span>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <div class="control has-icons-left has-icons-right">
-            <input
-              id="contact-email"
-              class="input"
-              type="text"
-              aria-label="{% trans 'Email' %}"
-              placeholder="{% trans 'Email' %}"
-              name="email"/>
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input
+                id="contact-email"
+                class="input"
+                type="text"
+                aria-label="{% trans 'Email' %}"
+                placeholder="{% trans 'Email' %}"
+                name="email"/>
 
-            <span class="icon is-small is-left">
+              <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <div class="control has-icons-left has-icons-right">
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
             <textarea
               id="contact-message"
               class="input"
@@ -320,25 +321,26 @@
               placeholder="{% trans 'Message' %}"
               name="message"></textarea>
 
-            <span class="icon is-small is-left">
+              <span class="icon is-small is-left">
               <i class="fas fa-unlock-alt"></i>
             </span>
+            </div>
           </div>
-        </div>
 
-        {{ form.captcha }}
+          {{ form.captcha }}
 
-        <label class="checkbox">
-          <input type="checkbox" name="terms_and_conditions">
-          Sunt de acord cu <a href="{% url 'terms' %}">termenii și condițiile platformei VotONG</a>.
-        </label>
+          <label class="checkbox">
+            <input type="checkbox" name="terms_and_conditions">
+            Sunt de acord cu <a href="{% url 'terms' %}">termenii și condițiile platformei VotONG</a>.
+          </label>
 
 
-        <div id="contact-form-buttons">
-          <button type="submit" class="button is-warning">Trimite</button>
-          {% csrf_token %}
-        </div>
-      </form>
+          <div id="contact-form-buttons">
+            <button type="submit" class="button is-warning">Trimite</button>
+            {% csrf_token %}
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

@@ -19,7 +19,7 @@
     </div>
 
     {% block left-side-view %}
-      <div class="container tight-container content mb-50">
+      <div class="container content mb-50">
         {{ blogpost.content|safe }}
         <a href="{% url 'blog-list' %}" class="">&laquo; {% trans "back to article list" %}</a>
       </div>
