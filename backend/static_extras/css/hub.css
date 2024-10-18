@@ -631,3 +631,12 @@ hr.tight {
   background-color: var(--active-yellow);
   color: var(--black);
 }
+
+.inline-subtle-link {
+  font-size: 1em;
+  color: #363636;
+
+  &:hover {
+    color: #165ccc;
+  }
+}

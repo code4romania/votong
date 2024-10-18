@@ -34,7 +34,7 @@
         <ul id="footer-links">
           <li><a href="{% url 'about' %}">{% trans "About VotONG" %}</a></li>
           <li><a href="{% url 'platform_rules' %}">{% trans "Platform rules" %}</a></li>
-          <li><a href="{% url 'methodology' %}">{% trans "Methodology" %} ({% trans "soon" %})</a></li>
+          <li><a href="{% url 'election_rules' %}">{% trans "Methodology" %}</a></li>
           <li><a href="{% url 'cookies' %}">{% trans "Privacy policy" %}</a></li>
           <li><a href="{% url 'terms' %}">{% trans "Terms and conditions" %}</a></li>
           {% if not request.user.is_authenticated %}
