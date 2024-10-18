@@ -1,9 +1,11 @@
 import logging
 from datetime import datetime
+from typing import Dict, Optional
 from urllib.parse import unquote
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
@@ -19,11 +21,12 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
+from django.views.generic.base import ContextMixin
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -33,6 +36,7 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
+    FLAG_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -40,7 +44,6 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
-    FLAG_CHOICES,
     FeatureFlag,
     Organization,
 )
@@ -48,17 +51,12 @@ from hub.workers.update_organization import update_organization
 
 logger = logging.getLogger(__name__)
 
+UserModel = get_user_model()
 
-class MenuMixin:
+
+class MenuMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        if not self.request.user or self.request.user.is_anonymous:
-            return context
-
-        # user_org = self.request.user.orgs.first()
-        # if user_org:
-        #     context["user_org_candidate"] = user_org.candidate
 
         return context
 
@@ -74,15 +72,17 @@ class HomeView(MenuMixin, SuccessMessageMixin, FormView):
         return super().form_valid(form)
 
 
-class HubListView(MenuMixin, ListView):
+class SearchMixin(MenuMixin, ListView):
+    search_cache: Optional[Dict] = {}
+
     def search(self, queryset):
         # TODO: it should take into account selected language. Check only romanian for now.
         query = self.request.GET.get("q")
         if not query:
             return queryset
 
-        if hasattr(self, "search_cache") and query in self.search_cache:
-            return self.search_cache[query]
+        if query_cache := self.search_cache.get(query):
+            return query_cache
 
         search_query = SearchQuery(query, config="romanian_unaccent")
 
@@ -97,8 +97,6 @@ class HubListView(MenuMixin, ListView):
             .order_by("name")
             .distinct("name")
         )
-        if not hasattr(self, "search_cache"):
-            self.search_cache = {}
 
         self.search_cache[query] = result
 
@@ -117,7 +115,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
     pass
 
 
-class CommitteeOrganizationListView(LoginRequiredMixin, HubListView):
+class CommitteeOrganizationListView(LoginRequiredMixin, SearchMixin):
     allow_filters = ["status"]
     paginate_by = 9
     template_name = "hub/committee/list.html"
@@ -152,7 +150,7 @@ def _get_candidates_counters():
     }
 
 
-class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
+class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
     allow_filters = ["status"]
     paginate_by = 9
     template_name = "hub/committee/candidates.html"
@@ -175,7 +173,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, HubListView):
         return context
 
 
-class ElectorCandidatesListView(LoginRequiredMixin, HubListView):
+class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
     allow_filters = ["status"]
     paginate_by = 9
     template_name = "hub/ngo/votes.html"
@@ -188,7 +186,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, HubListView):
         return [element.candidate for element in voted_candidates]
 
 
-class OrganizationListView(HubListView):
+class OrganizationListView(SearchMixin):
     allow_filters = ["county", "city"]
     paginate_by = 9
     template_name = "hub/ngo/list.html"
@@ -241,7 +239,7 @@ class OrganizationDetailView(HubDetailView):
     model = Organization
 
     def get_queryset(self):
-        user = self.request.user
+        user: UserModel = self.request.user
 
         if org_pk := self.kwargs.get("pk"):
             if user.is_authenticated and user.orgs.exists() and user.orgs.first().pk == org_pk:
@@ -252,7 +250,7 @@ class OrganizationDetailView(HubDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user: User = self.request.user
+        user: UserModel = self.request.user
 
         context["can_view_all_information"] = False
 
@@ -370,7 +368,7 @@ def organization_vote(request, pk, action):
         return redirect("ngo-detail", pk=pk)
 
 
-class CandidateListView(HubListView):
+class CandidateListView(SearchMixin):
     allow_filters = ["domain"]
     paginate_by = 9
     template_name = "hub/candidate/list.html"
@@ -427,7 +425,7 @@ class CandidateListView(HubListView):
         return context
 
 
-class CandidateResultsView(HubListView):
+class CandidateResultsView(SearchMixin):
     allow_filters = ["domain"]
     paginate_by = 23
     template_name = "hub/candidate/results.html"
@@ -484,7 +482,7 @@ class CandidateDetailView(HubDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user: User = self.request.user
+        user: UserModel = self.request.user
         candidate: Candidate = self.object
 
         context["can_support_candidate"] = False
