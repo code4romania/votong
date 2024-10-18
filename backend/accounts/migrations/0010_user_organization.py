@@ -8,7 +8,7 @@ def reverse_user_organization_relationship(apps, _):
     UserModel = apps.get_model("accounts", "User")
 
     for user in UserModel.objects.all():
-        if user_org := user.orgs.first():
+        if user_org := user.organization:
             user.organization = user_org
             user.save()
 

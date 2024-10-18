@@ -478,16 +478,16 @@ class Organization(StatusModel, TimeStampedModel):
         if self.status == self.STATUS.ngohub_accepted and self.voting_domain:
             self.status = self.STATUS.accepted
 
-        if self.status == self.STATUS.accepted and not self.user:
-            owner = self.create_owner()
-            self.user = owner
+        if self.status == self.STATUS.accepted and not self.users.exists():
+            self.create_owner()
 
         super().save(*args, **kwargs)
 
-        if self.user:
-            assign_perm("view_data_organization", self.user, self)
-            assign_perm("view_organization", self.user, self)
-            assign_perm("change_organization", self.user, self)
+        if self.users:
+            for user in self.users.all():
+                assign_perm("view_data_organization", user, self)
+                assign_perm("view_organization", user, self)
+                assign_perm("change_organization", user, self)
 
         if create:
             assign_perm("view_data_organization", Group.objects.get(name=STAFF_GROUP), self)
@@ -498,10 +498,13 @@ class Organization(StatusModel, TimeStampedModel):
 
     def create_owner(self):
         user = User()
+
         user.username = self.email
         user.email = self.email
         user.set_password(get_random_string(10))
         user.is_active = True
+        user.organization = self
+
         user.save()
 
         # Add organization user to the NGO group
