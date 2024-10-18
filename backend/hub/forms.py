@@ -247,7 +247,7 @@ class CandidateCommonForm(forms.ModelForm):
 
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
             self.fields["domain"].widget.attrs["disabled"] = True
-            if self.initial["domain"] is None:
+            if self.initial.get("domain") is None:
                 overwrite_domain = self.organization.voting_domain
 
         if overwrite_domain:
