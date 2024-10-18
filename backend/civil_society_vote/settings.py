@@ -105,8 +105,11 @@ env = environ.Env(
     EMAIL_HOST_PASSWORD=(str, ""),
     EMAIL_USE_TLS=(str, ""),
     EMAIL_FAIL_SILENTLY=(bool, False),
+    # default e-mail addresses
     DEFAULT_FROM_EMAIL=(str, "no-reply@code4.ro"),
     NO_REPLY_EMAIL=(str, "no-reply@code4.ro"),
+    CONTACT_EMAIL=(str, "contact@votong.ro"),
+    COMISSION_EMAIL=(str, "comisie@votong.ro"),
     # ngo hub api settings
     VOTONG_WEBSITE=(str, ""),
     NGOHUB_HOME_HOST=(str, "ngohub.ro"),
@@ -436,8 +439,9 @@ EMAIL_SEND_METHOD = env.str("EMAIL_SEND_METHOD")
 EMAIL_FAIL_SILENTLY = env.bool("EMAIL_FAIL_SILENTLY")
 
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
-CONTACT_EMAIL = env.str("CONTACT_EMAIL", default=DEFAULT_FROM_EMAIL)
 NO_REPLY_EMAIL = env.str("NO_REPLY_EMAIL")
+CONTACT_EMAIL = env.str("CONTACT_EMAIL")
+COMISSION_EMAIL = env.str("COMISSION_EMAIL")
 
 if EMAIL_BACKEND == "django_ses.SESBackend":
     AWS_SES_CONFIGURATION_SET_NAME = env.str("AWS_SES_CONFIGURATION_SET_NAME")

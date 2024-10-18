@@ -23,6 +23,8 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         "REGISTER_URL": register_url,
         "NGOHUB_HOME": settings.NGOHUB_HOME_HOST,
         "NGOHUB_HOME_FULL": settings.NGOHUB_HOME_BASE,
+        "CONTACT_EMAIL": settings.CONTACT_EMAIL,
+        "COMISSION_EMAIL": settings.COMISSION_EMAIL,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_registration, False),
         "CANDIDATE_SUPPORTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_supporting, False),
