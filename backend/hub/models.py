@@ -225,8 +225,6 @@ class Organization(StatusModel, TimeStampedModel):
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.draft, max_length=30, db_index=True)
 
-    user = models.ForeignKey(UserModel, on_delete=models.SET_NULL, null=True, blank=True, related_name="orgs")
-
     ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organization ID"), default=0, db_index=True)
 
     name = models.CharField(_("NGO Name"), max_length=254, blank=True, default="")
