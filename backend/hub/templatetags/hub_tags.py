@@ -26,7 +26,7 @@ def already_confirmed_candidate_status(user, candidate):
 
 @register.filter
 def has_all_org_documents(user):
-    return user.orgs.first().is_complete()
+    return user.organization.is_complete()
 
 
 @register.simple_tag
@@ -58,7 +58,7 @@ def org_logo(user, width=settings.AVATAR_DEFAULT_SIZE, height=None, **kwargs):
     if not user:
         return ""
 
-    org = user.orgs.first()
+    org = user.organization
     logo_url = settings.AVATAR_DEFAULT_URL
     if org and org.logo:
         logo_url = org.logo.url

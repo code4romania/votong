@@ -100,14 +100,20 @@ def check_app_enabled_in_ngohub(token: str) -> bool:
     return False
 
 
-def create_blank_org(user, commit=True) -> Organization:
+def create_user_org(user: User) -> Organization:
     """
-    Create a blank Organization (with a draft status) for a User
+    Create a blank Organization for a User and return it
     """
 
-    org = Organization(user=user, accept_terms_and_conditions=True, status=Organization.STATUS.draft)
-    if commit:
-        org.save()
+    org = Organization()
+
+    org.accept_terms_and_conditions = True
+    org.status = Organization.STATUS.draft
+
+    org.save()
+
+    user.organization = org
+    user.save()
 
     return org
 
@@ -124,8 +130,8 @@ def update_user_information(user: User, token: str):
     if user_role == settings.NGOHUB_ROLE_SUPER_ADMIN:
         # A super admin from NGO Hub will become a Django admin on VotONG
         # Remove any existing organizations
-        if user.orgs.exists():
-            user.orgs.all().delete()
+        if user.organization:
+            user.organization = None
 
         user.first_name = user_profile.get("name", "")
         user.is_superuser = True
@@ -152,9 +158,8 @@ def update_user_information(user: User, token: str):
         ngo_group: Group = Group.objects.get(name=NGO_GROUP)
         user.groups.add(ngo_group)
 
-        org = Organization.objects.filter(user=user).first()
-        if not org:
-            org = create_blank_org(user)
+        if not (org := user.organization):
+            org = None
 
         return org
 
@@ -169,15 +174,19 @@ def update_user_information(user: User, token: str):
 
 def common_user_init(sociallogin: SocialLogin) -> User:
     user = sociallogin.user
-    if user.is_superuser:
-        return user
 
     # Create a blank Organization for the newly registered user
     org = update_user_information(user, sociallogin.token.token)
 
+    # Admins are not linked to any organization
+    if user.groups.filter(name=STAFF_GROUP).exists():
+        return user
+
     # Start the import of initial data from NGO Hub
-    if org:
-        update_user_org(org, sociallogin.token.token, in_auth_flow=True)
+    if not org:
+        org = create_user_org(user)
+
+    update_user_org(org, sociallogin.token.token, in_auth_flow=True)
 
     return user
 

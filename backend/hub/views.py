@@ -26,7 +26,7 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -239,10 +239,10 @@ class OrganizationDetailView(HubDetailView):
     model = Organization
 
     def get_queryset(self):
-        user: UserModel = self.request.user
+        user: User = self.request.user
 
         if org_pk := self.kwargs.get("pk"):
-            if user.is_authenticated and user.orgs.exists() and user.orgs.first().pk == org_pk:
+            if user.is_authenticated and user.organization and user.organization.pk == org_pk:
                 return Organization.objects.filter(pk=org_pk)
             return Organization.objects.filter(pk=org_pk, status=Organization.STATUS.accepted)
 
@@ -482,7 +482,7 @@ class CandidateDetailView(HubDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user: UserModel = self.request.user
+        user: User = self.request.user
         candidate: Candidate = self.object
 
         context["can_support_candidate"] = False
@@ -498,7 +498,7 @@ class CandidateDetailView(HubDetailView):
         if user.is_anonymous:
             return context
 
-        if candidate.org in user.orgs.all():
+        if candidate.org == user.organization:
             context["own_candidate"] = True
 
         # Candidate Support checks
@@ -507,8 +507,8 @@ class CandidateDetailView(HubDetailView):
             and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting)
             and candidate.is_proposed
             and candidate.org.status == Organization.STATUS.accepted
-            and user.orgs.first()
-            and user.orgs.first().is_elector(candidate.domain)
+            and user.organization
+            and user.organization.is_elector(candidate.domain)
             and user.has_perm("hub.support_candidate")
         ):
             context["can_support_candidate"] = True
@@ -580,7 +580,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         context["can_propose_candidate"] = False
 
         user = self.request.user
-        user_org: Organization = user.orgs.first()
+        user_org: Organization = user.organization
         candidate: Candidate = self.object
 
         if (
@@ -634,10 +634,10 @@ def candidate_vote(request, pk):
             text_template="hub/emails/04_vote_audit.txt",
             html_template="hub/emails/04_vote_audit.html",
             context={
-                "org": vote.user.orgs.first().name,
+                "org": vote.user.organization.name,
                 "candidate": vote.candidate.name,
                 "timestamp": timezone.localtime(vote.created).strftime("%H:%M:%S (%d/%m/%Y)"),
-                "org_link": f"{protocol}://{current_site.domain}{vote.user.orgs.first().get_absolute_url()}",
+                "org_link": f"{protocol}://{current_site.domain}{vote.user.organization.get_absolute_url()}",
                 "candidate_link": f"{protocol}://{current_site.domain}{vote.candidate.get_absolute_url()}",
             },
         )
@@ -655,7 +655,7 @@ def candidate_revoke(request, pk):
 
     candidate = get_object_or_404(Candidate, pk=pk)
 
-    if candidate.org != request.user.orgs.first():
+    if candidate.org != request.user.organization:
         return redirect("candidate-detail", pk=pk)
 
     with transaction.atomic():
@@ -673,7 +673,7 @@ def candidate_support(request, pk):
         raise PermissionDenied
 
     user = request.user
-    user_org = user.orgs.first()
+    user_org = user.organization
     if user_org.status != Organization.STATUS.accepted:
         raise PermissionDenied
 
@@ -704,7 +704,7 @@ def candidate_status_confirm(request, pk):
 
     candidate: Candidate = get_object_or_404(Candidate, pk=pk)
 
-    if candidate.org == request.user.orgs.first() or candidate.status == Candidate.STATUS.pending:
+    if candidate.org == request.user.organization or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)
 
     confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
@@ -723,7 +723,7 @@ def candidate_status_confirm(request, pk):
 def update_organization_information(request, pk):
     user = request.user
     user_is_admin = user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
-    user_is_org_owner = user.orgs.first().pk == pk
+    user_is_org_owner = user.organization.pk == pk
     if user.is_anonymous or (not user_is_admin and not user_is_org_owner):
         raise PermissionDenied
 

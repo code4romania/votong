@@ -232,7 +232,7 @@ class CandidateCommonForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
-        self.organization: Organization = self.user.orgs.first()
+        self.organization: Organization = self.user.organization
 
         if self.user.in_committee_or_staff_groups():
             return
@@ -290,7 +290,7 @@ class CandidateRegisterForm(CandidateCommonForm):
         self.initial["org"] = self.organization.id
 
     def clean_org(self):
-        return self.user.orgs.first().id
+        return self.user.organization.id
 
     def clean_domain(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
@@ -300,12 +300,12 @@ class CandidateRegisterForm(CandidateCommonForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        if cleaned_data.get("is_proposed") and not self.user.orgs.first().is_complete:
+        if cleaned_data.get("is_proposed") and not self.user.organization.is_complete:
             raise ValidationError(
                 _("To add a candidate you must upload all required documents in 'Organization Profile'")
             )
 
-        if cleaned_data.get("is_proposed") and not self.user.orgs.first().candidate.is_complete:
+        if cleaned_data.get("is_proposed") and not self.user.organization.candidate.is_complete:
             raise ValidationError(_("Please add all candidate fields"))
 
         return cleaned_data
