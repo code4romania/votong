@@ -27,6 +27,14 @@ class User(AbstractUser):
     email = models.EmailField(verbose_name=_("email address"), blank=False, null=False, unique=True)
     is_ngohub_user = models.BooleanField(default=False)
 
+    organization = models.ForeignKey(
+        "hub.Organization",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="users",
+    )
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
