@@ -28,7 +28,7 @@ urlpatterns_i18n = i18n_patterns(
     ),
     path(
         _("committee_public_statement/"),
-        StaticPageView.as_view(template_name="hub/comittee_statement.html"),
+        StaticPageView.as_view(template_name="hub/committee_statement.html"),
         name="committee_public_statement",
     ),
     path("cookies/", StaticPageView.as_view(template_name="hub/cookies.html"), name="cookies"),
@@ -65,7 +65,7 @@ urlpatterns_i18n = i18n_patterns(
         name="error-app-missing",
     ),
     path(
-        _("accounts/error/unkown-user-role/"),
+        _("accounts/error/unknown-user-role/"),
         StaticPageView.as_view(template_name="accounts/error_unknown_user_role.html"),
         name="error-unknown-user-role",
     ),

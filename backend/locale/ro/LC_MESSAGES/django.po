@@ -318,7 +318,7 @@ msgid "accounts/error/missing-application/"
 msgstr "cont/eroare/aplicatie-lipsa/"
 
 #: civil_society_vote/urls.py:68
-msgid "accounts/error/unkown-user-role/"
+msgid "accounts/error/unknown-user-role/"
 msgstr "cont/eroare/utilizator-rol-necunoscut/"
 
 #: civil_society_vote/urls.py:73

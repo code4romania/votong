@@ -307,7 +307,7 @@ msgid "accounts/error/missing-application/"
 msgstr ""
 
 #: civil_society_vote/urls.py:68
-msgid "accounts/error/unkown-user-role/"
+msgid "accounts/error/unknown-user-role/"
 msgstr ""
 
 #: civil_society_vote/urls.py:73

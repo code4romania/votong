@@ -16,19 +16,19 @@ from sentry_sdk import capture_message
 UserModel = get_user_model()
 
 ORG_FIELD_ORDER = [
-    "name",
-    "county",
-    "city",
-    "address",
-    "registration_number",
-    "email",
-    "phone",
-    "description",
     "voting_domain",
+    "name",
+    "email",
     "legal_representative_name",
     "legal_representative_email",
     "legal_representative_phone",
     "board_council",
+    "registration_number",
+    "county",
+    "city",
+    "address",
+    "phone",
+    "description",
     "logo",
     "last_balance_sheet",
     "statute",
@@ -90,10 +90,12 @@ class OrganizationCreateForm(forms.ModelForm):
                 pass  # invalid input, fallback to empty queryset
 
         self.fields["accept_terms_and_conditions"].required = True
+        # noinspection DjangoSafeString
         self.fields["accept_terms_and_conditions"].label = mark_safe(
             _(
-                'I agree to the <a href="https://votong.ro/ro/termeni/" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> '
-                "of the VotONG platform"
+                f'I agree to the <a href="{reverse_lazy("terms")}" '
+                'target="_blank" rel="noreferrer">'
+                "Terms and Conditions</a> of the VotONG platform"
             )
         )
 
