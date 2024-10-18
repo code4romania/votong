@@ -481,6 +481,9 @@ class Organization(StatusModel, TimeStampedModel):
 
         super().save(*args, **kwargs)
 
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
+            Candidate.objects.filter(org=self).update(domain=self.voting_domain)
+
         if self.users:
             for user in self.users.all():
                 assign_perm("view_data_organization", user, self)
