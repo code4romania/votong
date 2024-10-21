@@ -455,10 +455,10 @@ class Organization(StatusModel, TimeStampedModel):
                 candidate.delete()
 
         # Remove support that the organization has given
-        CandidateSupporter.objects.filter(user__org=self).delete()
+        CandidateSupporter.objects.filter(user__organization=self).delete()
 
         # Remove votes that the organization has given
-        CandidateVote.objects.filter(user__org=self).delete()
+        CandidateVote.objects.filter(user__organization=self).delete()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
@@ -717,10 +717,11 @@ class Candidate(StatusModel, TimeStampedModel):
         super().save(*args, **kwargs)
 
         if create:
-            assign_perm("view_candidate", self.org.user, self)
-            assign_perm("change_candidate", self.org.user, self)
-            assign_perm("delete_candidate", self.org.user, self)
-            assign_perm("view_data_candidate", self.org.user, self)
+            for org_user in self.org.users.all():
+                assign_perm("view_candidate", org_user, self)
+                assign_perm("change_candidate", org_user, self)
+                assign_perm("delete_candidate", org_user, self)
+                assign_perm("view_data_candidate", org_user, self)
 
 
 class CandidateVote(TimeStampedModel):
