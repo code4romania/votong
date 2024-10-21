@@ -487,18 +487,112 @@ class CandidateDetailView(HubDetailView):
             .filter(org__status=Organization.STATUS.accepted, is_proposed=True)
         )
 
+    @staticmethod
+    def _get_candidate_support_context(user: User, candidate: Candidate) -> Dict[str, bool]:
+        context = {
+            "can_support_candidate": False,
+            "supported_candidate": False,
+        }
+
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.global_support_round):
+            return context
+
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting):
+            return context
+
+        if not candidate.is_proposed:
+            return context
+
+        if not candidate.org.status == Organization.STATUS.accepted:
+            return context
+
+        if not user.has_perm("hub.support_candidate"):
+            return context
+
+        if not user.organization:
+            return context
+
+        # An organization can support candidates from any domain
+        if not user.organization.is_elector(user.organization.voting_domain):
+            return context
+
+        context["can_support_candidate"] = True
+
+        if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
+            context["supported_candidate"] = True
+
+        return context
+
+    @staticmethod
+    def _get_candidate_approval_checks(user: User, candidate: Candidate) -> Dict[str, bool]:
+        context = {
+            "can_approve_candidate": False,
+            "approved_candidate": False,
+        }
+
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_confirmation):
+            return context
+
+        if not candidate.status == Candidate.STATUS.accepted:
+            return context
+
+        if not user.has_perm("hub.approve_candidate"):
+            return context
+
+        context["can_approve_candidate"] = True
+
+        if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
+            context["approved_candidate"] = True
+
+        return context
+
+    @staticmethod
+    def _get_candidate_vote_context(user: User, candidate: Candidate) -> Dict[str, bool]:
+        context = {
+            "can_vote_candidate": False,
+            "voted_candidate": False,
+            "used_all_domain_votes": False,
+        }
+
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
+            return context
+
+        if not candidate.status == Candidate.STATUS.confirmed:
+            return context
+
+        if not user.has_perm("hub.vote_candidate"):
+            return context
+
+        # An organization can only vote for candidates from its own domain
+        if not user.organization.is_elector(candidate.domain):
+            return context
+
+        context["can_vote_candidate"] = True
+
+        if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
+            context["voted_candidate"] = True
+
+        if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
+            context["used_all_domain_votes"] = True
+
+        return context
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user: User = self.request.user
         candidate: Candidate = self.object
 
+        context["own_candidate"] = False
+
         context["can_support_candidate"] = False
         context["supported_candidate"] = False
-        context["own_candidate"] = False
+
         context["can_approve_candidate"] = False
         context["approved_candidate"] = False
+
         context["can_vote_candidate"] = False
         context["voted_candidate"] = False
+
         context["used_all_domain_votes"] = False
         context["can_view_all_information"] = False
 
@@ -509,40 +603,13 @@ class CandidateDetailView(HubDetailView):
             context["own_candidate"] = True
 
         # Candidate Support checks
-        if (
-            FeatureFlag.flag_enabled(FLAG_CHOICES.global_support_round)
-            and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting)
-            and candidate.is_proposed
-            and candidate.org.status == Organization.STATUS.accepted
-            and user.organization
-            and user.organization.is_elector(candidate.domain)
-            and user.has_perm("hub.support_candidate")
-        ):
-            context["can_support_candidate"] = True
-            if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
-                context["supported_candidate"] = True
+        context.update(self._get_candidate_support_context(user, candidate))
 
         # Candidate: Approve checks
-        if (
-            FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_confirmation)
-            and candidate.status == Candidate.STATUS.accepted
-            and user.has_perm("hub.approve_candidate")
-        ):
-            context["can_approve_candidate"] = True
-            if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
-                context["approved_candidate"] = True
+        context.update(self._get_candidate_approval_checks(user, candidate))
 
         # Candidate: Vote checks
-        if (
-            FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting)
-            and candidate.status == Candidate.STATUS.confirmed
-            and user.has_perm("hub.vote_candidate")
-        ):
-            context["can_vote_candidate"] = True
-            if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
-                context["voted_candidate"] = True
-            if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
-                context["used_all_domain_votes"] = True
+        context.update(self._get_candidate_vote_context(user, candidate))
 
         if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
             context["can_view_all_information"] = True
