@@ -12,7 +12,7 @@ register = template.Library()
 
 @register.filter
 def can_vote(user):
-    if Organization.objects.filter(user=user, status=Organization.STATUS.accepted).count():
+    if Organization.objects.filter(users=user, status=Organization.STATUS.accepted).count():
         return True
     return False
 
