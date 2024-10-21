@@ -61,13 +61,16 @@
 
       {% if can_support_candidate %}
         <div class="buttons">
-          {% if not own_candidate %}
-            {% if supported_candidate %}
-              <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">Retrage susținerea</a>
-            {% else %}
-              <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">Susține</a>
-            {% endif %}
+          {% if supported_candidate %}
+            <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">
+              Retrage susținerea
+            </a>
+          {% else %}
+            <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">
+              Susține
+            </a>
           {% endif %}
+
           <span style="width: 100%; padding: 10px;">{% trans "Supporters:" %} {{ candidate.count_supporters }}</span>
         </div>
       {% endif %}
