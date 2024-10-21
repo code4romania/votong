@@ -4,10 +4,10 @@ django-extensions~=3.2.3
 werkzeug~=3.0.4
 
 # tests
-faker~=30.3.0
+faker~=30.6.0
 
 ## make sure to sync these with the ../.pre-commit-config.yaml file
-ruff~=0.6.9
+ruff~=0.7.0
 black~=24.10.0
 
 # utils

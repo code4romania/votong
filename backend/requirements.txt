@@ -8,12 +8,12 @@ asgiref==3.8.1
     # via django
 blessed==1.20.0
     # via -r requirements.in
-boto3==1.35.39
+boto3==1.35.44
     # via
     #   -r requirements.in
     #   django-ses
     #   pycognito
-botocore==1.35.39
+botocore==1.35.44
     # via
     #   boto3
     #   s3transfer
@@ -31,7 +31,7 @@ charset-normalizer==3.4.0
     # via requests
 croniter==3.0.3
     # via -r requirements.in
-cryptography==43.0.1
+cryptography==43.0.3
     # via pyjwt
 diff-match-patch==20230430
     # via django-import-export
@@ -78,7 +78,7 @@ django-model-utils==5.0.0
     # via -r requirements.in
 django-picklefield==3.2
     # via django-q2
-django-q2==1.7.2
+django-q2==1.7.3
     # via -r requirements.in
 django-recaptcha==4.0.0
     # via -r requirements.in
@@ -94,7 +94,7 @@ dnspython==2.7.0
     # via django-avatar
 envs==1.4
     # via pycognito
-gevent==24.10.2
+gevent==24.10.3
     # via -r requirements.in
 greenlet==3.1.1
     # via gevent
@@ -114,9 +114,9 @@ pillow==10.4.0
     # via
     #   -r requirements.in
     #   django-avatar
-psutil==6.0.0
+psutil==6.1.0
     # via -r requirements.in
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
     # via -r requirements.in
 pycognito==2024.5.1
     # via -r requirements.in
@@ -142,7 +142,7 @@ requests-oauthlib==2.0.0
     # via django-allauth
 s3transfer==0.10.3
     # via boto3
-sentry-sdk==2.16.0
+sentry-sdk==2.17.0
     # via -r requirements.in
 six==1.16.0
     # via
