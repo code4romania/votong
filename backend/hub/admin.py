@@ -124,15 +124,78 @@ class OrganizationAdmin(admin.ModelAdmin):
         "status",
         "created",
     )
+    list_display_links = (
+        "name",
+        "city",
+        "legal_representative_name",
+        "status",
+        "created",
+    )
     list_filter = ("status", ("county", CountyFilter))
     search_fields = ("name", "legal_representative_name", "email")
-    readonly_fields = ["status_changed"]
+    readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
     autocomplete_fields = ["city"]
     list_per_page = 20
 
     inlines = (OrganizationUsersInline,)
 
     actions = (update_organizations,)
+
+    fieldsets = (
+        (
+            _("Identification"),
+            {
+                "fields": (
+                    "status",
+                    "ngohub_org_id",
+                    "voting_domain",
+                )
+            },
+        ),
+        (
+            _("Contact Information"),
+            {
+                "fields": (
+                    "email",
+                    "phone",
+                    "description",
+                    "name",
+                    "county",
+                    "city",
+                    "address",
+                    "registration_number",
+                    "board_council",
+                    "logo",
+                )
+            },
+        ),
+        (
+            _("Legal representative"),
+            {
+                "fields": (
+                    "legal_representative_name",
+                    "legal_representative_email",
+                    "legal_representative_phone",
+                )
+            },
+        ),
+        (
+            _("Platform documents"),
+            {
+                "fields": (
+                    "last_balance_sheet",
+                    "statute",
+                    "statement_political",
+                    "statement_discrimination",
+                    "fiscal_certificate_anaf",
+                    "fiscal_certificate_local",
+                    "report_2023",
+                    "report_2022",
+                    "report_2021",
+                )
+            },
+        ),
+    )
 
     def has_add_permission(self, request):
         return False

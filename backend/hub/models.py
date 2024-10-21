@@ -227,11 +227,6 @@ class Organization(StatusModel, TimeStampedModel):
 
     ngohub_org_id = models.PositiveBigIntegerField(_("NGO Hub linked organization ID"), default=0, db_index=True)
 
-    name = models.CharField(_("NGO Name"), max_length=254, blank=True, default="")
-    county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50, blank=True, default="")
-    city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.PROTECT, null=True, blank=True)
-    address = models.CharField(_("Address"), max_length=254, blank=True, default="")
-    registration_number = models.CharField(_("Registration number"), max_length=20, blank=True, default="")
     voting_domain = models.ForeignKey(
         Domain,
         verbose_name=_("Voting domain"),
@@ -244,6 +239,12 @@ class Organization(StatusModel, TimeStampedModel):
             " – once set, the field can only be modified by the platform's administrators."
         ),
     )
+
+    name = models.CharField(_("NGO Name"), max_length=254, blank=True, default="")
+    county = models.CharField(_("County"), choices=COUNTY_CHOICES, max_length=50, blank=True, default="")
+    city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.PROTECT, null=True, blank=True)
+    address = models.CharField(_("Address"), max_length=254, blank=True, default="")
+    registration_number = models.CharField(_("Registration number"), max_length=20, blank=True, default="")
 
     email = models.EmailField(_("Organization Email"), blank=True, default="")
     phone = models.CharField(_("Organization Phone"), max_length=30, blank=True, default="")
