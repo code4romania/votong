@@ -53,7 +53,7 @@ class OrganizationCreateForm(forms.ModelForm):
     class Meta:
         model = Organization
         exclude = [
-            "user",
+            "users",
             "status",
             "status_changed",
             "report_2023",
@@ -117,7 +117,7 @@ class OrganizationUpdateForm(forms.ModelForm):
     class Meta:
         model = Organization
         exclude = [
-            "user",
+            "users",
             "status",
             "status_changed",
             "accept_terms_and_conditions",
