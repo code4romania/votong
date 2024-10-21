@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.db.models.functions import Lower
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from model_utils.models import TimeStampedModel
 
 from civil_society_vote.common.cache import cache_decorator
 
@@ -14,7 +15,7 @@ SUPPORT_GROUP = "Support Staff"
 NGO_GROUP = "ONG"
 
 
-class User(AbstractUser):
+class User(AbstractUser, TimeStampedModel):
     # We ignore the "username" field because we will use the email for the authentication
     username = models.CharField(
         verbose_name=_("username"),
@@ -25,7 +26,7 @@ class User(AbstractUser):
         null=True,
     )
     email = models.EmailField(verbose_name=_("email address"), blank=False, null=False, unique=True)
-    is_ngohub_user = models.BooleanField(default=False)
+    is_ngohub_user = models.BooleanField(verbose_name=_("is ngo hub user"), default=False)
 
     organization = models.ForeignKey(
         "hub.Organization",
@@ -67,3 +68,11 @@ class User(AbstractUser):
     @method_decorator(cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="staff_groups"))
     def in_staff_groups(self):
         return self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+
+
+class GroupProxy(Group):
+    class Meta:
+        proxy = True
+
+        verbose_name = _("Group")
+        verbose_name_plural = _("Groups")

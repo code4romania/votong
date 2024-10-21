@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 11:34+0300\n"
+"POT-Creation-Date: 2024-10-21 15:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: accounts/admin.py:59
+msgid "Identification"
+msgstr ""
+
+#: accounts/admin.py:71
+msgid "Flags"
+msgstr ""
+
+#: accounts/admin.py:81 hub/admin.py:53
+msgid "Permissions"
+msgstr ""
+
+#: accounts/admin.py:90 hub/admin.py:64
+msgid "Important dates"
+msgstr ""
+
+#: accounts/admin.py:110 hub/models.py:340
+msgid "Organization"
+msgstr ""
+
+#: accounts/admin.py:123 accounts/models.py:78
+msgid "Groups"
+msgstr ""
+
 #: accounts/forms.py:21
 msgid "Emails don't match."
 msgstr ""
@@ -25,24 +49,32 @@ msgstr ""
 msgid "This email can't be set."
 msgstr ""
 
-#: accounts/models.py:20
+#: accounts/models.py:21
 msgid "username"
 msgstr ""
 
-#: accounts/models.py:23
+#: accounts/models.py:24
 msgid "We do not use this field"
 msgstr ""
 
-#: accounts/models.py:27 hub/templates/registration/reset_password.html:39
+#: accounts/models.py:28 hub/templates/registration/reset_password.html:39
 msgid "email address"
 msgstr ""
 
-#: accounts/models.py:42
-msgid "User"
+#: accounts/models.py:29
+msgid "is ngo hub user"
 msgstr ""
 
 #: accounts/models.py:43
+msgid "User"
+msgstr ""
+
+#: accounts/models.py:44
 msgid "Users"
+msgstr ""
+
+#: accounts/models.py:77
+msgid "Group"
 msgstr ""
 
 #: accounts/templates/accounts/avatar/change.html:47
@@ -344,14 +376,6 @@ msgstr ""
 
 #: hub/admin.py:51
 msgid "Personal info"
-msgstr ""
-
-#: hub/admin.py:53
-msgid "Permissions"
-msgstr ""
-
-#: hub/admin.py:64
-msgid "Important dates"
 msgstr ""
 
 #: hub/admin.py:83
@@ -816,10 +840,6 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:340
-msgid "Organization"
-msgstr ""
-
 #: hub/models.py:528
 msgid "Pending"
 msgstr ""
@@ -838,7 +858,7 @@ msgstr ""
 msgid "The domain in which the candidate is running."
 msgstr ""
 
-#: hub/models.py:558 hub/templates/hub/candidate/detail.html:103
+#: hub/models.py:558 hub/templates/hub/candidate/detail.html:115
 msgid "Representative name"
 msgstr ""
 
@@ -862,7 +882,7 @@ msgstr ""
 msgid "Candidate photo"
 msgstr ""
 
-#: hub/models.py:580 hub/templates/hub/candidate/detail.html:107
+#: hub/models.py:580 hub/templates/hub/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Candidate statement"
 
@@ -873,7 +893,7 @@ msgid ""
 "public office and is not a dignitary of the Romanian state."
 msgstr ""
 
-#: hub/models.py:591 hub/templates/hub/candidate/detail.html:112
+#: hub/models.py:591 hub/templates/hub/candidate/detail.html:124
 msgid "Mandate"
 msgstr ""
 
@@ -883,7 +903,7 @@ msgid ""
 "highlighting of the domain for which it is running"
 msgstr ""
 
-#: hub/models.py:601 hub/templates/hub/candidate/detail.html:117
+#: hub/models.py:601 hub/templates/hub/candidate/detail.html:129
 msgid "Letter of intent"
 msgstr ""
 
@@ -893,7 +913,7 @@ msgid ""
 "CES)"
 msgstr ""
 
-#: hub/models.py:608 hub/templates/hub/candidate/detail.html:122
+#: hub/models.py:608 hub/templates/hub/candidate/detail.html:134
 msgid "CV"
 msgstr ""
 
@@ -901,7 +921,7 @@ msgstr ""
 msgid "Europass format CV"
 msgstr ""
 
-#: hub/models.py:615 hub/templates/hub/candidate/detail.html:127
+#: hub/models.py:615 hub/templates/hub/candidate/detail.html:139
 msgid "Declaration of interests"
 msgstr ""
 
@@ -909,7 +929,7 @@ msgstr ""
 msgid "Official format Declaration of interests"
 msgstr ""
 
-#: hub/models.py:622 hub/templates/hub/candidate/detail.html:132
+#: hub/models.py:622 hub/templates/hub/candidate/detail.html:144
 msgid "Fiscal record"
 msgstr ""
 
@@ -917,7 +937,7 @@ msgstr ""
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:629 hub/templates/hub/candidate/detail.html:137
+#: hub/models.py:629 hub/templates/hub/candidate/detail.html:149
 msgid "Criminal record"
 msgstr ""
 
@@ -942,27 +962,27 @@ msgstr ""
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:732
+#: hub/models.py:733
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:733
+#: hub/models.py:734
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:756
+#: hub/models.py:757
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:757
+#: hub/models.py:758
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:771
+#: hub/models.py:772
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:772
+#: hub/models.py:773
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -1017,32 +1037,32 @@ msgstr ""
 msgid "Section: "
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:71
+#: hub/templates/hub/candidate/detail.html:77
 #: hub/templates/hub/committee/candidates.html:44
 msgid "Supporters:"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:77
+#: hub/templates/hub/candidate/detail.html:83
 msgid "Confirm candidate status"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:83
+#: hub/templates/hub/candidate/detail.html:90
 msgid "✔ VOTED"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:85
+#: hub/templates/hub/candidate/detail.html:94
 msgid "You have used all the votes allotted for this domain."
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:87
+#: hub/templates/hub/candidate/detail.html:98
 msgid "Vote"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:99
+#: hub/templates/hub/candidate/detail.html:111
 msgid "Candidate information"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:104
+#: hub/templates/hub/candidate/detail.html:116
 msgid "Representative role"
 msgstr ""
 
@@ -1566,7 +1586,7 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:748
+#: hub/views.py:811
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
