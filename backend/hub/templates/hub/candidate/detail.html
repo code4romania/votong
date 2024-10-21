@@ -61,14 +61,17 @@
 
       {% if can_support_candidate %}
         <div class="buttons">
-          {% if supported_candidate %}
-            <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">
-              Retrage susținerea
-            </a>
-          {% else %}
-            <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">
-              Susține
-            </a>
+
+          {% if not own_candidate %}
+            {% if supported_candidate %}
+              <a href="{% url 'candidate-support' candidate.id %}" class="button is-danger">
+                Retrage susținerea
+              </a>
+            {% else %}
+              <a href="{% url 'candidate-support' candidate.id %}" class="button is-success">
+                Susține
+              </a>
+            {% endif %}
           {% endif %}
 
           <span style="width: 100%; padding: 10px;">{% trans "Supporters:" %} {{ candidate.count_supporters }}</span>
@@ -83,11 +86,17 @@
 
       {% if can_vote_candidate %}
         {% if voted_candidate %}
-          <span class="tag is-success">{% trans "✔ VOTED" %}</span>
+          <span class="tag is-success">
+            {% trans "✔ VOTED" %}
+          </span>
           {% elif used_all_domain_votes %}
-          <span class="tag is-warning">{% trans "You have used all the votes allotted for this domain." %}</span>
+          <span class="tag is-warning">
+            {% trans "You have used all the votes allotted for this domain." %}
+          </span>
         {% else %}
-          <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">{% trans "Vote" %}</a>
+          <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">
+            {% trans "Vote" %}
+          </a>
         {% endif %}
 
       {% endif %}

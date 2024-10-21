@@ -742,7 +742,7 @@ def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
-    user = request.user
+    user: User = request.user
     user_org = user.organization
     if user_org.status != Organization.STATUS.accepted:
         raise PermissionDenied
