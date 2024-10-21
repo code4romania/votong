@@ -52,6 +52,24 @@
     {% endif %}
     <br><br>
   {% endif %}
+  
+  {% if voting_domain_warning %}
+    
+    <div class="message is-warning">
+      <div class="message-body">
+        <p>
+          <strong>
+            <i class="fas fa-exclamation-triangle"></i>
+            {% trans "Warning!" %}
+          </strong>
+        </p>
+        <p>
+          {{ voting_domain_warning}}
+        </p>
+      </div>
+    </div>
+    
+  {% endif %}
 
   <div class="container">
     {% if messages %}

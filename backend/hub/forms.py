@@ -89,15 +89,13 @@ class OrganizationCreateForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input, fallback to empty queryset
 
-        self.fields["accept_terms_and_conditions"].required = True
+        terms_text = _("Terms and Conditions")
+        terms_url = f'<a href="{reverse_lazy("terms")}" target="_blank" rel="noreferrer">{terms_text}</a>'
         # noinspection DjangoSafeString
         self.fields["accept_terms_and_conditions"].label = mark_safe(
-            _(
-                f'I agree to the <a href="{reverse_lazy("terms")}" '
-                'target="_blank" rel="noreferrer">'
-                "Terms and Conditions</a> of the VotONG platform"
-            )
+            _(f"I agree to the {terms_url} of the VotONG platform")
         )
+        self.fields["accept_terms_and_conditions"].required = True
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -184,7 +182,7 @@ class OrganizationUpdateForm(forms.ModelForm):
             Organization.objects.filter(
                 email=email, status__in=[Organization.STATUS.accepted, Organization.STATUS.pending]
             )
-            .exclude(user=self.instance.user)
+            .exclude(users__in=self.instance.users.all())
             .exists()
         ):
             raise ValidationError(_("An organization with the same email address is already registered."))

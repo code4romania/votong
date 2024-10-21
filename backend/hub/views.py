@@ -46,6 +46,7 @@ from hub.models import (
     Domain,
     FeatureFlag,
     Organization,
+    SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
 
@@ -304,6 +305,12 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         organization: Organization = self.object
         context["update_status"] = "is-success" if organization.status == Organization.STATUS.accepted else "is-warning"
         context["contact_email"] = settings.CONTACT_EMAIL
+
+        if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain) and not organization.voting_domain:
+            context["voting_domain_warning"] = _(
+                "The organization does not have the voting domain set. "
+                "To be able to vote, please set the voting domain."
+            )
 
         return context
 
