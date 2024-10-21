@@ -721,7 +721,7 @@ def candidate_status_confirm(request, pk):
 @login_required
 @permission_required_or_403("hub.change_organization")
 def update_organization_information(request, pk):
-    user = request.user
+    user: User = request.user
     user_is_admin = user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
     user_is_org_owner = user.organization.pk == pk
     if user.is_anonymous or (not user_is_admin and not user_is_org_owner):

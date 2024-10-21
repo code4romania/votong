@@ -289,10 +289,10 @@ class CandidateRegisterForm(CandidateCommonForm):
         if Candidate.objects_with_org.filter(org=self.organization).exists():
             raise ValidationError(_("Organization already has a candidate."))
 
-        self.initial["org"] = self.organization.id
+        self.initial["org"] = self.organization.pk
 
     def clean_org(self):
-        return self.user.organization.id
+        return self.user.organization.pk
 
     def clean_domain(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):

@@ -97,6 +97,22 @@ def update_organizations(modeladmin, request, queryset):
         update_organization(org.id)
 
 
+class OrganizationUsersInline(admin.TabularInline):
+    model = User
+    fields = ["email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "groups"]
+    readonly_fields = ["email", "first_name", "last_name"]
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = (
@@ -114,6 +130,8 @@ class OrganizationAdmin(admin.ModelAdmin):
     autocomplete_fields = ["city"]
     list_per_page = 20
 
+    inlines = (OrganizationUsersInline,)
+
     actions = (update_organizations,)
 
     def has_add_permission(self, request):
@@ -129,10 +147,11 @@ class OrganizationAdmin(admin.ModelAdmin):
             return True
         return False
 
-    def get_user(self, obj=None):
-        if obj and obj.user:
-            user_url = reverse("admin:accounts_user_change", args=(obj.user.id,))
-            return mark_safe(f'<a href="{user_url}">{obj.user.email}</a>')
+    def get_user(self, obj: Organization = None):
+        if obj and obj.users.exists():
+            org_user = obj.users.first()
+            user_url = reverse("admin:accounts_user_change", args=(org_user.id,))
+            return mark_safe(f'<a href="{user_url}">{org_user.email}</a>')
 
     get_user.short_description = _("user")
 
