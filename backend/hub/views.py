@@ -475,17 +475,13 @@ class CandidateDetailView(HubDetailView):
     model = Candidate
 
     def get_queryset(self):
-        if (
-            self.request.user
-            and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
-        ):
-            return Candidate.objects_with_org.select_related("org").prefetch_related("domain").all()
+        user = self.request.user
+        candidat_base_queryset = Candidate.objects_with_org.select_related("org").prefetch_related("domain")
 
-        return (
-            Candidate.objects_with_org.select_related("org")
-            .prefetch_related("domain")
-            .filter(org__status=Organization.STATUS.accepted, is_proposed=True)
-        )
+        if user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+            return candidat_base_queryset.all()
+
+        return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
     @staticmethod
     def _get_candidate_support_context(user: User, candidate: Candidate) -> Dict[str, bool]:
@@ -524,7 +520,7 @@ class CandidateDetailView(HubDetailView):
         return context
 
     @staticmethod
-    def _get_candidate_approval_checks(user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_approval_context(user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
             "can_approve_candidate": False,
             "approved_candidate": False,
@@ -606,7 +602,7 @@ class CandidateDetailView(HubDetailView):
         context.update(self._get_candidate_support_context(user, candidate))
 
         # Candidate: Approve checks
-        context.update(self._get_candidate_approval_checks(user, candidate))
+        context.update(self._get_candidate_approval_context(user, candidate))
 
         # Candidate: Vote checks
         context.update(self._get_candidate_vote_context(user, candidate))
