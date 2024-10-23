@@ -31,8 +31,25 @@ def remove_signature(s3_url: str) -> str:
     """
     if s3_url:
         return s3_url.split("?")[0].split("/")[-1]
-    else:
+
+    return ""
+
+
+def _extract_file_extension(filename: str, response: Response) -> str:
+    if len(split_filename := filename.split(".")) > 1:
+        file_extension = split_filename[-1]
+
+        if len(file_extension) <= 4:
+            return f".{file_extension}"
+
+    # Try to guess the extension from the content type
+    extension: str = mimetypes.guess_extension(response.headers["content-type"])
+
+    # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
+    if extension == ".bin":
         return ""
+
+    return extension
 
 
 def copy_file_to_organization(organization: Organization, signed_file_url: str, file_type: str):
@@ -55,19 +72,17 @@ def copy_file_to_organization(organization: Organization, signed_file_url: str, 
         logger.info(f"{file_type.upper()} file is already up to date.")
         return None
 
-    r: Response = requests.get(signed_file_url)
-    if r.status_code != requests.codes.ok:
-        logger.info(f"{file_type.upper()} file request status = {r.status_code}")
-        error_message = f"ERROR: Could not download {file_type} file from NGO Hub, error status {r.status_code}."
+    response: Response = requests.get(signed_file_url)
+    if response.status_code != requests.codes.ok:
+        logger.info(f"{file_type.upper()} file request status = {response.status_code}")
+        error_message = f"ERROR: Could not download {file_type} file from NGO Hub, error status {response.status_code}."
         logger.warning(error_message)
         return error_message
 
-    extension: str = mimetypes.guess_extension(r.headers["content-type"])
-    # TODO: mimetypes thinks that some S3 documents are .bin files, which is useless
-    if extension == ".bin":
-        extension = ""
+    extension: str = _extract_file_extension(filename, response)
+
     with tempfile.TemporaryFile() as fp:
-        fp.write(r.content)
+        fp.write(response.content)
         fp.seek(0)
         getattr(organization, file_type).save(f"{file_type}{extension}", File(fp))
 
