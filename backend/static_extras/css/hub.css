@@ -634,7 +634,6 @@ hr.tight {
 
 .inline-subtle-link {
   font-size: 1em;
-  text-decoration-line: underline;
   color: #363636;
 
   &:hover {
@@ -642,9 +641,12 @@ hr.tight {
   }
 }
 
+.underlined {
+  text-decoration-line: underline;
+}
+
 .inline-link {
   font-size: 1em;
-  text-decoration-line: underline;
 }
 
 .rules-section {
