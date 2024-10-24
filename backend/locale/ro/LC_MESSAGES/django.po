@@ -1646,8 +1646,9 @@ msgid ""
 "The organization does not have the voting domain set. To be able to vote, "
 "please set the voting domain."
 msgstr ""
-"Organizația nu are domeniul de votare setat. Pentru a putea vota, te rugăm "
-"să setezi domeniul de votare."
+"Trebuie să îți selectezi domeniul de votare (adică domeniul pe care îți vei "
+"exercita votul) pentru a te înscrie ca elector sau pentru a nominaliza un "
+"candidat."
 
 #: hub/views.py:352
 msgid "You must write a rejection message."
