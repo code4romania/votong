@@ -1,7 +1,7 @@
 # django
 django-debug-toolbar~=4.4.6
 django-extensions~=3.2.3
-werkzeug~=3.0.4
+werkzeug~=3.0.6
 
 # tests
 faker~=30.6.0
