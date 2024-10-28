@@ -14,6 +14,14 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
     if settings.ENABLE_ORG_REGISTRATION_FORM:
         register_url = reverse("ngos-register-request")
 
+    candidate_registration_enabled = flags.get(FLAG_CHOICES.enable_candidate_registration, False)
+    candidate_supporting_enabled = flags.get(FLAG_CHOICES.enable_candidate_supporting, False)
+    candidate_voting_enabled = flags.get(FLAG_CHOICES.enable_candidate_voting, False)
+    candidate_confirmation_enabled = flags.get(FLAG_CHOICES.enable_candidate_confirmation, False)
+    results_enabled = flags.get(FLAG_CHOICES.enable_results_display, False)
+    org_approval_enabled = flags.get(FLAG_CHOICES.enable_org_approval, False)
+    org_registration_enabled = flags.get(FLAG_CHOICES.enable_org_registration, False)
+
     return {
         # Flags from settings.py:
         "ANALYTICS_ENABLED": settings.ANALYTICS_ENABLED,
@@ -26,14 +34,22 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         "CONTACT_EMAIL": settings.CONTACT_EMAIL,
         "COMISSION_EMAIL": settings.COMISSION_EMAIL,
         # Flags from database:
-        "CANDIDATE_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_registration, False),
-        "CANDIDATE_SUPPORTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_supporting, False),
-        "CANDIDATE_VOTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_voting, False),
-        "CANDIDATE_CONFIRMATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_confirmation, False),
-        "RESULTS_ENABLED": flags.get(FLAG_CHOICES.enable_results_display, False),
-        "ORG_APPROVAL_ENABLED": flags.get(FLAG_CHOICES.enable_org_approval, False),
-        "ORG_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_org_registration, False),
+        "CANDIDATE_REGISTRATION_ENABLED": candidate_registration_enabled,
+        "CANDIDATE_SUPPORTING_ENABLED": candidate_supporting_enabled,
+        "CANDIDATE_VOTING_ENABLED": candidate_voting_enabled,
+        "CANDIDATE_CONFIRMATION_ENABLED": candidate_confirmation_enabled,
+        "RESULTS_ENABLED": results_enabled,
+        "ORG_APPROVAL_ENABLED": org_approval_enabled,
+        "ORG_REGISTRATION_ENABLED": org_registration_enabled,
         # Settings flags
         "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
         "VOTING_DOMAIN_ENABLED": flags.get(FLAG_CHOICES.enable_voting_domain, False),
+        # Composite flags
+        "ELECTION_IN_PROGRESS": (
+            candidate_registration_enabled
+            or candidate_supporting_enabled
+            or candidate_voting_enabled
+            or candidate_confirmation_enabled
+            or org_registration_enabled
+        ),
     }

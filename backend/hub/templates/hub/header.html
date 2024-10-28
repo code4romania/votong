@@ -60,7 +60,7 @@
               {% trans "Organizations" %}
             </a>
 
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and ELECTION_IN_PROGRESS %}
               <a href="{% url 'candidates' %}" class="navbar-item">
                 {% trans "Candidates" %}
               </a>
@@ -80,9 +80,11 @@
 
             </a>
 
-            <a href="{% url 'history' %}" class="navbar-item">
-              {% trans "History" %}
-            </a>
+            {% if not ELECTION_IN_PROGRESS %}
+              <a href="{% url 'history' %}" class="navbar-item">
+                {% trans "History" %}
+              </a>
+            {% endif %}
 
             <div class="navbar-item">|</div>
 

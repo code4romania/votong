@@ -584,6 +584,10 @@ hr.tight {
   background-color: var(--call2action);
 }
 
+.button.is-main {
+  background-color: var(--ngohub-yellow);
+}
+
 .filter-grid {
   display: grid;
   overflow: hidden;
