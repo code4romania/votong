@@ -31,7 +31,9 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         "CANDIDATE_VOTING_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_voting, False),
         "CANDIDATE_CONFIRMATION_ENABLED": flags.get(FLAG_CHOICES.enable_candidate_confirmation, False),
         "RESULTS_ENABLED": flags.get(FLAG_CHOICES.enable_results_display, False),
-        "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
         "ORG_APPROVAL_ENABLED": flags.get(FLAG_CHOICES.enable_org_approval, False),
         "ORG_REGISTRATION_ENABLED": flags.get(FLAG_CHOICES.enable_org_registration, False),
+        # Settings flags
+        "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
+        "VOTING_DOMAIN_ENABLED": flags.get(FLAG_CHOICES.enable_voting_domain, False),
     }

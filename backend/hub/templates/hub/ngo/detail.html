@@ -44,6 +44,11 @@
       </div>
       <div class="need-title is-hidden-mobile">{{ ngo.name }}</div>
 
+      {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions and ngo.voting_domain %}
+        <div class="need-description">
+          <b>Domeniu: {{ ngo.voting_domain }}</b></div>
+      {% endif %}
+
       {% if "approve_organization" in user_permissions or "view_data_organization" in user_permissions %}
         <div class="need-description"><b>Stare aplicație: <span
           class="status-{{ ngo.status }}">{% trans ngo.status.capitalize %}</span></b></div>

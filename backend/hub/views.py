@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Union
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -192,6 +192,28 @@ class OrganizationListView(SearchMixin):
     paginate_by = 9
     template_name = "hub/ngo/list.html"
 
+    def group_organizations_by_domain(self, queryset) -> List[Dict[str, Union[Domain, List[Organization]]]]:
+        organizations_by_domain: Dict[Domain, List[Organization]] = {}
+
+        for organization in queryset:
+            domain_name: Domain = organization.voting_domain
+            if domain_name not in organizations_by_domain:
+                organizations_by_domain[domain_name] = []
+
+            organizations_by_domain[domain_name].append(organization)
+
+        # dictionary to list of dictionaries
+        organizations_by_domain_list = [
+            {
+                "domain": domain,
+                "organizations": sorted(organizations, key=lambda org: org.name),
+            }
+            for domain, organizations in organizations_by_domain.items()
+        ]
+        organizations_by_domain_list = sorted(organizations_by_domain_list, key=lambda x: x["domain"].pk)
+
+        return organizations_by_domain_list
+
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
@@ -204,9 +226,14 @@ class OrganizationListView(SearchMixin):
         return Organization.objects.filter(status=Organization.STATUS.accepted)
 
     def get_queryset(self):
-        qs = self.search(self.get_qs())
+        queryset = self.search(self.get_qs())
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
-        return qs.filter(**filters)
+        queryset_filtered = queryset.filter(**filters)
+
+        if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain):
+            return self.group_organizations_by_domain(queryset_filtered)
+
+        return queryset_filtered
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

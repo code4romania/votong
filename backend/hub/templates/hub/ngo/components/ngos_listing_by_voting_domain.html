@@ -1,0 +1,17 @@
+<hr class="is-hidden-mobile "/>
+
+
+{% for section_details in page_obj %}
+
+  <h3 class="section-title">
+    {{ section_details.domain.name }} ({{ section_details.organizations|length }})
+  </h3>
+
+  {% for ngo in section_details.organizations %}
+
+    {% include "hub/ngo/components/ngo_listing_detail.html" %}
+
+  {% endfor %}
+
+{% endfor %}
+
