@@ -60,6 +60,11 @@
               {% trans "Organizations" %}
             </a>
 
+            {% if user.is_authenticated %}
+              <a href="{% url 'candidates' %}" class="navbar-item">
+                {% trans "Candidates" %}
+              </a>
+            {% endif %}
 
             <a href="{% url 'candidates' %}" class="navbar-item">
 
