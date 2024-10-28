@@ -8,12 +8,12 @@ asgiref==3.8.1
     # via django
 blessed==1.20.0
     # via -r requirements.in
-boto3==1.35.44
+boto3==1.35.49
     # via
     #   -r requirements.in
     #   django-ses
     #   pycognito
-botocore==1.35.44
+botocore==1.35.49
     # via
     #   boto3
     #   s3transfer
@@ -29,11 +29,11 @@ cffi==1.17.1
     #   cryptography
 charset-normalizer==3.4.0
     # via requests
-croniter==3.0.3
+croniter==3.0.4
     # via -r requirements.in
 cryptography==43.0.3
     # via pyjwt
-diff-match-patch==20230430
+diff-match-patch==20241021
     # via django-import-export
 django==4.2.16
     # via
@@ -166,7 +166,7 @@ whitenoise==6.7.0
     # via -r requirements.in
 zope-event==5.0
     # via gevent
-zope-interface==7.1.0
+zope-interface==7.1.1
     # via gevent
 
 # The following packages are considered to be unsafe in a requirements file:

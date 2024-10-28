@@ -16,12 +16,12 @@ black==24.10.0
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.35.44
+boto3==1.35.49
     # via
     #   -r requirements.txt
     #   django-ses
     #   pycognito
-botocore==1.35.44
+botocore==1.35.49
     # via
     #   -r requirements.txt
     #   boto3
@@ -50,7 +50,7 @@ click==8.1.7
     #   pip-tools
 coverage==7.6.4
     # via pytest-cov
-croniter==3.0.3
+croniter==3.0.4
     # via -r requirements.txt
 cryptography==43.0.3
     # via
@@ -60,7 +60,7 @@ debugpy==1.8.7
     # via -r requirements-dev.in
 decorator==5.1.1
     # via ipython
-diff-match-patch==20230430
+diff-match-patch==20241021
     # via
     #   -r requirements.txt
     #   django-import-export
@@ -261,7 +261,7 @@ requests==2.32.3
     #   requests-oauthlib
 requests-oauthlib==2.0.0
     # via -r requirements.txt
-ruff==0.7.0
+ruff==0.7.1
     # via -r requirements-dev.in
 s3transfer==0.10.3
     # via
@@ -310,7 +310,7 @@ wcwidth==0.2.13
     #   -r requirements.txt
     #   blessed
     #   prompt-toolkit
-werkzeug==3.0.4
+werkzeug==3.0.6
     # via -r requirements-dev.in
 wheel==0.44.0
     # via pip-tools
@@ -322,7 +322,7 @@ zope-event==5.0
     # via
     #   -r requirements.txt
     #   gevent
-zope-interface==7.1.0
+zope-interface==7.1.1
     # via
     #   -r requirements.txt
     #   gevent
