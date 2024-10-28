@@ -1,55 +1,55 @@
 {% load i18n %}
 
-<div class="detail-desc-title">
-  <span class="ngo-colorblock"></span>
-  {% trans "Organization Documents" %}
-</div>
+{% if should_display_organization_documents %}
 
-{% if can_view_all_information %}
+  <div class="detail-desc-title">
+    <span class="ngo-colorblock"></span>
+    {% trans "Organization Documents" %}
+  </div>
 
   {% if ngo.last_balance_sheet %}
     {% trans "First page of the last balance sheet" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.last_balance_sheet.url document_name=doc_name is_secret=True %}
+    {% include "hub/partials/document.html" with document_url=ngo.last_balance_sheet.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.statute %}
     {% trans "NGO Statute" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.statute.url document_name=doc_name is_secret=True %}
+    {% include "hub/partials/document.html" with document_url=ngo.statute.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.fiscal_certificate_anaf %}
     {% trans "Fiscal certificate ANAF" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.fiscal_certificate_anaf.url document_name=doc_name is_secret=True %}
+    {% include "hub/partials/document.html" with document_url=ngo.fiscal_certificate_anaf.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.fiscal_certificate_local %}
     {% trans "Fiscal certificate local" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.fiscal_certificate_local.url document_name=doc_name is_secret=True %}
+    {% include "hub/partials/document.html" with document_url=ngo.fiscal_certificate_local.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
-{% endif %}
+  {% if ngo.report_2023 %}
+    {% trans "Yearly report 2023" as doc_name %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2023.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+  {% endif %}
 
-{% if ngo.report_2023 %}
-  {% trans "Yearly report 2023" as doc_name %}
-  {% include "hub/partials/document.html" with document_url=ngo.report_2023.url document_name=doc_name %}
-{% endif %}
+  {% if ngo.report_2022 %}
+    {% trans "Yearly report 2022" as doc_name %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2022.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+  {% endif %}
 
-{% if ngo.report_2022 %}
-  {% trans "Yearly report 2022" as doc_name %}
-  {% include "hub/partials/document.html" with document_url=ngo.report_2022.url document_name=doc_name %}
-{% endif %}
+  {% if ngo.report_2021 %}
+    {% trans "Yearly report 2021" as doc_name %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2021.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+  {% endif %}
 
-{% if ngo.report_2021 %}
-  {% trans "Yearly report 2021" as doc_name %}
-  {% include "hub/partials/document.html" with document_url=ngo.report_2021.url document_name=doc_name %}
-{% endif %}
+  {% if ngo.statement_discrimination %}
+    {% trans "Non-discrimination statement " as doc_name %}
+    {% include "hub/partials/document.html" with document_url=ngo.statement_discrimination.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+  {% endif %}
 
-{% if ngo.statement_discrimination %}
-  {% trans "Non-discrimination statement " as doc_name %}
-  {% include "hub/partials/document.html" with document_url=ngo.statement_discrimination.url document_name=doc_name %}
-{% endif %}
-
-{% if ngo.statement_political %}
-  {% trans "Non-political statement " as doc_name %}
-  {% include "hub/partials/document.html" with document_url=ngo.statement_political.url document_name=doc_name %}
+  {% if ngo.statement_political %}
+    {% trans "Non-political statement " as doc_name %}
+    {% include "hub/partials/document.html" with document_url=ngo.statement_political.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
+  {% endif %}
+  
 {% endif %}

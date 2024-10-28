@@ -279,14 +279,34 @@ class OrganizationDetailView(HubDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user: UserModel = self.request.user
+        organization: Organization = self.object
 
         context["can_view_all_information"] = False
+        context["should_display_organization_documents"] = False
 
         if user.is_anonymous:
             return context
 
         if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
             context["can_view_all_information"] = True
+
+        if (
+            organization.report_2023
+            or organization.report_2022
+            or organization.report_2021
+            or organization.statement_discrimination
+            or (
+                context["can_view_all_information"]
+                and (
+                    organization.last_balance_sheet
+                    or organization.statute
+                    or organization.fiscal_certificate_anaf
+                    or organization.fiscal_certificate_local
+                    or organization.statement_political
+                )
+            )
+        ):
+            context["should_display_organization_documents"] = True
 
         return context
 
