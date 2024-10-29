@@ -443,9 +443,6 @@ class CandidateListView(SearchMixin):
         )
 
     def get_qs(self):
-        if self.request.user.is_anonymous:
-            return Candidate.objects_with_org.none()
-
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
         elif FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting):
