@@ -15,7 +15,7 @@ from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
 from accounts.models import User, STAFF_GROUP, COMMITTEE_GROUP, SUPPORT_GROUP, NGO_GROUP
-
+from civil_society_vote.common.formatting import get_human_readable_size
 
 REPORTS_HELP_TEXT = (
     "Rapoartele anuale trebuie să includă sursele de finanțare din care să rezulte că organizația dispune de resurse "
@@ -23,6 +23,20 @@ REPORTS_HELP_TEXT = (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def file_validator(file):
+    if file.size > settings.MAX_DOCUMENT_SIZE:
+        human_readable_size = get_human_readable_size(file.size)
+        raise ValidationError(
+            _("The file size is %d %s but it must be under %d %s")
+            % (
+                human_readable_size["size"],
+                human_readable_size["unit"],
+                settings.MAX_DOCUMENT_SIZE_IN_UNIT,
+                settings.MAX_DOCUMENT_SIZE_UNIT,
+            )
+        )
 
 
 def select_public_storage():
@@ -258,8 +272,14 @@ class Organization(StatusModel, TimeStampedModel):
 
     # organization_head_name = models.CharField(_("Organization Head Name"), max_length=254, blank=True, default="")
     board_council = models.CharField(_("Board council"), max_length=1000, blank=True, default="")
-    logo = models.FileField(_("Logo"), max_length=300, storage=select_public_storage, blank=True, default="")
 
+    logo = models.FileField(
+        _("Logo"),
+        max_length=300,
+        storage=select_public_storage,
+        blank=True,
+        default="",
+    )
     last_balance_sheet = models.FileField(
         _("First page of last balance sheet for %(CURRENT_EDITION_YEAR)s")
         % {"CURRENT_EDITION_YEAR": str(settings.CURRENT_EDITION_YEAR - 1)},
@@ -281,6 +301,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
+        validators=[file_validator],
     )
     report_2022 = models.FileField(
         _("Yearly report 2022"),
@@ -288,6 +309,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
+        validators=[file_validator],
     )
     report_2021 = models.FileField(
         _("Yearly report 2021"),
@@ -295,6 +317,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text=REPORTS_HELP_TEXT,
+        validators=[file_validator],
     )
 
     statement_discrimination = models.FileField(
@@ -303,6 +326,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text="Declarație pe proprie răspundere prin care declară că nu realizează activități sau susține cauze de natură politică sau care discriminează pe considerente legate de etnie, rasă, sex, orientare sexuală, religie, capacități fizice sau psihice sau de apartenența la una sau mai multe categorii sociale sau economice.",
+        validators=[file_validator],
     )
     statement_political = models.FileField(
         _("Non-political statement"),
@@ -310,6 +334,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text="Declarație pe propria răspundere prin care declar că ONG-ul nu are între membrii conducerii organizației (Președinte sau Consiliul Director) membri ai conducerii unui partid politic sau persoane care au fost alese într-o funcție publică.",
+        validators=[file_validator],
     )
 
     fiscal_certificate_anaf = models.FileField(
@@ -318,6 +343,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text="Certificat fiscal emis de ANAF",
+        validators=[file_validator],
     )
     fiscal_certificate_local = models.FileField(
         _("Fiscal certificate local"),
@@ -325,6 +351,7 @@ class Organization(StatusModel, TimeStampedModel):
         default="",
         max_length=300,
         help_text="Certificat fiscal emis de Direcția de Impozite și Taxe Locale",
+        validators=[file_validator],
     )
 
     accept_terms_and_conditions = models.BooleanField(_("Accepted Terms and Conditions"), default=False)
@@ -573,7 +600,12 @@ class Candidate(StatusModel, TimeStampedModel):
         help_text=_("The role of the designated person in the organization."),
     )
     photo = models.ImageField(
-        _("Candidate photo"), max_length=300, storage=select_public_storage, blank=True, default=""
+        _("Candidate photo"),
+        max_length=300,
+        storage=select_public_storage,
+        blank=True,
+        default="",
+        validators=[file_validator],
     )
 
     # files expected in different cases
@@ -587,6 +619,7 @@ class Candidate(StatusModel, TimeStampedModel):
             "of the leadership of a political party, has not been elected to a public office "
             "and is not a dignitary of the Romanian state."
         ),
+        validators=[file_validator],
     )
     mandate = models.FileField(
         _("Mandate"),
@@ -597,6 +630,7 @@ class Candidate(StatusModel, TimeStampedModel):
             "Mandate from the organization (signed in original + electronic) "
             "with the highlighting of the domain for which it is running"
         ),
+        validators=[file_validator],
     )
     letter_of_intent = models.FileField(
         _("Letter of intent"),
@@ -604,6 +638,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         help_text=_("Letter of intent (with the mention of the domain to be represented in the CES)"),
+        validators=[file_validator],
     )
     cv = models.FileField(
         _("CV"),
@@ -611,6 +646,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         help_text=_("Europass format CV"),
+        validators=[file_validator],
     )
     declaration_of_interests = models.FileField(
         _("Declaration of interests"),
@@ -618,6 +654,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         help_text=_("Official format Declaration of interests"),
+        validators=[file_validator],
     )
     fiscal_record = models.FileField(
         _("Fiscal record"),
@@ -625,6 +662,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         help_text=_("Fiscal record, valid at the time of submitting the candidacy"),
+        validators=[file_validator],
     )
     criminal_record = models.FileField(
         _("Criminal record"),
@@ -632,6 +670,7 @@ class Candidate(StatusModel, TimeStampedModel):
         blank=True,
         max_length=300,
         help_text=_("(Optional) Criminal record, valid at the time of submitting the candidacy"),
+        validators=[file_validator],
     )
 
     is_proposed = models.BooleanField(_("Is proposed?"), default=False)

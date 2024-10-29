@@ -16,13 +16,8 @@ import environ
 import sentry_sdk
 from django.urls import reverse_lazy  # noqa
 
-
-# Constants for memory sizes
-KIBIBYTE = 1024
-MEBIBYTE = KIBIBYTE * 1024
-GIBIBYTE = MEBIBYTE * 1024
-TEBIBYTE = GIBIBYTE * 1024
-
+from civil_society_vote.common.contants import MEBIBYTE
+from civil_society_vote.common.formatting import get_human_readable_size
 
 # Environment parameters
 root = Path(__file__).resolve().parent.parent.parent
@@ -73,7 +68,7 @@ env = environ.Env(
     TIME_ZONE=(str, "Europe/Bucharest"),
     AUDITLOG_EXPIRY_DAYS=(int, 45),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 3 * MEBIBYTE),
-    MAX_DOCUMENT_SIZE=(int, 2 * MEBIBYTE),
+    MAX_DOCUMENT_SIZE=(int, 50 * MEBIBYTE),
     IMPERSONATE_READ_ONLY=(bool, False),
     # db settings
     # DATABASE_ENGINE=(str, "sqlite3"),
@@ -425,11 +420,17 @@ if IS_CONTAINERIZED:
     STATIC_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "votong", "backend", "static"))
     MEDIA_ROOT = os.path.abspath(os.path.join(os.sep, "var", "www", "votong", "backend", "media"))
 
-# Maximum request size excludind the uploaded files
+# Maximum request size excluding the uploaded files
 DATA_UPLOAD_MAX_MEMORY_SIZE = env.int("DATA_UPLOAD_MAX_MEMORY_SIZE")
 
 # Maximum single file size for uploaded files
 MAX_DOCUMENT_SIZE = env.int("MAX_DOCUMENT_SIZE")
+
+MAX_DOCUMENT_READABLE_SIZE = get_human_readable_size(MAX_DOCUMENT_SIZE)
+
+MAX_DOCUMENT_SIZE_UNIT = MAX_DOCUMENT_READABLE_SIZE["unit"]
+MAX_DOCUMENT_SIZE_IN_UNIT = MAX_DOCUMENT_READABLE_SIZE["size"]
+
 
 STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, "static_extras")),)
 
