@@ -12,7 +12,7 @@
 
 {% block left-side-view %}
 
-  {% if not user.is_anonymous and should_display_candidates %}
+  {% if should_display_candidates %}
 
     {% block domain-filters %}
     {% endblock %}
