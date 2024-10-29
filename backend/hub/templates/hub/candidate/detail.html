@@ -142,12 +142,12 @@
 
       {% if candidate.fiscal_record %}
         {% trans "Fiscal record" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.fiscal_record.url document_name=doc_name can_view_secret_files=False is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.fiscal_record.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
       {% endif %}
 
       {% if candidate.criminal_record %}
         {% trans "Criminal record" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.criminal_record.url document_name=doc_name can_view_secret_files=False is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.criminal_record.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
       {% endif %}
 
     </div>
