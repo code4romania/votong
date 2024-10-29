@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Count
@@ -14,7 +13,6 @@ from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from impersonate.admin import UserAdminImpersonateMixin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from sentry_sdk import capture_message
@@ -39,53 +37,6 @@ from hub.models import (
     get_feature_flag,
 )
 from hub.workers.update_organization import update_organization
-
-
-class NoUsernameUserAdmin(UserAdmin):
-    """
-    UserAdmin without the `username` field
-    """
-
-    fieldsets = (
-        (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name")}),
-        (
-            _("Permissions"),
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ),
-            },
-        ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-    )
-
-
-class ImpersonableUserAdmin(UserAdminImpersonateMixin, NoUsernameUserAdmin):
-    list_display = ("email", "get_groups", "is_active", "is_staff", "is_superuser")
-    open_new_window = True
-    pass
-
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        extra_context = extra_context or {}
-        extra_context["user_id"] = object_id
-        return super().change_view(request, object_id, form_url, extra_context=extra_context)
-
-    def get_groups(self, obj=None):
-        if obj:
-            groups = obj.groups.all().values_list("name", flat=True)
-            return ", ".join(groups)
-
-    get_groups.short_description = _("groups")
-
-
-# NOTE: This is needed in order for impersonation to work
-# admin.site.unregister(User)
-admin.site.register(User, ImpersonableUserAdmin)
 
 
 class CountyFilter(AllValuesFieldListFilter):

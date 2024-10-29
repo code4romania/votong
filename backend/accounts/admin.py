@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group as BaseGroup
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from impersonate.admin import UserAdminImpersonateMixin
 
 from .models import User, GroupProxy
 
@@ -22,7 +23,9 @@ except NotRegistered:
 
 
 @admin.register(User)
-class UserAdmin(ModelAdmin):
+class UserAdmin(UserAdminImpersonateMixin, ModelAdmin):
+    open_new_window = True
+
     list_display = (
         "email",
         "get_organization",
@@ -96,6 +99,12 @@ class UserAdmin(ModelAdmin):
             },
         ),
     )
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["user_id"] = object_id
+
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
     def get_organization(self, obj: User):
         if not obj:

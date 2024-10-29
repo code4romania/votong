@@ -110,9 +110,9 @@
                 <a href="{% url 'impersonate-stop' %}" class="navbar-item" style="color:red; text-align:center;">
                   {% trans "STOP IMPERSONATING" %}<br>{{ request.user.email }}
                 </a>
+              {% else %}
+                <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>
               {% endif %}
-
-              <a href="{% url 'account_logout' %}" class="navbar-item">{% trans "Logout" %}</a>
 
             {% else %}
 

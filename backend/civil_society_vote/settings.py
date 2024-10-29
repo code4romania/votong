@@ -74,6 +74,7 @@ env = environ.Env(
     AUDITLOG_EXPIRY_DAYS=(int, 45),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 3 * MEBIBYTE),
     MAX_DOCUMENT_SIZE=(int, 2 * MEBIBYTE),
+    IMPERSONATE_READ_ONLY=(bool, False),
     # db settings
     # DATABASE_ENGINE=(str, "sqlite3"),
     DATABASE_NAME=(str, "default"),
@@ -511,6 +512,7 @@ if not RECAPTCHA_PUBLIC_KEY:
 ANALYTICS_ENABLED = env("ANALYTICS_ENABLED")
 
 IMPERSONATE = {
+    "READ_ONLY": env.bool("IMPERSONATE_READ_ONLY", default=not DEBUG),
     "REQUIRE_SUPERUSER": True,
 }
 
