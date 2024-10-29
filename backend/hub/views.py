@@ -622,22 +622,23 @@ class CandidateDetailView(HubDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context.update(
+            {
+                "own_candidate": False,
+                "can_support_candidate": False,
+                "supported_candidate": False,
+                "can_approve_candidate": False,
+                "approved_candidate": False,
+                "can_vote_candidate": False,
+                "voted_candidate": False,
+                "used_all_domain_votes": False,
+                "can_view_all_information": False,
+            }
+        )
+
         user: User = self.request.user
         candidate: Candidate = self.object
-
-        context["own_candidate"] = False
-
-        context["can_support_candidate"] = False
-        context["supported_candidate"] = False
-
-        context["can_approve_candidate"] = False
-        context["approved_candidate"] = False
-
-        context["can_vote_candidate"] = False
-        context["voted_candidate"] = False
-
-        context["used_all_domain_votes"] = False
-        context["can_view_all_information"] = False
 
         if user.is_anonymous:
             return context
