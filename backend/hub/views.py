@@ -315,9 +315,12 @@ class OrganizationRegisterRequestCreateView(HubCreateView):
     template_name = "hub/ngo/register_request.html"
     model = Organization
     form_class = OrganizationCreateForm
-    success_message = _(
-        "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you "
-        "as soon as your organization is validated. If you have any further questions, send us a message at contact@votong.ro"
+    success_message = (
+        _(
+            "Thank you for signing up! The form you filled in has reached us. Someone from our team will reach out to you "
+            "as soon as your organization is validated. If you have any further questions, send us a message at %s."
+        )
+        % settings.CONTACT_EMAIL
     )
 
     def get_context_data(self, **kwargs):
