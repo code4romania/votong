@@ -112,7 +112,7 @@ class HealthView(View):
     def get(self, request):
         base_response = {
             "status": "ok",
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": timezone.now().isoformat(),
             "version": settings.VERSION,
             "revision": settings.REVISION,
         }
@@ -180,22 +180,76 @@ class HomeView(MenuMixin, SuccessMessageMixin, FormView):
 
 
 class SearchMixin(MenuMixin, ListView):
-    search_cache: Optional[Dict] = {}
+    search_cache: Dict[str, Dict[str, Union[datetime, QuerySet]]] = {}
+
+    def set_cache_key(self, key: str, value: QuerySet) -> None:
+        if len(self.search_cache) > settings.SEARCH_CACHE_LIMIT:
+            self.clean_cache()
+
+        self.search_cache[key] = {"time": timezone.now(), "value": value}
+
+    def get_cache_key(self, key: str) -> Optional[QuerySet]:
+        cache_entry = self.search_cache.get(key)
+
+        if cache_entry:
+            cache_key_expiration_limit: datetime = timezone.now() - timezone.timedelta(minutes=5)
+
+            if cache_entry["time"] > cache_key_expiration_limit:
+                return cache_entry["value"]
+
+            del self.search_cache[key]
+
+        return None
+
+    def clean_cache(self):
+        cache_key_expiration_limit: datetime = timezone.now() - timezone.timedelta(minutes=5)
+
+        for key, value in self.search_cache.items():
+            if value["time"] < cache_key_expiration_limit:
+                del self.search_cache[key]
+
+    def _configure_search_query(self, query: str, language_code: str) -> SearchQuery:
+        if language_code == "ro":
+            return SearchQuery(query, config="romanian_unaccent")
+
+        return SearchQuery(query)
+
+    def _configure_search_vector(self, language_code: str) -> SearchVector:
+        if language_code == "ro":
+            return SearchVector("name", weight="A", config="romanian_unaccent")
+
+        return SearchVector("name", weight="A")
 
     def search(self, queryset):
-        # TODO: it should take into account selected language. Check only romanian for now.
-        query = self.request.GET.get("q")
+        language_code: str = settings.LANGUAGE_CODE
+        if hasattr(self.request, "LANGUAGE_CODE") and self.request.LANGUAGE_CODE:
+            language_code = self.request.LANGUAGE_CODE
+
+        language_code = language_code.lower()
+
+        query: str = self.request.GET.get("q")
         if not query:
             return queryset
 
-        if query_cache := self.search_cache.get(query):
-            return query_cache
+        model_name: str = ""
+        if queryset.model:
+            model_name = queryset.model.__name__.lower()
 
-        search_query = SearchQuery(query, config="romanian_unaccent")
+        cache_key: str = "-".join(
+            [
+                language_code,
+                model_name,
+                query,
+            ]
+        )
 
-        vector = SearchVector("name", weight="A", config="romanian_unaccent")
+        if cache_result := self.get_cache_key(key=cache_key):
+            return cache_result
 
-        result = (
+        search_query: SearchQuery = self._configure_search_query(query, language_code)
+        vector: SearchVector = self._configure_search_vector(language_code)
+
+        result: QuerySet = (
             queryset.annotate(
                 rank=SearchRank(vector, search_query),
                 similarity=TrigramSimilarity("name", query),
@@ -205,7 +259,7 @@ class SearchMixin(MenuMixin, ListView):
             .distinct("name")
         )
 
-        self.search_cache[query] = result
+        self.set_cache_key(key=cache_key, value=result)
 
         return result
 
@@ -1064,13 +1118,14 @@ def candidate_status_confirm(request, pk):
 
     candidate: Candidate = get_object_or_404(Candidate, pk=pk)
 
-    if candidate.org == request.user.organization or candidate.status == Candidate.STATUS.pending:
+    user: User = request.user
+    if candidate.org == user.organization or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)
 
-    confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
+    confirmation, created = CandidateConfirmation.objects.get_or_create(user=user, candidate=candidate)
 
     if not created:
-        message = f"User {request.user} tried to confirm candidate {candidate} status again."
+        message = f"User {user} with ID {user.pk} tried to confirm candidate {candidate} status again."
         logger.warning(message)
         if settings.ENABLE_SENTRY:
             capture_message(message, level="warning")
