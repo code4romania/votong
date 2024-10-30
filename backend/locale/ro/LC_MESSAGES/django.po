@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-29 17:00+0200\n"
+"POT-Creation-Date: 2024-10-30 10:15+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -536,7 +536,7 @@ msgstr "Termeni și condiții"
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr "Sunt de acord cu {terms_url} ale platformei VotONG"
 
-#: hub/forms.py:105 hub/forms.py:188 hub/views.py:409
+#: hub/forms.py:105 hub/forms.py:188 hub/views.py:458
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -1558,87 +1558,91 @@ msgstr "publicat la"
 msgid "published"
 msgstr "publicat"
 
-#: hub/urls.py:32
+#: hub/urls.py:33
+msgid "health/"
+msgstr "health/"
+
+#: hub/urls.py:34
 msgid "candidates/"
 msgstr "candidatura/"
 
-#: hub/urls.py:34
+#: hub/urls.py:36
 msgid "candidates/register/"
 msgstr "candidatura/inregistrare/"
 
-#: hub/urls.py:38
+#: hub/urls.py:40
 msgid "candidates/<int:pk>/"
 msgstr "candidatura/<int:pk>"
 
-#: hub/urls.py:39
+#: hub/urls.py:41
 msgid "candidates/<int:pk>/vote/"
 msgstr "candidatura/<int:pk>/vot/"
 
-#: hub/urls.py:40
+#: hub/urls.py:42
 msgid "candidates/<int:pk>/support/"
 msgstr "candidatura/<int:pk>/sustinere/"
 
-#: hub/urls.py:41
+#: hub/urls.py:43
 msgid "candidates/<int:pk>/revoke/"
 msgstr "candidatura/<int:pk>/revocare/"
 
-#: hub/urls.py:42
+#: hub/urls.py:44
 msgid "candidates/<int:pk>/status-confirm/"
 msgstr "candidatura/<int:pk>/confirma-starea/"
 
-#: hub/urls.py:43
+#: hub/urls.py:45
 msgid "candidates/<int:pk>/update/"
 msgstr "candidatura/<int:pk>/actualizare/"
 
-#: hub/urls.py:44
+#: hub/urls.py:46
 msgid "candidates/votes/"
 msgstr "candidatura/voturi/"
 
-#: hub/urls.py:45
+#: hub/urls.py:47
 msgid "candidates/results/"
 msgstr "candidatura/rezultate/"
 
-#: hub/urls.py:47
+#: hub/urls.py:49
 msgid "candidates/ces-results/"
 msgstr "candidatura/ces-rezultate/"
 
-#: hub/urls.py:49
+#: hub/urls.py:51
 msgid "committee/ngos/"
 msgstr "comisie/organizatii/"
 
-#: hub/urls.py:50
+#: hub/urls.py:52
 msgid "committee/candidates/"
 msgstr "comisie/candidatura/"
 
-#: hub/urls.py:51
+#: hub/urls.py:53
 msgid "ngos/"
 msgstr "organizatii/"
 
-#: hub/urls.py:53
+#: hub/urls.py:55
 msgid "ngos/register"
 msgstr "organizatii/inregistrare"
 
-#: hub/urls.py:57
+#: hub/urls.py:59
 msgid "ngos/<int:pk>"
 msgstr "organizatii/<int:pk>"
 
-#: hub/urls.py:58
+#: hub/urls.py:60
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr "organizatii/<int:pk>/vot/<str:action>"
 
-#: hub/urls.py:59
+#: hub/urls.py:61
 msgid "ngos/<int:pk>/update"
 msgstr "organizatii/<int:pk>/actualizare"
 
-#: hub/urls.py:60
+#: hub/urls.py:62
 msgid "ngo-update/<int:pk>"
 msgstr "org-actualizare/<int:pk>"
 
-#: hub/views.py:69
+#: hub/views.py:118
 msgid "Thank you! We'll get in touch soon!"
 msgstr "Mulțumim! Vă vom contacta în curând!"
 
-#: hub/views.py:320
+#: hub/views.py:369
 #, python-format
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
@@ -1649,7 +1653,7 @@ msgstr ""
 "noastră vă va contacta imediat ce organizația trece de procesul de validare. "
 "Dacă aveți întrebări suplimentare, ne puteți trimite un mesaj la %s."
 
-#: hub/views.py:361
+#: hub/views.py:410
 msgid ""
 "The organization does not have the voting domain set. To be able to vote, "
 "please set the voting domain."
@@ -1658,18 +1662,18 @@ msgstr ""
 "exercita votul) pentru a te înscrie ca elector sau pentru a nominaliza un "
 "candidat."
 
-#: hub/views.py:402
+#: hub/views.py:451
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:859
+#: hub/views.py:908
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
 "Vă rugăm așteptați %(minutes_threshold)s minute înainte de a actualiza din "
 "nou organizația."
 
-#: hub/workers/update_organization.py:228
+#: hub/workers/update_organization.py:226
 msgid "Error updating organization"
 msgstr "Eroare la actualizarea organizației"
 

@@ -14,6 +14,7 @@ from hub.views import (
     CommitteeCandidatesListView,
     CommitteeOrganizationListView,
     ElectorCandidatesListView,
+    HealthView,
     HomeView,
     OrganizationDetailView,
     OrganizationListView,
@@ -29,6 +30,7 @@ from hub.views import (
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
+    path(_("health/"), HealthView.as_view(), name="health"),
     path(_("candidates/"), CandidateListView.as_view(), name="candidates"),
     path(
         _("candidates/register/"),

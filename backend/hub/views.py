@@ -55,6 +55,58 @@ logger = logging.getLogger(__name__)
 UserModel = get_user_model()
 
 
+class HealthView(View):
+    # noinspection PyMethodMayBeStatic
+    def get(self, request):
+        base_response = {
+            "status": "ok",
+            "timestamp": datetime.now().isoformat(),
+            "version": settings.VERSION,
+            "revision": settings.REVISION,
+        }
+
+        user = request.user
+
+        if user.is_anonymous:
+            return JsonResponse(base_response)
+
+        base_response["user"] = {
+            "email": user.email,
+        }
+
+        if user.organization:
+            base_response["user"]["organization"] = {
+                "name": user.organization.name,
+                "raf": user.organization.registration_number,
+            }
+
+        if not user.is_impersonate and not user.is_staff:
+            return JsonResponse(base_response)
+
+        if user.is_staff:
+            base_response["user"].update(
+                {
+                    "is_staff": user.is_staff,
+                    "is_superuser": user.is_superuser,
+                    "is_impersonate": user.is_impersonate,
+                }
+            )
+
+        if not user.is_impersonate:
+            return JsonResponse(base_response)
+
+        base_response["user"]["is_impersonate"] = user.is_impersonate
+
+        base_response["impersonator"] = {
+            "email": user.impersonator.email,
+            "is_staff": user.impersonator.is_staff,
+            "is_superuser": user.impersonator.is_superuser,
+            "is_impersonate": user.impersonator.is_impersonate,
+        }
+
+        return JsonResponse(base_response)
+
+
 class MenuMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
