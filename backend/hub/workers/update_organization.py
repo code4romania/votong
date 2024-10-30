@@ -157,9 +157,7 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     # Import the organization logo
     logo_url: str = ngohub_general_data.get("logo") or ""
-    logo_url_error: Optional[str] = copy_file_to_organization(organization, logo_url, "logo")
-    if logo_url_error:
-        errors.append(logo_url_error)
+    copy_file_to_organization(organization, logo_url, "logo")
 
     # Import the organization statute
     statute_url: str = ngohub_legal_data.get("organizationStatute") or ""
