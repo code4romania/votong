@@ -11,6 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
+from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from import_export import resources
@@ -25,6 +26,7 @@ from hub.models import (
     COUNTY_RESIDENCE,
     FLAG_CHOICES,
     PHASE_CHOICES,
+    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -71,18 +73,20 @@ class OrganizationAdmin(admin.ModelAdmin):
         "get_user",
         "get_candidate",
         "city",
-        "legal_representative_name",
+        "get_voting_domain",
         "status",
         "created",
     )
     list_display_links = (
         "name",
         "city",
-        "legal_representative_name",
         "status",
         "created",
     )
-    list_filter = ("status", ("county", CountyFilter))
+    list_filter = ["status", ("county", CountyFilter)]
+    if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain):
+        list_filter.append("voting_domain")
+
     search_fields = ("name", "legal_representative_name", "email")
     readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
     autocomplete_fields = ["city"]
@@ -175,6 +179,19 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
 
     get_candidate.short_description = _("candidate")
+
+    def get_voting_domain(self, obj: Organization):
+        if obj and obj.voting_domain:
+            domain_url = (
+                reverse("admin:hub_organization_changelist")
+                + "?"
+                + urlencode({"voting_domain__id__exact": obj.voting_domain.pk})
+            )
+            return mark_safe(f'<a href="{domain_url}">{obj.voting_domain.name}</a>')
+
+        return _("Not set")
+
+    get_voting_domain.short_description = _("voting domain")
 
 
 class CandidateVoteInline(admin.TabularInline):

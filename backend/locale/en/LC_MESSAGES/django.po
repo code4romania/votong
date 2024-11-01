@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-30 10:15+0200\n"
+"POT-Creation-Date: 2024-11-01 12:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/admin.py:62 hub/admin.py:97
+#: accounts/admin.py:62 hub/admin.py:101
 msgid "Identification"
 msgstr ""
 
@@ -374,142 +374,150 @@ msgstr ""
 msgid "authentication/"
 msgstr ""
 
-#: hub/admin.py:107
+#: hub/admin.py:111
 msgid "Contact Information"
 msgstr ""
 
-#: hub/admin.py:124
+#: hub/admin.py:128
 msgid "Legal representative"
 msgstr ""
 
-#: hub/admin.py:134
+#: hub/admin.py:138
 msgid "Platform documents"
 msgstr ""
 
-#: hub/admin.py:170
+#: hub/admin.py:174
 msgid "user"
 msgstr ""
 
-#: hub/admin.py:177
+#: hub/admin.py:181
 msgid "candidate"
 msgstr ""
 
-#: hub/admin.py:229
+#: hub/admin.py:192
+msgid "Not set"
+msgstr ""
+
+#: hub/admin.py:194
+msgid "voting domain"
+msgstr ""
+
+#: hub/admin.py:246
 msgid "supporters"
 msgstr ""
 
-#: hub/admin.py:235
+#: hub/admin.py:252
 msgid "10 or more"
 msgstr ""
 
-#: hub/admin.py:236
+#: hub/admin.py:253
 msgid "less than 10"
 msgstr ""
 
-#: hub/admin.py:248
+#: hub/admin.py:265
 msgid "confirmations"
 msgstr ""
 
-#: hub/admin.py:253
+#: hub/admin.py:270
 msgid "5 or more"
 msgstr ""
 
-#: hub/admin.py:254
+#: hub/admin.py:271
 msgid "less than 5"
 msgstr ""
 
-#: hub/admin.py:297
+#: hub/admin.py:314
 msgid "Set selected candidates status to REJECTED"
 msgstr ""
 
-#: hub/admin.py:313
+#: hub/admin.py:330
 msgid "Set selected candidates status to ACCEPTED"
 msgstr ""
 
-#: hub/admin.py:325
+#: hub/admin.py:342
 msgid "Set selected candidates status to PENDING"
 msgstr ""
 
-#: hub/admin.py:374
+#: hub/admin.py:391
 msgid "Votes"
 msgstr ""
 
-#: hub/admin.py:383
+#: hub/admin.py:400
 msgid "Supporters"
 msgstr ""
 
-#: hub/admin.py:389
+#: hub/admin.py:406
 msgid "Confirmations"
 msgstr ""
 
-#: hub/admin.py:500
+#: hub/admin.py:517
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:508
+#: hub/admin.py:525
 msgid "Import Cities"
 msgstr ""
 
-#: hub/admin.py:555
+#: hub/admin.py:572
 #, python-brace-format
 msgid "Configuration invalid. Missing flag(s) in database: {missing_flags}."
 msgstr ""
 
-#: hub/admin.py:567
+#: hub/admin.py:584
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
 msgstr ""
 
-#: hub/admin.py:584
+#: hub/admin.py:601
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr ""
 
-#: hub/admin.py:589
+#: hub/admin.py:606
 msgid "PHASE PAUSE - platform pause"
 msgstr ""
 
-#: hub/admin.py:603
+#: hub/admin.py:620
 msgid "Set flags for PHASE PAUSE - platform pause"
 msgstr ""
 
-#: hub/admin.py:608
+#: hub/admin.py:625
 msgid "PHASE DEACTIVATE - platform deactivate"
 msgstr ""
 
-#: hub/admin.py:621
+#: hub/admin.py:638
 msgid "Set flags for PHASE - platform deactivate"
 msgstr ""
 
-#: hub/admin.py:626
+#: hub/admin.py:643
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:640
+#: hub/admin.py:657
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:645
+#: hub/admin.py:662
 msgid "PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:659
+#: hub/admin.py:676
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:664
+#: hub/admin.py:681
 msgid "PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:678
+#: hub/admin.py:695
 msgid "Set flags for PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:683
+#: hub/admin.py:700
 msgid "FINAL PHASE - results"
 msgstr ""
 
-#: hub/admin.py:697
+#: hub/admin.py:714
 msgid "Set flags for FINAL PHASE - results"
 msgstr ""
 
@@ -522,7 +530,7 @@ msgstr ""
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:105 hub/forms.py:188 hub/views.py:458
+#: hub/forms.py:105 hub/forms.py:188 hub/views.py:461
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -1577,11 +1585,11 @@ msgstr ""
 msgid "ngo-update/<int:pk>"
 msgstr ""
 
-#: hub/views.py:118
+#: hub/views.py:121
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:369
+#: hub/views.py:372
 #, python-format
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
@@ -1589,17 +1597,17 @@ msgid ""
 "validated. If you have any further questions, send us a message at %s."
 msgstr ""
 
-#: hub/views.py:410
+#: hub/views.py:413
 msgid ""
 "The organization does not have the voting domain set. To be able to vote, "
 "please set the voting domain."
 msgstr ""
 
-#: hub/views.py:451
+#: hub/views.py:454
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:908
+#: hub/views.py:911
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
