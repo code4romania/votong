@@ -1,20 +1,22 @@
 import logging
+from typing import List
 
-from django.contrib.auth import get_user_model
-from tinymce.models import HTMLField
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.files.storage import storages
 from django.db import models
+from django.db.models.query_utils import DeferredAttribute
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from guardian.shortcuts import assign_perm
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
+from tinymce.models import HTMLField
 
-from accounts.models import User, STAFF_GROUP, COMMITTEE_GROUP, SUPPORT_GROUP, NGO_GROUP
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.formatting import get_human_readable_size
 
 REPORTS_HELP_TEXT = (
@@ -225,7 +227,37 @@ class City(models.Model):
         super().save(*args, **kwargs)
 
 
-class Organization(StatusModel, TimeStampedModel):
+class BaseCompleteModel(models.Model):
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def required_fields(cls) -> List[DeferredAttribute]:
+        raise NotImplementedError
+
+    def check_deferred_fields(self, deferred_required_fields):
+        missing_fields = []
+
+        for field in deferred_required_fields:
+            if not getattr(self, field.field.name):
+                missing_fields.append(field.field)
+
+        return missing_fields
+
+    def get_missing_fields(self):
+        deferred_required_fields = self.required_fields()
+        missing_fields = self.check_deferred_fields(deferred_required_fields)
+
+        return missing_fields
+
+    @property
+    def is_complete(self):
+        missing_fields = self.get_missing_fields()
+
+        return not missing_fields
+
+
+class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
     # DRAFT: empty organization created by us, it might be invalid (e.g., created for another user of an org
     # PENDING: the organization doesn't have all the necessary documents
     # ACCEPTED: the organization has all required documentation and can vote
@@ -393,25 +425,54 @@ class Organization(StatusModel, TimeStampedModel):
         return True
 
     @staticmethod
-    def required_fields():
+    def get_required_reports() -> List[str]:
+        required_reports = []
+        start_year = settings.CURRENT_EDITION_YEAR - settings.PREV_REPORTS_REQUIRED_FOR_PROPOSAL
+
+        for year in range(start_year, settings.CURRENT_EDITION_YEAR):
+            required_reports.append(f"report_{year}")
+
+        return required_reports
+
+    @classmethod
+    def required_fields(cls) -> List[DeferredAttribute]:
         fields = [
-            "name",
-            "county",
-            "city",
-            "address",
-            "registration_number",
-            "email",
-            "phone",
-            "description",
-            "legal_representative_name",
-            "legal_representative_email",
-            "board_council",
-            "last_balance_sheet",
-            "statute",
+            cls.name,
+            cls.county,
+            cls.city,
+            cls.address,
+            cls.registration_number,
+            cls.email,
+            cls.phone,
+            cls.description,
+            cls.legal_representative_name,
+            cls.legal_representative_email,
+            cls.board_council,
+            cls.last_balance_sheet,
+            cls.statute,
+            cls.statement_political,
         ]
 
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
-            fields.append("voting_domain")
+            fields.append(cls.voting_domain)
+
+        return fields
+
+    @classmethod
+    def required_fields_for_candidate(cls) -> List[DeferredAttribute]:
+        fields = cls.required_fields()
+
+        # noinspection PyTypeChecker
+        fields.extend(
+            [
+                cls.statement_discrimination,
+                cls.fiscal_certificate_anaf,
+                cls.fiscal_certificate_local,
+            ]
+        )
+
+        for report_name in cls.get_required_reports():
+            fields.append(getattr(cls, report_name))
 
         return fields
 
@@ -437,16 +498,22 @@ class Organization(StatusModel, TimeStampedModel):
             "last_balance_sheet",
         )
 
+    def get_missing_fields_for_candidate(self):
+        deferred_required_fields = self.required_fields_for_candidate()
+        missing_fields = self.check_deferred_fields(deferred_required_fields)
+
+        return missing_fields
+
     @property
     def is_complete(self):
         """
         Validate that the Org uploaded all the requested info to propose a Candidate
         """
-        required_reports = []
-        for year in range(
-            settings.CURRENT_EDITION_YEAR - settings.PREV_REPORTS_REQUIRED_FOR_PROPOSAL, settings.CURRENT_EDITION_YEAR
-        ):
-            required_reports.append(getattr(self, f"report_{year}", None))
+        if not super().is_complete:
+            return False
+
+        required_reports_names = self.get_required_reports()
+        required_reports = [getattr(self, report_name, None) for report_name in required_reports_names]
 
         return all(
             [
@@ -458,8 +525,19 @@ class Organization(StatusModel, TimeStampedModel):
                 self.fiscal_certificate_local,
             ]
             + required_reports
-            + list(map(lambda x: getattr(self, x), self.required_fields()))
         )
+
+    @property
+    def is_complete_for_candidate(self):
+        """
+        Validate that the Org uploaded all the requested info to propose a Candidate
+        """
+        if not super().is_complete:
+            return False
+
+        missing_fields = self.get_missing_fields_for_candidate()
+
+        return not missing_fields
 
     def is_elector(self, domain=None) -> bool:
         if self.status != self.STATUS.accepted:
@@ -547,7 +625,7 @@ class CandidatesWithOrgManager(models.Manager):
         return super().get_queryset().exclude(org=None).exclude(org__status=Organization.STATUS.draft)
 
 
-class Candidate(StatusModel, TimeStampedModel):
+class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     # PENDING: has been created/proposed and is waiting for support from organizations
     # ACCEPTED: has been accepted by the admins of the platform
     # CONFIRMED: has received confirmation from the electoral commission
@@ -693,25 +771,27 @@ class Candidate(StatusModel, TimeStampedModel):
     def __str__(self):
         return f"{self.org} ({self.name})"
 
+    @classmethod
+    def required_fields(cls):
+        return [
+            cls.photo,
+            cls.domain,
+            cls.name,
+            cls.role,
+            cls.statement,
+            cls.mandate,
+            cls.letter_of_intent,
+            cls.cv,
+            cls.declaration_of_interests,
+            cls.fiscal_record,
+        ]
+
     @property
     def is_complete(self):
         """
         Validate if the Org uploaded all the requested info to propose a Candidate
         """
-        if not all(
-            [
-                self.photo,
-                self.domain,
-                self.name,
-                self.role,
-                self.statement,
-                self.mandate,
-                self.letter_of_intent,
-                self.cv,
-                self.declaration_of_interests,
-                self.fiscal_record,
-            ]
-        ):
+        if not super().is_complete:
             return False
 
         if not FeatureFlag.flag_enabled("enable_voting_domain"):

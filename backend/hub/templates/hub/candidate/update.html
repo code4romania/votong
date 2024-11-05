@@ -49,20 +49,69 @@
   <br>
   <br>
 
-  {% if not user.organization.is_complete %}
+  {% if not user.organization.is_complete or not candidate.is_complete %}
     <div class="container">
-      <div class="message is-danger">
-        <div class="message-body">
-          Pentru a putea finaliza profilul candidaturii și pentru intra în cursă este important să completați
-          și ultima secțiune de documente solicitate din
-          <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>.
-          Pentru orice întrebare ne puteți scrie la
-          <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+      <div class="message is-warning">
+
+        <div class="message-header">
+          <p>Candidatura nu poate fi propusă încă</p>
         </div>
+
+        <div class="message-body">
+          <p>
+            <strong>
+              Următoarele câmpuri trebuie completate pentru a putea propune candidatura:
+            </strong>
+          </p>
+
+          <ul style="list-style: disc outside; margin-left:2em">
+
+            {% if organization_missing_fields %}
+              <li>
+                Organizație:
+                {{ organization_missing_fields }}
+              </li>
+            {% endif %}
+
+            {% if candidate_missing_fields %}
+              <li>
+                Candidat:
+                {{ candidate_missing_fields }}
+              </li>
+            {% endif %}
+          </ul>
+
+          <br>
+
+          <p>
+            Pentru a putea finaliza profilul candidaturii și pentru intra în cursă este important:
+          </p>
+
+          <ul style="list-style: disc outside; margin-left:2em">
+            <li>
+              Să completați ultima secțiune de documente solicitate din
+              <a href="{% url 'ngo-update' candidate.org.id %}">Profilul organizației</a>
+            </li>
+            <li>
+              Să completați toate datele și documentele obligatorii din profilul candidatului.
+            </li>
+            <li>
+              Să propuneți candidatura (butonul va fi activat odată ce datele sunt completate).
+            </li>
+          </ul>
+
+          <hr>
+
+          <p>
+            Pentru orice întrebare ne puteți scrie la
+            <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+          </p>
+        </div>
+
       </div>
     </div>
-    <br><br>
   {% endif %}
+
 
   {% if CANDIDATE_REGISTRATION_ENABLED and candidate.is_proposed %}
     <div class="container">
@@ -137,6 +186,12 @@
       <a href="#" class="button is-warning" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">
         Propune candidatură
       </a>
+    </div>
+  {% else %}
+    <div class="container has-text-centered">
+      <p class="button fake-button is-disabled" style="width: 100%;">
+        Propune candidatură
+      </p>
     </div>
   {% endif %}
 

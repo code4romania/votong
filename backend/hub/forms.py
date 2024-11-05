@@ -156,7 +156,9 @@ class OrganizationUpdateForm(forms.ModelForm):
         # All the required fields for a fully editable organization should be required in votong
         if self.instance.is_fully_editable:
             for field_name in self.fields:
-                if field_name in Organization.required_fields():
+                mandatory_fields = Organization.required_fields()
+                mandatory_fields_names = [field.field.name for field in mandatory_fields]
+                if field_name in mandatory_fields_names:
                     self.fields[field_name].required = True
 
             return

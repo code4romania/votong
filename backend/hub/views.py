@@ -747,7 +747,8 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["contact_email"] = settings.CONTACT_EMAIL
-        context["can_propose_candidate"] = False
+
+        can_propose_candidate = False
 
         user = self.request.user
         user_org: Organization = user.organization
@@ -756,11 +757,29 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         if (
             FeatureFlag.flag_enabled("enable_candidate_registration")
             and user_org
-            and user_org.is_complete
+            and user_org.is_complete_for_candidate
             and candidate
             and candidate.is_complete
         ):
-            context["can_propose_candidate"] = True
+            can_propose_candidate = True
+
+        context["can_propose_candidate"] = can_propose_candidate
+
+        organization_missing_fields = []
+        candidate_missing_fields = []
+
+        if not can_propose_candidate:
+            if user_org and not user_org.is_complete_for_candidate:
+                organization_missing_fields = user_org.get_missing_fields_for_candidate()
+                organization_missing_fields = [f"'{str(field.verbose_name)}'" for field in organization_missing_fields]
+
+            if candidate and not candidate.is_complete:
+                candidate_missing_fields = candidate.get_missing_fields()
+                candidate_missing_fields = [f"'{str(field.verbose_name)}'" for field in candidate_missing_fields]
+
+        if organization_missing_fields or candidate_missing_fields:
+            context["organization_missing_fields"] = ", ".join(organization_missing_fields)
+            context["candidate_missing_fields"] = ", ".join(candidate_missing_fields)
 
         return context
 
@@ -773,11 +792,29 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return reverse("candidate-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        if FeatureFlag.flag_enabled("enable_candidate_registration") or FeatureFlag.flag_enabled(
-            "enable_candidate_supporting"
-        ):
-            return super().post(request, *args, **kwargs)
-        raise PermissionDenied
+        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
+            raise PermissionDenied
+
+        if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
+            raise PermissionDenied
+
+        user = self.request.user
+        user_org: Organization = user.organization
+        candidate: Candidate = self.object
+
+        if not user_org:
+            raise PermissionDenied
+
+        if not user_org.is_complete_for_candidate:
+            raise PermissionDenied
+
+        if not candidate:
+            raise PermissionDenied
+
+        if not candidate.is_complete:
+            raise PermissionDenied
+
+        return super().post(request, *args, **kwargs)
 
 
 @login_required
