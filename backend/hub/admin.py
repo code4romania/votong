@@ -26,7 +26,6 @@ from hub.models import (
     COUNTY_RESIDENCE,
     FLAG_CHOICES,
     PHASE_CHOICES,
-    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -83,9 +82,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         "status",
         "created",
     )
-    list_filter = ["status", ("county", CountyFilter)]
-    if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain):
-        list_filter.append("voting_domain")
+    list_filter = ("status", ("county", CountyFilter), "voting_domain")
 
     search_fields = ("name", "legal_representative_name", "email")
     readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
