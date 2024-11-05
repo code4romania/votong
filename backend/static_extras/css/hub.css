@@ -656,3 +656,16 @@ hr.tight {
 .rules-section {
   font-size: 10px;
 }
+
+.fake-button {
+  cursor: initial;
+
+  &:hover {
+    cursor: initial;
+  }
+}
+
+.message.is-warning .message-body {
+  border-color: #ffdd57;
+  color: #5c4a00;
+}
