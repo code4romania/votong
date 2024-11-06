@@ -1,4 +1,5 @@
 import logging
+import unicodedata
 from datetime import datetime
 from typing import Dict, List, Optional, Union
 from urllib.parse import unquote
@@ -37,6 +38,7 @@ from hub.forms import (
 )
 from hub.models import (
     FLAG_CHOICES,
+    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -46,7 +48,6 @@ from hub.models import (
     Domain,
     FeatureFlag,
     Organization,
-    SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
 
@@ -244,24 +245,39 @@ class OrganizationListView(SearchMixin):
     paginate_by = 9
     template_name = "hub/ngo/list.html"
 
+    @staticmethod
+    def _filter_letter(char: str) -> bool:
+        if char.isalpha():
+            return True
+        elif char == " ":
+            return True
+
+        return False
+
     def group_organizations_by_domain(self, queryset) -> List[Dict[str, Union[Domain, List[Organization]]]]:
         organizations_by_domain: Dict[Domain, List[Organization]] = {}
 
         for organization in queryset:
-            domain_name: Domain = organization.voting_domain
-            if domain_name not in organizations_by_domain:
-                organizations_by_domain[domain_name] = []
+            domain: Domain = organization.voting_domain
+            if domain not in organizations_by_domain:
+                organizations_by_domain[domain] = []
 
-            organizations_by_domain[domain_name].append(organization)
+            organizations_by_domain[domain].append(organization)
 
         # dictionary to list of dictionaries
-        organizations_by_domain_list = [
-            {
-                "domain": domain,
-                "organizations": sorted(organizations, key=lambda org: org.name),
-            }
-            for domain, organizations in organizations_by_domain.items()
-        ]
+        organizations_by_domain_list = []
+        for domain, organizations in organizations_by_domain.items():
+            snake_case_domain_key = "".join(filter(self._filter_letter, domain.name)).lower().replace(" ", "_")
+            normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
+
+            organizations_by_domain_list.append(
+                {
+                    "domain": domain,
+                    "domain_key": normalized_domain_key.decode("utf-8"),
+                    "organizations": sorted(organizations, key=lambda org: org.name),
+                }
+            )
+
         organizations_by_domain_list = sorted(organizations_by_domain_list, key=lambda x: x["domain"].pk)
 
         return organizations_by_domain_list

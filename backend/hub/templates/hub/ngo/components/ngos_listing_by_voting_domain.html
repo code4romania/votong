@@ -3,7 +3,7 @@
 
 {% for section_details in page_obj %}
 
-  <h3 class="section-title">
+  <h3 id="{{ section_details.domain_key }}" class="section-title">
     {{ section_details.domain.name }} ({{ section_details.organizations|length }})
   </h3>
 

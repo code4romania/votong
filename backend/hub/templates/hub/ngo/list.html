@@ -17,32 +17,46 @@
             value="{{ current_search }}"
             aria-label="{% trans 'Search...' %}"
             placeholder="{% trans 'Search...' %}">
-          <label class="search-icon">
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-search"></i>
-                    </span>
-            <input type="submit" style="display: none;"/>
-          </label>
+          <span class="icon is-small is-right">
+                <i class="fas fa-search" aria-label="search-icon"></i>
+            </span>
+          <input
+            type="submit"
+            style="display: none;"
+            aria-label="{% trans 'Search...' %}"
+          />
         </p>
       </div>
     </form>
   </div>
 
-  <h2 class="section-title uppercase">
-    {% trans "Registered organizations" %} ({{ counters.ngos_accepted }})
-  </h2>
+
+  {% trans "Registered organizations" as section_title %}
+
+  {% if page_obj and VOTING_DOMAIN_ENABLED %}
+
+    {% include "hub/ngo/components/expandable_voting_domains.html" with section_title=section_title %}
+
+  {% else %}
+
+    <h2 class="section-title uppercase">
+      {{ section_title }} ({{ counters.ngos_accepted }})
+    </h2>
+
+  {% endif %}
+
 
   <div class="container">
     {% if page_obj %}
 
       <div class="is-multiline infinite-container">
-      
-      {% if VOTING_DOMAIN_ENABLED %}
-        {% include "hub/ngo/components/ngos_listing_by_voting_domain.html" %}
-      {% else %}
-        {% include "hub/ngo/components/ngos_listing.html" %}
-      {% endif %}
-      
+
+        {% if VOTING_DOMAIN_ENABLED %}
+          {% include "hub/ngo/components/ngos_listing_by_voting_domain.html" %}
+        {% else %}
+          {% include "hub/ngo/components/ngos_listing.html" %}
+        {% endif %}
+
       </div>
 
       {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}

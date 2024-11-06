@@ -669,3 +669,49 @@ hr.tight {
   border-color: #ffdd57;
   color: #5c4a00;
 }
+
+.collapsible-title {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.active, .collapsible-title:hover {
+  background-color: #ffdd57;
+}
+
+.collapsible-content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+details {
+  user-select: none;
+}
+
+details>summary span.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s;
+  margin-left: auto;
+  font: inherit;
+  font-size: 1em;
+}
+
+summary span.icon {
+  transform: rotate(90deg);
+}
+
+details[open] summary span.icon {
+  transform: rotate(270deg);
+}
+
+summary {
+  display: flex;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
