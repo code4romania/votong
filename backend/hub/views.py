@@ -816,18 +816,15 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
         user = self.request.user
         user_org: Organization = user.organization
-        candidate: Candidate = self.object
+        candidate: Candidate = self.get_object()
 
         if not user_org:
-            raise PermissionDenied
-
-        if not user_org.is_complete_for_candidate:
             raise PermissionDenied
 
         if not candidate:
             raise PermissionDenied
 
-        if not candidate.is_complete:
+        if not candidate == user_org.candidate:
             raise PermissionDenied
 
         return super().post(request, *args, **kwargs)
