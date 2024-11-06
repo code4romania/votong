@@ -867,9 +867,6 @@ def candidate_vote(request, pk):
 
 @login_required
 def candidate_revoke(request, pk):
-    if not request.user.has_perm("hub.delete_candidate"):
-        raise PermissionDenied
-
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
