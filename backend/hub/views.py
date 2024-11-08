@@ -112,6 +112,8 @@ class MenuMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context["contact_email"] = settings.CONTACT_EMAIL
+
         return context
 
 
@@ -421,8 +423,24 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         context = super().get_context_data(**kwargs)
 
         organization: Organization = self.object
-        context["update_status"] = "is-success" if organization.status == Organization.STATUS.accepted else "is-warning"
-        context["contact_email"] = settings.CONTACT_EMAIL
+
+        update_button_class = "is-warning"
+        update_button_message = _("Update organization's profile")
+        update_button_description = _("Some data in this organization's profile can only be updated through NGO Hub.")
+        if organization.status == Organization.STATUS.accepted:
+            update_button_class = "is-success"
+            update_button_message = _("The organization's information is complete")
+            update_button_description = _(
+                "If you have recently edited information in the organization's account on NGO Hub and want to update it in the profile on VotONG, click here"
+            )
+
+        context.update(
+            {
+                "update_button_class": update_button_class,
+                "update_button_message": update_button_message,
+                "update_button_description": update_button_description,
+            }
+        )
 
         if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain) and not organization.voting_domain:
             context["voting_domain_warning"] = _(
@@ -762,7 +780,6 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["contact_email"] = settings.CONTACT_EMAIL
 
         can_propose_candidate = False
 

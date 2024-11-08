@@ -52,9 +52,9 @@
     {% endif %}
     <br><br>
   {% endif %}
-  
+
   {% if voting_domain_warning %}
-    
+
     <div class="message is-warning">
       <div class="message-body">
         <p>
@@ -64,11 +64,11 @@
           </strong>
         </p>
         <p>
-          {{ voting_domain_warning}}
+          {{ voting_domain_warning }}
         </p>
       </div>
     </div>
-    
+
   {% endif %}
 
   <div class="container">
@@ -83,7 +83,7 @@
     {% endif %}
 
     {% if not organization.is_fully_editable %}
-      <div class="message {{ update_status }}">
+      <div class="message {{ update_button_class }}">
         <div class="message-body flex-align-center">
           <form
             id="update-ngo-form"
@@ -91,7 +91,7 @@
             action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
             {% csrf_token %}
             <button
-              class="button {{ update_status }} is-small update-ngo-button"
+              class="button {{ update_button_class }} is-small update-ngo-button"
               type="submit"
               title="{% trans 'Refresh NGO Information' %}">
               <i class="fas fa-sync"></i>
@@ -106,9 +106,9 @@
 
           <p class="has-text-grey-dark">
             <strong>
-              {% trans "Update organization's profile" %}
+              {{ update_button_message }}
             </strong>
-            ({% trans "Some data in this organization's profile can only be updated through NGO Hub." %})
+            ({{ update_button_description }})
           </p>
         </div>
       </div>
