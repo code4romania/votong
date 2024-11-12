@@ -677,12 +677,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         _("Representative name"),
         max_length=254,
         blank=True,
-        help_text=_(
-            "The name of the designated person who will represent the organization "
-            "in the Electoral Commission in case of a favorable response."
-            "The designated person must be an employee of the organization and part of its management structures "
-            "(member of the Board of Directors, Executive Director, etc.)."
-        ),
+        help_text=_("The name of the designated person in the organization."),
     )
     role = models.CharField(
         _("Representative role in organization"),

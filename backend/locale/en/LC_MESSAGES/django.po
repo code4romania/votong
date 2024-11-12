@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 12:08+0200\n"
+"POT-Creation-Date: 2024-11-12 12:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -534,7 +534,7 @@ msgstr ""
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:106 hub/forms.py:191 hub/views.py:495
+#: hub/forms.py:106 hub/forms.py:191 hub/views.py:496
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -893,130 +893,123 @@ msgstr ""
 msgid "Representative name"
 msgstr "Candidate name"
 
-#: hub/models.py:681
-msgid ""
-"The name of the designated person who will represent the organization in the "
-"Electoral Commission in case of a favorable response.The designated person "
-"must be an employee of the organization and part of its management "
-"structures (member of the Board of Directors, Executive Director, etc.)."
+#: hub/models.py:680
+msgid "The name of the designated person in the organization."
 msgstr ""
-"The name of the person candidate from the organization in the current elections. "
-"The designated person must be an employee of the organization and part of its "
-"management structures (member of the Board of Directors, Executive Director, etc.)"
 
-#: hub/models.py:688
+#: hub/models.py:683
 msgid "Representative role in organization"
 msgstr "Candidate role in the organization"
 
-#: hub/models.py:691
+#: hub/models.py:686
 msgid "The role of the designated person in the organization."
 msgstr ""
 
-#: hub/models.py:694
+#: hub/models.py:689
 msgid "Candidate photo"
 msgstr ""
 
-#: hub/models.py:704 hub/templates/hub/candidate/detail.html:119
+#: hub/models.py:699 hub/templates/hub/candidate/detail.html:119
 msgid "Representative statement"
 msgstr "Candidate statement"
 
-#: hub/models.py:709
+#: hub/models.py:704
 msgid ""
 "Declaration of the designated representative stating that he/she is not a "
 "member of the leadership of a political party, has not been elected to a "
 "public office and is not a dignitary of the Romanian state."
 msgstr ""
 
-#: hub/models.py:716 hub/templates/hub/candidate/detail.html:124
+#: hub/models.py:711 hub/templates/hub/candidate/detail.html:124
 msgid "Mandate"
 msgstr ""
 
-#: hub/models.py:721
+#: hub/models.py:716
 msgid ""
 "Mandate from the organization (signed in original + electronic) with the "
 "highlighting of the domain for which it is running"
 msgstr ""
 
-#: hub/models.py:727 hub/templates/hub/candidate/detail.html:129
+#: hub/models.py:722 hub/templates/hub/candidate/detail.html:129
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:731
+#: hub/models.py:726
 msgid ""
 "Letter of intent (with the mention of the domain to be represented in the "
 "CES)"
 msgstr ""
 
-#: hub/models.py:735 hub/templates/hub/candidate/detail.html:134
+#: hub/models.py:730 hub/templates/hub/candidate/detail.html:134
 msgid "CV"
 msgstr ""
 
-#: hub/models.py:739
+#: hub/models.py:734
 msgid "Europass format CV"
 msgstr ""
 
-#: hub/models.py:743 hub/templates/hub/candidate/detail.html:139
+#: hub/models.py:738 hub/templates/hub/candidate/detail.html:139
 msgid "Declaration of interests"
 msgstr ""
 
-#: hub/models.py:747
+#: hub/models.py:742
 msgid "Official format Declaration of interests"
 msgstr ""
 
-#: hub/models.py:751 hub/templates/hub/candidate/detail.html:144
+#: hub/models.py:746 hub/templates/hub/candidate/detail.html:144
 msgid "Fiscal record"
 msgstr ""
 
-#: hub/models.py:755
+#: hub/models.py:750
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:759 hub/templates/hub/candidate/detail.html:149
+#: hub/models.py:754 hub/templates/hub/candidate/detail.html:149
 msgid "Criminal record"
 msgstr ""
 
-#: hub/models.py:763
+#: hub/models.py:758
 msgid ""
 "(Optional) Criminal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:767
+#: hub/models.py:762
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:773
+#: hub/models.py:768
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:774
+#: hub/models.py:769
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:836
+#: hub/models.py:831
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:866
+#: hub/models.py:861
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:867
+#: hub/models.py:862
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:890
+#: hub/models.py:885
 msgid "Canditate supporters"
 msgstr ""
 
-#: hub/models.py:891
+#: hub/models.py:886
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:905
+#: hub/models.py:900
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:906
+#: hub/models.py:901
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -1067,6 +1060,13 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
+#: hub/templates/hub/candidate/components/listing_detail.html:39
+#: hub/templates/hub/candidate/results.html:65
+#: hub/templates/hub/committee/candidates.html:51
+#: hub/templates/hub/ngo/votes.html:84
+msgid "View details"
+msgstr ""
+
 #: hub/templates/hub/candidate/detail.html:20
 msgid "Section: "
 msgstr ""
@@ -1105,11 +1105,8 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: hub/templates/hub/candidate/list.html:89
-#: hub/templates/hub/candidate/results.html:65
-#: hub/templates/hub/committee/candidates.html:51
-#: hub/templates/hub/ngo/votes.html:84
-msgid "View details"
+#: hub/templates/hub/candidate/list.html:45
+msgid "Proposed candidates"
 msgstr ""
 
 #: hub/templates/hub/candidate/register_request.html:34
@@ -1593,11 +1590,11 @@ msgstr ""
 msgid "ngo-update/<int:pk>"
 msgstr ""
 
-#: hub/views.py:124
+#: hub/views.py:133
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:390
+#: hub/views.py:391
 #, python-format
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
@@ -1605,36 +1602,36 @@ msgid ""
 "validated. If you have any further questions, send us a message at %s."
 msgstr ""
 
-#: hub/views.py:428
+#: hub/views.py:429
 msgid "Update organization's profile"
 msgstr ""
 
-#: hub/views.py:429
+#: hub/views.py:430
 msgid ""
 "Some data in this organization's profile can only be updated through NGO Hub."
 msgstr ""
 
-#: hub/views.py:432
+#: hub/views.py:433
 msgid "The organization's information is complete"
 msgstr ""
 
-#: hub/views.py:434
+#: hub/views.py:435
 msgid ""
 "If you have recently edited information in the organization's account on NGO "
 "Hub and want to update it in the profile on VotONG, click here"
 msgstr ""
 
-#: hub/views.py:447
+#: hub/views.py:448
 msgid ""
 "The organization does not have the voting domain set. To be able to vote, "
 "please set the voting domain."
 msgstr ""
 
-#: hub/views.py:488
+#: hub/views.py:489
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:972
+#: hub/views.py:1016
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
@@ -1673,3 +1670,14 @@ msgstr ""
 #: templates/socialaccount/login.html:28
 msgid "Redirecting to authentication..."
 msgstr ""
+
+#~ msgid ""
+#~ "The name of the designated person who will represent the organization in "
+#~ "the Electoral Commission in case of a favorable response.The designated "
+#~ "person must be an employee of the organization and part of its management "
+#~ "structures (member of the Board of Directors, Executive Director, etc.)."
+#~ msgstr ""
+#~ "The name of the person candidate from the organization in the current "
+#~ "elections. The designated person must be an employee of the organization "
+#~ "and part of its management structures (member of the Board of Directors, "
+#~ "Executive Director, etc.)"
