@@ -682,16 +682,18 @@ class CandidateDetailView(HubDetailView):
         if not user.has_perm("hub.support_candidate"):
             return context
 
-        if not user.organization:
+        organization = user.organization
+
+        if not organization:
             return context
 
         # An organization can support candidates from any domain
-        if not user.organization.is_elector(user.organization.voting_domain):
+        if not organization.is_elector(organization.voting_domain):
             return context
 
         context["can_support_candidate"] = True
 
-        if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
+        if CandidateSupporter.objects.filter(user__pk__in=user.org_user_pks(), candidate=candidate).exists():
             context["supported_candidate"] = True
 
         return context
@@ -736,16 +738,18 @@ class CandidateDetailView(HubDetailView):
         if not user.has_perm("hub.vote_candidate"):
             return context
 
+        domain = candidate.domain
+
         # An organization can only vote for candidates from its own domain
-        if not user.organization.is_elector(candidate.domain):
+        if not user.organization.is_elector(domain):
             return context
 
         context["can_vote_candidate"] = True
 
-        if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
+        if CandidateVote.objects.filter(user__pk__in=user.org_user_pks(), candidate=candidate).exists():
             context["voted_candidate"] = True
 
-        if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
+        if CandidateVote.objects.filter(user__in=user.org_user_pks(), domain=domain).count() >= domain.seats:
             context["used_all_domain_votes"] = True
 
         return context

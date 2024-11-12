@@ -47,6 +47,12 @@ class User(AbstractUser, TimeStampedModel):
             models.UniqueConstraint(Lower("email"), name="email_unique"),
         ]
 
+    def org_user_pks(self):
+        if not self.organization:
+            return []
+
+        return self.organization.users.values_list("pk", flat=True)
+
     def get_cognito_id(self):
         social = self.socialaccount_set.filter(provider="amazon_cognito").last()
         if social:

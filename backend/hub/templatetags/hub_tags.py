@@ -5,16 +5,9 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from accounts.models import User
-from hub.models import CandidateConfirmation, Organization
+from hub.models import CandidateConfirmation
 
 register = template.Library()
-
-
-@register.filter
-def can_vote(user):
-    if Organization.objects.filter(users=user, status=Organization.STATUS.accepted).count():
-        return True
-    return False
 
 
 @register.filter
