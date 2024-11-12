@@ -8,7 +8,8 @@ from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Count
+from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Count, QuerySet
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.http import urlencode
@@ -44,7 +45,7 @@ class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
 
 
-def update_organizations(modeladmin, request, queryset):
+def update_organizations(__, request, queryset):
     for org in queryset:
         update_organization(org.id)
 
@@ -53,6 +54,8 @@ class OrganizationUsersInline(admin.TabularInline):
     model = User
     fields = ["email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "groups"]
     readonly_fields = ["email", "first_name", "last_name"]
+    show_change_link = True
+
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -63,6 +66,40 @@ class OrganizationUsersInline(admin.TabularInline):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class OrganizationCandidatesInline(admin.TabularInline):
+    model = Candidate
+    fields = ["name", "status", "is_proposed", "votes_count", "supporters_count", "confirmations_count"]
+    readonly_fields = fields
+    show_change_link = True
+    fk_name = "org"
+
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def votes_count(self, obj):
+        return obj.count_votes()
+
+    votes_count.short_description = _("Votes")
+
+    def supporters_count(self, obj):
+        return obj.count_supporters()
+
+    supporters_count.short_description = _("Supporters")
+
+    def confirmations_count(self, obj):
+        return obj.count_confirmations()
+
+    confirmations_count.short_description = _("Confirmations")
 
 
 @admin.register(Organization)
@@ -295,45 +332,44 @@ def send_confirm_email_to_committee(request, candidate, to_email):
     )
 
 
-def reject_candidates(modeladmin, request, queryset):
+def _set_candidates_status(
+    request: WSGIRequest,
+    queryset: QuerySet[Candidate],
+    status: str,
+    send_committee_confirmation: bool = True,
+):
     committee_emails = Group.objects.get(name=COMMITTEE_GROUP).user_set.all().values_list("email", flat=True)
 
     for candidate in queryset:
         # only take action if there is a chance in the status
-        if candidate.status != Candidate.STATUS.rejected:
+        if candidate.status != status:
             CandidateConfirmation.objects.filter(candidate=candidate).delete()
+
+            if not send_committee_confirmation:
+                continue
+
             for to_email in committee_emails:
                 send_confirm_email_to_committee(request, candidate, to_email)
 
-    queryset.update(status=Candidate.STATUS.rejected)
+    queryset.update(status=status)
+
+
+def reject_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+    _set_candidates_status(request, queryset, Candidate.STATUS.rejected)
 
 
 reject_candidates.short_description = _("Set selected candidates status to REJECTED")
 
 
-def accept_candidates(modeladmin, request, queryset):
-    committee_emails = Group.objects.get(name=COMMITTEE_GROUP).user_set.all().values_list("email", flat=True)
-
-    for candidate in queryset:
-        # only take action if there is a chance in the status
-        if candidate.status != Candidate.STATUS.accepted:
-            CandidateConfirmation.objects.filter(candidate=candidate).delete()
-            for to_email in committee_emails:
-                send_confirm_email_to_committee(request, candidate, to_email)
-
-    queryset.update(status=Candidate.STATUS.accepted)
+def accept_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+    _set_candidates_status(request, queryset, Candidate.STATUS.accepted)
 
 
 accept_candidates.short_description = _("Set selected candidates status to ACCEPTED")
 
 
-def pending_candidates(modeladmin, request, queryset):
-    for candidate in queryset:
-        # only take action if there is a chance in the status
-        if candidate.status != Candidate.STATUS.pending:
-            CandidateConfirmation.objects.filter(candidate=candidate).delete()
-
-    queryset.update(status=Candidate.STATUS.pending)
+def pending_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+    _set_candidates_status(request, queryset, Candidate.STATUS.pending, send_committee_confirmation=False)
 
 
 pending_candidates.short_description = _("Set selected candidates status to PENDING")
@@ -355,8 +391,8 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display_links = list_display
 
     list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
-    search_fields = ["name", "email", "org__name"]
-    readonly_fields = ["status", "status_changed"]
+    search_fields = ["name", "org__name"]
+    readonly_fields = ["status"]
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
@@ -530,6 +566,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
     actions = [
+        "activate_flags",
         "flags_phase_pause",
         "flags_phase_deactivate",
         "flags_phase_1",
@@ -597,7 +634,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
         self.message_user(request, message=_(f"Flags set successfully for '{phase_name}'."), level=messages.SUCCESS)
 
-    def flags_phase_pause(self, request, queryset):
+    def flags_phase_pause(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("PHASE PAUSE - platform pause"),
@@ -616,7 +653,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
     flags_phase_pause.short_description = _("Set flags for PHASE PAUSE - platform pause")
 
-    def flags_phase_deactivate(self, request, queryset):
+    def flags_phase_deactivate(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("PHASE DEACTIVATE - platform deactivate"),
@@ -634,7 +671,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
     flags_phase_deactivate.short_description = _("Set flags for PHASE - platform deactivate")
 
-    def flags_phase_1(self, request, queryset):
+    def flags_phase_1(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("PHASE 1 - organization & candidate registrations"),
@@ -653,7 +690,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
     flags_phase_1.short_description = _("Set flags for PHASE 1 - organization & candidate registrations")
 
-    def flags_phase_2(self, request, queryset):
+    def flags_phase_2(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("PHASE 2 - candidate validation"),
@@ -672,7 +709,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
     flags_phase_2.short_description = _("Set flags for PHASE 2 - candidate validation")
 
-    def flags_phase_3(self, request, queryset):
+    def flags_phase_3(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("PHASE 3 - voting"),
@@ -691,7 +728,7 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
     flags_phase_3.short_description = _("Set flags for PHASE 3 - voting")
 
-    def flags_final_phase(self, request, queryset):
+    def flags_final_phase(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
             request=request,
             phase_name=_("FINAL PHASE - results"),
@@ -709,6 +746,11 @@ class FeatureFlagAdmin(admin.ModelAdmin):
         )
 
     flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")
+
+    def activate_flags(self, request, queryset):
+        queryset.update(is_enabled=True)
+
+    activate_flags.short_description = _("Activate selected flags")
 
 
 @admin.register(BlogPost)
