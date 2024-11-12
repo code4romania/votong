@@ -891,7 +891,7 @@ msgstr ""
 
 #: hub/models.py:677 hub/templates/hub/candidate/detail.html:115
 msgid "Representative name"
-msgstr ""
+msgstr "Candidate name"
 
 #: hub/models.py:681
 msgid ""
@@ -900,10 +900,13 @@ msgid ""
 "must be an employee of the organization and part of its management "
 "structures (member of the Board of Directors, Executive Director, etc.)."
 msgstr ""
+"The name of the person candidate from the organization in the current elections. "
+"The designated person must be an employee of the organization and part of its "
+"management structures (member of the Board of Directors, Executive Director, etc.)"
 
 #: hub/models.py:688
 msgid "Representative role in organization"
-msgstr ""
+msgstr "Candidate role in the organization"
 
 #: hub/models.py:691
 msgid "The role of the designated person in the organization."

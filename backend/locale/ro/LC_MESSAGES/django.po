@@ -923,7 +923,7 @@ msgstr "Domeniul pentru care candidează candidatul."
 
 #: hub/models.py:677 hub/templates/hub/candidate/detail.html:115
 msgid "Representative name"
-msgstr "Nume reprezentant"
+msgstr "Nume candidat"
 
 #: hub/models.py:681
 msgid ""
@@ -932,14 +932,14 @@ msgid ""
 "must be an employee of the organization and part of its management "
 "structures (member of the Board of Directors, Executive Director, etc.)."
 msgstr ""
-"Numele persoanei care va reprezenta organizația in Comisia Electorală în "
-"cazul unui răspuns favorabil. Persoana desemnată trebuie să fie angajat în "
-"cadrul organizației și parte din structurile de conducere ale acesteia "
-"(membru în Consiliul Director, Director Executiv etc)"
+"Numele persoanei care va candidat din partea organizației în alegerile curente. "
+"Persoana desemnată trebuie să fie angajat în cadrul organizației și parte din "
+"structurile de conducere ale acesteia (membru în Consiliul Director, "
+"Director Executiv etc.)"
 
 #: hub/models.py:688
 msgid "Representative role in organization"
-msgstr "Funcția reprezentantului în organizație"
+msgstr "Funcția candidatului în organizație"
 
 #: hub/models.py:691
 msgid "The role of the designated person in the organization."
