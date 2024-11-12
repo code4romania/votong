@@ -1,0 +1,30 @@
+<details>
+  <summary
+    class="collapsible-title"
+    title="Deschide pentru a vedea domeniile de votare"
+  >
+    <h2 class="section-title uppercase ">
+      {{ section_title }} ({{ counters.candidates_pending }})
+      <span class="icon">&#10095;</span>
+    </h2>
+  </summary>
+
+  <div class="container filter-card-content">
+
+    <ul>
+      {% for domain_details in page_obj %}
+
+        <div>
+          <a
+            class="inline-subtle-link underlined"
+            href="#{{ domain_details.domain_key }}">
+            {{ domain_details.domain.name|upper }}
+            ({{ domain_details.candidates|length }})
+          </a>
+        </div>
+
+      {% endfor %}
+    </ul>
+
+  </div>
+</details>

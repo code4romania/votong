@@ -56,6 +56,15 @@ logger = logging.getLogger(__name__)
 UserModel = get_user_model()
 
 
+def _filter_letter(char: str) -> bool:
+    if char.isalpha():
+        return True
+    elif char == " ":
+        return True
+
+    return False
+
+
 class HealthView(View):
     # noinspection PyMethodMayBeStatic
     def get(self, request):
@@ -248,15 +257,7 @@ class OrganizationListView(SearchMixin):
     template_name = "hub/ngo/list.html"
 
     @staticmethod
-    def _filter_letter(char: str) -> bool:
-        if char.isalpha():
-            return True
-        elif char == " ":
-            return True
-
-        return False
-
-    def group_organizations_by_domain(self, queryset) -> List[Dict[str, Union[Domain, List[Organization]]]]:
+    def group_organizations_by_domain(queryset) -> List[Dict[str, Union[Domain, List[Organization]]]]:
         organizations_by_domain: Dict[Domain, List[Organization]] = {}
 
         for organization in queryset:
@@ -269,7 +270,7 @@ class OrganizationListView(SearchMixin):
         # dictionary to list of dictionaries
         organizations_by_domain_list = []
         for domain, organizations in organizations_by_domain.items():
-            snake_case_domain_key = "".join(filter(self._filter_letter, domain.name)).lower().replace(" ", "_")
+            snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
             normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
 
             organizations_by_domain_list.append(
@@ -531,6 +532,34 @@ class CandidateListView(SearchMixin):
             is_proposed=True,
         )
 
+    @staticmethod
+    def group_candidates_by_domain(queryset):
+        candidates_by_domain = {}
+
+        for candidate in queryset:
+            domain = candidate.domain
+            if domain not in candidates_by_domain:
+                candidates_by_domain[domain] = []
+
+            candidates_by_domain[domain].append(candidate)
+
+        candidates_by_domain_list = []
+        for domain, candidates in candidates_by_domain.items():
+            snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
+            normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
+
+            candidates_by_domain_list.append(
+                {
+                    "domain": domain,
+                    "domain_key": normalized_domain_key.decode("utf-8"),
+                    "candidates": sorted(candidates, key=lambda candidate_: candidate_.name),
+                }
+            )
+
+        candidates_by_domain_list = sorted(candidates_by_domain_list, key=lambda x: x["domain"].pk)
+
+        return candidates_by_domain_list
+
     def get_qs(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
@@ -541,8 +570,21 @@ class CandidateListView(SearchMixin):
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
+
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
-        return qs.filter(**filters)
+
+        queryset_filtered = qs.filter(**filters)
+
+        if not FeatureFlag.flag_enabled(SETTINGS_CHOICES.single_domain_round):
+            return self.group_candidates_by_domain(queryset_filtered)
+
+        return queryset_filtered
+
+    def _get_candidate_counters(self):
+        candidates = self.get_qs()
+        return {
+            "candidates_pending": candidates.filter(status=Candidate.STATUS.pending).count(),
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -561,7 +603,9 @@ class CandidateListView(SearchMixin):
             except Domain.DoesNotExist:
                 pass
 
+        context["counters"] = self._get_candidate_counters()
         context["domains"] = Domain.objects.all()
+
         return context
 
 

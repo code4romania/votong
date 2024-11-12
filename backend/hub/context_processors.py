@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 
-from hub.models import FLAG_CHOICES, FeatureFlag
+from hub.models import FLAG_CHOICES, FeatureFlag, SETTINGS_CHOICES
 
 
 def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
@@ -42,8 +42,9 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         "ORG_APPROVAL_ENABLED": org_approval_enabled,
         "ORG_REGISTRATION_ENABLED": org_registration_enabled,
         # Settings flags
-        "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
-        "VOTING_DOMAIN_ENABLED": flags.get(FLAG_CHOICES.enable_voting_domain, False),
+        "GLOBAL_SUPPORT_ENABLED": flags.get(SETTINGS_CHOICES.global_support_round, False),
+        "VOTING_DOMAIN_ENABLED": flags.get(SETTINGS_CHOICES.enable_voting_domain, False),
+        "SINGLE_DOMAIN_ROUND": flags.get(SETTINGS_CHOICES.single_domain_round, False),
         # Composite flags
         "ELECTION_IN_PROGRESS": (
             candidate_registration_enabled

@@ -33,7 +33,7 @@
 
   {% trans "Registered organizations" as section_title %}
 
-  {% if page_obj and VOTING_DOMAIN_ENABLED %}
+  {% if page_obj and VOTING_DOMAIN_ENABLED and not SINGLE_DOMAIN_ROUND %}
 
     {% include "hub/ngo/components/expandable_voting_domains.html" with section_title=section_title %}
 
@@ -51,7 +51,7 @@
 
       <div class="is-multiline infinite-container">
 
-        {% if VOTING_DOMAIN_ENABLED %}
+        {% if VOTING_DOMAIN_ENABLED and not SINGLE_DOMAIN_ROUND %}
           {% include "hub/ngo/components/ngos_listing_by_voting_domain.html" %}
         {% else %}
           {% include "hub/ngo/components/ngos_listing.html" %}
