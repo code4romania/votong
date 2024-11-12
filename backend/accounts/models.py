@@ -13,6 +13,7 @@ STAFF_GROUP = "Code4Romania Staff"
 COMMITTEE_GROUP = "Comisie Electorala"
 SUPPORT_GROUP = "Support Staff"
 NGO_GROUP = "ONG"
+NGO_USERS_GROUP = "ONG Users"
 
 
 class User(AbstractUser, TimeStampedModel):

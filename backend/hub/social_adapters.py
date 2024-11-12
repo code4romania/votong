@@ -14,10 +14,9 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from accounts.models import NGO_GROUP, STAFF_GROUP, User
+from accounts.models import NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, User
 from hub.exceptions import (
     ClosedRegistrationException,
-    DuplicateOrganizationException,
     MissingOrganizationException,
     NGOHubHTTPException,
 )
@@ -43,7 +42,7 @@ def ngohub_api_get(path: str, token: str):
     return response.json()
 
 
-def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
+def update_user_org(user, org: Organization, token: str, *, in_auth_flow: bool = False) -> None:
     """
     Update an Organization by pulling data from NGO Hub.
 
@@ -52,7 +51,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
     """
 
     # Check if the new organization registration is still open
-    if org.status == Organization.STATUS.draft and not FeatureFlag.flag_enabled("enable_org_registration"):
+    if not org and not FeatureFlag.flag_enabled("enable_org_registration"):
         if in_auth_flow:
             raise ImmediateHttpResponse(redirect(reverse("error-org-registration-closed")))
         else:
@@ -61,7 +60,7 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
             )
 
     # If the current organization is not already linked to NGO Hub, check the NGO Hub API for the data
-    if not org.ngohub_org_id:
+    if not org:
         ngohub_org = ngohub_api_get("organization-profile/", token)
 
         # Check that an NGO Hub organization appears only once in VotONG
@@ -72,17 +71,19 @@ def update_user_org(org: Organization, token: str, *, in_auth_flow: bool = False
             else:
                 raise MissingOrganizationException(_("There is no NGO Hub organization for this VotONG user."))
 
-        # Check that the current user has an NGO Hub organization
-        if Organization.objects.filter(ngohub_org_id=ngohub_id).exclude(pk=org.pk).count():
-            if in_auth_flow:
-                raise ImmediateHttpResponse(redirect(reverse("error-org-duplicate")))
-            else:
-                raise DuplicateOrganizationException(
-                    _("This NGO Hub organization already exists for another VotONG user.")
-                )
+        # Check that the user's organization doesn't already exist in VotONG
+        if Organization.objects.filter(ngohub_org_id=ngohub_id).exists():
+            org = Organization.objects.get(ngohub_org_id=ngohub_id)
+            user.organization = org
+            user.save()
 
-        org.ngohub_org_id = ngohub_id
-        org.save()
+            if org.candidate:
+                org.candidate.update_users_permissions()
+        else:
+            org = create_user_org(user)
+
+            org.ngohub_org_id = ngohub_id
+            org.save()
 
     update_organization(org.id, token)
 
@@ -118,6 +119,27 @@ def create_user_org(user: User) -> Organization:
     return org
 
 
+def get_user_for_org(user, user_token: str, user_role: str):
+    if not check_app_enabled_in_ngohub(user_token):
+        if user.is_active:
+            user.is_active = False
+            user.save()
+
+        raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
+    elif not user.is_active:
+        user.is_active = True
+        user.save()
+
+    # Add the user to the NGO group
+    ngo_group: Group = Group.objects.get(name=user_role)
+    user.groups.add(ngo_group)
+
+    if not (org := user.organization):
+        org = None
+
+    return org
+
+
 def update_user_information(user: User, token: str):
     try:
         user_profile: Dict = ngohub_api_get("profile/", token)
@@ -140,32 +162,15 @@ def update_user_information(user: User, token: str):
 
         user.groups.add(Group.objects.get(name=STAFF_GROUP))
         user.groups.remove(Group.objects.get(name=NGO_GROUP))
+        user.groups.remove(Group.objects.get(name=NGO_USERS_GROUP))
 
         return None
 
     elif user_role == settings.NGOHUB_ROLE_NGO_ADMIN:
-        if not check_app_enabled_in_ngohub(token):
-            if user.is_active:
-                user.is_active = False
-                user.save()
-
-            raise ImmediateHttpResponse(redirect(reverse("error-app-missing")))
-        elif not user.is_active:
-            user.is_active = True
-            user.save()
-
-        # Add the user to the NGO group
-        ngo_group: Group = Group.objects.get(name=NGO_GROUP)
-        user.groups.add(ngo_group)
-
-        if not (org := user.organization):
-            org = None
-
-        return org
+        return get_user_for_org(user, token, NGO_GROUP)
 
     elif user_role == settings.NGOHUB_ROLE_NGO_EMPLOYEE:
-        # Employees cannot have organizations
-        raise ImmediateHttpResponse(redirect(reverse("error-user-role")))
+        return get_user_for_org(user, token, NGO_USERS_GROUP)
 
     else:
         # Unknown user role
@@ -182,11 +187,7 @@ def common_user_init(sociallogin: SocialLogin) -> User:
     if user.groups.filter(name=STAFF_GROUP).exists():
         return user
 
-    # Start the import of initial data from NGO Hub
-    if not org:
-        org = create_user_org(user)
-
-    update_user_org(org, sociallogin.token.token, in_auth_flow=True)
+    update_user_org(user, org, sociallogin.token.token, in_auth_flow=True)
 
     return user
 

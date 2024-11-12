@@ -27,7 +27,7 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -244,7 +244,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/ngo/votes.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[NGO_GROUP]).exists():
+        if not self.request.user.groups.filter(name__in=[NGO_GROUP, NGO_USERS_GROUP]).exists():
             raise PermissionDenied
 
         voted_candidates = CandidateVote.objects.filter(user=self.request.user)
