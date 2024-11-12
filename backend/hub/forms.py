@@ -3,6 +3,7 @@ from typing import Dict, List
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
@@ -10,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django_recaptcha.fields import ReCaptchaField
 from sentry_sdk import capture_message
 
+from accounts.models import NGO_GROUP
 from civil_society_vote.common.messaging import send_email
 from hub.models import FLAG_CHOICES, PHASE_CHOICES, Candidate, City, Domain, FeatureFlag, Organization
 
@@ -132,6 +134,8 @@ class OrganizationCreateFromNgohubForm(forms.ModelForm):
             raise ValidationError(_("Organization already exists."))
 
         user = UserModel.objects.get(pk=user_id)
+        user.groups.add(Group.objects.get(name=NGO_GROUP))
+
         organization = Organization.objects.create(ngohub_org_id=ngohub_org_id)
         organization.users.add(user)
 
