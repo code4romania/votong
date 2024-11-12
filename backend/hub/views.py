@@ -828,9 +828,6 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         if not FeatureFlag.flag_enabled("enable_candidate_registration"):
             raise PermissionDenied
 
-        if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
-            raise PermissionDenied
-
         user = self.request.user
         user_org: Organization = user.organization
         candidate: Candidate = self.get_object()

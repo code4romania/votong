@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.files.storage import storages
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.db.models.query_utils import DeferredAttribute
 from django.urls import reverse
@@ -327,6 +328,17 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         help_text="Copie a ultimului statut autentificat al organizației și a hotărârii judecătorești corespunzătoare, definitivă şi irevocabilă și copii ale tuturor documentelor ulterioare/suplimentare ale statutului, inclusiv hotărârile judecătorești definitive și irevocabile; Vă rugăm să arhivați documentele și să încărcați o singură arhivă în platformă.",
     )
 
+    activity_summary = models.TextField(
+        _("Current year activity summary"),
+        blank=True,
+        default="",
+        max_length=2000,
+        help_text=_(
+            "Summary of the activities carried out by the organization in the current year (between 500 and 2000 characters)"
+        ),
+        validators=[MinLengthValidator(500)],
+    )
+
     report_2023 = models.FileField(
         _("Yearly report 2023"),
         blank=True,
@@ -468,6 +480,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
                 cls.statement_discrimination,
                 cls.fiscal_certificate_anaf,
                 cls.fiscal_certificate_local,
+                cls.activity_summary,
             ]
         )
 

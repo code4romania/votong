@@ -29,6 +29,7 @@ ORG_FIELD_ORDER = [
     "address",
     "phone",
     "description",
+    "activity_summary",
     "logo",
     "last_balance_sheet",
     "statute",
