@@ -314,12 +314,6 @@ class CandidateRegisterForm(CandidateCommonForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not self.user or not self.organization:
-            raise ValidationError(_("Authenticated user does not have an organization."))
-
-        if Candidate.objects_with_org.filter(org=self.organization).exists():
-            raise ValidationError(_("Organization already has a candidate."))
-
         self.initial["org"] = self.organization.pk
 
     def clean_org(self):

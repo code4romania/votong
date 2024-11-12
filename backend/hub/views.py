@@ -800,14 +800,34 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     model = Candidate
     form_class = CandidateRegisterForm
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def _check_permissions(request):
         if not FeatureFlag.flag_enabled("enable_candidate_registration"):
             raise PermissionDenied
+
+        if not request.user or request.user.is_anonymous:
+            raise PermissionDenied(_("User is not authenticated."))
+
+        user_org = request.user.organization
+
+        if not user_org:
+            raise PermissionDenied(_("Authenticated user does not have an organization."))
+
+        if Candidate.objects_with_org.filter(org=user_org).exists():
+            return redirect(reverse("candidate-update", args=(user_org.candidate.pk,)))
+
+    def get(self, request, *args, **kwargs):
+        check_result = self._check_permissions(request)
+        if check_result:
+            return check_result
+
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
-            raise PermissionDenied
+        check_result = self._check_permissions(request)
+        if check_result:
+            return check_result
+
         return super().post(request, *args, **kwargs)
 
     def get_form_kwargs(self):
