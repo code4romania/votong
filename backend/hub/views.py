@@ -897,14 +897,19 @@ def candidate_vote(request, pk):
     if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
         raise PermissionDenied
 
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True, status=Candidate.STATUS.confirmed)
+
+    user: User = request.user
+    user_org = user.organization
+    if user_org.status != Organization.STATUS.accepted:
+        raise PermissionDenied
+
+    if CandidateVote.objects.filter(user__pk__in=request.user.org_user_pks(), candidate=candidate).exists():
+        raise PermissionDenied
+
     try:
-        candidate = Candidate.objects.get(
-            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.confirmed, is_proposed=True
-        )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
-        if settings.ENABLE_SENTRY:
-            capture_message(f"User {request.user} tried to vote for candidate {pk} again.", level="warning")
         raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
@@ -951,22 +956,21 @@ def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
+
     user: User = request.user
     user_org = user.organization
     if user_org.status != Organization.STATUS.accepted:
         raise PermissionDenied
 
-    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
-
     if candidate.org == user_org:
         return redirect("candidate-detail", pk=pk)
 
-    try:
-        supporter = CandidateSupporter.objects.get(user=request.user, candidate=candidate)
-    except CandidateSupporter.DoesNotExist:
-        CandidateSupporter.objects.create(user=request.user, candidate=candidate)
-    else:
+    supporter = CandidateSupporter.objects.filter(user__pk__in=request.user.org_user_pks(), candidate=candidate)
+    if supporter.exists():
         supporter.delete()
+    else:
+        CandidateSupporter.objects.create(user=request.user, candidate=candidate)
 
     return redirect("candidate-detail", pk=pk)
 
