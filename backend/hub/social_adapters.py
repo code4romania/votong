@@ -134,10 +134,7 @@ def get_user_for_org(user, user_token: str, user_role: str):
     ngo_group: Group = Group.objects.get(name=user_role)
     user.groups.add(ngo_group)
 
-    if not (org := user.organization):
-        org = None
-
-    return org
+    return user.organization
 
 
 def update_user_information(user: User, token: str):
