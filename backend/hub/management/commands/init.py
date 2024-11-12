@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from guardian.shortcuts import assign_perm
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, SUPPORT_GROUP
 from hub.models import City, FLAG_CHOICES, FeatureFlag
 
 
@@ -40,6 +40,11 @@ class Command(BaseCommand):
         assign_perm("hub.support_candidate", ngo_group)
         assign_perm("hub.vote_candidate", ngo_group)
         assign_perm("hub.change_organization", ngo_group)
+
+        ngo_users_group: Group = Group.objects.get_or_create(name=NGO_USERS_GROUP)[0]
+        assign_perm("hub.support_candidate", ngo_users_group)
+        assign_perm("hub.vote_candidate", ngo_users_group)
+        assign_perm("hub.change_organization", ngo_users_group)
 
     def _initialize_feature_flags(self):
         self.stdout.write(self.style.NOTICE("Initializing feature flags..."))

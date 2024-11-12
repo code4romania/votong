@@ -27,7 +27,7 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from accounts.models import COMMITTEE_GROUP, NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -244,7 +244,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/ngo/votes.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[NGO_GROUP]).exists():
+        if not self.request.user.groups.filter(name__in=[NGO_GROUP, NGO_USERS_GROUP]).exists():
             raise PermissionDenied
 
         voted_candidates = CandidateVote.objects.filter(user=self.request.user)
@@ -682,16 +682,18 @@ class CandidateDetailView(HubDetailView):
         if not user.has_perm("hub.support_candidate"):
             return context
 
-        if not user.organization:
+        organization = user.organization
+
+        if not organization:
             return context
 
         # An organization can support candidates from any domain
-        if not user.organization.is_elector(user.organization.voting_domain):
+        if not organization.is_elector(organization.voting_domain):
             return context
 
         context["can_support_candidate"] = True
 
-        if CandidateSupporter.objects.filter(user=user, candidate=candidate).exists():
+        if CandidateSupporter.objects.filter(user__pk__in=user.org_user_pks(), candidate=candidate).exists():
             context["supported_candidate"] = True
 
         return context
@@ -736,16 +738,18 @@ class CandidateDetailView(HubDetailView):
         if not user.has_perm("hub.vote_candidate"):
             return context
 
+        domain = candidate.domain
+
         # An organization can only vote for candidates from its own domain
-        if not user.organization.is_elector(candidate.domain):
+        if not user.organization.is_elector(domain):
             return context
 
         context["can_vote_candidate"] = True
 
-        if CandidateVote.objects.filter(user=user, candidate=candidate).exists():
+        if CandidateVote.objects.filter(user__pk__in=user.org_user_pks(), candidate=candidate).exists():
             context["voted_candidate"] = True
 
-        if CandidateVote.objects.filter(user=user, domain=candidate.domain).count() >= candidate.domain.seats:
+        if CandidateVote.objects.filter(user__in=user.org_user_pks(), domain=domain).count() >= domain.seats:
             context["used_all_domain_votes"] = True
 
         return context
@@ -893,14 +897,19 @@ def candidate_vote(request, pk):
     if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
         raise PermissionDenied
 
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True, status=Candidate.STATUS.confirmed)
+
+    user: User = request.user
+    user_org = user.organization
+    if user_org.status != Organization.STATUS.accepted:
+        raise PermissionDenied
+
+    if CandidateVote.objects.filter(user__pk__in=request.user.org_user_pks(), candidate=candidate).exists():
+        raise PermissionDenied
+
     try:
-        candidate = Candidate.objects.get(
-            pk=pk, org__status=Organization.STATUS.accepted, status=Candidate.STATUS.confirmed, is_proposed=True
-        )
         vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
     except Exception:
-        if settings.ENABLE_SENTRY:
-            capture_message(f"User {request.user} tried to vote for candidate {pk} again.", level="warning")
         raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
@@ -947,22 +956,21 @@ def candidate_support(request, pk):
     if not FeatureFlag.flag_enabled("enable_candidate_supporting"):
         raise PermissionDenied
 
+    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
+
     user: User = request.user
     user_org = user.organization
     if user_org.status != Organization.STATUS.accepted:
         raise PermissionDenied
 
-    candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True)
-
     if candidate.org == user_org:
         return redirect("candidate-detail", pk=pk)
 
-    try:
-        supporter = CandidateSupporter.objects.get(user=request.user, candidate=candidate)
-    except CandidateSupporter.DoesNotExist:
-        CandidateSupporter.objects.create(user=request.user, candidate=candidate)
-    else:
+    supporter = CandidateSupporter.objects.filter(user__pk__in=request.user.org_user_pks(), candidate=candidate)
+    if supporter.exists():
         supporter.delete()
+    else:
+        CandidateSupporter.objects.create(user=request.user, candidate=candidate)
 
     return redirect("candidate-detail", pk=pk)
 

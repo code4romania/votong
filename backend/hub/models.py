@@ -824,6 +824,13 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         unique_confirmations = confirmations.values("user").distinct()
         return unique_confirmations.count()
 
+    def update_users_permissions(self):
+        for org_user in self.org.users.all():
+            assign_perm("view_candidate", org_user, self)
+            assign_perm("change_candidate", org_user, self)
+            assign_perm("delete_candidate", org_user, self)
+            assign_perm("view_data_candidate", org_user, self)
+
     def save(self, *args, **kwargs):
         create = False if self.id else True
 
@@ -845,11 +852,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         super().save(*args, **kwargs)
 
         if create:
-            for org_user in self.org.users.all():
-                assign_perm("view_candidate", org_user, self)
-                assign_perm("change_candidate", org_user, self)
-                assign_perm("delete_candidate", org_user, self)
-                assign_perm("view_data_candidate", org_user, self)
+            self.update_users_permissions()
 
 
 class CandidateVote(TimeStampedModel):
