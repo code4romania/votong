@@ -8,10 +8,10 @@ from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django_recaptcha.fields import ReCaptchaField
+from sentry_sdk import capture_message
 
 from civil_society_vote.common.messaging import send_email
 from hub.models import FLAG_CHOICES, PHASE_CHOICES, Candidate, City, Domain, FeatureFlag, Organization
-from sentry_sdk import capture_message
 
 UserModel = get_user_model()
 
@@ -110,6 +110,32 @@ class OrganizationCreateForm(forms.ModelForm):
         if not self.cleaned_data.get("accept_terms_and_conditions"):
             raise ValidationError(_("You need to accept terms and conditions."))
         return self.cleaned_data.get("accept_terms_and_conditions")
+
+
+class OrganizationCreateFromNgohubForm(forms.ModelForm):
+    user_id = forms.IntegerField(min_value=1, required=True)
+
+    class Meta:
+        model = Organization
+        fields = [
+            "ngohub_org_id",
+        ]
+
+    def save_m2m(self):
+        pass
+
+    def save(self, commit=True):
+        user_id = self.cleaned_data.get("user_id")
+        ngohub_org_id = self.cleaned_data.get("ngohub_org_id")
+
+        if Organization.objects.filter(ngohub_org_id=ngohub_org_id).exists():
+            raise ValidationError(_("Organization already exists."))
+
+        user = UserModel.objects.get(pk=user_id)
+        organization = Organization.objects.create(ngohub_org_id=ngohub_org_id)
+        organization.users.add(user)
+
+        return organization
 
 
 class OrganizationUpdateForm(forms.ModelForm):

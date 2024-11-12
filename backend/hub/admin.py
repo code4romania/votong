@@ -21,7 +21,7 @@ from sentry_sdk import capture_message
 
 from accounts.models import COMMITTEE_GROUP, User
 from civil_society_vote.common.messaging import send_email
-from hub.forms import ImportCitiesForm
+from hub.forms import ImportCitiesForm, OrganizationCreateFromNgohubForm
 from hub.models import (
     COUNTIES,
     COUNTY_RESIDENCE,
@@ -126,7 +126,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     autocomplete_fields = ["city"]
     list_per_page = 20
 
-    inlines = (OrganizationUsersInline,)
+    inlines = (OrganizationUsersInline, OrganizationCandidatesInline)
 
     actions = (update_organizations,)
 
@@ -187,6 +187,8 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
 
     def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
         return False
 
     def has_delete_permission(self, request, obj=None):
@@ -226,6 +228,41 @@ class OrganizationAdmin(admin.ModelAdmin):
         return _("Not set")
 
     get_voting_domain.short_description = _("voting domain")
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj and obj.ngohub_org_id:
+            return ["ngohub_org_id"] + list(Organization.ngohub_fields())
+
+        return []
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not obj and not kwargs["change"] and request.user.is_superuser:
+            kwargs["fields"] = list(OrganizationCreateFromNgohubForm().fields.keys())
+            return OrganizationCreateFromNgohubForm
+
+        return super().get_form(request, obj, **kwargs)
+
+    def get_fieldsets(self, request, obj=None):
+        if not obj and request.user.is_superuser:
+            return (
+                (
+                    _("Identification"),
+                    {
+                        "fields": (
+                            "ngohub_org_id",
+                            "user_id",
+                        )
+                    },
+                ),
+            )
+
+        return self.fieldsets
+
+    def get_inlines(self, request, obj=None):
+        if not obj and request.user.is_superuser:
+            return []
+
+        return self.inlines
 
 
 class CandidateVoteInline(admin.TabularInline):
