@@ -59,6 +59,17 @@ class User(AbstractUser, TimeStampedModel):
             return social.uid
         return None
 
+    def make_staff(self):
+        if self.groups.filter(name=NGO_GROUP).exists():
+            self.groups.remove(Group.objects.get(name=NGO_GROUP))
+        if self.groups.filter(name=NGO_USERS_GROUP).exists():
+            self.groups.remove(Group.objects.get(name=NGO_USERS_GROUP))
+
+        self.groups.add(Group.objects.get(name=SUPPORT_GROUP))
+
+        self.is_staff = True
+        self.save()
+
     @method_decorator(
         cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="committee_or_staff_groups")
     )

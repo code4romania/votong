@@ -258,6 +258,26 @@ class BaseCompleteModel(models.Model):
         return not missing_fields
 
 
+class BaseOrganizationManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(status=Organization.STATUS.draft)
+
+
+class BaseOrganizationElectorManager(BaseOrganizationManager):
+    def get_queryset(self):
+        return super().get_queryset().exclude(status=Organization.STATUS.admin)
+
+
+class OrganizationAdminManager(BaseOrganizationManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Organization.STATUS.admin)
+
+
+class OrganizationAcceptedManager(BaseOrganizationElectorManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Organization.STATUS.accepted)
+
+
 class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
     # DRAFT: empty organization created by us, it might be invalid (e.g., created for another user of an org
     # PENDING: the organization doesn't have all the necessary documents
@@ -268,6 +288,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         ("pending", _("Pending approval")),
         ("ngohub_accepted", _("NGO Hub accepted")),
         ("accepted", _("Accepted")),
+        ("admin", _("Admin")),
         ("rejected", _("Rejected")),
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.draft, max_length=30, db_index=True)
@@ -406,6 +427,10 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
 
     ngohub_last_update_started = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
     ngohub_last_update_ended = models.DateTimeField(_("Last NGO Hub update"), null=True, blank=True, editable=False)
+
+    objects = models.Manager()
+    admin = OrganizationAdminManager()
+    accepted = OrganizationAcceptedManager()
 
     class Meta:
         verbose_name_plural = _("Organizations")
@@ -604,7 +629,11 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
             Candidate.objects.filter(org=self).update(domain=self.voting_domain)
 
         if self.users:
+            user: UserModel
             for user in self.users.all():
+                if self.status == self.STATUS.admin:
+                    user.make_staff()
+
                 assign_perm("view_data_organization", user, self)
                 assign_perm("view_organization", user, self)
                 assign_perm("change_organization", user, self)
@@ -856,14 +885,25 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
 
 
 class CandidateAction:
-    user = None
-    candidate = None
+    user: UserModel = None
+    candidate: Candidate = None
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        return f"{self.user.get_full_name()} ({self.user.organization}) - {self. candidate}"
+        user_pk = self.user.pk
+        user_full_name = self.user.get_full_name()
+
+        user_identification = f"[u{user_pk}] {user_full_name}"
+
+        if user_organization := self.user.organization:
+            org_pk = user_organization.pk
+            org_name = user_organization.name
+
+            user_identification = f"[u{user_pk}–o{org_pk}] {user_full_name}–{org_name}"
+
+        return f"{user_identification} - {self.candidate}"
 
 
 class CandidateVote(TimeStampedModel, CandidateAction):

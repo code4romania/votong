@@ -85,6 +85,9 @@ def update_user_org(user, org: Organization, token: str, *, in_auth_flow: bool =
             org.ngohub_org_id = ngohub_id
             org.save()
 
+    if org.status == Organization.STATUS.admin:
+        user.make_staff()
+
     update_organization(org.id, token)
 
 

@@ -514,7 +514,7 @@ ANALYTICS_ENABLED = env("ANALYTICS_ENABLED")
 
 IMPERSONATE = {
     "READ_ONLY": env.bool("IMPERSONATE_READ_ONLY", default=not DEBUG),
-    "REQUIRE_SUPERUSER": True,
+    "REQUIRE_SUPERUSER": False,  # Impersonate only requires staff status
 }
 
 AVATAR_THUMB_FORMAT = "PNG"

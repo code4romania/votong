@@ -20,6 +20,7 @@ from import_export.admin import ImportExportModelAdmin
 from sentry_sdk import capture_message
 
 from accounts.models import COMMITTEE_GROUP, User
+from civil_society_vote.common.admin import BasePermissionsAdmin
 from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm, OrganizationCreateFromNgohubForm
 from hub.models import (
@@ -43,11 +44,6 @@ from hub.workers.update_organization import update_organization
 
 class CountyFilter(AllValuesFieldListFilter):
     template = "admin/dropdown_filter.html"
-
-
-def update_organizations(__, request, queryset):
-    for org in queryset:
-        update_organization(org.id)
 
 
 class OrganizationUsersInline(admin.TabularInline):
@@ -100,169 +96,6 @@ class OrganizationCandidatesInline(admin.TabularInline):
         return obj.count_confirmations()
 
     confirmations_count.short_description = _("Confirmations")
-
-
-@admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "get_user",
-        "get_candidate",
-        "city",
-        "get_voting_domain",
-        "status",
-        "created",
-    )
-    list_display_links = (
-        "name",
-        "city",
-        "status",
-        "created",
-    )
-    list_filter = ("status", ("county", CountyFilter), "voting_domain")
-
-    search_fields = ("name", "legal_representative_name", "email")
-    readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
-    autocomplete_fields = ["city"]
-    list_per_page = 20
-
-    inlines = (OrganizationUsersInline, OrganizationCandidatesInline)
-
-    actions = (update_organizations,)
-
-    fieldsets = (
-        (
-            _("Identification"),
-            {
-                "fields": (
-                    "status",
-                    "ngohub_org_id",
-                    "voting_domain",
-                )
-            },
-        ),
-        (
-            _("Contact Information"),
-            {
-                "fields": (
-                    "email",
-                    "phone",
-                    "description",
-                    "name",
-                    "county",
-                    "city",
-                    "address",
-                    "registration_number",
-                    "board_council",
-                    "logo",
-                )
-            },
-        ),
-        (
-            _("Legal representative"),
-            {
-                "fields": (
-                    "legal_representative_name",
-                    "legal_representative_email",
-                    "legal_representative_phone",
-                )
-            },
-        ),
-        (
-            _("Platform documents"),
-            {
-                "fields": (
-                    "last_balance_sheet",
-                    "statute",
-                    "statement_political",
-                    "statement_discrimination",
-                    "fiscal_certificate_anaf",
-                    "fiscal_certificate_local",
-                    "report_2023",
-                    "report_2022",
-                    "report_2021",
-                )
-            },
-        ),
-    )
-
-    def has_add_permission(self, request):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def get_user(self, obj: Organization = None):
-        if obj and obj.users.exists():
-            org_user = obj.users.first()
-            user_url = reverse("admin:accounts_user_change", args=(org_user.id,))
-            return mark_safe(f'<a href="{user_url}">{org_user.email}</a>')
-
-    get_user.short_description = _("user")
-
-    def get_candidate(self, obj=None):
-        if obj and obj.candidate:
-            user_url = reverse("admin:hub_candidate_change", args=(obj.candidate.id,))
-            return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
-
-    get_candidate.short_description = _("candidate")
-
-    def get_voting_domain(self, obj: Organization):
-        if obj and obj.voting_domain:
-            domain_url = (
-                reverse("admin:hub_organization_changelist")
-                + "?"
-                + urlencode({"voting_domain__id__exact": obj.voting_domain.pk})
-            )
-            return mark_safe(f'<a href="{domain_url}">{obj.voting_domain.name}</a>')
-
-        return _("Not set")
-
-    get_voting_domain.short_description = _("voting domain")
-
-    def get_readonly_fields(self, request, obj=None):
-        if obj and obj.ngohub_org_id:
-            return ["ngohub_org_id"] + list(Organization.ngohub_fields())
-
-        return []
-
-    def get_form(self, request, obj=None, **kwargs):
-        if not obj and not kwargs["change"] and request.user.is_superuser:
-            kwargs["fields"] = list(OrganizationCreateFromNgohubForm().fields.keys())
-            return OrganizationCreateFromNgohubForm
-
-        return super().get_form(request, obj, **kwargs)
-
-    def get_fieldsets(self, request, obj=None):
-        if not obj and request.user.is_superuser:
-            return (
-                (
-                    _("Identification"),
-                    {
-                        "fields": (
-                            "ngohub_org_id",
-                            "user_id",
-                        )
-                    },
-                ),
-            )
-
-        return self.fieldsets
-
-    def get_inlines(self, request, obj=None):
-        if not obj and request.user.is_superuser:
-            return []
-
-        return self.inlines
 
 
 class CandidateVoteInline(admin.TabularInline):
@@ -412,8 +245,168 @@ def pending_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
 pending_candidates.short_description = _("Set selected candidates status to PENDING")
 
 
+class DomainResource(resources.ModelResource):
+    class Meta:
+        model = Domain
+        fields = ["id", "name", "seats", "description"]
+        import_id_fields = ["id"]
+
+
+@admin.register(Organization)
+class OrganizationAdmin(BasePermissionsAdmin):
+    list_display = (
+        "name",
+        "get_user",
+        "get_candidate",
+        "city",
+        "get_voting_domain",
+        "status",
+        "created",
+    )
+    list_display_links = (
+        "name",
+        "city",
+        "status",
+        "created",
+    )
+    list_filter = ("status", ("county", CountyFilter), "voting_domain")
+
+    search_fields = ("name", "legal_representative_name", "email")
+    readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
+    autocomplete_fields = ["city"]
+    list_per_page = 20
+
+    inlines = (OrganizationUsersInline, OrganizationCandidatesInline)
+
+    actions = ("update_organizations",)
+
+    fieldsets = (
+        (
+            _("Identification"),
+            {
+                "fields": (
+                    "status",
+                    "ngohub_org_id",
+                    "voting_domain",
+                )
+            },
+        ),
+        (
+            _("Contact Information"),
+            {
+                "fields": (
+                    "email",
+                    "phone",
+                    "description",
+                    "name",
+                    "county",
+                    "city",
+                    "address",
+                    "registration_number",
+                    "board_council",
+                    "logo",
+                )
+            },
+        ),
+        (
+            _("Legal representative"),
+            {
+                "fields": (
+                    "legal_representative_name",
+                    "legal_representative_email",
+                    "legal_representative_phone",
+                )
+            },
+        ),
+        (
+            _("Platform documents"),
+            {
+                "fields": (
+                    "last_balance_sheet",
+                    "statute",
+                    "statement_political",
+                    "statement_discrimination",
+                    "fiscal_certificate_anaf",
+                    "fiscal_certificate_local",
+                    "report_2023",
+                    "report_2022",
+                    "report_2021",
+                )
+            },
+        ),
+    )
+
+    def get_user(self, obj: Organization = None):
+        if obj and obj.users.exists():
+            org_user = obj.users.first()
+            user_url = reverse("admin:accounts_user_change", args=(org_user.id,))
+            return mark_safe(f'<a href="{user_url}">{org_user.email}</a>')
+
+    get_user.short_description = _("user")
+
+    def get_candidate(self, obj=None):
+        if obj and obj.candidate:
+            user_url = reverse("admin:hub_candidate_change", args=(obj.candidate.id,))
+            return mark_safe(f'<a href="{user_url}">{obj.candidate.name}</a>')
+
+    get_candidate.short_description = _("candidate")
+
+    def get_voting_domain(self, obj: Organization):
+        if obj and obj.voting_domain:
+            domain_url = (
+                reverse("admin:hub_organization_changelist")
+                + "?"
+                + urlencode({"voting_domain__id__exact": obj.voting_domain.pk})
+            )
+            return mark_safe(f'<a href="{domain_url}">{obj.voting_domain.name}</a>')
+
+        return _("Not set")
+
+    get_voting_domain.short_description = _("voting domain")
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj and obj.ngohub_org_id:
+            return ["ngohub_org_id"] + list(Organization.ngohub_fields())
+
+        return []
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not obj and not kwargs["change"] and request.user.is_superuser:
+            kwargs["fields"] = list(OrganizationCreateFromNgohubForm().fields.keys())
+            return OrganizationCreateFromNgohubForm
+
+        return super().get_form(request, obj, **kwargs)
+
+    def get_fieldsets(self, request, obj=None):
+        if not obj and request.user.is_superuser:
+            return (
+                (
+                    _("Identification"),
+                    {
+                        "fields": (
+                            "ngohub_org_id",
+                            "user_id",
+                        )
+                    },
+                ),
+            )
+
+        return self.fieldsets
+
+    def get_inlines(self, request, obj=None):
+        if not obj and request.user.is_superuser:
+            return []
+
+        return self.inlines
+
+    @staticmethod
+    def update_organizations(__, ___, queryset):
+        for org in queryset:
+            update_organization(org.id)
+
+
 @admin.register(Candidate)
-class CandidateAdmin(admin.ModelAdmin):
+class CandidateAdmin(BasePermissionsAdmin):
     list_display = [
         "name",
         "org",
@@ -482,39 +475,12 @@ class CandidateAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
-
-
-class DomainResource(resources.ModelResource):
-    class Meta:
-        model = Domain
-        fields = ["id", "name", "seats", "description"]
-        import_id_fields = ["id"]
-
 
 @admin.register(Domain)
-class DomainAdmin(ImportExportModelAdmin):
+class DomainAdmin(ImportExportModelAdmin, BasePermissionsAdmin):
     list_display_links = list_display = ("id", "name", "seats", "description")
     ordering = ("id",)
     resource_class = DomainResource
-
-    def has_add_permission(self, request):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
 
 
 @admin.register(City)
@@ -543,8 +509,8 @@ class CityAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
+    def has_view_permission(self, request, obj=None):
+        if request.user.issuperuser:
             return True
         return False
 
@@ -599,7 +565,7 @@ class CityAdmin(admin.ModelAdmin):
 
 
 @admin.register(FeatureFlag)
-class FeatureFlagAdmin(admin.ModelAdmin):
+class FeatureFlagAdmin(BasePermissionsAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
     actions = [
@@ -626,11 +592,6 @@ class FeatureFlagAdmin(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
         return False
 
     def _flags_switch_phase(self, request, phase_name: str, enabled: List[str], disabled: List[str]):
@@ -791,20 +752,15 @@ class FeatureFlagAdmin(admin.ModelAdmin):
 
 
 @admin.register(BlogPost)
-class BlogPostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(BasePermissionsAdmin):
     list_display = ["title", "slug", "author", "published_date", "is_visible"]
 
-    def has_add_permission(self, request):
-        if request.user.is_superuser:
-            return True
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        if request.user.is_superuser:
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_staff:
             return True
         return False
 
     def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return True
         return False
