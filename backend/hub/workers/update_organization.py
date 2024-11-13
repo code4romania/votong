@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 import requests
 from django.conf import settings
 from django.core.files import File
+from django.urls import reverse
 from django.utils import timezone
 from django_q.models import Schedule
 from django_q.tasks import async_task
@@ -235,7 +236,7 @@ def update_organization_process(organization_id: int, token: str = ""):
         )
 
         ngohub_url = f"{settings.NGOHUB_APP_BASE}organizations/{ngohub_id}/overview/"
-        votong_url = f"{settings.VOTONG_WEBSITE}{organization.get_absolute_url()}"
+        votong_url = f"{settings.VOTONG_WEBSITE}{reverse('admin:hub_organization_change', args=[organization.id])}"
 
         send_email(
             subject=subject,
