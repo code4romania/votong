@@ -125,8 +125,15 @@ def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> Dict:
 
 def update_organization_process(organization_id: int, token: str = ""):
     errors: List[str] = []
+    task_result: Dict[str, any] = {"organization_id": organization_id}
 
     organization: Organization = Organization.objects.get(id=organization_id)
+
+    if organization.status == Organization.STATUS.admin:
+        logger.info(f"Organization {organization.id} is an admin organization and cannot be updated.")
+        task_result["errors"] = ["Organization is an admin organization and cannot be updated."]
+
+        return task_result
 
     organization.ngohub_last_update_started = timezone.now()
     organization.save()
@@ -219,7 +226,6 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     organization.save()
 
-    task_result: Dict[str, any] = {"organization_id": organization_id}
     if errors:
         task_result["errors"] = errors
 
@@ -272,12 +278,14 @@ def update_outdated_organizations():
 
     last_7_days = timezone.now() - timezone.timedelta(days=7)
     accepted_statuses = (Organization.STATUS.accepted, Organization.STATUS.pending)
-    organizations = Organization.objects.filter(
-        modified__lte=last_7_days,
-        status__in=accepted_statuses,
-    ).order_by(
-        "modified"
-    )[:limit]
+    organizations = (
+        Organization.objects.filter(
+            modified__lte=last_7_days,
+            status__in=accepted_statuses,
+        )
+        .exclude(status=Organization.STATUS.admin)
+        .order_by("modified")[:limit]
+    )
 
     organizations_ids: List[int] = []
     if not organizations:
