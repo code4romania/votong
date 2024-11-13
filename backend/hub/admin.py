@@ -510,7 +510,7 @@ class CityAdmin(admin.ModelAdmin):
         return False
 
     def has_view_permission(self, request, obj=None):
-        if request.user.issuperuser:
+        if request.user.is_superuser:
             return True
         return False
 
