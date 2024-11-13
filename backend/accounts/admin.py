@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import NotRegistered
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import Group as BaseGroup
@@ -8,7 +7,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
-from .models import User, GroupProxy
+from civil_society_vote.common.admin import BasePermissionsAdmin
+
+from .models import GroupProxy, User
 
 # Remove the default admins for User and Group
 try:
@@ -23,7 +24,7 @@ except NotRegistered:
 
 
 @admin.register(User)
-class UserAdmin(UserAdminImpersonateMixin, ModelAdmin):
+class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
     open_new_window = True
 
     list_display = (
@@ -133,4 +134,4 @@ class UserAdmin(UserAdminImpersonateMixin, ModelAdmin):
 
 
 @admin.register(GroupProxy)
-class GroupAdmin(BaseGroupAdmin, ModelAdmin): ...
+class GroupAdmin(BaseGroupAdmin, BasePermissionsAdmin): ...
