@@ -8,12 +8,12 @@ asgiref==3.8.1
     # via django
 blessed==1.20.0
     # via -r requirements.in
-boto3==1.35.49
+boto3==1.35.59
     # via
     #   -r requirements.in
     #   django-ses
     #   pycognito
-botocore==1.35.49
+botocore==1.35.59
     # via
     #   boto3
     #   s3transfer
@@ -78,7 +78,7 @@ django-model-utils==5.0.0
     # via -r requirements.in
 django-picklefield==3.2
     # via django-q2
-django-q2==1.7.3
+django-q2==1.7.4
     # via -r requirements.in
 django-recaptcha==4.0.0
     # via -r requirements.in
@@ -108,7 +108,7 @@ jmespath==1.0.1
     #   botocore
 oauthlib==3.2.2
     # via requests-oauthlib
-packaging==24.1
+packaging==24.2
     # via gunicorn
 pillow==10.4.0
     # via

@@ -16,12 +16,12 @@ black==24.10.0
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.35.49
+boto3==1.35.59
     # via
     #   -r requirements.txt
     #   django-ses
     #   pycognito
-botocore==1.35.49
+botocore==1.35.59
     # via
     #   -r requirements.txt
     #   boto3
@@ -56,7 +56,7 @@ cryptography==43.0.3
     # via
     #   -r requirements.txt
     #   pyjwt
-debugpy==1.8.7
+debugpy==1.8.8
     # via -r requirements-dev.in
 decorator==5.1.1
     # via ipython
@@ -116,7 +116,7 @@ django-picklefield==3.2
     # via
     #   -r requirements.txt
     #   django-q2
-django-q2==1.7.3
+django-q2==1.7.4
     # via -r requirements.txt
 django-recaptcha==4.0.0
     # via -r requirements.txt
@@ -160,7 +160,7 @@ iniconfig==2.0.0
     # via pytest
 ipython==8.28.0
     # via -r requirements-dev.in
-jedi==0.19.1
+jedi==0.19.2
     # via ipython
 jmespath==1.0.1
     # via
@@ -177,7 +177,7 @@ oauthlib==3.2.2
     # via
     #   -r requirements.txt
     #   requests-oauthlib
-packaging==24.1
+packaging==24.2
     # via
     #   -r requirements.txt
     #   black
@@ -261,7 +261,7 @@ requests==2.32.3
     #   requests-oauthlib
 requests-oauthlib==2.0.0
     # via -r requirements.txt
-ruff==0.7.1
+ruff==0.7.3
     # via -r requirements-dev.in
 s3transfer==0.10.3
     # via
@@ -312,7 +312,7 @@ wcwidth==0.2.13
     #   prompt-toolkit
 werkzeug==3.0.6
     # via -r requirements-dev.in
-wheel==0.44.0
+wheel==0.45.0
     # via pip-tools
 whitenoise==6.7.0
     # via -r requirements.txt
