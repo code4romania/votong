@@ -29,22 +29,22 @@
 
   {% if ngo.report_2023 %}
     {% trans "Yearly report 2023" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.report_2023.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2023.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.report_2022 %}
     {% trans "Yearly report 2022" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.report_2022.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2022.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.report_2021 %}
     {% trans "Yearly report 2021" as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.report_2021.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+    {% include "hub/partials/document.html" with document_url=ngo.report_2021.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.statement_discrimination %}
     {% trans "Non-discrimination statement " as doc_name %}
-    {% include "hub/partials/document.html" with document_url=ngo.statement_discrimination.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+    {% include "hub/partials/document.html" with document_url=ngo.statement_discrimination.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
   {% endif %}
 
   {% if ngo.statement_political %}
