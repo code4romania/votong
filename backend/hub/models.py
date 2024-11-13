@@ -855,7 +855,18 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
             self.update_users_permissions()
 
 
-class CandidateVote(TimeStampedModel):
+class CandidateAction:
+    user = None
+    candidate = None
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f"{self.user.get_full_name()} ({self.user.organization}) - {self. candidate}"
+
+
+class CandidateVote(TimeStampedModel, CandidateAction):
     user = models.ForeignKey(UserModel, on_delete=models.PROTECT)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
@@ -867,9 +878,6 @@ class CandidateVote(TimeStampedModel):
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
         ]
 
-    def __str__(self):
-        return f"{self.user.get_full_name()} - {self. candidate}"
-
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
 
@@ -880,7 +888,7 @@ class CandidateVote(TimeStampedModel):
         super().save(*args, **kwargs)
 
 
-class CandidateSupporter(TimeStampedModel):
+class CandidateSupporter(TimeStampedModel, CandidateAction):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="supporters")
 
@@ -891,11 +899,8 @@ class CandidateSupporter(TimeStampedModel):
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),
         ]
 
-    def __str__(self):
-        return f"{self.user.get_full_name()} - {self. candidate}"
 
-
-class CandidateConfirmation(TimeStampedModel):
+class CandidateConfirmation(TimeStampedModel, CandidateAction):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="confirmations")
 
@@ -905,9 +910,6 @@ class CandidateConfirmation(TimeStampedModel):
         constraints = [
             models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),
         ]
-
-    def __str__(self):
-        return f"{self.user.get_full_name()} - {self. candidate}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
