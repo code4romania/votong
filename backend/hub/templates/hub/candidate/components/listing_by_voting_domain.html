@@ -4,11 +4,11 @@
 {% for section_details in page_obj %}
 
   <h3 id="{{ section_details.domain_key }}" class="section-title">
-    {{ section_details.domain.name }} ({{ section_details.candidates|length }})
+    {{ section_details.domain.name }} ({{ section_details.items|length }})
   </h3>
 
 
-    {% include "hub/candidate/components/listing_detail.html" with candidates=section_details.candidates %}
+    {% include "hub/candidate/components/listing_detail.html" with candidates=section_details.items %}
 
 
 {% endfor %}

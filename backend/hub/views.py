@@ -13,7 +13,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.db.models import Count, Q
+from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -54,6 +54,36 @@ from hub.workers.update_organization import update_organization
 logger = logging.getLogger(__name__)
 
 UserModel = get_user_model()
+
+
+def group_queryset_by_domain(
+    queryset: QuerySet, *, domain_variable_name: str, sort_variable: str = "name"
+) -> List[Dict[str, Union[Domain, List[Union[Organization, Candidate]]]]]:
+    queryset_by_domain_dict: Dict[Domain, List[Union[Organization, Candidate]]] = {}
+
+    for element in queryset:
+        domain: Domain = getattr(element, domain_variable_name)
+        if domain not in queryset_by_domain_dict:
+            queryset_by_domain_dict[domain] = []
+
+        queryset_by_domain_dict[domain].append(element)
+
+    queryset_by_domain_list = []
+    for domain, query_item in queryset_by_domain_dict.items():
+        snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
+        normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
+
+        queryset_by_domain_list.append(
+            {
+                "domain": domain,
+                "domain_key": normalized_domain_key.decode("utf-8"),
+                "items": sorted(query_item, key=lambda x: getattr(x, sort_variable)),
+            }
+        )
+
+    queryset_by_domain_list = sorted(queryset_by_domain_list, key=lambda x: x["domain"].pk)
+
+    return queryset_by_domain_list
 
 
 def _filter_letter(char: str) -> bool:
@@ -256,35 +286,6 @@ class OrganizationListView(SearchMixin):
     paginate_by = 9
     template_name = "hub/ngo/list.html"
 
-    @staticmethod
-    def group_organizations_by_domain(queryset) -> List[Dict[str, Union[Domain, List[Organization]]]]:
-        organizations_by_domain: Dict[Domain, List[Organization]] = {}
-
-        for organization in queryset:
-            domain: Domain = organization.voting_domain
-            if domain not in organizations_by_domain:
-                organizations_by_domain[domain] = []
-
-            organizations_by_domain[domain].append(organization)
-
-        # dictionary to list of dictionaries
-        organizations_by_domain_list = []
-        for domain, organizations in organizations_by_domain.items():
-            snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
-            normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
-
-            organizations_by_domain_list.append(
-                {
-                    "domain": domain,
-                    "domain_key": normalized_domain_key.decode("utf-8"),
-                    "organizations": sorted(organizations, key=lambda org: org.name),
-                }
-            )
-
-        organizations_by_domain_list = sorted(organizations_by_domain_list, key=lambda x: x["domain"].pk)
-
-        return organizations_by_domain_list
-
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
@@ -302,7 +303,7 @@ class OrganizationListView(SearchMixin):
         queryset_filtered = queryset.filter(**filters)
 
         if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain):
-            return self.group_organizations_by_domain(queryset_filtered)
+            return group_queryset_by_domain(queryset_filtered, domain_variable_name="voting_domain")
 
         return queryset_filtered
 
@@ -532,34 +533,6 @@ class CandidateListView(SearchMixin):
             is_proposed=True,
         )
 
-    @staticmethod
-    def group_candidates_by_domain(queryset):
-        candidates_by_domain = {}
-
-        for candidate in queryset:
-            domain = candidate.domain
-            if domain not in candidates_by_domain:
-                candidates_by_domain[domain] = []
-
-            candidates_by_domain[domain].append(candidate)
-
-        candidates_by_domain_list = []
-        for domain, candidates in candidates_by_domain.items():
-            snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
-            normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
-
-            candidates_by_domain_list.append(
-                {
-                    "domain": domain,
-                    "domain_key": normalized_domain_key.decode("utf-8"),
-                    "candidates": sorted(candidates, key=lambda candidate_: candidate_.name),
-                }
-            )
-
-        candidates_by_domain_list = sorted(candidates_by_domain_list, key=lambda x: x["domain"].pk)
-
-        return candidates_by_domain_list
-
     def get_qs(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
@@ -576,7 +549,7 @@ class CandidateListView(SearchMixin):
         queryset_filtered = qs.filter(**filters)
 
         if not FeatureFlag.flag_enabled(SETTINGS_CHOICES.single_domain_round):
-            return self.group_candidates_by_domain(queryset_filtered)
+            return group_queryset_by_domain(queryset_filtered, domain_variable_name="domain")
 
         return queryset_filtered
 
@@ -660,8 +633,7 @@ class CandidateDetailView(HubDetailView):
 
         return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
-    @staticmethod
-    def _get_candidate_support_context(user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_support_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
             "can_support_candidate": False,
             "supported_candidate": False,
@@ -698,8 +670,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    @staticmethod
-    def _get_candidate_approval_context(user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
             "can_approve_candidate": False,
             "approved_candidate": False,
@@ -721,8 +692,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    @staticmethod
-    def _get_candidate_vote_context(user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
             "can_vote_candidate": False,
             "voted_candidate": False,
@@ -800,8 +770,7 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     model = Candidate
     form_class = CandidateRegisterForm
 
-    @staticmethod
-    def _check_permissions(request):
+    def _check_permissions(self, request):
         if not FeatureFlag.flag_enabled("enable_candidate_registration"):
             raise PermissionDenied
 
