@@ -1,3 +1,4 @@
+from auditlog.registry import auditlog
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
@@ -94,3 +95,7 @@ class GroupProxy(Group):
 
         verbose_name = _("Group")
         verbose_name_plural = _("Groups")
+
+
+auditlog.register(User, exclude_fields=["password"])
+auditlog.register(GroupProxy)

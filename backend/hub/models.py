@@ -1,6 +1,7 @@
 import logging
 from typing import List
 
+from auditlog.registry import auditlog
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -884,7 +885,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
             self.update_users_permissions()
 
 
-class CandidateAction:
+class CandidateAction(models.Model):
     user: UserModel = None
     candidate: Candidate = None
 
@@ -963,3 +964,12 @@ class CandidateConfirmation(TimeStampedModel, CandidateAction):
             if candidate_has_all_confirmations:
                 candidate.status = Candidate.STATUS.confirmed
                 candidate.save()
+
+
+base_exclude_fields = ["created", "modified"]
+auditlog.register(Organization, exclude_fields=base_exclude_fields)
+auditlog.register(Candidate, exclude_fields=base_exclude_fields)
+auditlog.register(CandidateVote, exclude_fields=base_exclude_fields)
+auditlog.register(CandidateSupporter, exclude_fields=base_exclude_fields)
+auditlog.register(CandidateConfirmation, exclude_fields=base_exclude_fields)
+auditlog.register(FeatureFlag, exclude_fields=base_exclude_fields)

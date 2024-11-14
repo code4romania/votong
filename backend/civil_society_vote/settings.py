@@ -66,7 +66,6 @@ env = environ.Env(
     IS_CONTAINERIZED=(bool, False),
     LANGUAGE_CODE=(str, "ro"),
     TIME_ZONE=(str, "Europe/Bucharest"),
-    AUDITLOG_EXPIRY_DAYS=(int, 45),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 3 * MEBIBYTE),
     MAX_DOCUMENT_SIZE=(int, 50 * MEBIBYTE),
     IMPERSONATE_READ_ONLY=(bool, False),
@@ -169,6 +168,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.amazon_cognito",
     # other third-party
+    "auditlog",
     "avatar",
     "admin_auto_filters",
     "spurl",
@@ -205,6 +205,7 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "impersonate.middleware.ImpersonateMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "auditlog.middleware.AuditlogMiddleware",
 ]
 
 if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
@@ -245,6 +246,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "civil_society_vote.wsgi.application"
+
+# Auditlog configuration
+
+AUDITLOG_INCLUDE_ALL_MODELS = False
+AUDITLOG_INCLUDE_TRACKING_MODELS = (
+    {
+        "model": "socialaccount.SocialAccount",
+        "exclude_fields": ["extra_data"],
+    },
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
