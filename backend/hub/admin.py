@@ -54,6 +54,9 @@ class OrganizationUsersInline(admin.TabularInline):
 
     extra = 0
 
+    def has_view_permission(self, request, obj=None):
+        return True
+
     def has_add_permission(self, request, obj=None):
         return False
 
@@ -72,6 +75,9 @@ class OrganizationCandidatesInline(admin.TabularInline):
     fk_name = "org"
 
     extra = 0
+
+    def has_view_permission(self, request, obj=None):
+        return True
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -337,6 +343,11 @@ class OrganizationAdmin(BasePermissionsAdmin):
         ),
     )
 
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_staff:
+            return True
+        return False
+
     def get_user(self, obj: Organization = None):
         if obj and obj.users.exists():
             org_user = obj.users.first()
@@ -367,12 +378,22 @@ class OrganizationAdmin(BasePermissionsAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj and obj.ngohub_org_id:
-            return ["ngohub_org_id"] + list(Organization.ngohub_fields())
+            readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
+            if not request.user.is_superuser:
+                readonly_fields.extend(
+                    [
+                        "status",
+                        "voting_domain",
+                    ]
+                )
+
+            return readonly_fields
 
         return []
 
     def get_form(self, request, obj=None, **kwargs):
-        if not obj and not kwargs["change"] and request.user.is_superuser:
+        admin_user = request.user
+        if not obj and not kwargs["change"] and admin_user.is_superuser:
             kwargs["fields"] = list(OrganizationCreateFromNgohubForm().fields.keys())
             return OrganizationCreateFromNgohubForm
 
@@ -473,8 +494,21 @@ class CandidateAdmin(BasePermissionsAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_staff:
+            return True
+        return False
+
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def get_form(self, request, obj=None, **kwargs):
+        admin_user = request.user
+        if obj and admin_user.is_staff:
+            kwargs["fields"] = Candidate.file_fields()
+            return super().get_form(request, obj, **kwargs)
+
+        return super().get_form(request, obj, **kwargs)
 
 
 @admin.register(Domain)

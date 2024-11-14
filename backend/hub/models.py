@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Set
 
 from auditlog.registry import auditlog
 from django.conf import settings
@@ -537,6 +537,25 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
             "last_balance_sheet",
         )
 
+    @staticmethod
+    def file_fields(*, include_ngohub=True) -> List[str]:
+        file_fields: Set[str] = {
+            "logo",
+            "last_balance_sheet",
+            "statute",
+            "report_2023",
+            "report_2022",
+            "report_2021",
+            "statement_discrimination",
+            "statement_political",
+            "fiscal_certificate_anaf",
+            "fiscal_certificate_local",
+        }
+        if include_ngohub:
+            return list(file_fields)
+
+        return list(file_fields - set(Organization.ngohub_fields()))
+
     def get_missing_fields_for_candidate(self):
         deferred_required_fields = self.required_fields_for_candidate()
         missing_fields = self.check_deferred_fields(deferred_required_fields)
@@ -808,6 +827,19 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
 
     def __str__(self):
         return f"{self.org} ({self.name})"
+
+    @staticmethod
+    def file_fields():
+        return (
+            "photo",
+            "statement",
+            "mandate",
+            "letter_of_intent",
+            "cv",
+            "declaration_of_interests",
+            "fiscal_record",
+            "criminal_record",
+        )
 
     @classmethod
     def required_fields(cls):
