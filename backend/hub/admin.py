@@ -297,7 +297,6 @@ class OrganizationAdmin(BasePermissionsAdmin):
                 "fields": (
                     "email",
                     "phone",
-                    "description",
                     "name",
                     "county",
                     "city",
@@ -305,6 +304,8 @@ class OrganizationAdmin(BasePermissionsAdmin):
                     "registration_number",
                     "board_council",
                     "logo",
+                    "description",
+                    "activity_summary",
                 )
             },
         ),
