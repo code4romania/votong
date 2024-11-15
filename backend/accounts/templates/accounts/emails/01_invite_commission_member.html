@@ -3,20 +3,21 @@
 {% load i18n %}
 
 {% autoescape off %}
+
   {% block content %}
+
     <p style="padding: 3rem 0;">
       {% translate "You're receiving this email because you were invited as a commission member on VotONG." %}
-    </p>
 
-    {% if read_only %}
-      <p style="padding: 3rem 0;">
+      {% if read_only %}
+        <br>
         <strong>
           {% translate "You were invited as a commission member with no voting rights." %}
           {% translate "You will be able to see the proposals but you won't be able to confirm candidates." %}
           {% translate "If you think this is a mistake, please contact the platform administrators." %}
         </strong>
-      </p>
-    {% endif %}
+      {% endif %}
+    </p>
 
     <p>
       {% translate "Please go to the following page and choose a new password:" %}
