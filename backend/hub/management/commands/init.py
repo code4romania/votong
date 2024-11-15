@@ -6,7 +6,14 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from guardian.shortcuts import assign_perm
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, SUPPORT_GROUP
+from accounts.models import (
+    COMMITTEE_GROUP,
+    COMMITTEE_GROUP_READ_ONLY,
+    NGO_GROUP,
+    NGO_USERS_GROUP,
+    STAFF_GROUP,
+    SUPPORT_GROUP,
+)
 from hub.models import City, FLAG_CHOICES, FeatureFlag
 
 
@@ -29,6 +36,9 @@ class Command(BaseCommand):
         committee_group: Group = Group.objects.get_or_create(name=COMMITTEE_GROUP)[0]
         assign_perm("hub.approve_candidate", committee_group)
         assign_perm("hub.view_data_candidate", committee_group)
+
+        committee_group_read_only: Group = Group.objects.get_or_create(name=COMMITTEE_GROUP_READ_ONLY)[0]
+        assign_perm("hub.view_data_candidate", committee_group_read_only)
 
         staff_group: Group = Group.objects.get_or_create(name=STAFF_GROUP)[0]
         assign_perm("hub.view_data_candidate", staff_group)

@@ -1,6 +1,14 @@
 {% load i18n %}{% autoescape off %}
   {% translate "You're receiving this email because you were invited as a commission member on VotONG." %}
-    {% translate "Please go to the following page and choose a new password:" %}
+
+  {% if read_only %}
+    {% translate "You were invited as a commission member with no voting rights." %}
+    {% translate "You will be able to see the proposals but you won't be able to confirm candidates." %}
+    {% translate "If you think this is a mistake, please contact the platform administrators." %}
+  {% endif %}
+
+  {% translate "Please go to the following page and choose a new password:" %}
+
   {% block reset_link %}
     {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
   {% endblock %}

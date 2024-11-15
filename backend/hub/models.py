@@ -18,7 +18,7 @@ from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 from tinymce.models import HTMLField
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from accounts.models import COMMITTEE_GROUP, COMMITTEE_GROUP_READ_ONLY, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
 from civil_society_vote.common.formatting import get_human_readable_size
 
 REPORTS_HELP_TEXT = (
@@ -661,8 +661,9 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         if create:
             assign_perm("view_data_organization", Group.objects.get(name=STAFF_GROUP), self)
             assign_perm("view_data_organization", Group.objects.get(name=SUPPORT_GROUP), self)
-
             assign_perm("view_data_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
+            assign_perm("view_data_organization", Group.objects.get(name=COMMITTEE_GROUP_READ_ONLY), self)
+
             assign_perm("approve_organization", Group.objects.get(name=COMMITTEE_GROUP), self)
 
     def create_owner(self):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 11:47+0200\n"
+"POT-Creation-Date: 2024-11-15 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,31 +45,35 @@ msgstr ""
 msgid "Emails don't match."
 msgstr ""
 
-#: accounts/forms.py:43 accounts/forms.py:58
+#: accounts/forms.py:26
+msgid "This email can't be set. The user already exists."
+msgstr ""
+
+#: accounts/forms.py:48
 msgid "This email can't be set."
 msgstr ""
 
-#: accounts/models.py:23
+#: accounts/models.py:21
 msgid "username"
 msgstr ""
 
-#: accounts/models.py:26
+#: accounts/models.py:24
 msgid "We do not use this field"
 msgstr ""
 
-#: accounts/models.py:30 hub/templates/registration/reset_password.html:39
+#: accounts/models.py:28 hub/templates/registration/reset_password.html:39
 msgid "email address"
 msgstr ""
 
-#: accounts/models.py:31
+#: accounts/models.py:29
 msgid "is ngo hub user"
 msgstr ""
 
-#: accounts/models.py:45
+#: accounts/models.py:43
 msgid "User"
 msgstr ""
 
-#: accounts/models.py:46
+#: accounts/models.py:44
 msgid "Users"
 msgstr ""
 
@@ -131,18 +135,36 @@ msgid ""
 "on VotONG."
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:12
-#: accounts/templates/accounts/emails/01_invite_commission_member.txt:3
-msgid "Please go to the following page and choose a new password:"
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:14
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:5
+msgid "You were invited as a commission member with no voting rights."
+msgstr ""
+
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:15
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:6
+msgid ""
+"You will be able to see the proposals but you won't be able to confirm "
+"candidates."
+msgstr ""
+
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:16
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:36
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:7
+msgid ""
+"If you think this is a mistake, please contact the platform administrators."
 msgstr ""
 
 #: accounts/templates/accounts/emails/01_invite_commission_member.html:22
-#: accounts/templates/accounts/emails/01_invite_commission_member.txt:7
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:10
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:32
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:15
 msgid "You will be able to sign in with your email address:"
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:26
-#: accounts/templates/accounts/emails/01_invite_commission_member.txt:9
+#: accounts/templates/accounts/emails/01_invite_commission_member.txt:17
 msgid "If you think this is a mistake, you can ignore this email."
 msgstr ""
 
@@ -181,15 +203,28 @@ msgstr ""
 msgid "You must be an NGO Admin in NGO Hub in order to join VotONG."
 msgstr ""
 
-#: accounts/templates/accounts/invite-commission-member.html:39
+#: accounts/templates/accounts/invite-commission-member.html:40
 msgid "Commission member email:"
 msgstr ""
 
-#: accounts/templates/accounts/invite-commission-member.html:49
+#: accounts/templates/accounts/invite-commission-member.html:42
+msgid "Commission member email"
+msgstr ""
+
+#: accounts/templates/accounts/invite-commission-member.html:50
 msgid "Confirm commission member email:"
 msgstr ""
 
+#: accounts/templates/accounts/invite-commission-member.html:52
+msgid "Confirm commission member email confirmation"
+msgstr ""
+
 #: accounts/templates/accounts/invite-commission-member.html:61
+#: accounts/templates/accounts/invite-commission-member.html:63
+msgid "Has read-only permissions"
+msgstr ""
+
+#: accounts/templates/accounts/invite-commission-member.html:69
 msgid "Invite commission member"
 msgstr ""
 
@@ -377,11 +412,11 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: hub/admin.py:99 hub/admin.py:534
+#: hub/admin.py:99 hub/admin.py:533
 msgid "Supporters"
 msgstr ""
 
-#: hub/admin.py:104 hub/admin.py:540
+#: hub/admin.py:104 hub/admin.py:538
 msgid "Confirmations"
 msgstr ""
 
@@ -463,78 +498,78 @@ msgstr ""
 msgid "Candidate Files"
 msgstr "Candidate supporters"
 
-#: hub/admin.py:629
+#: hub/admin.py:626
 msgid "CSV file imported"
 msgstr ""
 
-#: hub/admin.py:637
+#: hub/admin.py:634
 msgid "Import Cities"
 msgstr ""
 
-#: hub/admin.py:680
+#: hub/admin.py:677
 #, python-brace-format
 msgid "Configuration invalid. Missing flag(s) in database: {missing_flags}."
 msgstr ""
 
-#: hub/admin.py:692
+#: hub/admin.py:689
 #, python-brace-format
 msgid "'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}."
 msgstr ""
 
-#: hub/admin.py:709
+#: hub/admin.py:706
 #, python-brace-format
 msgid "Flags set successfully for '{phase_name}'."
 msgstr ""
 
-#: hub/admin.py:714
+#: hub/admin.py:711
 msgid "PHASE PAUSE - platform pause"
 msgstr ""
 
-#: hub/admin.py:728
+#: hub/admin.py:725
 msgid "Set flags for PHASE PAUSE - platform pause"
 msgstr ""
 
-#: hub/admin.py:733
+#: hub/admin.py:730
 msgid "PHASE DEACTIVATE - platform deactivate"
 msgstr ""
 
-#: hub/admin.py:746
+#: hub/admin.py:743
 msgid "Set flags for PHASE - platform deactivate"
 msgstr ""
 
-#: hub/admin.py:751
+#: hub/admin.py:748
 msgid "PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:765
+#: hub/admin.py:762
 msgid "Set flags for PHASE 1 - organization & candidate registrations"
 msgstr ""
 
-#: hub/admin.py:770
+#: hub/admin.py:767
 msgid "PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:784
+#: hub/admin.py:781
 msgid "Set flags for PHASE 2 - candidate validation"
 msgstr ""
 
-#: hub/admin.py:789
+#: hub/admin.py:786
 msgid "PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:803
+#: hub/admin.py:800
 msgid "Set flags for PHASE 3 - voting"
 msgstr ""
 
-#: hub/admin.py:808
+#: hub/admin.py:805
 msgid "FINAL PHASE - results"
 msgstr ""
 
-#: hub/admin.py:822
+#: hub/admin.py:819
 msgid "Set flags for FINAL PHASE - results"
 msgstr ""
 
-#: hub/admin.py:827
+#: hub/admin.py:824
 msgid "Activate selected flags"
 msgstr ""
 
@@ -547,7 +582,7 @@ msgstr ""
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:108 hub/forms.py:221 hub/views.py:497
+#: hub/forms.py:108 hub/forms.py:221 hub/views.py:501
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -706,7 +741,7 @@ msgstr ""
 msgid "Number of seats"
 msgstr ""
 
-#: hub/models.py:190 hub/models.py:717
+#: hub/models.py:190 hub/models.py:718
 msgid "Domain"
 msgstr ""
 
@@ -742,7 +777,7 @@ msgstr ""
 msgid "NGO Hub accepted"
 msgstr ""
 
-#: hub/models.py:291 hub/models.py:697
+#: hub/models.py:291 hub/models.py:698
 msgid "Accepted"
 msgstr ""
 
@@ -750,11 +785,11 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: hub/models.py:293 hub/models.py:699
+#: hub/models.py:293 hub/models.py:700
 msgid "Rejected"
 msgstr ""
 
-#: hub/models.py:295 hub/models.py:701
+#: hub/models.py:295 hub/models.py:702
 msgid "Status"
 msgstr ""
 
@@ -884,145 +919,145 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: hub/models.py:696
+#: hub/models.py:697
 msgid "Pending"
 msgstr ""
 
-#: hub/models.py:698
+#: hub/models.py:699
 msgid "Confirmed"
 msgstr ""
 
-#: hub/models.py:711
+#: hub/models.py:712
 msgid ""
 "If this is set, the `org` field will be unset and the candidate is removed "
 "as the official proposal of the organization."
 msgstr ""
 
-#: hub/models.py:722
+#: hub/models.py:723
 msgid "The domain in which the candidate is running."
 msgstr ""
 
-#: hub/models.py:725
+#: hub/models.py:726
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:728 hub/templates/hub/candidate/detail.html:115
+#: hub/models.py:729 hub/templates/hub/candidate/detail.html:123
 msgid "Representative name"
 msgstr "Candidate name"
 
-#: hub/models.py:731
+#: hub/models.py:732
 msgid "The name of the designated person in the organization."
 msgstr ""
 
-#: hub/models.py:734
+#: hub/models.py:735
 msgid "Representative role in organization"
 msgstr "Candidate role in the organization"
 
-#: hub/models.py:737
+#: hub/models.py:738
 msgid "The role of the designated person in the organization."
 msgstr ""
 
-#: hub/models.py:740
+#: hub/models.py:741
 msgid "Candidate photo"
 msgstr ""
 
-#: hub/models.py:750 hub/templates/hub/candidate/detail.html:119
+#: hub/models.py:751 hub/templates/hub/candidate/detail.html:127
 msgid "Representative statement"
 msgstr "Candidate statement"
 
-#: hub/models.py:755
+#: hub/models.py:756
 msgid ""
 "Declaration of the designated representative stating that he/she is not a "
 "member of the leadership of a political party, has not been elected to a "
 "public office and is not a dignitary of the Romanian state."
 msgstr ""
 
-#: hub/models.py:762 hub/templates/hub/candidate/detail.html:124
+#: hub/models.py:763 hub/templates/hub/candidate/detail.html:132
 msgid "Mandate"
 msgstr ""
 
-#: hub/models.py:767
+#: hub/models.py:768
 msgid ""
 "Mandate from the organization (signed in original + electronic) with the "
 "highlighting of the domain for which it is running"
 msgstr ""
 
-#: hub/models.py:773 hub/templates/hub/candidate/detail.html:129
+#: hub/models.py:774 hub/templates/hub/candidate/detail.html:137
 msgid "Letter of intent"
 msgstr ""
 
-#: hub/models.py:777
+#: hub/models.py:778
 msgid ""
 "Letter of intent (with the mention of the domain to be represented in the "
 "CES)"
 msgstr ""
 
-#: hub/models.py:781 hub/templates/hub/candidate/detail.html:134
+#: hub/models.py:782 hub/templates/hub/candidate/detail.html:142
 msgid "CV"
 msgstr ""
 
-#: hub/models.py:785
+#: hub/models.py:786
 msgid "Europass format CV"
 msgstr ""
 
-#: hub/models.py:789 hub/templates/hub/candidate/detail.html:139
+#: hub/models.py:790 hub/templates/hub/candidate/detail.html:147
 msgid "Declaration of interests"
 msgstr ""
 
-#: hub/models.py:793
+#: hub/models.py:794
 msgid "Official format Declaration of interests"
 msgstr ""
 
-#: hub/models.py:797 hub/templates/hub/candidate/detail.html:144
+#: hub/models.py:798 hub/templates/hub/candidate/detail.html:152
 msgid "Fiscal record"
 msgstr ""
 
-#: hub/models.py:801
+#: hub/models.py:802
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:805 hub/templates/hub/candidate/detail.html:149
+#: hub/models.py:806 hub/templates/hub/candidate/detail.html:157
 msgid "Criminal record"
 msgstr ""
 
-#: hub/models.py:809
+#: hub/models.py:810
 msgid ""
 "(Optional) Criminal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:817
+#: hub/models.py:818
 msgid "Candidates"
 msgstr ""
 
-#: hub/models.py:818
+#: hub/models.py:819
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:900
+#: hub/models.py:901
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:948
+#: hub/models.py:949
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:949
+#: hub/models.py:950
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:969
+#: hub/models.py:970
 msgid "Canditate supporters"
 msgstr "Candidate supporters"
 
-#: hub/models.py:970
+#: hub/models.py:971
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:981
+#: hub/models.py:982
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:982
+#: hub/models.py:983
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -1089,27 +1124,27 @@ msgstr ""
 msgid "Supporters:"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:83
+#: hub/templates/hub/candidate/detail.html:82
 msgid "Confirm candidate status"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:90
+#: hub/templates/hub/candidate/detail.html:98
 msgid "✔ VOTED"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:94
+#: hub/templates/hub/candidate/detail.html:102
 msgid "You have used all the votes allotted for this domain."
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:98
+#: hub/templates/hub/candidate/detail.html:106
 msgid "Vote"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:111
+#: hub/templates/hub/candidate/detail.html:119
 msgid "Candidate information"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:116
+#: hub/templates/hub/candidate/detail.html:124
 msgid "Representative role"
 msgstr ""
 
@@ -1599,11 +1634,11 @@ msgstr ""
 msgid "ngo-update/<int:pk>"
 msgstr ""
 
-#: hub/views.py:163
+#: hub/views.py:167
 msgid "Thank you! We'll get in touch soon!"
 msgstr ""
 
-#: hub/views.py:392
+#: hub/views.py:396
 #, python-format
 msgid ""
 "Thank you for signing up! The form you filled in has reached us. Someone "
@@ -1611,44 +1646,44 @@ msgid ""
 "validated. If you have any further questions, send us a message at %s."
 msgstr ""
 
-#: hub/views.py:430
+#: hub/views.py:434
 msgid "Update organization's profile"
 msgstr ""
 
-#: hub/views.py:431
+#: hub/views.py:435
 msgid ""
 "Some data in this organization's profile can only be updated through NGO Hub."
 msgstr ""
 
-#: hub/views.py:434
+#: hub/views.py:438
 msgid "The organization's information is complete"
 msgstr ""
 
-#: hub/views.py:436
+#: hub/views.py:440
 msgid ""
 "If you have recently edited information in the organization's account on NGO "
 "Hub and want to update it in the profile on VotONG, click here"
 msgstr ""
 
-#: hub/views.py:449
+#: hub/views.py:453
 msgid ""
 "The organization does not have the voting domain set. To be able to vote, "
 "please set the voting domain."
 msgstr ""
 
-#: hub/views.py:490
+#: hub/views.py:494
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:778
+#: hub/views.py:785
 msgid "User is not authenticated."
 msgstr ""
 
-#: hub/views.py:783
+#: hub/views.py:790
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/views.py:1013
+#: hub/views.py:1020
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""

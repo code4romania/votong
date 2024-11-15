@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext as _
 
-from accounts.models import COMMITTEE_GROUP, User
+from accounts.models import COMMITTEE_GROUP, COMMITTEE_GROUP_READ_ONLY, User
 
 
 class CommonEmailConfirmationForm(forms.Form):
@@ -19,6 +19,11 @@ class CommonEmailConfirmationForm(forms.Form):
 
         if email != email2:
             raise ValidationError(_("Emails don't match."))
+
+    @classmethod
+    def _check_unique_email(cls, email):
+        if User.objects.filter(email=email).exists():
+            raise ValidationError(_("This email can't be set. The user already exists."))
 
     def clean_email(self):
         return self.cleaned_data.get("email")
@@ -51,13 +56,21 @@ class UpdateEmailForm(CommonEmailConfirmationForm, ModelForm):
 
 
 class InviteCommissionForm(CommonEmailConfirmationForm, PasswordResetForm):
+    read_only = forms.BooleanField(required=False)
+
     def clean_email(self):
-        super().clean_email()
+        email = super().clean_email()
 
-        if User.objects.filter(email=self.cleaned_data.get("email")).exists():
-            raise ValidationError(_("This email can't be set."))
+        self._check_unique_email(email)
 
-        return self.cleaned_data.get("email")
+        return email
+
+    def clean_email2(self):
+        email = super().clean_email2()
+
+        self._check_unique_email(email)
+
+        return email
 
     def save(self, commit=True, *args, **kwargs):
         email = self.cleaned_data.get("email")
@@ -68,11 +81,16 @@ class InviteCommissionForm(CommonEmailConfirmationForm, PasswordResetForm):
         new_user.is_active = True
         new_user.save()
 
-        new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP))
+        read_only = self.cleaned_data.get("read_only")
+        if read_only:
+            new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP_READ_ONLY))
+        else:
+            new_user.groups.add(Group.objects.get(name=COMMITTEE_GROUP))
 
         kwargs["subject_template_name"] = "accounts/emails/01_invite_commission_member_subject.txt"
         kwargs["html_email_template_name"] = "accounts/emails/01_invite_commission_member.html"
         kwargs["email_template_name"] = "accounts/emails/01_invite_commission_member.txt"
+        kwargs["extra_email_context"] = {"read_only": read_only}
         kwargs["from_email"] = settings.DEFAULT_FROM_EMAIL
 
         super().save(**kwargs)

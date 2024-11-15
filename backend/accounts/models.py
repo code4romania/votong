@@ -1,17 +1,15 @@
 from auditlog.registry import auditlog
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.db.models.functions import Lower
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
 
-from civil_society_vote.common.cache import cache_decorator
 
 # NOTE: If you change the group names here, make sure you also update the names in the live database before deployment
 STAFF_GROUP = "Code4Romania Staff"
 COMMITTEE_GROUP = "Comisie Electorala"
+COMMITTEE_GROUP_READ_ONLY = "Comisie Electorala (read-only)"
 SUPPORT_GROUP = "Support Staff"
 NGO_GROUP = "ONG"
 NGO_USERS_GROUP = "ONG Users"
@@ -71,20 +69,22 @@ class User(AbstractUser, TimeStampedModel):
         self.is_staff = True
         self.save()
 
-    @method_decorator(
-        cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="committee_or_staff_groups")
-    )
     def in_committee_or_staff_groups(self):
-        return self.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists()
+        return self.groups.filter(
+            name__in=[
+                COMMITTEE_GROUP,
+                COMMITTEE_GROUP_READ_ONLY,
+                STAFF_GROUP,
+                SUPPORT_GROUP,
+            ]
+        ).exists()
 
-    @method_decorator(cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="commission_groups"))
     def in_commission_groups(self):
         return (
-            self.groups.filter(name=COMMITTEE_GROUP).exists()
+            self.groups.filter(name__in=[COMMITTEE_GROUP, COMMITTEE_GROUP_READ_ONLY]).exists()
             and not self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
         )
 
-    @method_decorator(cache_decorator(timeout=settings.TIMEOUT_CACHE_NORMAL, cache_key_prefix="staff_groups"))
     def in_staff_groups(self):
         return self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
 

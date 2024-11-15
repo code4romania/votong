@@ -78,10 +78,18 @@
         </div>
       {% endif %}
 
-      {% if can_approve_candidate %}
-        <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">
-          {% trans 'Confirm candidate status' %}
-        </a>
+      {% if can_see_approval_action %}
+        {% trans "Confirm candidate status" as approval_action %}
+
+        {% if can_approve_candidate %}
+          <a href="{% url 'candidate-status-confirm' candidate.id %}" class="button is-success">
+            {{ approval_action }}
+          </a>
+        {% else %}
+          <p class="button is-disabled">
+            {{ approval_action }}
+          </p>
+        {% endif %}
       {% endif %}
 
       {% if can_vote_candidate %}

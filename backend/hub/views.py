@@ -27,7 +27,11 @@ from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from sentry_sdk import capture_message
 
-from accounts.models import COMMITTEE_GROUP, NGO_GROUP, NGO_USERS_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from accounts.models import (
+    NGO_GROUP,
+    NGO_USERS_GROUP,
+    User,
+)
 from civil_society_vote.common.messaging import send_email
 from hub.forms import (
     CandidateRegisterForm,
@@ -37,8 +41,6 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
-    FLAG_CHOICES,
-    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -46,8 +48,10 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
+    FLAG_CHOICES,
     FeatureFlag,
     Organization,
+    SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
 
@@ -216,7 +220,7 @@ class CommitteeOrganizationListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/committee/list.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+        if not self.request.user.in_committee_or_staff_groups():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -251,7 +255,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/committee/candidates.html"
 
     def get_queryset(self):
-        if not self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+        if not self.request.user.in_committee_or_staff_groups():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -359,7 +363,7 @@ class OrganizationDetailView(HubDetailView):
         if user.is_anonymous:
             return context
 
-        if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
+        if user.in_committee_or_staff_groups():
             context["can_view_all_information"] = True
 
         if (
@@ -588,10 +592,7 @@ class CandidateResultsView(SearchMixin):
     template_name = "hub/candidate/results.html"
 
     def get_qs(self):
-        if (
-            FeatureFlag.flag_enabled("enable_results_display")
-            or self.request.user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
-        ):
+        if FeatureFlag.flag_enabled("enable_results_display") or self.request.in_staff_groups():
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
                 status=Candidate.STATUS.confirmed,
@@ -628,7 +629,7 @@ class CandidateDetailView(HubDetailView):
         user = self.request.user
         candidat_base_queryset = Candidate.objects_with_org.select_related("org").prefetch_related("domain")
 
-        if user and self.request.user.groups.filter(name__in=[COMMITTEE_GROUP, STAFF_GROUP, SUPPORT_GROUP]).exists():
+        if user and self.request.user.in_committee_or_staff_groups():
             return candidat_base_queryset.all()
 
         return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
@@ -672,6 +673,7 @@ class CandidateDetailView(HubDetailView):
 
     def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
+            "can_see_approval_action": False,
             "can_approve_candidate": False,
             "approved_candidate": False,
         }
@@ -681,6 +683,11 @@ class CandidateDetailView(HubDetailView):
 
         if not candidate.status == Candidate.STATUS.accepted:
             return context
+
+        if not user.in_commission_groups():
+            return context
+
+        context["can_see_approval_action"] = True
 
         if not user.has_perm("hub.approve_candidate"):
             return context
@@ -759,7 +766,7 @@ class CandidateDetailView(HubDetailView):
         # Candidate: Vote checks
         context.update(self._get_candidate_vote_context(user, candidate))
 
-        if user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP, COMMITTEE_GROUP]).exists():
+        if user.in_committee_or_staff_groups():
             context["can_view_all_information"] = True
 
         return context
@@ -994,7 +1001,7 @@ def candidate_status_confirm(request, pk):
 @permission_required_or_403("hub.change_organization")
 def update_organization_information(request, pk):
     user: User = request.user
-    user_is_admin = user.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+    user_is_admin = user.in_staff_groups()
     user_is_org_owner = user.organization.pk == pk
     if user.is_anonymous or (not user_is_admin and not user_is_org_owner):
         raise PermissionDenied
