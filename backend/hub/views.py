@@ -220,7 +220,8 @@ class CommitteeOrganizationListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/committee/list.html"
 
     def get_queryset(self):
-        if not self.request.user.in_committee_or_staff_groups():
+        user = self.request.user
+        if not user or user.is_anonymous or not user.in_committee_or_staff_groups():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -255,7 +256,8 @@ class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
     template_name = "hub/committee/candidates.html"
 
     def get_queryset(self):
-        if not self.request.user.in_committee_or_staff_groups():
+        user = self.request.user
+        if not user or user.is_anonymous or not user.in_committee_or_staff_groups():
             raise PermissionDenied
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
@@ -629,7 +631,7 @@ class CandidateDetailView(HubDetailView):
         user = self.request.user
         candidat_base_queryset = Candidate.objects_with_org.select_related("org").prefetch_related("domain")
 
-        if user and self.request.user.in_committee_or_staff_groups():
+        if user and not user.is_anonymous and user.in_committee_or_staff_groups():
             return candidat_base_queryset.all()
 
         return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
