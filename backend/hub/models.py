@@ -722,6 +722,8 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         help_text=_("The domain in which the candidate is running."),
     )
 
+    is_proposed = models.BooleanField(_("Is proposed?"), default=False)
+
     name = models.CharField(
         _("Representative name"),
         max_length=254,
@@ -807,8 +809,6 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         help_text=_("(Optional) Criminal record, valid at the time of submitting the candidacy"),
         validators=[file_validator],
     )
-
-    is_proposed = models.BooleanField(_("Is proposed?"), default=False)
 
     objects = models.Manager()
     objects_with_org = CandidatesWithOrgManager()

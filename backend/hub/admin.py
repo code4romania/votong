@@ -448,6 +448,45 @@ class CandidateAdmin(BasePermissionsAdmin):
     actions = [accept_candidates, reject_candidates, pending_candidates]
     list_per_page = 20
 
+    fieldsets = (
+        (
+            _("Status Information"),
+            {
+                "fields": (
+                    "status",
+                    "org",
+                    "initial_org",
+                    "domain",
+                    "is_proposed",
+                )
+            },
+        ),
+        (
+            _("Candidate Information"),
+            {
+                "fields": (
+                    "name",
+                    "role",
+                    "photo",
+                ),
+            },
+        ),
+        (
+            _("Candidate Files"),
+            {
+                "fields": (
+                    "statement",
+                    "mandate",
+                    "letter_of_intent",
+                    "cv",
+                    "declaration_of_interests",
+                    "fiscal_record",
+                    "criminal_record",
+                ),
+            },
+        ),
+    )
+
     # def get_queryset(self, request):
     #     queryset = super().get_queryset(request)
     #     if get_feature_flag(FLAG_CHOICES.global_support_round):
@@ -463,6 +502,16 @@ class CandidateAdmin(BasePermissionsAdmin):
     #         )
     #     return queryset
 
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = self.readonly_fields
+
+        if request.user.is_superuser:
+            return readonly_fields
+
+        readonly_fields.extend(["org", "initial_org", "domain", "is_proposed", "name", "role"])
+
+        return readonly_fields
+
     def get_inline_instances(self, request, obj=None):
         if get_feature_flag(FLAG_CHOICES.global_support_round):
             inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
@@ -474,7 +523,6 @@ class CandidateAdmin(BasePermissionsAdmin):
         return obj.votes.count()
 
     votes_count.short_description = _("Votes")
-    # votes_count.admin_order_field = "votes_count"
 
     def supporters_count(self, obj):
         if get_feature_flag(FLAG_CHOICES.global_support_round):
@@ -483,13 +531,11 @@ class CandidateAdmin(BasePermissionsAdmin):
             return "N/A"
 
     supporters_count.short_description = _("Supporters")
-    # supporters_count.admin_order_field = "supporters_count"
 
     def confirmations_count(self, obj):
         return obj.confirmations.count()
 
     confirmations_count.short_description = _("Confirmations")
-    # confirmations_count.admin_order_field = "confirmations_count"
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -501,14 +547,6 @@ class CandidateAdmin(BasePermissionsAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-
-    def get_form(self, request, obj=None, **kwargs):
-        admin_user = request.user
-        if obj and admin_user.is_staff:
-            kwargs["fields"] = Candidate.file_fields()
-            return super().get_form(request, obj, **kwargs)
-
-        return super().get_form(request, obj, **kwargs)
 
 
 @admin.register(Domain)
