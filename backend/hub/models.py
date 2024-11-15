@@ -690,12 +690,12 @@ class CandidatesWithOrgManager(models.Manager):
 
 class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     # PENDING: has been created/proposed and is waiting for support from organizations
-    # ACCEPTED: has been accepted by the admins of the platform
+    # IN_VALIDATION: has been accepted by the admins of the platform and is waiting to be confirmed by the commission
     # CONFIRMED: has received confirmation from the electoral commission
     # REJECTED: has been rejected
     STATUS = Choices(
         ("pending", _("Pending")),
-        ("accepted", _("Accepted")),
+        ("accepted", _("In Validation")),
         ("confirmed", _("Confirmed")),
         ("rejected", _("Rejected")),
     )

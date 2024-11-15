@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 13:26+0200\n"
+"POT-Creation-Date: 2024-11-15 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,38 +128,38 @@ msgstr ""
 msgid "Change Email"
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:8
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:10
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:2
 msgid ""
 "You're receiving this email because you were invited as a commission member "
 "on VotONG."
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:14
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:15
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:5
 msgid "You were invited as a commission member with no voting rights."
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:15
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:16
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:6
 msgid ""
 "You will be able to see the proposals but you won't be able to confirm "
 "candidates."
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:16
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:36
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:17
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:37
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:7
 msgid ""
 "If you think this is a mistake, please contact the platform administrators."
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:22
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:23
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:10
 msgid "Please go to the following page and choose a new password:"
 msgstr ""
 
-#: accounts/templates/accounts/emails/01_invite_commission_member.html:32
+#: accounts/templates/accounts/emails/01_invite_commission_member.html:33
 #: accounts/templates/accounts/emails/01_invite_commission_member.txt:15
 msgid "You will be able to sign in with your email address:"
 msgstr ""
@@ -777,7 +777,7 @@ msgstr ""
 msgid "NGO Hub accepted"
 msgstr ""
 
-#: hub/models.py:291 hub/models.py:698
+#: hub/models.py:291
 msgid "Accepted"
 msgstr ""
 
@@ -921,6 +921,10 @@ msgstr ""
 
 #: hub/models.py:697
 msgid "Pending"
+msgstr ""
+
+#: hub/models.py:698
+msgid "In Validation"
 msgstr ""
 
 #: hub/models.py:699
