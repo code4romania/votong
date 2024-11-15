@@ -172,27 +172,29 @@
             <input
               class="button is-success"
               type="submit"
-              value={% if candidate.is_proposed %}{% trans "Publish changes" %}{% else %}{% trans "Update profile" %}{% endif %}>
+              value="{% if candidate.is_proposed %}{% trans 'Publish changes' %}{% else %}{% trans 'Update profile' %}{% endif %}">
           </div>
         {% endif %}
       </form>
     {% endif %}
   </div>
 
-  <hr/>
+  {% if not candidate.is_proposed %}
+    <hr/>
 
-  {% if can_propose_candidate %}
-    <div class="container has-text-centered">
-      <a href="#" class="button is-warning" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">
-        Propune candidatură
-      </a>
-    </div>
-  {% else %}
-    <div class="container has-text-centered">
-      <p class="button fake-button is-disabled" style="width: 100%;">
-        Propune candidatură
-      </p>
-    </div>
+    {% if can_propose_candidate %}
+      <div class="container has-text-centered">
+        <a href="#" class="button is-warning" style="width: 100%;" onclick="$('#id_is_proposed').val('True'); $('#candidate-update-form').submit(); return false;">
+          Propune candidatură
+        </a>
+      </div>
+    {% else %}
+      <div class="container has-text-centered">
+        <p class="button fake-button is-disabled" style="width: 100%;">
+          Propune candidatură
+        </p>
+      </div>
+    {% endif %}
   {% endif %}
 
 {% endblock %}
