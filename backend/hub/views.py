@@ -243,10 +243,10 @@ def _get_candidates_counters():
         "ngos_pending": Organization.objects.filter(status=Organization.STATUS.pending).count(),
         "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
         "ngos_rejected": Organization.objects.filter(status=Organization.STATUS.rejected).count(),
-        "candidates_pending": Candidate.objects_with_org.filter(status=Candidate.STATUS.pending).count(),
-        "candidates_accepted": Candidate.objects_with_org.filter(status=Candidate.STATUS.accepted).count(),
-        "candidates_confirmed": Candidate.objects_with_org.filter(status=Candidate.STATUS.confirmed).count(),
-        "candidates_rejected": Candidate.objects_with_org.filter(status=Candidate.STATUS.rejected).count(),
+        "candidates_pending": Candidate.proposed.filter(status=Candidate.STATUS.pending).count(),
+        "candidates_accepted": Candidate.proposed.filter(status=Candidate.STATUS.accepted).count(),
+        "candidates_confirmed": Candidate.proposed.filter(status=Candidate.STATUS.confirmed).count(),
+        "candidates_rejected": Candidate.proposed.filter(status=Candidate.STATUS.rejected).count(),
     }
 
 
@@ -262,9 +262,9 @@ class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
         return (
-            Candidate.objects_with_org.filter(**filters)
+            Candidate.proposed.filter(**filters)
             .annotate(supporters_count=Count("supporters"))
-            .order_by("-supporters_count")
+            .order_by("domain__name", "-supporters_count")
         )
 
     def get_context_data(self, **kwargs):

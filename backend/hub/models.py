@@ -688,6 +688,11 @@ class CandidatesWithOrgManager(models.Manager):
         return super().get_queryset().exclude(org=None).exclude(org__status=Organization.STATUS.draft)
 
 
+class CandidatesProposedManager(CandidatesWithOrgManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_proposed=True)
+
+
 class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     # PENDING: has been created/proposed and is waiting for support from organizations
     # IN_VALIDATION: has been accepted by the admins of the platform and is waiting to be confirmed by the commission
@@ -813,6 +818,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
 
     objects = models.Manager()
     objects_with_org = CandidatesWithOrgManager()
+    proposed = CandidatesProposedManager()
 
     class Meta:
         verbose_name_plural = _("Candidates")
