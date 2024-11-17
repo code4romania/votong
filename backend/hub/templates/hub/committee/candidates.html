@@ -33,7 +33,7 @@
               <div class="flex-align-center">
                 <div class="need-title is-hidden-tablet">{{ candidate.name }}</div>
               </div>
-              <div class="need-subtitle is-hidden-mobile">{{ candidate.org }}</div>
+              <div class="need-subtitle is-hidden-mobile">{{ candidate.domain }} | {{ candidate.org }}</div>
               <div class="need-title is-hidden-mobile">
                 <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{ candidate.name }}</a>
               </div>
