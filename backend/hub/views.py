@@ -533,7 +533,7 @@ class CandidateListView(SearchMixin):
         )
 
     @classmethod
-    def get_candidates_to_support(cls):
+    def get_candidates_pending(cls):
         return Candidate.objects_with_org.filter(
             org__status=Organization.STATUS.accepted,
             is_proposed=True,
@@ -542,10 +542,11 @@ class CandidateListView(SearchMixin):
     def get_qs(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
-        elif FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting):
-            return self.get_candidates_to_support()
 
-        return Candidate.objects_with_org.none()
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_results_display):
+            return Candidate.objects_with_org.none()
+
+        return self.get_candidates_pending()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
