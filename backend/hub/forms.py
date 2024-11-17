@@ -236,10 +236,6 @@ class OrganizationUpdateForm(forms.ModelForm):
         return new_voting_domain
 
     def save(self, commit=True):
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
-            # This should not happen unless someone messes with the form code
-            raise PermissionDenied
-
         return super().save(commit)
 
 
