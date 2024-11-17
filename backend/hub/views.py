@@ -806,7 +806,19 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
         if check_result:
             return check_result
 
-        return super().post(request, *args, **kwargs)
+        try:
+            return super().post(request, *args, **kwargs)
+        except IntegrityError as exc:
+            if "hub_candidate_org_id_key" in str(exc):
+                existing_candidate_pk = request.user.organization.candidate.pk
+                logger.info(
+                    f"User {request.user} tried to create a new candidate when one already exists. "
+                    f"Redirecting to existing candidate {existing_candidate_pk}."
+                )
+
+                return redirect(reverse("candidate-update", args=(existing_candidate_pk,)))
+
+            raise exc
 
     def get_form_kwargs(self):
         kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
