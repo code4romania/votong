@@ -570,9 +570,7 @@ class CandidateListView(SearchMixin):
         context["current_search"] = self.request.GET.get("q", "")
 
         context["should_display_candidates"] = False
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting) or FeatureFlag.flag_enabled(
-            FLAG_CHOICES.enable_candidate_supporting
-        ):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_results_display):
             context["should_display_candidates"] = True
 
         current_domain = self.request.GET.get("domain")
