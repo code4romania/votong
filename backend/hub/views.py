@@ -752,6 +752,10 @@ class CandidateDetailView(HubDetailView):
         user: User = self.request.user
         candidate: Candidate = self.object
 
+        candidate_status = candidate.STATUS[candidate.status]
+        context["candidate_status"] = candidate_status
+        context["display_candidate_validation_label"] = False
+
         if user.is_anonymous:
             return context
 
@@ -770,8 +774,8 @@ class CandidateDetailView(HubDetailView):
         if user.in_committee_or_staff_groups():
             context["can_view_all_information"] = True
 
-        candidate_status = candidate.STATUS[candidate.status]
-        context["candidate_status"] = candidate_status
+        if user.in_commission_groups() and candidate.status != Candidate.STATUS.pending:
+            context["display_candidate_validation_label"] = True
 
         return context
 
