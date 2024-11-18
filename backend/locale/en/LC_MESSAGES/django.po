@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-18 09:59+0200\n"
+"POT-Creation-Date: 2024-11-18 13:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -381,11 +381,11 @@ msgid "accounts/error/user-role/"
 msgstr ""
 
 #: civil_society_vote/urls.py:78
-msgid "accounts/"
+msgid "accounts/login/"
 msgstr ""
 
 #: civil_society_vote/urls.py:79
-msgid "accounts/login/"
+msgid "accounts/"
 msgstr ""
 
 #: civil_society_vote/urls.py:81
@@ -789,7 +789,7 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: hub/models.py:293 hub/models.py:705
+#: hub/models.py:293
 msgid "Rejected"
 msgstr ""
 
@@ -924,15 +924,19 @@ msgid "Organizations"
 msgstr ""
 
 #: hub/models.py:702
-msgid "Pending"
+msgid "Pending candidate"
 msgstr ""
 
 #: hub/models.py:703
-msgid "In Validation"
+msgid "Accepted candidate"
 msgstr ""
 
 #: hub/models.py:704
-msgid "Confirmed"
+msgid "Validated candidate"
+msgstr ""
+
+#: hub/models.py:705
+msgid "Rejected candidate"
 msgstr ""
 
 #: hub/models.py:717
@@ -949,7 +953,7 @@ msgstr ""
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:734 hub/templates/hub/candidate/detail.html:123
+#: hub/models.py:734 hub/templates/hub/candidate/detail.html:129
 msgid "Representative name"
 msgstr "Candidate name"
 
@@ -969,7 +973,7 @@ msgstr ""
 msgid "Candidate photo"
 msgstr ""
 
-#: hub/models.py:756 hub/templates/hub/candidate/detail.html:127
+#: hub/models.py:756 hub/templates/hub/candidate/detail.html:133
 msgid "Representative statement"
 msgstr "Candidate statement"
 
@@ -980,7 +984,7 @@ msgid ""
 "public office and is not a dignitary of the Romanian state."
 msgstr ""
 
-#: hub/models.py:768 hub/templates/hub/candidate/detail.html:132
+#: hub/models.py:768 hub/templates/hub/candidate/detail.html:138
 msgid "Mandate"
 msgstr ""
 
@@ -990,7 +994,7 @@ msgid ""
 "highlighting of the domain for which it is running"
 msgstr ""
 
-#: hub/models.py:779 hub/templates/hub/candidate/detail.html:137
+#: hub/models.py:779 hub/templates/hub/candidate/detail.html:143
 msgid "Letter of intent"
 msgstr ""
 
@@ -1000,7 +1004,7 @@ msgid ""
 "CES)"
 msgstr ""
 
-#: hub/models.py:787 hub/templates/hub/candidate/detail.html:142
+#: hub/models.py:787 hub/templates/hub/candidate/detail.html:148
 msgid "CV"
 msgstr ""
 
@@ -1008,7 +1012,7 @@ msgstr ""
 msgid "Europass format CV"
 msgstr ""
 
-#: hub/models.py:795 hub/templates/hub/candidate/detail.html:147
+#: hub/models.py:795 hub/templates/hub/candidate/detail.html:153
 msgid "Declaration of interests"
 msgstr ""
 
@@ -1016,7 +1020,7 @@ msgstr ""
 msgid "Official format Declaration of interests"
 msgstr ""
 
-#: hub/models.py:803 hub/templates/hub/candidate/detail.html:152
+#: hub/models.py:803 hub/templates/hub/candidate/detail.html:158
 msgid "Fiscal record"
 msgstr ""
 
@@ -1024,7 +1028,7 @@ msgstr ""
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:811 hub/templates/hub/candidate/detail.html:157
+#: hub/models.py:811 hub/templates/hub/candidate/detail.html:163
 msgid "Criminal record"
 msgstr ""
 
@@ -1127,32 +1131,32 @@ msgstr ""
 msgid "Section: "
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:77
+#: hub/templates/hub/candidate/detail.html:83
 #: hub/templates/hub/committee/candidates.html:44
 msgid "Supporters:"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:82
+#: hub/templates/hub/candidate/detail.html:88
 msgid "Confirm candidate status"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:98
+#: hub/templates/hub/candidate/detail.html:104
 msgid "✔ VOTED"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:102
+#: hub/templates/hub/candidate/detail.html:108
 msgid "You have used all the votes allotted for this domain."
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:106
+#: hub/templates/hub/candidate/detail.html:112
 msgid "Vote"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:119
+#: hub/templates/hub/candidate/detail.html:125
 msgid "Candidate information"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:124
+#: hub/templates/hub/candidate/detail.html:130
 msgid "Representative role"
 msgstr ""
 
@@ -1683,15 +1687,47 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:786
+#: hub/views.py:739
+msgid "The candidate has been proposed and is gathering the necessary support."
+msgstr ""
+
+#: hub/views.py:740
+msgid "(25th october - 17th november 2024)"
+msgstr ""
+
+#: hub/views.py:744
+msgid ""
+"The candidate has been approved by the admins and is waiting for validation."
+msgstr ""
+
+#: hub/views.py:745
+msgid "(18th - 20th november 2024)"
+msgstr ""
+
+#: hub/views.py:749
+msgid ""
+"The candidate has been validated by the electoral commission and can be "
+"voted."
+msgstr ""
+
+#: hub/views.py:750
+msgid "(21th - 22th november 2024)"
+msgstr ""
+
+#: hub/views.py:754
+msgid ""
+"The candidate has been rejected by the admins or the electoral commission."
+msgstr ""
+
+#: hub/views.py:827
 msgid "User is not authenticated."
 msgstr ""
 
-#: hub/views.py:791
+#: hub/views.py:832
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/views.py:1033
+#: hub/views.py:1074
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""

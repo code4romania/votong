@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-18 09:59+0200\n"
+"POT-Creation-Date: 2024-11-18 13:55+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -395,12 +395,12 @@ msgid "accounts/error/user-role/"
 msgstr "cont/eroare/rol-utilizator/"
 
 #: civil_society_vote/urls.py:78
-msgid "accounts/"
-msgstr "cont/"
-
-#: civil_society_vote/urls.py:79
 msgid "accounts/login/"
 msgstr "cont/login/"
+
+#: civil_society_vote/urls.py:79
+msgid "accounts/"
+msgstr "cont/"
 
 #: civil_society_vote/urls.py:81
 msgid "accounts/reset-password/"
@@ -812,7 +812,7 @@ msgstr "Acceptat"
 msgid "Admin"
 msgstr "Admin"
 
-#: hub/models.py:293 hub/models.py:705
+#: hub/models.py:293
 msgid "Rejected"
 msgstr "Respins"
 
@@ -955,16 +955,20 @@ msgid "Organizations"
 msgstr "Organizații"
 
 #: hub/models.py:702
-msgid "Pending"
+msgid "Pending candidate"
 msgstr "În așteptare"
 
 #: hub/models.py:703
-msgid "In Validation"
-msgstr "În validare"
+msgid "Accepted candidate"
+msgstr "Acceptată"
 
 #: hub/models.py:704
-msgid "Confirmed"
-msgstr "Confirmat"
+msgid "Validated candidate"
+msgstr "Validată"
+
+#: hub/models.py:705
+msgid "Rejected candidate"
+msgstr "Respinsă"
 
 #: hub/models.py:717
 msgid ""
@@ -982,7 +986,7 @@ msgstr "Domeniul pentru care candidează candidatul."
 msgid "Is proposed?"
 msgstr "Este propus?"
 
-#: hub/models.py:734 hub/templates/hub/candidate/detail.html:123
+#: hub/models.py:734 hub/templates/hub/candidate/detail.html:129
 msgid "Representative name"
 msgstr "Nume candidat"
 
@@ -1002,7 +1006,7 @@ msgstr "Funcția în organizației a persoanei desemnate"
 msgid "Candidate photo"
 msgstr "Fotografia candidatului"
 
-#: hub/models.py:756 hub/templates/hub/candidate/detail.html:127
+#: hub/models.py:756 hub/templates/hub/candidate/detail.html:133
 msgid "Representative statement"
 msgstr "Declarație candidat"
 
@@ -1016,7 +1020,7 @@ msgstr ""
 "declară că nu este membru al conducerii unui partid politic, nu a fost ales "
 "într-o funcție publică și nu este demnitar al statului român."
 
-#: hub/models.py:768 hub/templates/hub/candidate/detail.html:132
+#: hub/models.py:768 hub/templates/hub/candidate/detail.html:138
 msgid "Mandate"
 msgstr "Mandat"
 
@@ -1028,7 +1032,7 @@ msgstr ""
 "Mandat din partea organizației (semnat în original + electronică) cu "
 "sublinierea domeniului pentru care candidează"
 
-#: hub/models.py:779 hub/templates/hub/candidate/detail.html:137
+#: hub/models.py:779 hub/templates/hub/candidate/detail.html:143
 msgid "Letter of intent"
 msgstr "Scrisoare de intenție"
 
@@ -1040,7 +1044,7 @@ msgstr ""
 "Scrisoare de intenție (cu menționarea domeniului pe care dorește să îl "
 "reprezinte în CES)"
 
-#: hub/models.py:787 hub/templates/hub/candidate/detail.html:142
+#: hub/models.py:787 hub/templates/hub/candidate/detail.html:148
 msgid "CV"
 msgstr "CV"
 
@@ -1048,7 +1052,7 @@ msgstr "CV"
 msgid "Europass format CV"
 msgstr "CV în format Europass"
 
-#: hub/models.py:795 hub/templates/hub/candidate/detail.html:147
+#: hub/models.py:795 hub/templates/hub/candidate/detail.html:153
 msgid "Declaration of interests"
 msgstr "Declarație de interese"
 
@@ -1056,7 +1060,7 @@ msgstr "Declarație de interese"
 msgid "Official format Declaration of interests"
 msgstr "Declarație de interese în format oficial"
 
-#: hub/models.py:803 hub/templates/hub/candidate/detail.html:152
+#: hub/models.py:803 hub/templates/hub/candidate/detail.html:158
 msgid "Fiscal record"
 msgstr "Cazier fiscal"
 
@@ -1064,7 +1068,7 @@ msgstr "Cazier fiscal"
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr "Cazier fiscal, valabil la data depunerii candidaturii"
 
-#: hub/models.py:811 hub/templates/hub/candidate/detail.html:157
+#: hub/models.py:811 hub/templates/hub/candidate/detail.html:163
 msgid "Criminal record"
 msgstr "Cazier judiciar"
 
@@ -1169,32 +1173,32 @@ msgstr "Vizualizează detalii"
 msgid "Section: "
 msgstr "Secțiune: "
 
-#: hub/templates/hub/candidate/detail.html:77
+#: hub/templates/hub/candidate/detail.html:83
 #: hub/templates/hub/committee/candidates.html:44
 msgid "Supporters:"
 msgstr "Susținători:"
 
-#: hub/templates/hub/candidate/detail.html:82
+#: hub/templates/hub/candidate/detail.html:88
 msgid "Confirm candidate status"
 msgstr "Confirmă starea candidaturii"
 
-#: hub/templates/hub/candidate/detail.html:98
+#: hub/templates/hub/candidate/detail.html:104
 msgid "✔ VOTED"
 msgstr "✔ VOTAT"
 
-#: hub/templates/hub/candidate/detail.html:102
+#: hub/templates/hub/candidate/detail.html:108
 msgid "You have used all the votes allotted for this domain."
 msgstr "Ai folosit toate voturile alocate pentru acest domeniu."
 
-#: hub/templates/hub/candidate/detail.html:106
+#: hub/templates/hub/candidate/detail.html:112
 msgid "Vote"
 msgstr "Votează"
 
-#: hub/templates/hub/candidate/detail.html:119
+#: hub/templates/hub/candidate/detail.html:125
 msgid "Candidate information"
 msgstr "Informații candidatură"
 
-#: hub/templates/hub/candidate/detail.html:124
+#: hub/templates/hub/candidate/detail.html:130
 msgid "Representative role"
 msgstr "Funcție reprezentant"
 
@@ -1751,15 +1755,47 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:786
+#: hub/views.py:739
+msgid "The candidate has been proposed and is gathering the necessary support."
+msgstr "Candidatura a fost propusă și strânge susțineri"
+
+#: hub/views.py:740
+msgid "(25th october - 17th november 2024)"
+msgstr "(25 octombrie - 17 noiembrie 2024)"
+
+#: hub/views.py:744
+msgid ""
+"The candidate has been approved by the admins and is waiting for validation."
+msgstr "Candidatura a fost trimisă spre validare Comisiei Electorale"
+
+#: hub/views.py:745
+msgid "(18th - 20th november 2024)"
+msgstr "(18 - 20 noiembrie 2024)"
+
+#: hub/views.py:749
+msgid ""
+"The candidate has been validated by the electoral commission and can be "
+"voted."
+msgstr "Candidatura a fost validată de Comisia Electorală și poate fi votată"
+
+#: hub/views.py:750
+msgid "(21th - 22th november 2024)"
+msgstr "(21 - 22 noiembrie 2024)"
+
+#: hub/views.py:754
+msgid ""
+"The candidate has been rejected by the admins or the electoral commission."
+msgstr "Candidatura a fost respinsă"
+
+#: hub/views.py:827
 msgid "User is not authenticated."
 msgstr "Utilizatorul nu este autentificat."
 
-#: hub/views.py:791
+#: hub/views.py:832
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/views.py:1033
+#: hub/views.py:1074
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
@@ -1800,6 +1836,18 @@ msgstr "sau apasă aici pentru a ieși"
 #: templates/socialaccount/login.html:28
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
+
+#~ msgid "Pending"
+#~ msgstr "În așteptare"
+
+#~ msgid "Validated"
+#~ msgstr "Validat"
+
+#~ msgid "In Validation"
+#~ msgstr "În validare"
+
+#~ msgid "Confirmed"
+#~ msgstr "Confirmat"
 
 #~ msgid "Metadata"
 #~ msgstr "Metadate"

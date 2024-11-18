@@ -694,7 +694,7 @@ details {
   user-select: none;
 }
 
-details>summary span.icon {
+details > summary span.icon {
   width: 24px;
   height: 24px;
   transition: all 0.3s;
@@ -719,3 +719,8 @@ summary {
 summary::-webkit-details-marker {
   display: none;
 }
+
+[data-tooltip]:not(.is-disabled).has-tooltip-multiline::before, [data-tooltip]:not(.is-loading).has-tooltip-multiline::before, [data-tooltip]:not([disabled]).has-tooltip-multiline::before {
+  white-space: pre-line
+}
+

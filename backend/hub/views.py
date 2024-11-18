@@ -732,6 +732,39 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
+    def _build_candidate_status_explainer(self) -> Dict:
+        candidate_statuses = {
+            Candidate.STATUS.pending: {
+                "title": Candidate.STATUS[Candidate.STATUS.pending],
+                "detail": _("The candidate has been proposed and is gathering the necessary support."),
+                "period": _("(25th october - 17th november 2024)"),
+            },
+            Candidate.STATUS.accepted: {
+                "title": Candidate.STATUS[Candidate.STATUS.accepted],
+                "detail": _("The candidate has been approved by the admins and is waiting for validation."),
+                "period": _("(18th - 20th november 2024)"),
+            },
+            Candidate.STATUS.confirmed: {
+                "title": Candidate.STATUS[Candidate.STATUS.confirmed],
+                "detail": _("The candidate has been validated by the electoral commission and can be voted."),
+                "period": _("(21th - 22th november 2024)"),
+            },
+            Candidate.STATUS.rejected: {
+                "title": Candidate.STATUS[Candidate.STATUS.rejected],
+                "detail": _("The candidate has been rejected by the admins or the electoral commission."),
+            },
+        }
+
+        status_explainers = {}
+
+        for status, status_data in candidate_statuses.items():
+            status_explainer = f"{status_data['title']}: {status_data['detail']}"
+            if "period" in status_data:
+                status_explainer += f"\n{status_data['period']}"
+            status_explainers[status] = status_explainer
+
+        return status_explainers
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -755,6 +788,7 @@ class CandidateDetailView(HubDetailView):
         candidate_status = candidate.STATUS[candidate.status]
         context["candidate_status"] = candidate_status
         context["display_candidate_validation_label"] = False
+        context["candidate_status_explainer"] = self._build_candidate_status_explainer()[candidate.status]
 
         if user.is_anonymous:
             return context

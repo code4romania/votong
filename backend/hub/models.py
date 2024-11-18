@@ -699,10 +699,10 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     # CONFIRMED: has received confirmation from the electoral commission
     # REJECTED: has been rejected
     STATUS = Choices(
-        ("pending", _("Pending")),
-        ("accepted", _("In Validation")),
-        ("confirmed", _("Confirmed")),
-        ("rejected", _("Rejected")),
+        ("pending", _("Pending candidate")),
+        ("accepted", _("Accepted candidate")),
+        ("confirmed", _("Validated candidate")),
+        ("rejected", _("Rejected candidate")),
     )
     status = models.CharField(_("Status"), choices=STATUS, default=STATUS.pending, max_length=30, db_index=True)
 
