@@ -1,6 +1,7 @@
 from django import template
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -52,9 +53,11 @@ def org_logo(user, width=settings.AVATAR_DEFAULT_SIZE, height=None, **kwargs):
         return ""
 
     org = user.organization
-    logo_url = settings.AVATAR_DEFAULT_URL
+    logo_url = static(settings.AVATAR_DEFAULT_URL)
     if org and org.logo:
         logo_url = org.logo.url
+    elif user.is_superuser:
+        logo_url = static(settings.AVATAR_DEFAULT_ADMIN_URL)
 
     kwargs["aria-label"] = "Avatar"
 

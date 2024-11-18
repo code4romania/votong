@@ -90,12 +90,7 @@
 
             {% if request.user.is_authenticated %}
 
-              {% if not request.user.is_superuser %}
-                {% org_logo user 50 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
-              {% else %}
-                {% static "images/logomark-avatar.png" as image_source %}
-                {% include "avatar/avatar_tag.html" with url=image_source size=55 %}
-              {% endif %}
+              {% org_logo user 50 class="img-circle img-responsive nav-avatar" id="user_avatar" %}
 
               {% if user.in_committee_or_staff_groups %}
                 <a href="{% url 'committee-ngos' %}" class="navbar-item">

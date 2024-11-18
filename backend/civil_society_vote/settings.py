@@ -534,7 +534,8 @@ AVATAR_PROVIDERS = (
     "avatar.providers.PrimaryAvatarProvider",
     "avatar.providers.DefaultAvatarProvider",
 )
-AVATAR_DEFAULT_URL = "/images/photo-placeholder.gif"
+AVATAR_DEFAULT_URL = "images/photo-placeholder.gif"
+AVATAR_DEFAULT_ADMIN_URL = "images/logomark-300px.png"
 
 
 # Django logging
