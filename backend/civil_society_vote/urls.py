@@ -3,6 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView
 from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import RedirectView
@@ -74,6 +75,7 @@ urlpatterns_i18n = i18n_patterns(
         StaticPageView.as_view(template_name="accounts/error_user_role.html"),
         name="error-user-role",
     ),
+    path(_("accounts/login/"), LoginView.as_view(redirect_authenticated_user=True), name="login"),
     path(_("accounts/"), include("django.contrib.auth.urls")),
     path(
         _("accounts/reset-password/"),
