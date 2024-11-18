@@ -236,6 +236,8 @@ class OrganizationUpdateForm(forms.ModelForm):
         return new_voting_domain
 
     def save(self, commit=True):
+        # TODO: Check if any checks are necessary here (i.e., when NGO Hub is not used)
+
         return super().save(commit)
 
 
