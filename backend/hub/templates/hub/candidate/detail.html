@@ -55,6 +55,10 @@
         {% if display_candidate_validation_label %}
           {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
         {% endif %}
+
+        <span class="has-tooltip-multiline is-multiline status-{{ candidate.status }}" data-tooltip="{{ candidate_status_explainer }}">
+          <i class="fas fa-question-circle"></i>
+        </span>
       </div>
 
     </div>
