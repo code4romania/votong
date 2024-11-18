@@ -49,7 +49,7 @@
       </div>
 
       <div class="need-description">
-        <b>Stare candidatură: <span class="status-{{ candidate.status }}">{% trans candidate.status.capitalize %}</span></b>
+        <b>Stare candidatură: <span class="status-{{ candidate.status }}">{% trans candidate_status.capitalize %}</span></b>
         {% if not user.is_superuser and user|has_permission:"approve_candidate" and candidate.status != 'pending' %}
           {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
         {% endif %}

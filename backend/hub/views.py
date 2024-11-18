@@ -770,6 +770,9 @@ class CandidateDetailView(HubDetailView):
         if user.in_committee_or_staff_groups():
             context["can_view_all_information"] = True
 
+        candidate_status = candidate.STATUS[candidate.status]
+        context["candidate_status"] = candidate_status
+
         return context
 
 

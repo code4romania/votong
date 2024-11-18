@@ -53,8 +53,12 @@ body {
   padding: 1em 0;
 }
 
-.status-accepted {
+.status-confirmed {
   color: green;
+}
+
+.status-accepted {
+  color: #666666;
 }
 
 .status-rejected {
