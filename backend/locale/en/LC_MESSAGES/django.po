@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 19:53+0200\n"
+"POT-Creation-Date: 2024-11-20 20:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -584,7 +584,7 @@ msgstr ""
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:108 hub/forms.py:223 hub/views.py:503
+#: hub/forms.py:108 hub/forms.py:226 hub/views.py:503
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -596,39 +596,39 @@ msgstr ""
 msgid "Organization already exists."
 msgstr ""
 
-#: hub/forms.py:236
+#: hub/forms.py:239
 msgid "Voting domain cannot be changed. Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:332
+#: hub/forms.py:335
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:336
+#: hub/forms.py:339
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: hub/forms.py:370
+#: hub/forms.py:373
 msgid "Candidate registration is closed."
 msgstr ""
 
-#: hub/forms.py:377
+#: hub/forms.py:380
 msgid ""
 "You cannot edit a candidate that is not proposed and outside of the "
 "candidate confirmation period."
 msgstr ""
 
-#: hub/forms.py:392
+#: hub/forms.py:395
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:398
+#: hub/forms.py:401
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:403
+#: hub/forms.py:406
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -1712,43 +1712,31 @@ msgstr ""
 msgid "The candidate has been proposed and is gathering the necessary support."
 msgstr ""
 
-#: hub/views.py:740
-msgid "(25th october - 17th november 2024)"
-msgstr ""
-
-#: hub/views.py:744
+#: hub/views.py:743
 msgid ""
 "The candidate has been approved by the admins and is waiting for validation."
 msgstr ""
 
-#: hub/views.py:745
-msgid "(18th - 20th november 2024)"
-msgstr ""
-
-#: hub/views.py:749
+#: hub/views.py:747
 msgid ""
 "The candidate has been validated by the electoral commission and can be "
 "voted."
 msgstr ""
 
-#: hub/views.py:750
-msgid "(21th - 22th november 2024)"
-msgstr ""
-
-#: hub/views.py:754
+#: hub/views.py:751
 msgid ""
 "The candidate has been rejected by the admins or the electoral commission."
 msgstr ""
 
-#: hub/views.py:827
+#: hub/views.py:824
 msgid "User is not authenticated."
 msgstr ""
 
-#: hub/views.py:832
+#: hub/views.py:829
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/views.py:1075
+#: hub/views.py:1072
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""

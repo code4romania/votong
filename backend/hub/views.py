@@ -737,17 +737,14 @@ class CandidateDetailView(HubDetailView):
             Candidate.STATUS.pending: {
                 "title": Candidate.STATUS[Candidate.STATUS.pending],
                 "detail": _("The candidate has been proposed and is gathering the necessary support."),
-                "period": _("(25th october - 17th november 2024)"),
             },
             Candidate.STATUS.accepted: {
                 "title": Candidate.STATUS[Candidate.STATUS.accepted],
                 "detail": _("The candidate has been approved by the admins and is waiting for validation."),
-                "period": _("(18th - 20th november 2024)"),
             },
             Candidate.STATUS.confirmed: {
                 "title": Candidate.STATUS[Candidate.STATUS.confirmed],
                 "detail": _("The candidate has been validated by the electoral commission and can be voted."),
-                "period": _("(21th - 22th november 2024)"),
             },
             Candidate.STATUS.rejected: {
                 "title": Candidate.STATUS[Candidate.STATUS.rejected],

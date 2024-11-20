@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 19:53+0200\n"
+"POT-Creation-Date: 2024-11-20 20:41+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -601,7 +601,7 @@ msgstr "Termeni și condiții"
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr "Sunt de acord cu {terms_url} ale platformei VotONG"
 
-#: hub/forms.py:108 hub/forms.py:223 hub/views.py:503
+#: hub/forms.py:108 hub/forms.py:226 hub/views.py:503
 msgid "An organization with the same email address is already registered."
 msgstr "O organizație cu aceeași adresă de email este deja înregistrată."
 
@@ -613,13 +613,13 @@ msgstr "Trebuie să acceptați termenii și condițiile de utilizare"
 msgid "Organization already exists."
 msgstr "Organizația există deja."
 
-#: hub/forms.py:236
+#: hub/forms.py:239
 msgid "Voting domain cannot be changed. Please contact the site administrator."
 msgstr ""
 "Domeniul de votare nu poate fi schimbat. Contactați administratorul site-"
 "ului."
 
-#: hub/forms.py:332
+#: hub/forms.py:335
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
@@ -627,15 +627,15 @@ msgstr ""
 "Pentru a adăuga o candidatură trebuie să încarci toate documentele necesare "
 "în 'Profilul Organizației'"
 
-#: hub/forms.py:336
+#: hub/forms.py:339
 msgid "Please add all candidate fields"
 msgstr "Vă rugăm completați toate câmpurile candidaturii"
 
-#: hub/forms.py:370
+#: hub/forms.py:373
 msgid "Candidate registration is closed."
 msgstr "Înregistrarea candidaților este închisă."
 
-#: hub/forms.py:377
+#: hub/forms.py:380
 msgid ""
 "You cannot edit a candidate that is not proposed and outside of the "
 "candidate confirmation period."
@@ -643,15 +643,15 @@ msgstr ""
 "Nu puteți edita un candidat care nu este propus și în afara perioadei de "
 "confirmare a candidaturii."
 
-#: hub/forms.py:392
+#: hub/forms.py:395
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:398
+#: hub/forms.py:401
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:403
+#: hub/forms.py:406
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -1155,8 +1155,7 @@ msgstr "Procesul de validare a candidaților pentru CES 2024 s-a prelungit."
 msgid ""
 "The validation process will take place between the 2nd and the 3rd of "
 "December 2024."
-msgstr ""
-"Procesul de votare va avea loc pe 2 și 3 decembrie 2024."
+msgstr "Procesul de votare va avea loc pe 2 și 3 decembrie 2024."
 
 #: hub/templates/hub/banner.html:13
 msgid "Find out more details here."
@@ -1783,43 +1782,31 @@ msgstr "Trebuie să completați un motiv de respingere."
 msgid "The candidate has been proposed and is gathering the necessary support."
 msgstr "Candidatura a fost propusă și strânge susțineri"
 
-#: hub/views.py:740
-msgid "(25th october - 17th november 2024)"
-msgstr "(25 octombrie - 17 noiembrie 2024)"
-
-#: hub/views.py:744
+#: hub/views.py:743
 msgid ""
 "The candidate has been approved by the admins and is waiting for validation."
 msgstr "Candidatura a fost trimisă spre validare Comisiei Electorale"
 
-#: hub/views.py:745
-msgid "(18th - 20th november 2024)"
-msgstr "(18 - 20 noiembrie 2024)"
-
-#: hub/views.py:749
+#: hub/views.py:747
 msgid ""
 "The candidate has been validated by the electoral commission and can be "
 "voted."
 msgstr "Candidatura a fost validată de Comisia Electorală și poate fi votată"
 
-#: hub/views.py:750
-msgid "(21th - 22th november 2024)"
-msgstr "(21 - 22 noiembrie 2024)"
-
-#: hub/views.py:754
+#: hub/views.py:751
 msgid ""
 "The candidate has been rejected by the admins or the electoral commission."
 msgstr "Candidatura a fost respinsă"
 
-#: hub/views.py:827
+#: hub/views.py:824
 msgid "User is not authenticated."
 msgstr "Utilizatorul nu este autentificat."
 
-#: hub/views.py:832
+#: hub/views.py:829
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/views.py:1075
+#: hub/views.py:1072
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
@@ -1860,6 +1847,15 @@ msgstr "sau apasă aici pentru a ieși"
 #: templates/socialaccount/login.html:28
 msgid "Redirecting to authentication..."
 msgstr "Redirecționare la autentificare..."
+
+#~ msgid "(25th october - 17th november 2024)"
+#~ msgstr "(25 octombrie - 17 noiembrie 2024)"
+
+#~ msgid "(18th - 20th november 2024)"
+#~ msgstr "(18 - 20 noiembrie 2024)"
+
+#~ msgid "(21th - 22th november 2024)"
+#~ msgstr "(21 - 22 noiembrie 2024)"
 
 #~ msgid "Pending"
 #~ msgstr "În așteptare"
