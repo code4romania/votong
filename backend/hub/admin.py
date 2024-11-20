@@ -24,19 +24,20 @@ from civil_society_vote.common.admin import BasePermissionsAdmin
 from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm, OrganizationCreateFromNgohubForm
 from hub.models import (
+    BlogPost,
     COUNTIES,
     COUNTY_RESIDENCE,
-    FLAG_CHOICES,
-    PHASE_CHOICES,
-    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
     Domain,
+    FLAG_CHOICES,
     FeatureFlag,
     Organization,
+    PHASE_CHOICES,
+    SETTINGS_CHOICES,
     get_feature_flag,
 )
 from hub.workers.update_organization import update_organization
@@ -157,7 +158,7 @@ class CandidateSupportersListFilter(admin.SimpleListFilter):
     parameter_name = "supporters"
 
     def lookups(self, request, model_admin):
-        if get_feature_flag(FLAG_CHOICES.global_support_round):
+        if get_feature_flag(SETTINGS_CHOICES.global_support_round):
             return (
                 ("gte10", _("10 or more")),
                 ("lt10", _("less than 10")),
@@ -513,7 +514,7 @@ class CandidateAdmin(BasePermissionsAdmin):
         return readonly_fields
 
     def get_inline_instances(self, request, obj=None):
-        if get_feature_flag(FLAG_CHOICES.global_support_round):
+        if get_feature_flag(SETTINGS_CHOICES.global_support_round):
             inlines = [CandidateConfirmationInline, CandidateSupporterInline, CandidateVoteInline]
         else:
             inlines = [CandidateConfirmationInline, CandidateVoteInline]
@@ -525,7 +526,7 @@ class CandidateAdmin(BasePermissionsAdmin):
     votes_count.short_description = _("Votes")
 
     def supporters_count(self, obj):
-        if get_feature_flag(FLAG_CHOICES.global_support_round):
+        if get_feature_flag(SETTINGS_CHOICES.global_support_round):
             return obj.count_supporters()
         else:
             return "N/A"
@@ -699,8 +700,8 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
         FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
 
         if "enable_candidate_supporting" in enabled:
-            FeatureFlag.objects.filter(flag="enable_candidate_supporting").update(
-                is_enabled=get_feature_flag(FLAG_CHOICES.global_support_round)
+            FeatureFlag.objects.filter(flag=PHASE_CHOICES.enable_candidate_supporting).update(
+                is_enabled=get_feature_flag(SETTINGS_CHOICES.global_support_round)
             )
 
         self.message_user(request, message=_(f"Flags set successfully for '{phase_name}'."), level=messages.SUCCESS)
@@ -711,10 +712,12 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("PHASE PAUSE - platform pause"),
             enabled=[
                 "enable_org_registration",
+                "enable_org_editing",
                 "enable_org_approval",
             ],
             disabled=[
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
                 "enable_candidate_confirmation",
                 "enable_candidate_voting",
@@ -730,9 +733,11 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("PHASE DEACTIVATE - platform deactivate"),
             enabled=[],
             disabled=[
-                "enable_org_approval",
                 "enable_org_registration",
+                "enable_org_editing",
+                "enable_org_approval",
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
                 "enable_candidate_confirmation",
                 "enable_candidate_voting",
@@ -748,8 +753,10 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("PHASE 1 - organization & candidate registrations"),
             enabled=[
                 "enable_org_registration",
+                "enable_org_editing",
                 "enable_org_approval",
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
             ],
             disabled=[
@@ -767,11 +774,13 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("PHASE 2 - candidate validation"),
             enabled=[
                 "enable_org_registration",
+                "enable_org_editing",
                 "enable_org_approval",
                 "enable_candidate_confirmation",
             ],
             disabled=[
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
                 "enable_candidate_voting",
                 "enable_results_display",
@@ -786,11 +795,13 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("PHASE 3 - voting"),
             enabled=[
                 "enable_org_registration",
+                "enable_org_editing",
                 "enable_org_approval",
                 "enable_candidate_voting",
             ],
             disabled=[
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
                 "enable_results_display",
                 "enable_candidate_confirmation",
@@ -806,10 +817,12 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             enabled=[
                 "enable_results_display",
                 "enable_org_registration",
+                "enable_org_editing",
                 "enable_org_approval",
             ],
             disabled=[
                 "enable_candidate_registration",
+                "enable_candidate_editing",
                 "enable_candidate_supporting",
                 "enable_candidate_voting",
                 "enable_candidate_confirmation",

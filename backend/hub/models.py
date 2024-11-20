@@ -104,8 +104,10 @@ STATE_CHOICES = Choices(
 
 PHASE_CHOICES = Choices(
     ("enable_org_registration", _("Enable organization registration")),
+    ("enable_org_editing", _("Enable organization editing")),
     ("enable_org_approval", _("Enable organization approvals")),
     ("enable_candidate_registration", _("Enable candidate registration")),
+    ("enable_candidate_editing", _("Enable candidate editing")),
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("enable_candidate_confirmation", _("Enable candidate confirmation")),
