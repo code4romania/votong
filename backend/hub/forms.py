@@ -197,7 +197,8 @@ class OrganizationUpdateForm(forms.ModelForm):
         # If registration is closed, updating the organization/candidate shouldn't be possible
         # it should be possible if they have a registered candidate and the organization editing is enabled
         if not (
-            self.instance.candidate
+            hasattr(self.instance, "candidate")
+            and self.instance.candidate
             and self.instance.candidate.is_proposed
             and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_org_editing)
         ) and not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
