@@ -563,7 +563,7 @@ class CandidateListView(SearchMixin):
     def _get_candidate_counters(self):
         candidates = self.get_qs()
         return {
-            "candidates_pending": candidates.filter(status=Candidate.STATUS.pending).count(),
+            "candidates_pending": candidates.filter(is_proposed=True).count(),
         }
 
     def get_context_data(self, **kwargs):
