@@ -77,7 +77,7 @@ def update_user_org(user, org: Organization, token: str, *, in_auth_flow: bool =
             user.organization = org
             user.save()
 
-            if org.candidate:
+            if hasattr(org, "candidate") and org.candidate:
                 org.candidate.update_users_permissions()
         else:
             org = create_user_org(user)
