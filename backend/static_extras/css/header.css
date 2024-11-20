@@ -17,3 +17,25 @@
   display: flex;
   align-items: center;
 }
+
+.h-padded-banner {
+  margin: 1.5em 0;
+  padding: 1em 3em;
+}
+
+.warning-banner {
+  background-color: #ffb300;
+}
+
+.warning-banner strong {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.warning-banner a {
+  font-size: 1em;
+}
+
+.warning-banner p {
+  font-size: 1.2em;
+}

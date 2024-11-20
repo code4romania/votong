@@ -1,0 +1,18 @@
+{% load static i18n %}
+
+<div class="h-padded-banner warning-banner">
+  <div class="container column is-12 is-flex is-align-content-center banner-content">
+
+    <p>
+      <strong>
+        {% trans "The deadline for the validation of CES 2024 candidates has been extended." %}
+      </strong>
+      <br>
+      {% trans "The validation process will take place between the 2nd and the 3rd of December 2024." %}
+      <a href="{% url 'blog-list' %}">
+        {% trans "Find out more details here." %}
+      </a>
+    </p>
+
+  </div>
+</div>
