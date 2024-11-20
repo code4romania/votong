@@ -48,9 +48,9 @@ from hub.models import (
     CandidateVote,
     City,
     Domain,
-    FLAG_CHOICES,
     FeatureFlag,
     Organization,
+    PHASE_CHOICES,
     SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
@@ -540,10 +540,10 @@ class CandidateListView(SearchMixin):
         )
 
     def get_qs(self):
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
+        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
             return self.get_candidates_to_vote()
 
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_results_display):
+        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_results_display):
             return Candidate.objects_with_org.none()
 
         return self.get_candidates_pending()
@@ -571,7 +571,7 @@ class CandidateListView(SearchMixin):
         context["current_search"] = self.request.GET.get("q", "")
 
         context["should_display_candidates"] = False
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_results_display):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_results_display):
             context["should_display_candidates"] = True
 
         current_domain = self.request.GET.get("domain")
@@ -641,10 +641,10 @@ class CandidateDetailView(HubDetailView):
             "supported_candidate": False,
         }
 
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.global_support_round):
+        if not FeatureFlag.flag_enabled(SETTINGS_CHOICES.global_support_round):
             return context
 
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_supporting):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_supporting):
             return context
 
         if not candidate.is_proposed:
@@ -679,7 +679,7 @@ class CandidateDetailView(HubDetailView):
             "approved_candidate": False,
         }
 
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_confirmation):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_confirmation):
             return context
 
         if not candidate.status == Candidate.STATUS.accepted:
@@ -707,7 +707,7 @@ class CandidateDetailView(HubDetailView):
             "used_all_domain_votes": False,
         }
 
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
             return context
 
         if not candidate.status == Candidate.STATUS.confirmed:
@@ -820,7 +820,7 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
     form_class = CandidateRegisterForm
 
     def _check_permissions(self, request):
-        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration):
             raise PermissionDenied
 
         if not request.user or request.user.is_anonymous:
@@ -886,7 +886,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         candidate: Candidate = self.object
 
         if (
-            FeatureFlag.flag_enabled("enable_candidate_registration")
+            FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
             and user_org
             and user_org.is_complete_for_candidate
             and candidate
@@ -923,7 +923,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return reverse("candidate-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        if not FeatureFlag.flag_enabled("enable_candidate_registration"):
+        if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_editing):
             raise PermissionDenied
 
         user = self.request.user
@@ -944,7 +944,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
 @login_required
 def candidate_vote(request, pk):
-    if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_voting):
+    if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
         raise PermissionDenied
 
     candidate = get_object_or_404(Candidate, pk=pk, is_proposed=True, status=Candidate.STATUS.confirmed)
@@ -1029,9 +1029,10 @@ def candidate_support(request, pk):
 @permission_required_or_403("hub.approve_candidate")
 def candidate_status_confirm(request, pk):
     if (
-        FeatureFlag.flag_enabled("enable_candidate_registration")
-        or FeatureFlag.flag_enabled("enable_candidate_supporting")
-        or FeatureFlag.flag_enabled("enable_candidate_voting")
+        FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_editing)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_supporting)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting)
     ):
         raise PermissionDenied
 

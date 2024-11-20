@@ -195,7 +195,9 @@ class OrganizationUpdateForm(forms.ModelForm):
             return
 
         # If registration is closed, updating the organization/candidate shouldn't be possible
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration) and not (
+            self.instance.candidate.is_proposed and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_org_editing)
+        ):
             for field_name in self.fields:
                 self.fields[field_name].disabled = True
 
@@ -344,20 +346,20 @@ class CandidateUpdateForm(CandidateCommonForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
-            for key in self.fields.keys():
-                self.fields[key].widget.attrs["disabled"] = True
-
         if self.instance.is_proposed:
             del self.fields["name"]
             del self.fields["domain"]
 
-            for key in self.fields.keys():
-                self.fields[key].widget.attrs["required"] = True
+            for field_name in self.fields.keys():
+                self.fields[field_name].widget.attrs["required"] = True
 
         # If registration is closed, updating the organization/candidate shouldn't be possible
-        if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
-            for field_name in self.fields:
+        if self.instance.is_proposed and FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_editing):
+            self.fields["is_proposed"].widget.attrs["disabled"] = True
+            self.fields["is_proposed"].disabled = True
+        elif not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
+            for field_name in self.fields.keys():
+                self.fields[field_name].widget.attrs["disabled"] = True
                 self.fields[field_name].disabled = True
 
     def save(self, commit=True):
