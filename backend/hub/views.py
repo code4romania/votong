@@ -733,6 +733,18 @@ class CandidateDetailView(HubDetailView):
         return context
 
     def _build_candidate_status_explainer(self) -> Dict:
+        """
+        Build a dictionary with the candidate statuses and their explanations.
+        The dictionary has the following format:
+        {
+            <status>: {
+                "title": <The verbose title string of the status>,
+                "detail": <The description of what that status means>,
+                "period": [Optional] <The period of time the candidate is in that status>,
+            }
+        }
+        """
+
         candidate_statuses = {
             Candidate.STATUS.pending: {
                 "title": Candidate.STATUS[Candidate.STATUS.pending],
