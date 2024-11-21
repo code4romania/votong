@@ -762,7 +762,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         help_text=_(
             "Declaration of the designated representative stating that he/she is not a member "
             "of the leadership of a political party, has not been elected to a public office "
-            "and is not a dignitary of the Romanian state."
+            "and is not a dignitary of the Romanian state, has no criminal record."
         ),
         validators=[file_validator],
     )

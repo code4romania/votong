@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 20:41+0200\n"
+"POT-Creation-Date: 2024-11-21 15:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -584,7 +584,7 @@ msgstr ""
 msgid "I agree to the {terms_url} of the VotONG platform"
 msgstr ""
 
-#: hub/forms.py:108 hub/forms.py:226 hub/views.py:503
+#: hub/forms.py:108 hub/forms.py:227 hub/views.py:503
 msgid "An organization with the same email address is already registered."
 msgstr ""
 
@@ -596,39 +596,39 @@ msgstr ""
 msgid "Organization already exists."
 msgstr ""
 
-#: hub/forms.py:239
+#: hub/forms.py:240
 msgid "Voting domain cannot be changed. Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:335
+#: hub/forms.py:336
 msgid ""
 "To add a candidate you must upload all required documents in 'Organization "
 "Profile'"
 msgstr ""
 
-#: hub/forms.py:339
+#: hub/forms.py:340
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: hub/forms.py:373
+#: hub/forms.py:374
 msgid "Candidate registration is closed."
 msgstr ""
 
-#: hub/forms.py:380
+#: hub/forms.py:381
 msgid ""
 "You cannot edit a candidate that is not proposed and outside of the "
 "candidate confirmation period."
 msgstr ""
 
-#: hub/forms.py:395
+#: hub/forms.py:396
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:401
+#: hub/forms.py:402
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:406
+#: hub/forms.py:407
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -987,7 +987,8 @@ msgstr "Candidate statement"
 msgid ""
 "Declaration of the designated representative stating that he/she is not a "
 "member of the leadership of a political party, has not been elected to a "
-"public office and is not a dignitary of the Romanian state."
+"public office and is not a dignitary of the Romanian state, has no criminal "
+"record."
 msgstr ""
 
 #: hub/models.py:770 hub/templates/hub/candidate/detail.html:138
@@ -1708,35 +1709,35 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr ""
 
-#: hub/views.py:739
+#: hub/views.py:751
 msgid "The candidate has been proposed and is gathering the necessary support."
 msgstr ""
 
-#: hub/views.py:743
+#: hub/views.py:755
 msgid ""
 "The candidate has been approved by the admins and is waiting for validation."
 msgstr ""
 
-#: hub/views.py:747
+#: hub/views.py:759
 msgid ""
 "The candidate has been validated by the electoral commission and can be "
 "voted."
 msgstr ""
 
-#: hub/views.py:751
+#: hub/views.py:763
 msgid ""
 "The candidate has been rejected by the admins or the electoral commission."
 msgstr ""
 
-#: hub/views.py:824
+#: hub/views.py:836
 msgid "User is not authenticated."
 msgstr ""
 
-#: hub/views.py:829
+#: hub/views.py:841
 msgid "Authenticated user does not have an organization."
 msgstr ""
 
-#: hub/views.py:1072
+#: hub/views.py:1084
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
