@@ -369,7 +369,8 @@ class CandidateUpdateForm(CandidateCommonForm):
     def save(self, commit=True):
         is_user_staff = self.user.in_committee_or_staff_groups()
         is_registration_open = FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
-        if not is_user_staff and not is_registration_open:
+        is_editing_enabled = FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_editing)
+        if not is_user_staff and not is_registration_open and not is_editing_enabled:
             # This should not happen unless someone messes with the form code
             raise PermissionDenied(_("Candidate registration is closed."))
 
