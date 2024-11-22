@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-21 15:39+0200\n"
+"POT-Creation-Date: 2024-11-22 16:58+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -631,11 +631,11 @@ msgstr ""
 msgid "Please add all candidate fields"
 msgstr "Vă rugăm completați toate câmpurile candidaturii"
 
-#: hub/forms.py:374
+#: hub/forms.py:375
 msgid "Candidate registration is closed."
 msgstr "Înregistrarea candidaților este închisă."
 
-#: hub/forms.py:381
+#: hub/forms.py:382
 msgid ""
 "You cannot edit a candidate that is not proposed and outside of the "
 "candidate confirmation period."
@@ -643,15 +643,15 @@ msgstr ""
 "Nu puteți edita un candidat care nu este propus și în afara perioadei de "
 "confirmare a candidaturii."
 
-#: hub/forms.py:396
+#: hub/forms.py:397
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr "[EROARE 32202] Contactați administratorul site-ului."
 
-#: hub/forms.py:402
+#: hub/forms.py:403
 msgid "CSV file"
 msgstr "Fișier CSV"
 
-#: hub/forms.py:407
+#: hub/forms.py:408
 msgid "Uploaded file is not a CSV file"
 msgstr "Fișierul încărcat nu e de tip CSV"
 
@@ -1179,13 +1179,17 @@ msgstr "de"
 msgid "back to article list"
 msgstr "înapoi la lista de articole"
 
-#: hub/templates/hub/bulma/file.html:25
+#: hub/templates/hub/bulma/file.html:26
 msgid "Upload the file in NGO Hub and refresh the data"
 msgstr "Încarcă fișierul în NGO Hub și actualizează datele"
 
-#: hub/templates/hub/bulma/file.html:39
+#: hub/templates/hub/bulma/file.html:40
 msgid "Upload file"
 msgstr "Încarcă fișier"
+
+#: hub/templates/hub/bulma/file.html:54
+msgid "Download current file"
+msgstr "Descarcă fișierul actual"
 
 #: hub/templates/hub/candidate/components/listing_detail.html:39
 #: hub/templates/hub/candidate/results.html:65
@@ -1254,6 +1258,7 @@ msgid "Propose candidate"
 msgstr "Propune candidatură"
 
 #: hub/templates/hub/candidate/update.html:175
+#: hub/templates/hub/candidate/update.html:182
 msgid "Publish changes"
 msgstr "Publică modificările"
 
@@ -1806,6 +1811,30 @@ msgstr "Utilizatorul nu este autentificat."
 
 #: hub/views.py:841
 msgid "Authenticated user does not have an organization."
+msgstr "Utilizatorul autentificat nu are o organizație."
+
+#: hub/views.py:936
+#, fuzzy
+#| msgid "Candidate registration is closed."
+msgid "Candidate editing disabled"
+msgstr "Înregistrarea candidaților este închisă."
+
+#: hub/views.py:943
+#, fuzzy
+#| msgid "Register organization"
+msgid "No user organization"
+msgstr "Înscriere organizație"
+
+#: hub/views.py:946
+#, fuzzy
+#| msgid "candidate"
+msgid "No candidate"
+msgstr "candidatură"
+
+#: hub/views.py:949
+#, fuzzy
+#| msgid "Authenticated user does not have an organization."
+msgid "Candidate does not belong to user organization"
 msgstr "Utilizatorul autentificat nu are o organizație."
 
 #: hub/views.py:1084

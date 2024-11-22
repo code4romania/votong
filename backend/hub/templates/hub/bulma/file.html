@@ -2,6 +2,7 @@
 {% load crispy_forms_bulma_field %}
 
 <div class="field">
+
   <div class="file is-info has-name">
     <label class="file-label">
       {% if field.field.disabled %}
@@ -48,6 +49,11 @@
       {% endif %}
     </label>
   </div>
+  {% if field.initial %}
+  <div>
+    <a href="{{ field.initial.url }}" style="color: #666;">{% trans "Download current file" %}</a>
+  </div>
+  {% endif %}
 </div>
 
 <script>
