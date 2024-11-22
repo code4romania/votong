@@ -167,7 +167,7 @@
 
         {{ form|crispy }}
 
-        {% if CANDIDATE_REGISTRATION_ENABLED %}
+        {% if CANDIDATE_REGISTRATION_ENABLED or (CANDIDATE_EDIT_ENABLED and candidate.is_proposed) %}
           <div class="has-text-right">
             <input
               class="button is-success"

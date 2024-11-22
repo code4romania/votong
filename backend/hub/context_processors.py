@@ -15,6 +15,7 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         register_url = reverse("ngos-register-request")
 
     candidate_registration_enabled = flags.get(FLAG_CHOICES.enable_candidate_registration, False)
+    candidate_editing_enabled = flags.get(FLAG_CHOICES.enable_candidate_editing, False)
     candidate_supporting_enabled = flags.get(FLAG_CHOICES.enable_candidate_supporting, False)
     candidate_voting_enabled = flags.get(FLAG_CHOICES.enable_candidate_voting, False)
     candidate_confirmation_enabled = flags.get(FLAG_CHOICES.enable_candidate_confirmation, False)
@@ -35,6 +36,7 @@ def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
         "COMISSION_EMAIL": settings.COMISSION_EMAIL,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": candidate_registration_enabled,
+        "CANDIDATE_EDIT_ENABLED": candidate_editing_enabled,
         "CANDIDATE_SUPPORTING_ENABLED": candidate_supporting_enabled,
         "CANDIDATE_VOTING_ENABLED": candidate_voting_enabled,
         "CANDIDATE_CONFIRMATION_ENABLED": candidate_confirmation_enabled,
