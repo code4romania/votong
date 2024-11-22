@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-21 15:39+0200\n"
+"POT-Creation-Date: 2024-11-22 16:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -610,25 +610,25 @@ msgstr ""
 msgid "Please add all candidate fields"
 msgstr ""
 
-#: hub/forms.py:374
+#: hub/forms.py:375
 msgid "Candidate registration is closed."
 msgstr ""
 
-#: hub/forms.py:381
+#: hub/forms.py:382
 msgid ""
 "You cannot edit a candidate that is not proposed and outside of the "
 "candidate confirmation period."
 msgstr ""
 
-#: hub/forms.py:396
+#: hub/forms.py:397
 msgid "[ERROR 32202] Please contact the site administrator."
 msgstr ""
 
-#: hub/forms.py:402
+#: hub/forms.py:403
 msgid "CSV file"
 msgstr ""
 
-#: hub/forms.py:407
+#: hub/forms.py:408
 msgid "Uploaded file is not a CSV file"
 msgstr ""
 
@@ -1134,12 +1134,16 @@ msgstr ""
 msgid "back to article list"
 msgstr ""
 
-#: hub/templates/hub/bulma/file.html:25
+#: hub/templates/hub/bulma/file.html:26
 msgid "Upload the file in NGO Hub and refresh the data"
 msgstr ""
 
-#: hub/templates/hub/bulma/file.html:39
+#: hub/templates/hub/bulma/file.html:40
 msgid "Upload file"
+msgstr ""
+
+#: hub/templates/hub/bulma/file.html:54
+msgid "Download current file"
 msgstr ""
 
 #: hub/templates/hub/candidate/components/listing_detail.html:39
@@ -1209,6 +1213,7 @@ msgid "Propose candidate"
 msgstr ""
 
 #: hub/templates/hub/candidate/update.html:175
+#: hub/templates/hub/candidate/update.html:182
 msgid "Publish changes"
 msgstr ""
 
@@ -1735,6 +1740,22 @@ msgstr ""
 
 #: hub/views.py:841
 msgid "Authenticated user does not have an organization."
+msgstr ""
+
+#: hub/views.py:936
+msgid "Candidate editing disabled"
+msgstr ""
+
+#: hub/views.py:943
+msgid "No user organization"
+msgstr ""
+
+#: hub/views.py:946
+msgid "No candidate"
+msgstr ""
+
+#: hub/views.py:949
+msgid "Candidate does not belong to user organization"
 msgstr ""
 
 #: hub/views.py:1084
