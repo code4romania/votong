@@ -167,12 +167,19 @@
 
         {{ form|crispy }}
 
-        {% if CANDIDATE_REGISTRATION_ENABLED or (CANDIDATE_EDIT_ENABLED and candidate.is_proposed) %}
+        {% if CANDIDATE_REGISTRATION_ENABLED %}
           <div class="has-text-right">
             <input
               class="button is-success"
               type="submit"
               value="{% if candidate.is_proposed %}{% trans 'Publish changes' %}{% else %}{% trans 'Update profile' %}{% endif %}">
+          </div>
+        {% elif CANDIDATE_EDIT_ENABLED and candidate.is_proposed %}
+          <div class="has-text-right">
+            <input
+              class="button is-success"
+              type="submit"
+              value="{% trans 'Publish changes' %}">
           </div>
         {% endif %}
       </form>
