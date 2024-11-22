@@ -933,20 +933,20 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
 
     def post(self, request, *args, **kwargs):
         if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_editing):
-            raise PermissionDenied
+            raise PermissionDenied(_("Candidate editing disabled"))
 
         user = self.request.user
         user_org: Organization = user.organization
         candidate: Candidate = self.get_object()
 
         if not user_org:
-            raise PermissionDenied
+            raise PermissionDenied(_("No user organization"))
 
         if not candidate:
-            raise PermissionDenied
+            raise PermissionDenied(_("No candidate"))
 
         if not candidate == user_org.candidate:
-            raise PermissionDenied
+            raise PermissionDenied(_("Candidate does not belong to user organization"))
 
         return super().post(request, *args, **kwargs)
 
