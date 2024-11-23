@@ -15,8 +15,8 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -1064,19 +1064,13 @@ def candidate_status_confirm(request, pk):
 @login_required
 @permission_required_or_403("hub.approve_candidate")
 def reset_candidate_confirmations(request):
-    if (
-        FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
-        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_editing)
-        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_supporting)
-        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting)
-    ):
-        raise PermissionDenied
-
+    # TODO: Do we need to test for other feature flags before allowing the confirmation deletion?
     if request.method == "POST":
         CandidateConfirmation.objects.filter(user=request.user).delete()
+        messages.success(request, _("Confirmations successfuly deleted"))
         return redirect(reverse("candidates"))
 
-    return HttpResponse("TODO")
+    return render(request, "hub/committee/delete_confirmations.html")
 
 
 @login_required
