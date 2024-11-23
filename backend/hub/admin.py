@@ -218,7 +218,7 @@ def _set_candidates_status(
     committee_emails = Group.objects.get(name=COMMITTEE_GROUP).user_set.all().values_list("email", flat=True)
 
     for candidate in queryset:
-        # only take action if there is a chance in the status
+        # only take action if there is a change in the status
         if candidate.status != status:
             CandidateConfirmation.objects.filter(candidate=candidate).delete()
 
