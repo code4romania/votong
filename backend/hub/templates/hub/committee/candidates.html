@@ -17,9 +17,25 @@
   <div class="container">
     <h2 class="title border-b uppercase">
       {% if filtering == "pending" %}
+        
         {% trans 'Pending candidates' %} ({{ counters.candidates_pending }})
-      {% else %}
+
+      {% elif filtering == "confirmed" %}
+        
+        {% trans 'Validated candidates' %} ({{ counters.candidates_confirmed }})
+
+      {% elif filtering == "rejected" %}
+        
+        {% trans 'Rejected candidates' %} ({{ counters.candidates_rejected }})
+
+      {% elif filtering == "accepted" %}
+        
         {% trans 'Accepted candidates' %} ({{ counters.candidates_accepted }})
+
+      {% else %}
+
+        &nbsp;
+
       {% endif %}
     </h2>
 
