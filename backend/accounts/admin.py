@@ -122,7 +122,6 @@ class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
         current_site = get_current_site(request)
         protocol = "https" if request.is_secure() else "http"
 
-
         for user in queryset:
             if not user.in_commission_groups():
                 continue
@@ -139,7 +138,6 @@ class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
                 text_template="hub/emails/08_delete_confirmations.txt",
                 html_template="hub/emails/08_delete_confirmations.html",
             )
-
 
     def change_view(self, request, object_id, form_url="", extra_context=None):
         extra_context = extra_context or {}

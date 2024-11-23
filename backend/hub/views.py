@@ -1075,9 +1075,8 @@ def reset_candidate_confirmations(request):
     if request.method == "POST":
         CandidateConfirmation.objects.filter(user=request.user).delete()
         return redirect(reverse("candidates"))
-    
+
     return HttpResponse("TODO")
-    
 
 
 @login_required
