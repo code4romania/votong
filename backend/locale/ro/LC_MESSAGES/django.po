@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-23 17:24+0200\n"
+"POT-Creation-Date: 2024-11-23 18:47+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,11 +39,11 @@ msgstr "Date importante"
 msgid "Request confirmations deletion"
 msgstr "Inițiază ștergerea confirmărilor"
 
-#: accounts/admin.py:163 hub/models.py:440
+#: accounts/admin.py:158 hub/models.py:440
 msgid "Organization"
 msgstr "Organizație"
 
-#: accounts/admin.py:176 accounts/models.py:97
+#: accounts/admin.py:171 accounts/models.py:97
 msgid "Groups"
 msgstr "Grupuri"
 
@@ -1317,6 +1317,21 @@ msgstr "Candidaturi acceptate"
 msgid "No results matching query"
 msgstr "Nu există nici un rezultat"
 
+#: hub/templates/hub/committee/delete_confirmations.html:12
+msgid "Reset candidate confirmations"
+msgstr "Șterge confirmările de candidatură"
+
+#: hub/templates/hub/committee/delete_confirmations.html:13
+msgid ""
+"Resetting the candidate confirmations is irreversible. Are you sure you want "
+"to continue?"
+msgstr "Ștergerea confirmărilor de candidatură este ireversibilă. Sigur vrei "
+"să continui?"
+
+#: hub/templates/hub/committee/delete_confirmations.html:14
+msgid "Continue"
+msgstr "Continuă"
+
 #: hub/templates/hub/committee/list.html:23
 #: hub/templates/hub/committee/partials/nav.html:7
 msgid "Pending Organizations"
@@ -1847,7 +1862,11 @@ msgstr "Niciun candidat"
 msgid "Candidate does not belong to user organization"
 msgstr "Candidatul nu ține de organizația utilizatorului"
 
-#: hub/views.py:1101
+#: hub/views.py:1070
+msgid "Confirmations successfuly deleted"
+msgstr ""
+
+#: hub/views.py:1096
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
