@@ -35,6 +35,7 @@ class Command(BaseCommand):
 
         committee_group: Group = Group.objects.get_or_create(name=COMMITTEE_GROUP)[0]
         assign_perm("hub.approve_candidate", committee_group)
+        assign_perm("hub.reset_approve_candidate", committee_group)
         assign_perm("hub.view_data_candidate", committee_group)
 
         committee_group_read_only: Group = Group.objects.get_or_create(name=COMMITTEE_GROUP_READ_ONLY)[0]

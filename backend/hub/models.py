@@ -830,6 +830,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         permissions = (
             ("view_data_candidate", "View data candidate"),
             ("approve_candidate", "Approve candidate"),
+            ("reset_approve_candidate", "Reset candidate approval"),
             ("support_candidate", "Support candidate"),
             ("vote_candidate", "Vote candidate"),
         )
