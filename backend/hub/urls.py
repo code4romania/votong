@@ -26,6 +26,7 @@ from hub.views import (
     candidate_vote,
     organization_vote,
     update_organization_information,
+    reset_candidate_confirmations,
 )
 
 urlpatterns = [
@@ -43,6 +44,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>/revoke/"), candidate_revoke, name="candidate-revoke"),
     path(_("candidates/<int:pk>/status-confirm/"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update/"), CandidateUpdateView.as_view(), name="candidate-update"),
+    path(_("candidates/reset-confirmations/"), reset_candidate_confirmations, name="reset-candidate-confirmations"),
     path(_("candidates/votes/"), ElectorCandidatesListView.as_view(), name="votes"),
     path(_("candidates/results/"), CandidateResultsView.as_view(), name="results"),
     path(

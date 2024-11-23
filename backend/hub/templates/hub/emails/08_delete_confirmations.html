@@ -1,0 +1,10 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+  <h3>Administratorul site-ului votong.ro a marcat pentru ștergere confirmările date de tine candidaților.</h3>
+
+  <p>
+    Urmează acest link pentru a aproba acțiunea:
+    <a href="{{ deletion_link }}">{{ deletion_link }}</a>
+  </p>
+{% endblock %}

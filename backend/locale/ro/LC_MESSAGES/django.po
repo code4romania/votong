@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-23 14:09+0200\n"
+"POT-Creation-Date: 2024-11-23 17:24+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,31 +19,31 @@ msgstr ""
 "2:1));\n"
 "X-Generator: Poedit 2.3\n"
 
-#: accounts/admin.py:69 hub/admin.py:292 hub/admin.py:407
+#: accounts/admin.py:78 hub/admin.py:292 hub/admin.py:407
 msgid "Identification"
 msgstr "Identificare"
 
-#: accounts/admin.py:81
+#: accounts/admin.py:90
 msgid "Flags"
 msgstr "Acțiuni"
 
-#: accounts/admin.py:91
+#: accounts/admin.py:100
 msgid "Permissions"
 msgstr "Permisiuni"
 
-#: accounts/admin.py:100
+#: accounts/admin.py:109
 msgid "Important dates"
 msgstr "Date importante"
 
-#: accounts/admin.py:110
+#: accounts/admin.py:119
 msgid "Request confirmations deletion"
 msgstr "Inițiază ștergerea confirmărilor"
 
-#: accounts/admin.py:130 hub/models.py:440
+#: accounts/admin.py:163 hub/models.py:440
 msgid "Organization"
 msgstr "Organizație"
 
-#: accounts/admin.py:143 accounts/models.py:97
+#: accounts/admin.py:176 accounts/models.py:97
 msgid "Groups"
 msgstr "Grupuri"
 
@@ -1107,31 +1107,31 @@ msgstr "Candidaturi"
 msgid "Candidate"
 msgstr "Candidatură"
 
-#: hub/models.py:909
+#: hub/models.py:910
 msgid "Cannot update candidate after votes have been cast."
 msgstr "Nu se poate modifica candidatura după ce s-au înregistrat voturi."
 
-#: hub/models.py:957
+#: hub/models.py:958
 msgid "Candidate votes"
 msgstr "Voturi candidatură"
 
-#: hub/models.py:958
+#: hub/models.py:959
 msgid "Candidate vote"
 msgstr "Vot candidatură"
 
-#: hub/models.py:978
+#: hub/models.py:979
 msgid "Canditate supporters"
 msgstr "Susținători candidatură"
 
-#: hub/models.py:979
+#: hub/models.py:980
 msgid "Candidate supporter"
 msgstr "Susținător candidatură"
 
-#: hub/models.py:990
+#: hub/models.py:991
 msgid "Candidate confirmations"
 msgstr "Confirmări candidatură"
 
-#: hub/models.py:991
+#: hub/models.py:992
 msgid "Candidate confirmation"
 msgstr "Confirmare candidatură"
 
@@ -1205,7 +1205,7 @@ msgstr "Descarcă fișierul actual"
 
 #: hub/templates/hub/candidate/components/listing_detail.html:39
 #: hub/templates/hub/candidate/results.html:65
-#: hub/templates/hub/committee/candidates.html:51
+#: hub/templates/hub/committee/candidates.html:67
 #: hub/templates/hub/ngo/votes.html:84
 msgid "View details"
 msgstr "Vizualizează detalii"
@@ -1215,7 +1215,7 @@ msgid "Section: "
 msgstr "Secțiune: "
 
 #: hub/templates/hub/candidate/detail.html:83
-#: hub/templates/hub/committee/candidates.html:44
+#: hub/templates/hub/committee/candidates.html:60
 msgid "Supporters:"
 msgstr "Susținători:"
 
@@ -1291,17 +1291,27 @@ msgstr "Alegeri CE"
 msgid "CES elections"
 msgstr "Alegeri CES"
 
-#: hub/templates/hub/committee/candidates.html:20
+#: hub/templates/hub/committee/candidates.html:21
 #: hub/templates/hub/committee/partials/nav.html:22
 msgid "Pending candidates"
 msgstr "Candidaturi propuse"
 
-#: hub/templates/hub/committee/candidates.html:22
+#: hub/templates/hub/committee/candidates.html:25
+#: hub/templates/hub/committee/partials/nav.html:32
+msgid "Validated candidates"
+msgstr "Candidaturi validate"
+
+#: hub/templates/hub/committee/candidates.html:29
+#: hub/templates/hub/committee/partials/nav.html:37
+msgid "Rejected candidates"
+msgstr "Candidaturi respinse"
+
+#: hub/templates/hub/committee/candidates.html:33
 #: hub/templates/hub/committee/partials/nav.html:27
 msgid "Accepted candidates"
 msgstr "Candidaturi acceptate"
 
-#: hub/templates/hub/committee/candidates.html:67
+#: hub/templates/hub/committee/candidates.html:83
 #: hub/templates/hub/committee/list.html:67 hub/templates/hub/ngo/list.html:66
 #: hub/templates/hub/ngo/votes.html:100
 msgid "No results matching query"
@@ -1321,14 +1331,6 @@ msgstr "Organizații validate"
 #: hub/templates/hub/committee/partials/nav.html:17
 msgid "Rejected Organizations"
 msgstr "Organizații respinse"
-
-#: hub/templates/hub/committee/partials/nav.html:32
-msgid "Validated candidates"
-msgstr "Candidaturi validate"
-
-#: hub/templates/hub/committee/partials/nav.html:37
-msgid "Rejected candidates"
-msgstr "Candidaturi respinse"
 
 #: hub/templates/hub/developed-by.html:7
 msgid "A project developed by"
@@ -1666,83 +1668,87 @@ msgstr "publicat la"
 msgid "published"
 msgstr "publicat"
 
-#: hub/urls.py:33
+#: hub/urls.py:34
 msgid "health/"
 msgstr "health/"
 
-#: hub/urls.py:34
+#: hub/urls.py:35
 msgid "candidates/"
 msgstr "candidatura/"
 
-#: hub/urls.py:36
+#: hub/urls.py:37
 msgid "candidates/register/"
 msgstr "candidatura/inregistrare/"
 
-#: hub/urls.py:40
+#: hub/urls.py:41
 msgid "candidates/<int:pk>/"
 msgstr "candidatura/<int:pk>"
 
-#: hub/urls.py:41
+#: hub/urls.py:42
 msgid "candidates/<int:pk>/vote/"
 msgstr "candidatura/<int:pk>/vot/"
 
-#: hub/urls.py:42
+#: hub/urls.py:43
 msgid "candidates/<int:pk>/support/"
 msgstr "candidatura/<int:pk>/sustinere/"
 
-#: hub/urls.py:43
+#: hub/urls.py:44
 msgid "candidates/<int:pk>/revoke/"
 msgstr "candidatura/<int:pk>/revocare/"
 
-#: hub/urls.py:44
+#: hub/urls.py:45
 msgid "candidates/<int:pk>/status-confirm/"
 msgstr "candidatura/<int:pk>/confirma-starea/"
 
-#: hub/urls.py:45
+#: hub/urls.py:46
 msgid "candidates/<int:pk>/update/"
 msgstr "candidatura/<int:pk>/actualizare/"
 
-#: hub/urls.py:46
+#: hub/urls.py:47
+msgid "candidates/reset-confirmations/"
+msgstr "candidates/reseteaza-confirmarile/"
+
+#: hub/urls.py:48
 msgid "candidates/votes/"
 msgstr "candidatura/voturi/"
 
-#: hub/urls.py:47
+#: hub/urls.py:49
 msgid "candidates/results/"
 msgstr "candidatura/rezultate/"
 
-#: hub/urls.py:49
+#: hub/urls.py:51
 msgid "candidates/ces-results/"
 msgstr "candidatura/ces-rezultate/"
 
-#: hub/urls.py:51
+#: hub/urls.py:53
 msgid "committee/ngos/"
 msgstr "comisie/organizatii/"
 
-#: hub/urls.py:52
+#: hub/urls.py:54
 msgid "committee/candidates/"
 msgstr "comisie/candidatura/"
 
-#: hub/urls.py:53
+#: hub/urls.py:55
 msgid "ngos/"
 msgstr "organizatii/"
 
-#: hub/urls.py:55
+#: hub/urls.py:57
 msgid "ngos/register"
 msgstr "organizatii/inregistrare"
 
-#: hub/urls.py:59
+#: hub/urls.py:61
 msgid "ngos/<int:pk>"
 msgstr "organizatii/<int:pk>"
 
-#: hub/urls.py:60
+#: hub/urls.py:62
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr "organizatii/<int:pk>/vot/<str:action>"
 
-#: hub/urls.py:61
+#: hub/urls.py:63
 msgid "ngos/<int:pk>/update"
 msgstr "organizatii/<int:pk>/actualizare"
 
-#: hub/urls.py:62
+#: hub/urls.py:64
 msgid "ngo-update/<int:pk>"
 msgstr "org-actualizare/<int:pk>"
 
@@ -1826,30 +1832,22 @@ msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
 #: hub/views.py:936
-#, fuzzy
-#| msgid "Candidate registration is closed."
 msgid "Candidate editing disabled"
-msgstr "Înregistrarea candidaților este închisă."
+msgstr "Editarea candidaților este închisă"
 
 #: hub/views.py:943
-#, fuzzy
-#| msgid "Register organization"
 msgid "No user organization"
-msgstr "Înscriere organizație"
+msgstr "Utilizator fără organizație"
 
 #: hub/views.py:946
-#, fuzzy
-#| msgid "candidate"
 msgid "No candidate"
-msgstr "candidatură"
+msgstr "Niciun candidat"
 
 #: hub/views.py:949
-#, fuzzy
-#| msgid "Authenticated user does not have an organization."
 msgid "Candidate does not belong to user organization"
-msgstr "Utilizatorul autentificat nu are o organizație."
+msgstr "Candidatul nu ține de organizația utilizatorului"
 
-#: hub/views.py:1084
+#: hub/views.py:1101
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""

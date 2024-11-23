@@ -2,23 +2,25 @@ from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import Group as BaseGroup
+from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import QuerySet
 from django.http import HttpRequest
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
 
 from civil_society_vote.common.admin import BasePermissionsAdmin
+from civil_society_vote.common.messaging import send_email
 
 from .models import (
-    GroupProxy,
-    User,
     CommissionUser,
-    COMMITTEE_GROUP,
     COMMITTEE_GROUP_READ_ONLY,
+    COMMITTEE_GROUP,
+    GroupProxy,
     STAFF_GROUP,
     SUPPORT_GROUP,
+    User,
 )
 
 
@@ -116,7 +118,28 @@ class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
 
     @admin.action(description=_("Request confirmations deletion"))
     def request_confirmations_deletion(self, request: HttpRequest, queryset: QuerySet[User]):
-        print("TODO request_confirmations_deletion")
+
+        current_site = get_current_site(request)
+        protocol = "https" if request.is_secure() else "http"
+
+
+        for user in queryset:
+            if not user.in_commission_groups():
+                continue
+
+            deletion_link_path = reverse("reset-candidate-confirmations")
+            deletion_link = f"{protocol}://{current_site.domain}{deletion_link_path}"
+
+            send_email(
+                subject="[VOTONG] Resetare confirmari candidati",
+                context={
+                    "deletion_link": deletion_link,
+                },
+                to_emails=[user.email],
+                text_template="hub/emails/08_delete_confirmations.txt",
+                html_template="hub/emails/08_delete_confirmations.html",
+            )
+
 
     def change_view(self, request, object_id, form_url="", extra_context=None):
         extra_context = extra_context or {}

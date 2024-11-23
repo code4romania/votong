@@ -15,7 +15,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -1059,6 +1059,25 @@ def candidate_status_confirm(request, pk):
             capture_message(message, level="warning")
 
     return redirect("candidate-detail", pk=pk)
+
+
+@login_required
+@permission_required_or_403("hub.approve_candidate")
+def reset_candidate_confirmations(request):
+    if (
+        FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_registration)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_editing)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_supporting)
+        or FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting)
+    ):
+        raise PermissionDenied
+
+    if request.method == "POST":
+        CandidateConfirmation.objects.filter(user=request.user).delete()
+        return redirect(reverse("candidates"))
+    
+    return HttpResponse("TODO")
+    
 
 
 @login_required

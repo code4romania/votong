@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-23 14:09+0200\n"
+"POT-Creation-Date: 2024-11-23 17:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/admin.py:69 hub/admin.py:292 hub/admin.py:407
+#: accounts/admin.py:78 hub/admin.py:292 hub/admin.py:407
 msgid "Identification"
 msgstr ""
 
-#: accounts/admin.py:81
+#: accounts/admin.py:90
 msgid "Flags"
 msgstr ""
 
-#: accounts/admin.py:91
+#: accounts/admin.py:100
 msgid "Permissions"
 msgstr ""
 
-#: accounts/admin.py:100
+#: accounts/admin.py:109
 msgid "Important dates"
 msgstr ""
 
-#: accounts/admin.py:110
+#: accounts/admin.py:119
 msgid "Request confirmations deletion"
 msgstr ""
 
-#: accounts/admin.py:130 hub/models.py:440
+#: accounts/admin.py:163 hub/models.py:440
 msgid "Organization"
 msgstr ""
 
-#: accounts/admin.py:143 accounts/models.py:97
+#: accounts/admin.py:176 accounts/models.py:97
 msgid "Groups"
 msgstr ""
 
@@ -1064,31 +1064,31 @@ msgstr ""
 msgid "Candidate"
 msgstr ""
 
-#: hub/models.py:909
+#: hub/models.py:910
 msgid "Cannot update candidate after votes have been cast."
 msgstr ""
 
-#: hub/models.py:957
+#: hub/models.py:958
 msgid "Candidate votes"
 msgstr ""
 
-#: hub/models.py:958
+#: hub/models.py:959
 msgid "Candidate vote"
 msgstr ""
 
-#: hub/models.py:978
+#: hub/models.py:979
 msgid "Canditate supporters"
 msgstr "Candidate supporters"
 
-#: hub/models.py:979
+#: hub/models.py:980
 msgid "Candidate supporter"
 msgstr ""
 
-#: hub/models.py:990
+#: hub/models.py:991
 msgid "Candidate confirmations"
 msgstr ""
 
-#: hub/models.py:991
+#: hub/models.py:992
 msgid "Candidate confirmation"
 msgstr ""
 
@@ -1160,7 +1160,7 @@ msgstr ""
 
 #: hub/templates/hub/candidate/components/listing_detail.html:39
 #: hub/templates/hub/candidate/results.html:65
-#: hub/templates/hub/committee/candidates.html:51
+#: hub/templates/hub/committee/candidates.html:67
 #: hub/templates/hub/ngo/votes.html:84
 msgid "View details"
 msgstr ""
@@ -1170,7 +1170,7 @@ msgid "Section: "
 msgstr ""
 
 #: hub/templates/hub/candidate/detail.html:83
-#: hub/templates/hub/committee/candidates.html:44
+#: hub/templates/hub/committee/candidates.html:60
 msgid "Supporters:"
 msgstr ""
 
@@ -1246,17 +1246,27 @@ msgstr ""
 msgid "CES elections"
 msgstr ""
 
-#: hub/templates/hub/committee/candidates.html:20
+#: hub/templates/hub/committee/candidates.html:21
 #: hub/templates/hub/committee/partials/nav.html:22
 msgid "Pending candidates"
 msgstr ""
 
-#: hub/templates/hub/committee/candidates.html:22
+#: hub/templates/hub/committee/candidates.html:25
+#: hub/templates/hub/committee/partials/nav.html:32
+msgid "Validated candidates"
+msgstr ""
+
+#: hub/templates/hub/committee/candidates.html:29
+#: hub/templates/hub/committee/partials/nav.html:37
+msgid "Rejected candidates"
+msgstr ""
+
+#: hub/templates/hub/committee/candidates.html:33
 #: hub/templates/hub/committee/partials/nav.html:27
 msgid "Accepted candidates"
 msgstr ""
 
-#: hub/templates/hub/committee/candidates.html:67
+#: hub/templates/hub/committee/candidates.html:83
 #: hub/templates/hub/committee/list.html:67 hub/templates/hub/ngo/list.html:66
 #: hub/templates/hub/ngo/votes.html:100
 msgid "No results matching query"
@@ -1275,14 +1285,6 @@ msgstr ""
 #: hub/templates/hub/committee/list.html:27
 #: hub/templates/hub/committee/partials/nav.html:17
 msgid "Rejected Organizations"
-msgstr ""
-
-#: hub/templates/hub/committee/partials/nav.html:32
-msgid "Validated candidates"
-msgstr ""
-
-#: hub/templates/hub/committee/partials/nav.html:37
-msgid "Rejected candidates"
 msgstr ""
 
 #: hub/templates/hub/developed-by.html:7
@@ -1605,83 +1607,87 @@ msgstr ""
 msgid "published"
 msgstr ""
 
-#: hub/urls.py:33
+#: hub/urls.py:34
 msgid "health/"
 msgstr ""
 
-#: hub/urls.py:34
+#: hub/urls.py:35
 msgid "candidates/"
 msgstr ""
 
-#: hub/urls.py:36
+#: hub/urls.py:37
 msgid "candidates/register/"
 msgstr ""
 
-#: hub/urls.py:40
+#: hub/urls.py:41
 msgid "candidates/<int:pk>/"
 msgstr ""
 
-#: hub/urls.py:41
+#: hub/urls.py:42
 msgid "candidates/<int:pk>/vote/"
 msgstr ""
 
-#: hub/urls.py:42
+#: hub/urls.py:43
 msgid "candidates/<int:pk>/support/"
 msgstr ""
 
-#: hub/urls.py:43
+#: hub/urls.py:44
 msgid "candidates/<int:pk>/revoke/"
 msgstr ""
 
-#: hub/urls.py:44
+#: hub/urls.py:45
 msgid "candidates/<int:pk>/status-confirm/"
 msgstr ""
 
-#: hub/urls.py:45
+#: hub/urls.py:46
 msgid "candidates/<int:pk>/update/"
 msgstr ""
 
-#: hub/urls.py:46
+#: hub/urls.py:47
+msgid "candidates/reset-confirmations/"
+msgstr ""
+
+#: hub/urls.py:48
 msgid "candidates/votes/"
 msgstr ""
 
-#: hub/urls.py:47
+#: hub/urls.py:49
 msgid "candidates/results/"
 msgstr ""
 
-#: hub/urls.py:49
+#: hub/urls.py:51
 msgid "candidates/ces-results/"
 msgstr ""
 
-#: hub/urls.py:51
+#: hub/urls.py:53
 msgid "committee/ngos/"
 msgstr ""
 
-#: hub/urls.py:52
+#: hub/urls.py:54
 msgid "committee/candidates/"
 msgstr ""
 
-#: hub/urls.py:53
+#: hub/urls.py:55
 msgid "ngos/"
 msgstr ""
 
-#: hub/urls.py:55
+#: hub/urls.py:57
 msgid "ngos/register"
 msgstr ""
 
-#: hub/urls.py:59
+#: hub/urls.py:61
 msgid "ngos/<int:pk>"
 msgstr ""
 
-#: hub/urls.py:60
+#: hub/urls.py:62
 msgid "ngos/<int:pk>/vote/<str:action>"
 msgstr ""
 
-#: hub/urls.py:61
+#: hub/urls.py:63
 msgid "ngos/<int:pk>/update"
 msgstr ""
 
-#: hub/urls.py:62
+#: hub/urls.py:64
 msgid "ngo-update/<int:pk>"
 msgstr ""
 
@@ -1770,7 +1776,7 @@ msgstr ""
 msgid "Candidate does not belong to user organization"
 msgstr ""
 
-#: hub/views.py:1084
+#: hub/views.py:1101
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
