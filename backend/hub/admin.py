@@ -8,8 +8,8 @@ from django.contrib.admin.filters import AllValuesFieldListFilter
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Count, QuerySet
+from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.http import urlencode
@@ -210,7 +210,7 @@ def send_confirm_email_to_committee(request, candidate, to_email):
 
 
 def _set_candidates_status(
-    request: WSGIRequest,
+    request: HttpRequest,
     queryset: QuerySet[Candidate],
     status: str,
     send_committee_confirmation: bool = True,
@@ -231,21 +231,21 @@ def _set_candidates_status(
     queryset.update(status=status)
 
 
-def reject_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+def reject_candidates(_, request: HttpRequest, queryset: QuerySet[Candidate]):
     _set_candidates_status(request, queryset, Candidate.STATUS.rejected)
 
 
 reject_candidates.short_description = _("Set selected candidates status to REJECTED")
 
 
-def accept_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+def accept_candidates(_, request: HttpRequest, queryset: QuerySet[Candidate]):
     _set_candidates_status(request, queryset, Candidate.STATUS.accepted)
 
 
 accept_candidates.short_description = _("Set selected candidates status to ACCEPTED")
 
 
-def pending_candidates(_, request: WSGIRequest, queryset: QuerySet[Candidate]):
+def pending_candidates(_, request: HttpRequest, queryset: QuerySet[Candidate]):
     _set_candidates_status(request, queryset, Candidate.STATUS.pending, send_committee_confirmation=False)
 
 
