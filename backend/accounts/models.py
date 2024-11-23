@@ -97,5 +97,12 @@ class GroupProxy(Group):
         verbose_name_plural = _("Groups")
 
 
+class CommissionUser(User):
+    class Meta:
+        proxy = True
+        verbose_name = _("Commission user")
+        verbose_name_plural = _("Commission users")
+
+
 auditlog.register(User, exclude_fields=["password"])
 auditlog.register(GroupProxy)

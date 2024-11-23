@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-22 16:58+0200\n"
+"POT-Creation-Date: 2024-11-23 14:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/admin.py:63 hub/admin.py:292 hub/admin.py:407
+#: accounts/admin.py:69 hub/admin.py:292 hub/admin.py:407
 msgid "Identification"
 msgstr ""
 
-#: accounts/admin.py:75
+#: accounts/admin.py:81
 msgid "Flags"
 msgstr ""
 
-#: accounts/admin.py:85
+#: accounts/admin.py:91
 msgid "Permissions"
 msgstr ""
 
-#: accounts/admin.py:94
+#: accounts/admin.py:100
 msgid "Important dates"
 msgstr ""
 
-#: accounts/admin.py:120 hub/models.py:440
+#: accounts/admin.py:110
+msgid "Request confirmations deletion"
+msgstr ""
+
+#: accounts/admin.py:130 hub/models.py:440
 msgid "Organization"
 msgstr ""
 
-#: accounts/admin.py:133 accounts/models.py:97
+#: accounts/admin.py:143 accounts/models.py:97
 msgid "Groups"
 msgstr ""
 
@@ -79,6 +83,14 @@ msgstr ""
 
 #: accounts/models.py:96
 msgid "Group"
+msgstr ""
+
+#: accounts/models.py:103
+msgid "Commission user"
+msgstr ""
+
+#: accounts/models.py:104
+msgid "Commission users"
 msgstr ""
 
 #: accounts/templates/accounts/avatar/change.html:47
