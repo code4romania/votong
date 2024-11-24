@@ -12,6 +12,7 @@ from impersonate.admin import UserAdminImpersonateMixin
 
 from civil_society_vote.common.admin import BasePermissionsAdmin
 from civil_society_vote.common.messaging import send_email
+from hub.utils import create_expiring_url_token
 
 from .models import (
     CommissionUser,
@@ -126,7 +127,7 @@ class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
             if not user.in_commission_groups():
                 continue
 
-            deletion_link_path = reverse("reset-candidate-confirmations")
+            deletion_link_path = reverse("reset-candidate-confirmations", args=(create_expiring_url_token(user.pk),))
             deletion_link = f"{protocol}://{current_site.domain}{deletion_link_path}"
 
             send_email(

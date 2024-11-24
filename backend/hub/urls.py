@@ -44,11 +44,15 @@ urlpatterns = [
     path(_("candidates/<int:pk>/revoke/"), candidate_revoke, name="candidate-revoke"),
     path(_("candidates/<int:pk>/status-confirm/"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update/"), CandidateUpdateView.as_view(), name="candidate-update"),
-    path(_("candidates/reset-confirmations/"), reset_candidate_confirmations, name="reset-candidate-confirmations"),
     path(_("candidates/votes/"), ElectorCandidatesListView.as_view(), name="votes"),
     path(_("candidates/results/"), CandidateResultsView.as_view(), name="results"),
     path(
         _("candidates/ces-results/"), RedirectView.as_view(pattern_name="results", permanent=True), name="ces-results"
+    ),
+    path(
+        _("committee/reset-confirmations/<slug:url_token>/"),
+        reset_candidate_confirmations,
+        name="reset-candidate-confirmations",
     ),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),

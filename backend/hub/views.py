@@ -54,6 +54,8 @@ from hub.models import (
     SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
+from hub.utils import expiring_url
+
 
 logger = logging.getLogger(__name__)
 
@@ -1062,9 +1064,11 @@ def candidate_status_confirm(request, pk):
 
 
 @login_required
+@expiring_url()
 @permission_required_or_403("hub.approve_candidate")
-def reset_candidate_confirmations(request):
-    # TODO: Do we need to test for other feature flags before allowing the confirmation deletion?
+def reset_candidate_confirmations(
+    request,
+):
     if request.method == "POST":
         CandidateConfirmation.objects.filter(user=request.user).delete()
         messages.success(request, _("Confirmations successfuly deleted"))
