@@ -17,17 +17,22 @@ def build_full_url(request, obj):
     return request.build_absolute_uri(obj.get_absolute_url())
 
 
-def decode_url_token(*, url_token=None, request=None):
-    if request:
-        if not hasattr(request.resolver_match, "captured_kwargs"):
-            return None
-        url_token = request.resolver_match.captured_kwargs.get("url_token")
+def decode_url_token_from_request(request):
+    if not hasattr(request.resolver_match, "captured_kwargs"):
+        return None
+    url_token = request.resolver_match.captured_kwargs.get("url_token")
 
-    if url_token:
-        try:
-            decoded = urlsafe_base64_decode(url_token).decode().split("!!")
-        except ValueError:
-            return None
+    return decode_url_token(url_token=url_token)
+
+
+def decode_url_token(url_token=None):
+    if not url_token:
+        return None
+
+    try:
+        decoded = urlsafe_base64_decode(url_token).decode().split("!!")
+    except ValueError:
+        return None
 
     if len(decoded) != 3:
         return None

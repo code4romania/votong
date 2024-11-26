@@ -15,7 +15,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
-from django.http import JsonResponse, Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -41,6 +41,8 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
+    PHASE_CHOICES,
+    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -50,12 +52,9 @@ from hub.models import (
     Domain,
     FeatureFlag,
     Organization,
-    PHASE_CHOICES,
-    SETTINGS_CHOICES,
 )
+from hub.utils import decode_url_token_from_request, expiring_url
 from hub.workers.update_organization import update_organization
-from hub.utils import expiring_url, decode_url_token
-
 
 logger = logging.getLogger(__name__)
 
@@ -1072,7 +1071,7 @@ def reset_candidate_confirmations(
     if request.method != "POST":
         return render(request, "hub/committee/delete_confirmations.html")
 
-    decoded_token = decode_url_token(request=request)
+    decoded_token = decode_url_token_from_request(request=request)
     if not decoded_token:
         raise Http404
 
