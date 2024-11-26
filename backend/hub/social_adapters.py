@@ -35,7 +35,6 @@ def ngohub_api_get(path: str, token: str):
 
     response = requests.get(api_url, headers=auth_headers)
     if response.status_code != requests.codes.ok:
-        print(api_url)
         logger.error("%s while retrieving %s", response.status_code, api_url)
         raise NGOHubHTTPException
 

@@ -1,13 +1,13 @@
 from typing import Any, Dict
 
 from django.conf import settings
-from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpRequest
 from django.urls import reverse
 
 from hub.models import FLAG_CHOICES, FeatureFlag, SETTINGS_CHOICES
 
 
-def hub_settings(_: WSGIRequest) -> Dict[str, Any]:
+def hub_settings(_: HttpRequest) -> Dict[str, Any]:
     flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
     register_url = settings.NGOHUB_APP_BASE

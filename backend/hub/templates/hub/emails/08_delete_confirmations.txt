@@ -1,0 +1,3 @@
+Administratorul site-ului votong.ro a marcat pentru ștergere confirmările date de tine candidaților.
+
+Urmează acest link pentru a aproba acțiunea: {{ deletion_link|safe }}

@@ -26,6 +26,7 @@ from hub.views import (
     candidate_vote,
     organization_vote,
     update_organization_information,
+    reset_candidate_confirmations,
 )
 
 urlpatterns = [
@@ -47,6 +48,11 @@ urlpatterns = [
     path(_("candidates/results/"), CandidateResultsView.as_view(), name="results"),
     path(
         _("candidates/ces-results/"), RedirectView.as_view(pattern_name="results", permanent=True), name="ces-results"
+    ),
+    path(
+        _("committee/reset-confirmations/<slug:url_token>/"),
+        reset_candidate_confirmations,
+        name="reset-candidate-confirmations",
     ),
     path(_("committee/ngos/"), CommitteeOrganizationListView.as_view(), name="committee-ngos"),
     path(_("committee/candidates/"), CommitteeCandidatesListView.as_view(), name="committee-candidates"),

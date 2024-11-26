@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import hashlib
 import os
 from copy import deepcopy
 from pathlib import Path
@@ -91,6 +92,7 @@ env = environ.Env(
     ENABLE_ORG_REGISTRATION_FORM=(bool, False),
     CURRENT_EDITION_YEAR=(int, 2024),
     CURRENT_EDITION_TYPE=(str, "ces"),
+    EXPIRING_URL_DELTA=(int, 72 * 60 * 60),  # 72 hours
     # email settings
     EMAIL_SEND_METHOD=(str, "async"),
     EMAIL_BACKEND=(str, "django.core.mail.backends.console.EmailBackend"),
@@ -121,6 +123,7 @@ environ.Env.read_env(dot_env_path)
 
 # SECURITY WARNING: keep the secret key used in production secret
 SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY_HASH = hashlib.sha256(f"{SECRET_KEY}".encode()).hexdigest()
 
 DEBUG = env("DEBUG")
 ENVIRONMENT = env.str("ENVIRONMENT")
@@ -640,8 +643,10 @@ ENABLE_ORG_REGISTRATION_FORM = env("ENABLE_ORG_REGISTRATION_FORM")
 CURRENT_EDITION_YEAR = env("CURRENT_EDITION_YEAR")
 CURRENT_EDITION_TYPE = env("CURRENT_EDITION_TYPE").lower().strip()
 if CURRENT_EDITION_TYPE not in ("ces", "ce"):
-    print(f"WARNING: The CURRENT_EDITION_TYPE '{CURRENT_EDITION_TYPE}' has been reset to 'ces'")
+    # info_log = f"WARNING: The CURRENT_EDITION_TYPE '{CURRENT_EDITION_TYPE}' has been reset to 'ces'"
     CURRENT_EDITION_TYPE = "ces"
 
 # How many previous year reports to require for a candidate proposal
 PREV_REPORTS_REQUIRED_FOR_PROPOSAL = 3
+
+EXPIRING_URL_DELTA = env.int("EXPIRING_URL_DELTA")

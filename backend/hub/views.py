@@ -15,8 +15,8 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -41,6 +41,8 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
+    PHASE_CHOICES,
+    SETTINGS_CHOICES,
     BlogPost,
     Candidate,
     CandidateConfirmation,
@@ -50,9 +52,8 @@ from hub.models import (
     Domain,
     FeatureFlag,
     Organization,
-    PHASE_CHOICES,
-    SETTINGS_CHOICES,
 )
+from hub.utils import decode_url_token_from_request, expiring_url
 from hub.workers.update_organization import update_organization
 
 logger = logging.getLogger(__name__)
@@ -1059,6 +1060,28 @@ def candidate_status_confirm(request, pk):
             capture_message(message, level="warning")
 
     return redirect("candidate-detail", pk=pk)
+
+
+@login_required
+@expiring_url()
+@permission_required_or_403("hub.approve_candidate")
+def reset_candidate_confirmations(
+    request,
+):
+    if request.method != "POST":
+        return render(request, "hub/committee/delete_confirmations.html")
+
+    decoded_token = decode_url_token_from_request(request=request)
+    if not decoded_token:
+        raise Http404
+
+    if request.user.pk != decoded_token.get("subject_pk", None):
+        raise PermissionDenied(_("Cannot delete another user's confirmations"))
+
+    CandidateConfirmation.objects.filter(user=request.user).delete()
+    messages.success(request, _("Confirmations successfully deleted"))
+
+    return redirect(reverse("candidates"))
 
 
 @login_required
