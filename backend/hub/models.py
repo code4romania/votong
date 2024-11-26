@@ -621,10 +621,12 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
                 candidate.delete()
 
         # Remove support that the organization has given
-        CandidateSupporter.objects.filter(user__organization=self).delete()
+        for supporter in CandidateSupporter.objects.filter(user__organization=self):
+            supporter.delete()
 
         # Remove votes that the organization has given
-        CandidateVote.objects.filter(user__organization=self).delete()
+        for vote in CandidateVote.objects.filter(user__organization=self):
+            vote.delete()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
@@ -1009,6 +1011,11 @@ class CandidateConfirmation(TimeStampedModel, CandidateAction):
 
 
 base_exclude_fields = ["created", "modified"]
+organization_exclude_fields = base_exclude_fields + [
+    "ngohub_last_update_ended",
+    "ngohub_last_update_started",
+    "filename_cache",
+]
 auditlog.register(Organization, exclude_fields=base_exclude_fields)
 auditlog.register(Candidate, exclude_fields=base_exclude_fields)
 auditlog.register(CandidateVote, exclude_fields=base_exclude_fields)

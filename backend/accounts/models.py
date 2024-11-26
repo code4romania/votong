@@ -110,5 +110,5 @@ class CommissionUser(User):
         verbose_name_plural = _("Commission users")
 
 
-auditlog.register(User, exclude_fields=["password"])
+auditlog.register(User, exclude_fields=["password", "last_login"])
 auditlog.register(GroupProxy)

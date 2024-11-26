@@ -1079,7 +1079,9 @@ def reset_candidate_confirmations(
     if request.user.pk != user_request_pk:
         raise PermissionDenied(_("Cannot delete another user's confirmations"))
 
-    CandidateConfirmation.objects.filter(user=request.user).delete()
+    for confirmation in CandidateConfirmation.objects.filter(user=request.user):
+        confirmation.delete()
+
     messages.success(request, _("Confirmations successfully deleted"))
 
     return redirect(reverse("candidates"))
