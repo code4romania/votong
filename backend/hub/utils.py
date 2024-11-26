@@ -91,7 +91,7 @@ def create_expiring_url_token(subject_pk):
     # noinspection InsecureHash
     sig: str = hashlib.sha256(f"USER ID={subject_pk} T={iso_ts} K={settings.SECRET_KEY_HASH}".encode()).hexdigest()
 
-    unencoded_token = "!!".join([subject_pk, iso_ts, sig])
+    unencoded_token = "!!".join([str(subject_pk), iso_ts, sig])
 
     return urlsafe_base64_encode(unencoded_token.encode())
 
