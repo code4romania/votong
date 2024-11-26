@@ -21,11 +21,9 @@ def decode_url_token(url_token):
     try:
         decoded = urlsafe_base64_decode(url_token).decode().split("!!")
     except ValueError:
-        print("Broken token")
         return False
 
     if len(decoded) != 3:
-        print("Broken token components")
         return False
 
     try:
@@ -54,22 +52,18 @@ def validate_expiring_url_token(url_token, max_seconds):
     try:
         ts = datetime.fromisoformat(iso_ts)
     except ValueError:
-        print("DATE VALUE ERROR")
         return False
 
     delta = (timezone.now() - ts).seconds
     if delta > max_seconds:
-        print("Expired")
         return False
     elif delta < 0:
-        print("You cannot have a link created in the future")
         return False
 
     # noinspection InsecureHash
     current_sig = hashlib.sha256(f"USER ID={user_pk} T={iso_ts} K={settings.SECRET_KEY_HASH}".encode()).hexdigest()
 
     if sig != current_sig:
-        print("Signature not valid")
         return False
 
     return True
