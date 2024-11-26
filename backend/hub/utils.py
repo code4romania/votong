@@ -17,37 +17,44 @@ def build_full_url(request, obj):
     return request.build_absolute_uri(obj.get_absolute_url())
 
 
-def decode_url_token(url_token):
-    try:
-        decoded = urlsafe_base64_decode(url_token).decode().split("!!")
-    except ValueError:
-        return False
+def decode_url_token(*, url_token=None, request=None):
+    if request:
+        if not hasattr(request.resolver_match, "captured_kwargs"):
+            return None
+        url_token = request.resolver_match.captured_kwargs.get("url_token")
+
+    if url_token:
+        try:
+            decoded = urlsafe_base64_decode(url_token).decode().split("!!")
+        except ValueError:
+            return None
 
     if len(decoded) != 3:
-        return False
+        return None
 
     try:
-        user_pk = int(decoded[0])
+        subject_pk = decoded[0]
     except ValueError:
-        return False
+        return None
 
     return {
-        "user_pk": user_pk,
+        "subject_pk": subject_pk,
         "iso_ts": decoded[1],
         "sig": decoded[2],
     }
 
 
-def validate_expiring_url_token(url_token, max_seconds):
+def validate_decoded_url_token(decoded_token, max_seconds):
 
-    decoded_token = decode_url_token(url_token)
+    if decoded_token is None:
+        return False
 
-    if decoded_token is False:
-        return decoded_token
+    subject_pk: int = decoded_token.get("subject_pk")
+    iso_ts: str = decoded_token.get("iso_ts")
+    sig: str = decoded_token.get("sig")
 
-    user_pk: int = decoded_token["user_pk"]
-    iso_ts: str = decoded_token["iso_ts"]
-    sig: str = decoded_token["sig"]
+    if not subject_pk or not iso_ts or not sig:
+        return False
 
     try:
         ts = datetime.fromisoformat(iso_ts)
@@ -61,7 +68,7 @@ def validate_expiring_url_token(url_token, max_seconds):
         return False
 
     # noinspection InsecureHash
-    current_sig = hashlib.sha256(f"USER ID={user_pk} T={iso_ts} K={settings.SECRET_KEY_HASH}".encode()).hexdigest()
+    current_sig = hashlib.sha256(f"USER ID={subject_pk} T={iso_ts} K={settings.SECRET_KEY_HASH}".encode()).hexdigest()
 
     if sig != current_sig:
         return False
@@ -84,17 +91,11 @@ def create_expiring_url_token(subject_pk):
     return urlsafe_base64_encode(unencoded_token.encode())
 
 
-def hashed_expiring_url(request):
-    """
-    Validate the `id`, `ts`, and `sign` from an URL GET parameters
-    """
-    pass
-
-
 def expiring_url(max_seconds=settings.EXPIRING_URL_DELTA):
     def decorator(function):
         def wrapper(request, url_token, *args, **kwargs):
-            if not validate_expiring_url_token(url_token, max_seconds):
+            decoded_token = decode_url_token(url_token=url_token)
+            if not validate_decoded_url_token(decoded_token, max_seconds):
                 raise PermissionDenied()
             return function(request, *args, **kwargs)
 

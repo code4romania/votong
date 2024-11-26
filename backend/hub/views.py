@@ -15,7 +15,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
 from django.db.utils import IntegrityError
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -54,7 +54,7 @@ from hub.models import (
     SETTINGS_CHOICES,
 )
 from hub.workers.update_organization import update_organization
-from hub.utils import decode_url_token, expiring_url
+from hub.utils import expiring_url, decode_url_token
 
 
 logger = logging.getLogger(__name__)
@@ -1072,27 +1072,12 @@ def reset_candidate_confirmations(
     if request.method != "POST":
         return render(request, "hub/committee/delete_confirmations.html")
 
-    if not hasattr(request.resolver_match, "captured_kwargs"):
+    decoded_token = decode_url_token(request=request)
+    if not decoded_token:
         raise Http404
 
-    url_token = request.resolver_match.captured_kwargs.get("url_token")
-
-    if not url_token:
-        raise PermissionDenied
-
-    decoded_token = decode_url_token(url_token)
-
-    if decoded_token is False:
-        raise PermissionDenied
-
-    user_pk = decoded_token.get("user_pk")
-    if not user_pk:
-        raise PermissionDenied
-
-    user = get_object_or_404(User, pk=user_pk)
-
-    if request.user != user:
-        raise PermissionDenied
+    if request.user.pk != decoded_token.get("subject_pk", None):
+        raise PermissionDenied(_("Cannot delete another user's confirmations"))
 
     CandidateConfirmation.objects.filter(user=request.user).delete()
     messages.success(request, _("Confirmations successfully deleted"))
