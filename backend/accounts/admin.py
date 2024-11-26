@@ -124,14 +124,14 @@ class UserAdmin(UserAdminImpersonateMixin, BasePermissionsAdmin):
         protocol = "https" if request.is_secure() else "http"
 
         for user in queryset:
-            if not user.in_commission_groups():
+            if not user.in_voting_commission_groups():
                 continue
 
             deletion_link_path = reverse("reset-candidate-confirmations", args=(create_expiring_url_token(user.pk),))
             deletion_link = f"{protocol}://{current_site.domain}{deletion_link_path}"
 
             send_email(
-                subject="[VOTONG] Resetare confirmari candidati",
+                subject="[VOTONG] Resetare confirmări candidați",
                 context={
                     "deletion_link": deletion_link,
                 },

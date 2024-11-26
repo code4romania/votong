@@ -1075,7 +1075,8 @@ def reset_candidate_confirmations(
     if not decoded_token:
         raise Http404
 
-    if request.user.pk != decoded_token.get("subject_pk", None):
+    user_request_pk = int(decoded_token.get("subject_pk", None))
+    if request.user.pk != user_request_pk:
         raise PermissionDenied(_("Cannot delete another user's confirmations"))
 
     CandidateConfirmation.objects.filter(user=request.user).delete()

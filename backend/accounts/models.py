@@ -85,6 +85,12 @@ class User(AbstractUser, TimeStampedModel):
             and not self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
         )
 
+    def in_voting_commission_groups(self):
+        return (
+            self.groups.filter(name=COMMITTEE_GROUP).exists()
+            and not self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
+        )
+
     def in_staff_groups(self):
         return self.groups.filter(name__in=[STAFF_GROUP, SUPPORT_GROUP]).exists()
 
