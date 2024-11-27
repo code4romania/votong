@@ -60,7 +60,7 @@
     <div class="container">
       {% if page_obj %}
 
-        {% cache cache_duration "candidate_listing" %}
+        {% cache listing_cache_duration "candidate_listing" %}
         <div class="is-multiline infinite-container">
         
           {% if not SINGLE_DOMAIN_ROUND %}
