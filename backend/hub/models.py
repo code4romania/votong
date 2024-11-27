@@ -19,6 +19,7 @@ from model_utils.models import StatusModel, TimeStampedModel
 from tinymce.models import HTMLField
 
 from accounts.models import COMMITTEE_GROUP, COMMITTEE_GROUP_READ_ONLY, NGO_GROUP, STAFF_GROUP, SUPPORT_GROUP, User
+from civil_society_vote.common.cache import cache_decorator, delete_cache_key
 from civil_society_vote.common.formatting import get_human_readable_size
 
 REPORTS_HELP_TEXT = (
@@ -145,6 +146,15 @@ class FeatureFlag(TimeStampedModel):
         return f"{FLAG_CHOICES[self.flag]}"
 
     @staticmethod
+    def delete_cache():
+        delete_cache_key("feature_flags")
+
+    @staticmethod
+    @cache_decorator(cache_key="feature_flags", timeout=settings.TIMEOUT_CACHE_SHORT)
+    def get_feature_flags():
+        return {flag.flag: flag.is_enabled for flag in FeatureFlag.objects.all()}
+
+    @staticmethod
     def flag_enabled(flag: str) -> bool:
         """
         Check if the requested feature flag is enabled
@@ -152,7 +162,7 @@ class FeatureFlag(TimeStampedModel):
         if not flag:
             return False
 
-        return FeatureFlag.objects.filter(flag=flag, is_enabled=True).exists()
+        return FeatureFlag.get_feature_flags().get(flag, False)
 
 
 class BlogPost(TimeStampedModel):
