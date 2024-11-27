@@ -538,14 +538,14 @@ class CandidateListView(SearchMixin):
             org__status=Organization.STATUS.accepted,
             status=Candidate.STATUS.confirmed,
             is_proposed=True,
-        )
+        ).select_related("org").prefetch_related("domain")
 
     @classmethod
     def get_candidates_pending(cls):
         return Candidate.objects_with_org.filter(
             org__status=Organization.STATUS.accepted,
             is_proposed=True,
-        )
+        ).select_related("org").prefetch_related("domain")
 
     def get_qs(self):
         if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
