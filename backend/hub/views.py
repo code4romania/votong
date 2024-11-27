@@ -569,6 +569,7 @@ class CandidateListView(SearchMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["cache_duration"] = settings.TIMEOUT_CACHE_SHORT
         context["current_search"] = self.request.GET.get("q", "")
 
         context["should_display_candidates"] = False
