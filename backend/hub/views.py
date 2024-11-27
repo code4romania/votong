@@ -1,5 +1,6 @@
 import logging
 import unicodedata
+import hashlib
 from datetime import datetime
 from typing import Dict, List, Optional, Union
 from urllib.parse import unquote
@@ -584,7 +585,6 @@ class CandidateListView(SearchMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["listing_cache_duration"] = settings.TIMEOUT_CACHE_SHORT
         context["current_search"] = self.request.GET.get("q", "")
 
         context["should_display_candidates"] = False
@@ -600,6 +600,10 @@ class CandidateListView(SearchMixin):
 
         context["counters"] = self._get_candidate_counters()
         context["domains"] = Domain.objects.all()
+        context["listing_cache_duration"] = settings.TIMEOUT_CACHE_SHORT
+        context["listing_cache_key"] = hashlib.sha256(
+            f"candidates_listing_{current_domain.pk if current_domain else ''}_{context["current_search"]}".encode()
+        ).hexdigest()
 
         return context
 
