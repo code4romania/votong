@@ -4,9 +4,11 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.urls import reverse
 
+from civil_society_vote.common.cache import cache_decorator
 from hub.models import FLAG_CHOICES, FeatureFlag, SETTINGS_CHOICES
 
 
+@cache_decorator(cache_key="hub_settings", timeout=settings.TIMEOUT_CACHE_SHORT)
 def hub_settings(_: HttpRequest) -> Dict[str, Any]:
     flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
