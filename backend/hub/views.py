@@ -601,8 +601,9 @@ class CandidateListView(SearchMixin):
         context["counters"] = self._get_candidate_counters()
         context["domains"] = Domain.objects.all()
         context["listing_cache_duration"] = settings.TIMEOUT_CACHE_SHORT
+        # noinspection InsecureHash
         context["listing_cache_key"] = hashlib.sha256(
-            f"candidates_listing_{current_domain.pk if current_domain else ''}_{context["current_search"]}".encode()
+            f"candidates_listing_{current_domain if current_domain else ''}_{context['current_search']}".encode()
         ).hexdigest()
 
         return context
