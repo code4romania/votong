@@ -64,29 +64,36 @@ UserModel = get_user_model()
 def group_queryset_by_domain(
     queryset: QuerySet, *, domain_variable_name: str, sort_variable: str = "name"
 ) -> List[Dict[str, Union[Domain, List[Union[Organization, Candidate]]]]]:
+
     queryset_by_domain_dict: Dict[Domain, List[Union[Organization, Candidate]]] = {}
 
-    for element in queryset:
-        domain: Domain = getattr(element, domain_variable_name)
-        if domain not in queryset_by_domain_dict:
-            queryset_by_domain_dict[domain] = []
+    all_domains = dict(Domain.objects.values_list("pk", "name"))
 
-        queryset_by_domain_dict[domain].append(element)
+    domain_variable_name = f"{domain_variable_name}_id"
+
+    for element in queryset:
+        element_domain_pk: Domain = getattr(element, domain_variable_name)
+        if element_domain_pk not in queryset_by_domain_dict:
+            queryset_by_domain_dict[element_domain_pk] = []
+
+        queryset_by_domain_dict[element_domain_pk].append(element)
 
     queryset_by_domain_list = []
-    for domain, query_item in queryset_by_domain_dict.items():
-        snake_case_domain_key = "".join(filter(_filter_letter, domain.name)).lower().replace(" ", "_")
+    for domain_pk, query_item in queryset_by_domain_dict.items():
+        domain_name = all_domains.get(domain_pk)
+        snake_case_domain_key = "".join(filter(_filter_letter, domain_name)).lower().replace(" ", "_")
         normalized_domain_key = unicodedata.normalize("NFKD", snake_case_domain_key).encode("ascii", "ignore")
 
         queryset_by_domain_list.append(
             {
-                "domain": domain,
+                "domain_pk": domain_pk,
+                "domain_name": domain_name,
                 "domain_key": normalized_domain_key.decode("utf-8"),
                 "items": sorted(query_item, key=lambda x: getattr(x, sort_variable)),
             }
         )
 
-    queryset_by_domain_list = sorted(queryset_by_domain_list, key=lambda x: x["domain"].pk)
+    queryset_by_domain_list = sorted(queryset_by_domain_list, key=lambda x: x["domain_pk"])
 
     return queryset_by_domain_list
 

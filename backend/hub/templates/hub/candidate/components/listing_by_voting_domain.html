@@ -4,7 +4,7 @@
 {% for section_details in page_obj %}
 
   <h3 id="{{ section_details.domain_key }}" class="section-title">
-    {{ section_details.domain.name }} ({{ section_details.items|length }})
+    {{ section_details.domain_name }} ({{ section_details.items|length }})
   </h3>
 
 
@@ -12,4 +12,3 @@
 
 
 {% endfor %}
-
