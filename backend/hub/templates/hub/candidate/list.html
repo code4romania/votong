@@ -60,6 +60,7 @@
     <div class="container">
       {% if page_obj %}
 
+        {% cache listing_cache_duration listing_cache_key %}
         <div class="is-multiline infinite-container">
         
           {% if not SINGLE_DOMAIN_ROUND %}
@@ -68,6 +69,7 @@
             {% include "hub/candidate/components/listing_detail.html" %}
           {% endif %}
         </div>
+        {% endcache %}
 
       {% endif %}
     </div>
