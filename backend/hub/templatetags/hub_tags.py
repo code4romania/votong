@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from accounts.models import User
-from hub.models import CandidateConfirmation
+from hub.models import CandidateConfirmation, Organization
 
 register = template.Library()
 
@@ -52,7 +52,7 @@ def org_logo(user, width=settings.AVATAR_DEFAULT_SIZE, height=None, **kwargs):
     if not user:
         return ""
 
-    org = user.organization
+    org = Organization.objects.filter(users__pk=user.pk).only("logo").first()
     logo_url = static(settings.AVATAR_DEFAULT_URL)
     if org and org.logo:
         logo_url = org.logo.url
