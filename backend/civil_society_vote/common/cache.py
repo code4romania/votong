@@ -30,3 +30,7 @@ def cache_decorator(*, timeout: int, cache_key: str = None, cache_key_prefix: st
         return wrapper
 
     return decorator
+
+
+def delete_cache_key(cache_key: str):
+    cache.delete(cache_key)

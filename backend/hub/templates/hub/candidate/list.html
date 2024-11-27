@@ -2,6 +2,7 @@
 {% load static %}
 {% load spurl %}
 {% load i18n %}
+{% load cache %}
 
 {% block extra-header %}
   {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
@@ -59,14 +60,16 @@
     <div class="container">
       {% if page_obj %}
 
+        {% cache listing_cache_duration "candidate_listing" %}
         <div class="is-multiline infinite-container">
-
+        
           {% if not SINGLE_DOMAIN_ROUND %}
-            {% include "hub/candidate/components/listing_by_voting_domain.html" %}
+              {% include "hub/candidate/components/listing_by_voting_domain.html" %}
           {% else %}
             {% include "hub/candidate/components/listing_detail.html" %}
           {% endif %}
         </div>
+        {% endcache %}
 
       {% endif %}
     </div>

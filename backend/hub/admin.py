@@ -698,6 +698,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
 
         FeatureFlag.objects.filter(flag__in=enabled).update(is_enabled=True)
         FeatureFlag.objects.filter(flag__in=disabled).update(is_enabled=False)
+        FeatureFlag.delete_cache()
 
         if "enable_candidate_supporting" in enabled:
             FeatureFlag.objects.filter(flag=PHASE_CHOICES.enable_candidate_supporting).update(
