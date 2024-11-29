@@ -49,7 +49,7 @@
   <div class="container">
     {% if page_obj %}
 
-      {% cache listing_cache_duration listing_cache_key %}
+      {% cache listing_cache_duration ngos_list listing_cache_key %}
       <div class="is-multiline infinite-container">
 
         {% if VOTING_DOMAIN_ENABLED and not SINGLE_DOMAIN_ROUND %}
