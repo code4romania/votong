@@ -60,9 +60,9 @@
     <div class="container">
       {% if page_obj %}
 
-        {% cache listing_cache_duration listing_cache_key %}
+        {% cache listing_cache_duration candidates_list listing_cache_key %}
         <div class="is-multiline infinite-container">
-        
+
           {% if not SINGLE_DOMAIN_ROUND %}
               {% include "hub/candidate/components/listing_by_voting_domain.html" %}
           {% else %}
