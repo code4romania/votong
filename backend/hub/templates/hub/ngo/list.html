@@ -2,6 +2,7 @@
 {% load static %}
 {% load spurl %}
 {% load i18n %}
+{% load cache %}
 
 
 {% block left-side-view %}
@@ -60,7 +61,7 @@
 
       </div>
       {% endcache %}
-      
+
       {% comment %}
         {% include "hub/shared/pagination.html" with page_obj=page_obj domain=current_domain %}
       {% endcomment %}

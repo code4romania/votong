@@ -66,7 +66,6 @@ UserModel = get_user_model()
 def group_queryset_by_domain(
     queryset: QuerySet, *, domain_variable_name: str, sort_variable: str = "name"
 ) -> List[Dict[str, Union[Domain, List[Union[Organization, Candidate]]]]]:
-
     queryset_by_domain_dict: Dict[Domain, List[Union[Organization, Candidate]]] = {}
 
     all_domains = dict(Domain.objects.values_list("pk", "name"))
@@ -323,9 +322,37 @@ class OrganizationListView(SearchMixin):
 
         return queryset_filtered
 
+    def get_cached_context(self, context_cache_key, orgs) -> Dict:
+        sentinel = object()
+        context_cache = cache.get(context_cache_key, sentinel)
+        if context_cache is not sentinel:
+            return context_cache
+
+        context_cache = {}
+
+        context_cache["counties"] = list(orgs.order_by("county").values_list("county", flat=True).distinct("county"))
+        if self.request.GET.get("county"):
+            orgs = orgs.filter(county=self.request.GET.get("county"))
+
+        context_cache["cities"] = set(orgs.values_list("city__id", "city__city"))
+
+        context_cache["counters"] = {
+            "ngos_accepted": int(Organization.objects.filter(status=Organization.STATUS.accepted).count())
+        }
+
+        if self.request.GET.get("city"):
+            try:
+                context_cache["current_city_name"] = City.objects.get(id=self.request.GET.get("city")).city
+            except City.DoesNotExist:
+                context_cache["current_city_name"] = "-"
+
+        cache.set(context_cache_key, context_cache, settings.TIMEOUT_CACHE_SHORT)
+
+        return context_cache
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        orgs = self.search(self.get_qs())
+        orgs: QuerySet[Organization] = self.search(self.get_qs())
 
         context["current_search"] = self.request.GET.get("q", "").strip()[:100]
         context["current_county"] = self.request.GET.get("county")
@@ -340,27 +367,8 @@ class OrganizationListView(SearchMixin):
         context["listing_cache_key"] = f"orgs_listing_{param_hash}"
         context_cache_key = f"orgs_listing_context_{param_hash}"
 
-        sentinel = object()
-        if cache.get(context_cache_key, sentinel) is not sentinel:
-            return context
-
-        context["counties"] = list(orgs.order_by("county").values_list("county", flat=True).distinct("county"))
-        context["counters"] = {
-            "ngos_accepted": int(Organization.objects.filter(status=Organization.STATUS.accepted).count()),
-        }
-
-        if self.request.GET.get("county"):
-            orgs = orgs.filter(county=self.request.GET.get("county"))
-
-        if self.request.GET.get("city"):
-            try:
-                context["current_city_name"] = City.objects.get(id=self.request.GET.get("city")).city
-            except City.DoesNotExist:
-                context["current_city_name"] = "-"
-
-        context["cities"] = set(orgs.values_list("city__id", "city__city"))
-
-        cache.set(context_cache_key, cache, settings.TIMEOUT_CACHE_SHORT)
+        context_cache = self.get_cached_context(context_cache_key, orgs)
+        context.update(context_cache)
 
         return context
 
