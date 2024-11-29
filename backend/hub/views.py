@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramSimilarity
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count, Q, QuerySet
@@ -326,12 +327,26 @@ class OrganizationListView(SearchMixin):
         context = super().get_context_data(**kwargs)
         orgs = self.search(self.get_qs())
 
-        context["current_search"] = self.request.GET.get("q", "")
+        context["current_search"] = self.request.GET.get("q", "").strip()[:100]
         context["current_county"] = self.request.GET.get("county")
         context["current_city"] = self.request.GET.get("city")
-        context["counties"] = orgs.order_by("county").values_list("county", flat=True).distinct("county")
+
+        # noinspection InsecureHash
+        param_hash = hashlib.sha256(
+            f"{context['current_county'] or ''}_{context['current_city'] or ''}_{context['current_search']}".encode()
+        ).hexdigest()
+
+        context["listing_cache_duration"] = settings.TIMEOUT_CACHE_SHORT
+        context["listing_cache_key"] = f"orgs_listing_{param_hash}"
+        context_cache_key = f"orgs_listing_context_{param_hash}"
+
+        sentinel = object()
+        if cache.get(context_cache_key, sentinel) is not sentinel:
+            return context
+
+        context["counties"] = list(orgs.order_by("county").values_list("county", flat=True).distinct("county"))
         context["counters"] = {
-            "ngos_accepted": Organization.objects.filter(status=Organization.STATUS.accepted).count(),
+            "ngos_accepted": int(Organization.objects.filter(status=Organization.STATUS.accepted).count()),
         }
 
         if self.request.GET.get("county"):
@@ -344,6 +359,8 @@ class OrganizationListView(SearchMixin):
                 context["current_city_name"] = "-"
 
         context["cities"] = set(orgs.values_list("city__id", "city__city"))
+
+        cache.set(context_cache_key, cache, settings.TIMEOUT_CACHE_SHORT)
 
         return context
 
