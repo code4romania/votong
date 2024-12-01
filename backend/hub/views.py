@@ -288,11 +288,27 @@ class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
     paginate_by = 9
     template_name = "hub/ngo/votes.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        domains = []
+
+        if FeatureFlag.flag_enabled(SETTINGS_CHOICES.enable_voting_domain):
+            user_org = self.request.user.organization
+            if user_org and user_org.voting_domain:
+                domains = [user_org.voting_domain]
+        else:
+            domains = Domain.objects.order_by("id").all()
+
+        context["domains"] = domains
+
+        return context
+
     def get_queryset(self):
         if not self.request.user.groups.filter(name__in=[NGO_GROUP, NGO_USERS_GROUP]).exists():
             raise PermissionDenied
 
-        voted_candidates = CandidateVote.objects.filter(user=self.request.user)
+        voted_candidates = CandidateVote.objects.filter(organization__pk=self.request.user.organization_id)
         return [element.candidate for element in voted_candidates]
 
 
@@ -766,15 +782,16 @@ class CandidateDetailView(HubDetailView):
         domain = candidate.domain
 
         # An organization can only vote for candidates from its own domain
-        if user.organization and not user.organization.is_elector(domain):
+        user_org = user.organization
+        if user_org and not user_org.is_elector(domain):
             return context
 
         context["can_vote_candidate"] = True
 
-        if CandidateVote.objects.filter(user__pk__in=user.org_user_pks(), candidate=candidate).exists():
+        if CandidateVote.objects.filter(organization=user_org, candidate=candidate).exists():
             context["voted_candidate"] = True
 
-        if CandidateVote.objects.filter(user__in=user.org_user_pks(), domain=domain).count() >= domain.seats:
+        if CandidateVote.objects.filter(organization=user_org, domain=domain).count() >= domain.seats:
             context["used_all_domain_votes"] = True
 
         return context
@@ -1010,11 +1027,11 @@ def candidate_vote(request, pk):
     if user_org.status != Organization.STATUS.accepted:
         raise PermissionDenied
 
-    if CandidateVote.objects.filter(user__pk__in=request.user.org_user_pks(), candidate=candidate).exists():
-        raise PermissionDenied
+    if CandidateVote.objects.filter(organization_id=user_org.id, candidate=candidate).exists():
+        raise PermissionDenied(_("A candidate can't be voted twice by the same organization."))
 
     try:
-        vote = CandidateVote.objects.create(user=request.user, candidate=candidate)
+        vote = CandidateVote.objects.create(user=request.user, organization=user_org, candidate=candidate)
     except Exception:
         raise PermissionDenied
 

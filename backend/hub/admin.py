@@ -107,8 +107,8 @@ class OrganizationCandidatesInline(admin.TabularInline):
 
 class CandidateVoteInline(admin.TabularInline):
     model = CandidateVote
-    fields = ["user", "candidate"]
-    readonly_fields = ["user", "candidate", "domain"]
+    fields = ["user", "organization", "candidate"]
+    readonly_fields = ["user", "organization", "candidate", "domain"]
     extra = 0
 
     def has_add_permission(self, request, obj=None):

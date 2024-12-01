@@ -638,7 +638,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
 
         if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
             # Remove votes that the organization has given
-            for vote in CandidateVote.objects.filter(user__organization=self):
+            for vote in CandidateVote.objects.filter(organization=self):
                 vote.delete()
 
     def _change_candidates_domain(self, voting_domain):
@@ -983,6 +983,8 @@ class CandidateAction(models.Model):
 
 class CandidateVote(TimeStampedModel, CandidateAction):
     user = models.ForeignKey(UserModel, on_delete=models.PROTECT)
+    organization = models.ForeignKey(Organization, on_delete=models.PROTECT)
+
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="votes")
     domain = models.ForeignKey("Domain", on_delete=models.PROTECT, related_name="votes")
 
@@ -996,7 +998,7 @@ class CandidateVote(TimeStampedModel, CandidateAction):
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
 
-        votes_for_domain = CandidateVote.objects.filter(user=self.user, domain=self.domain).count()
+        votes_for_domain = CandidateVote.objects.filter(organization=self.organization, domain=self.domain).count()
         if votes_for_domain >= self.domain.seats:
             raise Exception("Maximum number of votes reached")
 
