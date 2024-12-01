@@ -643,7 +643,8 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
     list_display = ["flag", "is_enabled"]
     readonly_fields = ["flag"]
     actions = [
-        "activate_flags",
+        "enable_flags",
+        "disable_flags",
         "flags_phase_pause",
         "flags_phase_deactivate",
         "flags_phase_1",
@@ -667,6 +668,16 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def enable_flags(self, request, queryset):
+        queryset.update(is_enabled=True)
+
+    enable_flags.short_description = _("Activate selected flags")
+
+    def disable_flags(self, request, queryset):
+        queryset.update(is_enabled=False)
+
+    disable_flags.short_description = _("Deactivate selected flags")
 
     def _flags_switch_phase(self, request, phase_name: str, enabled: List[str], disabled: List[str]):
         phase_choices: Set[str] = set([flag[0] for flag in PHASE_CHOICES])
@@ -831,11 +842,6 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
         )
 
     flags_final_phase.short_description = _("Set flags for FINAL PHASE - results")
-
-    def activate_flags(self, request, queryset):
-        queryset.update(is_enabled=True)
-
-    activate_flags.short_description = _("Activate selected flags")
 
 
 @admin.register(BlogPost)
