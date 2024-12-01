@@ -18,7 +18,18 @@
 
   <div class="container">
     <div class="section-title">{% trans "Section: " %}{{ candidate.domain.name }}</div>
-    <p class="section-text">{{ candidate.domain.description }}</p>
+
+    {% if candidate.domain.description and candidate.domain.name != candidate.domain.description %}
+      <p class="section-text">{{ candidate.domain.description }}</p>
+    {% endif %}
+
+
+    {% if candidate.old_domain %}
+      <p class="section-text">
+        Candidatura a fost depusă pe domeniul "{{ candidate.old_domain.name}}". 
+        Organizația a solicitat modificarea domeniului ca elector după evaluarea candidaturilor.
+      </p>
+    {% endif %}
   </div>
 
   <div class="container need is-flex">
