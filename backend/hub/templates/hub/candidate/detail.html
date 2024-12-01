@@ -26,7 +26,7 @@
 
     {% if candidate.old_domain %}
       <p class="section-text">
-        Candidatura a fost depusă pe domeniul "{{ candidate.old_domain.name}}". 
+        Candidatura a fost depusă pe domeniul "{{ candidate.old_domain.name }}".
         Organizația a solicitat modificarea domeniului ca elector după evaluarea candidaturilor.
       </p>
     {% endif %}
@@ -109,26 +109,29 @@
         {% endif %}
       {% endif %}
 
-      {% if can_vote_candidate %}
-        {% if voted_candidate %}
-          <span class="tag is-success">
+      {% if CANDIDATE_VOTING_ENABLED and user.is_authenticated and candidate.status == "confirmed" %}
+        {% if can_vote_candidate %}
+          {% if voted_candidate %}
+            <span class="tag is-success">
             {% trans "✔ VOTED" %}
           </span>
-          {% elif used_all_domain_votes %}
-          <span class="tag is-warning">
+            {% elif used_all_domain_votes %}
+            <span class="tag is-warning">
             {% trans "You have used all the votes allotted for this domain." %}
           </span>
-        {% else %}
-          <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">
-            {% trans "Vote" %}
-          </a>
-        {% endif %}
+          {% else %}
+            <a href="{% url 'candidate-vote' candidate.id %}" class="button is-success">
+              {% trans "Vote" %}
+            </a>
+          {% endif %}
 
-      {% else %}
-      
-        <p class="button is-disabled">
-          {% trans "Vote" %}
-        </p>
+        {% else %}
+
+          <p class="button is-disabled">
+            {% trans "You can't vote this candidate" %}
+          </p>
+
+        {% endif %}
       {% endif %}
 
     {% endif %}
