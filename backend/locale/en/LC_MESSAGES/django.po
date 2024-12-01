@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-01 17:19+0200\n"
+"POT-Creation-Date: 2024-12-01 18:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -979,7 +979,7 @@ msgstr ""
 msgid "Is proposed?"
 msgstr ""
 
-#: hub/models.py:768 hub/templates/hub/candidate/detail.html:145
+#: hub/models.py:768 hub/templates/hub/candidate/detail.html:140
 msgid "Representative name"
 msgstr "Candidate name"
 
@@ -999,7 +999,7 @@ msgstr ""
 msgid "Candidate photo"
 msgstr ""
 
-#: hub/models.py:790 hub/templates/hub/candidate/detail.html:149
+#: hub/models.py:790 hub/templates/hub/candidate/detail.html:164
 msgid "Representative statement"
 msgstr "Candidate statement"
 
@@ -1011,7 +1011,7 @@ msgid ""
 "record."
 msgstr ""
 
-#: hub/models.py:802 hub/templates/hub/candidate/detail.html:154
+#: hub/models.py:802 hub/templates/hub/candidate/detail.html:144
 msgid "Mandate"
 msgstr ""
 
@@ -1021,7 +1021,7 @@ msgid ""
 "highlighting of the domain for which it is running"
 msgstr ""
 
-#: hub/models.py:813 hub/templates/hub/candidate/detail.html:159
+#: hub/models.py:813 hub/templates/hub/candidate/detail.html:149
 msgid "Letter of intent"
 msgstr ""
 
@@ -1031,7 +1031,7 @@ msgid ""
 "CES)"
 msgstr ""
 
-#: hub/models.py:821 hub/templates/hub/candidate/detail.html:164
+#: hub/models.py:821 hub/templates/hub/candidate/detail.html:154
 msgid "CV"
 msgstr ""
 
@@ -1039,7 +1039,7 @@ msgstr ""
 msgid "Europass format CV"
 msgstr ""
 
-#: hub/models.py:829 hub/templates/hub/candidate/detail.html:169
+#: hub/models.py:829 hub/templates/hub/candidate/detail.html:159
 msgid "Declaration of interests"
 msgstr ""
 
@@ -1047,7 +1047,7 @@ msgstr ""
 msgid "Official format Declaration of interests"
 msgstr ""
 
-#: hub/models.py:837 hub/templates/hub/candidate/detail.html:174
+#: hub/models.py:837 hub/templates/hub/candidate/detail.html:169
 msgid "Fiscal record"
 msgstr ""
 
@@ -1055,7 +1055,7 @@ msgstr ""
 msgid "Fiscal record, valid at the time of submitting the candidacy"
 msgstr ""
 
-#: hub/models.py:845 hub/templates/hub/candidate/detail.html:179
+#: hub/models.py:845 hub/templates/hub/candidate/detail.html:174
 msgid "Criminal record"
 msgstr ""
 
@@ -1162,36 +1162,32 @@ msgstr ""
 msgid "Section: "
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:30
-msgid "Old Section: "
-msgstr ""
-
-#: hub/templates/hub/candidate/detail.html:99
+#: hub/templates/hub/candidate/detail.html:94
 #: hub/templates/hub/committee/candidates.html:60
 msgid "Supporters:"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:104
+#: hub/templates/hub/candidate/detail.html:99
 msgid "Confirm candidate status"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:120
+#: hub/templates/hub/candidate/detail.html:115
 msgid "✔ VOTED"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:124
+#: hub/templates/hub/candidate/detail.html:119
 msgid "You have used all the votes allotted for this domain."
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:128
+#: hub/templates/hub/candidate/detail.html:123
 msgid "Vote"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:141
+#: hub/templates/hub/candidate/detail.html:136
 msgid "Candidate information"
 msgstr ""
 
-#: hub/templates/hub/candidate/detail.html:146
+#: hub/templates/hub/candidate/detail.html:141
 msgid "Representative role"
 msgstr ""
 
