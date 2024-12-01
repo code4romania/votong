@@ -625,18 +625,28 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return reverse("ngo-detail", args=[self.pk])
 
     def _remove_votes_supports_candidates(self):
-        # Remove votes for candidates that are not in the voting domain
-        for candidate in self.candidates.all():
-            if candidate.is_proposed:
-                candidate.delete()
+        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_supporting):
+            # Remove votes for candidates that are not in the voting domain
+            # This should be done only if we're in the registering and supporting phase
+            for candidate in self.candidates.all():
+                if candidate.is_proposed:
+                    candidate.delete()
 
-        # Remove support that the organization has given
-        for supporter in CandidateSupporter.objects.filter(user__organization=self):
-            supporter.delete()
+            # Remove support that the organization has given
+            for supporter in CandidateSupporter.objects.filter(user__organization=self):
+                supporter.delete()
 
-        # Remove votes that the organization has given
-        for vote in CandidateVote.objects.filter(user__organization=self):
-            vote.delete()
+        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
+            # Remove votes that the organization has given
+            for vote in CandidateVote.objects.filter(user__organization=self):
+                vote.delete()
+
+    def _change_candidates_domain(self, voting_domain):
+        if hasattr(self, "candidate") and self.candidate:
+            self.candidate.old_domain = self.candidate.domain
+            self.candidate.domain = voting_domain
+
+            self.candidate.save()
 
     def save(self, *args, **kwargs):
         create = False if self.id else True
@@ -645,6 +655,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
             old_voting_domain = Organization.objects.filter(pk=self.pk).values_list("voting_domain", flat=True).first()
             if old_voting_domain and (not self.voting_domain or self.voting_domain.pk != old_voting_domain):
                 self._remove_votes_supports_candidates()
+                self._change_candidates_domain(self.voting_domain)
 
         if self.city:
             self.county = self.city.county
@@ -737,6 +748,15 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         verbose_name=_("Domain"),
         on_delete=models.PROTECT,
         related_name="candidates",
+        null=True,
+        blank=True,
+        help_text=_("The domain in which the candidate is running."),
+    )
+    old_domain = models.ForeignKey(
+        "Domain",
+        verbose_name=_("Old Domain"),
+        on_delete=models.PROTECT,
+        related_name="candidates_old",
         null=True,
         blank=True,
         help_text=_("The domain in which the candidate is running."),
