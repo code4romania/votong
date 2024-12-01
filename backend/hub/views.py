@@ -765,6 +765,8 @@ class CandidateDetailView(HubDetailView):
 
     def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
         context = {
+            "user_has_organization": False,
+            "organization_has_domain": False,
             "can_vote_candidate": False,
             "voted_candidate": False,
             "used_all_domain_votes": False,
@@ -783,7 +785,17 @@ class CandidateDetailView(HubDetailView):
 
         # An organization can only vote for candidates from its own domain
         user_org = user.organization
-        if user_org and not user_org.is_elector(domain):
+        if not user_org:
+            return context
+
+        context["user_has_organization"] = True
+
+        if not user_org.voting_domain:
+            return context
+
+        context["organization_has_domain"] = True
+
+        if not user_org.is_elector(domain):
             return context
 
         context["can_vote_candidate"] = True

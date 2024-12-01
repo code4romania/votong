@@ -127,10 +127,15 @@
 
         {% else %}
 
-          <p class="button is-disabled">
-            {% trans "You can't vote this candidate" %}
-          </p>
-
+          {% if not organization_has_domain %}
+            <p class="button is-disabled">
+              {% trans "You need to choose your domain" %}
+            </p>
+          {% else %}
+            <p class="button is-disabled">
+              {% trans "You can't vote" %}
+            </p>
+          {% endif %}
         {% endif %}
       {% endif %}
 
