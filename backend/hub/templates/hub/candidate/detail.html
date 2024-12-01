@@ -140,29 +140,29 @@
       <p><span class="label">{% trans 'Representative name' %}:</span> {{ candidate.name }}</p>
       <p><span class="label">{% trans 'Representative role' %}:</span> {{ candidate.role }}</p>
 
-      {% if candidate.statement %}
-        {% trans "Representative statement" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.statement.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
-      {% endif %}
-
       {% if candidate.mandate %}
         {% trans "Mandate" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.mandate.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.mandate.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
       {% endif %}
 
       {% if candidate.letter_of_intent %}
         {% trans "Letter of intent" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.letter_of_intent.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.letter_of_intent.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
       {% endif %}
 
       {% if candidate.cv %}
         {% trans "CV" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.cv.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.cv.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
       {% endif %}
 
       {% if candidate.declaration_of_interests %}
         {% trans "Declaration of interests" as doc_name %}
-        {% include "hub/partials/document.html" with document_url=candidate.declaration_of_interests.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=True %}
+        {% include "hub/partials/document.html" with document_url=candidate.declaration_of_interests.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
+      {% endif %}
+
+      {% if candidate.statement %}
+        {% trans "Representative statement" as doc_name %}
+        {% include "hub/partials/document.html" with document_url=candidate.statement.url document_name=doc_name can_view_secret_files=can_view_all_information is_secret=False %}
       {% endif %}
 
       {% if candidate.fiscal_record %}
