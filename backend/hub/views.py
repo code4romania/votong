@@ -766,7 +766,7 @@ class CandidateDetailView(HubDetailView):
         domain = candidate.domain
 
         # An organization can only vote for candidates from its own domain
-        if not user.organization.is_elector(domain):
+        if user.organization and not user.organization.is_elector(domain):
             return context
 
         context["can_vote_candidate"] = True
