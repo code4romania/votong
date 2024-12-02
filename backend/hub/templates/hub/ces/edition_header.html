@@ -20,12 +20,25 @@
     sector și propune modalități pentru a le soluționa, conduce analize și studii privind realitatea economică și
     socială din România și contribuie la implementarea de strategii, programe și standarde în ceea ce privește dialogul
     social.
+
+    <br><br>
+
+    {% if not CANDIDATE_SUPPORTING_ENABLED %}
+      {% if source == "candidates" %}
+        Află <a href="{% url 'all-proposed' %}">aici</a> care au fost toate candidaturile depuse pentru alegerea 
+        reprezentanților societății civile în cadrul Consiliului Economic și Social 2024.
+  
+      {% elif source == "all" %}
+
+      {% endif %}
+    {% endif %}
   </p>
 
 
 </div>
 
 <div class="section has-text-centered">
+  {% comment %}
   {% if not CANDIDATE_SUPPORTING_ENABLED %}
     {% if source == "candidates" %}
       <a href="{% url 'all-proposed' %}" class="button is-warning">Vezi toate propunerile</a>
@@ -33,6 +46,7 @@
       <a href="{% url 'candidates' %}" class="button is-warning">Vezi toți candidații</a>
     {% endif %}
   {% endif %}
+  {% endcomment %}
 
   <a href="{% url 'election_rules' %}" class="button is-warning">Regulament alegeri CES</a>
 

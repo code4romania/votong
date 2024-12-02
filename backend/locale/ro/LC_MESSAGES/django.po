@@ -1726,7 +1726,7 @@ msgstr "candidatura/<int:pk>/actualizare/"
 
 #: hub/urls.py:48
 msgid "candidates/all/"
-msgstr "candidatura/toti/"
+msgstr "candidatura/toate/"
 
 #: hub/urls.py:49
 msgid "candidates/votes/"
