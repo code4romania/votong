@@ -118,7 +118,7 @@
 
         {% else %}
 
-          {% if not organization_has_domain %}
+          {% if not organization_has_domain and ORG_EDITING_ENABLED %}
             <p class="button is-disabled">
               {% trans "You need to choose your domain" %}
             </p>
