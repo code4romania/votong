@@ -6,7 +6,7 @@
 
 {% block extra-header %}
   {% with header_template=CURRENT_EDITION_TYPE|add:"/edition_header.html" %}
-    {% include "hub/"|add:header_template with source="candidates" %}
+    {% include "hub/"|add:header_template with source="all" %}
   {% endwith %}
 {% endblock %}
 

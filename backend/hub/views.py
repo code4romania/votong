@@ -650,6 +650,10 @@ class CandidateListView(SearchMixin):
         return context
 
 
+class AllCandidatesListView(CandidateListView):
+    template_name = "hub/candidate/all.html"
+
+
 class CandidateResultsView(SearchMixin):
     allow_filters = ["domain"]
     paginate_by = 23

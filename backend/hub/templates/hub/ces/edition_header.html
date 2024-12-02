@@ -26,7 +26,16 @@
 </div>
 
 <div class="section has-text-centered">
+  {% if not CANDIDATE_SUPPORTING_ENABLED %}
+    {% if source == "candidates" %}
+      <a href="{% url 'all-proposed' %}" class="button is-warning">Vezi toate propunerile</a>
+    {% elif source == "all" %}
+      <a href="{% url 'candidates' %}" class="button is-warning">Vezi toți candidații</a>
+    {% endif %}
+  {% endif %}
+
   <a href="{% url 'election_rules' %}" class="button is-warning">Regulament alegeri CES</a>
+
   {% if RESULTS_ENABLED %}
     <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
   {% endif %}
