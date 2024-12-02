@@ -60,16 +60,7 @@
       </div>
 
       <div class="need-description">
-        <b>
-          Stare candidatură: <span class="status-{{ candidate.status }}">{{ candidate_status.capitalize }}</span>
-        </b>
-        {% if display_candidate_validation_label %}
-          {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
-        {% endif %}
-
-        <span class="has-tooltip-multiline is-multiline status-{{ candidate.status }}" data-tooltip="{{ candidate_status_explainer }}">
-          <i class="fas fa-question-circle"></i>
-        </span>
+        {% include "hub/candidate/components/candidate_status.html" with candidate=candidate user=user %}
       </div>
 
     </div>

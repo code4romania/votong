@@ -41,6 +41,10 @@ body {
   padding: 1em;
 }
 
+.subtitle a {
+  font-size: 1.2rem;
+}
+
 .login-text {
   font-size: 1.2rem;
   font-weight: 400;

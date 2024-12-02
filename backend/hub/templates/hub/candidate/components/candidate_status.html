@@ -1,0 +1,18 @@
+{% load hub_tags %}
+
+
+<b>
+  Stare candidatură: <span class="status-{{ candidate.status }}">{{ candidate.get_status_display.capitalize }}</span>
+</b>
+
+{% if display_candidate_validation_label %}
+  {% if user|already_confirmed_candidate_status:candidate %}(validată){% else %}(nevalidată){% endif %}
+{% endif %}
+
+{% if candidate_status_explainer %}
+
+  <span class="has-tooltip-multiline is-multiline status-{{ candidate.status }}" data-tooltip="{{ candidate_status_explainer }}">
+      <i class="fas fa-question-circle"></i>
+    </span>
+
+{% endif %}

@@ -4,32 +4,50 @@
 {% for candidate in candidates %}
 
   <div class="need is-flex container infinite-item">
-    <div class="card-image need-logo is-hidden-mobile">
-      {% if candidate.photo %}
-        <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
-      {% else %}
-        <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
-      {% endif %}
-    </div>
+
+    {% if display_photo %}
+      <div class="card-image need-logo is-hidden-mobile">
+        {% if candidate.photo %}
+          <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+        {% else %}
+          <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+        {% endif %}
+      </div>
+    {% endif %}
 
     <div class="card-info">
-      <div class="flex-align-center">
-        <div class="card-image need-logo is-hidden-tablet">
-          {% if candidate.photo %}
-            <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
-          {% else %}
-            <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
-          {% endif %}
+
+      {% if display_photo %}
+        <div class="flex-align-center">
+          <div class="card-image need-logo is-hidden-tablet">
+            {% if candidate.photo %}
+              <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}">
+            {% else %}
+              <img src="{% static 'images/photo-placeholder.gif' %}" alt="{{ candidate.name }}">
+            {% endif %}
+          </div>
+          <div class="need-title is-hidden-tablet">{{ candidate.name }}</div>
         </div>
-        <div class="need-title is-hidden-tablet">{{ candidate.name }}</div>
-      </div>
+      {% endif %}
+
       <div class="need-subtitle is-hidden-mobile">{{ candidate.org }}</div>
       <div class="need-title is-hidden-mobile">
         <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{ candidate.name }}</a>
       </div>
-      {% comment %}
-        <div class="need-description is-hidden-mobile">{{ candidate.experience }}</div> {% endcomment %}
-      <div class="need-subtitle">Secțiune: {{ candidate.domain.name }}</div>
+
+      {% if display_status %}
+        <div class="need-subtitle">
+          {% include "hub/candidate/components/candidate_status.html" with candidate=candidate user=user %}
+        </div>
+      {% endif %}
+
+      {% if display_experience %}
+        <div class="need-description is-hidden-mobile">{{ candidate.experience }}</div>
+      {% endif %}
+
+      {% if display_domain %}
+        <div class="need-subtitle">Secțiune: {{ candidate.domain.name }}</div>
+      {% endif %}
     </div>
 
     <div class="need-call2action">
