@@ -207,7 +207,10 @@ class OrganizationUpdateForm(forms.ModelForm):
                 self.fields[field_name].disabled = True
 
             if "voting_domain" in self.fields:
-                self.fields["voting_domain"].disabled = self.instance.voting_domain is not None
+                if not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_org_editing):
+                    self.fields["voting_domain"].disabled = True
+                else:
+                    self.fields["voting_domain"].disabled = self.instance.voting_domain is not None
 
             return
 
@@ -309,7 +312,6 @@ class CandidateCommonForm(forms.ModelForm):
 
 
 class CandidateRegisterForm(CandidateCommonForm):
-
     class Meta(CandidateCommonForm.Meta):
         widgets = {
             "is_proposed": forms.HiddenInput(),
@@ -344,7 +346,6 @@ class CandidateRegisterForm(CandidateCommonForm):
 
 
 class CandidateUpdateForm(CandidateCommonForm):
-
     class Meta(CandidateCommonForm.Meta):
         exclude: List[str] = ["org", "initial_org", "status", "status_changed"]
 
