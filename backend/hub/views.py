@@ -511,7 +511,11 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         ):
             return super().post(request, *args, **kwargs)
 
-        return redirect(reverse("ngo-update", args=(self.object.id,)))
+        ngo_id = self.kwargs.get("pk")
+        if not ngo_id:
+            return redirect("home")
+
+        return redirect(reverse("ngo-update", args=(ngo_id,)))
 
 
 @permission_required_or_403("hub.approve_organization")
