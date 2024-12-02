@@ -43,7 +43,7 @@
       </h2>
     {% endif %}
 
-    {% trans "Proposed candidates" as section_title %}
+    {% trans "All candidates" as section_title %}
 
     {% if page_obj and not SINGLE_DOMAIN_ROUND %}
 
@@ -52,7 +52,7 @@
     {% else %}
 
       <h2 class="section-title uppercase">
-        {{ section_title }} ({{ counters.candidates_pending }})
+        {{ section_title }}
       </h2>
 
     {% endif %}
@@ -60,15 +60,21 @@
     <div class="container">
       {% if page_obj %}
 
-        {% cache listing_cache_duration candidates_list listing_cache_key %}
-        <div class="is-multiline infinite-container">
-
-          {% if not SINGLE_DOMAIN_ROUND %}
-              {% include "hub/candidate/components/listing_by_voting_domain.html" %}
-          {% else %}
-            {% include "hub/candidate/components/listing_detail.html" %}
-          {% endif %}
-        </div>
+        {% cache listing_cache_duration all_candidates_list listing_cache_key %}
+        <ul>
+          {% for candidate in candidates %}
+          <li>
+            {{ candidate.name }} 
+            ({{ candidate.org }})
+            &nbsp;
+            {% if candidate.status == 'confirmed' %}
+              ✓
+            {% elif candidate.status == 'rejected' %}
+              ✗
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
         {% endcache %}
 
       {% endif %}

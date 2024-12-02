@@ -653,6 +653,15 @@ class CandidateListView(SearchMixin):
 class AllCandidatesListView(CandidateListView):
     template_name = "hub/candidate/all.html"
 
+    def get_qs(self):
+        queryset = Candidate.objects_with_org.filter(
+            org__status=Organization.STATUS.accepted,
+            status__in=(Candidate.STATUS.confirmed, Candidate.STATUS.rejected),
+            is_proposed=True,
+        ).select_related("org").prefetch_related("domain")
+
+        return queryset
+
 
 class CandidateResultsView(SearchMixin):
     allow_filters = ["domain"]

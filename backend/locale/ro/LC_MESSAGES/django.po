@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 10:51+0200\n"
+"POT-Creation-Date: 2024-12-02 13:36+0200\n"
 "PO-Revision-Date: 2020-04-23 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1204,9 +1204,8 @@ msgid "Search..."
 msgstr "Caută..."
 
 #: hub/templates/hub/candidate/all.html:46
-#: hub/templates/hub/candidate/list.html:46
-msgid "Proposed candidates"
-msgstr "Candidați propuși"
+msgid "All candidates"
+msgstr "Toți candidații"
 
 #: hub/templates/hub/candidate/components/listing_detail.html:39
 #: hub/templates/hub/candidate/results.html:65
@@ -1255,6 +1254,10 @@ msgstr "Informații candidatură"
 #: hub/templates/hub/candidate/detail.html:154
 msgid "Representative role"
 msgstr "Funcție reprezentant"
+
+#: hub/templates/hub/candidate/list.html:46
+msgid "Proposed candidates"
+msgstr "Candidați propuși"
 
 #: hub/templates/hub/candidate/register_request.html:34
 #: hub/templates/hub/candidate/update.html:28
@@ -1827,63 +1830,63 @@ msgstr ""
 msgid "You must write a rejection message."
 msgstr "Trebuie să completați un motiv de respingere."
 
-#: hub/views.py:831
+#: hub/views.py:840
 msgid "The candidate has been proposed and is gathering the necessary support."
 msgstr "Candidatura a fost propusă și strânge susțineri"
 
-#: hub/views.py:835
+#: hub/views.py:844
 msgid ""
 "The candidate has been approved by the admins and is waiting for validation."
 msgstr "Candidatura a fost trimisă spre validare Comisiei Electorale"
 
-#: hub/views.py:839
+#: hub/views.py:848
 msgid ""
 "The candidate has been validated by the electoral commission and can be "
 "voted."
 msgstr "Candidatura a fost validată de Comisia Electorală și poate fi votată"
 
-#: hub/views.py:843
+#: hub/views.py:852
 msgid ""
 "The candidate has been rejected by the admins or the electoral commission."
 msgstr "Candidatura a fost respinsă"
 
-#: hub/views.py:916
+#: hub/views.py:925
 msgid "User is not authenticated."
 msgstr "Utilizatorul nu este autentificat."
 
-#: hub/views.py:921
+#: hub/views.py:930
 msgid "Authenticated user does not have an organization."
 msgstr "Utilizatorul autentificat nu are o organizație."
 
-#: hub/views.py:1016
+#: hub/views.py:1025
 msgid "Candidate editing disabled"
 msgstr "Editarea candidaților este închisă"
 
-#: hub/views.py:1023
+#: hub/views.py:1032
 msgid "No user organization"
 msgstr "Utilizator fără organizație"
 
-#: hub/views.py:1026
+#: hub/views.py:1035
 msgid "No candidate"
 msgstr "Niciun candidat"
 
-#: hub/views.py:1029
+#: hub/views.py:1038
 msgid "Candidate does not belong to user organization"
 msgstr "Candidatul nu ține de organizația utilizatorului"
 
-#: hub/views.py:1047
+#: hub/views.py:1056
 msgid "A candidate can't be voted twice by the same organization."
 msgstr "Un candidat nu poate fi votat de două ori de aceeași organizație"
 
-#: hub/views.py:1159
+#: hub/views.py:1168
 msgid "Cannot delete another user's confirmations"
 msgstr "Nu poți șterge confirmările altui utilizator"
 
-#: hub/views.py:1164
+#: hub/views.py:1173
 msgid "Confirmations successfully deleted"
 msgstr "Confirmările au fost șterse cu succes"
 
-#: hub/views.py:1189
+#: hub/views.py:1198
 #, python-format
 msgid "Please wait %(minutes_threshold)s minutes before updating again."
 msgstr ""
