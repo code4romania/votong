@@ -23,6 +23,7 @@ def hub_settings(_: HttpRequest) -> Dict[str, Any]:
     candidate_confirmation_enabled = flags.get(FLAG_CHOICES.enable_candidate_confirmation, False)
     results_enabled = flags.get(FLAG_CHOICES.enable_results_display, False)
     org_approval_enabled = flags.get(FLAG_CHOICES.enable_org_approval, False)
+    org_editing_enabled = flags.get(FLAG_CHOICES.enable_org_editing, False)
     org_registration_enabled = flags.get(FLAG_CHOICES.enable_org_registration, False)
 
     return {
@@ -44,6 +45,7 @@ def hub_settings(_: HttpRequest) -> Dict[str, Any]:
         "CANDIDATE_CONFIRMATION_ENABLED": candidate_confirmation_enabled,
         "RESULTS_ENABLED": results_enabled,
         "ORG_APPROVAL_ENABLED": org_approval_enabled,
+        "ORG_EDITING_ENABLED": org_editing_enabled,
         "ORG_REGISTRATION_ENABLED": org_registration_enabled,
         # Settings flags
         "GLOBAL_SUPPORT_ENABLED": flags.get(SETTINGS_CHOICES.global_support_round, False),

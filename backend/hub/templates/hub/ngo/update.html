@@ -137,7 +137,11 @@
         {{ form|crispy }}
 
         <div class="has-text-right">
-          <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+          {% if CANDIDATE_EDITING_ENABLED or ORG_EDITING_ENABLED %}
+            <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+          {% else %}
+            <input class="button" disabled="disabled" value='{% trans "Update organization" %}'>
+          {% endif %}
         </div>
 
       </form>
