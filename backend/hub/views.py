@@ -574,7 +574,7 @@ def organization_vote(request, pk, action):
 
 class CandidateListView(SearchMixin):
     allow_filters = ["domain"]
-    paginate_by = 9
+    paginate_by = 200
     template_name = "hub/candidate/list.html"
 
     @classmethod
