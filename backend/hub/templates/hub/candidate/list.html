@@ -59,20 +59,20 @@
 
     <div class="container">
       {% if page_obj %}
-
         {% cache listing_cache_duration candidates_list listing_cache_key %}
-        <div class="is-multiline infinite-container">
+          <div class="is-multiline infinite-container">
 
-          {% if not SINGLE_DOMAIN_ROUND %}
+            {% if not SINGLE_DOMAIN_ROUND %}
               {% include "hub/candidate/components/listing_by_voting_domain.html" %}
-          {% else %}
-            {% include "hub/candidate/components/listing_detail.html" %}
-          {% endif %}
-        </div>
-        {% endcache %}
+            {% else %}
+              {% include "hub/candidate/components/listing_detail.html" with candidates=page_obj.object_list display_photo=True display_domain=True %}
+            {% endif %}
 
+          </div>
+        {% endcache %}
       {% endif %}
     </div>
+
   {% endif %}
 
 {% endblock %}

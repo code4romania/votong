@@ -2,7 +2,7 @@ import logging
 import unicodedata
 import hashlib
 from datetime import datetime
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Union
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -181,16 +181,11 @@ class HomeView(MenuMixin, SuccessMessageMixin, FormView):
 
 
 class SearchMixin(MenuMixin, ListView):
-    search_cache: Optional[Dict] = {}
-
     def search(self, queryset):
         # TODO: it should take into account selected language. Check only romanian for now.
         query = self.request.GET.get("q")
         if not query:
             return queryset
-
-        if query_cache := self.search_cache.get(query):
-            return query_cache
 
         search_query = SearchQuery(query, config="romanian_unaccent")
 
@@ -205,8 +200,6 @@ class SearchMixin(MenuMixin, ListView):
             .order_by("name")
             .distinct("name")
         )
-
-        self.search_cache[query] = result
 
         return result
 
@@ -653,18 +646,16 @@ class CandidateListView(SearchMixin):
 class AllCandidatesListView(CandidateListView):
     template_name = "hub/candidate/all.html"
 
-    def get_qs(self):
-        queryset = (
-            Candidate.objects_with_org.filter(
-                org__status=Organization.STATUS.accepted,
-                status__in=(Candidate.STATUS.confirmed, Candidate.STATUS.rejected),
-                is_proposed=True,
-            )
-            .select_related("org")
-            .prefetch_related("domain")
-        )
+    def get_queryset(self):
+        qs = self.search(self.get_candidates_pending())
 
-        return queryset
+        filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
+
+        queryset_filtered = qs.filter(**filters)
+
+        queryset_filtered = queryset_filtered.order_by("status", "domain__id", "name")
+
+        return queryset_filtered
 
 
 class CandidateResultsView(SearchMixin):

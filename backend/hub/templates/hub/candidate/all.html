@@ -19,7 +19,7 @@
     {% endblock %}
 
     <div class="search-wrapper container is-flex">
-      <form action="{% url 'candidates' %}" method="GET">
+      <form action="" method="GET">
         <div class="field border-b">
           <p class="control has-icons-right ">
             <label class="search-icon">
@@ -43,39 +43,14 @@
       </h2>
     {% endif %}
 
-    {% trans "All candidates" as section_title %}
-
-    {% if page_obj and not SINGLE_DOMAIN_ROUND %}
-
-      {% include "hub/candidate/components/expandable_voting_domains.html" with section_title=section_title %}
-
-    {% else %}
-
-      <h2 class="section-title uppercase">
-        {{ section_title }}
-      </h2>
-
-    {% endif %}
+    <h2 class="section-title uppercase">
+      {% trans "All candidates" %}
+    </h2>
 
     <div class="container">
       {% if page_obj %}
 
-        {% cache listing_cache_duration all_candidates_list listing_cache_key %}
-        <ul>
-          {% for candidate in candidates %}
-          <li>
-            {{ candidate.name }} 
-            ({{ candidate.org }})
-            &nbsp;
-            {% if candidate.status == 'confirmed' %}
-              ✓
-            {% elif candidate.status == 'rejected' %}
-              ✗
-            {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-        {% endcache %}
+        {% include "hub/candidate/components/listing_detail.html" with candidates=page_obj.object_list display_status=True %}
 
       {% endif %}
     </div>
