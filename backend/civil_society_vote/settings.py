@@ -70,6 +70,8 @@ env = environ.Env(
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 3 * MEBIBYTE),
     MAX_DOCUMENT_SIZE=(int, 50 * MEBIBYTE),
     IMPERSONATE_READ_ONLY=(bool, False),
+    ENABLE_CACHE=(bool, True),
+    SEARCH_CACHE_LIMIT=(int, 50),
     # db settings
     # DATABASE_ENGINE=(str, "sqlite3"),
     DATABASE_NAME=(str, "default"),
@@ -293,6 +295,8 @@ CACHES["file_resubmit"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
     "LOCATION": "/tmp/file_resubmit/",
 }
+
+SEARCH_CACHE_LIMIT = env.int("SEARCH_CACHE_LIMIT")
 
 TIMEOUT_CACHE_SHORT = 60  # 1 minute
 TIMEOUT_CACHE_NORMAL = 60 * 15  # 15 minutes
