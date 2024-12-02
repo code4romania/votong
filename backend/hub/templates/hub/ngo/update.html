@@ -53,23 +53,6 @@
     <br><br>
   {% endif %}
 
-  {% if voting_domain_warning %}
-
-    <div class="message is-warning">
-      <div class="message-body">
-        <p>
-          <strong>
-            <i class="fas fa-exclamation-triangle"></i>
-            {% trans "Warning!" %}
-          </strong>
-        </p>
-        <p>
-          {{ voting_domain_warning }}
-        </p>
-      </div>
-    </div>
-
-  {% endif %}
 
   <div class="container">
     {% if messages %}
@@ -82,36 +65,56 @@
       </article>
     {% endif %}
 
-    {% if not organization.is_fully_editable %}
-      <div class="message {{ update_button_class }}">
-        <div class="message-body flex-align-center">
-          <form
-            id="update-ngo-form"
-            method="post"
-            action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
-            {% csrf_token %}
-            <button
-              class="button {{ update_button_class }} is-small update-ngo-button"
-              type="submit"
-              title="{% trans 'Refresh NGO Information' %}">
-              <i class="fas fa-sync"></i>
-            </button>
-          </form>
 
-          {% if organization.status == "pending" %}
-            <h4 style="padding-right: 2rem" class="is-danger">
-              {% trans "Some data wasn't found on NGO Hub." %}
-            </h4>
-          {% endif %}
-
-          <p class="has-text-grey-dark">
+    {% if voting_domain_warning and ORG_EDITING_ENABLED %}
+      <div class="message is-warning">
+        <div class="message-body">
+          <p>
             <strong>
-              {{ update_button_message }}
+              <i class="fas fa-exclamation-triangle"></i>
+              {% trans "Warning!" %}
             </strong>
-            ({{ update_button_description }})
+          </p>
+          <p>
+            {{ voting_domain_warning }}
           </p>
         </div>
       </div>
+    {% endif %}
+
+    {% if not organization.is_fully_editable %}
+
+      {% if ORG_EDITING_ENABLED %}
+        <div class="message {{ update_button_class }}">
+          <div class="message-body flex-align-center">
+            <form
+              id="update-ngo-form"
+              method="post"
+              action="{% url 'ngo-update-post' organization.id %}?return_url={{ request.path }}">
+              {% csrf_token %}
+              <button
+                class="button {{ update_button_class }} is-small update-ngo-button"
+                type="submit"
+                title="{% trans 'Refresh NGO Information' %}">
+                <i class="fas fa-sync"></i>
+              </button>
+            </form>
+
+            {% if organization.status == "pending" %}
+              <h4 style="padding-right: 2rem" class="is-danger">
+                {% trans "Some data wasn't found on NGO Hub." %}
+              </h4>
+            {% endif %}
+
+            <p class="has-text-grey-dark">
+              <strong>
+                {{ update_button_message }}
+              </strong>
+              ({{ update_button_description }})
+            </p>
+          </div>
+        </div>
+      {% endif %}
 
       <form class="ces-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -137,7 +140,11 @@
         {{ form|crispy }}
 
         <div class="has-text-right">
-          <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+          {% if CANDIDATE_EDITING_ENABLED or ORG_EDITING_ENABLED %}
+            <input class="button is-success" type="submit" value='{% trans "Update organization" %}'>
+          {% else %}
+            <input class="button" disabled="disabled" value='{% trans "Update organization" %}'>
+          {% endif %}
         </div>
 
       </form>

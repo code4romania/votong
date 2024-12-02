@@ -43,6 +43,7 @@ from hub.forms import (
     OrganizationUpdateForm,
 )
 from hub.models import (
+    FLAG_CHOICES,
     PHASE_CHOICES,
     SETTINGS_CHOICES,
     BlogPost,
@@ -505,7 +506,16 @@ class OrganizationUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpd
         return reverse("ngo-update", args=(self.object.id,))
 
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_org_editing) or FeatureFlag.flag_enabled(
+            FLAG_CHOICES.enable_candidate_editing
+        ):
+            return super().post(request, *args, **kwargs)
+
+        ngo_id = self.kwargs.get("pk")
+        if not ngo_id:
+            return redirect("home")
+
+        return redirect(reverse("ngo-update", args=(ngo_id,)))
 
 
 @permission_required_or_403("hub.approve_organization")
