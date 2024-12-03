@@ -828,11 +828,11 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
             phase_name=_("FINAL PHASE - results"),
             enabled=[
                 "enable_results_display",
+            ],
+            disabled=[
                 "enable_org_registration",
                 "enable_org_editing",
                 "enable_org_approval",
-            ],
-            disabled=[
                 "enable_candidate_registration",
                 "enable_candidate_editing",
                 "enable_candidate_supporting",
