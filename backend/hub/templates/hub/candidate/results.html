@@ -53,9 +53,15 @@
                 <div class="need-title is-hidden-mobile">
                   <a class="has-text-black" href="{% url 'candidate-detail' candidate.pk %}">{{ candidate.name }}</a>
                 </div>
+
                 {% if forloop.counter <= domain.seats %}
-                  <div class="need-title has-text-success">Câștigător (rezultate finale)</div>
+                  {% if FINAL_RESULTS_ENABLED %}
+                    <div class="need-title has-text-success">Câștigător (rezultate finale)</div>
+                  {% else %}
+                    <div class="need-title has-text-success">Câștigător</div>
+                  {% endif %}
                 {% endif %}
+
                 <div class="need-title">Voturi: {{ candidate.count_votes }}</div>
               </div>
 

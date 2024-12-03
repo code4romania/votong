@@ -113,6 +113,7 @@ PHASE_CHOICES = Choices(
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("enable_candidate_confirmation", _("Enable candidate confirmation")),
     ("enable_results_display", _("Enable the display of results")),
+    ("enable_final_results_display", _("Enable the display of results after resolving all complaints")),
 )
 SETTINGS_CHOICES = Choices(
     ("single_domain_round", _("Voting round with just one domain (some restrictions will apply)")),
