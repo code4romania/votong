@@ -304,7 +304,7 @@ class CandidateCommonForm(forms.ModelForm):
     class Meta:
         model = Candidate
 
-        exclude: List[str] = ["initial_org", "status", "status_changed"]
+        exclude: List[str] = ["initial_org", "status", "status_changed", "old_domain"]
 
         widgets: Dict = {
             "is_proposed": forms.HiddenInput(),
