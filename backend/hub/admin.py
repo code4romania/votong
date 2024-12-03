@@ -734,6 +734,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_confirmation",
                 "enable_candidate_voting",
                 "enable_results_display",
+                "enable_final_results_display",
             ],
         )
 
@@ -754,6 +755,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_confirmation",
                 "enable_candidate_voting",
                 "enable_results_display",
+                "enable_final_results_display",
             ],
         )
 
@@ -775,6 +777,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_confirmation",
                 "enable_candidate_voting",
                 "enable_results_display",
+                "enable_final_results_display",
             ],
         )
 
@@ -796,6 +799,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_supporting",
                 "enable_candidate_voting",
                 "enable_results_display",
+                "enable_final_results_display",
             ],
         )
 
@@ -815,8 +819,9 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_registration",
                 "enable_candidate_editing",
                 "enable_candidate_supporting",
-                "enable_results_display",
                 "enable_candidate_confirmation",
+                "enable_results_display",
+                "enable_final_results_display",
             ],
         )
 
@@ -838,6 +843,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 "enable_candidate_supporting",
                 "enable_candidate_voting",
                 "enable_candidate_confirmation",
+                "enable_final_results_display",
             ],
         )
 
