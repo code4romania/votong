@@ -5,7 +5,7 @@ from django.http import HttpRequest
 from django.urls import reverse
 
 from civil_society_vote.common.cache import cache_decorator
-from hub.models import FLAG_CHOICES, FeatureFlag, SETTINGS_CHOICES
+from hub.models import FLAG_CHOICES, FeatureFlag
 
 
 @cache_decorator(cache_key="hub_settings", timeout=settings.TIMEOUT_CACHE_SHORT)
@@ -21,7 +21,10 @@ def hub_settings(_: HttpRequest) -> Dict[str, Any]:
     candidate_supporting_enabled = flags.get(FLAG_CHOICES.enable_candidate_supporting, False)
     candidate_voting_enabled = flags.get(FLAG_CHOICES.enable_candidate_voting, False)
     candidate_confirmation_enabled = flags.get(FLAG_CHOICES.enable_candidate_confirmation, False)
+
     results_enabled = flags.get(FLAG_CHOICES.enable_results_display, False)
+    final_results_enabled = flags.get(FLAG_CHOICES.enable_final_results_display, False)
+
     org_approval_enabled = flags.get(FLAG_CHOICES.enable_org_approval, False)
     org_editing_enabled = flags.get(FLAG_CHOICES.enable_org_editing, False)
     org_registration_enabled = flags.get(FLAG_CHOICES.enable_org_registration, False)
@@ -44,13 +47,14 @@ def hub_settings(_: HttpRequest) -> Dict[str, Any]:
         "CANDIDATE_VOTING_ENABLED": candidate_voting_enabled,
         "CANDIDATE_CONFIRMATION_ENABLED": candidate_confirmation_enabled,
         "RESULTS_ENABLED": results_enabled,
+        "FINAL_RESULTS_ENABLED": final_results_enabled,
         "ORG_APPROVAL_ENABLED": org_approval_enabled,
         "ORG_EDITING_ENABLED": org_editing_enabled,
         "ORG_REGISTRATION_ENABLED": org_registration_enabled,
         # Settings flags
-        "GLOBAL_SUPPORT_ENABLED": flags.get(SETTINGS_CHOICES.global_support_round, False),
-        "VOTING_DOMAIN_ENABLED": flags.get(SETTINGS_CHOICES.enable_voting_domain, False),
-        "SINGLE_DOMAIN_ROUND": flags.get(SETTINGS_CHOICES.single_domain_round, False),
+        "GLOBAL_SUPPORT_ENABLED": flags.get(FLAG_CHOICES.global_support_round, False),
+        "VOTING_DOMAIN_ENABLED": flags.get(FLAG_CHOICES.enable_voting_domain, False),
+        "SINGLE_DOMAIN_ROUND": flags.get(FLAG_CHOICES.single_domain_round, False),
         # Composite flags
         "ELECTION_IN_PROGRESS": (
             candidate_registration_enabled
