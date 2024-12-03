@@ -601,7 +601,9 @@ class CandidateListView(SearchMixin):
         )
 
     def get_qs(self):
-        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
+        if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting) or FeatureFlag.flag_enabled(
+            PHASE_CHOICES.enable_pending_results
+        ):
             return self.get_candidates_to_vote()
 
         if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_results_display):

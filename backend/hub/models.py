@@ -112,6 +112,7 @@ PHASE_CHOICES = Choices(
     ("enable_candidate_supporting", _("Enable candidate supporting")),
     ("enable_candidate_voting", _("Enable candidate voting")),
     ("enable_candidate_confirmation", _("Enable candidate confirmation")),
+    ("enable_pending_results", _("Enable the phase when waiting for the display of results")),
     ("enable_results_display", _("Enable the display of results")),
     ("enable_final_results_display", _("Enable the display of results after resolving all complaints")),
 )
