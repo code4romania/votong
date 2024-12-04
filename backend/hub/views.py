@@ -677,7 +677,7 @@ class CandidateResultsView(SearchMixin):
 
     def get_qs(self):
         if FeatureFlag.flag_enabled("enable_results_display") or (
-            self.request.user and self.request.user.in_staff_groups()
+            not self.request.user.is_anonymous and self.request.user.in_staff_groups()
         ):
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
