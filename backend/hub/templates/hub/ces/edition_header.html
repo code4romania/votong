@@ -25,11 +25,11 @@
 
     {% if not CANDIDATE_SUPPORTING_ENABLED %}
       {% if source == "candidates" %}
-        Află <a href="{% url 'all-proposed' %}">aici</a> care au fost toate candidaturile depuse pentru alegerea 
+        Află <a href="{% url 'all-proposed' %}">aici</a> care au fost toate candidaturile depuse pentru alegerea
         reprezentanților societății civile în cadrul Consiliului Economic și Social 2024.
-  
+
       {% elif source == "all" %}
-        Vezi <a href="{% url 'candidates' %}">aici</a> toate candidaturile acceptate pentru alegerea 
+        Vezi <a href="{% url 'candidates' %}">aici</a> toate candidaturile acceptate pentru alegerea
         reprezentanților societății civile în cadrul Consiliului Economic și Social 2024.
 
       {% endif %}
@@ -41,18 +41,22 @@
 
 <div class="section has-text-centered">
   {% comment %}
-  {% if not CANDIDATE_SUPPORTING_ENABLED %}
-    {% if source == "candidates" %}
-      <a href="{% url 'all-proposed' %}" class="button is-warning">Vezi toate propunerile</a>
-    {% elif source == "all" %}
-      <a href="{% url 'candidates' %}" class="button is-warning">Vezi toți candidații</a>
+    {% if not CANDIDATE_SUPPORTING_ENABLED %}
+      {% if source == "candidates" %}
+        <a href="{% url 'all-proposed' %}" class="button is-warning">Vezi toate propunerile</a>
+      {% elif source == "all" %}
+        <a href="{% url 'candidates' %}" class="button is-warning">Vezi toți candidații</a>
+      {% endif %}
     {% endif %}
-  {% endif %}
   {% endcomment %}
 
   <a href="{% url 'election_rules' %}" class="button is-warning">Regulament alegeri CES</a>
 
   {% if RESULTS_ENABLED %}
-    <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
+    {% if FINAL_RESULTS_ENABLED %}
+      <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
+    {% else %}
+      <a href="{% url 'results' %}" class="button is-warning">Vezi Rezultatele finale</a>
+    {% endif %}
   {% endif %}
 </div>

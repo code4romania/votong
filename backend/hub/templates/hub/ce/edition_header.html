@@ -26,6 +26,10 @@
 <div class="section has-text-centered">
   <a href="{% url 'election_rules' %}" class="button is-warning">Regulament alegeri CE</a>
   {% if RESULTS_ENABLED %}
-    <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
+    {% if FINAL_RESULTS_ENABLED %}
+      <a href="{% url 'results' %}" class="button is-warning">Rezultate finale</a>
+    {% else %}
+      <a href="{% url 'results' %}" class="button is-warning">Vezi Rezultatele finale</a>
+    {% endif %}
   {% endif %}
 </div>
