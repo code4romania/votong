@@ -655,7 +655,7 @@ class CandidateListView(SearchMixin):
         return context
 
 
-class AllCandidatesListView(CandidateListView):
+class CandidatesAllListView(CandidateListView):
     template_name = "hub/candidate/all.html"
 
     def get_queryset(self):

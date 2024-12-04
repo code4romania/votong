@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 from hub.views import (
-    AllCandidatesListView,
+    CandidatesAllListView,
     BlogListView,
     BlogPostView,
     CandidateDetailView,
@@ -45,7 +45,7 @@ urlpatterns = [
     path(_("candidates/<int:pk>/revoke/"), candidate_revoke, name="candidate-revoke"),
     path(_("candidates/<int:pk>/status-confirm/"), candidate_status_confirm, name="candidate-status-confirm"),
     path(_("candidates/<int:pk>/update/"), CandidateUpdateView.as_view(), name="candidate-update"),
-    path(_("candidates/all/"), AllCandidatesListView.as_view(), name="all-proposed"),
+    path(_("candidates/all/"), CandidatesAllListView.as_view(), name="all-proposed"),
     path(_("candidates/votes/"), ElectorCandidatesListView.as_view(), name="votes"),
     path(_("candidates/results/"), CandidateResultsView.as_view(), name="results"),
     path(

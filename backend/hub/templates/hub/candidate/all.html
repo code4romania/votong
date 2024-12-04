@@ -13,48 +13,45 @@
 
 {% block left-side-view %}
 
-  {% if should_display_candidates %}
+  {% block domain-filters %}
+  {% endblock %}
 
-    {% block domain-filters %}
-    {% endblock %}
+  <div class="search-wrapper container is-flex">
+    <form action="" method="GET">
+      <div class="field border-b">
+        <p class="control has-icons-right ">
+          <label class="search-icon">
+            <input
+              class="input search-input"
+              type="text"
+              name="q"
+              value="{{ current_search }}"
+              placeholder="{% trans 'Search...' %}">
+            <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
+            <input type="submit" style="display: none;"/>
+          </label>
+        </p>
+      </div>
+    </form>
+  </div>
 
-    <div class="search-wrapper container is-flex">
-      <form action="" method="GET">
-        <div class="field border-b">
-          <p class="control has-icons-right ">
-            <label class="search-icon">
-              <input
-                class="input search-input"
-                type="text"
-                name="q"
-                value="{{ current_search }}"
-                placeholder="{% trans 'Search...' %}">
-              <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
-              <input type="submit" style="display: none;"/>
-            </label>
-          </p>
-        </div>
-      </form>
-    </div>
-
-    {% if current_domain %}
-      <h2 class="section-title uppercase">
-        <span class="is-4"><<</span> <a href="{% url 'candidates' %}">{% trans "Back" %}</a>
-      </h2>
-    {% endif %}
-
+  {% if current_domain %}
     <h2 class="section-title uppercase">
-      {% trans "All candidates" %}
+      <span class="is-4"><<</span> <a href="{% url 'candidates' %}">{% trans "Back" %}</a>
     </h2>
-
-    <div class="container">
-      {% if page_obj %}
-
-        {% include "hub/candidate/components/listing_detail.html" with candidates=page_obj.object_list display_status=True %}
-
-      {% endif %}
-    </div>
   {% endif %}
+
+  <h2 class="section-title uppercase">
+    {% trans "All candidates" %}
+  </h2>
+
+  <div class="container">
+    {% if page_obj %}
+
+      {% include "hub/candidate/components/listing_detail.html" with candidates=page_obj.object_list display_status=True %}
+
+    {% endif %}
+  </div>
 
 {% endblock %}
 
