@@ -590,7 +590,7 @@ class CandidateListView(SearchMixin):
         )
 
     @classmethod
-    def get_candidates_pending(cls):
+    def get_candidates_proposed(cls):
         return (
             Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
@@ -609,7 +609,7 @@ class CandidateListView(SearchMixin):
         if FeatureFlag.flag_enabled(PHASE_CHOICES.enable_results_display):
             return Candidate.objects_with_org.none()
 
-        return self.get_candidates_pending()
+        return self.get_candidates_proposed()
 
     def get_queryset(self):
         qs = self.search(self.get_qs())
@@ -659,7 +659,7 @@ class CandidatesAllListView(CandidateListView):
     template_name = "hub/candidate/all.html"
 
     def get_queryset(self):
-        qs = self.search(self.get_candidates_pending())
+        qs = self.search(self.get_candidates_proposed())
 
         filters = {name: self.request.GET[name] for name in self.allow_filters if self.request.GET.get(name)}
 
