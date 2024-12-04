@@ -676,7 +676,9 @@ class CandidateResultsView(SearchMixin):
     template_name = "hub/candidate/results.html"
 
     def get_qs(self):
-        if FeatureFlag.flag_enabled("enable_results_display") or self.request.in_staff_groups():
+        if FeatureFlag.flag_enabled("enable_results_display") or (
+            self.request.user and self.request.user.in_staff_groups()
+        ):
             return Candidate.objects_with_org.filter(
                 org__status=Organization.STATUS.accepted,
                 status=Candidate.STATUS.confirmed,
