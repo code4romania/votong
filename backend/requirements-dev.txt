@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements.txt
     #   django
-asttokens==2.4.1
+asttokens==3.0.0
     # via stack-data
 attrs==24.2.0
     # via wmctrl
@@ -16,12 +16,12 @@ black==24.10.0
     # via -r requirements-dev.in
 blessed==1.20.0
     # via -r requirements.txt
-boto3==1.35.69
+boto3==1.35.74
     # via
     #   -r requirements.txt
     #   django-ses
     #   pycognito
-botocore==1.35.69
+botocore==1.35.74
     # via
     #   -r requirements.txt
     #   boto3
@@ -52,7 +52,7 @@ coverage==7.6.8
     # via pytest-cov
 croniter==3.0.4
     # via -r requirements.txt
-cryptography==43.0.3
+cryptography==44.0.0
     # via
     #   -r requirements.txt
     #   pyjwt
@@ -225,7 +225,7 @@ pygments==2.18.0
     # via
     #   ipython
     #   pdbpp
-pyjwt==2.10.0
+pyjwt==2.10.1
     # via
     #   -r requirements.txt
     #   pycognito
@@ -235,7 +235,7 @@ pyproject-hooks==1.2.0
     #   pip-tools
 pyrepl==0.9.0
     # via fancycompleter
-pytest==8.3.3
+pytest==8.3.4
     # via
     #   -r requirements-dev.in
     #   pytest-cov
@@ -276,7 +276,6 @@ sentry-sdk==2.17.0
 six==1.16.0
     # via
     #   -r requirements.txt
-    #   asttokens
     #   blessed
     #   django-spurl
     #   python-dateutil
@@ -326,7 +325,7 @@ zope-event==5.0
     # via
     #   -r requirements.txt
     #   gevent
-zope-interface==7.1.1
+zope-interface==7.2
     # via
     #   -r requirements.txt
     #   gevent
