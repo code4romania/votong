@@ -672,7 +672,7 @@ class AllCandidatesListView(CandidateListView):
 
 class CandidateResultsView(SearchMixin):
     allow_filters = ["domain"]
-    paginate_by = 23
+    paginate_by = 100
     template_name = "hub/candidate/results.html"
 
     def get_qs(self):
