@@ -1,6 +1,6 @@
+import hashlib
 import logging
 import unicodedata
-import hashlib
 from datetime import datetime
 from typing import Dict, List, Union
 from urllib.parse import unquote
@@ -110,13 +110,20 @@ def _filter_letter(char: str) -> bool:
 
 
 class HealthView(View):
-    # noinspection PyMethodMayBeStatic
+    version = None
+    revision = None
+
     def get(self, request):
+        if not self.version:
+            self.version = settings.VERSION
+        if not self.revision:
+            self.revision = settings.REVISION
+
         base_response = {
             "status": "ok",
-            "timestamp": datetime.now().isoformat(),
-            "version": settings.VERSION,
-            "revision": settings.REVISION,
+            "timestamp": timezone.now().isoformat(),
+            "version": self.version,
+            "revision": self.revision,
         }
 
         user = request.user
