@@ -75,6 +75,11 @@ def group_queryset_by_domain(
 
     for element in queryset:
         element_domain_pk: Domain = getattr(element, domain_variable_name)
+
+        if not element_domain_pk:
+            logger.error(f"Element {element} does not have a domain.")
+            continue
+
         if element_domain_pk not in queryset_by_domain_dict:
             queryset_by_domain_dict[element_domain_pk] = []
 
