@@ -194,20 +194,35 @@ class HomeView(MenuMixin, SuccessMessageMixin, FormView):
 
 
 class SearchMixin(MenuMixin, ListView):
+    def _configure_search_query(self, query: str, language_code: str) -> SearchQuery:
+        if language_code == "ro":
+            return SearchQuery(query, config="romanian_unaccent")
+
+        return SearchQuery(query)
+
+    def _configure_search_vector(self, language_code: str) -> SearchVector:
+        if language_code == "ro":
+            return SearchVector("name", weight="A", config="romanian_unaccent")
+
+        return SearchVector("name", weight="A")
+
     def search(self, queryset):
-        # TODO: it should take into account selected language. Check only romanian for now.
-        query = self.request.GET.get("q")
-        if not query:
+        query_string: str = self.request.GET.get("q")
+        if not query_string:
             return queryset
 
-        search_query = SearchQuery(query, config="romanian_unaccent")
+        language_code: str = settings.LANGUAGE_CODE
+        if hasattr(self.request, "LANGUAGE_CODE") and self.request.LANGUAGE_CODE:
+            language_code = self.request.LANGUAGE_CODE
+        language_code = language_code.lower()
 
-        vector = SearchVector("name", weight="A", config="romanian_unaccent")
+        search_vector: SearchVector = self._configure_search_vector(language_code)
+        search_query: SearchQuery = self._configure_search_query(query_string, language_code)
 
-        result = (
+        result: QuerySet = (
             queryset.annotate(
-                rank=SearchRank(vector, search_query),
-                similarity=TrigramSimilarity("name", query),
+                rank=SearchRank(search_vector, search_query),
+                similarity=TrigramSimilarity("name", query_string),
             )
             .filter(Q(rank__gte=0.3) | Q(similarity__gt=0.3))
             .order_by("name")
