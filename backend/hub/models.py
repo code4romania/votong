@@ -34,7 +34,10 @@ def file_validator(file):
     if file.size > settings.MAX_DOCUMENT_SIZE:
         human_readable_size = get_human_readable_size(file.size)
         raise ValidationError(
-            _("The file size is %d %s but it must be under %d %s")
+            _(
+                "The file size is %(actual_size)d %(actual_unit)s "
+                "but it must be under %(expected_size)d %(expected_unit)s"
+            )
             % (
                 human_readable_size["size"],
                 human_readable_size["unit"],

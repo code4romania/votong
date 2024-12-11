@@ -40,6 +40,7 @@ def hub_settings(_: HttpRequest) -> Dict[str, Any]:
         "NGOHUB_HOME_FULL": settings.NGOHUB_HOME_BASE,
         "CONTACT_EMAIL": settings.CONTACT_EMAIL,
         "COMISSION_EMAIL": settings.COMISSION_EMAIL,
+        "SOCIALACCOUNT_ENABLED": settings.SOCIALACCOUNT_ENABLED,
         # Flags from database:
         "CANDIDATE_REGISTRATION_ENABLED": candidate_registration_enabled,
         "CANDIDATE_EDIT_ENABLED": candidate_editing_enabled,

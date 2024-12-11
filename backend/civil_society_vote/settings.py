@@ -108,6 +108,8 @@ env = environ.Env(
     CONTACT_EMAIL=(str, "contact@votong.ro"),
     COMISSION_EMAIL=(str, "comisie@votong.ro"),
     # ngo hub api settings
+    SOCIALACCOUNT_ONLY=(bool, True),
+    SOCIALACCOUNT_ENABLED=(bool, True),
     VOTONG_WEBSITE=(str, ""),
     NGOHUB_HOME_HOST=(str, "ngohub.ro"),
     NGOHUB_APP_HOST=(str, "app-staging.ngohub.ro"),
@@ -599,6 +601,7 @@ SOCIALACCOUNT_ADAPTER = "hub.social_adapters.UserOrgAdapter"
 
 # Django Allauth allow only social logins
 SOCIALACCOUNT_ONLY = True
+SOCIALACCOUNT_ENABLED = True if SOCIALACCOUNT_ONLY else env("SOCIALACCOUNT_ENABLED")
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_STORE_TOKENS = False
 
