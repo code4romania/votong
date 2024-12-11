@@ -3,21 +3,23 @@
 <div class="container section border-b">
   <h1 class="title  has-text-centered">
     {% if FINAL_RESULTS_ENABLED %}
-      {% trans "Rezultate Finale Alegeri Consiliul Economic și Social" %}
+      {% trans "Rezultate finale alegeri Consiliul Economic și Social" %}
     {% else %}
-      {% trans "Rezultate Alegeri Consiliul Economic și Social" %}
+      {% trans "Rezultate alegeri Consiliul Economic și Social" %}
     {% endif %}
   </h1>
 
-  <p class="subtitle" style="margin: 0 10%">
-    Rezultatele prezentate sunt cele obținute de candidați după încheierea exprimării voturilor.
-    Următoarea etapă din proces cuprinde 4 zile de depunere și rezolvare a contestațiilor.
-    În data de 11 decembrie 2024 vor fi anunțate rezultatele finale.
-  </p>
+  {% if not FINAL_RESULTS_ENABLED %}
+    <p class="subtitle" style="margin: 0 10%">
+      Rezultatele prezentate sunt cele obținute de candidați după încheierea exprimării voturilor.
+      Următoarea etapă din proces cuprinde 4 zile de depunere și rezolvare a contestațiilor.
+      În data de 11 decembrie 2024 vor fi anunțate rezultatele finale.
+    </p>
 
-  <ul class="subtitle" style="margin: 0 10%">
-    {% include "hub/ces/calendar/post_voting.html" %}
-  </ul>
+    <ul class="subtitle" style="margin: 0 10%">
+      {% include "hub/ces/calendar/post_voting.html" %}
+    </ul>
+  {% endif %}
 </div>
 
 <div class="section has-text-centered">
