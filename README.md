@@ -45,7 +45,7 @@ Please include some visual description of what you would like the UI to look lik
 
 ## Built With
 
-* Django 4.2 (LTS)
+* Django 5.2 (LTS)
 * Bulma
 
 ### Programming languages

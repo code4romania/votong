@@ -263,7 +263,7 @@ AUDITLOG_INCLUDE_TRACKING_MODELS = (
 )
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -339,7 +339,7 @@ USE_TZ = True
 
 #
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 public_static_location = "static"
 public_media_location = "media"

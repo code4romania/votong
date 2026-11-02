@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=3.12.7
+ARG PYTHON_VERSION=3.15.2
 
-FROM python:${PYTHON_VERSION}-slim-bookworm
+FROM python:${PYTHON_VERSION}-slim-trixie
 
 ENV PYTHONUNBUFFERED=1
 
@@ -28,7 +28,7 @@ RUN apt-get update && \
     apt-get clean
 
 
-ARG S6_OVERLAY_VERSION=3.2.0.2
+ARG S6_OVERLAY_VERSION=3.2.3.2
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
