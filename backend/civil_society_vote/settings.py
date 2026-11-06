@@ -59,7 +59,6 @@ env = environ.Env(
     AZURE_CONTAINER=(str, "data"),
     # django settings
     DEBUG=(bool, False),
-    ENABLE_DEBUG_TOOLBAR=(bool, False),
     ENVIRONMENT=(str, "production"),
     SECRET_KEY=(str, "replace-with-a-secret-key"),
     LOG_LEVEL=(str, "WARNING"),
@@ -212,17 +211,6 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "auditlog.middleware.AuditlogMiddleware",
 ]
-
-if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
-    INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
-    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
-
-    def show_toolbar(request):
-        return True
-
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-    }
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # this is the default
