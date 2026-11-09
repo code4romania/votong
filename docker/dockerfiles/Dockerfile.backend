@@ -1,4 +1,5 @@
 ARG PYTHON_VERSION=3.14.10
+ARG S6_OVERLAY_VERSION=3.2.3.2
 
 FROM python:${PYTHON_VERSION}-slim-trixie as build
 
@@ -7,18 +8,30 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-    gettext git gcc g++ && \
-    python3 -m pip install --upgrade setuptools cython
+    curl ca-certificates \
+    gettext \
+    build-essential python3-dev default-libmysqlclient-dev pkg-config && \
+    apt-get clean
+
+# Make sure scripts in .local are usable:
+ENV PATH="/root/.local/bin:${PATH}"
+
+# Download the latest UV installer
+ADD ./docker/third-party/uv/installer.sh /uv-installer.sh
+
+# Run the installer then remove it
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+RUN uv self update
 
 # Python virtualenv paths
 ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv ${VIRTUAL_ENV}
+RUN uv venv ${VIRTUAL_ENV}
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 WORKDIR /build
-COPY ./backend/requirements.txt ./backend/pyproject.toml ./
-RUN python3 -m pip install --upgrade setuptools && \
-    python3 -m pip install -r ./requirements.txt
+
+COPY ./backend/pyproject.toml ./backend/uv.lock ./
+RUN uv sync --no-dev --active --locked --compile-bytecode
 
 
 FROM python:${PYTHON_VERSION}-slim-trixie
@@ -29,10 +42,10 @@ ENV ENVIRONMENT=production
 ENV DEBUG=False
 ENV LOG_LEVEL=${LOG_LEVEL:-WARNING}
 
-ENV RUN_MIGRATIONS=True
-ENV RUN_COMPILE_MESSAGES=True
-ENV RUN_COLLECT_STATIC=True
-ENV RUN_CREATE_SUPER_USER=True
+ENV RUN_MIGRATIONS=${RUN_MIGRATIONS:-True}
+ENV RUN_COMPILE_MESSAGES=${RUN_COMPILE_MESSAGES:-True}
+ENV RUN_COLLECT_STATIC=${RUN_COLLECT_STATIC:-True}
+ENV RUN_CREATE_SUPER_USER=${RUN_CREATE_SUPER_USER:-True}
 
 ENV IS_CONTAINERIZED=True
 
@@ -42,11 +55,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-    nginx gcc xz-utils gettext build-essential postgresql-client libpq-dev
+    cron procps nginx gcc xz-utils gettext libmariadb3 && \
+    apt-get clean
 
-
-ARG S6_OVERLAY_VERSION=3.2.3.2
-ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME 0
+# configure process manager
+ARG S6_OVERLAY_VERSION
+ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
@@ -58,33 +72,29 @@ COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
 COPY docker/s6-rc.d /etc/s6-overlay/s6-rc.d
 
 
-# Python virtualenv paths:
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+# Python virtualenv paths
+ENV VIRTUAL_ENV="/opt/venv"
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+
+ENV SOURCE_DIR="/var/www/votong"
 
 
 # copy the backend source code and libraries from the build stage:
 COPY --from=build "${VIRTUAL_ENV}" "${VIRTUAL_ENV}"
+COPY ./backend/ "${SOURCE_DIR}/backend/"
 
-WORKDIR /var/www/votong/backend/
-COPY ./backend .
-
-# Make sure scripts in .local are usable:
-ENV PATH=/root/.local/bin:$PATH
-
-# activate the virtualenv:
-RUN . "${VIRTUAL_ENV}/bin/activate"
 
 ARG VERSION
 ARG REVISION
+ENV VERSION="${VERSION}"
+ENV REVISION="${REVISION}"
 
-RUN touch /var/www/votong/.version && \
-    echo "$VERSION+$(echo ${REVISION} | cut -c 1-7)" > /var/www/votong/.version
+RUN touch "${SOURCE_DIR}/.version" && \
+    echo "$VERSION+$(echo ${REVISION} | cut -c 1-7)" > "${SOURCE_DIR}/.version"
 
 
 ENTRYPOINT ["/init"]
 
-WORKDIR /var/www/votong/
+WORKDIR "${SOURCE_DIR}/"
 
 EXPOSE 80
