@@ -39,14 +39,12 @@ class User(AbstractUser, TimeStampedModel):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ()  # type: ignore
 
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
-        constraints = [
-            models.UniqueConstraint(Lower("email"), name="email_unique"),
-        ]
+        constraints = (models.UniqueConstraint(Lower("email"), name="email_unique"),)
 
     def org_user_pks(self):
         if not self.organization:

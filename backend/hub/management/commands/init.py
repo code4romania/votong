@@ -66,7 +66,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.NOTICE("Importing cities..."))
 
         fixture_path: str = f"{settings.BASE_DIR}/hub/fixtures/cities.json"
-        cities_data: dict = json.load(open(fixture_path))
+        with open(fixture_path) as fixtures_file:
+            cities_data: dict = json.load(fixtures_file)
 
         self.stdout.write(self.style.NOTICE(f"Cities in the database: {City.objects.count()} before import"))
 

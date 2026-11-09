@@ -232,7 +232,7 @@ class City(models.Model):
     class Meta:
         verbose_name = _("City")
         verbose_name_plural = _("Cities")
-        unique_together = ["city", "county"]
+        unique_together = ("city", "county")
 
     def __str__(self):
         return f"{self.city} ({self.county})"
@@ -452,7 +452,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
-        ordering = ["name"]
+        ordering = ("name",)
 
         permissions = (
             ("view_data_organization", "View data organization"),
@@ -474,9 +474,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         """
         Organizations managed elsewhere (ie: on NGO Hub) should not be fully editable here
         """
-        if self.ngohub_org_id:
-            return False
-        return True
+        return not bool(self.ngohub_org_id)
 
     @staticmethod
     def get_required_reports() -> list[str]:
@@ -653,7 +651,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
             self.candidate.save()
 
     def save(self, *args, **kwargs):
-        create = False if self.id else True
+        create = not bool(self.id)
 
         if self.pk and self.status == self.STATUS.accepted and FeatureFlag.flag_enabled("enable_voting_domain"):
             old_voting_domain = Organization.objects.filter(pk=self.pk).values_list("voting_domain", flat=True).first()
@@ -861,7 +859,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     class Meta:
         verbose_name_plural = _("Candidates")
         verbose_name = _("Candidate")
-        ordering = ["name"]
+        ordering = ("name",)
 
         permissions = (
             ("view_data_candidate", "View data candidate"),
@@ -940,7 +938,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
             assign_perm("view_data_candidate", org_user, self)
 
     def save(self, *args, **kwargs):
-        create = False if self.id else True
+        create = not bool(self.id)
 
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
@@ -964,19 +962,19 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
 
 
 class CandidateAction(models.Model):
-    user: UserModel = None
-    candidate: Candidate = None
+    user: UserModel | None = None
+    candidate: Candidate | None = None
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        user_pk = self.user.pk
-        user_full_name = self.user.get_full_name()
+        user_pk = self.user.pk if self.user else 0
+        user_full_name = self.user.get_full_name() if self.user else ""
 
         user_identification = f"[u{user_pk}] {user_full_name}"
 
-        if user_organization := self.user.organization:
+        if user_organization := self.user.organization if self.user else None:
             org_pk = user_organization.pk
             org_name = user_organization.name
 
@@ -995,9 +993,7 @@ class CandidateVote(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Candidate votes")
         verbose_name = _("Candidate vote")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),)
 
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
@@ -1016,9 +1012,7 @@ class CandidateSupporter(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Canditate supporters")
         verbose_name = _("Candidate supporter")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),)
 
 
 class CandidateConfirmation(TimeStampedModel, CandidateAction):
@@ -1028,9 +1022,7 @@ class CandidateConfirmation(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Candidate confirmations")
         verbose_name = _("Candidate confirmation")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

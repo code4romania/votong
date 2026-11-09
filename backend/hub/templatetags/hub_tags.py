@@ -13,9 +13,7 @@ register = template.Library()
 
 @register.filter
 def already_confirmed_candidate_status(user, candidate):
-    if CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists():
-        return True
-    return False
+    return CandidateConfirmation.objects.filter(user=user, candidate=candidate).exists()
 
 
 @register.filter
@@ -37,7 +35,7 @@ def show_blog_post_date_prefix(published_date):
 @register.filter
 def has_permission(user: User, permission: str) -> bool:
     user_groups = user.groups.all()
-    user_group_has_perm = any([group.permissions.filter(codename=permission).exists() for group in user_groups])
+    user_group_has_perm = any(group.permissions.filter(codename=permission).exists() for group in user_groups)
 
     user_has_perm = user.has_perm(permission)
 
@@ -82,7 +80,7 @@ def do_setvar(parser, token):
     if len(bits) != 2:
         tag_name = bits[0]
         usage = f'{{% {tag_name} "set_var" var %}} ... {{% end_{tag_name} %}}'
-        raise template.TemplateSyntaxError("Usage: %s" % usage)
+        raise template.TemplateSyntaxError(f"Usage: {usage}")
     parser.delete_first_token()
     return SetVarNode(nodelist, bits[1])
 

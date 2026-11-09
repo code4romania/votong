@@ -48,8 +48,8 @@ class CountyFilter(AllValuesFieldListFilter):
 
 class OrganizationUsersInline(admin.TabularInline):
     model = User
-    fields = ["email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "groups"]
-    readonly_fields = ["email", "first_name", "last_name"]
+    fields = ("email", "first_name", "last_name", "is_active", "is_staff", "is_superuser", "groups")
+    readonly_fields = ("email", "first_name", "last_name")
     show_change_link = True
 
     extra = 0
@@ -69,7 +69,7 @@ class OrganizationUsersInline(admin.TabularInline):
 
 class OrganizationCandidatesInline(admin.TabularInline):
     model = Candidate
-    fields = ["name", "status", "is_proposed", "votes_count", "supporters_count", "confirmations_count"]
+    fields = ("name", "status", "is_proposed", "votes_count", "supporters_count", "confirmations_count")
     readonly_fields = fields
     show_change_link = True
     fk_name = "org"
@@ -106,8 +106,8 @@ class OrganizationCandidatesInline(admin.TabularInline):
 
 class CandidateVoteInline(admin.TabularInline):
     model = CandidateVote
-    fields = ["user", "organization", "candidate"]
-    readonly_fields = ["user", "organization", "candidate", "domain"]
+    fields = ("user", "organization", "candidate")
+    readonly_fields = ("user", "organization", "candidate", "domain")
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -122,8 +122,8 @@ class CandidateVoteInline(admin.TabularInline):
 
 class CandidateSupporterInline(admin.TabularInline):
     model = CandidateSupporter
-    fields = ["user", "candidate"]
-    readonly_fields = ["user", "candidate"]
+    fields = ("user", "candidate")
+    readonly_fields = ("user", "candidate")
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -138,8 +138,8 @@ class CandidateSupporterInline(admin.TabularInline):
 
 class CandidateConfirmationInline(admin.TabularInline):
     model = CandidateConfirmation
-    fields = ["user", "candidate"]
-    readonly_fields = ["user", "candidate"]
+    fields = ("user", "candidate")
+    readonly_fields = ("user", "candidate")
     extra = 0
 
     def has_add_permission(self, request, obj=None):
@@ -254,8 +254,8 @@ pending_candidates.short_description = _("Set selected candidates status to PEND
 class DomainResource(resources.ModelResource):
     class Meta:
         model = Domain
-        fields = ["id", "name", "seats", "description"]
-        import_id_fields = ["id"]
+        fields = ("id", "name", "seats", "description")
+        import_id_fields = ("id",)
 
 
 @admin.register(Organization)
@@ -279,7 +279,7 @@ class OrganizationAdmin(BasePermissionsAdmin):
 
     search_fields = ("name", "legal_representative_name", "email")
     readonly_fields = ["ngohub_org_id"] + list(Organization.ngohub_fields())
-    autocomplete_fields = ["city"]
+    autocomplete_fields = ("city",)
     list_per_page = 20
 
     inlines = (OrganizationUsersInline, OrganizationCandidatesInline)
@@ -344,11 +344,9 @@ class OrganizationAdmin(BasePermissionsAdmin):
     )
 
     def has_change_permission(self, request, obj=None):
-        if request.user.is_staff:
-            return True
-        return False
+        return bool(request.user.is_staff)
 
-    def get_user(self, obj: Organization = None):
+    def get_user(self, obj: Organization | None = None):
         if obj and obj.users.exists():
             org_user = obj.users.first()
             user_url = reverse("admin:accounts_user_change", args=(org_user.id,))
@@ -429,7 +427,7 @@ class OrganizationAdmin(BasePermissionsAdmin):
 
 @admin.register(Candidate)
 class CandidateAdmin(BasePermissionsAdmin):
-    list_display = [
+    list_display = (
         "name",
         "org",
         "domain",
@@ -439,13 +437,13 @@ class CandidateAdmin(BasePermissionsAdmin):
         "confirmations_count",
         "votes_count",
         "created",
-    ]
+    )
     list_display_links = list_display
 
-    list_filter = ["is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain"]
-    search_fields = ["name", "org__name"]
-    readonly_fields = ["status"]
-    actions = [accept_candidates, reject_candidates, pending_candidates]
+    list_filter = ("is_proposed", "status", CandidateSupportersListFilter, CandidateConfirmationsListFilter, "domain")
+    search_fields = ("name", "org__name")
+    readonly_fields = ("status",)
+    actions = (accept_candidates, reject_candidates, pending_candidates)
     list_per_page = 20
 
     fieldsets = (
@@ -541,9 +539,7 @@ class CandidateAdmin(BasePermissionsAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
-        if request.user.is_staff:
-            return True
-        return False
+        return bool(request.user.is_staff)
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -564,9 +560,9 @@ class CityAdmin(admin.ModelAdmin):
     change existing ones.
     """
 
-    list_display = ["city", "county"]
-    list_filter = ["is_county_residence", ("county", CountyFilter)]
-    search_fields = ["city"]
+    list_display = ("city", "county")
+    list_filter = ("is_county_residence", ("county", CountyFilter))
+    search_fields = ("city",)
     list_per_page = 20
 
     def get_urls(self):
@@ -583,9 +579,7 @@ class CityAdmin(admin.ModelAdmin):
         return False
 
     def has_view_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        return False
+        return bool(request.user.is_superuser)
 
     def import_cities(self, request):
         if request.method == "POST":
@@ -639,9 +633,9 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(FeatureFlag)
 class FeatureFlagAdmin(BasePermissionsAdmin):
-    list_display = ["flag", "is_enabled"]
-    readonly_fields = ["flag"]
-    actions = [
+    list_display = ("flag", "is_enabled")
+    readonly_fields = ("flag",)
+    actions = (
         "enable_flags",
         "disable_flags",
         "flags_phase_pause",
@@ -650,15 +644,14 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
         "flags_phase_2",
         "flags_phase_3",
         "flags_final_phase",
-    ]
+    )
 
     def changelist_view(self, request, extra_context=None):
-        if "action" in request.POST:
-            if not request.POST.getlist(ACTION_CHECKBOX_NAME):
-                post = request.POST.copy()
-                for ff in FeatureFlag.objects.all():
-                    post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
-                request._set_post(post)
+        if "action" in request.POST and not request.POST.getlist(ACTION_CHECKBOX_NAME):
+            post = request.POST.copy()
+            for ff in FeatureFlag.objects.all():
+                post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
+            request._set_post(post)
 
         return super().changelist_view(request, extra_context)
 
@@ -679,13 +672,13 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
     disable_flags.short_description = _("Deactivate selected flags")
 
     def _flags_switch_phase(self, request, phase_name: str, enabled: list[str], disabled: list[str]):
-        phase_choices: set[str] = set([flag[0] for flag in PHASE_CHOICES])
+        phase_choices: set[str] = {flag[0] for flag in PHASE_CHOICES}
 
-        all_flags_in_model: set[str] = set([flag[0] for flag in FLAG_CHOICES])
+        all_flags_in_model: set[str] = {flag[0] for flag in FLAG_CHOICES}
         all_flags_in_database: set[str] = set(FeatureFlag.objects.values_list("flag", flat=True))
         if invalid_flags := all_flags_in_model.difference(all_flags_in_database):
             missing_flags: str = ", ".join(invalid_flags)
-            error_message: str = _(f"Configuration invalid. Missing flag(s) in database: {missing_flags}.")
+            error_message: str = _("Configuration invalid. Missing flag(s) in database: {}.").format(missing_flags)
 
             self.message_user(request, message=error_message, level=messages.WARNING)
 
@@ -697,7 +690,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
         full_list: set[str] = set(enabled + disabled)
         if invalid_flags := phase_choices.difference(full_list):
             missing_flags: str = ", ".join(invalid_flags)
-            error_message: str = _(f"'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}.")
+            error_message: str = _("'{}' configuration invalid. Missing flag(s): {}.").format(phase_name, missing_flags)
 
             self.message_user(request, message=error_message, level=messages.ERROR)
 
@@ -715,7 +708,9 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                 is_enabled=get_feature_flag(SETTINGS_CHOICES.global_support_round)
             )
 
-        self.message_user(request, message=_(f"Flags set successfully for '{phase_name}'."), level=messages.SUCCESS)
+        self.message_user(
+            request, message=_("Flags set successfully for '{}'.").format(phase_name), level=messages.SUCCESS
+        )
 
     def flags_phase_pause(self, request, __: QuerySet[FeatureFlag]):
         self._flags_switch_phase(
@@ -857,14 +852,10 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(BasePermissionsAdmin):
-    list_display = ["title", "slug", "author", "published_date", "is_visible"]
+    list_display = ("title", "slug", "author", "published_date", "is_visible")
 
     def has_add_permission(self, request, obj=None):
-        if request.user.is_staff:
-            return True
-        return False
+        return bool(request.user.is_staff)
 
     def has_change_permission(self, request, obj=None):
-        if request.user.is_staff:
-            return True
-        return False
+        return bool(request.user.is_staff)

@@ -1,4 +1,3 @@
-
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -16,7 +15,7 @@ from hub.models import FLAG_CHOICES, PHASE_CHOICES, Candidate, City, Domain, Fea
 
 UserModel = get_user_model()
 
-ORG_FIELD_ORDER = [
+ORG_FIELD_ORDER = (
     "voting_domain",
     "name",
     "email",
@@ -42,7 +41,7 @@ ORG_FIELD_ORDER = [
     "fiscal_certificate_local",
     "statement_discrimination",
     "accept_terms_and_conditions",
-]
+)
 
 
 class OrganizationCreateForm(forms.ModelForm):
@@ -54,7 +53,7 @@ class OrganizationCreateForm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        exclude = [
+        exclude = (
             "users",
             "status",
             "status_changed",
@@ -66,7 +65,7 @@ class OrganizationCreateForm(forms.ModelForm):
             "statement_discrimination",
             "statement_political",
             "rejection_message",
-        ]
+        )
         widgets = {
             "email": forms.widgets.TextInput(),  # EmailInput(),
             "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
@@ -95,7 +94,7 @@ class OrganizationCreateForm(forms.ModelForm):
         terms_url = f'<a href="{reverse_lazy("terms")}" target="_blank" rel="noreferrer">{terms_text}</a>'
         # noinspection DjangoSafeString
         self.fields["accept_terms_and_conditions"].label = mark_safe(
-            _(f"I agree to the {terms_url} of the VotONG platform")
+            _("I agree to the {} of the VotONG platform").format(terms_url)
         )
         self.fields["accept_terms_and_conditions"].required = True
 
@@ -118,9 +117,7 @@ class OrganizationCreateFromNgohubForm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        fields = [
-            "ngohub_org_id",
-        ]
+        fields = ("ngohub_org_id",)
 
     def save_m2m(self):
         pass
@@ -146,14 +143,14 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        exclude = [
+        exclude = (
             "users",
             "status",
             "status_changed",
             "accept_terms_and_conditions",
             "rejection_message",
             "ngohub_org_id",
-        ]
+        )
         widgets = {
             "email": forms.widgets.TextInput(),  # EmailInput(),
             "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
@@ -251,7 +248,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 
 
 class CandidateCommonForm(forms.ModelForm):
-    field_order = [
+    field_order = (
         "domain",
         "name",
         "role",
@@ -263,9 +260,9 @@ class CandidateCommonForm(forms.ModelForm):
         "declaration_of_interests",
         "fiscal_record",
         "criminal_record",
-    ]
-    user: UserModel = None
-    organization: Organization = None
+    )
+    user: UserModel | None = None
+    organization: Organization | None = None
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -294,16 +291,19 @@ class CandidateCommonForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        if FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain):
-            if self.organization and self.organization.voting_domain:
-                cleaned_data["domain"] = self.organization.voting_domain
+        if (
+            FeatureFlag.flag_enabled(FLAG_CHOICES.enable_voting_domain)
+            and self.organization
+            and self.organization.voting_domain
+        ):
+            cleaned_data["domain"] = self.organization.voting_domain
 
         return cleaned_data
 
     class Meta:
         model = Candidate
 
-        exclude: list[str] = ["initial_org", "status", "status_changed", "old_domain"]
+        exclude: list[str] = ("initial_org", "status", "status_changed", "old_domain")
 
         widgets: dict = {
             "is_proposed": forms.HiddenInput(),
@@ -323,7 +323,7 @@ class CandidateRegisterForm(CandidateCommonForm):
         self.initial["org"] = self.organization.pk
 
     def clean_org(self):
-        return self.user.organization.pk
+        return self.user.organization.pk if self.user.organization else None
 
     def clean_domain(self):
         if FeatureFlag.flag_enabled(FLAG_CHOICES.single_domain_round):
@@ -346,7 +346,7 @@ class CandidateRegisterForm(CandidateCommonForm):
 
 class CandidateUpdateForm(CandidateCommonForm):
     class Meta(CandidateCommonForm.Meta):
-        exclude: list[str] = ["org", "initial_org", "status", "status_changed"]
+        exclude: list[str] = ("org", "initial_org", "status", "status_changed")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -383,19 +383,18 @@ class CandidateUpdateForm(CandidateCommonForm):
                 _("You cannot edit a candidate that is not proposed and outside of the candidate confirmation period.")
             )
 
-        if candidate.is_proposed and not self.cleaned_data.get("is_proposed"):
-            if commit:
-                # This should not happen unless someone messes with the form code
-                if settings.ENABLE_SENTRY:
-                    capture_message(
-                        message=(
-                            f"Field 'is_proposed' does not appear for candidate {candidate} "
-                            f"in form {self.__class__.__name__} in a request from user {self.user}."
-                        ),
-                        level="error",
-                    )
+        if candidate.is_proposed and not self.cleaned_data.get("is_proposed") and commit:
+            # This should not happen unless someone messes with the form code
+            if settings.ENABLE_SENTRY:
+                capture_message(
+                    message=(
+                        f"Field 'is_proposed' does not appear for candidate {candidate} "
+                        f"in form {self.__class__.__name__} in a request from user {self.user}."
+                    ),
+                    level="error",
+                )
 
-                raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
+            raise ValidationError(_("[ERROR 32202] Please contact the site administrator."))
 
         return super().save(commit)
 

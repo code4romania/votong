@@ -73,10 +73,7 @@ def validate_decoded_url_token(decoded_token, max_seconds):
     # noinspection InsecureHash
     current_sig = hashlib.sha256(f"USER ID={subject_pk} T={iso_ts} K={settings.SECRET_KEY_HASH}".encode()).hexdigest()
 
-    if sig != current_sig:
-        return False
-
-    return True
+    return sig == current_sig
 
 
 def create_expiring_url_token(subject_pk):

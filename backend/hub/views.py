@@ -105,10 +105,7 @@ def group_queryset_by_domain(
 
 
 def _filter_letter(char: str) -> bool:
-    if char.isalpha() or char == " ":
-        return True
-
-    return False
+    return char.isalpha() or char == " "
 
 
 class HealthView(View):
@@ -242,7 +239,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
 
 
 class CommitteeOrganizationListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/committee/list.html"
 
@@ -278,7 +275,7 @@ def _get_candidates_counters():
 
 
 class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/committee/candidates.html"
 
@@ -302,7 +299,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
 
 
 class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/ngo/votes.html"
 
@@ -331,7 +328,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
 
 
 class OrganizationListView(SearchMixin):
-    allow_filters = ["county", "city"]
+    allow_filters = ("county", "city")
     paginate_by = 9
     template_name = "hub/ngo/list.html"
 
@@ -597,7 +594,7 @@ def organization_vote(request, pk, action):
 
 
 class CandidateListView(SearchMixin):
-    allow_filters = ["domain"]
+    allow_filters = ("domain",)
     paginate_by = 200
     template_name = "hub/candidate/list.html"
 
@@ -695,7 +692,7 @@ class CandidatesAllListView(CandidateListView):
 
 
 class CandidateResultsView(SearchMixin):
-    allow_filters = ["domain"]
+    allow_filters = ("domain",)
     paginate_by = 100
     template_name = "hub/candidate/results.html"
 
@@ -989,7 +986,7 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
 
                 return redirect(reverse("candidate-update", args=(existing_candidate_pk,)))
 
-            raise exc
+            raise
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -1090,7 +1087,7 @@ def candidate_vote(request, pk):
 
     try:
         vote = CandidateVote.objects.create(user=request.user, organization=user_org, candidate=candidate)
-    except Exception:
+    except Exception:  # noqa: BLE001  # we just don't allow voting twice, so any exception here is a permission issue
         raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
@@ -1172,7 +1169,7 @@ def candidate_status_confirm(request, pk):
     if candidate.org == request.user.organization or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)
 
-    confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
+    _confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
 
     if not created:
         message = f"User {request.user} tried to confirm candidate {candidate} status again."
