@@ -11,7 +11,7 @@ def cache_decorator(*, timeout: int, cache_key: str = None, cache_key_prefix: st
             if cache_key:
                 _cache_key = cache_key
             else:
-                cache_suffix = str(hash(f"{func.__name__}__{str(args)}_{str(kwargs)}")).encode("utf-8").hex()
+                cache_suffix = str(hash(f"{func.__name__}__{args!s}_{kwargs!s}")).encode("utf-8").hex()
                 _cache_key: str = f"{cache_key_prefix}__{cache_suffix}"
 
             if settings.ENABLE_CACHE:

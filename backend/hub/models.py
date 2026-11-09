@@ -1,5 +1,4 @@
 import logging
-from typing import List, Set
 
 from auditlog.registry import auditlog
 from django.conf import settings
@@ -251,7 +250,7 @@ class BaseCompleteModel(models.Model):
         abstract = True
 
     @classmethod
-    def required_fields(cls) -> List[DeferredAttribute]:
+    def required_fields(cls) -> list[DeferredAttribute]:
         raise NotImplementedError
 
     def check_deferred_fields(self, deferred_required_fields):
@@ -480,7 +479,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return True
 
     @staticmethod
-    def get_required_reports() -> List[str]:
+    def get_required_reports() -> list[str]:
         required_reports = []
         start_year = settings.CURRENT_EDITION_YEAR - settings.PREV_REPORTS_REQUIRED_FOR_PROPOSAL
 
@@ -490,7 +489,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return required_reports
 
     @classmethod
-    def required_fields(cls) -> List[DeferredAttribute]:
+    def required_fields(cls) -> list[DeferredAttribute]:
         fields = [
             cls.name,
             cls.county,
@@ -514,7 +513,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return fields
 
     @classmethod
-    def required_fields_for_candidate(cls) -> List[DeferredAttribute]:
+    def required_fields_for_candidate(cls) -> list[DeferredAttribute]:
         fields = cls.required_fields()
 
         # noinspection PyTypeChecker
@@ -555,8 +554,8 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         )
 
     @staticmethod
-    def file_fields(*, include_ngohub=True) -> List[str]:
-        file_fields: Set[str] = {
+    def file_fields(*, include_ngohub=True) -> list[str]:
+        file_fields: set[str] = {
             "logo",
             "last_balance_sheet",
             "statute",

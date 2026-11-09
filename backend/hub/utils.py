@@ -4,7 +4,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 
 def build_full_url(request, obj):
@@ -67,9 +67,7 @@ def validate_decoded_url_token(decoded_token, max_seconds):
         return False
 
     delta = (timezone.now() - ts).seconds
-    if delta > max_seconds:
-        return False
-    elif delta < 0:
+    if delta > max_seconds or delta < 0:
         return False
 
     # noinspection InsecureHash

@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from django.conf import settings
 from django.http import HttpRequest
@@ -9,7 +9,7 @@ from hub.models import FLAG_CHOICES, FeatureFlag
 
 
 @cache_decorator(cache_key="hub_settings", timeout=settings.TIMEOUT_CACHE_SHORT)
-def hub_settings(_: HttpRequest) -> Dict[str, Any]:
+def hub_settings(_: HttpRequest) -> dict[str, Any]:
     flags = {k: v for k, v in FeatureFlag.objects.all().values_list("flag", "is_enabled")}
 
     register_url = settings.NGOHUB_APP_BASE

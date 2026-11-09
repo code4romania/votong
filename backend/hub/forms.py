@@ -1,4 +1,3 @@
-from typing import Dict, List
 
 from django import forms
 from django.conf import settings
@@ -89,7 +88,7 @@ class OrganizationCreateForm(forms.ModelForm):
             try:
                 county = self.data.get("county")
                 self.fields["city"].queryset = City.objects.filter(county__iexact=county)
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass  # invalid input, fallback to empty queryset
 
         terms_text = _("Terms and Conditions")
@@ -169,7 +168,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         if "county" in self.data:
             try:
                 self.fields["city"].queryset = City.objects.filter(county__iexact=self.data["county"])
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass  # invalid input, fallback to empty queryset
 
         if not self.instance:
@@ -304,9 +303,9 @@ class CandidateCommonForm(forms.ModelForm):
     class Meta:
         model = Candidate
 
-        exclude: List[str] = ["initial_org", "status", "status_changed", "old_domain"]
+        exclude: list[str] = ["initial_org", "status", "status_changed", "old_domain"]
 
-        widgets: Dict = {
+        widgets: dict = {
             "is_proposed": forms.HiddenInput(),
         }
 
@@ -347,7 +346,7 @@ class CandidateRegisterForm(CandidateCommonForm):
 
 class CandidateUpdateForm(CandidateCommonForm):
     class Meta(CandidateCommonForm.Meta):
-        exclude: List[str] = ["org", "initial_org", "status", "status_changed"]
+        exclude: list[str] = ["org", "initial_org", "status", "status_changed"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,5 +1,4 @@
 import logging
-from typing import Dict
 
 import requests
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -141,7 +140,7 @@ def get_user_for_org(user, user_token: str, user_role: str):
 
 def update_user_information(user: User, token: str):
     try:
-        user_profile: Dict = ngohub_api_get("profile/", token)
+        user_profile: dict = ngohub_api_get("profile/", token)
     except NGOHubHTTPException:
         user_profile = {}
 

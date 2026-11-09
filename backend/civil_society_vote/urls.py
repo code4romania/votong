@@ -38,7 +38,7 @@ urlpatterns_i18n = i18n_patterns(
     path(
         "admin/login/",
         RedirectView.as_view(
-            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            url=f"/allauth{reverse('amazon_cognito_login', urlconf='allauth.urls')}",
             permanent=True,
         ),
     ),
@@ -119,7 +119,7 @@ urlpatterns_simple = [
     path(
         "allauth/login/",
         RedirectView.as_view(
-            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            url=f"/allauth{reverse('amazon_cognito_login', urlconf='allauth.urls')}",
             permanent=True,
         ),
     ),

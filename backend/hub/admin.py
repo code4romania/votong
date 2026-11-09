@@ -1,6 +1,5 @@
 import csv
 import io
-from typing import List, Set
 
 from django.conf import settings
 from django.contrib import admin, messages
@@ -24,20 +23,20 @@ from civil_society_vote.common.admin import BasePermissionsAdmin
 from civil_society_vote.common.messaging import send_email
 from hub.forms import ImportCitiesForm, OrganizationCreateFromNgohubForm
 from hub.models import (
-    BlogPost,
     COUNTIES,
     COUNTY_RESIDENCE,
+    FLAG_CHOICES,
+    PHASE_CHOICES,
+    SETTINGS_CHOICES,
+    BlogPost,
     Candidate,
     CandidateConfirmation,
     CandidateSupporter,
     CandidateVote,
     City,
     Domain,
-    FLAG_CHOICES,
     FeatureFlag,
     Organization,
-    PHASE_CHOICES,
-    SETTINGS_CHOICES,
     get_feature_flag,
 )
 from hub.workers.update_organization import update_organization
@@ -661,7 +660,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
                     post.update({ACTION_CHECKBOX_NAME: str(ff.pk)})
                 request._set_post(post)
 
-        return super(FeatureFlagAdmin, self).changelist_view(request, extra_context)
+        return super().changelist_view(request, extra_context)
 
     def has_add_permission(self, request):
         return False
@@ -679,11 +678,11 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
 
     disable_flags.short_description = _("Deactivate selected flags")
 
-    def _flags_switch_phase(self, request, phase_name: str, enabled: List[str], disabled: List[str]):
-        phase_choices: Set[str] = set([flag[0] for flag in PHASE_CHOICES])
+    def _flags_switch_phase(self, request, phase_name: str, enabled: list[str], disabled: list[str]):
+        phase_choices: set[str] = set([flag[0] for flag in PHASE_CHOICES])
 
-        all_flags_in_model: Set[str] = set([flag[0] for flag in FLAG_CHOICES])
-        all_flags_in_database: Set[str] = set(FeatureFlag.objects.values_list("flag", flat=True))
+        all_flags_in_model: set[str] = set([flag[0] for flag in FLAG_CHOICES])
+        all_flags_in_database: set[str] = set(FeatureFlag.objects.values_list("flag", flat=True))
         if invalid_flags := all_flags_in_model.difference(all_flags_in_database):
             missing_flags: str = ", ".join(invalid_flags)
             error_message: str = _(f"Configuration invalid. Missing flag(s) in database: {missing_flags}.")
@@ -695,7 +694,7 @@ class FeatureFlagAdmin(BasePermissionsAdmin):
 
             return
 
-        full_list: Set[str] = set(enabled + disabled)
+        full_list: set[str] = set(enabled + disabled)
         if invalid_flags := phase_choices.difference(full_list):
             missing_flags: str = ", ".join(invalid_flags)
             error_message: str = _(f"'{phase_name}' configuration invalid. Missing flag(s): {missing_flags}.")

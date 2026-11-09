@@ -137,8 +137,8 @@ messages: makemessages compilemessages ## generate and compile the translations
 collectstatic:                    ## collect the static files
 	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py collectstatic --no-input"
 
-format:                           ## format the code with black & ruff
-	docker exec votong_backend_dev sh -c "black ./backend && ruff check --fix ./backend"
+format:                                          ## format the code with black & ruff
+	docker exec votong_backend_dev sh -c "ruff format ./backend && ruff check --fix ./backend"
 
 pyshell:                          ## start a django shell
 	docker exec -it votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py shell"

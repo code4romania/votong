@@ -1,13 +1,13 @@
 import logging
 import mimetypes
 import tempfile
-from typing import Dict, List, Optional
 
 import requests
 from django.conf import settings
 from django.core.files import File
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django_q.models import Schedule
 from django_q.tasks import async_task
 from pycognito import Cognito
@@ -18,7 +18,6 @@ from civil_society_vote.common.cache import cache_decorator
 from civil_society_vote.common.messaging import send_email
 from hub.exceptions import NGOHubHTTPException
 from hub.models import City, FeatureFlag, Organization
-from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -104,7 +103,7 @@ def authenticate_with_ngohub() -> str:
     return u.id_token
 
 
-def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> Dict:
+def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> dict:
 
     # if a token is already provided, use it for the profile endpoint
     if token:
@@ -125,8 +124,8 @@ def get_ngo_hub_data(ngohub_org_id: int, token: str = "") -> Dict:
 
 
 def update_organization_process(organization_id: int, token: str = ""):
-    errors: List[str] = []
-    task_result: Dict[str, any] = {"organization_id": organization_id}
+    errors: list[str] = []
+    task_result: dict[str, any] = {"organization_id": organization_id}
 
     organization: Organization = Organization.objects.get(id=organization_id)
 
@@ -143,10 +142,10 @@ def update_organization_process(organization_id: int, token: str = ""):
         organization.filename_cache = {}
 
     ngohub_id: int = organization.ngohub_org_id
-    ngohub_org_data: Dict = get_ngo_hub_data(ngohub_id, token)
+    ngohub_org_data: dict = get_ngo_hub_data(ngohub_id, token)
 
-    ngohub_general_data: Dict = ngohub_org_data.get("organizationGeneral", {})
-    ngohub_legal_data: Dict = ngohub_org_data.get("organizationLegal", {})
+    ngohub_general_data: dict = ngohub_org_data.get("organizationGeneral", {})
+    ngohub_legal_data: dict = ngohub_org_data.get("organizationLegal", {})
 
     organization.county = ngohub_general_data.get("county", {}).get("name") or ""
     city_name = ngohub_general_data.get("city", {}).get("name") or ""
@@ -169,13 +168,13 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     # Import the organization statute
     statute_url: str = ngohub_legal_data.get("organizationStatute") or ""
-    statute_url_error: Optional[str] = copy_file_to_organization(organization, statute_url, "statute")
+    statute_url_error: str | None = copy_file_to_organization(organization, statute_url, "statute")
     if statute_url_error:
         errors.append(statute_url_error)
 
     # Import the organization nonPoliticalAffiliationFile
     non_political_affiliation_url: str = ngohub_legal_data.get("nonPoliticalAffiliationFile") or ""
-    non_political_affiliation_url_error: Optional[str] = copy_file_to_organization(
+    non_political_affiliation_url_error: str | None = copy_file_to_organization(
         organization, non_political_affiliation_url, "statement_political"
     )
     if non_political_affiliation_url_error:
@@ -183,7 +182,7 @@ def update_organization_process(organization_id: int, token: str = ""):
 
     # Import the organization balance sheet
     balance_sheet_url: str = ngohub_legal_data.get("balanceSheetFile") or ""
-    balance_sheet_url_error: Optional[str] = copy_file_to_organization(
+    balance_sheet_url_error: str | None = copy_file_to_organization(
         organization, balance_sheet_url, "last_balance_sheet"
     )
     if balance_sheet_url_error:
@@ -193,7 +192,7 @@ def update_organization_process(organization_id: int, token: str = ""):
     organization.phone = ngohub_general_data.get("phone") or ""
     organization.description = ngohub_general_data.get("description") or ""
 
-    legal_reprezentative_data: Dict = ngohub_legal_data.get("legalReprezentative", {})
+    legal_reprezentative_data: dict = ngohub_legal_data.get("legalReprezentative", {})
     reprezentative_name = legal_reprezentative_data.get("fullName") or ""
     reprezentative_role = legal_reprezentative_data.get("role") or ""
     organization.legal_representative_name = (
@@ -202,7 +201,7 @@ def update_organization_process(organization_id: int, token: str = ""):
     organization.legal_representative_email = legal_reprezentative_data.get("email") or ""
     organization.legal_representative_phone = legal_reprezentative_data.get("phone") or ""
 
-    board_council: List[str] = []
+    board_council: list[str] = []
     for director in ngohub_legal_data.get("directors", []):
         director_name: str = director.get("fullName")
         director_role: str = director.get("role")
@@ -231,7 +230,7 @@ def update_organization_process(organization_id: int, token: str = ""):
         task_result["errors"] = errors
 
         subject: str = _("Error updating organization") + f" {organization.name}" if organization.name else ""
-        to_emails: List[str] = User.objects.filter(groups__name__in=(STAFF_GROUP, SUPPORT_GROUP)).values_list(
+        to_emails: list[str] = User.objects.filter(groups__name__in=(STAFF_GROUP, SUPPORT_GROUP)).values_list(
             "email", flat=True
         )
 
@@ -288,7 +287,7 @@ def update_outdated_organizations():
         .order_by("modified")[:limit]
     )
 
-    organizations_ids: List[int] = []
+    organizations_ids: list[int] = []
     if not organizations:
         logger.info("No outdated organizations found.")
         return organizations_ids

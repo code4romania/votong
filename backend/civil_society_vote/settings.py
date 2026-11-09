@@ -15,7 +15,7 @@ from pathlib import Path
 
 import environ
 import sentry_sdk
-from django.urls import reverse_lazy  # noqa
+from django.urls import reverse_lazy
 
 from civil_society_vote.common.contants import MEBIBYTE
 from civil_society_vote.common.formatting import get_human_readable_size

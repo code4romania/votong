@@ -2,7 +2,6 @@ import hashlib
 import logging
 import unicodedata
 from datetime import datetime
-from typing import Dict, List, Union
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -66,8 +65,8 @@ UserModel = get_user_model()
 
 def group_queryset_by_domain(
     queryset: QuerySet, *, domain_variable_name: str, sort_variable: str = "name"
-) -> List[Dict[str, Union[Domain, List[Union[Organization, Candidate]]]]]:
-    queryset_by_domain_dict: Dict[Domain, List[Union[Organization, Candidate]]] = {}
+) -> list[dict[str, Domain | list[Organization | Candidate]]]:
+    queryset_by_domain_dict: dict[Domain, list[Organization | Candidate]] = {}
 
     all_domains = dict(Domain.objects.values_list("pk", "name"))
 
@@ -106,9 +105,7 @@ def group_queryset_by_domain(
 
 
 def _filter_letter(char: str) -> bool:
-    if char.isalpha():
-        return True
-    elif char == " ":
+    if char.isalpha() or char == " ":
         return True
 
     return False
@@ -359,7 +356,7 @@ class OrganizationListView(SearchMixin):
 
         return queryset_filtered
 
-    def get_cached_context(self, context_cache_key, orgs) -> Dict:
+    def get_cached_context(self, context_cache_key, orgs) -> dict:
         sentinel = object()
         context_cache = cache.get(context_cache_key, sentinel)
         if context_cache is not sentinel:
@@ -747,7 +744,7 @@ class CandidateDetailView(HubDetailView):
 
         return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
-    def _get_candidate_support_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_support_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "can_support_candidate": False,
             "supported_candidate": False,
@@ -784,7 +781,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "can_see_approval_action": False,
             "can_approve_candidate": False,
@@ -812,7 +809,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "user_has_organization": False,
             "organization_has_domain": False,
@@ -857,7 +854,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _build_candidate_status_explainer(self) -> Dict:
+    def _build_candidate_status_explainer(self) -> dict:
         """
         Build a dictionary with the candidate statuses and their explanations.
         The dictionary has the following format:
@@ -995,7 +992,7 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
             raise exc
 
     def get_form_kwargs(self):
-        kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
@@ -1036,11 +1033,11 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         if not can_propose_candidate:
             if user_org and not user_org.is_complete_for_candidate:
                 organization_missing_fields = user_org.get_missing_fields_for_candidate()
-                organization_missing_fields = [f"'{str(field.verbose_name)}'" for field in organization_missing_fields]
+                organization_missing_fields = [f"'{field.verbose_name!s}'" for field in organization_missing_fields]
 
             if candidate and not candidate.is_complete:
                 candidate_missing_fields = candidate.get_missing_fields()
-                candidate_missing_fields = [f"'{str(field.verbose_name)}'" for field in candidate_missing_fields]
+                candidate_missing_fields = [f"'{field.verbose_name!s}'" for field in candidate_missing_fields]
 
         if organization_missing_fields or candidate_missing_fields:
             context["organization_missing_fields"] = ", ".join(organization_missing_fields)
@@ -1049,7 +1046,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return context
 
     def get_form_kwargs(self):
-        kwargs = super(CandidateUpdateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
