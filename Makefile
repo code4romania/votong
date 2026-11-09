@@ -152,15 +152,15 @@ bash:                             ## start a bash shell
 
 ## [Requirements management]
 requirements-build:               ## uv sync
-	docker exec redirect_dev sh -c " \
+	docker exec votong_backend_dev sh -c " \
 		cd ./backend && \
 		uv sync --active \
 	"
 
 requirements-update:              ## uv sync upgrade
-	docker exec redirect_dev sh -c " \
+	docker exec votong_backend_dev sh -c " \
 		cd ./backend && \
-		uv sync --active -U
+		uv sync --active -U \
 	"
 
 

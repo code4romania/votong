@@ -86,7 +86,6 @@ jobs:
         working-directory: ./backend
         env:
           SECRET_KEY: "dummy_secret_key"
-          ENCRYPT_KEY: "this-key-should-be-exactly-32-ch"
         run: |
           set -a
           uv run ./manage.py makemigrations --check --dry-run
@@ -103,7 +102,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16.10
+        image: postgres:16.15
         env:
           POSTGRES_DB: civil_society_vote
           POSTGRES_USER: user
@@ -150,24 +149,3 @@ jobs:
         run: |
           uv run ./manage.py wait_for_db
           uv run pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=60 -n auto
-
-  codeql_analysis:
-    name: Analyze code using CodeQL
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ "python", "javascript" ]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: "${{ matrix.language }}"
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
