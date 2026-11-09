@@ -50,7 +50,7 @@ Please include some visual description of what you would like the UI to look lik
 
 ### Programming languages
 
-* Python (3.14+)
+* Python (3.15)
 
 ### Platforms
 

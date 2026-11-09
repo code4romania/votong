@@ -3,7 +3,7 @@ name = "votong"
 version = "1.2026.0"
 description = ""
 
-requires-python = ">=3.14"
+requires-python = ">=3.15"
 dependencies = [
     "django~=5.2.18",
     "django-avatar~=9.0.0",
@@ -94,8 +94,8 @@ exclude = [
 # Same as Black.
 line-length = 120
 
-# Assume Python 3.14.
-target-version = "py314"
+# Assume Python 3.15.
+target-version = "py315"
 
 [lint]
 # Allow unused variables when underscore-prefixed.
