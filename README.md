@@ -50,7 +50,7 @@ Please include some visual description of what you would like the UI to look lik
 
 ### Programming languages
 
-* Python (3.12+)
+* Python (3.14+)
 
 ### Platforms
 
@@ -62,7 +62,7 @@ None. Includes Bulma for styling.
 
 ### Package managers
 
-* Pip
+* uv
 
 ### Database technology & provider
 
