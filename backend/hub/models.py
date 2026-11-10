@@ -911,10 +911,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         if not FeatureFlag.flag_enabled("enable_voting_domain"):
             return True
 
-        if self.domain != self.org.voting_domain:
-            return False
-
-        return True
+        return self.domain == self.org.voting_domain
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
@@ -983,6 +980,10 @@ class CandidateAction(models.Model):
         return f"{user_identification} - {self.candidate}"
 
 
+class VoteError(Exception):
+    pass
+
+
 class CandidateVote(TimeStampedModel, CandidateAction):
     user = models.ForeignKey(UserModel, on_delete=models.PROTECT)
     organization = models.ForeignKey(Organization, on_delete=models.PROTECT)
@@ -1000,7 +1001,7 @@ class CandidateVote(TimeStampedModel, CandidateAction):
 
         votes_for_domain = CandidateVote.objects.filter(organization=self.organization, domain=self.domain).count()
         if votes_for_domain >= self.domain.seats:
-            raise Exception("Maximum number of votes reached")
+            raise VoteError("Maximum number of votes reached")
 
         super().save(*args, **kwargs)
 

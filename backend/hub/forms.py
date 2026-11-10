@@ -66,11 +66,13 @@ class OrganizationCreateForm(forms.ModelForm):
             "statement_political",
             "rejection_message",
         )
-        widgets = {
-            "email": forms.widgets.TextInput(),  # EmailInput(),
-            "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
-            "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
-        }
+        widgets = frozendict(
+            {
+                "email": forms.widgets.TextInput(),  # EmailInput(),
+                "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
+                "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
+            }
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -151,11 +153,13 @@ class OrganizationUpdateForm(forms.ModelForm):
             "rejection_message",
             "ngohub_org_id",
         )
-        widgets = {
-            "email": forms.widgets.TextInput(),  # EmailInput(),
-            "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
-            "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
-        }
+        widgets = frozendict(
+            {
+                "email": forms.widgets.TextInput(),  # EmailInput(),
+                "legal_representative_email": forms.widgets.TextInput(),  # EmailInput(),
+                "city": forms.Select(attrs={"data-url": reverse_lazy("city-autocomplete")}),
+            }
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -305,17 +309,21 @@ class CandidateCommonForm(forms.ModelForm):
 
         exclude: list[str] = ("initial_org", "status", "status_changed", "old_domain")
 
-        widgets: dict = {
-            "is_proposed": forms.HiddenInput(),
-        }
+        widgets: dict = frozendict(
+            {
+                "is_proposed": forms.HiddenInput(),
+            }
+        )
 
 
 class CandidateRegisterForm(CandidateCommonForm):
     class Meta(CandidateCommonForm.Meta):
-        widgets = {
-            "is_proposed": forms.HiddenInput(),
-            "org": forms.HiddenInput(),
-        }
+        widgets = frozendict(
+            {
+                "is_proposed": forms.HiddenInput(),
+                "org": forms.HiddenInput(),
+            }
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -355,7 +363,7 @@ class CandidateUpdateForm(CandidateCommonForm):
             del self.fields["name"]
             del self.fields["domain"]
 
-            for field_name in self.fields.keys():
+            for field_name in self.fields:
                 self.fields[field_name].widget.attrs["required"] = True
 
         # If registration is closed, updating the organization/candidate shouldn't be possible
@@ -363,7 +371,7 @@ class CandidateUpdateForm(CandidateCommonForm):
             self.fields["is_proposed"].widget.attrs["disabled"] = True
             self.fields["is_proposed"].disabled = True
         elif not FeatureFlag.flag_enabled(FLAG_CHOICES.enable_candidate_registration):
-            for field_name in self.fields.keys():
+            for field_name in self.fields:
                 self.fields[field_name].widget.attrs["disabled"] = True
                 self.fields[field_name].disabled = True
 

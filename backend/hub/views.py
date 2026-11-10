@@ -547,7 +547,9 @@ def organization_vote(request, pk, action):
     try:
         org = Organization.objects.get(pk=pk, status=Organization.STATUS.pending)
     except Organization.DoesNotExist:
-        pass
+        logger.exception("cannot find voting org")
+    except Exception:
+        logger.exception("vote error")
     else:
         if action == "r":
             org.rejection_message = unquote(request.GET.get("rejection-message", ""))
@@ -589,8 +591,8 @@ def organization_vote(request, pk, action):
                     "site_url": f"{protocol}://{current_site.domain}",
                 },
             )
-    finally:
-        return redirect("ngo-detail", pk=pk)
+
+    return redirect("ngo-detail", pk=pk)
 
 
 class CandidateListView(SearchMixin):
@@ -756,7 +758,7 @@ class CandidateDetailView(HubDetailView):
         if not candidate.is_proposed:
             return context
 
-        if not candidate.org.status == Organization.STATUS.accepted:
+        if candidate.org.status != Organization.STATUS.accepted:
             return context
 
         if not user.has_perm("hub.support_candidate"):
@@ -788,7 +790,7 @@ class CandidateDetailView(HubDetailView):
         if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_confirmation):
             return context
 
-        if not candidate.status == Candidate.STATUS.accepted:
+        if candidate.status != Candidate.STATUS.accepted:
             return context
 
         if not user.in_commission_groups():
@@ -818,7 +820,7 @@ class CandidateDetailView(HubDetailView):
         if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
             return context
 
-        if not candidate.status == Candidate.STATUS.confirmed:
+        if candidate.status != Candidate.STATUS.confirmed:
             return context
 
         if not user.has_perm("hub.vote_candidate"):
