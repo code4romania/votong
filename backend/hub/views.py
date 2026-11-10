@@ -2,7 +2,6 @@ import hashlib
 import logging
 import unicodedata
 from datetime import datetime
-from typing import Dict, List, Union
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -66,8 +65,8 @@ UserModel = get_user_model()
 
 def group_queryset_by_domain(
     queryset: QuerySet, *, domain_variable_name: str, sort_variable: str = "name"
-) -> List[Dict[str, Union[Domain, List[Union[Organization, Candidate]]]]]:
-    queryset_by_domain_dict: Dict[Domain, List[Union[Organization, Candidate]]] = {}
+) -> list[dict[str, Domain | list[Organization | Candidate]]]:
+    queryset_by_domain_dict: dict[Domain, list[Organization | Candidate]] = {}
 
     all_domains = dict(Domain.objects.values_list("pk", "name"))
 
@@ -106,12 +105,7 @@ def group_queryset_by_domain(
 
 
 def _filter_letter(char: str) -> bool:
-    if char.isalpha():
-        return True
-    elif char == " ":
-        return True
-
-    return False
+    return char.isalpha() or char == " "
 
 
 class HealthView(View):
@@ -245,7 +239,7 @@ class HubUpdateView(MenuMixin, SuccessMessageMixin, UpdateView):
 
 
 class CommitteeOrganizationListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/committee/list.html"
 
@@ -281,7 +275,7 @@ def _get_candidates_counters():
 
 
 class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/committee/candidates.html"
 
@@ -305,7 +299,7 @@ class CommitteeCandidatesListView(LoginRequiredMixin, SearchMixin):
 
 
 class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
-    allow_filters = ["status"]
+    allow_filters = ("status",)
     paginate_by = 9
     template_name = "hub/ngo/votes.html"
 
@@ -334,7 +328,7 @@ class ElectorCandidatesListView(LoginRequiredMixin, SearchMixin):
 
 
 class OrganizationListView(SearchMixin):
-    allow_filters = ["county", "city"]
+    allow_filters = ("county", "city")
     paginate_by = 9
     template_name = "hub/ngo/list.html"
 
@@ -359,7 +353,7 @@ class OrganizationListView(SearchMixin):
 
         return queryset_filtered
 
-    def get_cached_context(self, context_cache_key, orgs) -> Dict:
+    def get_cached_context(self, context_cache_key, orgs) -> dict:
         sentinel = object()
         context_cache = cache.get(context_cache_key, sentinel)
         if context_cache is not sentinel:
@@ -553,7 +547,9 @@ def organization_vote(request, pk, action):
     try:
         org = Organization.objects.get(pk=pk, status=Organization.STATUS.pending)
     except Organization.DoesNotExist:
-        pass
+        logger.exception("cannot find voting org")
+    except Exception:
+        logger.exception("vote error")
     else:
         if action == "r":
             org.rejection_message = unquote(request.GET.get("rejection-message", ""))
@@ -595,12 +591,12 @@ def organization_vote(request, pk, action):
                     "site_url": f"{protocol}://{current_site.domain}",
                 },
             )
-    finally:
-        return redirect("ngo-detail", pk=pk)
+
+    return redirect("ngo-detail", pk=pk)
 
 
 class CandidateListView(SearchMixin):
-    allow_filters = ["domain"]
+    allow_filters = ("domain",)
     paginate_by = 200
     template_name = "hub/candidate/list.html"
 
@@ -698,7 +694,7 @@ class CandidatesAllListView(CandidateListView):
 
 
 class CandidateResultsView(SearchMixin):
-    allow_filters = ["domain"]
+    allow_filters = ("domain",)
     paginate_by = 100
     template_name = "hub/candidate/results.html"
 
@@ -747,7 +743,7 @@ class CandidateDetailView(HubDetailView):
 
         return candidat_base_queryset.filter(org__status=Organization.STATUS.accepted, is_proposed=True)
 
-    def _get_candidate_support_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_support_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "can_support_candidate": False,
             "supported_candidate": False,
@@ -762,7 +758,7 @@ class CandidateDetailView(HubDetailView):
         if not candidate.is_proposed:
             return context
 
-        if not candidate.org.status == Organization.STATUS.accepted:
+        if candidate.org.status != Organization.STATUS.accepted:
             return context
 
         if not user.has_perm("hub.support_candidate"):
@@ -784,7 +780,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_approval_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "can_see_approval_action": False,
             "can_approve_candidate": False,
@@ -794,7 +790,7 @@ class CandidateDetailView(HubDetailView):
         if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_confirmation):
             return context
 
-        if not candidate.status == Candidate.STATUS.accepted:
+        if candidate.status != Candidate.STATUS.accepted:
             return context
 
         if not user.in_commission_groups():
@@ -812,7 +808,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> Dict[str, bool]:
+    def _get_candidate_vote_context(self, user: User, candidate: Candidate) -> dict[str, bool]:
         context = {
             "user_has_organization": False,
             "organization_has_domain": False,
@@ -824,7 +820,7 @@ class CandidateDetailView(HubDetailView):
         if not FeatureFlag.flag_enabled(PHASE_CHOICES.enable_candidate_voting):
             return context
 
-        if not candidate.status == Candidate.STATUS.confirmed:
+        if candidate.status != Candidate.STATUS.confirmed:
             return context
 
         if not user.has_perm("hub.vote_candidate"):
@@ -857,7 +853,7 @@ class CandidateDetailView(HubDetailView):
 
         return context
 
-    def _build_candidate_status_explainer(self) -> Dict:
+    def _build_candidate_status_explainer(self) -> dict:
         """
         Build a dictionary with the candidate statuses and their explanations.
         The dictionary has the following format:
@@ -992,10 +988,10 @@ class CandidateRegisterRequestCreateView(LoginRequiredMixin, HubCreateView):
 
                 return redirect(reverse("candidate-update", args=(existing_candidate_pk,)))
 
-            raise exc
+            raise
 
     def get_form_kwargs(self):
-        kwargs = super(CandidateRegisterRequestCreateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
@@ -1036,11 +1032,11 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         if not can_propose_candidate:
             if user_org and not user_org.is_complete_for_candidate:
                 organization_missing_fields = user_org.get_missing_fields_for_candidate()
-                organization_missing_fields = [f"'{str(field.verbose_name)}'" for field in organization_missing_fields]
+                organization_missing_fields = [f"'{field.verbose_name!s}'" for field in organization_missing_fields]
 
             if candidate and not candidate.is_complete:
                 candidate_missing_fields = candidate.get_missing_fields()
-                candidate_missing_fields = [f"'{str(field.verbose_name)}'" for field in candidate_missing_fields]
+                candidate_missing_fields = [f"'{field.verbose_name!s}'" for field in candidate_missing_fields]
 
         if organization_missing_fields or candidate_missing_fields:
             context["organization_missing_fields"] = ", ".join(organization_missing_fields)
@@ -1049,7 +1045,7 @@ class CandidateUpdateView(LoginRequiredMixin, PermissionRequiredMixin, HubUpdate
         return context
 
     def get_form_kwargs(self):
-        kwargs = super(CandidateUpdateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
@@ -1093,7 +1089,7 @@ def candidate_vote(request, pk):
 
     try:
         vote = CandidateVote.objects.create(user=request.user, organization=user_org, candidate=candidate)
-    except Exception:
+    except Exception:  # noqa: BLE001  # we just don't allow voting twice, so any exception here is a permission issue
         raise PermissionDenied
 
     if settings.VOTE_AUDIT_EMAIL:
@@ -1175,7 +1171,7 @@ def candidate_status_confirm(request, pk):
     if candidate.org == request.user.organization or candidate.status == Candidate.STATUS.pending:
         return redirect("candidate-detail", pk=pk)
 
-    confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
+    _confirmation, created = CandidateConfirmation.objects.get_or_create(user=request.user, candidate=candidate)
 
     if not created:
         message = f"User {request.user} tried to confirm candidate {candidate} status again."

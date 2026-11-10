@@ -1,5 +1,4 @@
 import logging
-from typing import List, Set
 
 from auditlog.registry import auditlog
 from django.conf import settings
@@ -233,7 +232,7 @@ class City(models.Model):
     class Meta:
         verbose_name = _("City")
         verbose_name_plural = _("Cities")
-        unique_together = ["city", "county"]
+        unique_together = ("city", "county")
 
     def __str__(self):
         return f"{self.city} ({self.county})"
@@ -251,7 +250,7 @@ class BaseCompleteModel(models.Model):
         abstract = True
 
     @classmethod
-    def required_fields(cls) -> List[DeferredAttribute]:
+    def required_fields(cls) -> list[DeferredAttribute]:
         raise NotImplementedError
 
     def check_deferred_fields(self, deferred_required_fields):
@@ -453,7 +452,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
     class Meta:
         verbose_name_plural = _("Organizations")
         verbose_name = _("Organization")
-        ordering = ["name"]
+        ordering = ("name",)
 
         permissions = (
             ("view_data_organization", "View data organization"),
@@ -475,12 +474,10 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         """
         Organizations managed elsewhere (ie: on NGO Hub) should not be fully editable here
         """
-        if self.ngohub_org_id:
-            return False
-        return True
+        return not bool(self.ngohub_org_id)
 
     @staticmethod
-    def get_required_reports() -> List[str]:
+    def get_required_reports() -> list[str]:
         required_reports = []
         start_year = settings.CURRENT_EDITION_YEAR - settings.PREV_REPORTS_REQUIRED_FOR_PROPOSAL
 
@@ -490,7 +487,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return required_reports
 
     @classmethod
-    def required_fields(cls) -> List[DeferredAttribute]:
+    def required_fields(cls) -> list[DeferredAttribute]:
         fields = [
             cls.name,
             cls.county,
@@ -514,7 +511,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         return fields
 
     @classmethod
-    def required_fields_for_candidate(cls) -> List[DeferredAttribute]:
+    def required_fields_for_candidate(cls) -> list[DeferredAttribute]:
         fields = cls.required_fields()
 
         # noinspection PyTypeChecker
@@ -555,8 +552,8 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
         )
 
     @staticmethod
-    def file_fields(*, include_ngohub=True) -> List[str]:
-        file_fields: Set[str] = {
+    def file_fields(*, include_ngohub=True) -> list[str]:
+        file_fields: set[str] = {
             "logo",
             "last_balance_sheet",
             "statute",
@@ -654,7 +651,7 @@ class Organization(StatusModel, TimeStampedModel, BaseCompleteModel):
             self.candidate.save()
 
     def save(self, *args, **kwargs):
-        create = False if self.id else True
+        create = not bool(self.id)
 
         if self.pk and self.status == self.STATUS.accepted and FeatureFlag.flag_enabled("enable_voting_domain"):
             old_voting_domain = Organization.objects.filter(pk=self.pk).values_list("voting_domain", flat=True).first()
@@ -862,7 +859,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
     class Meta:
         verbose_name_plural = _("Candidates")
         verbose_name = _("Candidate")
-        ordering = ["name"]
+        ordering = ("name",)
 
         permissions = (
             ("view_data_candidate", "View data candidate"),
@@ -914,10 +911,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
         if not FeatureFlag.flag_enabled("enable_voting_domain"):
             return True
 
-        if self.domain != self.org.voting_domain:
-            return False
-
-        return True
+        return self.domain == self.org.voting_domain
 
     def get_absolute_url(self):
         return reverse("candidate-detail", args=[self.pk])
@@ -941,7 +935,7 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
             assign_perm("view_data_candidate", org_user, self)
 
     def save(self, *args, **kwargs):
-        create = False if self.id else True
+        create = not bool(self.id)
 
         if self.id and CandidateVote.objects.filter(candidate=self).exists():
             raise ValidationError(_("Cannot update candidate after votes have been cast."))
@@ -965,25 +959,29 @@ class Candidate(StatusModel, TimeStampedModel, BaseCompleteModel):
 
 
 class CandidateAction(models.Model):
-    user: UserModel = None
-    candidate: Candidate = None
+    user: UserModel | None = None
+    candidate: Candidate | None = None
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        user_pk = self.user.pk
-        user_full_name = self.user.get_full_name()
+        user_pk = self.user.pk if self.user else 0
+        user_full_name = self.user.get_full_name() if self.user else ""
 
         user_identification = f"[u{user_pk}] {user_full_name}"
 
-        if user_organization := self.user.organization:
+        if user_organization := self.user.organization if self.user else None:
             org_pk = user_organization.pk
             org_name = user_organization.name
 
             user_identification = f"[u{user_pk}–o{org_pk}] {user_full_name}–{org_name}"
 
         return f"{user_identification} - {self.candidate}"
+
+
+class VoteError(Exception):
+    pass
 
 
 class CandidateVote(TimeStampedModel, CandidateAction):
@@ -996,16 +994,14 @@ class CandidateVote(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Candidate votes")
         verbose_name = _("Candidate vote")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_vote"),)
 
     def save(self, *args, **kwargs):
         self.domain = self.candidate.domain
 
         votes_for_domain = CandidateVote.objects.filter(organization=self.organization, domain=self.domain).count()
         if votes_for_domain >= self.domain.seats:
-            raise Exception("Maximum number of votes reached")
+            raise VoteError("Maximum number of votes reached")
 
         super().save(*args, **kwargs)
 
@@ -1017,9 +1013,7 @@ class CandidateSupporter(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Canditate supporters")
         verbose_name = _("Candidate supporter")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_supporter"),)
 
 
 class CandidateConfirmation(TimeStampedModel, CandidateAction):
@@ -1029,9 +1023,7 @@ class CandidateConfirmation(TimeStampedModel, CandidateAction):
     class Meta:
         verbose_name_plural = _("Candidate confirmations")
         verbose_name = _("Candidate confirmation")
-        constraints = [
-            models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),
-        ]
+        constraints = (models.UniqueConstraint(fields=["user", "candidate"], name="unique_candidate_confirmation"),)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

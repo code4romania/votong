@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group as BaseGroup
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import QuerySet
 from django.http import HttpRequest
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from impersonate.admin import UserAdminImpersonateMixin
@@ -15,15 +15,14 @@ from civil_society_vote.common.messaging import send_email
 from hub.utils import create_expiring_url_token
 
 from .models import (
-    CommissionUser,
-    COMMITTEE_GROUP_READ_ONLY,
     COMMITTEE_GROUP,
-    GroupProxy,
+    COMMITTEE_GROUP_READ_ONLY,
     STAFF_GROUP,
     SUPPORT_GROUP,
+    CommissionUser,
+    GroupProxy,
     User,
 )
-
 
 # Remove the default admins for User and Group
 try:

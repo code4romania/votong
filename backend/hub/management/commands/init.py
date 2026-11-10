@@ -1,5 +1,4 @@
 import json
-from typing import Dict, List
 
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -14,7 +13,7 @@ from accounts.models import (
     STAFF_GROUP,
     SUPPORT_GROUP,
 )
-from hub.models import City, FLAG_CHOICES, FeatureFlag
+from hub.models import FLAG_CHOICES, City, FeatureFlag
 
 
 class Command(BaseCommand):
@@ -67,12 +66,13 @@ class Command(BaseCommand):
         self.stdout.write(self.style.NOTICE("Importing cities..."))
 
         fixture_path: str = f"{settings.BASE_DIR}/hub/fixtures/cities.json"
-        cities_data: Dict = json.load(open(fixture_path))
+        with open(fixture_path) as fixtures_file:
+            cities_data: dict = json.load(fixtures_file)
 
         self.stdout.write(self.style.NOTICE(f"Cities in the database: {City.objects.count()} before import"))
 
         batch_size: int = 1000
-        cities_to_create: List[City] = [City(**city_data) for city_data in cities_data]
+        cities_to_create: list[City] = [City(**city_data) for city_data in cities_data]
         for start in range(0, len(cities_to_create), batch_size):
             end: int = start + batch_size
             City.objects.bulk_create(cities_to_create[start:end], ignore_conflicts=True)

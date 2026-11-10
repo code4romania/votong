@@ -1,5 +1,4 @@
 import logging
-from typing import Dict, List, Optional
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -12,11 +11,11 @@ logger = logging.getLogger(__name__)
 
 def send_email(
     subject: str,
-    to_emails: List[str],
+    to_emails: list[str],
     text_template: str,
     html_template: str,
-    context: Dict,
-    from_email: Optional[str] = None,
+    context: dict,
+    from_email: str | None = None,
 ):
     if settings.EMAIL_SEND_METHOD == "async":
         async_send_email(subject, to_emails, text_template, html_template, context, from_email)
@@ -28,11 +27,11 @@ def send_email(
 
 def async_send_email(
     subject: str,
-    to_emails: List[str],
+    to_emails: list[str],
     text_template: str,
     html_template: str,
-    html_context: Dict,
-    from_email: Optional[str] = None,
+    html_context: dict,
+    from_email: str | None = None,
 ):
     logger.info(f"Asynchronously sending {len(to_emails)} emails with subject: {subject}.")
 
@@ -48,12 +47,12 @@ def async_send_email(
 
 
 def send_emails(
-    user_emails: List[str],
+    user_emails: list[str],
     subject: str,
     text_template: str,
     html_template: str,
-    html_context: Dict,
-    from_email: Optional[str] = None,
+    html_context: dict,
+    from_email: str | None = None,
 ):
     logger.info(f"Sending emails to {len(user_emails)} users.")
 

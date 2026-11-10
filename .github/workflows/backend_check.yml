@@ -3,94 +3,149 @@ name: Backend Check
 on:
   push:
     branches:
-      - 'main'
+      - "*"
+      - "main"
     paths:
-      - 'Dockerfile*'
-      - 'docker-compose*.yml'
+      - "backend/**.py"
+      - "backend/uv.lock"
+      - "backend/pyproject.toml"
+      - "Dockerfile*"
+      - "docker-compose*.yml"
+      - ".github/workflows/backend_check.yml"
   pull_request:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'backend/**.py'
-      - 'backend/requirements*.*'
-      - 'backend/pyproject.toml'
-      - 'Dockerfile*'
-      - 'docker-compose*.yml'
-      - '.github/workflows/backend_check.yml'
-      - 'data/**.csv'
-      - 'data/**.xlsx'
+      - "backend/**.py"
+      - "backend/uv.lock"
+      - "backend/pyproject.toml"
+      - "Dockerfile*"
+      - "docker-compose*.yml"
+      - ".github/workflows/backend_check.yml"
+      - "data/**.csv"
+      - "data/**.xlsx"
 
 jobs:
+
   static_analysis:
-    name: Run static analysis
+    name: Run Black formatting check
     runs-on: ubuntu-latest
+
     steps:
-    - name: Check out Git repository
-      uses: actions/checkout@v4
+      - name: Check out Git repository
+        uses: actions/checkout@v7
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12
-        cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          working-directory: ./backend
+          python-version: "3.15"
+          cache-dependency-glob: |
+            **/pyproject.toml
+            **/uv.lock
 
-    - name: Cache pip
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Install Ruff with uv
+        working-directory: ./backend
+        run: |
+          uv sync --only-group ruff
 
-    - name: Install Black & Ruff with latest pip
-      run: |
-        python -m pip install --upgrade pip
-        cat ./backend/requirements-dev.txt | grep black== | cut -d' ' -f1 | xargs pip install
-        cat ./backend/requirements-dev.txt | grep ruff== | cut -d' ' -f1 | xargs pip install
+      - name: Check formatting with Ruff
+        working-directory: ./backend
+        continue-on-error: true
+        run: |
+          uv run ruff format --check .
 
-    - name: Lint files using Ruff
-      run: |
-        ruff check ./backend
+      - name: Check linting using Ruff
+        working-directory: ./backend
+        run: |
+          uv run ruff check --select I .
 
-    - name: Check formatting with Black
-      run: |
-        black --check ./backend
+  checking_migrations:
+    name: Check for migrations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          working-directory: ./backend
+          python-version: "3.15"
+          cache-dependency-glob: |
+            **/pyproject.toml
+            **/uv.lock
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: |
+          uv sync
+
+      - name: Check for migrations
+        working-directory: ./backend
+        env:
+          SECRET_KEY: "dummy_secret_key"
+        run: |
+          set -a
+          uv run ./manage.py makemigrations --check --dry-run
+          set +a
 
   tests:
-    name: Run backend tests
+    name: Run backend tests on Python ${{ matrix.python }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [ "3.15" ]
+
+    services:
+      postgres:
+        image: postgres:16.15
+        env:
+          POSTGRES_DB: civil_society_vote
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+
     steps:
-    - name: Check out Git repository
-      uses: actions/checkout@v4
+      - name: Check out Git repository
+        uses: actions/checkout@v7
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12
-        cache: 'pip'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          working-directory: ./backend
+          python-version: "${{ matrix.python }}"
+          cache-dependency-glob: |
+            **/pyproject.toml
+            **/uv.lock
 
-    - name: Cache pip
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Create test environment file
+        run: |
+          cp .env.example .env.test
 
-    - name: Install dependencies
-      run: |
-        cd ./backend
-        python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt
+      - name: Install dependencies
+        working-directory: ./backend
+        env:
+          ENV_FILE_NAME: .env.test
+        run: |
+          uv sync
+          sudo apt-get update
+          sudo apt-get install gettext
+          uv run ./manage.py compilemessages
 
-    - name: Set up translations
-      run: |
-        sudo apt-get install gettext
-        ./backend/manage.py compilemessages
-
-    # - name: Run tests
-    #   env:
-    #     DJANGO_SETTINGS_MODULE: civil_society_vote.test_settings
-    #   run: |
-    #     cd ./backend
-    #     pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=33 -n auto
+      - name: Run tests
+        working-directory: ./backend
+        env:
+          ENV_FILE_NAME: .env.test
+          DATABASE_NAME: civil_society_vote
+          DATABASE_USER: user
+          DATABASE_PASSWORD: password
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_PORT: 5432
+        run: |
+          uv run ./manage.py wait_for_db
+          uv run pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=50 -n auto

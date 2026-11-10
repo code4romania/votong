@@ -1,3 +1,63 @@
+[project]
+name = "votong"
+version = "1.2026.0"
+description = ""
+
+requires-python = ">=3.15"
+dependencies = [
+    "django~=5.2.18",
+    "django-avatar~=9.0.0",
+    "django-environ~=0.14.0",
+    "django-crispy-forms~=2.7",
+    "django-allauth[socialaccount]~=65.21.0",
+    "django-auditlog~=3.4.0",
+    "django-q2~=1.11.0",
+    "blessed~=1.52.0",
+    "psutil~=7.2.0",
+    "croniter~=6.2.0",
+    "django-admin-autocomplete-filter~=0.7.0",
+    "django-spurl~=0.6.0",
+    "django-storages~=1.14.0",
+    "django-recaptcha~=4.1.0",
+    "django-file-resubmit~=0.5.0",
+    "django-admin-rangefilter~=0.15.0",
+    "django-model-utils~=5.0.0",
+    "django-impersonate~=1.9.0",
+    "django-guardian~=3.5.0",
+    "django-tinymce~=5.0.0",
+    "django-import-export~=4.4.0",
+    "boto3~=1.43.0",
+    "pillow~=13.0.0",
+    "whitenoise~=6.12.0",
+    "requests~=2.34.0",
+    "django-ses~=4.9.0",
+    "pycognito~=2024.5.1",
+    "psycopg2-binary~=2.9.13",
+    "gunicorn~=26.2.0",
+    "gevent~=26.9.0",
+    "sentry-sdk[django]~=2.73.0",
+]
+
+
+[dependency-groups]
+test = [
+  "faker~=40.43.0",
+  "pytest~=9.2.0",
+  "pytest-cov~=7.1.0",
+  "pytest-django~=4.14.0",
+  "pytest-xdist~=3.8.0",
+]
+ruff = [
+  "ruff~=0.17.0"
+]
+dev = [
+  "debugpy~=1.8.0",
+  "pre-commit~=4.7.0",
+  { include-group = "ruff" },
+  { include-group = "test" },
+]
+
+
 [tool.ruff]
 # Enable the following rules
 # More info: https://docs.astral.sh/ruff/rules/
@@ -34,8 +94,8 @@ exclude = [
 # Same as Black.
 line-length = 120
 
-# Assume Python 3.12.
-target-version = "py312"
+# Assume Python 3.15.
+target-version = "py315"
 
 [lint]
 # Allow unused variables when underscore-prefixed.
@@ -64,8 +124,8 @@ max-complexity = 10
 "test_settings.py" = ["F403", "F405"]
 "*/__init__.py" = ["F401"]
 
-[pytest]
-DJANGO_SETTINGS_MODULE = "civil_society_vote.test_settings"
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "civil_society_vote.settings"
 
 python_files = [
     "test.py",
@@ -76,6 +136,14 @@ python_files = [
 ]
 filterwarnings = [
     "ignore:The django.utils.baseconv module is deprecated."
+]
+
+[tool.coverage.run]
+omit = [
+  # omit all migration folders
+  "*/migrations/*",
+  # omit all test folders
+  "*/tests/*",
 ]
 
 [tool.black]

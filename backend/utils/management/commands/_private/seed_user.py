@@ -34,7 +34,7 @@ class CommonCreateUserCommand(BaseCommand):
         password: str,
         is_superuser: bool,
         is_staff: bool,
-        username: str = None,
+        username: str | None = None,
         first_name: str = "Admin",
         last_name: str = "Admin",
     ):

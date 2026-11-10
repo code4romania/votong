@@ -11,7 +11,7 @@ def ForceDefaultLanguageMiddleware(get_response):
     return middleware
 
 
-class CaseInsensitiveUserModel(object):
+class CaseInsensitiveUserModel:
     def authenticate(self, request, username=None, password=None):
         try:
             user = User.objects.get(email__iexact=username)

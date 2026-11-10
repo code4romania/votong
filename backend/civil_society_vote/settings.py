@@ -15,7 +15,7 @@ from pathlib import Path
 
 import environ
 import sentry_sdk
-from django.urls import reverse_lazy  # noqa
+from django.urls import reverse_lazy
 
 from civil_society_vote.common.contants import MEBIBYTE
 from civil_society_vote.common.formatting import get_human_readable_size
@@ -29,6 +29,8 @@ BASE_DIR = os.path.abspath(os.path.join(root, "backend"))
 
 SILENCED_SYSTEM_CHECKS = []
 
+ENV_FILE_NAME = os.environ.get("ENV_FILE_NAME", ".env.local")
+ENV_FILE_PATH = os.path.join(BASE_DIR, os.pardir, ENV_FILE_NAME)
 
 env = environ.Env(
     # aws settings
@@ -59,7 +61,6 @@ env = environ.Env(
     AZURE_CONTAINER=(str, "data"),
     # django settings
     DEBUG=(bool, False),
-    ENABLE_DEBUG_TOOLBAR=(bool, False),
     ENVIRONMENT=(str, "production"),
     SECRET_KEY=(str, "replace-with-a-secret-key"),
     LOG_LEVEL=(str, "WARNING"),
@@ -120,8 +121,7 @@ env = environ.Env(
 )
 
 # reading .env file
-dot_env_path = os.path.abspath(os.path.join(root, ".env"))
-environ.Env.read_env(dot_env_path)
+environ.Env.read_env(ENV_FILE_PATH)
 
 # SECURITY WARNING: keep the secret key used in production secret
 SECRET_KEY = env("SECRET_KEY")
@@ -213,17 +213,6 @@ MIDDLEWARE = [
     "auditlog.middleware.AuditlogMiddleware",
 ]
 
-if DEBUG and env("ENABLE_DEBUG_TOOLBAR"):
-    INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
-    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
-
-    def show_toolbar(request):
-        return True
-
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-    }
-
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # this is the default
     "guardian.backends.ObjectPermissionBackend",
@@ -263,7 +252,7 @@ AUDITLOG_INCLUDE_TRACKING_MODELS = (
 )
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -339,7 +328,7 @@ USE_TZ = True
 
 #
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 public_static_location = "static"
 public_media_location = "media"

@@ -3,13 +3,13 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 from hub.views import (
-    CandidatesAllListView,
     BlogListView,
     BlogPostView,
     CandidateDetailView,
     CandidateListView,
     CandidateRegisterRequestCreateView,
     CandidateResultsView,
+    CandidatesAllListView,
     CandidateUpdateView,
     CityAutocomplete,
     CommitteeCandidatesListView,
@@ -26,8 +26,8 @@ from hub.views import (
     candidate_support,
     candidate_vote,
     organization_vote,
-    update_organization_information,
     reset_candidate_confirmations,
+    update_organization_information,
 )
 
 urlpatterns = [

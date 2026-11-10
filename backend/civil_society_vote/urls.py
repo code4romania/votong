@@ -38,7 +38,7 @@ urlpatterns_i18n = i18n_patterns(
     path(
         "admin/login/",
         RedirectView.as_view(
-            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            url=f"/allauth{reverse('amazon_cognito_login', urlconf='allauth.urls')}",
             permanent=True,
         ),
     ),
@@ -119,7 +119,7 @@ urlpatterns_simple = [
     path(
         "allauth/login/",
         RedirectView.as_view(
-            url=f'/allauth{reverse("amazon_cognito_login", urlconf="allauth.urls")}',
+            url=f"/allauth{reverse('amazon_cognito_login', urlconf='allauth.urls')}",
             permanent=True,
         ),
     ),
@@ -129,8 +129,4 @@ urlpatterns_simple = [
 urlpatterns = urlpatterns_i18n + urlpatterns_simple
 
 if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
-
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

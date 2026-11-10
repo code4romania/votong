@@ -137,8 +137,8 @@ messages: makemessages compilemessages ## generate and compile the translations
 collectstatic:                    ## collect the static files
 	docker exec votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py collectstatic --no-input"
 
-format:                           ## format the code with black & ruff
-	docker exec votong_backend_dev sh -c "black ./backend && ruff check --fix ./backend"
+format:                                          ## format the code with black & ruff
+	docker exec votong_backend_dev sh -c "ruff format ./backend && ruff check --fix ./backend"
 
 pyshell:                          ## start a django shell
 	docker exec -it votong_backend_dev sh -c "cd ./backend && python3 -Wd ./manage.py shell"
@@ -151,20 +151,16 @@ bash:                             ## start a bash shell
 
 
 ## [Requirements management]
-requirements-build:               ## run pip compile and add requirements from the *.in files
+requirements-build:               ## uv sync
 	docker exec votong_backend_dev sh -c " \
 		cd ./backend && \
-		pip-compile --strip-extras --resolver=backtracking -o requirements.txt requirements.in && \
-		pip-compile --strip-extras --resolver=backtracking -o requirements-dev.txt requirements-dev.in \
+		uv sync --active \
 	"
 
-requirements-update:              ## run pip compile and rebuild the requirements files
+requirements-update:              ## uv sync upgrade
 	docker exec votong_backend_dev sh -c " \
 		cd ./backend && \
-		pip-compile --strip-extras --resolver=backtracking -r -U -o requirements.txt requirements.in && \
-		pip-compile --strip-extras --resolver=backtracking -r -U -o requirements-dev.txt requirements-dev.in && \
-		chmod a+r requirements.txt && \
-		chmod a+r requirements-dev.txt \
+		uv sync --active -U \
 	"
 
 
