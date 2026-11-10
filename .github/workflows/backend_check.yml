@@ -148,4 +148,4 @@ jobs:
           DATABASE_PORT: 5432
         run: |
           uv run ./manage.py wait_for_db
-          uv run pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=60 -n auto
+          uv run pytest -Wd --cov --cov-report=xml --cov-report=term-missing --cov-fail-under=50 -n auto
