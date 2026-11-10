@@ -29,6 +29,8 @@ BASE_DIR = os.path.abspath(os.path.join(root, "backend"))
 
 SILENCED_SYSTEM_CHECKS = []
 
+ENV_FILE_NAME = os.environ.get("ENV_FILE_NAME", ".env.local")
+ENV_FILE_PATH = os.path.join(BASE_DIR, os.pardir, ENV_FILE_NAME)
 
 env = environ.Env(
     # aws settings
@@ -119,8 +121,7 @@ env = environ.Env(
 )
 
 # reading .env file
-dot_env_path = os.path.abspath(os.path.join(root, ".env"))
-environ.Env.read_env(dot_env_path)
+environ.Env.read_env(ENV_FILE_PATH)
 
 # SECURITY WARNING: keep the secret key used in production secret
 SECRET_KEY = env("SECRET_KEY")
