@@ -141,7 +141,7 @@ jobs:
         working-directory: ./backend
         env:
           ENV_FILE_NAME: .env.test
-          DATABASE_NAME: redirect
+          DATABASE_NAME: civil_society_vote
           DATABASE_USER: user
           DATABASE_PASSWORD: password
           DATABASE_HOST: 127.0.0.1
